@@ -14,4 +14,4 @@
 - [ ] Script création BDD
 
 ### Etape finale
-- [ ] Connexion BDD <> Pags Web
+- [ ] Connexion BDD <> Pags 
