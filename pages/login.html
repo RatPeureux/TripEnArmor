@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Connexion à la PACT</title>
 </head>
 <body>
     <img src="../public/icones/back.svg" alt="retour">
     <img src="../public/images/logo.svg" alt="moine">
-    <form action="login" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <h3>J'ai un compte Membre !</h3>
 
-        <label for="username">Identifiant*</label><br>
-        <input type="text" id="username" name="username" required>
+        <label for="username">Identifiant*</label>
+        <input type="text" id="username" name="username" pattern="" title="" required>
 
-        <label for="passwd">Mot de passe*</label><br>
-        <input type="passwd" id="passwd" name="passwd" required>
+        <label for="passwd">Mot de passe*</label>
+        <input type="passwd" id="passwd" name="passwd" pattern="" title="" required>
 
-        <input type="submit" value="Me connecter"><br>
-        <input type="button" value="Mot de passe oublié ?">
-        <input type="button" value="Créer un compte">
+        <input type="submit" value="Me connecter">
+        <div>
+            <input type="button" value="Mot de passe oublié ?">
+            <input type="button" value="Créer un compte">
+        </div>
     </form>
 </body>
 </html>
