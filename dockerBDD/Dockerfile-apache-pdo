@@ -1,0 +1,21 @@
+FROM r408-php:ctrltp-apache-pdo
+
+RUN http_proxy=http://129.20.239.11:3128 apt-get update
+RUN http_proxy=http://129.20.239.11:3128 apt-get install -y libpq-dev
+RUN docker-php-ext-install pdo_pgsql
+WORKDIR /var/www/html
+RUN rm -rf img
+COPY marche_pas.nepastoucher ./index.php
+
+COPY connexion/connect_params.php ./connexion/connect_params.php
+
+#
+COPY connexion/membre/access_refuse_membre.php ./connexion/membre/access_refuse_membre.php
+COPY connexion/membre/login_membre.php ./connexion/membre/login_membre.php
+COPY connexion/membre/logout_membre.php ./connexion/membre/logout_membre.php
+COPY connexion/membre/connected_membre.php ./connexion/membre/connected_membre.php
+
+COPY connexion/pro/access_refuse_pro.php ./connexion/pro/access_refuse_pro.php
+COPY connexion/pro/login_pro.php ./connexion/pro/login_pro.php
+COPY connexion/pro/logout_pro.php ./connexion/pro/logout_pro.php
+COPY connexion/pro/connected_pro.php ./connexion/pro/connected_pro.php
