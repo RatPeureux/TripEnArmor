@@ -13,7 +13,15 @@
 ### Synchroniser son repo personnel avec le repo d'origine
 1. Ici, vous voyez que le repo de Léo est en retard d'un commit (`1 commit behind`) sur le repo d'origine ![](README_files/screenshot5.png)
 1. Pour synchroniser la branche, il faut cliquer sur `Sync Fork` puis `Update branch`. La branche devrait maintenant être à jour : ![](README_files/screenshot6.png)
-1. **En cas de conflit**(Le repo d'origine a modifié un fichier que vous avez aussi modifié) : 
+
+#### EN CAS DE CONFLIT
+_AKA. : le repo d'origine a modifié un fichier que vous avez aussi modifié_
+
+1. La manipulation est un peu différente. Ici, le commit du repo d'origine et le repo de Léo ont modifiés le fichier README. Il y a donc conflit. ![](README_files/screenshot7.png)
+1. Lorsque vous voudrez `Sync fork`, il vous proposera de `Open pull request` ou de `Discard X commit.s` : ![](README_files/screenshot8.png)
+1. Vous avez 2 choix :
+    1. `Open pull request`: Ouvrir une Pull request et vous me notifierez qu'il faut la review rapidement pour que vous récupériez le "retard".
+    1. `Discard X commit.s`: annuler ce que vous avez fait, puis synchronisez les repos.
 
 ## Sprint 1
 
