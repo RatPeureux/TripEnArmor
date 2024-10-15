@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/output.css">
+    <title>Connexion à la PACT</title>
+</head>
+<body class="h-screen bg-base100 p-4">
+    <img class="absolute top-7 left-7" src="../public/icones/back.svg" alt="retour" width="30">
+    <div class="h-full flex flex-col items-center justify-center">
+        <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
+            <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
+            <form class="bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="" method="post" enctype="multipart/form-data">
+                <p class="pb-3">J'ai un compte Professionnel</p>
+                
+                <label class="text-small" for="id">Identifiant*</label>
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id" pattern="" title="" required>
+                
+                <label class="text-small" for="passwd">Mot de passe*</label>
+                <input class="p-2 bg-base100 w-full h-12 mb-3 rounded-lg" type="passwd" id="passwd" name="passwd" pattern="" title="" required>
+
+                <input class="bg-secondary text-white font-bold w-full h-12 mb-1.5 rounded-lg" type="submit" value="Me connecter">
+                <div class="flex flex-nowrap h-12 space-x-1.5">
+                    <input class="text-secondary text-small w-full h-full p-1 rounded-lg border border-secondary text-wrap" type="button" value="Mot de passe oublié ?">
+                    <input class="text-secondary text-small w-full h-full p-1 rounded-lg border border-secondary text-wrap" type="button" value="Créer un compte">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
