@@ -7,21 +7,21 @@
     <title>Connexion à la PACT</title>
 </head>
 <body class="bg-base100">
-    <img src="../public/icones/back.svg" alt="retour" width="30">
+    <img class="absolute top-7 left-7" src="../public/icones/back.svg" alt="retour" width="30">
     <img src="../public/images/logo.svg" alt="moine" width="108">
-    <form class="bg-base200" action="" method="post" enctype="multipart/form-data">
-        <p>J'ai un compte Membre !</p>
+    <form class="bg-base200 w-96 m-auto p-5 rounded-lg border-2 border-primary" action="" method="post" enctype="multipart/form-data">
+        <p class="pb-3">J'ai un compte Membre !</p>
 
         <label class="text-small" for="username">Identifiant*</label>
-        <input class="bg-base100 w-full" type="text" id="username" name="username" pattern="" title="" required>
+        <input class="bg-base100 w-full h-12 rounded-lg" type="text" id="username" name="username" pattern="" title="" required>
 
         <label class="text-small" for="passwd">Mot de passe*</label>
-        <input class="bg-base100 w-full" type="passwd" id="passwd" name="passwd" pattern="" title="" required>
+        <input class="bg-base100 w-full h-12 rounded-lg" type="passwd" id="passwd" name="passwd" pattern="" title="" required>
 
-        <input class="bg-primary text-white w-full" type="submit" value="Me connecter">
-        <div class="w-full">
-            <input class="text-small" type="button" value="Mot de passe oublié ?">
-            <input class="text-small" type="button" value="Créer un compte">
+        <input class="bg-primary text-white w-full h-9 pb-1.5 rounded-lg" type="submit" value="Me connecter">
+        <div class="">
+            <input class="text-primary text-small h-9 rounded-lg border border-primary" type="button" value="Mot de passe oublié ?">
+            <input class="text-primary text-small h-9 rounded-lg border border-primary" type="button" value="Créer un compte">
         </div>
     </form>
 </body>
