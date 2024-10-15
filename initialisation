@@ -1,5 +1,16 @@
 #! /bin/bash
 
-npx tailwindcss init
+system_info=$(uname -a)
 
-npx tailwindcss -i ./styles/input.css -o ./styles/output.css --watch
+if [[ "$system_info" == *"Darwin"* ]]; then
+    ./tailwindcss -i ./styles/input.css -o ./styles/output.css --watch
+elif [[ "$system_info" == *"Debian"* ]]; then    
+    npx tailwindcss init
+    
+    npx tailwindcss -i ./styles/input.css -o ./styles/output.css --watch
+else
+    echo "Système d'exploitation non reconnu."
+fi
+
+
+
