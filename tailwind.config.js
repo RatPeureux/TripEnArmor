@@ -6,6 +6,17 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                'cormorant': ['"Cormorant-Bold"'],
+                'sans': ['Poppins'],
+            },
+            fontSize: {
+                'small': ['14px'],
+                'title': ['30px'],
+                'PACT': ['35px', {
+                    letterSpacing: '10px',
+                }],
+            },
             colors: {
                 rougeLogo:'EA4335',
                 primary: '#F2771B',
