@@ -7,6 +7,7 @@ module.exports = {
     theme: {
         extend: {
             colors: {
+                rougeLogo:'EA4335',
                 primary: '#F2771B',
                 secondary: '#00350D',
                 base100: '#F1F3F4',
