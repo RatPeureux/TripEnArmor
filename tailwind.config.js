@@ -14,8 +14,11 @@ module.exports = {
                 base300: '#CCCCCC',
                 neutre: '#000',
                 gris: '#828282',
-                bgBlur: "#F1F3F4/[0.75]", 
+                bgBlur: "#F1F3F4", 
             },
+            spacing: {
+                '1/6': '16%',
+            }
         },
     },
     plugins: [],
