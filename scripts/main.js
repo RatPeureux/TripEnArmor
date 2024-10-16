@@ -1,3 +1,5 @@
 // Import footer and header components
-import { loadFooterHeader } from "./headerfooter.js";
-loadFooterHeader();
+import {} from "./loadcomponents.js";
+
+// Import all functions from utils (for example, toggleMenu)
+import {} from "./utils.js";

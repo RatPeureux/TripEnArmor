@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Global style for components */
+:root {
+    --primary-color: #F2771B;
+}  
+#menu>.active {
+    --tw-translate-x: 0%;
+}
+#menu a.active {
+    color: white;
+    background-color: var(--primary-color);
+}
+#layer-background.active {
+    display: block;
+    background-color: rgba(0, 0, 0, .20);
+    backdrop-filter: blur(5px);
+}
+
+
+@layer base {
+    @font-face {
+        font-family: 'Cormorant-Bold';
+        src: url(../public/polices/cormorant-webfont.woff2) format('woff2');
+        src: url(../public/polices/cormorant-webfont.woff) format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        src: url(../public/polices/poppins-webfont.woff2) format('woff2');
+        src: url(../public/polices/poppins-webfont.woff) format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+}
