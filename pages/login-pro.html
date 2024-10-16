@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image" href="../public/images/favicon.png">
+    <link rel="stylesheet" href="../styles/output.css">
+    <title>Connexion à la PACT</title>
+    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+</head>
+<body class="h-screen bg-base100 p-4 overflow-hidden">
+    <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+    <div class="h-full flex flex-col items-center justify-center">
+        <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
+            <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
+            <form class="bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="" method="post" enctype="multipart/form-data">
+                <p class="pb-3">J'ai un compte Professionnel</p>
+                
+                <label class="text-small" for="id">Identifiant*</label>
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id" title="Identifiant = Nom d'utilisateur ou Adresse mail" required>
+                
+                <label class="text-small" for="passwd">Mot de passe*</label>
+                <input class="p-2 bg-base100 w-full h-12 mb-3 rounded-lg" type="passwd" id="passwd" name="passwd" autocomplete="current-password" required>
+
+                <input type="submit" value="Me connecter" class="cursor-pointer w-full h-12 mb-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+                <div class="flex flex-nowrap h-12 space-x-1.5">
+                    <a href="" class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary hover:border-secondary focus:scale-[0.97]"> 
+                        Mot de passe oublié ?
+                    </a>
+                    <a href="create-pro.php" class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary hover:border-secondary focus:scale-[0.97]"> 
+                        Créer un compte
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
