@@ -1,0 +1,111 @@
+<?php if (!isset($_POST['mail'])) { ?>
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image" href="../public/images/favicon.png">
+        <link rel="stylesheet" href="../styles/output.css">
+        <title>Création du compte 1/2</title>
+        <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="h-screen bg-base100 p-4 overflow-hidden">
+        <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+        <div class="h-full flex flex-col items-center justify-center">
+            <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
+                <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
+                <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-member.php" method="post" enctype="multipart/form-data">
+                    <p class="pb-3">Je créer un compte Membre</p>
+
+                    <div class="flex flex-nowrap space-x-3 mb-1.5">
+                        <div class="w-full">
+                            <label class="text-small" for="prenom">Prénom*</label>
+                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" pattern="[a-zA-Z ]*" title="" required>
+                        </div>
+                        <div class="w-full">
+                            <label class="text-small" for="nom">Nom*</label>
+                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" pattern="[a-zA-Z ]*" title="" required>
+                        </div>
+                    </div>
+                    
+                    <label class="text-small" for="mail">Adresse mail*</label>
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="mail" name="mail" pattern="[a-zA-Z ]*" title="" required>
+                    
+                    <label class="text-small" for="passwd">Mot de passe*</label>
+                    <input class="p-2 bg-base100 w-full h-12 mb-3 rounded-lg" type="password" id="passwd" name="passwd" pattern="[a-zA-Z ]*" title="" required>
+
+                    <label class="text-small" for="passwd-conf">Confirmer le mot de passe*</label>
+                    <input class="p-2 bg-base100 w-full h-12 mb-3 rounded-lg" type="password" id="passwd-conf" name="passwd-conf" pattern="[a-zA-Z ]*" title="" required>
+
+                    <input type="submit" value="Continuer" class="cursor-pointer w-full h-12 mb-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+                    <a href="login-member.html" class="w-full h-12 p-1 bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-primary hover:border-primary focus:scale-[0.97]"> 
+                        J'ai déjà un compte
+                    </a>
+                </form>
+            </div>
+        </div>
+    </body>
+    </html>
+<?php } else { ?>
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image" href="../public/images/favicon.png">
+        <link rel="stylesheet" href="../styles/output.css">
+        <title>Création du compte 2/2</title>
+        <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="h-screen bg-base100 p-4 overflow-hidden">
+        <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+            <div class="w-full max-w-96 h-fit flex flex-col items-center sm:w-96 m-auto">
+                <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
+                <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="" method="post" enctype="multipart/form-data">
+                    <p class="pb-3">Dites-nous en plus !</p>
+
+                    <div class="flex flex-nowrap space-x-3 mb-1.5">
+                        <div class="w-full">
+                            <label class="text-small" for="prenom">Prénom*</label>
+                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" pattern="[a-zA-Z ]*" title="" required>
+                        </div>
+                        <div class="w-full">
+                            <label class="text-small" for="nom">Nom*</label>
+                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" pattern="[a-zA-Z ]*" title="" required>
+                        </div>
+                    </div>
+                    
+                    <label class="text-small" for="mail">Adresse mail*</label>
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="mail" name="mail" pattern="[a-zA-Z ]*" title="" required>
+                    
+                    <label class="text-small" for="username">Nom d'utilisateur*</label>
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="username" name="username" pattern="[a-zA-Z ]*" title="" required>
+                    
+                    <label class="text-small" for="adresse">Adresse postale*</label>
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" pattern="[a-zA-Z ]*" title="" required>
+                    
+                    <div class="flex flex-nowrap space-x-3 mb-1.5">
+                        <div class="w-28">
+                            <label class="text-small" for="code">Code postale*</label>
+                            <input class="text-right p-2 bg-base100 w-28 h-12 rounded-lg" type="text" id="code" name="code" pattern="[a-zA-Z ]*" title="" required>
+                        </div>
+                        <div class="w-full">
+                            <label class="text-small" for="ville">Ville*</label>
+                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="ville" name="ville" pattern="[a-zA-Z ]*" title="" required>
+                        </div>
+                    </div>
+
+                    <label class="text-small" for="tel">Téléphone*</label>
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="tel" name="tel" pattern="[a-zA-Z ]*" title="" required>
+
+                    <label class="mb-3">
+                        <input type="checkbox" name="example"> Cochez cette case si vous acceptez les termes et conditions.
+                    </label>
+
+                    <input type="submit" value="Créer mon compte" class="cursor-pointer w-full h-12 bg-primary text-white font-bold rounded-lg inline-flex items-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+                </form>
+            </div>
+            <p class="w-screen text-center">Ce site est protégé par reCAPTCHA ; les politiques de confidentialité et les conditions d'utilisation de Google s'appliquent.</p>
+    </body>
+    </html>
+<?php } ?>
