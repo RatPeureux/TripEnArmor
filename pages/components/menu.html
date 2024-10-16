@@ -9,9 +9,9 @@
         4 - Consultées récemment
         5 - Nouveautés
 -->
-<div class="h-full bg-base100 fixed top-0 w-7/12 left-0 -translate-x-full duration-200 z-30">
+<div class="h-full bg-base100 fixed top-0 w-7/12 left-0 -translate-x-full duration-200 z-50">
     <div class="p-4 flex flex-row gap-3 justify-start items-center h-20 border-b-2 border-black">
-        <img class="hover:cursor-pointer" onclick="toggleMenu()" src="/public/icones/close.svg" alt="">
+        <i class="text-3xl fa-solid fa-circle-xmark hover:cursor-pointer" onclick="toggleMenu()"></i>
         <h1 class="text-3xl">Menu</h1>
     </div>
     <div class="all-items flex flex-col items-stretch">
@@ -22,4 +22,4 @@
         <a class="pl-10 py-3 border-b-2 border-black" href="">Nouveautés</a>
     </div>
 </div>
-<div id="layer-background" onclick="toggleMenu()" class="hidden fixed w-full h-full top-0 left-0 z-10"></div>
+<div id="layer-background" onclick="toggleMenu()" class="hidden fixed w-full h-full top-0 left-0 z-40"></div>
