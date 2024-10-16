@@ -9,29 +9,31 @@ try {
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $email = $_POST['email'];
+        $connexion = $_POST['connexion'];
         $mdp = $_POST['mdp'];
 
-
-
-        $stmt = $dbh->prepare("SELECT * FROM sae._compte WHERE email = :email");
-        $stmt->bindParam(':email', $email);
+        
+        $stmt = $dbh->prepare("SELECT * FROM sae._membre WHERE email = :connexion OR pseudo = :connexion");
+        $stmt->bindParam(':connexion', $connexion);
         $stmt->execute();
 
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        
         if ($stmt->errorInfo()[0] !== '00000') {
             error_log("SQL Error: " . print_r($stmt->errorInfo(), true));
         }
 
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        error_log(print_r($user, true));
         
         if ($user && $user['motdepasse'] === $mdp) {
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_pseudo'] = $user['pseudo'];
             $_SESSION['token'] = bin2hex(random_bytes(32));
+
             header('Location: connected_membre.php?token=' . $_SESSION['token']);
             exit();
         } else {
-            $error = "Email ou mot de passe incorrect";
+            $error = "Email ou mot de passe incorrect.";
         }
     }
 } catch (PDOException $e) {
@@ -40,32 +42,36 @@ try {
 }
 ?>
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page de Connexion Membre</title>
+    <link rel="stylesheet" href="/styles/output.css">
+    <title>Connexion à la PACT</title>
 </head>
 <body>
 
-<?php if (!empty($error)): ?>
-    <div style="color: red;"><?php echo htmlspecialchars($error); ?></div>
-<?php endif; ?>
+    <?php if (!empty($error)): ?>
+        <div style="color: red;"><?php echo htmlspecialchars($error); ?></div>
+    <?php endif; ?>
+    <img src="../public/icones/back.svg" alt="retour">
+    <img src="../public/images/logo.svg" alt="moine">
+    <form action="" method="post" enctype="multipart/form-data">
+        <h3>J'ai un compte Membre !</h3>
 
-<form action="" method="post">
-    <label for="email">Email :</label>
-    <input type="text" name="email" id="email" required>
+        <label for="connexion">Identifiant*</label>
+        <input type="text" id="connexion" name="connexion" required>
 
-    <br>
+        <label for="mdp">Mot de passe*</label>
+        <input type="password" id="mdp" name="mdp" required>
 
-    <label for="mdp">mot de passe :</label>
-    <input type="password" name="mdp" id="mdp" required>
-
-    <br>
-
-    <input type="submit" value="Se connecter">
-</form>
-
+        <input type="submit" value="Me connecter">
+        <div>
+            <input type="button" value="Mot de passe oublié ?">
+            <input type="button" value="Créer un compte">
+        </div>
+    </form>
 </body>
 </html>
