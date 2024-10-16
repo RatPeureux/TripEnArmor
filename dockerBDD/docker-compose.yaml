@@ -55,8 +55,6 @@ services:
   # redis:
   #   container_name: "ap-redis"
   #   image: bitnami/redis:6.0
-  #   environment:
-  #     - REDIS_PASSWORD=at15jx13
 
 volumes:
   r307-web:

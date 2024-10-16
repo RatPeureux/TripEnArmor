@@ -19,3 +19,4 @@ COPY connexion/pro/access_refuse_pro.php ./connexion/pro/access_refuse_pro.php
 COPY connexion/pro/login_pro.php ./connexion/pro/login_pro.php
 COPY connexion/pro/logout_pro.php ./connexion/pro/logout_pro.php
 COPY connexion/pro/connected_pro.php ./connexion/pro/connected_pro.php
+COPY connexion/pro/crea_offre.php ./connexion/pro/crea_offre.php
