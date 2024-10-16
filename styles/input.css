@@ -18,6 +18,6 @@
 }
 #layer-background.active {
     display: block;
-    background-color: black;
-    opacity: .75;
+    background-color: rgba(0, 0, 0, .20);
+    backdrop-filter: blur(5px);
 }

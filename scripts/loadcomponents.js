@@ -1,3 +1,4 @@
+// To load static components that can be repeated in different pages (written in html)
 async function loadFooterHeader() {
     // Load components
     const footerHTML = await fetch('./components/footer.html').then(response => response.text());
@@ -7,7 +8,6 @@ async function loadFooterHeader() {
     let header = document.getElementById("header");
     let footer = document.getElementById("footer");
     let menu = document.getElementById("menu");
-
     
     // Add text
     header.innerHTML = headerHTML;
