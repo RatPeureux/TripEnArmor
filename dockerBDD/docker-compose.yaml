@@ -1,0 +1,64 @@
+---
+
+# AP 1.0.0
+#
+# Runs Apache, PHP (+Redis)
+# SSL is preconfigured.
+# Imagemagick and XDebug are activated.
+# PDO module and drivers for MySQL and PostreSQL are activated.
+#
+# Run with 
+# docker-compose up -d
+#
+# (c)2020 Harald Schneider
+# adapted for IUT Lannion by Arnaud Delhay and Gildas Quiniou (2024-09)
+
+services:
+
+  # --- PHP-PDO-APACHE
+  #
+  php:
+    container_name: "connexionDB"
+    image: apache-pdo:1.0
+    # depends_on:
+    #   - redis
+    volumes:
+      - r307-web:/app
+      # - ./docker/php/php.ini:/opt/bitnami/php/etc/conf.d/php.ini:ro
+    ports:
+      - '8080:80'
+    networks:
+      - db_app_back
+
+  # --- Apache 2.4
+  #
+  # apache:
+  #   container_name: "ap-apache"
+  #   # image: bitnami/apache:2.4
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.apache
+    
+  #   depends_on:
+  #     - php
+  #   volumes:
+  #     - ./docker/www:/app:delegated
+  #     - ./docker/apache/my_vhost.conf:/vhosts/myapp.conf:ro
+  #     # - ./docker/apache/certs:/certs
+  #     # Use this for bitnami's builtin certs:
+  #     # ./docker/apache/certs:/opt/bitnami/apache2/conf/bitnami/certs 
+  #   networks:
+  #     - db_app_back
+      
+  # # --- Redis 6.0
+  # #
+  # redis:
+  #   container_name: "ap-redis"
+  #   image: bitnami/redis:6.0
+
+volumes:
+  r307-web:
+
+networks:
+#  db_admin_back:
+  db_app_back:
