@@ -1,44 +1,61 @@
+# Utilise une image de base PHP avec Apache et PDO
 FROM r408-php:ctrltp-apache-pdo
 
+# Met à jour les paquets et installe la bibliothèque libpq-dev pour PostgreSQL via un proxy HTTP
 RUN http_proxy=http://129.20.239.11:3128 apt-get update
 RUN http_proxy=http://129.20.239.11:3128 apt-get install -y libpq-dev
+
+# Installe l'extension PDO pour PostgreSQL
 RUN docker-php-ext-install pdo_pgsql
+
+# Définit le répertoire de travail à /var/www/html
 WORKDIR /var/www/html
+
+# Supprime le répertoire img, si présent
 RUN rm -rf img
+
+# Copie le fichier marche_pas.nepastoucher sous le nom index.php dans le répertoire de travail
 COPY marche_pas.nepastoucher ./index.php
 
+# Copie le fichier de paramètres de connexion à la base de données
 COPY dockerBDD/connexion/connect_params.php ./TripEnArmor/dockerBDD/connexion/connect_params.php
-
-
 
 ################################ php ################################
 
+# Copie le répertoire dockerBDD complet dans le répertoire de destination
 COPY ../dockerBDD/ ./TripEnArmor/dockerBDD/
 
 ################################ pages html ################################
 
+# Copie le répertoire des pages HTML
 COPY ../pages/ ./TripEnArmor/pages/
 
 ################################ styles ################################
 
+# Copie le répertoire des styles
 COPY ../styles/ ./TripEnArmor/styles
 
 ################################ scripts ################################
 
+# Copie le répertoire des scripts
 COPY ../scripts ./TripEnArmor/scripts
 
 ################################ public ################################
 
+# Copie le répertoire public
 COPY ../public ./TripEnArmor/public
 
-################################ public ################################
+################################ tailwind.config ################################
 
+# Copie le fichier de configuration de Tailwind
 COPY tailwind.config.js ./TripEnArmor/
 
 ################################ initialisation ################################
 
+# Copie le script d'initialisation
 COPY initialisation ./TripEnArmor
 
 ################################ tailwind ################################
 
+# Copie le répertoire de Tailwind CSS
 COPY tailwindcss ./TripEnArmor
