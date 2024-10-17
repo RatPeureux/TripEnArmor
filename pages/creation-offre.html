@@ -6,36 +6,115 @@
     <title>Document</title>
     <link rel="stylesheet" href="/styles/output.css">
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body>
-    <div class=" flex justify-center align-baseline">
-        <div class="bg-base200 w-9/12 ">
+    <div class=" flex justify-center align-baseline pb-8">
+        <div class="bg-base200 w-[1024px]">
             <a href="" class="flex content-center space-x-14">
                 <div class="m-4">
                     <i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>        
                 </div>
                 <div class="my-2">
-                    <h1 class="text-3xl"> Création d'offre</h1>
+                    <h1 class="text-title"> Création d'offre</h1>
                 </div>
             </a>
-            <div class="space-x-28">
-                <a href="">
-                    <div class="border border-secondary rounded-lg divide-y divide-secondary flex-col content-center w-80">
-                        <div>
-                            <h1 class="text-secondary text-2xl">Gratuite</h1>
-                            <p>Pour les associations et les <br> organismes publics</p>
-                        </div>
-                        <div>
-                            <ul class="list-disc">
-                                <li>Jusqu’à 10 photos de présentations</li>
-                                <li>Réponse aux avis des membres</li>
-                            </ul>
-                        </div>
-                        <h1 class="text-secondary text-2xl">0€/mois</h1>
+            <div class="flex space-x-[50px] p-6">
+                    <div class="border border-secondary rounded-lg flex-col justify-center w-[300px] text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white h-fit">
+                        <input type="radio" name="offer" id="offer1" class="hidden" checked>
+                        <label for="offer1" class="divide-y divide-current cursor-pointer">
+                            <div class="h-1/4">
+                                <h1 class="text-title text-center">Gratuite</h1>
+                                <h1 class="text-center font-bold">Pour les associations et les organismes publics</h1>
+                            </div>
+                            <div class="h-2/4">
+                                <div class="ml-8">
+                                    <ul class="list-disc text-left text-small my-2">
+                                        <li>Jusqu’à 10 photos de présentations</li>
+                                        <li>Réponse aux avis des membres</li>
+                                        <br>
+                                        <br>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="h-1/4">  
+                                <h1 class="text-title text-center py-2">0€/mois</h1>
+                            </div>
+                            </label>
                     </div>
-                </a>
+
+                    <div class="border border-primary rounded-lg flex-col justify-center w-[300px] text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white h-fit">
+                        <input type="radio" name="offer" id="offer2" class="hidden" checked>
+                        <label for="offer2" class="divide-y divide-current cursor-pointer">
+                            <div class="h-1/4">
+                                <h1 class="text-title text-center">Standard</h1>
+                                <h1 class="text-center font-bold">Pour les entreprises et organismes privés</h1>
+                            </div>
+                            <div class="h-2/4">
+                                <div class="ml-8">
+                                    <ul class="list-disc text-left text-small my-2">
+                                        <li>Jusqu’à 10 photos de présentations</li>
+                                        <li>Réponse aux avis des membres</li>
+                                        <li>Possibilité de souscrire aux options “À la une” et “En relief”</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="h-1/4">  
+                                <h1 class="text-title text-center py-2">12€/mois</h1>
+                            </div>
+                            </label>
+                    </div>
+                    
+                    <div class="border border-secondary rounded-lg flex-col justify-center w-[300px] text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white h-fit">
+                        <input type="radio" name="offer" id="offer3" class="hidden" checked>
+                        <label for="offer3" class="divide-y divide-current cursor-pointer">
+                            <div class="h-1/4">
+                                <h1 class="text-title text-center">Premium</h1>
+                                <h1 class="text-center font-bold">Pour les entreprises et organismes privés</h1>
+                            </div>
+                            <div class="h-2/4">
+                                <p class="mt-2 text-small">Standard +</p>
+                                <div class="ml-8">
+                                    <ul class="list-disc text-left text-small">
+                                        <li>Mise sur liste noire de 3 commentaires</li>
+                                        <br>
+                                        <br>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="h-1/4">  
+                                <h1 class="text-title text-center py-2">19€/mois</h1>
+                            </div>
+                            </label>
+                    </div>
             </div>
-        </div>
-    </div>
+            <div class="flex justify-center content-center">
+                <input type="submit" class="bg-primary text-white w-[300px] font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white m-1" value="Valider"
+                />
+            </div>
+            <br>
+            <br>
+            <div class="text-center">
+                <div class="text-center p-6"></div>
+                    <label for="activityType" class="block text-lg">Quel type d'activité ?</label>
+                    <select id="activityType" name="activityType" class="w-[347px] bg-white text-black py-2 px-4 border border-black rounded-lg">
+                        <option value="selection">Type d'activité</option>
+                        <option value="activite">Activité</option>
+                        <option value="visite">Visite</option>
+                        <option value="spectacle">Spectacle</option>
+                        <option value="parc_attraction">Parc d'attraction</option>
+                        <option value="restauration">Restauration</option>
+                    </select>
+                </div>
+                <form action="" method="GET" class="flex-col justify-center content-center">
+                    <div>
+                        <label for="titre">Titre* :</label>
+                        <input type="text" class="border border-secondary rounded-lg p-2 bg-white" required>
+                    </div>
+                </form>
+            </div>
+         
+</div>
+
 </body>
 </html>
