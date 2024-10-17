@@ -1,4 +1,5 @@
-<?php if (!isset($_POST['prenom'])) { ?>
+<?php if (!isset($_POST['mail'])) { ?>
+
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -8,6 +9,7 @@
         <link rel="stylesheet" href="../styles/output.css">
         <title>Création de compte 1/2</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+
     </head>
     <body class="h-screen bg-base100 p-4 overflow-hidden">
         <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
@@ -20,27 +22,30 @@
                     <div class="flex flex-nowrap space-x-3 mb-1.5">
                         <div class="w-full">
                             <label class="text-small" for="prenom">Prénom*</label>
-                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" pattern="^[A-Z][a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" maxlength="40" required>
+                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" pattern="^[A-Z][a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon prénom" maxlength="50" required>
                         </div>
                         <div class="w-full">
                             <label class="text-small" for="nom">Nom*</label>
-                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" pattern="^[A-Z][a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" maxlength="40" required>
+                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" pattern="^[A-Z][a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon nom" maxlength="50" required>
                         </div>
                     </div>
                     
                     <label class="text-small" for="mail">Adresse mail*</label>
-                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="exemple@mail.com" maxlength="255" required>
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail" maxlength="255" required>
                 
-                    <label class="text-small" for="passwd">Mot de passe*</label>
-                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="passwd" name="passwd" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" autocomplete="new-password" required>
+                    <label class="text-small" for="mdp">Mot de passe</label>
+                    <div class="relative w-full">
+                        <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" title="Saisir un mot de passe" minlength="8" autocomplete="current-password" required>
+                        <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword"></i>
+                    </div>
 
-                    <label class="text-small" for="passwdConf">Confirmer le mot de passe*</label>
-                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="passwdConf" name="passwdConf" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" autocomplete="current-password" required>
+                    <label class="text-small" for="confMdp">Confirmer le mot de passe*</label>
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp" name="confMdp" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" title="Confirmer mon mot de passe" minlength="8" autocomplete="new-password" required>
 
                     <span id="error-message" class="error text-rouge-logo text-small"></span>
 
                     <input type="submit" value="Continuer" class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
-                    <a href="login-member.html" class="w-full h-12 p-1 bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-primary hover:border-primary focus:scale-[0.97]"> 
+                    <a href="login-member.html" class="w-full h-12 p-1 bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]"> 
                         J'ai déjà un compte
                     </a>
                 </form>
@@ -50,12 +55,30 @@
     </html>
 
     <script>
+    const togglePassword = document.getElementById('togglePassword');
+    const mdp = document.getElementById('mdp');
+    const confMdp = document.getElementById('confMdp');
+
+    togglePassword.addEventListener('click', function () {
+      const type = mdp.type === 'password' ? 'text' : 'password';
+      mdp.type = type;
+      confMdp.type = type;
+      
+      if (this.classList.contains('fa-eye')) {
+        this.classList.remove('fa-eye');
+        this.classList.add('fa-eye-slash');
+      } else {
+        this.classList.remove('fa-eye-slash');
+        this.classList.add('fa-eye');
+      }
+    });
+
     function validateForm() {
-        var passwd = document.getElementById("passwd").value;
-        var passwdConf = document.getElementById("passwdConf").value;
+        var mdp = document.getElementById("mdp").value;
+        var confMdp = document.getElementById("confMdp").value;
         var errorMessage = document.getElementById("error-message");
 
-        if (passwd !== passwdConf) {
+        if (mdp !== confMdp) {
             errorMessage.textContent = "Les mots de passe ne correspondent pas.";
             return false;
         }
@@ -64,7 +87,14 @@
         return true;
     }
     </script>
-<?php } else { ?>
+
+<?php } else { 
+    $prenom = str_contains($_POST['prenom'], "-") ? ucfirst(strtolower(strstr($_POST['prenom'], '-', true))) . "-" . ucfirst(strtolower(substr(strstr($_POST['prenom'], '-'), 1))) : ucfirst(strtolower($_POST['prenom']));
+    $nom = strtoupper($_POST['nom']);
+    $mail = strtolower($_POST['mail']);
+    $mdp = $_POST['mdp'];
+    ?>
+
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -74,58 +104,77 @@
         <link rel="stylesheet" href="../styles/output.css">
         <title>Création de compte 2/2</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+
     </head>
     <body class="h-screen bg-base100 pt-4 px-4 overflow-x-hidden">
         <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
-            <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="" method="post" enctype="multipart/form-data">
+            <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <p class="pb-3">Dites-nous en plus !</p>
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-full">
                         <label class="text-small" for="prenom">Prénom</label>
-                        <input class="p-2 text-gris bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" value="<?php echo str_contains($_POST['prenom'], "-") ? ucfirst(strtolower(strstr($_POST['prenom'], '-', true))) . "-" . ucfirst(strtolower(substr(strstr($_POST['prenom'], '-'), 1))) : ucfirst(strtolower($_POST['prenom']));?>" disabled>
+                        <input class="p-2 text-gris bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" title="Mon prénom" value="<?php echo $prenom;?>" readonly>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="nom">Nom</label>
-                        <input class="p-2 text-gris bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" value="<?php echo strtoupper($_POST['nom']);?>" disabled>
+                        <input class="p-2 text-gris bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" title="Mon nom" value="<?php echo $nom;?>" readonly>
                     </div>
                 </div>
                 
                 <label class="text-small" for="mail">Adresse mail</label>
-                <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" value="<?php echo strtolower($_POST['mail']);?>" disabled>
+                <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" title="Mon adresse mail" value="<?php echo $mail;?>" readonly>
                 
                 <label class="text-small" for="username">Pseudonyme*</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="username" name="username" pattern="^(?:(\w+|\w+[\.\-_]?\w+)+" title="16 caractères maximum." maxlength="16" required>
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="username" name="username" pattern="^(?:(\w+|\w+[\.\-_]?\w+)+" title="Saisir mon pseudonyme PACT" maxlength="16" required>
                 
                 <label class="text-small" for="adresse">Adresse postale*</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" pattern="\d{1,5}\s[\w\s.-]+$" maxlength="255" required>
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir mon adresse postale" maxlength="255" required>
                 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
                         <label class="text-small" for="code">Code postal*</label>
-                        <input class="text-right p-2 bg-base100 w-28 h-12 rounded-lg" type="text" id="code" name="code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Code postal non reconnu ! 5 chiffres obligatoires." maxlength="5" required>
+                        <input class="text-right p-2 bg-base100 w-28 h-12 rounded-lg" type="text" id="code" name="code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal" minlength="5" maxlength="5" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="ville">Ville*</label>
-                        <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="ville" name="ville" pattern="^[A-Z][a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Caractères spéciaux autorisés : '-. et `espaces`." maxlength="50" required>
+                        <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="ville" name="ville" pattern="^[A-Z][a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir ma ville" maxlength="50" required>
                     </div>
                 </div>
 
                 <label class="text-small" for="tel">Téléphone*</label>
                 <div class="w-full">
-                    <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 rounded-lg" type="tel" id="tel" name="tel" pattern="0[1-9]([-. ]?[0-9]{2}){4}" title="Seuls formats acceptés : 0123456789 ou 01 23 45 67 89" maxlength="15" required>
+                    <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 rounded-lg" type="tel" id="tel" name="tel" pattern="0[1-9]([-. ]?[0-9]{2}){4}" title="Saisir mon numéro de téléphone" minlength="10" maxlength="14" required>
                 </div>
 
-                <div class="mb-3 flex items-start">
-                    <input class="mt-0.5 mr-1.5" type="checkbox" name="example">
+                <span id="error-message" class="error text-rouge-logo text-small"></span>
+
+                <div class="mb-1.5 flex items-start">
+                    <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="" required>
                     <label class="text-small">J’accepte les <u>conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u>Politique de confidentialité et d'utilisation des cookies</u>.</label>
                 </div>
                 
-                <input type="submit" value="Créer mon compte" class="cursor-pointer w-full h-12 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+                <input type="submit" value="Créer mon compte" class="mt-1.5 cursor-pointer w-full h-12 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
             </form>
         </div>
     </body>
     </html>
+
+    <script>
+    function validateForm() {
+        var checkbox = document.getElementById("termes");
+        var errorMessage = document.getElementById("error-message");
+
+        if (!checkbox.checked) {
+            errorMessage.textContent = "* Champs obligatoires";
+            return false;
+        }
+
+        errorMessage.textContent = "";
+        return true;
+        }
+    </script>
+
 <?php } ?>
