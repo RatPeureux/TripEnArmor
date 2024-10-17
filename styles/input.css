@@ -2,10 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global style for components */
+/* Style global */
 :root {
     --primary-color: #F2771B;
-}  
+    --secondary-color: #00350D;
+}
+
+    /* MENU */
 #menu>.active {
     --tw-translate-x: 0%;
 }
@@ -19,6 +22,10 @@
     backdrop-filter: blur(5px);
 }
 
+    /* CARTES DES OFFRES */
+.card.active {
+    box-shadow: 0 0 8px 3px var(--secondary-color);
+}
 
 @layer base {
     @font-face {
