@@ -638,9 +638,19 @@ video {
   margin: auto;
 }
 
+.my-1\.5 {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+}
+
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.my-3 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .mb-1\.5 {
@@ -673,6 +683,10 @@ video {
 
 .mt-2 {
   margin-top: 0.5rem;
+}
+
+.block {
+  display: block;
 }
 
 .flex {
@@ -1119,6 +1133,11 @@ video {
   font-weight: 500;
 }
 
+.text-gris {
+  --tw-text-opacity: 1;
+  color: rgb(130 130 130 / var(--tw-text-opacity));
+}
+
 .text-primary {
   --tw-text-opacity: 1;
   color: rgb(242 119 27 / var(--tw-text-opacity));
@@ -1127,6 +1146,11 @@ video {
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.text-rouge-logo {
+  --tw-text-opacity: 1;
+  color: rgb(234 67 53 / var(--tw-text-opacity));
 }
 
 .text-secondary {
@@ -1252,6 +1276,14 @@ video {
   --tw-scale-x: 0.97;
   --tw-scale-y: 0.97;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.peer:invalid ~ .peer-invalid\:block {
+  display: block;
+}
+
+.group:has(:checked) .group-has-\[\:checked\]\:block {
+  display: block;
 }
 
 @media (min-width: 640px) {
