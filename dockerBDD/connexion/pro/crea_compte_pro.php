@@ -9,25 +9,30 @@ try {
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        if (isset($_POST['titre']) && !empty($_POST['titre']) && isset($_POST['description']) && !empty($_POST['description'])) {
-            $titre = $_POST['titre'];
-            $description = $_POST['description'];
+        if (isset($_POST['denomination']) && !empty($_POST['denomination']) && isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['mdp']) && !empty($_POST['mdp'])) {
+            $denomination = $_POST['denomination'];
+            $email = $_POST['email'];
+            $mdp = $_POST['mdp'];
+
     
             // Préparer la requête d'insertion
-            $stmt = $dbh->prepare("INSERT INTO sae._organisation (id, nom, prenom, email, motdepasse, denomination) VALUES (:titre, :description, true, 1, 1, false, false)");
+            $stmt = $dbh->prepare("INSERT INTO sae._organisation (id, nom, prenom, email, motdepasse, denomination) VALUES (45, 'osrihg', :denomination, :email, :mdp, :denomination)");
+
     
             // Lier les paramètres
-            $stmt->bindParam(':titre', $titre);
-            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':denomination', $denomination);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':mdp', $mdp);
     
             // Exécuter la requête
             if ($stmt->execute()) {
-                echo "Offre créée avec succès!";
+                echo "Compte créée avec succès!";
+                
             } else {
                 echo "Erreur lors de la création de l'offre.";
             }
         } else {
-            echo "Veuillez remplir le champ Titre.";
+            echo "Veuillez remplir les champs.";
         }
     }
 } catch (\Throwable $e) {
@@ -73,6 +78,9 @@ try {
         <input type="text" name="ville" id="ville"><br><br>
         <label for="tel">Téléphone*</label><br>
         <input type="text" name="tel" id="tel"><br><br>
+        <label for="mdp">Mot de passe*</label><br>
+        <input type="password" name="mdp" id="mdp"><br><br>
+        <input type="submit" value="Créer compte">
 
 
 
