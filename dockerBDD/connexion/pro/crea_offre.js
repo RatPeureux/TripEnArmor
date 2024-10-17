@@ -16,6 +16,7 @@ function showForm() {
         const selectedForm = document.getElementById(selectedOption.value); // Récupère le formulaire correspondant à la valeur de l'option sélectionnée
         if (selectedForm) {
             selectedForm.style.display = 'block'; // Affiche le formulaire
+
         }
     }
 }
@@ -24,7 +25,7 @@ function showTag() {
     // Récupère l'élément sélectionné dans le sélecteur d'options
     const selectedTag = document.querySelector('#tag');
     // Récupère tous les éléments avec la classe "offer-tag"
-    const afterTag = document.querySelectorAll('.offer-tag');
+    const afterTag = document.getElementById('tag1');
 
     // Si une option est sélectionnée dans le sélecteur, affiche l'élément correspondant
     if (selectedTag) {
@@ -34,3 +35,22 @@ function showTag() {
         }
     }
 }
+
+function showDesc() {
+    // Récupère l'élément sélectionné dans le sélecteur d'options
+    const selectedDesc = document.querySelector('input[name="description"]:checked');
+    // Récupère tous les éléments avec la classe "offer-tag"
+    const desc = document.querySelector('.offer-desc');
+
+    // Si une option est sélectionnée dans le sélecteur, affiche l'élément correspondant
+    if (selectedDesc) {
+        const selectedFormDesc = document.getElementById(selectedOption.value); // Récupère la valeur de l'option sélectionnée
+        if (selectedFormDesc) {
+            selectedDesc.style.display = 'block'; // Affiche l'élément correspondant
+        }
+    }
+}
+
+window.showForm = showForm;
+window.showTag = showTag;
+window.showDesc = showDesc;
