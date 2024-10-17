@@ -10,5 +10,3 @@ var swiper = new Swiper(".default-carousel", {
     prevEl: ".swiper-button-prev",
     },
 });
-
-console.log("testouille");
