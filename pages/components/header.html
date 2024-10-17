@@ -1,11 +1,18 @@
 <!-- 
     Composant du header
     Pour l'ajouter, écrier la balise <div id='header'></div> dans votre code html
+    (responsive)
 -->
-<header class="w-full bg-white flex justify-center items-end p-4 h-20 border-b-2 border-black fixed top-0">
-    <div class="flex grow justify-between items-center">
-        <a href="#" onclick="toggleMenu()"><img class="" src="/public/icones/menu.svg" alt="[img] Menu burger"></a>
-        <a href="/pages/accueil.html"><img class="" src="/public/images/logo-PACT.svg" alt="[img] Logo-PACT"></a>
-        <a href=""><img class="" src="/public/icones/account.svg" alt="[img] account"></a>
+<header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black fixed md:relative top-0">
+    <div class="flex w-full justify-between items-center">
+        <a href="#" onclick="toggleMenu()" class="md:hidden">
+            <i class="text-3xl fa-solid fa-bars"></i>
+        </a>
+        <a href="/pages/accueil.html">
+            <img src="/public/images/logo-PACT.svg" alt="[img] Logo-PACT">
+        </a>
+        <a href="#">
+            <i class="text-3xl fa-regular fa-user"></i>
+        </a>
     </div>
 </header>
