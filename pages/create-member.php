@@ -20,16 +20,16 @@
                     <div class="flex flex-nowrap space-x-3 mb-1.5">
                         <div class="w-full">
                             <label class="text-small" for="prenom">Prénom*</label>
-                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" pattern="^[A-Za-z]+[-]?[A-Za-z]$+" required>
+                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" maxlength="40" required>
                         </div>
                         <div class="w-full">
                             <label class="text-small" for="nom">Nom*</label>
-                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" pattern="[a-zA-Z ]*" required>
+                            <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" maxlength="40" required>
                         </div>
                     </div>
                     
                     <label class="text-small" for="mail">Adresse mail*</label>
-                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$*" title="exemple@mail.com" required>
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$*" title="exemple@mail.com" maxlength="255" required>
                     
                     <label class="text-small" for="passwd">Mot de passe*</label>
                     <input class="p-2 bg-base100 w-full h-12 mb-3 rounded-lg" type="password" id="passwd" name="passwd" autocomplete="new-password" required>
@@ -67,37 +67,37 @@
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-full">
                         <label class="text-small" for="prenom">Prénom*</label>
-                        <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" value="<?php echo $_POST['prenom'];?>" disabled>
+                        <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" value="<?php echo str_contains($_POST['prenom'], "-") ? ucfirst(strtolower(strstr($_POST['prenom'], '-', true))) . "-" . ucfirst(strtolower(substr(strstr($_POST['prenom'], '-'), 1))) : ucfirst(strtolower($_POST['prenom']));?>" disabled>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="nom">Nom*</label>
-                        <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" value="<?php echo $_POST['nom'];?>" disabled>
+                        <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" value="<?php echo strtoupper($_POST['nom']);?>" disabled>
                     </div>
                 </div>
                 
                 <label class="text-small" for="mail">Adresse mail*</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" value="<?php echo $_POST['mail'];?>" disabled>
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" value="<?php echo strtolower($_POST['mail']);?>" disabled>
                 
                 <label class="text-small" for="username">Nom d'utilisateur*</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="username" name="username" pattern="[a-zA-Z ]*" title="" required>
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="username" name="username" title="16 caractères maximum." maxlength="16" required>
                 
                 <label class="text-small" for="adresse">Adresse postale*</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" pattern="[a-zA-Z ]*" title="" required>
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" maxlength="255" required>
                 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
-                        <label class="text-small" for="code">Code postale*</label>
-                        <input class="text-right p-2 bg-base100 w-28 h-12 rounded-lg" type="text" id="code" name="code" pattern="[a-zA-Z ]*" title="" required>
+                        <label class="text-small" for="code">Code postal*</label>
+                        <input class="text-right p-2 bg-base100 w-28 h-12 rounded-lg" type="text" id="code" name="code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Code postal non reconnu ! 5 chiffres obligatoires." maxlength="5" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="ville">Ville*</label>
-                        <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="ville" name="ville" pattern="[a-zA-Z ]*" title="" required>
+                        <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="ville" name="ville" pattern="^(?!.*--)[A-Za-zÀ-ÿ'-. ]$+" title="Caractères spéciaux non reconnu ! (Autorisés : '-. et `espaces` )" maxlength="50" required>
                     </div>
                 </div>
 
                 <label class="text-small" for="tel">Téléphone*</label>
                 <div class="w-full">
-                    <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 rounded-lg" type="tel" id="tel" name="tel" pattern="[a-zA-Z ]*" title="" required>
+                    <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 rounded-lg" type="tel" id="tel" name="tel" pattern="(^0[0-9]{9}$|^(0[0-9] )([0-9]{2} ){4})" title="Seuls formats acceptés : 0123456789 ou 01 23 45 67 89" maxlength="10" required>
                 </div>
 
                 <div class="mb-3 flex items-start">
@@ -108,7 +108,6 @@
                 <input type="submit" value="Créer mon compte" class="cursor-pointer w-full h-12 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
             </form>
         </div>
-        <p class="w-full text-center sm:mt-8">Ce site est protégé par reCAPTCHA ; les <u>politiques de confidentialité</u> et les <u>conditions d'utilisation</u> de Google s'appliquent.</p>
     </body>
     </html>
 <?php } ?>
