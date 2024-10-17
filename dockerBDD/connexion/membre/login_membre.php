@@ -48,30 +48,37 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="icon" type="image" href="../../../public/images/favicon.png">
+    <link rel="stylesheet" href="../../../styles/output.css">
     <title>Connexion à la PACT</title>
+    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
-<body>
-
+<body class="h-screen bg-base100 p-4 overflow-hidden">
     <?php if (!empty($error)): ?>
         <div style="color: red;"><?php echo htmlspecialchars($error); ?></div>
     <?php endif; ?>
-    <img src="../public/icones/back.svg" alt="retour">
-    <img src="../public/images/logo.svg" alt="moine">
-    <form action="" method="post" enctype="multipart/form-data">
-        <h3>J'ai un compte Membre !</h3>
+    <i class="fa-solid fa-arrow-left fa-2xl"></i>
+    <div class="h-full flex flex-col items-center justify-center">
+        <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
+            <img class="absolute -top-24" src="../../../public/images/logo.svg" alt="moine" width="108">
+            <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="" method="post" enctype="multipart/form-data">
+                <p class="pb-3">J'ai un compte Membre</p>
+                
+                <label class="text-small" for="connexion">Identifiant*</label>
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="connexion" name="connexion" title="" required>
+                
+                <label class="text-small" for="passwd">Mot de passe*</label>
+                <input class="p-2 bg-base100 w-full h-12 mb-3 rounded-lg" type="password" id="mdp" name="mdp" title="" required>
 
-        <label for="connexion">Identifiant*</label>
-        <input type="text" id="connexion" name="connexion" required>
-
-        <label for="mdp">Mot de passe*</label>
-        <input type="password" id="mdp" name="mdp" required>
-
-        <input type="submit" value="Me connecter">
-        <div>
-            <input type="button" value="Mot de passe oublié ?">
-            <input type="button" value="Créer un compte">
+                <input class="bg-primary text-white font-bold w-full h-12 mb-1.5 rounded-lg" type="submit" value="Me connecter">
+                <div class="flex flex-nowrap h-12 space-x-1.5">
+                    <input class="text-primary text-small w-full h-full p-1 rounded-lg border border-primary text-wrap" type="button" value="Mot de passe oublié ?">
+                    <a class="w-full" href="create-member1.html">
+                        <input class="text-primary text-small w-full h-full p-1 rounded-lg border border-primary text-wrap" type="button" value="Créer un compte">
+                    </a>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </body>
 </html>

@@ -1,0 +1,44 @@
+FROM r408-php:ctrltp-apache-pdo
+
+RUN http_proxy=http://129.20.239.11:3128 apt-get update
+RUN http_proxy=http://129.20.239.11:3128 apt-get install -y libpq-dev
+RUN docker-php-ext-install pdo_pgsql
+WORKDIR /var/www/html
+RUN rm -rf img
+COPY marche_pas.nepastoucher ./index.php
+
+COPY dockerBDD/connexion/connect_params.php ./TripEnArmor/dockerBDD/connexion/connect_params.php
+
+
+
+################################ php ################################
+
+COPY ../dockerBDD/ ./TripEnArmor/dockerBDD/
+
+################################ pages html ################################
+
+COPY ../pages/ ./TripEnArmor/pages/
+
+################################ styles ################################
+
+COPY ../styles/ ./TripEnArmor/styles
+
+################################ scripts ################################
+
+COPY ../scripts ./TripEnArmor/scripts
+
+################################ public ################################
+
+COPY ../public ./TripEnArmor/public
+
+################################ public ################################
+
+COPY tailwind.config.js ./TripEnArmor/
+
+################################ initialisation ################################
+
+COPY initialisation ./TripEnArmor
+
+################################ tailwind ################################
+
+COPY tailwindcss ./TripEnArmor

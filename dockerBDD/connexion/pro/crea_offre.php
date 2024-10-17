@@ -21,35 +21,23 @@ $tag = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="crea_offre.js"></script>
     <title>Création d'offre</title>
     <style>
         .offer-form {
             display: none;
             margin-top: 10px;
         }
-    </style>
-    <script>
-        function showForm() {
-            
-            const selectedOption = document.querySelector('input[name="options"]:checked');
-            const forms = document.querySelectorAll('.offer-form');
 
-            
-            forms.forEach(form => form.style.display = 'none');
-
-            
-            if (selectedOption) {
-                const selectedForm = document.getElementById(selectedOption.value);
-                if (selectedForm) {
-                    selectedForm.style.display = 'block';
-                }
-            }
+        .offer-tag{
+            display: none;
+            margin-top: 10px;
         }
-    </script>
+    </style>
 </head>
 <body>
 
-<form onsubmit="event.preventDefault(); showForm();">
+<form onsubmit="event.preventDefault();">
     <?php foreach ($options as $value => $label): ?>
         <div>
             <label>
@@ -61,19 +49,23 @@ $tag = [
         <div class="offer-form" id="<?php echo $value; ?>">
             <h3>Création de l'offre <?php echo $label; ?></h3>
             <label for="<?php echo $value; ?>_name">Nom de l'offre:</label>
-            <select name="<?php echo $value; ?>_name" id="<?php echo $value; ?>_name">
+            <select name="tag" id=tag>
                 <option value="selection">Type* </option>
                 <?php 
                 foreach ($tag as $value){ ?>
-                    <option value="tag"><?php echo $value ?></option>
+                    <option value="tag" name="test"><?php echo $value ?></option>
                 <?php }; ?>
             </select><br>
         </div>
     <?php endforeach; ?>
 
-    
+    <div class="offer-tag" id="tag1">
 
-    <input type="submit" value="Valider">
+    <h1>dehiohjogh</h1>
+
+    </div>
+
+    <button onclick="showForm();">Valider</button>
 </form>
 
 </body>
