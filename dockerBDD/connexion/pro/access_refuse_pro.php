@@ -1,3 +1,4 @@
+<!-- Page de redirection quand on essaie de se connecter à la page connected_pro.php sans être connecté-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
