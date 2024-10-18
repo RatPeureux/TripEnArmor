@@ -2,6 +2,7 @@
 
 include('../connect_params.php');
 
+
 try {
 
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
@@ -13,11 +14,12 @@ try {
             $denomination = $_POST['denomination'];
             $email = $_POST['email'];
             $mdp = $_POST['mdp'];
-
-    
+            
+            
+                
             // Préparer la requête d'insertion
-            $stmt = $dbh->prepare("INSERT INTO sae._organisation (id, nom, prenom, email, motdepasse, denomination) VALUES (45, 'osrihg', :denomination, :email, :mdp, :denomination)");
-
+            $stmt = $dbh->prepare("INSERT INTO sae._organisation (nom, prenom, email, motdepasse, denomination) VALUES ('osrihg', :denomination, :email, :mdp, :denomination)");
+            
     
             // Lier les paramètres
             $stmt->bindParam(':denomination', $denomination);
@@ -39,7 +41,7 @@ try {
     // Affiche une erreur en cas d'échec de la connexion à la base de données
     echo "Erreur !: " . $e->getMessage();
     die(); // Termine le script
-}           
+}    
 
 ?>
 
