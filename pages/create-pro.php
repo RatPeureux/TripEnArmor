@@ -141,7 +141,7 @@ $mdp = $_POST['mdp'];
     <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
     <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
         <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
-        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="../dockerBDD/connexion/pro/crea_compte_pro.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             <p class="pb-3">Dites-nous en plus !</p>
 
             <!-- Champ pour la dénomination sociale (en lecture seule) -->
@@ -189,17 +189,20 @@ $mdp = $_POST['mdp'];
             <!-- Choix de saisie des informations bancaires -->
             <div class="group">
                 <div class="mb-1.5 flex items-start">
-                    <input class="mt-0.5 mr-1.5" type="checkbox" id="plus" name="plus">
-                    <label class="text-small" for="plus">Je souhaite saisir mes informations bancaires dès maitenant !</u></label>
+                    <input class="mt-0.5 mr-1.5" type="checkbox" id="plus" name="plus" onchange="toggleIBAN()">
+                    <label class="text-small" for="plus">Je souhaite saisir mes informations bancaires dès maintenant !</label>
                 </div>
 
                 <!-- Champ pour l'IBAN -->
-                <div class="hidden group-has-[:checked]:block">
+                <div id="iban-container" class="hidden">
                     <label class="text-small" for="iban">IBAN</label>
                     <input class="p-2 bg-base100 w-full h-12 mb-3 rounded-lg" type="text" id="iban" name="iban" 
-                           pattern="^(FR)\d" title="Saisir un IBAN (FR)" minlength="33" maxlength="33" oninput="formatIBAN(this)" value="FR">
+                        pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Saisir un IBAN (FR)" minlength="33" maxlength="33" 
+                        oninput="formatIBAN(this)" value="">
                 </div>
-            </div>
+            </div>  
+             <!-- Champ caché pour le mot de passe -->
+            <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
 
             <div class="mb-1.5 flex items-start">
                 <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="" required>
@@ -225,6 +228,13 @@ function formatTEL(input) {
     let value = input.value.replace(/[^0-9]/g, '');
     const formattedValue = value.match(/.{1,2}/g)?.join(' ') || ''; // Formatage en paires de chiffres
     input.value = formattedValue;
+}
+
+// Fonction pour afficher ou masquer le champ IBAN
+function toggleIBAN() {
+    const ibanContainer = document.getElementById('iban-container');
+    const checkbox = document.getElementById('plus');
+    ibanContainer.classList.toggle('hidden', !checkbox.checked);
 }
 
 // Fonction pour formater l'IBAN
