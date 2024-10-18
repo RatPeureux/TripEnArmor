@@ -1,5 +1,4 @@
 <?php
-session_start(); // Démarre la session pour pouvoir stocker des informations sur l'utilisateur
 include('../connect_params.php'); // Inclut le fichier de paramètres de connexion à la base de données
 
 $error = ""; // Variable pour stocker les messages d'erreur
