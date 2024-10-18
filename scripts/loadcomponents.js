@@ -22,13 +22,16 @@ async function loadFooterHeader() {
     for (const menu of menus) {
         let activeMenuItemIdx = parseInt(menu.classList.toString());
         let allItemsSections = menu.querySelectorAll('div.all-items');
-        for (const allItems of allItemsSections) {
-            let activeItem = allItems.querySelector(`:nth-child(${activeMenuItemIdx})`);
-            if (activeItem) {
-                activeItem.classList.add('active');
+        if (activeMenuItemIdx) {
+            for (const allItems of allItemsSections) {
+                let activeItem = allItems.querySelector(`:nth-child(${activeMenuItemIdx})`);
+                if (activeItem) {
+                    activeItem.classList.add('active');
+                }
             }
         }
     }
 }
 
 loadFooterHeader();
+
