@@ -1,6 +1,7 @@
 <?php
 include('../connect_params.php'); // Inclut le fichier de configuration pour la connexion à la base de données
-session_start(); // Démarre la session pour accéder aux variables de session
+
+session_start(); // Démarre une session pour gérer l'authentification
 
 $error = ""; // Initialise une variable pour stocker les messages d'erreur
 
@@ -27,7 +28,7 @@ try {
         }
 
         // Vérifie si l'utilisateur a été trouvé et si le mot de passe est correct
-        if ($user && $user['motdepasse'] === $mdp) {
+        if ($user && password_verify($mdp, $user['motdepasse'])) {
             // Stocke les informations de l'utilisateur dans la session
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_pseudo'] = $user['pseudo'];
@@ -71,13 +72,13 @@ try {
                 <label class="text-small" for="connexion">Identifiant*</label> <!-- Label pour l'identifiant -->
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="connexion" name="connexion" required> <!-- Champ pour l'identifiant -->
                 
-                <label class="text-small" for="passwd">Mot de passe*</label> <!-- Label pour le mot de passe -->
+                <label class="text-small" for="mdp">Mot de passe*</label> <!-- Label pour le mot de passe -->
                 <input class="p-2 bg-base100 w-full h-12 mb-3 rounded-lg" type="password" id="mdp" name="mdp" required> <!-- Champ pour le mot de passe -->
 
                 <input class="bg-primary text-white font-bold w-full h-12 mb-1.5 rounded-lg" type="submit" value="Me connecter"> <!-- Bouton de soumission -->
                 <div class="flex flex-nowrap h-12 space-x-1.5"> <!-- Conteneur pour les liens -->
                     <input class="text-primary text-small w-full h-full p-1 rounded-lg border border-primary text-wrap" type="button" value="Mot de passe oublié ?"> <!-- Bouton pour le mot de passe oublié -->
-                    <a class="w-full" href="create-member1.html"> <!-- Lien vers la création de compte -->
+                    <a class="w-full" href="crea_compte_membre.php"> <!-- Lien vers la création de compte -->
                         <input class="text-primary text-small w-full h-full p-1 rounded-lg border border-primary text-wrap" type="button" value="Créer un compte"> <!-- Bouton pour créer un compte -->
                     </a>
                 </div>
