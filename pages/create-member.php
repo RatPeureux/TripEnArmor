@@ -147,7 +147,7 @@ $mdp = $_POST['mdp'];
     <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
     <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
         <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
-        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="../dockerBDD/connexion/membre/crea_compte_membre.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             <p class="pb-3">Dites-nous en plus !</p>
 
             <!-- Champs pour le prénom et le nom (en lecture seule) -->
@@ -167,8 +167,8 @@ $mdp = $_POST['mdp'];
             <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" title="Mon adresse mail" value="<?php echo $mail;?>" readonly>
             
             <!-- Champ pour le pseudonyme -->
-            <label class="text-small" for="username">Pseudonyme*</label>
-            <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="username" name="username" pattern="^(?:(\w+|\w+[\.\-_]?\w+)+" title="Saisir mon pseudonyme PACT" maxlength="16" required>
+            <label class="text-small" for="pseudo">Pseudonyme*</label>
+            <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo" pattern="^(?:(\w+|\w+[\.\-_]?\w+)+" title="Saisir mon pseudonyme PACT" maxlength="16" required>
             
             <!-- Champs pour l'adresse -->
             <label class="text-small" for="adresse">Adresse postale*</label>
@@ -195,6 +195,9 @@ $mdp = $_POST['mdp'];
                 <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="" required>
                 <label class="text-small" for="termes">J’accepte les <u>conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u>Politique de confidentialité et d'utilisation des cookies</u>.</label>
             </div>
+
+            <!-- Champ caché pour le mot de passe -->
+            <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
             
             <!-- Bouton pour créer le compte -->
             <input type="submit" value="Créer mon compte" class="mt-1.5 cursor-pointer w-full h-12 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
