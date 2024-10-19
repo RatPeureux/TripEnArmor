@@ -34,8 +34,7 @@ CREATE TABLE Compte (
     id_compte SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     mdp_hash VARCHAR(255) NOT NULL,
-    num_tel VARCHAR(255),
-    img_id INTEGER REFERENCES T_Image_Img(img_id)
+    num_tel VARCHAR(255)
 );
 
 -- Table Membre
