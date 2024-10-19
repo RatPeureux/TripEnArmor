@@ -29,6 +29,16 @@ CREATE TABLE T_Image_Img ( -- IMG = IMaGe
 
 -- -------------------------------------------------------------------------------------------------------
 
+-- Table Adresse
+CREATE TABLE Adresse (
+    adresse_id SERIAL PRIMARY KEY,
+    code_postale INTEGER NOT NULL,
+    ville VARCHAR(255) NOT NULL,
+    numero INTEGER NOT NULL,
+    odonyme VARCHAR(255),
+    complement_adresse VARCHAR(255)
+);
+
 -- Table abstraite Compte
 CREATE TABLE Compte (
     id_compte SERIAL PRIMARY KEY,
@@ -76,16 +86,6 @@ CREATE TABLE RIB (
 );
 
 -- ----------------------------------------------------------------------
-
--- Table Adresse
-CREATE TABLE Adresse (
-    adresse_id SERIAL PRIMARY KEY,
-    code_postale INTEGER NOT NULL,
-    ville VARCHAR(255) NOT NULL,
-    numero INTEGER NOT NULL,
-    odonyme VARCHAR(255),
-    complement_adresse VARCHAR(255)
-);
 
 -- Table abstraite Offre
 CREATE TABLE Offre (
