@@ -32,11 +32,9 @@ CREATE TABLE T_Image_Img ( -- IMG = IMaGe
 -- Table Adresse
 CREATE TABLE Adresse (
     adresse_id SERIAL PRIMARY KEY,
-    code_postale INTEGER NOT NULL,
-    ville VARCHAR(255) NOT NULL,
-    numero INTEGER NOT NULL,
-    odonyme VARCHAR(255),
-    complement_adresse VARCHAR(255)
+    adresse_postale INTEGER NOT NULL,
+    code_postal INTEGER NOT NULL,
+    ville VARCHAR(255) NOT NULL
 );
 
 -- Table abstraite Compte
