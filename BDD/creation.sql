@@ -34,14 +34,15 @@ CREATE TABLE Compte (
     id_compte SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     mdp_hash VARCHAR(255) NOT NULL,
-    num_tel VARCHAR(255) NOT NULL
+    num_tel VARCHAR(255) NOT NULL,
+    adresse_id INTEGER REFERENCES Adresse(adresse_id) NOT NULL
 );
 
 -- Table Membre
 CREATE TABLE Membre (
+    pseudo VARCHAR(255) PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
-    prenom VARCHAR(255) NOT NULL,
-    pseudo VARCHAR(255) PRIMARY KEY
+    prenom VARCHAR(255) NOT NULL
 ) INHERITS (Compte);
 
 -- Héritage des types de comptes
