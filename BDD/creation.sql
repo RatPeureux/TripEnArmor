@@ -34,7 +34,7 @@ CREATE TABLE Compte (
     id_compte SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     mdp_hash VARCHAR(255) NOT NULL,
-    num_tel VARCHAR(255)
+    num_tel VARCHAR(255) NOT NULL
 );
 
 -- Table Membre
