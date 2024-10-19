@@ -4,3 +4,5 @@ tailwindcss
 .DS_Store
 initialisation_perso
 styles/output.css
+
+.env
