@@ -32,8 +32,8 @@ CREATE TABLE T_Image_Img ( -- IMG = IMaGe
 -- Table Adresse
 CREATE TABLE Adresse (
     adresse_id SERIAL PRIMARY KEY,
-    adresse_postale INTEGER NOT NULL,
-    code_postal INTEGER NOT NULL,
+    adresse_postale VARCHAR(255) NOT NULL,
+    code_postal CHAR(5) NOT NULL,
     ville VARCHAR(255) NOT NULL
 );
 
