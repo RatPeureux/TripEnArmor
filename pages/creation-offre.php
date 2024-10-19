@@ -119,7 +119,7 @@
                 <div class="text-center">
                     <label for="activityType" class="block text-lg">Quel type d'activité ?</label>
                     <select id="activityType" name="activityType" class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full">
-                        <option value="selection">Type d'activité</option>
+                        <option value="selection" selected>Type d'activité</option>
                         <option value="activite">Activité</option>
                         <option value="visite">Visite</option>
                         <option value="spectacle">Spectacle</option>
@@ -147,7 +147,11 @@
                             <!-- Liste des suggestions -->
                             <ul class="list-none mt-2 bg-white border border-gray-300 rounded-lg hidden" id="suggestion-list"></ul>
                             <!-- Les tags ajoutés apparaîtront ici -->
-                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="tag-container"></div>
+                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="activiteTags"></div>
+                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="visiteTags"></div>
+                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="spectacleTags"></div>
+                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="parcAttractionTags"></div>
+                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="restaurationTags"></div>
                         </div>
                         
                         

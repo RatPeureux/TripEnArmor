@@ -14,16 +14,37 @@ const cuisineTags = [
 ];
 
 class TagManager {
-    constructor(inputId, containerId, suggestionListId) {
+    constructor(inputId, suggestionListId) {
         this.tagInput = document.getElementById(inputId);
-        this.tagContainer = document.getElementById(containerId);
+        this.tagContainer = {
+            "activite" : document.getElementById('activiteTags'),
+            "visite" : document.getElementById('visiteTags'),
+            "spectacle" : document.getElementById('spectacleTags'),
+            "parc_attraction" : document.getElementById('parcAttractionTags'),
+            "restauration" : document.getElementById('restaurationTags')
+        } ;
         this.suggestionList = document.getElementById(suggestionListId);
         this.availableTags = []; // Pour stocker les tags disponibles
-        this.addedTagsAct = new Set(); // Pour stocker les tags ajoutés
-        this.addedTags = new Set(); // Pour stocker les tags ajoutés
-        this.addedTags = new Set(); // Pour stocker les tags ajoutés
-        this.addedTags = new Set(); // Pour stocker les tags ajoutés
-        this.addedTags = new Set(); // Pour stocker les tags ajoutés
+        this.addedTags = {
+            has(tag, activityType) {
+                return this[activityType].includes(tag);
+            },
+            delete(tag) {
+                for (const key in this) {
+                    if (Array.isArray(this[key])) {
+                        const index = this[key].indexOf(tag);
+                        if (index > -1) {
+                            this[key].splice(index, 1);
+                        }
+                    }
+                }
+            },
+            "activite" : [],
+            "visite" : [],
+            "spectacle" : [],
+            "parc_attraction" : [],
+            "restauration" : []
+        }; // Pour stocker les tags ajoutés sous forme de dictionnaire
 
         this.init();
     }
@@ -31,7 +52,9 @@ class TagManager {
     init() {
         this.updateSuggestionList();
         this.suggestionList.classList.add('hidden'); // La liste est cachée au départ
-        this.tagContainer.classList.add('hidden'); // Cacher le conteneur de tags au départ
+        for (const key in this.tagContainer) {
+            this.tagContainer[key].classList.add('hidden');
+        };
 
         this.tagInput.addEventListener('focus', () => {
             this.updateSuggestionList();
@@ -51,7 +74,8 @@ class TagManager {
         this.suggestionList.addEventListener('click', (event) => {
             if (event.target.classList.contains('suggestion-item')) {
                 const tag = event.target.getAttribute('data-tag');
-                this.addTag(tag);
+                const activityType = document.getElementById('activityType').value;
+                this.addTag(tag, activityType);
                 this.tagInput.value = '';
                 this.suggestionList.classList.add('hidden'); // Cacher la liste après ajout
             }
@@ -66,8 +90,6 @@ class TagManager {
         switch (activityType) {
             case 'activite':
                 this.availableTags = culturalTags;
-                this.addedTags = []; // Pour stocker les tags ajoutés
-
                 break;
             case 'visite':
                 this.availableTags = culturalTags;
@@ -86,11 +108,13 @@ class TagManager {
                 break;
         }
         this.updateSuggestionList(); // Mettre à jour la liste après changement
+        this.toggleTagContainerVisibility(activityType); // Vérifier la visibilité du conteneur
     }
 
     updateSuggestionList() {
         this.suggestionList.innerHTML = ''; // Vider la liste actuelle
-        const limitedTags = this.availableTags.filter(tag => !this.addedTags.has(tag)).slice(0, 5); // Limiter à 5 éléments
+        const activityType = document.getElementById('activityType').value;
+        const limitedTags = this.availableTags.filter(tag => !this.addedTags.has(tag, activityType)).slice(0, 5); // Limiter à 5 éléments
         limitedTags.forEach(tag => {
             const listItem = document.createElement('li');
             listItem.textContent = tag;
@@ -103,15 +127,15 @@ class TagManager {
         this.suggestionList.classList.toggle('hidden', this.suggestionList.children.length === 0);
     }
 
-    addTag(tag) {
-        if (this.addedTags.has(tag)) {
+    addTag(tag, activityType) {
+        if (this.addedTags.has(tag, activityType)) {
             alert("Ce tag a déjà été ajouté.");
             return;
         }
 
         const tagDiv = document.createElement('div');
         tagDiv.textContent = tag;
-        tagDiv.classList.add('tag', 'bg-green-900', 'text-white', 'py-1', 'px-3', 'rounded-full', 'mr-2', 'flex', 'items-center');
+        tagDiv.classList.add('tag', 'bg-primary', 'text-white', 'py-1', 'px-3', 'rounded-full', 'mr-2', 'flex', 'items-center');
 
         const removeBtn = document.createElement('span');
         removeBtn.textContent = 'X';
@@ -124,22 +148,25 @@ class TagManager {
         };
 
         tagDiv.appendChild(removeBtn);
-        this.tagContainer.appendChild(tagDiv);
-        this.addedTags.add(tag);
+        this.tagContainer[activityType].appendChild(tagDiv);
+        this.addedTags[activityType].push(tag);
         this.updateSuggestionList();
-        this.toggleTagContainerVisibility(); // Vérifier la visibilité du conteneur
+        this.toggleTagContainerVisibility(activityType); // Vérifier la visibilité du conteneur
     }
 
-    toggleTagContainerVisibility() {
-        if (this.addedTags.size > 0) {
-            this.tagContainer.classList.remove('hidden'); // Afficher le conteneur si des tags sont présents
+    toggleTagContainerVisibility(activityType) {
+        for (const key in this.tagContainer) {
+            this.tagContainer[key].classList.add('hidden'); // Cacher tous les conteneurs
+        }
+        if (this.addedTags[activityType].length > 0) {
+            this.tagContainer[activityType].classList.remove('hidden'); // Afficher le conteneur si des tags sont présents
         } else {
-            this.tagContainer.classList.add('hidden'); // Cacher le conteneur s'il n'y a pas de tags
+            this.tagContainer[activityType].classList.add('hidden'); // Cacher le conteneur s'il n'y a pas de tags
         }
     }
 }
 
 // Initialisation des tags
 document.addEventListener('DOMContentLoaded', () => {
-    new TagManager('tag-input', 'tag-container', 'suggestion-list');
+    new TagManager('tag-input', 'suggestion-list');
 });
