@@ -1,8 +1,7 @@
-<!-- Page pour saisir les infos de la db -->
-<?php
-$server = 'servbdd.iutlan.etu.univ-rennes1.fr';
-$driver = 'pgsql';
-$dbname = '';
-$user   = '';
-$pass	= '';
+<?php 
+$server = 'localhost'; // ou '127.0.0.1' pour se connecter à une base de données locale 
+$driver = 'pgsql'; 
+$dbname = 'postgres'; // Remplacez par le nom de votre base 
+$user   = 'postgres'; // Remplacez par votre nom d'utilisateur 
+$pass   = 'Albagumy1'; // Remplacez par votre mot de passe 
 ?>
