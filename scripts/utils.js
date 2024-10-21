@@ -1,3 +1,4 @@
+// Activer le menu principal de navigation de la page
 function toggleMenu() {
     let menu = document.querySelector('#menu>div');
     if (menu) {
