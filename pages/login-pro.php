@@ -103,8 +103,8 @@ try {
         $id = $_POST['id']; // Récupère l'id soumise
         $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
 
-        // Prépare une requête SQL pour trouver l'utilisateur par email ou nom
-        $stmt = $dbh->prepare("SELECT * FROM sae._organisation WHERE email = :id OR nom = :id");
+        // Prépare une requête SQL pour trouver l'utilisateur par nom, email ou numéro de téléphone
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE nom = :id OR email = :id OR num_tel = :id");
         $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
         $stmt->execute(); // Exécute la requête
 
@@ -119,7 +119,7 @@ try {
         // Vérifie si l'utilisateur existe et si le mot de passe est correct
         if ($user && $user['motdepasse']) {
             // Stocke les informations de l'utilisateur dans la session
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_id'] = $user['id_compte'];
             $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_name'] = $user['prenom'];
@@ -134,6 +134,6 @@ try {
     die(); // Arrête l'exécution du script
 }
 
-header("location: ../../../pages/login-pro.html");
+header("location: login-pro.html");
 
 } ?>
