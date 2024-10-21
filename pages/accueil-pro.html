@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/output.css">
-    <script type="module" src="/scripts/main.js"></script>
+    <link rel="stylesheet" href="../styles/output.css">
+    <script type="module" src="../scripts/main.js"></script>
     <title>PACT - Accueil</title>
 </head>
 <body class="flex flex-col">
@@ -41,7 +41,7 @@
                         </a>
                     </div>
                     <!-- Image de fond -->
-                    <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
+                    <img class="rounded-l-lg w-full h-full object-cover object-center" src="../public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
                 </div>
                 <!-- Partie droite (infos principales) -->
                 <div class="infos flex flex-col items-center self-stretch px-5 py-3 gap-3 justify-between">
@@ -98,7 +98,7 @@
                         </a>
                     </div>
                     <!-- Image de fond -->
-                    <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
+                    <img class="rounded-l-lg w-full h-full object-cover object-center" src="../public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
                 </div>
                 <!-- Partie droite (infos principales) -->
                 <div class="infos flex flex-col items-center self-stretch px-5 py-3 gap-3 justify-between">
@@ -135,9 +135,13 @@
                     </div>
                 </div>
             </div>
+
+            <div id="offres-container" class="flex flex-col gap-4">
+                <!-- Les offres seront chargées ici par AJAX -->
+            </div>
             
             <!-- Bouton de création d'offre -->
-            <a href="" class="font-bold p-4 self-end bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
+            <a href="creation-offre.html" class="font-bold p-4 self-end bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
             focus:scale-[0.97]">
                 + Nouvelle offre
             </a>
@@ -146,6 +150,6 @@
     </main>
 
     <div id="footer-pro"></div>
-
+<script src="ajout.js"></script>
 </body>
 </html>

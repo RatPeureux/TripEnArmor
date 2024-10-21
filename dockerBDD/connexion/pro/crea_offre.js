@@ -1,56 +1,110 @@
-function showForm() {
+function showFormPart1() {
     console.log("test"); // Affiche "test" dans la console pour vérifier que la fonction est appelée
 
-    // Récupère l'option sélectionnée dans les boutons radio
-    const selectedOption = document.querySelector('input[name="options"]:checked');
-    console.log(selectedOption); // Affiche l'option sélectionnée dans la console
+    const selectedValider = document.getElementById('part-1');
+    console.log(selectedValider); // Affiche l'option sélectionnée dans la console
 
     // Récupère tous les formulaires avec la classe "offer-form"
-    const forms = document.querySelectorAll('.offer-form');
+    const forms = document.querySelectorAll('.offer-form-part-1');
 
     // Masque tous les formulaires
     forms.forEach(form => form.style.display = 'none');
 
     // Si une option est sélectionnée, affiche le formulaire correspondant
-    if (selectedOption) {
-        const selectedForm = document.getElementById(selectedOption.value); // Récupère le formulaire correspondant à la valeur de l'option sélectionnée
+    if (selectedValider) {
+        console.log("gqderfghesqherthgqdshehesdh");
+        const selectedForm = document.getElementById('part-1'); // Récupère le formulaire correspondant à la valeur de l'option sélectionnée
         if (selectedForm) {
-            selectedForm.style.display = 'block'; // Affiche le formulaire
+            console.log("zehahahahahahahahahah0");
+            document.getElementById('part-1').style.display = 'block'; // Affiche le formulaire
 
         }
     }
 }
 
-function showTag() {
-    // Récupère l'élément sélectionné dans le sélecteur d'options
-    const selectedTag = document.querySelector('#tag');
-    // Récupère tous les éléments avec la classe "offer-tag"
-    const afterTag = document.getElementById('tag1');
+function showFormPart2() {
+    console.log("part 2");
+    
+    const selectedDerniereEtape = document.getElementById('part-2');
+    console.log(selectedDerniereEtape);
 
-    // Si une option est sélectionnée dans le sélecteur, affiche l'élément correspondant
-    if (selectedTag) {
-        const selectedFormTag = selectedTag.value; // Récupère la valeur de l'option sélectionnée
-        if (selectedFormTag) {
-            document.getElementById('tag1').style.display = 'block'; // Affiche l'élément correspondant
+    const forms = document.querySelectorAll('.offer-form-part-2');
+
+    forms.forEach(form => form.style.display = 'none');
+
+    if (selectedDerniereEtape) {
+        console.log("réussi");
+        const selectedForm = document.getElementById('part-2');
+        if (selectedForm) {
+            console.log("Le mec est juste monstrueux");
+            document.getElementById('part-2').style.display = 'block';
         }
     }
 }
 
-function showDesc() {
-    // Récupère l'élément sélectionné dans le sélecteur d'options
-    const selectedDesc = document.querySelector('input[name="description"]:checked');
-    // Récupère tous les éléments avec la classe "offer-tag"
-    const desc = document.querySelector('.offer-desc');
+function gratuit(){
 
-    // Si une option est sélectionnée dans le sélecteur, affiche l'élément correspondant
-    if (selectedDesc) {
-        const selectedFormDesc = document.getElementById(selectedOption.value); // Récupère la valeur de l'option sélectionnée
-        if (selectedFormDesc) {
-            selectedDesc.style.display = 'block'; // Affiche l'élément correspondant
+    const selectedGratuit = document.getElementById('op');
+
+    const forms = document.querySelectorAll('.avecOptions');
+
+    // forms.forEach(form => form.style.display = 'block');
+
+    if (selectedGratuit) {
+        console.log("réussi");
+        const selectedForm = document.getElementById('op');
+        if (selectedForm) {
+            console.log("Le mec est juste monstrueux");
+            document.getElementById('op').style.display = 'none';
+        }else{
+            document.getElementById('op').style.display = 'block';
         }
     }
+
 }
 
-window.showForm = showForm;
-window.showTag = showTag;
-window.showDesc = showDesc;
+function standard(){
+
+    const selectedGratuit = document.getElementById('op');
+
+    const forms = document.querySelectorAll('.avecOptions');
+
+    // forms.forEach(form => form.style.display = 'block');
+
+    if (selectedGratuit) {
+        console.log("réussi");
+        const selectedForm = document.getElementById('op');
+        if (selectedForm) {
+            console.log("Le mec est juste monstrueux");
+            document.getElementById('op').style.display = 'block';
+        }
+    }
+
+}
+
+function premium(){
+
+    const selectedGratuit = document.getElementById('op');
+
+    const forms = document.querySelectorAll('.avecOptions');
+
+    // forms.forEach(form => form.style.display = 'block');
+
+    if (selectedGratuit) {
+        console.log("réussi");
+        const selectedForm = document.getElementById('op');
+        if (selectedForm) {
+            console.log("Le mec est juste monstrueux");
+            document.getElementById('op').style.display = 'block';
+        }
+    }
+
+}
+
+
+
+window.showFormPart1 = showFormPart1;
+window.showFormPart2 = showFormPart2;
+window.gratuit = gratuit;
+window.standard = standard;
+window.premium = premium;

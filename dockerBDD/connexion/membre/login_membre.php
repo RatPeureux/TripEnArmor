@@ -15,7 +15,7 @@ try {
         $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
 
         // Prépare une requête SQL pour trouver l'utilisateur par email ou nom
-        $stmt = $dbh->prepare("SELECT * FROM sae._membre WHERE email = :id OR pseudo = :id");
+        $stmt = $dbh->prepare("SELECT * FROM sae_db.Membre WHERE email = :id OR pseudo = :id");
         $stmt->bindParam(':id', $email); // Lie le paramètre à la valeur de l'email
         $stmt->execute(); // Exécute la requête
 
@@ -28,13 +28,13 @@ try {
         error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
         
         // Vérifie si l'utilisateur existe et si le mot de passe est correct
-        if ($user && password_verify($mdp, $user['motdepasse'])) {
+        if ($user && password_verify($mdp, $user['mdp_hash'])) {
             // Stocke les informations de l'utilisateur dans la session
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_id'] = $user['id_compte'];
             $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_name'] = $user['prenom'];
-            header('location: ../../../pages/accueil.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
+            header('location: ../../../pages/toutes-offres.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
             exit();
         } else {
             $error = "Email ou mot de passe incorrect"; // Message d'erreur si les identifiants ne sont pas valides
@@ -45,6 +45,6 @@ try {
     die(); // Arrête l'exécution du script
 }
 
-header("location: ../../../pages/login-member.html");
+header("location: ../../../pages/toutes-offres.html");
 
 ?>

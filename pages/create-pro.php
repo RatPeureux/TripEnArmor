@@ -180,9 +180,9 @@ $mdp = $_POST['mdp'];
             </div>
 
             <!-- Champ pour le numéro de téléphone -->
-            <label class="text-small" for="tel">Téléphone*</label>
+            <label class="text-small" for="num_tel">Téléphone*</label>
             <div class="w-full">
-                <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 rounded-lg" type="tel" id="tel" name="tel" 
+                <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel" 
                        pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14" oninput="formatTEL(this)" required>
             </div>
 

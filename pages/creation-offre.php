@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="stylesheet" href="../styles/output.css">
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=<?php echo getenv('GOOGLE_MAPS_API_KEY'); ?>&language=fr "></script>
     <script type="text/javascript" src="../scripts/autocomplete.js"></script>
+    <script type="module" src="../dockerBDD/connexion/pro/crea_offre.js"></script>
+    <style>
+        .offer-form-part-1{
+            display: none;
+            margin-top: 10px;
+        }
+
+        .offer-form-part-2{
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
     <!-- 
@@ -26,7 +38,7 @@
         <div class="bg-base200 w-[1024px] flex flex-col items-center justify-center p-8 rounded-xl">
             <!-- Lien de retour avec une icône et un titre -->
             <div class="w-full text-left">
-                <a href="" class="flex content-center space-x-">
+                <a href="accueil-pro.html" class="flex content-center space-x-">
                     <div class="m-4">
                         <i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>        
                     </div>
@@ -39,7 +51,7 @@
             <div class="flex flex-wrap sm:flex-nowrap sm:space-x-[50px] space-y-6 sm:space-y-0 p-6">
                 <!-- Carte de l'offre gratuite -->
                 <div class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white sm:h-full">
-                    <input type="radio" name="offer" id="offer1" class="hidden" checked>
+                    <input type="radio" name="offer" id="offer1" class="hidden" checked onclick="gratuit()">
                     <label for="offer1" class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
                         <div class="h-full divide-y divide-current">
                             <div>
@@ -62,7 +74,7 @@
                 </div>
                 <!-- Carte de l'offre standard -->
                 <div class="border border-primary rounded-lg flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white sm:h-full">
-                    <input type="radio" name="offer" id="offer2" class="hidden" checked>
+                    <input type="radio" name="offer" id="offer2" class="hidden" checked onclick="standard()">
                     <label for="offer2" class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
                         <div class="h-full divide-y divide-current">
                             <div>
@@ -86,7 +98,7 @@
                 </div>
                 <!-- Carte de l'offre premium -->
                 <div class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white sm:h-full">
-                    <input type="radio" name="offer" id="offer3" class="hidden" checked>
+                    <input type="radio" name="offer" id="offer3" class="hidden" checked onclick="premium()">
                     <label for="offer3" class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
                         <div class="h-full divide-y divide-current">
                             <div>
@@ -110,7 +122,7 @@
             </div>
             <!-- Bouton de soumission -->
             <div class="flex justify-center content-center">
-                <input type="submit" class="bg-primary text-white w-[300px] font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white m-1" value="Valider"/>
+                <input type="submit" class="bg-primary text-white w-[300px] font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white m-1" onclick="showFormPart1()" value="Valider"/>
             </div>
             <br>
             <br>
