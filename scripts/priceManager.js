@@ -53,7 +53,6 @@ class PriceManager {
     }
 
     updateTarifs() {
-        console.log("In updateTarifs");
         this.priceInput.innerHTML = '';
         if (this.pricesContainer.size() === 0) {
             const emptyMessage = document.createElement('div');

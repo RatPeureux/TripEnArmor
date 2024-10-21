@@ -113,7 +113,9 @@ class TagManager {
                 break;
         }
         this.updateSuggestionList(); // Mettre à jour la liste après changement
-        this.toggleTagContainerVisibility(activityType); // Vérifier la visibilité du conteneur
+        if (activityType !== 'selection') {
+            this.toggleTagContainerVisibility(activityType); // Vérifier la visibilité du conteneur
+        }
     }
 
     updateSuggestionList() {
