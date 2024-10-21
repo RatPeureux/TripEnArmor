@@ -17,6 +17,9 @@ class TagManager {
     constructor(inputId, suggestionListId) {
         this.tagInput = document.getElementById(inputId);
         this.tagContainer = {
+            removeChild(activityType, child) {
+                this[activityType].remove(child);
+            },
             "activite" : document.getElementById('activiteTags'),
             "visite" : document.getElementById('visiteTags'),
             "spectacle" : document.getElementById('spectacleTags'),
@@ -53,7 +56,9 @@ class TagManager {
         this.updateSuggestionList();
         this.suggestionList.classList.add('hidden'); // La liste est cachée au départ
         for (const key in this.tagContainer) {
-            this.tagContainer[key].classList.add('hidden');
+            if (typeof this.tagContainer[key] === 'string') {
+                this.tagContainer[key].classList.add('hidden');
+            }
         };
 
         this.tagInput.addEventListener('focus', () => {
@@ -141,10 +146,10 @@ class TagManager {
         removeBtn.textContent = 'X';
         removeBtn.classList.add('remove-tag', 'ml-8', 'cursor-pointer');
         removeBtn.onclick = () => {
-            this.tagContainer.removeChild(tagDiv);
+            this.tagContainer.removeChild(activityType, tagDiv);
             this.addedTags.delete(tag);
             this.updateSuggestionList();
-            this.toggleTagContainerVisibility(); // Vérifier la visibilité du conteneur
+            this.toggleTagContainerVisibility(activityType); // Vérifier la visibilité du conteneur
         };
 
         tagDiv.appendChild(removeBtn);
@@ -156,7 +161,9 @@ class TagManager {
 
     toggleTagContainerVisibility(activityType) {
         for (const key in this.tagContainer) {
-            this.tagContainer[key].classList.add('hidden'); // Cacher tous les conteneurs
+            if (typeof this.tagContainer[key] === 'string') {
+                this.tagContainer[key].classList.add('hidden');
+            }
         }
         if (this.addedTags[activityType].length > 0) {
             this.tagContainer[activityType].classList.remove('hidden'); // Afficher le conteneur si des tags sont présents

@@ -180,7 +180,5 @@ CREATE TABLE Horaire (
 CREATE TABLE Tarif_Public (
     tarif_id SERIAL PRIMARY KEY,
     titre_tarif VARCHAR(255) NOT NULL,
-    age_min INTEGER,
-    age_max INTEGER,
     offre_id INTEGER REFERENCES Offre(offre_id)
 );

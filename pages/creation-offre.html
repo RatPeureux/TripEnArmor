@@ -326,20 +326,20 @@
                         </div>
                         <!-- Radio button -->
                         <div class="flex flex-row space-x-8 content-center justify-center items-center text-secondary ">
-                            <!-- Option en relief -->
-                            <div>
-                                <input type="radio" id="option-relief" name="option" value="option-relief" checked/>
-                                <label for="option-relief">En Relief</label>
-                            </div>
-                            <!-- À la une -->
-                            <div>
-                                <input type="radio" id="option-a-la-une" name="option" value="option-a-la-une"/>
-                                <label for="option-a-la-une">À la une</label>
-                            </div>
                             <!-- Sans option -->
                             <div>
                                 <input type="radio" id="option-rien" name="option" value="option-rien" class="border"/>
                                 <label for="option-rien">Sans option</label>
+                            </div>
+                            <!-- Option en relief -->
+                            <div>
+                                <input type="radio" id="option-relief" name="option" value="option-relief" checked/>
+                                <label for="option-relief">En Relief (3.99€)</label>
+                            </div>
+                            <!-- À la une -->
+                            <div>
+                                <input type="radio" id="option-a-la-une" name="option" value="option-a-la-une"/>
+                                <label for="option-a-la-une">À la une (5.99€)</label>
                             </div>
                         </div>
                         <!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
@@ -349,6 +349,44 @@
                         </div>
 
                         <!-- GRILLE TARIFAIRE -->
+
+                        <div class="border border-secondary rounded-xl p-2">
+                            <h2 class="text-title text-center text-secondary">Grille tarifaire</h2>
+                            <div id="grilleTarifaire">
+
+                            </div>
+                            <h3 class="text-lg text-secondary mb-4">Créer un nouveau prix</h3>
+                            <div class="flex flex-col space-y-2">
+                                <div class="flex justify-between items-center w-full space-x-2">
+                                    <label class="text-nowrap" for="newPrixName">
+                                        Nom de l'offre: *
+                                    </label>
+                                    <input type="text" name="newPrixName" id="newPrixName" class="border border-secondary rounded-lg p-2 bg-white w-full" required>
+                                </div>
+                                
+                                <div class="flex justify-between items-center w-full space-x-2">
+                                    <label class="text-nowrap" for="newPrixValeur">
+                                        Prix de l'offre: *
+                                    </label>
+                                    <input type="number" name="newPrixValeur" id="newPrixValeur" min="0" class="border border-secondary rounded-lg p-2 bg-white w-full" required>
+                                    <p>
+                                        €
+                                    </p>
+                                </div>
+                                
+                                <div class="flex justify-between items-center w-full space-x-2">
+                                    <label class="text-nowrap" for="newPrixPosition">
+                                        Position de l'offre dans la grille: *
+                                    </label>
+                                    <input type="number" name="newPrixPosition" id="newPrixPosition" min="0" class="border border-secondary rounded-lg p-2 bg-white w-full" required>
+                                </div>
+                            </div>
+
+                            <div href="" class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] m-1 cursor-pointer" id="addPriceButton">        
+                                <i class="fa-solid fa-plus fa-xl mr-2"></i>
+                                Ajouter le prix
+                            </div>
+                        </div>
 
                         <!-- PRESTATIONS -->
 
@@ -364,6 +402,8 @@
         </div>
     </div>
     <script src="../scripts/tagManager.js"></script>
+    <script src="../scripts/priceManager.js"></script>
 
+    <div class="hidden right-0 m-2">Je sais c'est honteux</div>
 </body>
 </html>
