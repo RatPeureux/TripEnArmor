@@ -23,9 +23,9 @@
             Composant dynamique (généré avec les données en php)
             Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
             -->
-            <div class="card active relative bg-base300 rounded-lg flex min-h-[400px]">
+            <div class="card active relative bg-base300 rounded-lg flex">
                 <!-- Partie gauche -->
-                <div class="gauche relative shrink-0 basis-1/2 overflow-hidden">
+                <div class="gauche relative shrink-0 basis-1/2 h-[420px] overflow-hidden">
                     <!-- En tête -->
                     <div class="en-tete flex justify-around absolute top-0 w-full">
                         <div class="bg-bgBlur/75 backdrop-blur rounded-b-lg w-3/5">
@@ -45,9 +45,9 @@
                     <img class="rounded-l-lg w-full h-full object-cover object-center" src="../public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
                 </div>
                 <!-- Partie droite (infos principales) -->
-                <div class="infos flex flex-col items-center self-stretch px-5 py-3 gap-3 justify-between">
+                <div class="infos flex flex-col items-center self-stretch px-5 py-3 justify-between">
                     <!-- Description -->
-                    <div class="description py-2 flex flex-col gap-2">
+                    <div class="description py-2 flex flex-col gap-2 w-full">
                         <div class="flex justify-center relative">
                             <div class="p-2 rounded-lg bg-secondary self-center">
                                 <p class="text-white text-center font-bold">Petit déjeuner, Dîner, Boissons</p>
@@ -59,7 +59,7 @@
                             </a>
                             <div class="details-menu hidden rounded-lg absolute right-0 bg-white">
                                 <ul class="rounded-lg flex flex-col">
-                                    <a href="">
+                                    <a href="./details.html">
                                         <li class="rounded-t-lg p-2 hover:bg-primary hover:text-white duration-200" >Details</li>
                                     </a>
                                     <a href="">
@@ -69,13 +69,13 @@
                             </div>
                         </div>
                         <p class="line-clamp-6">
-                            Priscilla en salle, son mari Christophe chef de cuisine et toute l'équipe vous accueillent dans leur restaurant, Ouvert depuis Janvier 2018, dans le quartier Historique De Lannion :" Brélévenez"
+                            Priscilla en salle, son mari Christophe chef de cuisine et toute l'équipe vous accueillent dans leur restaurant,
+                            ouvert depuis Janvier 2018, dans le quartier Historique De Lannion :" Brélévenez"
                             Quartier célèbre pour son église avec son escalier de 142 marches pour y accéder.
                             Christophe vous propose une cuisine de produits locaux et de saisons.
                             Restaurant ouvert à l'année.
                             Fermé mardi et mercredi toute la journée et le samedi midi.
-                            Restaurant ouvert à l'année.
-                            (Parking privé)
+                            (Parking privé) 
                         </p>
                     </div>
                     <!-- A droite, en bas -->
@@ -101,17 +101,17 @@
                             <div class="flex justify-between">
                                 <div class="flex italic justify-start gap-4">
                                     <!-- Non vus -->
-                                     <a href="">
-                                        <i class="fa-solid fa-exclamation text-rouge-logo"></i>
+                                     <a href="" class="hover:text-primary">
+                                        <i class=" fa-solid fa-exclamation text-rouge-logo"></i>
                                         (12)
                                      </a>
                                      <!-- Non répondus -->
-                                     <a href="">
+                                     <a href="" class="hover:text-primary">
                                         <i class="fa-solid fa-reply-all text-rouge-logo"></i>
                                         (53)
                                      </a>
                                      <!-- Blacklistés -->
-                                     <a href="">
+                                     <a href="" class="hover:text-primary">
                                         <i class="fa-regular fa-eye-slash text-rouge-logo"></i>
                                         (2)
                                      </a>
