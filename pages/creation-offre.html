@@ -24,8 +24,8 @@
 
 <body>
     <!-- Conteneur principal pour le contenu -->
-    <div class="flex justify-center align-baseline pb-8">
-        <div class="bg-base200 w-[1024px] flex flex-col items-center justify-center p-8 rounded-xl">
+    <div class="flex justify-center align-baseline px-24">
+        <div class="bg-base200 min-w-[1024px] w-[1024px] flex flex-col items-center justify-center p-8 rounded-xl">
             <!-- Lien de retour avec une icône et un titre -->
             <div class="w-full text-left">
                 <a href="" class="flex content-center space-x-">
@@ -117,13 +117,109 @@
                 </div>
             </div>
             <!-- Bouton de soumission -->
-            <div class="flex justify-center content-center w-1/2">
+            <div class="flex justify-center content-center w-1/2 mb-8">
                 <input type="submit"
                     class="bg-primary text-white w-full font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white m-1"
                     value="Valider" />
             </div>
             <form action="" method="GET">
-                <div class="w-full grid grid-cols-2 gap-8 mb-4x">
+                <div class="w-full grid grid-cols-2 gap-2 mb-8">
+                    <!-- Titre -->
+                    <div class="col-span-1 flex flex-col justify-center w-full">
+                        <label for="titre" class="text-nowrap">Titre* :</label>
+                        <input type="text" id="titre" class="border border-secondary rounded-lg p-2 bg-white w-full"
+                            required>
+                    </div>
+
+                    <!-- Auteur -->
+                    <div class="col-span-1 flex flex-col w-full">
+                        <label for="auteur" class="text-nowrap">Auteur* :</label>
+                        <input
+                        type="text"
+                        id="auteur"
+                        class="border border-secondary rounded-lg p-2 bg-white w-full text-gray-600"
+                        value="Nom du compte"
+                        required
+                        readonly>
+                    </div>
+
+                    <div class="col-span-1">
+                    <!-- Adresse -->
+                        <div class="justify-between items-center w-full mb-2">
+                            <label for="user_input_autocomplete_address" class="text-nowrap">Adresse* :</label>
+                            <input type="text" id="user_input_autocomplete_address"
+                                name="user_input_autocomplete_address" placeholder="Entrez une adresse"
+                                class="border border-secondary rounded-lg p-2 bg-white w-full" required>
+                        </div>
+                    </div>
+
+                    <div class="col-span-1 flex justify-between items-center">
+                        <div class="flex justify-between items-center w-full space-x-2">
+                            <label for="locality" class="text-nowrap">Ville* :</label>
+                            <input type="text" id="locality"
+                            class="border border-secondary rounded-lg p-2 bg-white w-full" required>
+                            
+                            <label for="postal_code" class="text-nowrap">Code postal* :</label>
+                            <input type="number" min="0" step="10" max="57000" id="postal_code"
+                                class="border border-secondary rounded-lg p-2 bg-white w-24" required>
+                        </div>
+                    </div>
+
+                    <!-- Photo principale -->
+                    <div class="col-span-1 flex flex-col justify-between w-full space-x-2">
+                        <div class="h-4"></div>
+                        <label for="photo-upload-carte" class="text-nowrap w-full">Photo principale :*</label>
+                        <input type="file" name="photo-upload-carte" id="photo-upload-carte" class="text-small text-secondary block w-full
+                        file:flex file:flex-col
+                        file:mr-5 file:py-3 file:px-10
+                        file:rounded-lg
+                        file:text-small file:font-bold  file:text-secondary
+                        file:border file:border-secondary
+                        hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
+                        accept=".svg,.png,.jpg" required />
+                    </div>
+
+                    <!-- Photos détaillée -->
+                    <div class="col-span-1 flex flex-col justify-between w-full space-x-2">
+                        <div class="h-4"></div>
+                        <label for="photo-detail" class="text-nowrap w-full">Photos de l'offre détaillée
+                            :</label>
+                        <input type="file" name="photo-detail" id="photo-detail" class="text-small text-secondary block w-full
+                            file:flex file:flex-col
+                            file:mr-5 file:py-3 file:px-10
+                            file:rounded-lg
+                            file:text-small file:font-bold  file:text-secondary
+                            file:border file:border-secondary
+                            hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
+                            accept=".svg,.png,.jpg" />
+                    </div>
+
+                    <!-- Résumé -->
+                    <div class="col-span-1 flex flex-col items-center w-full space-x-2">
+                        <label for="resume" class="text-nowrap w-full">Résumé* :</label>
+                        <textarea id="resume" name="resume"
+                        class="border border-secondary rounded-lg p-2 bg-white w-full" rows="4"
+                        placeholder="Le résumé sera visible sur la carte de l'offre ! " required></textarea>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-span-1 flex flex-col items-center w-full space-x-2">
+                        <label for="description" class="text-nowrap w-full">Description* :</label>
+                        <textarea id="description" name="description"
+                        class="border border-secondary rounded-lg p-2 bg-white w-full" rows="4"
+                        placeholder="La description sera visible sur l'offre détaillée !"></textarea>
+                    </div>
+
+                    <!-- Accessibilité -->
+                    <div class="col-span-2 flex flex-col justify-between items-center w-full space-x-2">
+                        <label for="accessibilite" class="text-nowrap w-full">Accessibilité* :</label>
+                        <textarea id="accessibilite" name="description"
+                        class="border border-secondary rounded-lg p-2 bg-white w-full" rows="4"
+                        placeholder="L'accessibilité sera visible sur l'offre détaillée !"></textarea>
+                    </div>
+
+                    <div class="col-span-2 h-4"></div>
+
                     <div class="col-span-2 flex flex-col items-center justify-center">
                         <!-- Sélection du type d'activité -->
                         <div class="text-center w-1/2">
@@ -139,98 +235,26 @@
                             </select>
                         </div>
                     </div>
-                    <!-- Titre -->
-                    <div class="col-span-1 flex flex-col justify-center w-full">
-                        <label for="titre" class="text-nowrap">Titre* :</label>
-                        <input type="text" id="titre" class="border border-secondary rounded-lg p-2 bg-white w-full"
-                            required>
-                    </div>
 
-                    <!-- TAG -->
                     <div class="col-span-1 flex flex-col w-full">
                         <label for="tag-input" class="block text-nowrap">Tags* :</label>
                         <div class="relative">
-                            <input type="text" id="tag-input"
+                            <select type="text" id="tag-input"
                                 class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full"
-                                placeholder="Ajouter un tag..." required />
-                            <div class="absolute z-10 w-full bg-white border border-gray-300 rounded-lg max-h-32 overflow-y-auto hidden"
-                                id="suggestions"></div>
+                                placeholder="Ajouter un tag...">
+                                <option value="" class="hidden">Rechercher un tag</option>
+                            </select>
                         </div>
-                        <!-- Liste des suggestions -->
-                        <ul class="list-none mt-2 bg-white border border-gray-300 rounded-lg hidden"
-                            id="suggestion-list"></ul>
-                        <!-- Les tags ajoutés apparaîtront ici -->
-                        <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="activiteTags">
-                        </div>
-                        <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="visiteTags"></div>
-                        <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="spectacleTags">
-                        </div>
-                        <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden"
-                            id="parcAttractionTags"></div>
-                        <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="restaurationTags">
-                        </div>
-                    </div>
-
-
-                    <!-- Auteur -->
-                    <div class="col-span-1 flex flex-col justify-center w-full">
-                        <label for="auteur" class="text-nowrap">Auteur* :</label>
-                        <input type="text" id="auteur"
-                            class="border border-secondary rounded-lg p-2 bg-white w-full" required>
                     </div>
 
                     <div class="col-span-1">
-                    <!-- Adresse -->
-                        <div class="justify-between items-center w-full mb-2">
-                            <label for="user_input_autocomplete_address" class="text-nowrap">Adresse* :</label>
-                            <input type="text" id="user_input_autocomplete_address"
-                                name="user_input_autocomplete_address" placeholder="Entrez une adresse"
-                                class="border border-secondary rounded-lg p-2 bg-white w-full" required>
-                        </div>
-
-                        <!-- Ville & code postal -->
-                        <div class="flex justify-between items-center w-full space-x-2">
-                            <label for="locality" class="text-nowrap">Ville* :</label>
-                            <input type="text" id="locality"
-                            class="border border-secondary rounded-lg p-2 bg-white w-full" required>
-                            
-                            <label for="postal_code" class="text-nowrap">Code postal* :</label>
-                            <input type="number" min="0" step="10" max="57000" id="postal_code"
-                                class="border border-secondary rounded-lg p-2 bg-white w-24" required>
-                        </div>
+                        <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="activiteTags"></div>
+                        <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="visiteTags"></div>
+                        <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="spectacleTags"></div>
+                        <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="parcAttractionTags"></div>
+                        <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="restaurationTags"></div>
                     </div>
 
-                    <div class="col-span-1 flex">
-                        <!-- Photo principale -->
-                        <div class="flex flex-col justify-between w-full space-x-2">
-                            <div class="h-4"></div>
-                            <label for="photo-upload-carte" class="text-nowrap w-full">Photo principale :*</label>
-                            <input type="file" name="photo-upload-carte" id="photo-upload-carte" class="text-small text-secondary block w-full
-                            file:flex file:flex-col
-                            file:mr-5 file:py-3 file:px-10
-                            file:rounded-lg
-                            file:text-small file:font-bold  file:text-secondary
-                            file:border file:border-secondary
-                            hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-                            accept=".svg,.png,.jpg" required />
-                        </div>
-
-                        <!-- Photos détaillée -->
-                        <div class="flex flex-col justify-between w-full space-x-2">
-                            <div class="h-4"></div>
-                            <label for="photo-detail" class="text-nowrap w-full">Photos de l'offre détaillée
-                                :</label>
-                            <input type="file" name="photo-detail" id="photo-detail" class="text-small text-secondary block w-full
-                                file:flex file:flex-col
-                                file:mr-5 file:py-3 file:px-10
-                                file:rounded-lg
-                                file:text-small file:font-bold  file:text-secondary
-                                file:border file:border-secondary
-                                hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-                                accept=".svg,.png,.jpg" />
-                        </div>
-                    </div>
-                    <div class="col-span-1"></div>
                     <!-- PARAMÈTRES DÉPENDANT DE LA CATÉGORIE DE L'OFFRE -->
                     <!-- Visite guidée -->
                     <!-- Visite -->
@@ -264,7 +288,7 @@
 
                     <!-- Durée (HEURE & MIN) -->
                     <!-- Activité, Visite, Spectacle -->
-                    <div class="flex justify-between items-center w-full space-x-1 optionActivite optionVisite optionSpectacle hidden">
+                    <div class="col-span-1 flex justify-between items-center w-full space-x-1 optionActivite optionVisite optionSpectacle hidden">
                         <label for="duree" class="text-nowrap">Durée* :</label>
                         <input type="number" id="duree" pattern="/d+/" min="0" max="24"
                             class="border border-secondary rounded-lg p-2 bg-white w-full text-right" required>
@@ -276,7 +300,7 @@
 
                     <!-- Âge requis -->
                     <!-- Activité, Parc d'attractions -->
-                    <div class="flex justify-between items-center w-full space-x-2 optionActivite optionParcAttraction hidden">
+                    <div class="col-span-1 flex justify-between items-center w-full space-x-2 optionActivite optionParcAttraction hidden">
                         <label for="age-min" class="text-nowrap">Âge requis* :</label>
                         <input type="number" id="age-min" pattern="/d+/" min="0" max="125"
                             class="border border-secondary rounded-lg p-2 bg-white w-full text-right" required>
@@ -285,7 +309,7 @@
 
                     <!-- Prix minimal -->
                     <!-- Activité, Spectacle -->
-                    <div class="flex justify-between items-center w-full space-x-2 optionActivite optionSpectacle hidden">
+                    <div class="col-span-1 flex justify-between items-center w-full space-x-2 optionActivite optionSpectacle hidden">
                         <label for="prix-min" class="text-nowrap">Prix minimal* :</label>
                         <input type="number" id="prix-min" pattern="/d+/" onchange="" min="0"
                             class="border border-secondary rounded-lg p-2 bg-white w-full text-right" required>
@@ -294,7 +318,7 @@
 
                     <!-- Capacité d'accueil -->
                     <!-- Spectacle -->
-                    <div class="flex justify-between items-center w-full space-x-2 optionSpectacle hidden">
+                    <div class="col-span-1 flex justify-between items-center w-full space-x-2 optionSpectacle hidden">
                         <label for="place" class="text-nowrap">Capacité d'accueil* :</label>
                         <input type="number" id="place" pattern="/d+/" onchange="" min="0"
                             class="border border-secondary rounded-lg p-2 bg-white w-full text-right" required>
@@ -303,7 +327,7 @@
 
                     <!-- Nombre d'attractions -->
                     <!-- Parc d'attractions -->
-                    <div class="flex justify-between items-center w-full space-x-2 optionParcAttraction hidden">
+                    <div class="col-span-1 flex justify-between items-center w-full space-x-2 optionParcAttraction hidden">
                         <label for="parc-numb" class="text-nowrap">Nombre d'attraction* :</label>
                         <input type="number" id="parc-numb" pattern="/d+/" onchange="" min="0"
                             class="border border-secondary rounded-lg p-2 bg-white w-full text-right" required>
@@ -312,7 +336,7 @@
 
                     <!-- Plan du parc d'attraction -->
                     <!-- Parc d'attraction -->
-                    <div class="flex flex-col justify-between w-full space-x-2 optionParcAttraction hidden">
+                    <div class="col-span-1 flex flex-col justify-between w-full space-x-2 optionParcAttraction hidden">
                         <div class="h-4"></div>
                         <label for="photo-plan" class="text-nowrap w-full">Plan du parc d'attraction* :</label>
                         <input type="file" name="photo-plan" id="photo-plan"
@@ -328,68 +352,12 @@
                 </div>
                 <!-- Formulaire pour entrer les informations -->
                 <div class="flex flex-col justify-center items-center w-full">
-                    <div class="w-1/2">
-                        <!-- Résumé -->
-                        <div class="flex flex-col justify-between items-center w-full space-x-2">
-                            <label for="resume" class="text-nowrap w-full">Résumé* :</label>
-                            <textarea id="resume" name="resume"
-                                class="border border-secondary rounded-lg p-2 bg-white w-full" rows="4"
-                                placeholder="Le résumé sera visible sur la carte de l'offre ! " required></textarea>
-                        </div>
-
-                        <!-- Description -->
-                        <div class="flex flex-col justify-between items-center w-full space-x-2">
-                            <label for="description" class="text-nowrap w-full">Description* :</label>
-                            <textarea id="description" name="description"
-                                class="border border-secondary rounded-lg p-2 bg-white w-full" rows="15"
-                                placeholder="La description sera visible sur l'offre détaillée !"></textarea>
-                        </div>
-
-                        <!-- Accessibilité -->
-                        <div class="flex flex-col justify-between items-center w-full space-x-2">
-                            <label for="accessibilite" class="text-nowrap w-full">Accessibilité* :</label>
-                            <textarea id="accessibilite" name="description"
-                            class="border border-secondary rounded-lg p-2 bg-white w-full" rows="4"
-                            placeholder="L'accessibilité sera visible sur l'offre détaillée !"></textarea>
-                        </div>
-                    </div>
 
                     <!-- Bouton dernière étape -->
                     <input type="button"
                         class="bg-primary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white m-1 w-fit"
                         value="Une dernière étape">
-                    <!-- Les options -->
-                    <!-- Titre -->
-                    <h1 class="text-title text-center text-secondary">Les options</h1>
-
-                    <!-- CGU -->
-                    <div class="flex justify-center">
-                        <a href="" class="text-small text-center underline text-secondary"> Voir les CGU</a>
-                    </div>
-                    <!-- Radio button -->
-                    <div class="flex flex-row space-x-8 content-center justify-center items-center text-secondary ">
-                        <!-- Sans option -->
-                        <div>
-                            <input type="radio" id="option-rien" name="option" value="option-rien" class="border" />
-                            <label for="option-rien">Sans option</label>
-                        </div>
-                        <!-- Option en relief -->
-                        <div>
-                            <input type="radio" id="option-relief" name="option" value="option-relief" checked />
-                            <label for="option-relief">En Relief (3.99€)</label>
-                        </div>
-                        <!-- À la une -->
-                        <div>
-                            <input type="radio" id="option-a-la-une" name="option" value="option-a-la-une" />
-                            <label for="option-a-la-une">À la une (5.99€)</label>
-                        </div>
-                    </div>
-                    <!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
-                    <div class="border border-secondary rounded-lg w-1/2">
-                        <!-- mettre ici les 3 cartes et faire un hidden des composants qu'on ne veut pas en fonction de l'option. -->
-                        <br><br><br><br><br><br><br><br><br><br><br>
-                    </div>
-
+                    
                     <!-- GRILLE TARIFAIRE -->
 
                     <div>
@@ -449,6 +417,43 @@
                         class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] w-1/2 m-1">
                 </div>
             </form>
+        </div>
+        
+        <!-- Les options -->
+        <!-- Mettre la preview à droite du fleuve -->
+        <div class="w-full h-screen flex justify-center items-center sticky top-0 hidden">
+            <div class="h-fit w-fit border border-secondary p-4">
+                <!-- Titre -->
+                <h1 class="text-title text-center text-secondary">Les options</h1>
+                
+                <!-- CGU -->
+                <div class="flex justify-center">
+                    <a href="" class="text-small text-center underline text-secondary"> Voir les CGU</a>
+                </div>
+                <!-- Radio button -->
+                <div class="flex flex-row space-x-8 content-center justify-center items-center text-secondary ">
+                    <!-- Sans option -->
+                    <div>
+                        <input type="radio" id="option-rien" name="option" value="option-rien" class="border" />
+                        <label for="option-rien">Sans option</label>
+                    </div>
+                    <!-- Option en relief -->
+                    <div>
+                        <input type="radio" id="option-relief" name="option" value="option-relief" checked />
+                        <label for="option-relief">En Relief (3.99€)</label>
+                    </div>
+                    <!-- À la une -->
+                    <div>
+                        <input type="radio" id="option-a-la-une" name="option" value="option-a-la-une" />
+                        <label for="option-a-la-une">À la une (5.99€)</label>
+                    </div>
+                </div>
+                <!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
+                <div class="border border-secondary rounded-lg w-full">
+                    <!-- mettre ici les 3 cartes et faire un hidden des composants qu'on ne veut pas en fonction de l'option. -->
+                    <br><br><br><br><br><br><br><br><br><br><br>
+                </div>
+            </div>
         </div>
     </div>
     </div>
