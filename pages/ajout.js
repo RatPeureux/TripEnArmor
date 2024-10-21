@@ -67,6 +67,8 @@ async function loadOffres() {
                                 </div>
                                 <div class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
                                     <p class="text-small">€€</p>
+                                    <a href="../dockerBDD/connexion/pro/modifier_offre.php?offre-id=<?php echo $offreId; ?>">Modifier l'Offre</a>
+
                                 </div>
                             </div>
                         </div>

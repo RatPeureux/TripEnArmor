@@ -130,7 +130,7 @@
                         </div>
                     <!-- Formulaire pour entrer les informations -->
                     <div class="flex justify-center content-left">
-                        <form action="../dockerBDD/connexion/pro/crea_offre.php" method="post" class="flex-col w-full space-y-3">
+                        <form action="../dockerBDD/connexion/pro/crea_offre.php" method="post" class="flex-col w-full space-y-3" enctype="multipart/form-data">
                             <!-- Titre -->
                             <div class="flex justify-between items-center w-full space-x-4">
                                 <label for="titre" class="text-nowrap">Titre* :</label>
@@ -202,16 +202,18 @@
                             <!-- Photo principale -->
                             <div class="flex flex-col justify-between w-full space-x-2">                             
                                 <div class="h-4"></div>
-                                <label for="photo-carte" class="text-nowrap w-full">Photo principale : (carte)* :</label>
+                                <label for="photo-upload-carte" class="text-nowrap w-full">Photo principale : (carte)* :</label>
                                     <input type="file" name="photo-upload-carte" id="photo-upload-carte" class="text-small text-secondary
                                     file:mr-5 file:py-3 file:px-10
                                     file:rounded-lg
                                     file:text-small file:font-bold  file:text-secondary
                                     file:border file:border-secondary
                                     hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white
-                                " required/>
+                                " accept=".svg,.png,.jpg,.jpeg" required/>
                                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG.</p>
                             </div>
+                            <div id="message"></div>
+
                             <!-- Photos détaillée -->
                             <div class="flex flex-col justify-between w-full space-x-2">                             
                                 <div class="h-4"></div>
