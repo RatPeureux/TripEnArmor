@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <link rel="stylesheet" href="/styles/output.css">
     <script type="module" src="/scripts/main.js"></script>
     <script type="module" src="/scripts/loaddetailsmenus.js"></script>
+=======
+    <link rel="stylesheet" href="../styles/output.css">
+    <script type="module" src="../scripts/main.js"></script>
+>>>>>>> dfe4d97ca8f2e55f8d778cb9c5fab284f11a527e
     <title>PACT - Accueil</title>
 </head>
 <body class="flex flex-col">
@@ -42,7 +47,7 @@
                         </a>
                     </div>
                     <!-- Image de fond -->
-                    <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
+                    <img class="rounded-l-lg w-full h-full object-cover object-center" src="../public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
                 </div>
                 <!-- Partie droite (infos principales) -->
                 <div class="infos flex flex-col items-center self-stretch px-5 py-3 gap-3 justify-between">
@@ -140,9 +145,76 @@
                 </div>
             </div>
 
+<<<<<<< HEAD
             <!-- Bouton de création d'offre -->
             <a href="" class="font-bold p-4 self-end bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
             focus:scale-[0.97] duration-100">
+=======
+            <div class="card active relative bg-base300 rounded-lg flex h-[400px]">
+                <!-- Partie gauche -->
+                <div class="gauche relative shrink-0 basis-1/2 overflow-hidden">
+                    <!-- En tête -->
+                    <div class="en-tete flex justify-around absolute top-0 w-full">
+                        <div class="bg-bgBlur/75 backdrop-blur rounded-b-lg w-3/5">
+                            <h3 class="text-center font-bold">Restaurant le Brélévenez</h3>
+                            <div class="flex w-full justify-between px-2">
+                                <p class="text-small">Le brélévenez</p>
+                                <p class="text-small">Restauration</p>
+                            </div>
+                        </div>
+                        <a href="" onclick="confirm('Mettre XXX hors ligne ?')">
+                            <div class="bg-bgBlur/75 absolute right-4 backdrop-blur flex justify-center items-center p-1 rounded-b-lg">
+                                <i class="fa-solid fa-wifi text-title"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Image de fond -->
+                    <img class="rounded-l-lg w-full h-full object-cover object-center" src="../public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
+                </div>
+                <!-- Partie droite (infos principales) -->
+                <div class="infos flex flex-col items-center self-stretch px-5 py-3 gap-3 justify-between">
+                    <!-- Description -->
+                    <div class="description py-2 flex flex-col gap-2 h-full">
+                        <div class="p-2 rounded-lg bg-secondary self-center">
+                            <p class="text-white text-center font-bold">Petit déjeuner, Dîner, Boissons</p>
+                        </div>
+                        <p class="line-clamp-6">
+                            Priscilla en salle, son mari Christophe chef de cuisine et toute l'équipe vous accueillent dans leur restaurant, Ouvert depuis Janvier 2018, dans le quartier Historique De Lannion :" Brélévenez"
+                            Quartier célèbre pour son église avec son escalier de 142 marches pour y accéder.
+                            Christophe vous propose une cuisine de produits locaux et de saisons.
+                            Restaurant ouvert à l'année.
+                            Fermé mardi et mercredi toute la journée et le samedi midi.
+                            Restaurant ouvert à l'année.
+                            (Parking privé)
+                        </p>
+                    </div>
+                    <!-- A droite, en bas -->
+                    <div class="self-stretch flex flex-col shrink-0 gap-2">
+                        <hr class="border-black w-full">
+                        <div class="flex justify-around self-stretch">
+                            <!-- Localisation -->
+                            <div class="localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <p class="text-small">Lannion</p>
+                                <p class="text-small">22300</p>
+                            </div>
+                            <!-- Notation et Prix -->
+                            <div class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
+                                <p class="text-small">€€</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="offres-container" class="flex flex-col gap-4">
+                <!-- Les offres seront chargées ici par AJAX -->
+            </div>
+            
+            <!-- Bouton de création d'offre -->
+            <a href="creation-offre.html" class="font-bold p-4 self-end bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
+            focus:scale-[0.97]">
+>>>>>>> dfe4d97ca8f2e55f8d778cb9c5fab284f11a527e
                 + Nouvelle offre
             </a>
         </div>
@@ -150,6 +222,6 @@
     </main>
 
     <div id="footer-pro"></div>
-
+<script src="ajout.js"></script>
 </body>
 </html>

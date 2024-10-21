@@ -1,5 +1,9 @@
 <?php
 include('../connect_params.php');
+
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 // Définit un tableau d'options pour le type d'offre
 $options = [
     'stjxd' => 'Gratuite',
@@ -16,131 +20,82 @@ $tag = [
     'Tag5' => 'Restauration'
 ];
 
-    
+// Partie pour traiter la soumission du second formulaire
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Assurer que tous les champs obligatoires sont remplis
+    $adresse = $_POST['adresse'];
+    $code = $_POST['code'];
+    $ville = $_POST['ville'];
+    $description = $_POST['description'];
+    $resume = $_POST['resume'];
+    $titre = $_POST['titre'];
+    $age = $_POST['age'];
+    $prix = $_POST['prix'];
 
-    try {
+    // Vérifiez que tous les champs obligatoires sont remplis
+    if ($adresse && $code && $ville && $description && $resume && $titre && $age) {
+        // Vérifiez que $dbh est initialisé
+        if (isset($dbh)) {
+            // Insérer dans la base de données pour l'adresse
+            $stmtAdresseOffre = $dbh->prepare("INSERT INTO sae_db.Adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
+            $stmtAdresseOffre->bindParam(':ville', $ville);
+            $stmtAdresseOffre->bindParam(':adresse', $adresse);
+            $stmtAdresseOffre->bindParam(':code', $code);
 
-        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
-        
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($stmtAdresseOffre->execute()) {
+                $adresseId = $dbh->lastInsertId();
 
-            if (isset($_POST['titre']) && !empty($_POST['titre']) && isset($_POST['description']) && !empty($_POST['description'])) {
-                $titre = $_POST['titre'];
-                $description = $_POST['description'];
-        
-                // Préparer la requête d'insertion
-                $stmt = $dbh->prepare("INSERT INTO sae._offre (titre, description, enLigne, idAdresse, idOrganisation, a_la_une, en_relief) VALUES (:titre, :description, true, 1, 1, false, false)");
-        
-                // Lier les paramètres
-                $stmt->bindParam(':titre', $titre);
-                $stmt->bindParam(':description', $description);
-        
-                // Exécuter la requête
-                if ($stmt->execute()) {
-                    echo "Offre créée avec succès!";
+                // Récupérer la date de création
+                $dateCreation = date('Y-m-d H:i:s'); // Format de date MySQL
+
+                // Préparer l'insertion dans la table Offre
+                $stmtOffre = $dbh->prepare("INSERT INTO sae_db.Offre (est_en_ligne, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, date_suppression, adresse_id) VALUES (true, :description, :resume, :prix, :date_creation, null, null, :adresse_id)");
+                $stmtOffre->bindParam(':description', $description);
+                $stmtOffre->bindParam(':resume', $resume);
+                $stmtOffre->bindParam(':adresse_id', $adresseId);
+                $stmtOffre->bindParam(':date_creation', $dateCreation);
+                $stmtOffre->bindParam(':prix', $prix);
+
+                // Exécuter la requête pour le professionnel
+                if ($stmtOffre->execute()) {
+                    // Insérer dans la table Tarif_public
+                    try {
+                        $offreId = $dbh->lastInsertId();
+                        $stmtTarifPublic = $dbh->prepare("INSERT INTO sae_db.Tarif_public (titre_tarif, age_min, age_max, offre_id) VALUES (:titre, :age_min, :age_max, :offre_id)");
+                        $stmtTarifPublic->bindParam(':titre', $titre);
+                        $stmtTarifPublic->bindParam(':age_min', $age);
+                        $stmtTarifPublic->bindParam(':age_max', $age);
+                        $stmtTarifPublic->bindParam(':offre_id', $offreId);
+
+                        if ($stmtTarifPublic->execute()) {
+                            $message = "Votre compte a bien été créé.";
+                            header("location: ../../../pages/accueil-pro.html");
+                        } else {
+                            $message = "Erreur lors de l'insertion dans la table Tarif_public : " . implode(", ", $stmtTarifPublic->errorInfo());
+                        }
+                    } catch (Exception $e) {
+                        $message = "Erreur lors de l'insertion dans la table Tarif_public : " . $e->getMessage();
+                    }
                 } else {
-                    echo "Erreur lors de la création de l'offre.";
+                    $message = "Erreur lors de la création de l'offre : " . implode(", ", $stmtOffre->errorInfo());
                 }
             } else {
-                echo "Veuillez remplir le champ Titre.";
+                $message = "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtAdresseOffre->errorInfo());
             }
+        } else {
+            $message = "Erreur de connexion à la base de données.";
         }
-    } catch (\Throwable $e) {
-        // Affiche une erreur en cas d'échec de la connexion à la base de données
-        echo "Erreur !: " . $e->getMessage();
-        die(); // Termine le script
+    } else {
+        $message = "Tous les champs obligatoires doivent être remplis.";
     }
+} else {
+    $message = "Aucune soumission de formulaire détectée.";
+}
 
-    
+// Affichage du message d'erreur
+if (isset($message)) {
+    echo '<div style="color: red;">' . htmlspecialchars($message) . '</div>';
+}
+
+ob_end_flush();
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"> <!-- Définit l'encodage des caractères -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design -->
-    <title>Création d'offre</title> <!-- Titre de la page -->
-    <style>
-        .offer-form { /* Style pour masquer les formulaires d'offre par défaut */
-            display: none;
-            margin-top: 10px; /* Espace au-dessus des formulaires */
-        }
-
-        .offer-tag { /* Style pour masquer les tags par défaut */
-            display: none;
-            margin-top: 10px; /* Espace au-dessus des tags */
-        }
-
-        .offer-desc {
-            display: none;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-
-<form action="" onsubmit="event.preventDefault();" method="post"> <!-- Empêche la soumission par défaut du formulaire -->
-    <?php foreach ($options as $value => $label): ?> <!-- Boucle à travers les options -->
-        <div>
-            <label>
-                <input type="radio" name="options" value="<?php echo $value; ?>"> <!-- Boutons radio pour sélectionner le type d'offre -->
-                <?php echo $label; ?> <!-- Affiche le label de l'option -->
-            </label>
-        </div>
-
-        <div class="offer-form" id="<?php echo $value; ?>"> <!-- Formulaire correspondant à chaque option -->
-            <h3>Création de l'offre <?php echo $label; ?></h3> <!-- Titre pour le formulaire -->
-            <label for="<?php echo $value; ?>_name">Nom de l'offre:</label> <!-- Label pour le champ de saisie -->
-            <select name="tag" id="tag"> <!-- Sélecteur pour choisir un tag -->
-                <option value="selection">Type*</option> <!-- Option par défaut -->
-                <?php 
-                foreach ($tag as $value){ ?>
-                    <option value="<?php echo $value; ?>"><?php echo $value; ?></option> <!-- Options de tag générées dynamiquement -->
-                <?php }; ?>
-            </select><br> <!-- Fin du sélecteur -->
-        </div>
-    <?php endforeach; ?> <!-- Fin de la boucle foreach -->
-
-    
-    <button onclick="showForm()">Valider</button>
-    
-    
-</form>
-
-<form action="" method="POST">
-<div class="offer-tag" id="tag1"> <!-- Section pour les tags, masquée par défaut -->
-        
-        <!-- Contenu à afficher lorsque le tag est sélectionné -->
-        <label for="titre">Titre*: </label>
-        <input type="text" name="titre" id="titre"><br>
-        <label for="tag-form">TAG*:</label>
-        <input type="text" name="tag-form" id="tag-form"><br>
-        <label for="auteur">Auteur*:</label>
-        <input type="text" name="auteur" id="auteur"><br>
-        <label for="ville">Ville*:</label>
-        <input type="text" name="ville" id="ville">
-        <label for="code-postal">Code postal*:</label>
-        <input type="text" name="code-postal" id="code-postal"><br>
-        <label for="adresse">Adresse*:</label>
-        <input type="text" name="adresse" id="adresse"><br>
-        <label for="description">Description*:</label>
-        <input type="text" name="description" id="description">
-        <input type="submit" value="envoyer">
-    </div>
-</form>
-<button onclick="showTag()">TAG</button> <!-- Bouton pour valider, appelle la fonction showForm()  -->
-
-<form action="" method="post">
-
-    <div class="offer-desc" id="desc">
-
-        
-
-    </div>
-        
-</form>
-
-<script type="module" src="crea_offre.js"></script> <!-- Inclut le fichier JavaScript -->
-</body>
-</html>
