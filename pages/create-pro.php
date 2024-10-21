@@ -17,10 +17,12 @@
 <body class="h-screen bg-base100 p-4 overflow-hidden">
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+
     <div class="h-full flex flex-col items-center justify-center">
         <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
+
             <form class="bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <p class="pb-3">Je créé un compte Professionnel</p>
 
@@ -55,7 +57,7 @@
                     <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword2"></i>
                 </div>
 
-                <!-- Message d'erreur pour le mot de passe -->
+                <!-- Messages d'erreurs -->
                 <span id="error-message" class="error text-rouge-logo text-small"></span>
 
                 <!-- Bouton pour continuer -->
@@ -119,7 +121,7 @@ function validateForm() {
 }
 </script>
 
-<?php } else { 
+<?php } elseif (isset($_POST['mail']) && !isset($_POST['tel'])) {
 // Si le formulaire a été soumis
 $deno = $_POST['deno'];
 $mail = strtolower($_POST['mail']);
@@ -139,8 +141,11 @@ $mdp = $_POST['mdp'];
 <body class="h-screen bg-base100 pt-4 px-4 overflow-x-hidden">
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+
     <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
+        <!-- Logo de l'application -->
         <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
+
         <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="../dockerBDD/connexion/pro/crea_compte_pro.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             <p class="pb-3">Dites-nous en plus !</p>
 
@@ -198,19 +203,23 @@ $mdp = $_POST['mdp'];
                     <label class="text-small" for="iban">IBAN</label>
                     <input class="p-2 bg-base100 w-full h-12 mb-3 rounded-lg" type="text" id="iban" name="iban" 
                         pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Saisir un IBAN (FR)" minlength="33" maxlength="33" 
-                        oninput="formatIBAN(this)" value="">
+                        oninput="formatIBAN(this)" disabled>
                 </div>
             </div>  
-             <!-- Champ caché pour le mot de passe -->
-            <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
 
+            <!-- Choix d'acceptation des termes et conditions -->
             <div class="mb-1.5 flex items-start">
                 <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="" required>
                 <label class="text-small" for="termes">J’accepte les <u>conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u>Politique de confidentialité et d'utilisation des cookies</u>.</label>
             </div>
+
+            <!-- Messages d'erreurs -->
+            <span id="error-message" class="error text-rouge-logo text-small"></span>
             
             <!-- Bouton pour créer le compte -->
             <input type="submit" value="Créer mon compte" class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-green-900 hover:border-green-900 hover:text-white">
+            
+            <input type="hidden" name="mdp_test" value="<?php echo htmlspecialchars($mdp); ?>">
         </form>
     </div>
 </body>
@@ -232,9 +241,22 @@ function formatTEL(input) {
 
 // Fonction pour afficher ou masquer le champ IBAN
 function toggleIBAN() {
-    const ibanContainer = document.getElementById('iban-container');
     const checkbox = document.getElementById('plus');
+    const ibanContainer = document.getElementById('iban-container');
+    const iban = document.getElementById('iban');
+
+    // Afficher ou masquer le conteneur IBAN
     ibanContainer.classList.toggle('hidden', !checkbox.checked);
+    
+    if (checkbox.checked) {
+        iban.value = 'FR '; // Ajoute le préfixe 'FR'
+        iban.disabled = false; // Active le champ
+        iban.required = true; // Rend le champ requis
+    } else {
+        iban.value = ''; // Supprime toute saisie
+        iban.disabled = true; // Désactive le champ
+        iban.required = false; // Rend le champ non requis
+    }
 }
 
 // Fonction pour formater l'IBAN
@@ -245,5 +267,7 @@ function formatIBAN(input) {
     input.value = formattedValue;
 }
 </script>
+
+<?php } else { ?>
 
 <?php } ?>

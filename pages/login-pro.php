@@ -1,3 +1,5 @@
+<?php if (!isset($_POST['id'])) { ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,10 +16,12 @@
 <body class="h-screen bg-base100 p-4 overflow-hidden">
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+    
     <div class="h-full flex flex-col items-center justify-center">
         <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
+
             <form class="bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="../dockerBDD/connexion/pro/login_pro.php" method="post" enctype="multipart/form-data">
                 <p class="pb-3">J'ai un compte Professionnel</p>
                 
@@ -36,6 +40,9 @@
                     <!-- Icône pour afficher/masquer le mot de passe -->
                     <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword"></i>
                 </div>
+
+                <!-- Messages d'erreurs -->
+                <span id="error-message" class="error text-rouge-logo text-small"></span>
 
                 <!-- Bouton de connexion -->
                 <input type="submit" value="Me connecter" class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-green-900 hover:border-green-900 hover:text-white">
@@ -74,3 +81,7 @@
         this.classList.add('fa-eye');
     });
 </script>
+
+<?php } else { ?>
+
+<?php } ?>

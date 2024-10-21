@@ -19,10 +19,14 @@
         </div>
     <?php endif; ?>
 
+    <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+
     <div class="h-full flex flex-col items-center justify-center">
         <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
+            <!-- Logo de l'application -->
             <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
+
             <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-member.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <p class="pb-3">Je créé un compte Membre</p>
 
@@ -60,10 +64,13 @@
                     <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword2"></i>
                 </div>
 
+                <!-- Messages d'erreurs -->
                 <span id="error-message" class="error text-rouge-logo text-small"></span>
 
+                <!-- Bouton pour continuer -->
                 <input type="submit" value="Continuer" class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
             
+                <!-- Lien vers la page de connexion -->
                 <a href="login-member.html" class="w-full h-12 p-1 bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]"> 
                     J'ai déjà un compte
                 </a>
@@ -110,6 +117,7 @@ function validateForm() {
     var confMdp = document.getElementById("confMdp").value;
     var errorMessage = document.getElementById("error-message");
 
+    // Vérifie si les mots de passe correspondent
     if (mdp !== confMdp) {
         errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
         return false; // Empêche l'envoi du formulaire
@@ -120,7 +128,7 @@ function validateForm() {
 }
 </script>
 
-<?php } else { 
+<?php } elseif (isset($_POST['mail']) && !isset($_POST['tel'])) { 
 // Si le formulaire a été soumis
 $prenom = str_contains($_POST['prenom'], "-") ? ucfirst(strtolower(strstr($_POST['prenom'], '-', true))) . "-" . ucfirst(strtolower(substr(strstr($_POST['prenom'], '-'), 1))) : ucfirst(strtolower($_POST['prenom']));
 $nom = strtoupper($_POST['nom']);
@@ -139,12 +147,17 @@ $mdp = $_POST['mdp'];
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
 <body class="h-screen bg-base100 pt-4 px-4 overflow-x-hidden">
+    <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+
     <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
+        <!-- Logo de l'application -->
         <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
+
         <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="../dockerBDD/connexion/membre/crea_compte_membre.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             <p class="pb-3">Dites-nous en plus !</p>
 
+            <!-- Champs pour le prénom et le nom (en lecture seule) -->
             <div class="flex flex-nowrap space-x-3 mb-1.5">
                 <div class="w-full">
                     <label class="text-small" for="prenom">Prénom</label>
@@ -156,15 +169,19 @@ $mdp = $_POST['mdp'];
                 </div>
             </div>
             
+            <!-- Champ pour l'adresse mail (en lecture seule) -->
             <label class="text-small" for="mail">Adresse mail</label>
             <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" title="Mon adresse mail" value="<?php echo $mail;?>" readonly>
             
+            <!-- Champ pour le pseudonyme -->
             <label class="text-small" for="pseudo">Pseudonyme*</label>
             <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo" pattern="^(?:(\w+|\w+[\.\-_]?\w+)+" title="Saisir mon pseudonyme PACT" maxlength="16" required>
             
+            <!-- Champs pour l'adresse -->
             <label class="text-small" for="adresse">Adresse postale*</label>
             <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir mon adresse postale" maxlength="255" required>
             
+            <!-- Choix d'acceptation des termes et conditions -->
             <div class="flex flex-nowrap space-x-3 mb-1.5">
                 <div class="w-28">
                     <label class="text-small" for="code">Code postal*</label>
@@ -176,6 +193,7 @@ $mdp = $_POST['mdp'];
                 </div>
             </div>
 
+            <!-- Champ pour le numéro de téléphone -->
             <label class="text-small" for="num_tel">Téléphone*</label>
             <div class="w-full">
                 <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel" pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14" oninput="formatTEL(this)" required>
@@ -186,9 +204,13 @@ $mdp = $_POST['mdp'];
                 <label class="text-small" for="termes">J’accepte les <u>conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u>Politique de confidentialité et d'utilisation des cookies</u>.</label>
             </div>
 
-            <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
+            <!-- Messages d'erreurs -->
+            <span id="error-message" class="error text-rouge-logo text-small"></span>
             
+            <!-- Bouton pour créer le compte -->
             <input type="submit" value="Créer mon compte" class="mt-1.5 cursor-pointer w-full h-12 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+
+            <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
         </form>
     </div>
 </body>
@@ -208,5 +230,7 @@ function formatTEL(input) {
     input.value = formattedValue;
 }
 </script>
+
+<?php } else { ?>
 
 <?php } ?>
