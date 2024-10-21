@@ -22,7 +22,7 @@
             <!-- Logo de l'application -->
             <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
 
-            <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="../dockerBDD/connexion/membre/login_membre.php" method="post" enctype="multipart/form-data">
+            <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="login-member.php" method="post" enctype="multipart/form-data">
                 <p class="pb-3">J'ai un compte Membre</p>
                 
                 <!-- Champ pour l'identifiant -->
@@ -83,5 +83,17 @@
 </script>
 
 <?php } else { ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST</title>
+</head>
+<body>
+    <h1>Oui</h1>
+</body>
+</html>
 
 <?php } ?>

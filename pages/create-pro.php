@@ -64,7 +64,7 @@
                 <input type="submit" value="Continuer" class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-green-900 hover:border-green-900 hover:text-white">
                 
                 <!-- Lien vers la page de connexion -->
-                <a href="login-pro.html" class="w-full h-12 p-1 bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-green-900 hover:border-green-900 focus:scale-[0.97]"> 
+                <a href="login-pro.php" class="w-full h-12 p-1 bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-green-900 hover:border-green-900 focus:scale-[0.97]"> 
                     J'ai déjà un compte
                 </a>
             </form>
@@ -121,7 +121,8 @@ function validateForm() {
 }
 </script>
 
-<?php } elseif (isset($_POST['mail']) && !isset($_POST['tel'])) {
+<?php } elseif (isset($_POST['mail']) && !isset($_POST['num_tel'])) {
+
 // Si le formulaire a été soumis
 $deno = $_POST['deno'];
 $mail = strtolower($_POST['mail']);
@@ -146,7 +147,7 @@ $mdp = $_POST['mdp'];
         <!-- Logo de l'application -->
         <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
 
-        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="../dockerBDD/connexion/pro/crea_compte_pro.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php" method="post" enctype="multipart/form-data"">
             <p class="pb-3">Dites-nous en plus !</p>
 
             <!-- Champ pour la dénomination sociale (en lecture seule) -->
@@ -210,7 +211,7 @@ $mdp = $_POST['mdp'];
             <!-- Choix d'acceptation des termes et conditions -->
             <div class="mb-1.5 flex items-start">
                 <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="" required>
-                <label class="text-small" for="termes">J’accepte les <u>conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u>Politique de confidentialité et d'utilisation des cookies</u>.</label>
+                <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u class="cursor-pointer">Politique de confidentialité et d'utilisation des cookies</u>.</label>
             </div>
 
             <!-- Messages d'erreurs -->
@@ -249,13 +250,11 @@ function toggleIBAN() {
     ibanContainer.classList.toggle('hidden', !checkbox.checked);
     
     if (checkbox.checked) {
-        iban.value = 'FR '; // Ajoute le préfixe 'FR'
+        iban.value = 'FR'; // Ajoute le préfixe 'FR'
         iban.disabled = false; // Active le champ
-        iban.required = true; // Rend le champ requis
     } else {
         iban.value = ''; // Supprime toute saisie
         iban.disabled = true; // Désactive le champ
-        iban.required = false; // Rend le champ non requis
     }
 }
 
@@ -269,5 +268,17 @@ function formatIBAN(input) {
 </script>
 
 <?php } else { ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST</title>
+</head>
+<body>
+    <h1>Oui</h1>
+</body>
+</html>
 
 <?php } ?>

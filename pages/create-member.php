@@ -12,13 +12,6 @@
 </head>
 <body class="h-screen bg-base100 p-4 overflow-hidden">
 
-    <!-- Message d'erreur/success -->
-    <?php if (!empty($_GET['message'])): ?>
-        <div class="alert bg-yellow-200 text-yellow-800 p-3 rounded-lg mb-4">
-            <?php echo htmlspecialchars($_GET['message']); ?>
-        </div>
-    <?php endif; ?>
-
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
@@ -71,7 +64,7 @@
                 <input type="submit" value="Continuer" class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
             
                 <!-- Lien vers la page de connexion -->
-                <a href="login-member.html" class="w-full h-12 p-1 bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]"> 
+                <a href="login-member.php" class="w-full h-12 p-1 bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]"> 
                     J'ai déjà un compte
                 </a>
             </form>
@@ -128,7 +121,8 @@ function validateForm() {
 }
 </script>
 
-<?php } elseif (isset($_POST['mail']) && !isset($_POST['tel'])) { 
+<?php } elseif (isset($_POST['mail']) && !isset($_POST['num_tel'])) {
+
 // Si le formulaire a été soumis
 $prenom = str_contains($_POST['prenom'], "-") ? ucfirst(strtolower(strstr($_POST['prenom'], '-', true))) . "-" . ucfirst(strtolower(substr(strstr($_POST['prenom'], '-'), 1))) : ucfirst(strtolower($_POST['prenom']));
 $nom = strtoupper($_POST['nom']);
@@ -154,7 +148,7 @@ $mdp = $_POST['mdp'];
         <!-- Logo de l'application -->
         <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
 
-        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="../dockerBDD/connexion/membre/crea_compte_membre.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-member.php" method="post" enctype="multipart/form-data">
             <p class="pb-3">Dites-nous en plus !</p>
 
             <!-- Champs pour le prénom et le nom (en lecture seule) -->
@@ -181,7 +175,6 @@ $mdp = $_POST['mdp'];
             <label class="text-small" for="adresse">Adresse postale*</label>
             <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir mon adresse postale" maxlength="255" required>
             
-            <!-- Choix d'acceptation des termes et conditions -->
             <div class="flex flex-nowrap space-x-3 mb-1.5">
                 <div class="w-28">
                     <label class="text-small" for="code">Code postal*</label>
@@ -199,9 +192,10 @@ $mdp = $_POST['mdp'];
                 <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel" pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14" oninput="formatTEL(this)" required>
             </div>
 
+            <!-- Choix d'acceptation des termes et conditions -->
             <div class="mb-1.5 flex items-start">
                 <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="" required>
-                <label class="text-small" for="termes">J’accepte les <u>conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u>Politique de confidentialité et d'utilisation des cookies</u>.</label>
+                <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u class="cursor-pointer">Politique de confidentialité et d'utilisation des cookies</u>.</label>
             </div>
 
             <!-- Messages d'erreurs -->
@@ -232,5 +226,17 @@ function formatTEL(input) {
 </script>
 
 <?php } else { ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST</title>
+</head>
+<body>
+    <h1>Oui</h1>
+</body>
+</html>
 
 <?php } ?>

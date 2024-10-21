@@ -22,7 +22,7 @@
             <!-- Logo de l'application -->
             <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
 
-            <form class="bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="../dockerBDD/connexion/pro/login_pro.php" method="post" enctype="multipart/form-data">
+            <form class="bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="login-pro.php" method="post" enctype="multipart/form-data">
                 <p class="pb-3">J'ai un compte Professionnel</p>
                 
                 <!-- Champ pour l'identifiant -->
@@ -42,7 +42,11 @@
                 </div>
 
                 <!-- Messages d'erreurs -->
-                <span id="error-message" class="error text-rouge-logo text-small"></span>
+                <?php if (strlen($error)==0) { ?>
+                    <span id="error-message" class="error text-rouge-logo text-small">
+                        <?php echo htmlspecialchars($error);?>
+                    </span>
+                <?php } ?>
 
                 <!-- Bouton de connexion -->
                 <input type="submit" value="Me connecter" class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-green-900 hover:border-green-900 hover:text-white">
@@ -82,6 +86,54 @@
     });
 </script>
 
-<?php } else { ?>
+<?php } else { 
 
-<?php } ?>
+session_start();
+include('../dockerBDD/connexion/connect_params.php'); // Inclut le fichier de paramètres de connexion à la base de données
+
+$error = ""; // Variable pour stocker les messages d'erreur
+
+try {
+    // Connexion à la base de données avec PDO
+    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
+
+    // Vérifie si la requête est une soumission de formulaire
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id = $_POST['id']; // Récupère l'id soumise
+        $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
+
+        // Prépare une requête SQL pour trouver l'utilisateur par email ou nom
+        $stmt = $dbh->prepare("SELECT * FROM sae._organisation WHERE email = :id OR nom = :id");
+        $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
+        $stmt->execute(); // Exécute la requête
+
+        // Vérifie s'il y a une erreur SQL
+        if ($stmt->errorInfo()[0] !== '00000') {
+            error_log("SQL Error: " . print_r($stmt->errorInfo(), true)); // Log l'erreur
+        }
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC); // Récupère les données de l'utilisateur
+        error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
+        
+        // Vérifie si l'utilisateur existe et si le mot de passe est correct
+        if ($user && $user['motdepasse']) {
+            // Stocke les informations de l'utilisateur dans la session
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
+            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['user_name'] = $user['prenom'];
+            header('location: accueil-pro.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
+            exit();
+        } else {
+            $error = "Email ou mot de passe incorrect !"; // Message d'erreur si les identifiants ne sont pas valides
+        }
+    }
+} catch (PDOException $e) {
+    echo "Erreur !: " . $e->getMessage(); // Affiche une erreur si la connexion échoue
+    die(); // Arrête l'exécution du script
+}
+
+header("location: ../../../pages/login-pro.html");
+
+} ?>
