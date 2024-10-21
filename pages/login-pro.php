@@ -29,7 +29,7 @@
                 <label class="text-small" for="id">Identifiant</label>
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id" 
                        pattern="^(?:\w+|\w+[\.\-_]?\w+|0\d( \d{2}){4}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$" 
-                       title="Saisir un identifiant (Pseudonyme, Adresse mail ou Téléphone)" maxlength="255" required>
+                       title="Saisir un identifiant (Dénomination / Nom de l'organisation, Adresse mail ou Téléphone)" maxlength="255" required>
                 
                 <!-- Champ pour le mot de passe -->
                 <label class="text-small" for="mdp">Mot de passe</label>
@@ -134,6 +134,6 @@ try {
     die(); // Arrête l'exécution du script
 }
 
-header("location: login-pro.html");
+header("location: accueil-pro.html");
 
 } ?>

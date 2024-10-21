@@ -27,13 +27,13 @@
                 <p class="pb-3">Je créé un compte Professionnel</p>
 
                 <!-- Champ pour la dénomination sociale -->
-                <label class="text-small" for="deno">Dénomination sociale*</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="deno" name="deno" 
+                <label class="text-small" for="nom">Dénomination sociale / Nom de l'organisation</label>
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom" 
                        pattern="^?:(\w+|\w+[\.\-_]?\w+)+$" 
-                       title="Saisir la dénomination sociale de l'entreprise" maxlength="100" required>
+                       title="Saisir le nom de l'entreprise" maxlength="100" required>
                 
                 <!-- Champ pour l'adresse mail -->
-                <label class="text-small" for="mail">Adresse mail*</label>
+                <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" 
                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" 
                        title="Saisir une adresse mail" maxlength="255" required>
@@ -124,7 +124,7 @@ function validateForm() {
 <?php } elseif (isset($_POST['mail']) && !isset($_POST['num_tel'])) {
 
 // Si le formulaire a été soumis
-$deno = $_POST['deno'];
+$nom = $_POST['nom'];
 $mail = strtolower($_POST['mail']);
 $mdp = $_POST['mdp'];
 ?>
@@ -151,8 +151,8 @@ $mdp = $_POST['mdp'];
             <p class="pb-3">Dites-nous en plus !</p>
 
             <!-- Champ pour la dénomination sociale (en lecture seule) -->
-            <label class="text-small" for="deno">Dénomination sociale</label>
-            <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="deno" name="deno" title="Dénomination sociale" value="<?php echo $deno;?>" readonly>
+            <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
+            <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom" title="Dénomination sociale" value="<?php echo $nom;?>" readonly>
             
             <!-- Champ pour l'adresse mail (en lecture seule) -->
             <label class="text-small" for="mail">Adresse mail</label>
@@ -160,7 +160,7 @@ $mdp = $_POST['mdp'];
 
             <!-- Choix du statut de l'utilisateur -->
             <label class="text-small" for="statut">Je suis un organisme&nbsp;</label>
-            <select class="text-small mt-3 mb-1.5 bg-base100 p-1 rounded-lg" id="statut" name="statut" title="" required>
+            <select class="text-small mt-3 mb-1.5 bg-base100 p-1 rounded-lg" id="statut" name="statut" title="Choisir un statut" onchange="updateLabel()" required>
                 <option value="" disabled selected> --- </option>
                 <option value="public">public</option>
                 <option value="private">privé</option>
@@ -170,7 +170,7 @@ $mdp = $_POST['mdp'];
             <!-- Champs pour l'adresse -->
             <label class="text-small" for="adresse">Adresse postale*</label>
             <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" 
-                   pattern="\d{1,5}\s[\w\s.-]+$" title="" maxlength="255" required>
+                   pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir une adresse postale" maxlength="255" required>
             
             <div class="flex flex-nowrap space-x-3 mb-1.5">
                 <div class="w-28">
@@ -210,7 +210,7 @@ $mdp = $_POST['mdp'];
 
             <!-- Choix d'acceptation des termes et conditions -->
             <div class="mb-1.5 flex items-start">
-                <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="" required>
+                <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer" required>
                 <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u class="cursor-pointer">Politique de confidentialité et d'utilisation des cookies</u>.</label>
             </div>
 
@@ -227,6 +227,18 @@ $mdp = $_POST['mdp'];
 </html>
 
 <script>
+// Fonction pour mettre à jour le label en fonction du statut choisit
+function updateLabel() {
+    const statut = document.getElementById('statut').value;
+    const labelNom = document.getElementById('nom');
+
+    if (statut === 'public') {
+        labelNom.textContent = 'Nom de l\'organisation';
+    } else {
+        labelNom.textContent = 'Dénomination sociale';
+    }
+}
+
 // Fonction pour autoriser uniquement les chiffres dans l'input
 function number(input) {
     let value = input.value.replace(/[^0-9]/g, '');
@@ -267,17 +279,142 @@ function formatIBAN(input) {
 }
 </script>
 
-<?php } else { ?>
+<?php } else {
 
+ob_start();
+include('../dockerBDD/connexion/connect_params.php');
+
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
+
+// Alteration de la table pour s'assurer que numero_compte est un VARCHAR
+try {
+    $dbh->exec("ALTER TABLE sae_db.Rib ALTER COLUMN numero_compte TYPE VARCHAR(11)");
+} catch (PDOException $e) {
+    // Ignorer l'erreur si la colonne est déjà au bon type
+    if ($e->getCode() !== '42P07') {
+        // 42P07 est le code d'erreur pour une table ou colonne déjà existante
+        throw $e;
+    }
+}
+
+$message = ''; // Initialiser le message
+
+function extraireRibDepuisIban($iban) {
+    // Supprimer les espaces et vérifier que l'IBAN est bien de 27 caractères
+    $iban = str_replace(' ', '', $iban);
+
+    if (strlen($iban) != 27) {
+        throw new Exception("L'IBAN doit comporter 27 caractères.");
+    }
+
+    $code_banque = substr($iban, 5, 5);
+    $code_guichet = substr($iban, 10, 5);
+    $numero_compte = substr($iban, 15, 11);
+    $cle_rib = substr($iban, 26, 2);
+
+    return [
+        'code_banque' => $code_banque,
+        'code_guichet' => $code_guichet,
+        'numero_compte' => $numero_compte,
+        'cle_rib' => $cle_rib,
+    ];
+}
+
+// Partie pour traiter la soumission du second formulaire
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
+    // Assurer que tous les champs obligatoires sont remplis
+    $adresse = $_POST['adresse'];
+    $code = $_POST['code'];
+    $ville = $_POST['ville'];
+    $mdp = $_POST['mdp'];
+    $nom = $_POST['nom'];
+    $mail = $_POST['mail'];
+    $pseudo = $_POST['pseudo'];
+    $tel = $_POST['num_tel'];
+    $compte_id = $_POST['compte_id'];
+    $iban = $_POST['iban']; // Assurez-vous que l'IBAN est récupéré du formulaire
+
+    // Hachage du mot de passe
+    if (!empty($mdp)) {
+        $mdp_hache = password_hash($mdp, PASSWORD_DEFAULT);
+
+        // Insérer dans la base de données pour l'adresse
+        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db.Adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
+        $stmtAdresse->bindParam(':ville', $ville);
+        $stmtAdresse->bindParam(':adresse', $adresse);
+        $stmtAdresse->bindParam(':code', $code);
+        
+        if ($stmtAdresse->execute()) {
+            $adresseId = $dbh->lastInsertId();
+
+            // Préparer l'insertion dans la table Professionnel
+            $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db.Professionnel (email, mdp_hash, num_tel, adresse_id, nom_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom)");
+            $stmtProfessionnel->bindParam(':mail', $mail);
+            $stmtProfessionnel->bindParam(':mdp', $mdp_hache);
+            $stmtProfessionnel->bindParam(':nom', $nom);
+            $stmtProfessionnel->bindParam(':num_tel', $tel);
+            $stmtProfessionnel->bindParam(':adresse_id', $adresseId);
+
+            // Exécuter la requête pour le professionnel
+            if ($stmtProfessionnel->execute()) {
+                // Extraire les valeurs du RIB à partir de l'IBAN
+                try {
+                    $rib = extraireRibDepuisIban($iban);
+                    $stmtRib = $dbh->prepare("INSERT INTO sae_db.Rib (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :compte_id)");
+                    $stmtRib->bindParam(':code_banque', $rib['code_banque']);
+                    $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
+                    $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
+                    $stmtRib->bindParam(':cle_rib', $rib['cle_rib']);
+                    $stmtRib->bindParam(':compte_id', $compte_id); // Assurez-vous que compte_id est défini
+
+                    if ($stmtRib->execute()) {
+                        $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
+                    } else {
+                        $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtRib->errorInfo());
+                    }
+                } catch (Exception $e) {
+                    $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
+                }
+            } else {
+                $message = "Erreur lors de la création du compte professionnel : " . implode(", ", $stmtProfessionnel->errorInfo());
+            }
+        } else {
+            $message = "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtAdresse->errorInfo());
+        }
+    } else {
+        $message = "Mot de passe manquant.";
+    }
+}
+
+ob_end_flush();
+?>
+
+<!-- Affichage du message dans le HTML -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEST</title>
+    <title>Création de Compte</title>
+    <script>
+        // Fonction de redirection après un délai
+        function redirectToLogin() {
+            setTimeout(function() {
+                window.location.href = "login-pro.html";
+            }, 5000); // 5000 ms = 5 secondes
+        }
+    </script>
 </head>
 <body>
-    <h1>Oui</h1>
+    <h1>Création de Compte</h1>
+    
+    <?php if (!empty($message)): ?>
+        <div class="alert alert-success"><?php echo $message; ?></div>
+        <script>redirectToLogin();</script>
+    <?php endif; ?>
+
+    <!-- Formulaire de création de compte ici -->
 </body>
 </html>
 

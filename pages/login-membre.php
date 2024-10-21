@@ -42,7 +42,11 @@
                 </div>
 
                 <!-- Messages d'erreurs -->
-                <span id="error-message" class="error text-rouge-logo text-small"></span>
+                <?php if (strlen($error)==0) { ?>
+                    <span id="error-message" class="error text-rouge-logo text-small">
+                        <?php echo htmlspecialchars($error);?>
+                    </span>
+                <?php } ?>
 
                 <!-- Bouton de connexion -->
                 <input type="submit" value="Me connecter" class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
@@ -119,7 +123,7 @@ try {
             $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_name'] = $user['prenom'];
-            header('location: ../../../pages/toutes-offres.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
+            header('location: toutes-offres.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
             exit();
         } else {
             $error = "Email ou mot de passe incorrect"; // Message d'erreur si les identifiants ne sont pas valides
@@ -130,6 +134,6 @@ try {
     die(); // Arrête l'exécution du script
 }
 
-header("location: ../../../pages/toutes-offres.html");
+header("location: toutes-offres.html");
 
 } ?>

@@ -26,17 +26,17 @@
                 <!-- Champs pour le prénom et le nom -->
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-full">
-                        <label class="text-small" for="prenom">Prénom*</label>
+                        <label class="text-small" for="prenom">Prénom</label>
                         <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" pattern="^[a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon prénom" maxlength="50" required>
                     </div>
                     <div class="w-full">
-                        <label class="text-small" for="nom">Nom*</label>
+                        <label class="text-small" for="nom">Nom</label>
                         <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" pattern="^[a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon nom" maxlength="50" required>
                     </div>
                 </div>
                 
                 <!-- Champ pour l'adresse mail -->
-                <label class="text-small" for="mail">Adresse mail*</label>
+                <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail" maxlength="255" required>
             
                 <!-- Champ pour le mot de passe -->
@@ -194,7 +194,7 @@ $mdp = $_POST['mdp'];
 
             <!-- Choix d'acceptation des termes et conditions -->
             <div class="mb-1.5 flex items-start">
-                <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="" required>
+                <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer" required>
                 <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u class="cursor-pointer">Politique de confidentialité et d'utilisation des cookies</u>.</label>
             </div>
 
@@ -225,17 +225,100 @@ function formatTEL(input) {
 }
 </script>
 
-<?php } else { ?>
+<?php } else {
 
+ob_start();
+include('../dockerBDD/connexion/connect_params.php');
+
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
+
+$message = ''; // Initialiser le message
+
+// Partie pour traiter la soumission du second formulaire
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
+    // Assurer que tous les champs obligatoires sont remplis
+    $prenom = $_POST['prenom'];
+    $nom = $_POST['nom'];
+    $mail = $_POST['mail'];
+    $mdp = $_POST['mdp']; // Récupérer le mot de passe du champ caché
+    $pseudo = $_POST['pseudo'];
+    $adresse = $_POST['adresse'];
+    $code = $_POST['code'];
+    $ville = $_POST['ville'];
+    $tel = $_POST['num_tel'];
+
+    // Hachage du mot de passe
+    if (!empty($mdp)) { // Vérifier si $mdp n'est pas vide
+        $mdp_hache = password_hash($mdp, PASSWORD_DEFAULT);
+
+        // Insérer dans la base de données
+        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db.Adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
+
+        // Lier les paramètres pour l'adresse
+        $stmtAdresse->bindParam(':ville', $ville);
+        $stmtAdresse->bindParam(':adresse', $adresse);
+        $stmtAdresse->bindParam(':code', $code);
+
+        // Exécuter la requête pour l'adresse
+        if ($stmtAdresse->execute()) {
+            // Récupérer l'ID de l'adresse insérée
+            $adresseId = $dbh->lastInsertId();
+
+            // Préparer l'insertion dans la table Membre
+            $stmtMembre = $dbh->prepare("INSERT INTO sae_db.Membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :adresse_id, :pseudo, :nom, :prenom)");
+
+            // Lier les paramètres pour le membre
+            $stmtMembre->bindParam(':nom', $nom);
+            $stmtMembre->bindParam(':prenom', $prenom);
+            $stmtMembre->bindParam(':mail', $mail);
+            $stmtMembre->bindParam(':mdp', $mdp_hache);
+            $stmtMembre->bindParam(':pseudo', $pseudo);
+            $stmtMembre->bindParam(':num_tel', $tel);
+            $stmtMembre->bindParam(':adresse_id', $adresseId); // Utiliser l'ID de l'adresse
+
+            // Exécuter la requête pour le membre
+            if ($stmtMembre->execute()) {
+                $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
+            } else {
+                $message = "Erreur lors de la création du compte : " . implode(", ", $stmtMembre->errorInfo());
+            }
+        } else {
+            $message = "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtAdresse->errorInfo());
+        }
+    } else {
+        $message = "Mot de passe manquant.";
+    }
+}
+
+ob_end_flush();
+?>
+
+<!-- Affichage du message dans le HTML -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEST</title>
+    <title>Création de Compte</title>
+    <script>
+        // Fonction de redirection après un délai
+        function redirectToLogin() {
+            setTimeout(function() {
+                window.location.href = "login-member.html";
+            }, 5000); // 5000 ms = 5 secondes
+        }
+    </script>
 </head>
 <body>
-    <h1>Oui</h1>
+    <h1>Création de Compte</h1>
+    
+    <?php if (!empty($message)): ?>
+        <div class="alert alert-success"><?php echo $message; ?></div>
+        <script>redirectToLogin();</script>
+    <?php endif; ?>
+
+    <!-- Formulaire de création de compte ici -->
 </body>
 </html>
 
