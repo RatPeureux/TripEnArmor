@@ -116,7 +116,7 @@ try {
             $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_name'] = $user['prenom'];
-            header('location: accueil-pro.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
+            header('location: accueil-pro.php?token=' . $_SESSION['token']); // Redirige vers la page connectée
             exit();
         } else {
             $_SESSION['error'] = "Identifiant ou mot de passe incorrect !"; // Stocke le message d'erreur dans la session

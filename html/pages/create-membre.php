@@ -305,7 +305,7 @@ ob_end_flush();
         // Fonction de redirection après un délai
         function redirectToLogin() {
             setTimeout(function() {
-                window.location.href = "login-membre.html";
+                window.location.href = "login-membre.php";
             }, 5000); // 5000 ms = 5 secondes
         }
     </script>

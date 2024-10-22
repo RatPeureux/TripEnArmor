@@ -50,12 +50,14 @@ async function loadFooterHeader() {
         }
     }
         // Pro
-    let activeMenuItemIdx = parseInt(menuPro.classList.toString());
-    let allItems = menuPro.querySelector('div.all-items');
-    if (activeMenuItemIdx) {
-        let activeItem = allItems.querySelector(`:nth-child(${activeMenuItemIdx})`);
-        if (activeItem) {
-            activeItem.classList.add('active');
+    if (menuPro) {
+        let activeMenuItemIdx = parseInt(menuPro.classList.toString());
+        let allItems = menuPro.querySelector('div.all-items');
+        if (activeMenuItemIdx) {
+            let activeItem = allItems.querySelector(`:nth-child(${activeMenuItemIdx})`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
         }
     }
 }

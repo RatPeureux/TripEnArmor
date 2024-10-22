@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         if ($stmtTarifPublic->execute()) {
                             echo json_encode(['success' => true]);
-                            header("location: /pages/accueil-pro.html");
+                            header("location: /pages/accueil-pro.php");
                         } else {
                             echo json_encode(['success' => false, 'error' => 'Erreur lors de l\'insertion dans la table Tarif_public : ' . implode(", ", $stmtTarifPublic->errorInfo())]);
                         }

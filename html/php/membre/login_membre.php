@@ -34,7 +34,7 @@ try {
             $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_name'] = $user['prenom'];
-            header('location: ../../../pages/toutes-offres.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
+            header('location: /?token=' . $_SESSION['token']); // Redirige vers la page connectée
             exit();
         } else {
             $error = "Email ou mot de passe incorrect"; // Message d'erreur si les identifiants ne sont pas valides
@@ -45,6 +45,6 @@ try {
     die(); // Arrête l'exécution du script
 }
 
-header("location: ../../../pages/toutes-offres.html");
+header("location: /");
 
 ?>

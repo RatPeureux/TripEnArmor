@@ -76,7 +76,7 @@ try {
                     $stmtTarifPublic->bindParam(':offre_id', $offreId);
 
                     if ($stmtTarifPublic->execute()) {
-                        header("Location: /pages/accueil-pro.html");
+                        header("Location: /pages/accueil-pro.php");
                         exit;
                     } else {
                         echo "Erreur lors de la mise à jour dans la table Tarif_Public : " . implode(", ", $stmtTarifPublic->errorInfo());
