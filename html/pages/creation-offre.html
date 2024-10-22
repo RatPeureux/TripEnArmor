@@ -123,7 +123,8 @@
             <div class="flex justify-center content-center w-1/2 mb-8">
                 <input type="submit"
                     class="bg-primary text-white w-full font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white m-1"
-                    value="Valider" />
+                    value="Valider"
+                    id="validerPart1"/>
             </div>
             <div class="flex space-x-12">
                 <form action="" method="GET" class="block w-full flex flex-col justify-center items-center space-y-8">
@@ -133,38 +134,41 @@
                         <!-- Titre -->
                         <div class="flex flex-col justify-center w-full">
                             <label for="titre" class="text-nowrap">Titre* :</label>
-                        <input type="text" id="titre" class="border border-secondary rounded-lg p-2 bg-white w-full"
+                            <input
+                            type="text"
+                            id="titre"
+                            class="border border-secondary rounded-lg p-2 bg-white w-full"
+                            placeholder="Escapade en Arvor"
                             required>
                         </div>
 
                         <!-- Auteur -->
                         <div class="flex flex-col w-full">
                             <label for="auteur" class="text-nowrap">Auteur* :</label>
-                            <input
-                            type="text"
+                            <p
                             id="auteur"
-                            class="border border-secondary rounded-lg p-2 bg-white w-full text-gray-600"
-                            value="Nom du compte"
-                            required
-                            readonly>
+                            class="border border-secondary rounded-lg p-2 bg-gray-200 w-full text-gray-600"
+                            >
+                            Nom du compte
+                            </p>
                         </div>
 
                         <!-- Adresse -->
                         <div class="justify-between items-center w-full mb-2">
                             <label for="user_input_autocomplete_address" class="text-nowrap">Adresse* :</label>
                             <input type="text" id="user_input_autocomplete_address"
-                                name="user_input_autocomplete_address" placeholder="Entrez une adresse"
+                                name="user_input_autocomplete_address" placeholder="21, rue de la Paix"
                                 class="border border-secondary rounded-lg p-2 bg-white w-full" required>
                         </div>
 
                         <div class="flex justify-between items-center">
                             <div class="flex justify-between items-center w-full space-x-2">
                                 <label for="locality" class="text-nowrap">Ville* :</label>
-                                <input type="text" id="locality"
+                                <input type="text" id="locality" placeholder="Rennes"
                                 class="border border-secondary rounded-lg p-2 bg-white w-full" required>
                                 
                                 <label for="postal_code" class="text-nowrap">Code postal* :</label>
-                                <input type="number" min="0" step="10" max="57000" id="postal_code"
+                                <input type="number" min="0" step="10" max="57000" id="postal_code" placeholder="35000"
                                     class="border border-secondary rounded-lg p-2 bg-white w-24" required>
                             </div>
                         </div>
@@ -202,23 +206,24 @@
                             <label for="resume" class="text-nowrap w-full">Résumé* :</label>
                             <textarea id="resume" name="resume"
                             class="border border-secondary rounded-lg p-2 bg-white w-full" rows="4"
-                            placeholder="Le résumé sera visible sur la carte de l'offre ! " required></textarea>
+                            placeholder="Escapade en Arvor est une offre unique qui vous invite à découvrir la ville de Rennes. Profitez d'une expérience inoubliable en explorant les richesses culturelles et historiques de cette magnifique ville bretonne." required></textarea>
+                        
                         </div>
 
                         <!-- Description -->
                         <div class="flex flex-col items-center w-full">
                             <label for="description" class="text-nowrap w-full">Description* :</label>
                             <textarea id="description" name="description"
-                            class="border border-secondary rounded-lg p-2 bg-white w-full" rows="4"
-                            placeholder="La description sera visible sur l'offre détaillée !"></textarea>
+                            class="border border-secondary rounded-lg p-2 bg-white w-full" rows="11"
+                            placeholder="Escapade en Arvor est une offre unique qui vous invite à découvrir la ville de Rennes. Profitez d'une expérience inoubliable en explorant les richesses culturelles et historiques de cette magnifique ville bretonne. Vous aurez l'occasion de visiter des sites emblématiques tels que le Parlement de Bretagne, le Parc du Thabor, et la Place des Lices. En plus des visites guidées, l'offre inclut des dégustations de spécialités locales et des ateliers artisanaux. Que vous soyez amateur d'histoire, de gastronomie ou d'art, cette escapade saura combler toutes vos attentes."></textarea>
                         </div>
                         
                         <!-- Accessibilité -->
                         <div class="flex flex-col justify-between items-center w-full">
                             <label for="accessibilite" class="text-nowrap w-full">Accessibilité* :</label>
                             <textarea id="accessibilite" name="description"
-                            class="border border-secondary rounded-lg p-2 bg-white w-full" rows="4"
-                            placeholder="L'accessibilité sera visible sur l'offre détaillée !"></textarea>
+                            class="border border-secondary rounded-lg p-2 bg-white w-full" rows="5"
+                            placeholder="L'Escapade en Arvor est conçue pour être accessible à tous les visiteurs, y compris ceux ayant des besoins spécifiques. Rennes, une ville riche en histoire et en culture, offre de nombreuses infrastructures adaptées pour garantir une expérience agréable et sans accroc."></textarea>
                         </div>
                         
                         <div class="w-full flex justify-end items-center">
@@ -226,7 +231,8 @@
                             <!-- Bouton dernière étape -->
                             <input type="button"
                             class="bg-primary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white m-1 w-1/2"
-                            value="Une dernière étape">
+                            value="Une dernière étape"
+                            id="validerPart2">
                         </div>
                     </div>
 
@@ -247,7 +253,7 @@
                             </select>
                         </div>
 
-                        <div class="flex flex-col w-full">
+                        <div class="flex flex-col w-full optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
                             <label for="tag-input" class="block text-nowrap">Tags* :</label>
                             <div class="relative">
                                 <select type="text" id="tag-input"
@@ -257,13 +263,13 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="">
-                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="activiteTags"></div>
-                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="visiteTags"></div>
-                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="spectacleTags"></div>
-                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="parcAttractionTags"></div>
-                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 hidden" id="restaurationTags"></div>
+                        
+                        <div> <!-- TODO: utiliser les classes définies plus tard  --> 
+                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 optionActivite hidden"></div>
+                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 optionVisite hidden"></div>
+                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 optionRestauration hidden"></div>
+                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 optionParcAttraction hidden"></div>
+                            <div class="tag-container flex flex-wrap p-2 rounded-lg mt-2 optionRestaurationhidden"></div>
                         </div>
 
                         <!-- PARAMÈTRES DÉPENDANT DE LA CATÉGORIE DE L'OFFRE -->
@@ -371,13 +377,13 @@
                                 <table>
                                     <thead>
                                         <th>
+                                            Position
+                                        </th>
+                                        <th>
                                             Titre
                                         </th>
                                         <th>
-                                            Prix
-                                        </th>
-                                        <th>
-                                            Position
+                                            Prix<br>en €
                                         </th>
                                         <th>
                                             Actions
@@ -386,9 +392,29 @@
                                     <tbody id="grilleTarifaire">
 
                                     </tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="number" name="newPrixPosition" id="newPrixPosition" min="0"
+                                                class="border border-secondary rounded-lg p-2 bg-white w-full" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="newPrixName" id="newPrixName"
+                                                class="border border-secondary rounded-lg p-2 bg-white" required>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="newPrixValeur" id="newPrixValeur" min="0"
+                                                class="border border-secondary rounded-lg p-2 bg-white w-full" required>
+                                        </td>
+                                        <td>
+                                            <div class="h-max w-full cursor-pointer flex justify-center items-center"
+                                            id="addPriceButton">   
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-secondary rounded-lg border border-transparent hover:border-secondary border-box p-1" width="32" height="32" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>
+                                            </div>
+                                        </td>
+                                    </tr>
 
                                 </table>
-                                <h3 class="text-lg text-secondary mb-4">Créer un nouveau prix</h3>
+                                <!-- <h3 class="text-lg text-secondary mb-4">Créer un nouveau prix</h3>
                                 <div class="flex flex-col space-y-2">
                                     <div class="flex justify-between items-center w-full space-x-2">
                                         <label class="text-nowrap" for="newPrixName">
@@ -415,29 +441,29 @@
                                         </label>
                                         <input type="number" name="newPrixPosition" id="newPrixPosition" min="0"
                                             class="border border-secondary rounded-lg p-2 bg-white w-full" required>
-                                    </div>
+                                    </div> 
                                 </div>
 
                                 <div href=""
-                                class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] m-1 cursor-pointer"
-                                id="addPriceButton">
-                                <i class="fa-solid fa-plus fa-xl mr-2"></i>
-                                Ajouter le prix
+                                    class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] m-1 cursor-pointer"
+                                    id="addPriceButton">
+                                    <i class="fa-solid fa-plus fa-xl mr-2"></i>
+                                    Ajouter le prix
+                                </div> -->
                             </div>
-                        </div>
                         
-                        <!-- PRESTATIONS -->
-                        <div>
+                            <!-- PRESTATIONS -->
+                            <div>
+                                
+                            </div>
                             
+                            <!-- SERVICES -->
+                            
+                            <!-- LANGUES -->
                         </div>
-                        
-                        <!-- SERVICES -->
-                        
-                        <!-- LANGUES -->
-                    </div>
                     </div>
                     <!-- Créer l'offre -->
-                    <div class="w-full flex justify-end items-center">
+                    <div class="w-full flex justify-end items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
                         <input
                             type="submit"
                             value="Créer l'offre"
