@@ -488,7 +488,7 @@
                             <a href="" class="text-small text-center underline text-secondary"> Voir les CGU</a>
                         </div>
                         <!-- Radio button -->
-                        <div class="flex flex-row space-x-8 content-center justify-center items-center text-secondary ">
+                        <div class="flex flex-row mb-4 content-center justify-between items-center text-secondary ">
                             <!-- Sans option -->
                             <div>
                                 <input type="radio" id="option-rien" name="option" value="option-rien" class="border" />
@@ -506,34 +506,40 @@
                             </div>
                         </div>
                         <!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
+                        <!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou a la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
                         <div
-                          class="card active relative bg-base300 rounded-xl flex flex-col w-[450px]"
+                          class="card active relative bg-base300 rounded-xl flex flex-col"
+                          id="card-preview"
                         >
                           <!-- En tête -->
                           <div
                             class="en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg"
                           >
                             <!-- Mise à jour du titre en temps réel -->
+                            <h3 class="text-center font-bold" id="preview-titre"></h3>
                             <script>
+                              document.getElementById("preview-titre").textContent = document.getElementById("titre").value ? 
+                                document.getElementById("titre").value
+                                :
+                                // Si le titre est vide, afficher le placeholder du titre
+                                document.getElementById("titre").placeholder;
                               document
                                 .getElementById("titre")
                                 .addEventListener("input", function () {
-                                  document.getElementById("preview-titre").textContent =
-                                    document.getElementById("titre").value;
+                                  document.getElementById("preview-titre").textContent = document.getElementById("titre").value ? 
+                                    document.getElementById("titre").value
+                                    :
+                                    // Si le titre est vide, afficher le placeholder du titre
+                                    document.getElementById("titre").placeholder;
                                 });
                             </script>
-                            <h3 class="text-center font-bold" id="preview-titre"></h3>
                             <div class="flex w-full justify-between px-2">
                               <!-- Mise à jour de l'auteur en temps réel -->
-                              <script>
-                                document
-                                  .getElementById("auteur")
-                                  .addEventListener("input", function () {
-                                    document.getElementById("preview-auteur").textContent =
-                                      document.getElementById("auteur").value;
-                                  });
-                              </script>
                               <p class="text-small" id="preview-auteur"></p>
+                              <script>
+                                document.getElementById("preview-auteur").textContent =
+                                document.getElementById("auteur").innerText;
+                              </script>
                               <p class="text-small" id="preview-activite"></p>
                               <!-- Mise à jour de l'activité en fonction de la sélection -->
                               <script>
@@ -585,6 +591,12 @@
                             </div>
                           </div>
                           <!-- Image de fond -->
+                          <img
+                            class="h-48 w-full rounded-t-lg object-cover"
+                            src="../public/images/Gina.png"
+                            alt="Image promotionnelle de l'offre"
+                            id="preview-image"
+                          />
                           <script>
                             document
                               .getElementById("photo-upload-carte")
@@ -618,70 +630,84 @@
                             <div
                               class="localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center"
                             >
-                              <i class="fa-solid fa-location-dot"></i>
-                              <!-- Mise à jour de la ville en temps réel -->
-                              <script>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <!-- Mise à jour de la ville en temps réel -->
+                            <p class="text-small" id="preview-locality"></p>
+                            <script>
+                              document.getElementById(
+                                  "preview-locality"
+                                ).textContent =
+                                  document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
                                 document
                                   .getElementById("locality")
                                   .addEventListener("input", function () {
                                     document.getElementById(
                                       "preview-locality"
                                     ).textContent =
-                                      document.getElementById("locality").value;
+                                      document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder;
                                   });
                               </script>
-                              <p class="text-small" id="preview-locality"></p>
                               <!-- Mise à jour du code postal en temps réel -->
+                              <p class="text-small" id="preview-postal_code"></p>
                               <script>
+                                document.getElementById(
+                                    "preview-postal_code"
+                                  ).textContent =
+                                    document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder
                                 document
                                   .getElementById("postal_code")
                                   .addEventListener("input", function () {
                                     document.getElementById(
                                       "preview-postal_code"
                                     ).textContent =
-                                      document.getElementById("postal_code").value;
+                                      document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder;
                                   });
                               </script>
-                              <p class="text-small" id="preview-postal_code"></p>
                             </div>
                             <hr class="h-20 border-black border" />
                             <!-- Résumé de l'offre -->
                             <div
                               class="description py-2 flex flex-col gap-2 justify-center w-full]"
                             >
-                              <div class="p-1 rounded-lg bg-secondary w-full self-center">
-                                <p
+                              <div class="p-1 w-full flex justify-center items-center">
+                                <!-- <p
                                   class="text-white text-center text-small w-full font-bold"
-                                ></p>
+                                ></p> -->
                                 <!-- Mise à jour du tag en temps réel -->
+                                <p
+                                  class="text-white text-center rounded-lg bg-secondary font-bold w-fit p-2"
+                                  id="preview-tag-input"
+                                ></p>
                                 <script>
+                                  document.getElementById(
+                                      "preview-tag-input"
+                                    ).textContent =
+                                      document.getElementById("tag-input").value ? document.getElementById("tag-input").value : "Ajouter un tag...";
                                   document
                                     .getElementById("tag-input")
                                     .addEventListener("input", function () {
                                       document.getElementById(
                                         "preview-tag-input"
                                       ).textContent =
-                                        document.getElementById("tag-input").value;
+                                        document.getElementById("tag-input").value ? document.getElementById("tag-input").value : "Ajouter un tag...";
                                     });
                                 </script>
-                                <p
-                                  class="text-white text-center font-bold w-full"
-                                  id="preview-tag-input"
-                                ></p>
                               </div>
                               <!-- Mise à jour du résumé en temps réel -->
-                              <script>
-                                document
-                                  .getElementById("resume")
-                                  .addEventListener("input", function () {
-                                    document.getElementById("preview-resume").textContent =
-                                      document.getElementById("resume").value;
-                                  });
-                              </script>
                               <p
                                 class="overflow-hidden line-clamp-2 text-small text-wrap w-full"
                                 id="preview-resume"
                               ></p>
+                              <script>
+                                document.getElementById("preview-resume").textContent =
+                                  document.getElementById("resume").value ? document.getElementById("resume").value : document.getElementById("resume").placeholder
+                                document
+                                  .getElementById("resume")
+                                  .addEventListener("input", function () {
+                                    document.getElementById("preview-resume").textContent =
+                                      document.getElementById("resume").value ? document.getElementById("resume").value : document.getElementById("resume").placeholder;
+                                  });
+                              </script>
                             </div>
                             <hr class="h-20 border-black border" />
                             <!-- Notation et Prix -->
