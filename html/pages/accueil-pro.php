@@ -37,7 +37,7 @@
                         </div>
                         <a href="" onclick="confirm('Mettre XXX hors ligne ?')">
                             <div class="bg-bgBlur/75 absolute right-4 backdrop-blur flex justify-center items-center p-1 rounded-b-lg">
-                                <i class="fa-solid fa-wifi text-title"></i>
+                                <i class="fa-solid fa-wifi text-h1"></i>
                             </div>
                         </a>
                     </div>
@@ -54,7 +54,7 @@
                             </div>
                             <a href="">
                                 <div class="flex justify-center items-center rounded-lg absolute top-1/2 right-0 -translate-y-1/2">
-                                    <i class="px-2 rounded-lg border border-primary text-primary hover:bg-primary h-full duration-100 text-title hover:text-white details-menu-toggle fa-solid fa-ellipsis"></i>
+                                    <i class="px-2 rounded-lg border border-primary text-primary hover:bg-primary h-full duration-100 text-h1 hover:text-white details-menu-toggle fa-solid fa-ellipsis"></i>
                                 </div>
                             </a>
                             <div class="details-menu hidden rounded-lg absolute right-0 bg-white">

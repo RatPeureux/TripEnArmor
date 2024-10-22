@@ -31,7 +31,7 @@
                         <i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>        
                     </div>
                     <div class="my-2">
-                        <h1 class="text-title"> Création d'offre</h1>
+                        <h1 class="text-h1"> Création d'offre</h1>
                     </div>
                 </a>
             </div>
@@ -43,7 +43,7 @@
                     <label for="offer1" class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
                         <div class="h-full divide-y divide-current">
                             <div>
-                                <h1 class="text-title leading-none mt-1 text-center">Gratuite</h1>
+                                <h1 class="text-h1 leading-none mt-1 text-center">Gratuite</h1>
                                 <h1 class="text-center font-bold">Pour les associations et les organismes publics</h1>
                             </div>
                             <div>
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div>
-                            <h1 class="text-title leading-none mt-1 text-center py-2">0€/mois</h1>
+                            <h1 class="text-h1 leading-none mt-1 text-center py-2">0€/mois</h1>
                         </div>
                     </label>
                 </div>
@@ -66,7 +66,7 @@
                     <label for="offer2" class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
                         <div class="h-full divide-y divide-current">
                             <div>
-                                <h1 class="text-title leading-none mt-1 text-center">Standard</h1>
+                                <h1 class="text-h1 leading-none mt-1 text-center">Standard</h1>
                                 <h1 class="text-center font-bold">Pour les entreprises et organismes privés</h1>
                             </div>
                             <div class="h-full">
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                             <div>  
-                                <h1 class="text-title leading-none mt-1 text-center py-2">12€/mois</h1>
+                                <h1 class="text-h1 leading-none mt-1 text-center py-2">12€/mois</h1>
                             </div>
                     </label>
                 </div>
@@ -90,7 +90,7 @@
                     <label for="offer3" class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
                         <div class="h-full divide-y divide-current">
                             <div>
-                                <h1 class="text-title leading-none mt-1 text-center">Premium</h1>
+                                <h1 class="text-h1 leading-none mt-1 text-center">Premium</h1>
                                 <h1 class="text-center font-bold">Pour les entreprises et organismes privés</h1>
                             </div>
                             <div class="h-full">
@@ -103,7 +103,7 @@
                             </div>
                         </div>
                         <div>  
-                            <p class="text-title leading-none mt-1 text-center py-2">19€/mois</p>
+                            <p class="text-h1 leading-none mt-1 text-center py-2">19€/mois</p>
                         </div>
                     </label>
                 </div>
@@ -234,7 +234,7 @@
                         <div class="offer-form-part-2" id="part-2">
                             <div class="avecOptions" id="op">
                                 <!-- Les options -->
-                                <h1 class="text-title text-center text-secondary">Les options</h1>
+                                <h1 class="text-h1 text-center text-secondary">Les options</h1>
                                 <div class="flex justify-center">
                                     <a  href="" class="text-small text-center underline text-secondary"> Voir les CGU</a>
                                 </div>

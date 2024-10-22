@@ -20,11 +20,31 @@ class PriceManager {
                 return this["prices"].length;
             },
             "prices" : [
-                {
-                    price: 10,
-                    name: "Tarif normal",
-                    positionInGrille: 1
-                }
+                // {
+                //     price: 10,
+                //     name: "Tarif normal",
+                //     positionInGrille: 1
+                // },
+                // {
+                //     price: 5,
+                //     name: "Tarif réduit",
+                //     positionInGrille: 2
+                // },
+                // {
+                //     price: 3,
+                //     name: "Tarif enfant",
+                //     positionInGrille: 3
+                // },
+                // {
+                //     price: 10,
+                //     name: "Tarif normal",
+                //     positionInGrille: 1
+                // },
+                // {
+                //     price: 5,
+                //     name: "Tarif réduit",
+                //     positionInGrille: 2
+                // }
             ],
         };
 
@@ -55,33 +75,37 @@ class PriceManager {
     updateTarifs() {
         this.priceInput.innerHTML = '';
         if (this.pricesContainer.size() === 0) {
-            const emptyMessage = document.createElement('div');
+            const emptyRow = document.createElement('tr');
 
+            const emptyMessage = document.createElement('td');
+
+            emptyMessage.colSpan = 2;
             emptyMessage.textContent = 'Aucun prix ajouté.';
-            emptyMessage.classList.add('text-gray-500', 'text-sm', 'w-full', 'flex', 'flex-row', 'justify-center', 'items-center', 'p-8');
+            emptyMessage.classList.add('text-gray-500', 'text-sm', 'w-full', 'flex', 'flex-row', 'justify-center', 'items-center', 'p-8', 'col-span-3');
             emptyMessage.id = 'emptyMessage';
 
-            this.priceInput.appendChild(emptyMessage);
+            emptyRow.appendChild(emptyMessage);
+            this.priceInput.appendChild(emptyRow);
         } else {
             this.pricesContainer["prices"]
             .sort((a, b) => a.positionInGrille - b.positionInGrille)
             .forEach(price => {
-                const elementDiv = document.createElement('div');
+                const elementDiv = document.createElement('tr');
                 elementDiv.classList.add('relative', 'flex', 'flex-col', 'items-center', 'justify-center', 'p-4', 'border', 'border-secondary', 'rounded-lg', 'mb-4', 'w-full', "h-fit");
                 
-                const elementTitle = document.createElement('h4');
+                const elementTitle = document.createElement('td');
                 elementTitle.textContent = price.name;
                 elementTitle.classList.add('text-lg', 'font-semibold', 'text-center', 'mb-2', 'w-full', 'text-secondary');
                 elementDiv.appendChild(elementTitle);
 
-                const elementPrice = document.createElement('p');
+                const elementPrice = document.createElement('td');
                 elementPrice.textContent = price.price + ' €';
                 elementPrice.classList.add('text-base');
                 elementDiv.appendChild(elementPrice);
 
-                const removeButton = document.createElement('div');
+                const removeButton = document.createElement('td');
                 removeButton.textContent = '✖';
-                removeButton.classList.add('absolute', 'top-0', 'right-0', 'm-2', 'text-red-500', 'hover:text-red-700', 'cursor-pointer');
+                removeButton.classList.add('absolute', 'top-0', 'right-0', 'm-1', 'text-red-500', 'hover:text-red-700', 'cursor-pointer');
                 removeButton.addEventListener('click', (e) => {
                     e.stopPropagation();
                     this.pricesContainer.removePrice(price.price, price.name, price.positionInGrille);
