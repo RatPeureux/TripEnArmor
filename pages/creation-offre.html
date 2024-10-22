@@ -20,7 +20,10 @@
     - Appliquer les scripts à tous les champs pour s'assurer de leur conformité
     - Faire le PHP
     - Faire du JS  
-    -->
+
+    TODO : Ajouter des 'i' d'informations pour expliquer les champs
+    TODO : Enlever la grille tarifaire pour les restaurants
+-->
 
 <body>
     <!-- Conteneur principal pour le contenu -->
@@ -218,7 +221,13 @@
                         placeholder="L'accessibilité sera visible sur l'offre détaillée !"></textarea>
                     </div>
 
-                    <div class="col-span-2 h-4"></div>
+                    <div class="col-span-2 flex justify-center items-center">
+                        <!-- TODO : Faire un bouton de confirmation qui vérifie les valeurs données  -->
+                         <!-- Bouton dernière étape -->
+                        <input type="button"
+                        class="bg-primary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white m-1 w-fit"
+                        value="Une dernière étape">
+                    </div>
 
                     <div class="col-span-2 flex flex-col items-center justify-center">
                         <!-- Sélection du type d'activité -->
@@ -284,6 +293,7 @@
                             <input type="radio" id="prix3" name="gamme2prix" value="prix3" checked />
                             <label for="prix3">€€€</label>
                         </div>
+                        <!-- TODO : Afficher les fourchettes de prix -->
                     </div>
 
                     <!-- Durée (HEURE & MIN) -->
@@ -353,14 +363,9 @@
                 <!-- Formulaire pour entrer les informations -->
                 <div class="flex flex-col justify-center items-center w-full">
 
-                    <!-- Bouton dernière étape -->
-                    <input type="button"
-                        class="bg-primary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white m-1 w-fit"
-                        value="Une dernière étape">
-                    
                     <!-- GRILLE TARIFAIRE -->
 
-                    <div>
+                    <div class="optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
                         <h2 class="text-title text-center text-secondary">Grille tarifaire</h2>
                         <div id="grilleTarifaire">
 
