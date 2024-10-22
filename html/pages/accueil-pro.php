@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="../scripts/loaddetailsmenus.js"></script>
-    <link rel="stylesheet" href="../styles/output.css">
-    <script type="module" src="../scripts/main.js"></script>
+    <script type="module" src="/scripts/loaddetailsmenus.js"></script>
+    <link rel="stylesheet" href="/styles/output.css">
+    <script type="module" src="/scripts/main.js"></script>
     <title>PACT - Accueil</title>
 </head>
 <body class="flex flex-col">
@@ -42,7 +42,7 @@
                         </a>
                     </div>
                     <!-- Image de fond -->
-                    <img class="rounded-l-lg w-full h-full object-cover object-center" src="../public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
+                    <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
                 </div>
                 <!-- Partie droite (infos principales) -->
                 <div class="infos flex flex-col items-center self-stretch px-5 py-3 justify-between">

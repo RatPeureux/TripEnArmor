@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../styles/output.css">
+    <link rel="stylesheet" href="/styles/output.css">
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=<?php echo getenv('GOOGLE_MAPS_API_KEY'); ?>&language=fr "></script>
-    <script type="text/javascript" src="../scripts/autocomplete.js"></script>
-    <script type="module" src="../dockerBDD/connexion/pro/crea_offre.js"></script>
+    <script type="text/javascript" src="/scripts/autocomplete.js"></script>
+    <script type="module" src="/php/pro/crea_offre.js"></script>
     <style>
         .offer-form-part-1{
             display: none;
@@ -367,7 +367,7 @@
             </div>
         </div>
     </div>
-    <script src="../scripts/tagManager.js"></script>
+    <script src="/scripts/tagManager.js"></script>
 
 </body>
 </html>

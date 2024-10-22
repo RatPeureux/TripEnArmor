@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../styles/output.css">
+    <link rel="stylesheet" href="/styles/output.css">
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
-    <script type="module" src="../dockerBDD/connexion/pro/crea_offre.js"></script>
+    <script type="module" src="/php/pro/crea_offre.js"></script>
     <style>
         .offer-form-part-1{
             display: none;
@@ -26,7 +26,7 @@
         <div class="bg-base200 w-[1024px] flex flex-col items-center justify-center p-8 rounded-xl">
             <!-- Lien de retour avec une icône et un titre -->
             <div class="w-full text-left">
-                <a href="accueil-pro.html" class="flex content-center space-x-">
+                <a href="accueil-pro.php" class="flex content-center space-x-">
                     <div class="m-4">
                         <i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>        
                     </div>
@@ -130,7 +130,7 @@
                         </div>
                     <!-- Formulaire pour entrer les informations -->
                     <div class="flex justify-center content-left">
-                        <form action="../dockerBDD/connexion/pro/crea_offre.php" method="post" class="flex-col w-full space-y-3" enctype="multipart/form-data">
+                        <form action="/php/pro/crea_offre.php" method="post" class="flex-col w-full space-y-3" enctype="multipart/form-data">
                             <!-- Titre -->
                             <div class="flex justify-between items-center w-full space-x-4">
                                 <label for="titre" class="text-nowrap">Titre* :</label>
@@ -315,7 +315,7 @@
                 }
             });
         </script>
-        <img class="rounded-l-lg w-full h-full object-cover object-center" src="../public/images/image-test.jpg" alt="Image promotionnelle de l'offre" id="preview-image">
+        <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre" id="preview-image">
     </div>
     <!-- Partie droite (infos principales) -->
     <div class="infos flex flex-col items-center self-stretch px-5 py-3 gap-3 justify-between">

@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image" href="../public/images/favicon.png">
-    <link rel="stylesheet" href="../styles/output.css">
+    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="stylesheet" href="/styles/output.css">
     <title>Création de compte 1/2</title>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
@@ -18,7 +18,7 @@
     <div class="h-full flex flex-col items-center justify-center">
         <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
             <!-- Logo de l'application -->
-            <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
+            <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
 
             <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-membre.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <p class="pb-3">Je créé un compte Membre</p>
@@ -135,8 +135,8 @@ $mdp = $_POST['mdp'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image" href="../public/images/favicon.png">
-    <link rel="stylesheet" href="../styles/output.css">
+    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="stylesheet" href="/styles/output.css">
     <title>Création de compte 2/2</title>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
@@ -146,7 +146,7 @@ $mdp = $_POST['mdp'];
 
     <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
         <!-- Logo de l'application -->
-        <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
+        <img class="text mb-4" src="/public/images/logo.svg" alt="moine" width="57">
 
         <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-membre.php" method="post" enctype="multipart/form-data">
             <p class="pb-3">Dites-nous en plus !</p>
@@ -228,7 +228,7 @@ function formatTEL(input) {
 <?php } else {
 
 ob_start();
-include('../php/connect_params.php');
+include('/php/connect_params.php');
 
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
