@@ -11,8 +11,7 @@ if (!isset($_POST['id'])) {
         $id = $_SESSION['id']; // Récupère l'id utilisé avant l'erreur
         unset($_SESSION['error']); // Supprime le message d'erreur de la session après l'affichage
         unset($_SESSION['id']); // Supprime l'id' après l'affichage
-    }
-    ?>
+    } ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,7 +26,7 @@ if (!isset($_POST['id'])) {
     <!-- Inclusion de Font Awesome pour les icônes -->
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
-<body class="h-screen bg-base100 p-4 overflow-hidden">
+<body class="h-screen bg-white p-4 overflow-hidden">
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
     
@@ -82,7 +81,7 @@ if (!isset($_POST['id'])) {
 
 <?php } else { 
 
-include('../php/connect_params.php'); // Inclut le fichier de paramètres de connexion à la base de données
+include('../php/connect-params.php'); // Inclut le fichier de paramètres de connexion à la base de données
 
 $error = ""; // Variable pour stocker les messages d'erreur
 

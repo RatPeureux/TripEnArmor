@@ -10,7 +10,7 @@
     <title>Création de compte 1/2</title>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
-<body class="h-screen bg-base100 p-4 overflow-hidden">
+<body class="h-screen bg-white p-4 overflow-hidden">
 
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
@@ -40,7 +40,7 @@
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail" maxlength="255" required>
             
                 <!-- Champ pour le mot de passe -->
-                <label class="text-small" for="mdp">Mot de passe*</label>
+                <label class="text-small" for="mdp">Mot de passe</label>
                 <div class="relative w-full">
                     <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp" 
                         pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 
@@ -49,7 +49,7 @@
                 </div>
 
                 <!-- Champ pour confirmer le mot de passe -->
-                <label class="text-small" for="confMdp">Confirmer le mot de passe*</label>
+                <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
                 <div class="relative w-full">
                     <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp" name="confMdp" 
                         pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 
@@ -140,7 +140,7 @@ $mdp = $_POST['mdp'];
     <title>Création de compte 2/2</title>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
-<body class="h-screen bg-base100 pt-4 px-4 overflow-x-hidden">
+<body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
@@ -174,6 +174,9 @@ $mdp = $_POST['mdp'];
             <!-- Champs pour l'adresse -->
             <label class="text-small" for="adresse">Adresse postale*</label>
             <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir mon adresse postale" maxlength="255" required>
+            
+            <label class="text-small" for="complement">Complément d'adresse postale</label>
+            <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement" title="Complément d'adresse" maxlength="255">
             
             <div class="flex flex-nowrap space-x-3 mb-1.5">
                 <div class="w-28">
@@ -228,7 +231,7 @@ function formatTEL(input) {
 <?php } else {
 
 ob_start();
-include('../php/connect_params.php');
+include('../php/connect-params.php');
 
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
@@ -244,50 +247,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
     $mdp = $_POST['mdp']; // Récupérer le mot de passe du champ caché
     $pseudo = $_POST['pseudo'];
     $adresse = $_POST['adresse'];
+    $complement = $_POST['complement'];
     $code = $_POST['code'];
     $ville = $_POST['ville'];
     $tel = $_POST['num_tel'];
 
+    function extraireInfoAdressse($adresse) {
+        $numero = substr($adresse, 0, 1);
+        $odonyme = substr($adresse, 2);
+    
+        return [
+            'numero' => $numero,
+            'odonyme' => $odonyme,
+        ];
+    }
+
     // Hachage du mot de passe
-    if (!empty($mdp)) { // Vérifier si $mdp n'est pas vide
-        $mdp_hache = password_hash($mdp, PASSWORD_DEFAULT);
+    $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-        // Insérer dans la base de données
-        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
+    try {
+        $test = extraireInfoAdressse($adresse);
+        $stmtTest = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement_adresse) VALUES (:code, :ville, :numero, :odonyme, :complement)");
+        $stmtTest->bindParam(':code', $code);
+        $stmtTest->bindParam(':ville', $ville);
+        $stmtTest->bindParam(':numero', $test['numero']);
+        $stmtTest->bindParam(':odonyme', $test['odonyme']);
+        $stmtTest->bindParam(':complement', $complement); // Assurez-vous que compte_id est défini
 
-        // Lier les paramètres pour l'adresse
-        $stmtAdresse->bindParam(':ville', $ville);
-        $stmtAdresse->bindParam(':adresse', $adresse);
-        $stmtAdresse->bindParam(':code', $code);
-
-        // Exécuter la requête pour l'adresse
-        if ($stmtAdresse->execute()) {
-            // Récupérer l'ID de l'adresse insérée
-            $adresseId = $dbh->lastInsertId();
-
-            // Préparer l'insertion dans la table Membre
-            $stmtMembre = $dbh->prepare("INSERT INTO sae_db._membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :adresse_id, :pseudo, :nom, :prenom)");
-
-            // Lier les paramètres pour le membre
-            $stmtMembre->bindParam(':nom', $nom);
-            $stmtMembre->bindParam(':prenom', $prenom);
-            $stmtMembre->bindParam(':mail', $mail);
-            $stmtMembre->bindParam(':mdp', $mdp_hache);
-            $stmtMembre->bindParam(':pseudo', $pseudo);
-            $stmtMembre->bindParam(':num_tel', $tel);
-            $stmtMembre->bindParam(':adresse_id', $adresseId); // Utiliser l'ID de l'adresse
-
-            // Exécuter la requête pour le membre
-            if ($stmtMembre->execute()) {
-                $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
-            } else {
-                $message = "Erreur lors de la création du compte : " . implode(", ", $stmtMembre->errorInfo());
-            }
+        if ($stmtTest->execute()) {
+            $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
         } else {
-            $message = "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtAdresse->errorInfo());
+            $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtTest->errorInfo());
+        }
+    } catch (Exception $e) {
+        $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
+    }
+
+    // Exécuter la requête pour l'adresse
+    if ($stmtTest->execute()) {
+        // Préparer l'insertion dans la table Membre
+        $stmtMembre = $dbh->prepare("INSERT INTO sae_db._membre (email, mdp_hash, num_tel, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :pseudo, :nom, :prenom)");
+
+        // Lier les paramètres pour le membre
+        $stmtMembre->bindParam(':mail', $mail);
+        $stmtMembre->bindParam(':mdp', $mdp_hash);
+        $stmtMembre->bindParam(':num_tel', $tel);
+        $stmtMembre->bindParam(':pseudo', $pseudo);
+        $stmtMembre->bindParam(':nom', $nom);
+        $stmtMembre->bindParam(':prenom', $prenom);
+
+        // Exécuter la requête pour le membre
+        if ($stmtMembre->execute()) {
+            $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
+        } else {
+            $message = "Erreur lors de la création du compte : " . implode(", ", $stmtMembre->errorInfo());
         }
     } else {
-        $message = "Mot de passe manquant.";
+        $message = "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtTest->errorInfo());
     }
 }
 
