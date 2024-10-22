@@ -14,36 +14,9 @@ WORKDIR /var/www/html
 # Supprime le répertoire img, si présent
 RUN rm -rf img
 
-# Copie le fichier marche_pas.nepastoucher sous le nom index.php dans le répertoire de travail
-COPY marche_pas.nepastoucher ./index.php
+# Copie le dossier html dans le docker
+COPY ../html/ ./TripEnArmor/html/
 
-# Copie le fichier de paramètres de connexion à la base de données
-COPY dockerBDD/connexion/connect_params.php ./TripEnArmor/dockerBDD/connexion/connect_params.php
-
-################################ php ################################
-
-# Copie le répertoire dockerBDD complet dans le répertoire de destination
-COPY ../dockerBDD/ ./TripEnArmor/dockerBDD/
-
-################################ pages html ################################
-
-# Copie le répertoire des pages HTML
-COPY ../pages/ ./TripEnArmor/pages/
-
-################################ styles ################################
-
-# Copie le répertoire des styles
-COPY ../styles/ ./TripEnArmor/styles
-
-################################ scripts ################################
-
-# Copie le répertoire des scripts
-COPY ../scripts ./TripEnArmor/scripts
-
-################################ public ################################
-
-# Copie le répertoire public
-COPY ../public ./TripEnArmor/public
 
 ################################ tailwind.config ################################
 
@@ -59,3 +32,37 @@ COPY initialisation ./TripEnArmor
 
 # Copie le répertoire de Tailwind CSS
 COPY tailwindcss ./TripEnArmor
+
+
+
+
+# # Copie le fichier marche_pas.nepastoucher sous le nom index.php dans le répertoire de travail
+# COPY marche_pas.nepastoucher ./index.php
+
+# # Copie le fichier de paramètres de connexion à la base de données
+# COPY dockerBDD/connexion/connect_params.php ./TripEnArmor/dockerBDD/connexion/connect_params.php
+
+################################ php ################################
+
+# # Copie le répertoire dockerBDD complet dans le répertoire de destination
+# COPY ../dockerBDD/ ./TripEnArmor/dockerBDD/
+
+# ################################ pages html ################################
+
+# # Copie le répertoire des pages HTML
+# COPY ../pages/ ./TripEnArmor/pages/
+
+# ################################ styles ################################
+
+# # Copie le répertoire des styles
+# COPY ../styles/ ./TripEnArmor/styles
+
+# ################################ scripts ################################
+
+# # Copie le répertoire des scripts
+# COPY ../scripts ./TripEnArmor/scripts
+
+# ################################ public ################################
+
+# # Copie le répertoire public
+# COPY ../public ./TripEnArmor/public

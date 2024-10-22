@@ -2,4 +2,4 @@
 
 ./tailwindcss init
 
-./tailwindcss -i ./styles/input.css -o ./styles/output.css --watch
+./tailwindcss -i ./html/styles/input.css -o ./html/styles/output.css --watch
