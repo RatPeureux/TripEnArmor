@@ -37,7 +37,7 @@
                        title="Saisir une adresse mail" maxlength="255" required>
                 
                 <!-- Champ pour le mot de passe -->
-                <label class="text-small" for="mdp">Mot de passe</label>
+                <label class="text-small" for="mdp">Mot de passe*</label>
                 <div class="relative w-full">
                     <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp" 
                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 
@@ -47,7 +47,7 @@
                 </div>
 
                 <!-- Champ pour confirmer le mot de passe -->
-                <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
+                <label class="text-small" for="confMdp">Confirmer le mot de passe*</label>
                 <div class="relative w-full">
                     <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp" name="confMdp" 
                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 
@@ -57,6 +57,8 @@
 
                 <!-- Message d'erreur pour le mot de passe -->
                 <span id="error-message" class="error text-rouge-logo text-small"></span>
+
+                <p class="italic">* : champs obligatoires</p>
 
                 <!-- Bouton pour continuer -->
                 <input type="submit" value="Continuer" class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-green-900 hover:border-green-900 hover:text-white">

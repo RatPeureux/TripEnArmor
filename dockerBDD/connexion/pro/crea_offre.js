@@ -101,8 +101,6 @@ function premium(){
 
 }
 
-
-
 window.showFormPart1 = showFormPart1;
 window.showFormPart2 = showFormPart2;
 window.gratuit = gratuit;
