@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
     $code = $_POST['code'];
     $ville = $_POST['ville'];
     $mdp = $_POST['mdp'];
-    $deno = $_POST['deno'];
+    $nom = $_POST['nom'];
     $mail = $_POST['mail'];
     $pseudo = $_POST['pseudo'];
     $tel = $_POST['num_tel'];
@@ -67,10 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
             $adresseId = $dbh->lastInsertId();
 
             // Préparer l'insertion dans la table Professionnel
-            $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db.Professionnel (email, mdp_hash, num_tel, adresse_id, nom_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :deno)");
+            $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db.Professionnel (email, mdp_hash, num_tel, adresse_id, nom_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom)");
             $stmtProfessionnel->bindParam(':mail', $mail);
             $stmtProfessionnel->bindParam(':mdp', $mdp_hache);
-            $stmtProfessionnel->bindParam(':deno', $deno);
+            $stmtProfessionnel->bindParam(':nom', $nom);
             $stmtProfessionnel->bindParam(':num_tel', $tel);
             $stmtProfessionnel->bindParam(':adresse_id', $adresseId);
 

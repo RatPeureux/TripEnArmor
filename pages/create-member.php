@@ -12,34 +12,31 @@
 </head>
 <body class="h-screen bg-base100 p-4 overflow-hidden">
 
-    <!-- Message d'erreur/success -->
-    <?php if (!empty($_GET['message'])): ?>
-        <div class="alert bg-yellow-200 text-yellow-800 p-3 rounded-lg mb-4">
-            <?php echo htmlspecialchars($_GET['message']); ?>
-        </div>
-    <?php endif; ?>
-
+    <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+
     <div class="h-full flex flex-col items-center justify-center">
         <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
+            <!-- Logo de l'application -->
             <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
+
             <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-member.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <p class="pb-3">Je créé un compte Membre</p>
 
                 <!-- Champs pour le prénom et le nom -->
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-full">
-                        <label class="text-small" for="prenom">Prénom*</label>
+                        <label class="text-small" for="prenom">Prénom</label>
                         <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" pattern="^[a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon prénom" maxlength="50" required>
                     </div>
                     <div class="w-full">
-                        <label class="text-small" for="nom">Nom*</label>
+                        <label class="text-small" for="nom">Nom</label>
                         <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" pattern="^[a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon nom" maxlength="50" required>
                     </div>
                 </div>
                 
                 <!-- Champ pour l'adresse mail -->
-                <label class="text-small" for="mail">Adresse mail*</label>
+                <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail" maxlength="255" required>
             
                 <!-- Champ pour le mot de passe -->
@@ -60,16 +57,14 @@
                     <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword2"></i>
                 </div>
 
-                <!-- Message d'erreur pour le mot de passe -->
+                <!-- Messages d'erreurs -->
                 <span id="error-message" class="error text-rouge-logo text-small"></span>
 
-                <p class="italic">* : champs obligatoires</p>
-
-                <!-- Bouton 'continuer' -->
+                <!-- Bouton pour continuer -->
                 <input type="submit" value="Continuer" class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
             
-                <!-- Bouton 'j'ai déjà un compte' -->
-                <a href="login-member.html" class="w-full h-12 p-1 bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]"> 
+                <!-- Lien vers la page de connexion -->
+                <a href="login-member.php" class="w-full h-12 p-1 bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]"> 
                     J'ai déjà un compte
                 </a>
             </form>
@@ -115,6 +110,7 @@ function validateForm() {
     var confMdp = document.getElementById("confMdp").value;
     var errorMessage = document.getElementById("error-message");
 
+    // Vérifie si les mots de passe correspondent
     if (mdp !== confMdp) {
         errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
         return false; // Empêche l'envoi du formulaire
@@ -125,7 +121,8 @@ function validateForm() {
 }
 </script>
 
-<?php } else { 
+<?php } elseif (isset($_POST['mail']) && !isset($_POST['num_tel'])) {
+
 // Si le formulaire a été soumis
 $prenom = str_contains($_POST['prenom'], "-") ? ucfirst(strtolower(strstr($_POST['prenom'], '-', true))) . "-" . ucfirst(strtolower(substr(strstr($_POST['prenom'], '-'), 1))) : ucfirst(strtolower($_POST['prenom']));
 $nom = strtoupper($_POST['nom']);
@@ -144,12 +141,17 @@ $mdp = $_POST['mdp'];
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
 <body class="h-screen bg-base100 pt-4 px-4 overflow-x-hidden">
+    <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+
     <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
+        <!-- Logo de l'application -->
         <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
-        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="../dockerBDD/connexion/membre/crea_compte_membre.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+
+        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-member.php" method="post" enctype="multipart/form-data">
             <p class="pb-3">Dites-nous en plus !</p>
 
+            <!-- Champs pour le prénom et le nom (en lecture seule) -->
             <div class="flex flex-nowrap space-x-3 mb-1.5">
                 <div class="w-full">
                     <label class="text-small" for="prenom">Prénom</label>
@@ -161,12 +163,15 @@ $mdp = $_POST['mdp'];
                 </div>
             </div>
             
+            <!-- Champ pour l'adresse mail (en lecture seule) -->
             <label class="text-small" for="mail">Adresse mail</label>
             <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" title="Mon adresse mail" value="<?php echo $mail;?>" readonly>
             
+            <!-- Champ pour le pseudonyme -->
             <label class="text-small" for="pseudo">Pseudonyme*</label>
             <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo" pattern="^(?:(\w+|\w+[\.\-_]?\w+)+" title="Saisir mon pseudonyme PACT" maxlength="16" required>
             
+            <!-- Champs pour l'adresse -->
             <label class="text-small" for="adresse">Adresse postale*</label>
             <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir mon adresse postale" maxlength="255" required>
             
@@ -181,19 +186,25 @@ $mdp = $_POST['mdp'];
                 </div>
             </div>
 
+            <!-- Champ pour le numéro de téléphone -->
             <label class="text-small" for="num_tel">Téléphone*</label>
             <div class="w-full">
                 <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel" pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14" oninput="formatTEL(this)" required>
             </div>
 
+            <!-- Choix d'acceptation des termes et conditions -->
             <div class="mb-1.5 flex items-start">
-                <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="" required>
-                <label class="text-small" for="termes">J’accepte les <u>conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u>Politique de confidentialité et d'utilisation des cookies</u>.</label>
+                <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer" required>
+                <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions d'utilisation</u> et vous confirmez que vous avez lu notre <u class="cursor-pointer">Politique de confidentialité et d'utilisation des cookies</u>.</label>
             </div>
 
-            <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
+            <!-- Messages d'erreurs -->
+            <span id="error-message" class="error text-rouge-logo text-small"></span>
             
+            <!-- Bouton pour créer le compte -->
             <input type="submit" value="Créer mon compte" class="mt-1.5 cursor-pointer w-full h-12 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+
+            <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
         </form>
     </div>
 </body>
@@ -213,5 +224,102 @@ function formatTEL(input) {
     input.value = formattedValue;
 }
 </script>
+
+<?php } else {
+
+ob_start();
+include('../dockerBDD/connexion/connect_params.php');
+
+$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
+
+$message = ''; // Initialiser le message
+
+// Partie pour traiter la soumission du second formulaire
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
+    // Assurer que tous les champs obligatoires sont remplis
+    $prenom = $_POST['prenom'];
+    $nom = $_POST['nom'];
+    $mail = $_POST['mail'];
+    $mdp = $_POST['mdp']; // Récupérer le mot de passe du champ caché
+    $pseudo = $_POST['pseudo'];
+    $adresse = $_POST['adresse'];
+    $code = $_POST['code'];
+    $ville = $_POST['ville'];
+    $tel = $_POST['num_tel'];
+
+    // Hachage du mot de passe
+    if (!empty($mdp)) { // Vérifier si $mdp n'est pas vide
+        $mdp_hache = password_hash($mdp, PASSWORD_DEFAULT);
+
+        // Insérer dans la base de données
+        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db.Adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
+
+        // Lier les paramètres pour l'adresse
+        $stmtAdresse->bindParam(':ville', $ville);
+        $stmtAdresse->bindParam(':adresse', $adresse);
+        $stmtAdresse->bindParam(':code', $code);
+
+        // Exécuter la requête pour l'adresse
+        if ($stmtAdresse->execute()) {
+            // Récupérer l'ID de l'adresse insérée
+            $adresseId = $dbh->lastInsertId();
+
+            // Préparer l'insertion dans la table Membre
+            $stmtMembre = $dbh->prepare("INSERT INTO sae_db.Membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :adresse_id, :pseudo, :nom, :prenom)");
+
+            // Lier les paramètres pour le membre
+            $stmtMembre->bindParam(':nom', $nom);
+            $stmtMembre->bindParam(':prenom', $prenom);
+            $stmtMembre->bindParam(':mail', $mail);
+            $stmtMembre->bindParam(':mdp', $mdp_hache);
+            $stmtMembre->bindParam(':pseudo', $pseudo);
+            $stmtMembre->bindParam(':num_tel', $tel);
+            $stmtMembre->bindParam(':adresse_id', $adresseId); // Utiliser l'ID de l'adresse
+
+            // Exécuter la requête pour le membre
+            if ($stmtMembre->execute()) {
+                $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
+            } else {
+                $message = "Erreur lors de la création du compte : " . implode(", ", $stmtMembre->errorInfo());
+            }
+        } else {
+            $message = "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtAdresse->errorInfo());
+        }
+    } else {
+        $message = "Mot de passe manquant.";
+    }
+}
+
+ob_end_flush();
+?>
+
+<!-- Affichage du message dans le HTML -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Création de Compte</title>
+    <script>
+        // Fonction de redirection après un délai
+        function redirectToLogin() {
+            setTimeout(function() {
+                window.location.href = "login-member.html";
+            }, 5000); // 5000 ms = 5 secondes
+        }
+    </script>
+</head>
+<body>
+    <h1>Création de Compte</h1>
+    
+    <?php if (!empty($message)): ?>
+        <div class="alert alert-success"><?php echo $message; ?></div>
+        <script>redirectToLogin();</script>
+    <?php endif; ?>
+
+    <!-- Formulaire de création de compte ici -->
+</body>
+</html>
 
 <?php } ?>
