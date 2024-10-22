@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/output.css">
-    <script type="module" src="../scripts/main.js" defer></script>
+    <link rel="stylesheet" href="/styles/output.css">
+    <script type="module" src="/scripts/main.js" defer></script>
     <title>PACT - Accueil</title>
 </head>
 <body class="flex flex-col">
@@ -22,7 +22,7 @@
         Composant dynamique (généré avec les données en php)
         Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
         -->
-        <a href="../pages/details.html">
+        <a href="/pages/details.html">
             <div class="card active relative bg-base300 rounded-xl flex flex-col">
                 <!-- En tête -->
                 <div class="en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
@@ -126,7 +126,7 @@
                 Composant dynamique (généré avec les données en php)
                 Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
                 -->
-                <a href="../pages/details.html">
+                <a href="/pages/details.html">
                     <div class="card active relative bg-base300 rounded-lg flex h-80">
                         <!-- Partie gauche -->
                         <div class="gauche grow relative shrink-0 basis-1/2 overflow-hidden">

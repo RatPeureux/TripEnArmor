@@ -1,12 +1,12 @@
 // Charger les composants HTML statiques ()
 async function loadFooterHeader() {
     // Charger les fichiers des composants
-    const footerHTML = await fetch('./components/footer.html').then(response => response.text());
-    const footerProHTML = await fetch('./components/footer-pro.html').then(response => response.text());
-    const headerHTML = await fetch('./components/header.html').then(response => response.text());
-    const menuHTML = await fetch('./components/menu.html').then(response => response.text());
-    const headerProHTML = await fetch('./components/header-pro.html').then(response => response.text());
-    const menuProHTML = await fetch('./components/menu-pro.html').then(response => response.text());
+    const footerHTML = await fetch('/pages/components/footer.html').then(response => response.text());
+    const footerProHTML = await fetch('/pages/components/footer-pro.html').then(response => response.text());
+    const headerHTML = await fetch('/pages/components/header.html').then(response => response.text());
+    const menuHTML = await fetch('/pages/components/menu.html').then(response => response.text());
+    const headerProHTML = await fetch('/pages/components/header-pro.html').then(response => response.text());
+    const menuProHTML = await fetch('/pages/components/menu-pro.html').then(response => response.text());
 
     let headers = document.querySelectorAll('#header');
     let footer = document.getElementById('footer');
