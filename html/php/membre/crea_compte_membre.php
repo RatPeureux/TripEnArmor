@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         $mdp_hache = password_hash($mdp, PASSWORD_DEFAULT);
 
         // Insérer dans la base de données
-        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db.Adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
+        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
 
         // Lier les paramètres pour l'adresse
         $stmtAdresse->bindParam(':ville', $ville);
