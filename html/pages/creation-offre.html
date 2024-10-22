@@ -506,8 +506,10 @@
                             </div>
                         </div>
                         <!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
+                        <!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou a la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
                         <div
-                          class="card active relative bg-base300 rounded-xl flex flex-col w-[450px]"
+                          class="card active relative bg-base300 rounded-xl flex flex-col"
+                          id="card-preview"
                         >
                           <!-- En tête -->
                           <div
