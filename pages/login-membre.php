@@ -134,6 +134,4 @@ try {
     die(); // Arrête l'exécution du script
 }
 
-header("location: toutes-offres.html");
-
 } ?>
