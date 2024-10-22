@@ -1,6 +1,6 @@
 <?php
 ob_start();
-include('../connect_params.php');
+include('/connect_params.php');
 
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
@@ -119,7 +119,7 @@ ob_end_flush();
         // Fonction de redirection après un délai
         function redirectToLogin() {
             setTimeout(function() {
-                window.location.href = "../../../pages/login-pro.html";
+                window.location.href = "/pages/login-pro.html";
             }, 5000); // 5000 ms = 5 secondes
         }
     </script>

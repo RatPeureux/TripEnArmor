@@ -2,7 +2,7 @@
 session_start(); // Démarre la session pour accéder aux variables de session
 ob_start(); // Active la mise en mémoire tampon de sortie
 
-include("../connect_params.php"); // Inclut le fichier de configuration pour la connexion à la base de données
+include("/php/connect_params.php"); // Inclut le fichier de configuration pour la connexion à la base de données
 
 try {
     // Établit la connexion à la base de données avec PDO
@@ -20,7 +20,7 @@ try {
         // Vérifiez si $idoffre est un entier
         if (!is_numeric($idoffre)) {
             $_SESSION['message'] = "ID d'offre invalide : " . htmlspecialchars($idoffre);
-            header("Location: ../../../pages/accueil-pro.html"); // Redirection après message d'erreur
+            header("Location: /pages/accueil-pro.html"); // Redirection après message d'erreur
             exit();
         }
 
@@ -33,7 +33,7 @@ try {
             if ($offre === false) {
                 $_SESSION['message'] = "Offre non trouvée.";
                 sleep(5);
-                header("Location: ../../../pages/accueil-pro.html"); // Redirection après message d'erreur
+                header("Location: /pages/accueil-pro.html"); // Redirection après message d'erreur
                 exit();
             }
 
@@ -45,13 +45,13 @@ try {
                 $stmt = $dbh->prepare("UPDATE sae_db.Offre SET est_en_ligne = false WHERE offre_id = :idoffre");
                 $stmt->execute(['idoffre' => $idoffre]);
                 $_SESSION['message'] = "L'offre a été mise hors ligne avec succès.";
-                header("location: ../../../pages/accueil-pro.html");
+                header("location: /pages/accueil-pro.html");
             } else {
                 // Met à jour l'état de l'offre pour la mettre en ligne
                 $stmt = $dbh->prepare("UPDATE sae_db.Offre SET est_en_ligne = true WHERE offre_id = :idoffre");
                 $stmt->execute(['idoffre' => $idoffre]);
                 $_SESSION['message'] = "L'offre a été mise en ligne avec succès.";
-                header("location: ../../../pages/accueil-pro.html");
+                header("location: /pages/accueil-pro.html");
             }
             exit(); // Termine le script pour s'assurer que la redirection fonctionne
         }

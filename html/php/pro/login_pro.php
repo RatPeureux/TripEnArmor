@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../connect_params.php'); // Inclut le fichier de paramètres de connexion à la base de données
+include('/php/connect_params.php'); // Inclut le fichier de paramètres de connexion à la base de données
 
 $error = ""; // Variable pour stocker les messages d'erreur
 
@@ -34,11 +34,10 @@ try {
             $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_name'] = $user['prenom'];
-            header('location: ../../../pages/accueil-pro.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
+            header('location: /pages/accueil-pro.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
             exit();
         } else {
             $error = "Email ou mot de passe incorrect"; // Message d'erreur si les identifiants ne sont pas valides
-            echo "test";
         }
     }
 } catch (PDOException $e) {
@@ -46,6 +45,6 @@ try {
     die(); // Arrête l'exécution du script
 }
 
-header("location: ../../../pages/login-pro.html");
+header("location: /pages/login-pro.html");
 
 ?>

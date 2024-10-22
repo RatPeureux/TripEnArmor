@@ -1,8 +1,6 @@
 <?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
-
-include('../connect_params.php');
+ob_start();
+include('/php/connect_params.php');
 
 try {
     // Connexion à la base de données
@@ -78,7 +76,7 @@ try {
                     $stmtTarifPublic->bindParam(':offre_id', $offreId);
 
                     if ($stmtTarifPublic->execute()) {
-                        header("Location: ../../../pages/accueil-pro.html");
+                        header("Location: /pages/accueil-pro.html");
                         exit;
                     } else {
                         echo "Erreur lors de la mise à jour dans la table Tarif_Public : " . implode(", ", $stmtTarifPublic->errorInfo());
