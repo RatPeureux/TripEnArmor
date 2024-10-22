@@ -26,8 +26,17 @@
             <form class="bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <p class="pb-3">Je créé un compte Professionnel</p>
 
-                <!-- Champ pour la dénomination sociale -->
-                <label class="text-small" for="nom">Dénomination sociale / Nom de l'organisation</label>
+                <!-- Choix du statut de l'utilisateur -->
+                <label class="text-small" for="statut">Je suis un organisme&nbsp;</label>
+                <select class="text-small mt-1.5 mb-3 bg-base100 p-1 rounded-lg" id="statut" name="statut" title="Choisir un statut" onchange="updateLabel()" required>
+                    <option value="" disabled selected> --- </option>
+                    <option value="public">public</option>
+                    <option value="prive">privé</option>
+                </select>
+                <label class="text-small" for="statut">&nbsp;.</label></br>
+
+                <!-- Champ pour le nom -->
+                <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom" 
                        pattern="^?:(\w+|\w+[\.\-_]?\w+)+$" 
                        title="Saisir le nom de l'entreprise" maxlength="100" required>
@@ -39,7 +48,7 @@
                        title="Saisir une adresse mail" maxlength="255" required>
                 
                 <!-- Champ pour le mot de passe -->
-                <label class="text-small" for="mdp">Mot de passe*</label>
+                <label class="text-small" for="mdp">Mot de passe</label>
                 <div class="relative w-full">
                     <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp" 
                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 
@@ -49,7 +58,7 @@
                 </div>
 
                 <!-- Champ pour confirmer le mot de passe -->
-                <label class="text-small" for="confMdp">Confirmer le mot de passe*</label>
+                <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
                 <div class="relative w-full">
                     <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp" name="confMdp" 
                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 
@@ -59,8 +68,6 @@
 
                 <!-- Messages d'erreurs -->
                 <span id="error-message" class="error text-rouge-logo text-small"></span>
-
-                <p class="italic">* : champs obligatoires</p>
 
                 <!-- Bouton pour continuer -->
                 <input type="submit" value="Continuer" class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-green-900 hover:border-green-900 hover:text-white">
@@ -75,57 +82,10 @@
 </body>
 </html>
 
-<script>
-// Gestion des icônes pour afficher/masquer le mot de passe
-const togglePassword1 = document.getElementById('togglePassword1');
-const togglePassword2 = document.getElementById('togglePassword2');
-const mdp = document.getElementById('mdp');
-const confMdp = document.getElementById('confMdp');
-
-togglePassword1.addEventListener('mousedown', function () {
-    mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-    this.classList.remove('fa-eye'); // Change l'icône
-    this.classList.add('fa-eye-slash');
-});
-
-togglePassword1.addEventListener('mouseup', function () {
-    mdp.type = 'password'; // Masque le mot de passe à nouveau
-    this.classList.remove('fa-eye-slash');
-    this.classList.add('fa-eye');
-});
-
-togglePassword2.addEventListener('mousedown', function () {
-    confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-    this.classList.remove('fa-eye');
-    this.classList.add('fa-eye-slash');
-});
-
-togglePassword2.addEventListener('mouseup', function () {
-    confMdp.type = 'password'; // Masque le mot de passe à nouveau
-    this.classList.remove('fa-eye-slash');
-    this.classList.add('fa-eye');
-});
-
-// Fonction de validation du formulaire
-function validateForm() {
-    var mdp = document.getElementById("mdp").value;
-    var confMdp = document.getElementById("confMdp").value;
-    var errorMessage = document.getElementById("error-message");
-
-    // Vérifie si les mots de passe correspondent
-    if (mdp !== confMdp) {
-        errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
-        return false; // Empêche l'envoi du formulaire
-    }
-    
-    errorMessage.textContent = ""; // Réinitialise le message d'erreur
-    return true; // Permet l'envoi du formulaire
-}
-</script>
-
 <?php } elseif (isset($_POST['mail']) && !isset($_POST['num_tel'])) {
 
 // Si le formulaire a été soumis
+$statut = $_POST['statut'];
 $nom = $_POST['nom'];
 $mail = strtolower($_POST['mail']);
 $mdp = $_POST['mdp'];
@@ -152,22 +112,19 @@ $mdp = $_POST['mdp'];
         <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php" method="post" enctype="multipart/form-data"">
             <p class="pb-3">Dites-nous en plus !</p>
 
-            <!-- Champ pour la dénomination sociale (en lecture seule) -->
-            <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
-            <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom" title="Dénomination sociale" value="<?php echo $nom;?>" readonly>
+            <?php if ($statut == "privé") { ?>
+                <!-- Champ pour la dénomination sociale (en lecture seule) -->
+                <label class="text-small" for="nom" id="nom">Dénomination sociale</label>
+                <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom" title="Dénomination sociale" value="<?php echo $nom;?>" readonly>
+            <?php } else { ?>
+                <!-- Champ pour le nom de l'organisation (en lecture seule) -->
+                <label class="text-small" for="nom" id="nom">Nom de l'organisation</label>
+                <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom" title="Nom de l'organisation" value="<?php echo $nom;?>" readonly>
+            <?php } ?>
             
             <!-- Champ pour l'adresse mail (en lecture seule) -->
             <label class="text-small" for="mail">Adresse mail</label>
             <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" title="Adresse mail" value="<?php echo $mail;?>" readonly>
-
-            <!-- Choix du statut de l'utilisateur -->
-            <label class="text-small" for="statut">Je suis un organisme&nbsp;</label>
-            <select class="text-small mt-3 mb-1.5 bg-base100 p-1 rounded-lg" id="statut" name="statut" title="Choisir un statut" onchange="updateLabel()" required>
-                <option value="" disabled selected> --- </option>
-                <option value="public">public</option>
-                <option value="private">privé</option>
-            </select>
-            <label class="text-small" for="statut">&nbsp;.</label></br>
             
             <!-- Champs pour l'adresse -->
             <label class="text-small" for="adresse">Adresse postale*</label>
@@ -194,21 +151,23 @@ $mdp = $_POST['mdp'];
                        pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14" oninput="formatTEL(this)" required>
             </div>
 
-            <!-- Choix de saisie des informations bancaires -->
-            <div class="group">
-                <div class="mb-1.5 flex items-start">
-                    <input class="mt-0.5 mr-1.5" type="checkbox" id="plus" name="plus" onchange="toggleIBAN()">
-                    <label class="text-small" for="plus">Je souhaite saisir mes informations bancaires dès maintenant !</label>
-                </div>
+            <?php if ($statut=="prive") { ?>
+                <!-- Choix de saisie des informations bancaires -->
+                <div class="group">
+                    <div class="mb-1.5 flex items-start">
+                        <input class="mt-0.5 mr-1.5" type="checkbox" id="plus" name="plus" onchange="toggleIBAN()">
+                        <label class="text-small" for="plus">Je souhaite saisir mes informations bancaires dès maintenant !</label>
+                    </div>
 
-                <!-- Champ pour l'IBAN -->
-                <div id="iban-container" class="hidden">
-                    <label class="text-small" for="iban">IBAN</label>
-                    <input class="p-2 bg-base100 w-full h-12 mb-3 rounded-lg" type="text" id="iban" name="iban" 
-                        pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Saisir un IBAN (FR)" minlength="33" maxlength="33" 
-                        oninput="formatIBAN(this)" disabled>
-                </div>
-            </div>  
+                    <!-- Champ pour l'IBAN -->
+                    <div id="iban-container" class="hidden">
+                        <label class="text-small" for="iban">IBAN</label>
+                        <input class="p-2 bg-base100 w-full h-12 mb-3 rounded-lg" type="text" id="iban" name="iban" 
+                            pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Saisir un IBAN (FR)" minlength="33" maxlength="33" 
+                            oninput="formatIBAN(this)" disabled>
+                    </div>
+                </div>  
+            <?php } ?>
 
             <!-- Choix d'acceptation des termes et conditions -->
             <div class="mb-1.5 flex items-start">
@@ -222,76 +181,24 @@ $mdp = $_POST['mdp'];
             <!-- Bouton pour créer le compte -->
             <input type="submit" value="Créer mon compte" class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-green-900 hover:border-green-900 hover:text-white">
             
+            <input type="hidden" name="statut" value="<?php echo $statut; ?>">
             <input type="hidden" name="mdp_test" value="<?php echo htmlspecialchars($mdp); ?>">
         </form>
     </div>
 </body>
 </html>
 
-<script>
-// Fonction pour mettre à jour le label en fonction du statut choisit
-function updateLabel() {
-    const statut = document.getElementById('statut').value;
-    const labelNom = document.getElementById('nom');
-
-    if (statut === 'public') {
-        labelNom.textContent = 'Nom de l\'organisation';
-    } else {
-        labelNom.textContent = 'Dénomination sociale';
-    }
-}
-
-// Fonction pour autoriser uniquement les chiffres dans l'input
-function number(input) {
-    let value = input.value.replace(/[^0-9]/g, '');
-    input.value = value;
-}
-
-// Fonction pour formater le numéro de téléphone
-function formatTEL(input) {
-    let value = input.value.replace(/[^0-9]/g, '');
-    const formattedValue = value.match(/.{1,2}/g)?.join(' ') || ''; // Formatage en paires de chiffres
-    input.value = formattedValue;
-}
-
-// Fonction pour afficher ou masquer le champ IBAN
-function toggleIBAN() {
-    const checkbox = document.getElementById('plus');
-    const ibanContainer = document.getElementById('iban-container');
-    const iban = document.getElementById('iban');
-
-    // Afficher ou masquer le conteneur IBAN
-    ibanContainer.classList.toggle('hidden', !checkbox.checked);
-    
-    if (checkbox.checked) {
-        iban.value = 'FR'; // Ajoute le préfixe 'FR'
-        iban.disabled = false; // Active le champ
-    } else {
-        iban.value = ''; // Supprime toute saisie
-        iban.disabled = true; // Désactive le champ
-    }
-}
-
-// Fonction pour formater l'IBAN
-function formatIBAN(input) {
-    let value = input.value.replace(/[^0-9]/g, '');
-    const prefix = "FR"; // Préfixe de l'IBAN
-    const formattedValue = value.length > 0 ? (prefix + value).match(/.{1,4}/g)?.join(' ') : prefix; // Formatage de l'IBAN
-    input.value = formattedValue;
-}
-</script>
-
 <?php } else {
 
 ob_start();
-include('../dockerBDD/connexion/connect_params.php');
+include('../php/connect_params.php');
 
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
 
 // Alteration de la table pour s'assurer que numero_compte est un VARCHAR
 try {
-    $dbh->exec("ALTER TABLE sae_db.Rib ALTER COLUMN numero_compte TYPE VARCHAR(11)");
+    $dbh->exec("ALTER TABLE sae_db._rib ALTER COLUMN numero_compte TYPE VARCHAR(11)");
 } catch (PDOException $e) {
     // Ignorer l'erreur si la colonne est déjà au bon type
     if ($e->getCode() !== '42P07') {
@@ -342,7 +249,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         $mdp_hache = password_hash($mdp, PASSWORD_DEFAULT);
 
         // Insérer dans la base de données pour l'adresse
-        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db.Adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
+        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
         $stmtAdresse->bindParam(':ville', $ville);
         $stmtAdresse->bindParam(':adresse', $adresse);
         $stmtAdresse->bindParam(':code', $code);
@@ -351,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
             $adresseId = $dbh->lastInsertId();
 
             // Préparer l'insertion dans la table Professionnel
-            $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db.Professionnel (email, mdp_hash, num_tel, adresse_id, nom_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom)");
+            $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._professionnel (email, mdp_hash, num_tel, adresse_id, nom_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom)");
             $stmtProfessionnel->bindParam(':mail', $mail);
             $stmtProfessionnel->bindParam(':mdp', $mdp_hache);
             $stmtProfessionnel->bindParam(':nom', $nom);
@@ -363,7 +270,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
                 // Extraire les valeurs du RIB à partir de l'IBAN
                 try {
                     $rib = extraireRibDepuisIban($iban);
-                    $stmtRib = $dbh->prepare("INSERT INTO sae_db.Rib (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :compte_id)");
+                    $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :compte_id)");
                     $stmtRib->bindParam(':code_banque', $rib['code_banque']);
                     $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
                     $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
@@ -421,3 +328,102 @@ ob_end_flush();
 </html>
 
 <?php } ?>
+
+<script>
+// Gestion des icônes pour afficher/masquer le mot de passe
+const togglePassword1 = document.getElementById('togglePassword1');
+const togglePassword2 = document.getElementById('togglePassword2');
+const mdp = document.getElementById('mdp');
+const confMdp = document.getElementById('confMdp');
+
+togglePassword1.addEventListener('mousedown', function () {
+    mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+    this.classList.remove('fa-eye'); // Change l'icône
+    this.classList.add('fa-eye-slash');
+});
+
+togglePassword1.addEventListener('mouseup', function () {
+    mdp.type = 'password'; // Masque le mot de passe à nouveau
+    this.classList.remove('fa-eye-slash');
+    this.classList.add('fa-eye');
+});
+
+togglePassword2.addEventListener('mousedown', function () {
+    confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+    this.classList.remove('fa-eye');
+    this.classList.add('fa-eye-slash');
+});
+
+togglePassword2.addEventListener('mouseup', function () {
+    confMdp.type = 'password'; // Masque le mot de passe à nouveau
+    this.classList.remove('fa-eye-slash');
+    this.classList.add('fa-eye');
+});
+
+// Fonction de validation du formulaire
+function validateForm() {
+    var mdp = document.getElementById("mdp").value;
+    var confMdp = document.getElementById("confMdp").value;
+    var errorMessage = document.getElementById("error-message");
+
+    // Vérifie si les mots de passe correspondent
+    if (mdp !== confMdp) {
+        errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
+        return false; // Empêche l'envoi du formulaire
+    }
+    
+    errorMessage.textContent = ""; // Réinitialise le message d'erreur
+    return true; // Permet l'envoi du formulaire
+}
+
+// Fonction pour mettre à jour le label en fonction du statut choisit
+function updateLabel() {
+    const statut = document.getElementById('statut').value;
+    const labelNom = document.getElementById('nom');
+
+    if (statut === 'public') {
+        labelNom.textContent = 'Nom de l\'organisation';
+    } else {
+        labelNom.textContent = 'Dénomination sociale';
+    }
+}
+
+// Fonction pour autoriser uniquement les chiffres dans l'input
+function number(input) {
+    let value = input.value.replace(/[^0-9]/g, '');
+    input.value = value;
+}
+
+// Fonction pour formater le numéro de téléphone
+function formatTEL(input) {
+    let value = input.value.replace(/[^0-9]/g, '');
+    const formattedValue = value.match(/.{1,2}/g)?.join(' ') || ''; // Formatage en paires de chiffres
+    input.value = formattedValue;
+}
+
+// Fonction pour afficher ou masquer le champ IBAN
+function toggleIBAN() {
+    const checkbox = document.getElementById('plus');
+    const ibanContainer = document.getElementById('iban-container');
+    const iban = document.getElementById('iban');
+
+    // Afficher ou masquer le conteneur IBAN
+    ibanContainer.classList.toggle('hidden', !checkbox.checked);
+    
+    if (checkbox.checked) {
+        iban.value = 'FR'; // Ajoute le préfixe 'FR'
+        iban.disabled = false; // Active le champ
+    } else {
+        iban.value = ''; // Supprime toute saisie
+        iban.disabled = true; // Désactive le champ
+    }
+}
+
+// Fonction pour formater l'IBAN
+function formatIBAN(input) {
+    let value = input.value.replace(/[^0-9]/g, '');
+    const prefix = "FR"; // Préfixe de l'IBAN
+    const formattedValue = value.length > 0 ? (prefix + value).match(/.{1,4}/g)?.join(' ') : prefix; // Formatage de l'IBAN
+    input.value = formattedValue;
+}
+</script>

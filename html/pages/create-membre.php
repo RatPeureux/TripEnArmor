@@ -20,7 +20,7 @@
             <!-- Logo de l'application -->
             <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
 
-            <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-member.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-membre.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <p class="pb-3">Je créé un compte Membre</p>
 
                 <!-- Champs pour le prénom et le nom -->
@@ -64,7 +64,7 @@
                 <input type="submit" value="Continuer" class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
             
                 <!-- Lien vers la page de connexion -->
-                <a href="login-member.php" class="w-full h-12 p-1 bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]"> 
+                <a href="login-membre.php" class="w-full h-12 p-1 bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]"> 
                     J'ai déjà un compte
                 </a>
             </form>
@@ -148,7 +148,7 @@ $mdp = $_POST['mdp'];
         <!-- Logo de l'application -->
         <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
 
-        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-member.php" method="post" enctype="multipart/form-data">
+        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-membre.php" method="post" enctype="multipart/form-data">
             <p class="pb-3">Dites-nous en plus !</p>
 
             <!-- Champs pour le prénom et le nom (en lecture seule) -->
@@ -228,7 +228,7 @@ function formatTEL(input) {
 <?php } else {
 
 ob_start();
-include('../dockerBDD/connexion/connect_params.php');
+include('../php/connect_params.php');
 
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
@@ -253,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         $mdp_hache = password_hash($mdp, PASSWORD_DEFAULT);
 
         // Insérer dans la base de données
-        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db.Adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
+        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
 
         // Lier les paramètres pour l'adresse
         $stmtAdresse->bindParam(':ville', $ville);
@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
             $adresseId = $dbh->lastInsertId();
 
             // Préparer l'insertion dans la table Membre
-            $stmtMembre = $dbh->prepare("INSERT INTO sae_db.Membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :adresse_id, :pseudo, :nom, :prenom)");
+            $stmtMembre = $dbh->prepare("INSERT INTO sae_db._membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :adresse_id, :pseudo, :nom, :prenom)");
 
             // Lier les paramètres pour le membre
             $stmtMembre->bindParam(':nom', $nom);
@@ -305,7 +305,7 @@ ob_end_flush();
         // Fonction de redirection après un délai
         function redirectToLogin() {
             setTimeout(function() {
-                window.location.href = "login-member.html";
+                window.location.href = "login-membre.html";
             }, 5000); // 5000 ms = 5 secondes
         }
     </script>

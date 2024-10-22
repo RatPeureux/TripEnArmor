@@ -1,4 +1,18 @@
-<?php if (!isset($_POST['id'])) { ?>
+<?php 
+
+session_start(); // Démarre la session au début du script
+global $error; // Variable pour stocker les messages d'erreur
+global $id; // Variable pour stocker les messages d'erreur
+
+if (!isset($_POST['id'])) {
+    // Vérifie si un message d'erreur est stocké dans la session
+    if (isset($_SESSION['error'])) {
+        $error = $_SESSION['error']; // Récupère le message d'erreur de la session
+        $id = $_SESSION['id']; // Récupère l'id utilisé avant l'erreur
+        unset($_SESSION['error']); // Supprime le message d'erreur de la session après l'affichage
+        unset($_SESSION['id']); // Supprime l'id' après l'affichage
+    }
+    ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,7 +43,7 @@
                 <label class="text-small" for="id">Identifiant</label>
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id" 
                        pattern="^(?:\w+|\w+[\.\-_]?\w+|0\d( \d{2}){4}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$" 
-                       title="Saisir un identifiant (Dénomination / Nom de l'organisation, Adresse mail ou Téléphone)" maxlength="255" required>
+                       title="Saisir un identifiant (Dénomination / Nom de l'organisation, Adresse mail ou Téléphone)" value="<?php echo $id;?>" maxlength="255" required>
                 
                 <!-- Champ pour le mot de passe -->
                 <label class="text-small" for="mdp">Mot de passe</label>
@@ -41,10 +55,10 @@
                     <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword"></i>
                 </div>
 
-                <!-- Messages d'erreurs -->
-                <?php if (strlen($error)==0) { ?>
+                <?php if ($error !== "") { ?>
+                    <!-- Messages d'erreurs -->
                     <span id="error-message" class="error text-rouge-logo text-small">
-                        <?php echo htmlspecialchars($error);?>
+                        <?php echo $error;?>
                     </span>
                 <?php } ?>
 
@@ -66,30 +80,9 @@
 </body>
 </html>
 
-<script>
-    // Récupération de l'élément pour afficher/masquer le mot de passe
-    const togglePassword = document.getElementById('togglePassword');
-    const mdp = document.getElementById('mdp');
-
-    // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-    togglePassword.addEventListener('mousedown', function () {
-        mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-        this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
-        this.classList.add('fa-eye-slash');
-    });
-
-    // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
-    togglePassword.addEventListener('mouseup', function () {
-        mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
-        this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
-        this.classList.add('fa-eye');
-    });
-</script>
-
 <?php } else { 
 
-session_start();
-include('../dockerBDD/connexion/connect_params.php'); // Inclut le fichier de paramètres de connexion à la base de données
+include('../php/connect_params.php'); // Inclut le fichier de paramètres de connexion à la base de données
 
 $error = ""; // Variable pour stocker les messages d'erreur
 
@@ -104,7 +97,7 @@ try {
         $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
 
         // Prépare une requête SQL pour trouver l'utilisateur par nom, email ou numéro de téléphone
-        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE nom = :id OR email = :id OR num_tel = :id");
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE nom_orga = :id OR email = :id OR num_tel = :id");
         $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
         $stmt->execute(); // Exécute la requête
 
@@ -126,7 +119,10 @@ try {
             header('location: accueil-pro.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
             exit();
         } else {
-            $error = "Email ou mot de passe incorrect !"; // Message d'erreur si les identifiants ne sont pas valides
+            $_SESSION['error'] = "Identifiant ou mot de passe incorrect !"; // Stocke le message d'erreur dans la session
+            $_SESSION['id'] = $id; // Stocke l'id saisi dans la session
+            header('location: login-pro.php'); // Retourne à la page de connexion
+            exit();
         }
     }
 } catch (PDOException $e) {
@@ -135,3 +131,23 @@ try {
 }
 
 } ?>
+
+<script>
+    // Récupération de l'élément pour afficher/masquer le mot de passe
+    const togglePassword = document.getElementById('togglePassword');
+    const mdp = document.getElementById('mdp');
+
+    // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
+    togglePassword.addEventListener('mousedown', function () {
+        mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+        this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
+        this.classList.add('fa-eye-slash');
+    });
+
+    // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
+    togglePassword.addEventListener('mouseup', function () {
+        mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
+        this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
+        this.classList.add('fa-eye');
+    });
+</script>
