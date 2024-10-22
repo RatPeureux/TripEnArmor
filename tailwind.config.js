@@ -12,7 +12,10 @@ module.exports = {
             },
             fontSize: {
                 'small': ['14px'],
-                'title': ['32px'],
+                'h1': ['32px'],
+                'h2': ['24px'],
+                'h3': ['20px'],
+                'h4': ['18px'],
                 'PACT': ['35px', {
                     letterSpacing: '10px',
                 }],

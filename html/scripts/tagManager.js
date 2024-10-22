@@ -14,11 +14,11 @@ const cuisineTags = [
 ];
 
 class TagManager {
-    constructor(inputId, suggestionListId) {
+    constructor(inputId) {
         this.tagInput = document.getElementById(inputId);
         this.tagContainer = {
             removeChild(activityType, child) {
-                this[activityType].remove(child);
+                this[activityType].removeChild(child);
             },
             "activite" : document.getElementById('activiteTags'),
             "visite" : document.getElementById('visiteTags'),
@@ -80,6 +80,7 @@ class TagManager {
     }
 
     changeAvailableTags(activityType) {
+        this.availableTags = []; 
         switch (activityType) {
             case 'activite':
                 this.availableTags = culturalTags;
@@ -101,9 +102,6 @@ class TagManager {
                 break;
         }
         this.updateSuggestionList(); // Mettre à jour la liste après changement
-        if (activityType !== 'selection') {
-            this.toggleTagContainerVisibility(activityType); // Vérifier la visibilité du conteneur
-        }
     }
 
     updateSuggestionList() {
@@ -136,27 +134,12 @@ class TagManager {
             this.tagContainer.removeChild(activityType, tagDiv);
             this.addedTags.delete(tag);
             this.updateSuggestionList();
-            this.toggleTagContainerVisibility(activityType); // Vérifier la visibilité du conteneur
         };
 
         tagDiv.appendChild(removeBtn);
         this.tagContainer[activityType].appendChild(tagDiv);
         this.addedTags[activityType].push(tag);
         this.updateSuggestionList();
-        this.toggleTagContainerVisibility(activityType); // Vérifier la visibilité du conteneur
-    }
-
-    toggleTagContainerVisibility(activityType) {
-        for (const key in this.tagContainer) {
-            if (typeof this.tagContainer[key] === 'string') {
-                this.tagContainer[key].classList.add('hidden');
-            }
-        }
-        if (this.addedTags[activityType].length > 0) {
-            this.tagContainer[activityType].classList.remove('hidden'); // Afficher le conteneur si des tags sont présents
-        } else {
-            this.tagContainer[activityType].classList.add('hidden'); // Cacher le conteneur s'il n'y a pas de tags
-        }
     }
 }
 
