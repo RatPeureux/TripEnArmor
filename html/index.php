@@ -65,7 +65,6 @@
                 </div>
             </div>
         </a>
-
     </main>
     
     <!-- VERSION TABLETTE -->

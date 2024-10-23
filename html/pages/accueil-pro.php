@@ -37,7 +37,7 @@
     
     <main class="mx-10 self-center grow rounded-lg p-2 max-w-[1280px]">
         <!-- TOUTES LES OFFRES (offre & détails) -->
-        <div class="tablette p-4 flex flex-col gap-4">
+        <div class="tablette p-4 flex flex-col gap-8">
             <h1 class="text-4xl text-center">Mes offres</h1>
     
             <!--
@@ -54,6 +54,7 @@
                         $offre_id = $offre['offre_id'];
                         $description = $offre['description_offre'];
                         $resume = $offre['resume_offre'];
+                        $option = $offre['option'];
                         $est_en_ligne = $offre['est_en_ligne'];
                         $prix_mini = $offre['prix_mini'];
                         $date_mise_a_jour = $offre['date_mise_a_jour'];
@@ -68,9 +69,9 @@
                         $date_mise_a_jour = new DateTime($date_mise_a_jour);
                         $date_mise_a_jour = $date_mise_a_jour->format('d/m/Y');
                             // Obtenir le type de l'offre (gratuit, standard, premium)
-                            $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE offre_id = $offre_id");
-                            $stmt->execute();
-                            $type_offre = $stmt->fetch(PDO::FETCH_ASSOC)['nom_type_offre'];    
+                        $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE offre_id = $offre_id");
+                        $stmt->execute();
+                        $type_offre = $stmt->fetch(PDO::FETCH_ASSOC)['nom_type_offre'];    
                             // Détails de l'adresse
                         $adresse_id = $offre['adresse_id'];
                         $stmt = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE adresse_id = $adresse_id");
@@ -78,11 +79,49 @@
                         $adresse = $stmt->fetch(PDO::FETCH_ASSOC);
                         $code_postal = $adresse['code_postal'];
                         $ville = $adresse['ville'];
+
+                        // CAS DES AFFICHAGES QUI DIFFÈRENT SELON LA CATÉGORIE DE L'OFFRE
+                            // Afficher les prix ou la gamme de prix si c'est un restaurant
+                        $prix_sur_carte;
+                        if ($categorie_offre == 'restauration') {
+                            $stmt = $dbh->prepare("SELECT * FROM sae_db._restauration WHERE offre_id = $offre_id");
+                            $stmt->execute();
+                            $prix_sur_carte = $stmt->fetch(PDO::FETCH_ASSOC)['gamme_prix'];
+                        } else {
+                            $prix_sur_carte = $offre['prix_mini'] . '€';
+                        }
+                            // Tags pour le restaurant (pour la carte, on prend les types de repas) ou autres si ce n'est pas un restaurant
+                        if ($categorie_offre == 'restauration') {
+                            $stmt = $dbh->prepare("SELECT type_repas_id FROM sae_db._restaurant_type_repas WHERE restauration_id = $offre_id");
+                            $stmt->execute();
+                            $repasIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            $tags = '';
+                            // Récup chaque nom de tag, et l'ajouter aux tags
+                            foreach($repasIds as $repasId) {
+                                $stmt = $dbh->prepare("SELECT nom_type_repas FROM sae_db._type_repas WHERE type_repas_id = $repasId");
+                                $stmt->execute();
+                                $nom_tag = $stmt->fetch(PDO::FETCH_ASSOC);
+                                $tags = $tags . ', ' . $nom_tag;
+                            }
+                            // Tags pour les autres types d'offre
+                        } else {
+                            $stmt = $dbh->prepare("SELECT tag_id FROM sae_db._tag_$categorie_offre WHERE id_$categorie_offre = $offre_id");
+                            $stmt->execute();
+                            $tagIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            $tags = '';
+                            // Récup chaque nom de tag, et l'ajouter aux tags
+                            foreach($tagIds as $tagId) {
+                                $stmt = $dbh->prepare("SELECT nom_tag FROM sae_db._tag WHERE tag_id = $tagId");
+                                $stmt->execute();
+                                $nom_tag = $stmt->fetch(PDO::FETCH_ASSOC);
+                                $tags = $tags . ', ' . $nom_tag;
+                            }
+                        }
             ?>
 
-            <div class="card active relative bg-base300 rounded-lg flex">
+            <div class="card <?php if ($option) echo 'active' ?> relative min-w-[1280px] bg-base300 rounded-lg flex">
                 <!-- Partie gauche -->
-                <div class="gauche relative shrink-0 basis-1/2 h-[420px] overflow-hidden">
+                <div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
                     <!-- En tête -->
                     <div class="en-tete flex justify-around absolute top-0 w-full">
                         <div class="bg-bgBlur/75 backdrop-blur rounded-b-lg w-3/5">
@@ -121,17 +160,27 @@
 
                     </div>
                     <!-- Image de fond -->
-                    <a href="/pages/go_to_details.php?offre_id=<?php echo $offre_id ?>">
+                    <a href="/pages/go_to_details_pro.php?offre_id=<?php echo $offre_id ?>">
                         <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre" title="consulter les détails">
                     </a>
                 </div>
                 <!-- Partie droite (infos principales) -->
-                <div class="infos flex flex-col items-center self-stretch px-5 py-3 justify-between">
+                <div class="infos flex flex-col items-center basis-1/2 self-stretch px-5 py-3 justify-between">
                     <!-- Description -->
                     <div class="description py-2 flex flex-col gap-2 w-full">
                         <div class="flex justify-center relative">
                             <div class="p-2 rounded-lg bg-secondary self-center">
-                                <p class="text-white text-center font-bold">Petit déjeuner, Dîner, Boissons</p>
+                                <p class="text-white text-center font-bold">
+                                    <?php
+                                        // Si c'est un restaurant, afficher les types de plats, sinon aficher les tags de l'offre
+                                        if ($tags) {
+                                            echo $tags;
+                                        }
+                                        else {
+                                            echo 'Aucun tag';
+                                        }
+                                    ?>
+                                </p>
                             </div>
                             <a href="">
                                 <div class="flex justify-center items-center rounded-lg absolute top-1/2 right-0 -translate-y-1/2">
@@ -150,7 +199,7 @@
                             </div>
                         </div>
                         <p class="line-clamp-6">
-                            <?php echo $description ?>
+                            <?php echo $resume ?>
                         </p>
                     </div>
                     <!-- A droite, en bas -->
@@ -165,7 +214,7 @@
                             </div>
                             <!-- Notation et Prix -->
                             <div class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
-                                <p class="text-small">€€</p>
+                                <p class="text-small"><?php echo $prix_sur_carte ?></p>
                             </div>
                         </div>
 
@@ -200,6 +249,7 @@
                                     <i class="fa-solid fa-rotate text-xl"></i>
                                     <p class="italic">Modifiée le <?php echo $date_mise_a_jour ?></p>
                                 </div>
+                                <!-- Cacher les options tant que ce n'est pas à développer -->
                                 <!-- <div class="flex items-center gap-2">
                                     <i class="fa-solid fa-gears text-xl"></i>
                                     <div>
@@ -225,7 +275,6 @@
                 + Nouvelle offre
             </a>
         </div>
-
     </main>
 
     <div id="footer-pro"></div>
