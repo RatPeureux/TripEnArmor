@@ -108,6 +108,7 @@ CREATE TABLE _offre (
     date_creation DATE NOT NULL,
     date_mise_a_jour DATE,
     date_suppression DATE,
+    idPro INTEGER REFERENCES _professionnel(id_compte),
     adresse_id INTEGER REFERENCES _adresse(adresse_id)
 );
 
