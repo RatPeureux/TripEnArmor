@@ -94,7 +94,8 @@ CREATE TABLE _offre (
     date_suppression DATE,
     idPro integer references _professionnel(id_compte),
     type_offre_id integer references _type_offre(type_offre_id),
-    adresse_id serial REFERENCES _adresse(adresse_id)
+    adresse_id serial REFERENCES _adresse(adresse_id),
+    option VARCHAR(10)
 );
 -- Sécurité --------------------------------------------------------------
 /*
@@ -158,12 +159,7 @@ CREATE TABLE _log_changement_status (
 -- ------------------------------------------------------------------------------------------------------- fin
 -- -------------------------------------------------------------------------------------Restaurants------- début
 
--- Type de repas 'petit dej' 'diner' etc...
-create table _type_repas (
-    type_repas_id SERIAL PRIMARY KEY,
-    nom_type_repas VARCHAR(255) NOT NULL UNIQUE
-);
-
+-- Types de repas pour les restaurants --------------------------------------------------------
 -- Héritage pour les types d'offres
 CREATE TABLE _restauration (
     restauration_id SERIAL PRIMARY KEY,
@@ -178,8 +174,13 @@ create table _restaurant_type_repas (
     PRIMARY KEY (restauration_id, type_repas_id)
 );
 
--- TAGs Restaurants --------------------------------------------------------
+-- Type de repas 'petit dej' 'diner' etc...
+create table _type_repas (
+    type_repas_id SERIAL PRIMARY KEY,
+    nom_type_repas VARCHAR(255) NOT NULL UNIQUE
+);
 
+-- TAGs Restaurants --------------------------------------------------------
 -- Type de restaurant : gastronomie, kebab, etc..
 create table _tag_restaurant (
   tag_restaurant_id serial primary key,
@@ -197,7 +198,7 @@ create table _tag_restaurant_restauration (
 -- ----------------------------------------------------------------------------------------Activités------ début
 
 CREATE TABLE _activite (
-    id_active SERIAL PRIMARY KEY,
+    id_activite SERIAL PRIMARY KEY,
     duree_activite TIME,
     age_requis INTEGER,
     prestations VARCHAR(255)
@@ -205,9 +206,9 @@ CREATE TABLE _activite (
 
 -- TAGs Activité---------------------------------------------
 create table _tag_activite (
-  id_active serial references _activite(id_active),
+  id_activite serial references _activite(id_activite),
   tag_id serial references _tag(tag_id),
-  primary key (id_active, tag_id)
+  primary key (id_activite, tag_id)
 );
 
 -- ------------------------------------------------------------------------------------------------------- fin
@@ -215,7 +216,7 @@ create table _tag_activite (
 -- Spectacles ---------------------------------------------------
 
 CREATE TABLE _spectacle (
-    spectacle_id SERIAL PRIMARY KEY,
+    id_spectacle SERIAL PRIMARY KEY,
     capacite_spectacle INTEGER,
     duree_spectacle TIME
 ) INHERITS (_offre);
@@ -223,9 +224,9 @@ CREATE TABLE _spectacle (
 
 -- TAG Spectacles 
 create table _tag_spectacle (
-  spectacle_id serial references _spectacle(spectacle_id),
+  id_spectacle serial references _spectacle(id_spectacle),
   tag_id serial references _tag(tag_id),
-  primary key (spectacle_id, tag_id)
+  primary key (id_spectacle, tag_id)
 );
 
 -- ------------------------------------------------------------------------------------------------------- fin
@@ -245,15 +246,15 @@ CREATE TABLE _langue (
 
 -- Table de lien pour les langues parlées durant les visites
 CREATE TABLE _visite_langue (
-    visite_id serial REFERENCES _visite(visite_id),
+    id_visite serial REFERENCES _visite(id_visite),
     langue_id serial REFERENCES _langue(langue_id)
 );
 
 -- TAG Visites 
 create table _tag_visite (
-  visite_id serial references _visite(visite_id),
+  id_visite serial references _visite(id_visite),
   tag_id serial references _tag(tag_id),
-  primary key (visite_id, tag_id)
+  primary key (id_visite, tag_id)
 );
 
 -- ------------------------------------------------------------------------------------------------------- fin
@@ -266,10 +267,10 @@ CREATE TABLE _parc_attraction (
 ) INHERITS (_offre);
 
 -- TAG Parcs
-create table _tag_parc (
-  parc_id serial references _parc_attraction(parc_id),
+create table _tag_parc_attraction (
+  id_parc_attraction serial references _parc_attraction(id_parc_attraction),
   tag_id serial references _tag(tag_id),
-  primary key (parc_id, tag_id)
+  primary key (id_parc_attraction, tag_id)
 );
 
 -- ------------------------------------------------------------------------------------------------------- fin
@@ -314,9 +315,3 @@ CREATE TABLE T_Image_Img ( -- IMG = IMaGe
         (offre_id IS NULL AND parc_id IS NOT NULL)
     )
 );
-
-
-
-
-
-

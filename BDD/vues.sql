@@ -90,5 +90,3 @@ select offre_id, nom_type_offre
 from _offre 
 join _type_offre on  
 _type_offre.type_offre_id = _offre.type_offre_id;
-
-

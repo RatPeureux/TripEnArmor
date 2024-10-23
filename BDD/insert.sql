@@ -57,7 +57,7 @@ VALUES
 '2024-10-01', 
 '2024-10-15', 
 1, 
-'$$$', 1, 1),
+'€€€', 4, 1),
 
 (true, 
 'Le Bartab',
@@ -67,7 +67,7 @@ VALUES
 '2024-09-20', 
 '2024-10-01', 
 2, 
-'$$',2, 1);
+'€€',4, 1);
 
 
 
@@ -200,13 +200,13 @@ INSERT INTO _tarif_public(titre_tarif, age_min, age_max, prix, offre_id) VALUES
   'pour les petits',
   3,
   10,
-  6,
+  45,
   5
 ),
 (
   'pour les grands',
   11,
   99,
-  10,
+  50,
   5
 );
