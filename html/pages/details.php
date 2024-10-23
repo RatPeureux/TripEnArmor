@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,22 +21,25 @@
     <div id="header" class="sticky top-0 z-30 md:relative"></div>
 
     <?php
-        session_start();
         $offre_id = $_SESSION['offre_id'];
-        $idPro = $_SESSION['id_pro'];
 
         // Connexion avec la bdd
         include('../../php-files/connect_params.php');
         $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
+        // Savoir de quel pro il s'agit
+        $stmt = $dbh->prepare("SELECT idPro FROM sae_db._offre WHERE offre_id = $offre_id");
+        $stmt->execute();
+        $idPro = $stmt->fetch(PDO::FETCH_ASSOC);
+
         // Avoir une variable $pro qui contient les informations du pro actuel.
         $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = $idPro");
         $stmt->execute();
         $pro = $stmt->fetch(PDO::FETCH_ASSOC);
         $pro_nom = $pro['nompro'];
 
-        // Obtenir l'ensemble des offres du professionnel identifié
+        // Obtenir l'ensemble des informations de l'offre
         $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE offre_id = $offre_id");
         $stmt->execute();
         $offre = $stmt->fetch(PDO::FETCH_ASSOC);

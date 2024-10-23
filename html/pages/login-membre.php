@@ -1,8 +1,7 @@
 <?php 
-
-session_start(); // Démarre la session au début du script
-global $error; // Variable pour stocker les messages d'erreur
-global $id; // Variable pour stocker les messages d'erreur
+    session_start(); // Démarre la session au début du script
+    global $error; // Variable pour stocker les messages d'erreur
+    global $id; // Variable pour stocker les messages d'erreur
 
 if (!isset($_POST['id'])) {
     // Vérifie si un message d'erreur est stocké dans la session

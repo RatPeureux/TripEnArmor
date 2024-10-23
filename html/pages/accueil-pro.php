@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include("../php/authentification.php");
     // verifyUserPro();
 ?>
@@ -20,7 +21,6 @@
     <script src="confirm.js"></script>
 
     <?php
-        session_start();
         $_SESSION['id_pro'] = 4;
         $idPro = $_SESSION['id_pro'];
 

@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,7 +21,6 @@
     <div id="header-pro" class="mb-20"></div>
 
     <?php
-        session_start();
         $offre_id = $_SESSION['offre_id'];
         $idPro = $_SESSION['id_pro'];
 
@@ -32,7 +35,7 @@
         $pro = $stmt->fetch(PDO::FETCH_ASSOC);
         $pro_nom = $pro['nompro'];
 
-        // Obtenir l'ensemble des offres du professionnel identifié
+        // Obtenir l'ensemble des informations de l'offre
         $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE offre_id = $offre_id");
         $stmt->execute();
         $offre = $stmt->fetch(PDO::FETCH_ASSOC);

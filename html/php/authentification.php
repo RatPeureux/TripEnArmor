@@ -1,9 +1,5 @@
 <?php
 function activeLogout() {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start(); // Démarre la session pour utiliser les variables de session
-    }
-
     // Vérifie si l'utilisateur est connecté et si le token de session est valide
     if (!isset($_SESSION['user_id']) || !isset($_GET['token']) || $_SESSION['token'] !== $_GET['token']) {
         // Si l'utilisateur n'est pas connecté ou si le token ne correspond pas
@@ -14,9 +10,6 @@ function activeLogout() {
 }
 
 function verifyUserPro() {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start(); // Démarre la session pour utiliser les variables de session
-    }
     ob_start(); // Active la mise en mémoire tampon de sortie
 
     // Vérifie si l'utilisateur est connecté et si le token de session est valide
@@ -31,9 +24,6 @@ function verifyUserPro() {
 }
 
 function verifyUserMember() {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start(); // Démarre la session pour utiliser les variables de session
-    }
     ob_start(); // Active la mise en mémoire tampon de sortie
 
     // Vérifie si l'utilisateur est connecté et si le token de session est valide
