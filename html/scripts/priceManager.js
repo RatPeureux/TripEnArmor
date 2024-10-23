@@ -2,49 +2,22 @@ class PriceManager {
     constructor(inputId) {
         this.priceInput = document.getElementById(inputId);
         this.pricesContainer = {
-            removePrice(price, name, positionInGrille) {
+            removePrice(price, name) {
                 this["prices"].pop({
                     price: price,
-                    name: name,
-                    positionInGrille: positionInGrille
+                    name: name
                 });
             },
-            addPrice(price, name, positionInGrille) {
+            addPrice(price, name) {
                 this["prices"].push({
                     price: price,
-                    name: name,
-                    positionInGrille: positionInGrille
+                    name: name
                 });
             },
             size() {
                 return this["prices"].length;
             },
             "prices" : [
-                // {
-                //     price: 10,
-                //     name: "Tarif normal",
-                //     positionInGrille: 1
-                // },
-                // {
-                //     price: 5,
-                //     name: "Tarif réduit",
-                //     positionInGrille: 2
-                // },
-                // {
-                //     price: 3,
-                //     name: "Tarif enfant",
-                //     positionInGrille: 3
-                // },
-                // {
-                //     price: 10,
-                //     name: "Tarif normal",
-                //     positionInGrille: 1
-                // },
-                // {
-                //     price: 5,
-                //     name: "Tarif réduit",
-                //     positionInGrille: 2
-                // }
             ],
         };
 
@@ -60,15 +33,16 @@ class PriceManager {
         addPriceButton.addEventListener('click', () => {
             const price = document.getElementById('newPrixValeur');
             const name = document.getElementById('newPrixName');
-            const positionInGrille = document.getElementById('newPrixPosition');
 
-            this.pricesContainer.addPrice(price.value, name.value, positionInGrille.value);
+            if (price.value !== '' && name.value !== '') {
 
-            price.value = '';
-            name.value = '';
-            positionInGrille.value = '';
-            
-            this.updateTarifs();
+                this.pricesContainer.addPrice(price.value, name.value);
+                
+                price.value = '';
+                name.value = '';
+                
+                this.updateTarifs();
+            }
         })
     }
 
@@ -87,14 +61,10 @@ class PriceManager {
             this.priceInput.appendChild(emptyRow);
         } else {
             this.pricesContainer["prices"]
-            .sort((a, b) => a.positionInGrille - b.positionInGrille)
+            .sort((a, b) => a.price - b.price)
             .forEach(price => {
+                // INTERESSE BAPTISTE
                 const elementDiv = document.createElement('tr');
-
-                const elementPosition = document.createElement('td');
-                elementPosition.textContent = price.positionInGrille;
-                elementPosition.classList.add('text-base');
-                elementDiv.appendChild(elementPosition);
                 
                 const elementTitle = document.createElement('td');
                 elementTitle.textContent = price.name;
@@ -105,16 +75,17 @@ class PriceManager {
                 elementPrice.textContent = price.price + ' €';
                 elementPrice.classList.add('text-base');
                 elementDiv.appendChild(elementPrice);
+                // INTERESSE PLUS BAPTISTE
 
                 const elementRemove = document.createElement('td');
                 const removeButton = document.createElement('div');
                 removeButton.classList.add('h-max', 'w-full', 'cursor-pointer', 'flex', 'justify-center', 'items-center');
 
-                removeButton.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' class='fill-rouge-logo rounded-lg border border-transparent p-1 hover:border hover:bg-rouge-logo' width='32' height='32' viewBox='0 0 384 512'><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z'/></svg>";
+                removeButton.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' class='fill-rouge-logo rounded-lg border border-transparent p-1 hover:border hover:border-rouge-logo' width='32' height='32' viewBox='0 0 384 512'><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z'/></svg>";
 
                 removeButton.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    this.pricesContainer.removePrice(price.price, price.name, price.positionInGrille);
+                    this.pricesContainer.removePrice(price.price, price.name);
                     this.updateTarifs();
                 });
                 elementRemove.appendChild(removeButton);

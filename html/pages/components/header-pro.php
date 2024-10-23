@@ -1,3 +1,4 @@
+
 <!-- 
     Composant du header pour le pro
     Pour l'ajouter, écrier la balise <div id='header-pro'></div> dans votre code html
@@ -11,13 +12,22 @@
         <a href="/pages/accueil-pro.php">
             <img src="/public/images/logo-PACT.svg" alt="[img] Logo-PACT">
         </a>
-        <div class="flex gap-10 items-center">
+        <div class="flex gap-4 items-center">
             <a href="">
                 <i class="text-3xl fa-solid fa-magnifying-glass"></i>
             </a>
             <a href="/pages/login-pro.php">
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
+            <?php
+            
+            include("/home/etuinfo/lebleas/documents/lab/TripEnArmor/html/php/authentification.php");
+
+            if (activeLogout()) { ?>
+                <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">
+                    <p>Se déconnecter</p>
+                </a>
+            <?php } ?>
         </div>
     </div>
 </header>

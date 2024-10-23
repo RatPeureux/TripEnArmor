@@ -8,6 +8,13 @@
     --secondary-color: #00350D;
 }
 
+label:has(+ input[required]:not([type="checkbox"]))::after, 
+label:has(+ textarea[required])::after, 
+label:has(+ select[required])::after {
+    content: " *";
+    color: red;
+}
+
     /* ACTIVATION DU MENU */
 #menu>.active, #menu-pro>.active {
     --tw-translate-x: 0%;
