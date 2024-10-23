@@ -12,6 +12,27 @@
     
     <div id="menu-pro" class="1"></div>
     <div id="header-pro" class="mb-20"></div>
+
+    <?php
+        session_start();
+        // $_SESSION['id'] = 1;
+        // $idPro = $_SESSION['id'];
+
+        // Avoir une variable $pro qui contient les informations du pro actuel.
+        // $stmt = $dbh->prepare("SELECT * FROM sae_db._pro_public WHERE id_compte == $idPro");
+        // $stmt->execute();
+        // $pro = $stmt->fetch(PDO::FETCH_ASSOC);
+        // $pro_nom = $pro['nom'];
+        
+
+        // include('../php-files/connect_params.php');
+        // $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
+        // $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.idPro = sae_db._professionnel.id_compte WHERE id_compte == $idPro");
+        // $stmt->execute();
+        // $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    ?>
     
     <main class="mx-10 self-center grow rounded-lg p-2 max-w-[1280px]">
         <!-- TOUTES LES OFFRES (offre & détails) -->
@@ -23,6 +44,23 @@
             Composant dynamique (généré avec les données en php)
             Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
             -->
+            <?php
+            foreach($toutesMesOffres as $offre ) {
+                $description = $offre['description_offre'];
+                $resume = $offre['resume_offre'];
+                $est_en_ligne = $offre['est_en_ligne'];
+                $prix_mini = $offre['prix_mini'];
+                $date_mise_a_jour = $offre['date_mise_a_jour'];
+                $titre_offre = $offre['titre'];
+
+                $adresse_id = $offre['adresse_id'];
+                $stmt = $dbh->prepare("SELECT * FROM sae_db._addresse WHERE adresse_id == $adresse_id");
+                $stmt->execute();
+                $adresse = $stmt->fetch(PDO::FETCH_ASSOC);
+                $code_postal = $adresse['code_postal'];
+                $ville = $adresse['ville'];
+            ?>
+
             <div class="card active relative bg-base300 rounded-lg flex">
                 <!-- Partie gauche -->
                 <div class="gauche relative shrink-0 basis-1/2 h-[420px] overflow-hidden">
@@ -61,8 +99,8 @@
                             </a>
                             <div class="details-menu hidden rounded-lg absolute right-0 bg-white">
                                 <ul class="rounded-lg flex flex-col">
-                                    <a href="/pages/details.php">
-                                        <li class="rounded-t-lg p-2 hover:bg-primary hover:text-white duration-200" >Details</li>
+                                    <a href="/pages/go_to_details.php?id=<?php $idPro ?>">
+                                        <li class="rounded-t-lg p-2 hover:bg-primary hover:text-white duration-200">Details</li>
                                     </a>
                                     <a href="">
                                         <li class="rounded-b-lg p-2 hover:bg-primary hover:text-white border-solid border-t-2 border-black duration-200">Modifier</li>
@@ -141,6 +179,11 @@
                     </div>
                 </div>
             </div>
+
+            <?php
+                // Fin affichage des cartes
+                }
+            ?>
 
             <!-- Bouton de création d'offre -->
             <a href="" class="font-bold p-4 self-end bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 

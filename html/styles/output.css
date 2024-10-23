@@ -1113,10 +1113,6 @@ video {
   width: 347px;
 }
 
-.w-\[450px\] {
-  width: 450px;
-}
-
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;
@@ -2866,11 +2862,6 @@ video {
   .dark\:text-gray-300 {
     --tw-text-opacity: 1;
     color: rgb(209 213 219 / var(--tw-text-opacity));
-  }
-
-  .dark\:text-secondary {
-    --tw-text-opacity: 1;
-    color: rgb(0 53 13 / var(--tw-text-opacity));
   }
 
   .peer:focus ~ .dark\:peer-focus\:ring-blue-800 {
