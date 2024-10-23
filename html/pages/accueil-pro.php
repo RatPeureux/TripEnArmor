@@ -23,8 +23,8 @@
             Composant dynamique (généré avec les données en php)
             Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
             -->
-            <div class="card active relative bg-base300 rounded-lg flex">
-                <!-- Partie gauche -->
+            <div class="card active relative bg-base200 rounded-lg flex">
+                <!-- Partie gauche -->  
                 <div class="gauche relative shrink-0 basis-1/2 h-[420px] overflow-hidden">
                     <!-- En tête -->
                     <div class="en-tete flex justify-around absolute top-0 w-full">

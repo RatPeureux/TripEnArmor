@@ -20,29 +20,29 @@
             <!-- Logo de l'application -->
             <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
 
-            <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-membre.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="create-membre.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <p class="pb-3">Je créé un compte Membre</p>
 
                 <!-- Champs pour le prénom et le nom -->
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-full">
                         <label class="text-small" for="prenom">Prénom</label>
-                        <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" pattern="^[a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon prénom" maxlength="50" required>
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" pattern="^[a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon prénom" maxlength="50" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="nom">Nom</label>
-                        <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" pattern="^[a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon nom" maxlength="50" required>
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="nom" name="nom" pattern="^[a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon nom" maxlength="50" required>
                     </div>
                 </div>
                 
                 <!-- Champ pour l'adresse mail -->
                 <label class="text-small" for="mail">Adresse mail</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail" maxlength="255" required>
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail" maxlength="255" required>
             
                 <!-- Champ pour le mot de passe -->
                 <label class="text-small" for="mdp">Mot de passe</label>
                 <div class="relative w-full">
-                    <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp" 
+                    <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp" 
                         pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 
                         title="Saisir un mot de passe" minlength="8" autocomplete="new-password" required>
                     <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword1"></i>
@@ -51,7 +51,7 @@
                 <!-- Champ pour confirmer le mot de passe -->
                 <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
                 <div class="relative w-full">
-                    <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp" name="confMdp" 
+                    <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp" name="confMdp" 
                         pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 
                         title="Saisir le même mot de passe" minlength="8" autocomplete="new-password" required>
                     <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword2"></i>
@@ -148,51 +148,51 @@ $mdp = $_POST['mdp'];
         <!-- Logo de l'application -->
         <img class="text mb-4" src="/public/images/logo.svg" alt="moine" width="57">
 
-        <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="create-membre.php" method="post" enctype="multipart/form-data">
+        <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="create-membre.php" method="post" enctype="multipart/form-data">
             <p class="pb-3">Dites-nous en plus !</p>
 
             <!-- Champs pour le prénom et le nom (en lecture seule) -->
             <div class="flex flex-nowrap space-x-3 mb-1.5">
                 <div class="w-full">
                     <label class="text-small" for="prenom">Prénom</label>
-                    <input class="p-2 text-gris bg-base100 w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" title="Mon prénom" value="<?php echo $prenom;?>" readonly>
+                    <input class="p-2 text-gris bg-white w-full h-12 rounded-lg" type="text" id="prenom" name="prenom" title="Mon prénom" value="<?php echo $prenom;?>" readonly>
                 </div>
                 <div class="w-full">
                     <label class="text-small" for="nom">Nom</label>
-                    <input class="p-2 text-gris bg-base100 w-full h-12 rounded-lg" type="text" id="nom" name="nom" title="Mon nom" value="<?php echo $nom;?>" readonly>
+                    <input class="p-2 text-gris bg-white w-full h-12 rounded-lg" type="text" id="nom" name="nom" title="Mon nom" value="<?php echo $nom;?>" readonly>
                 </div>
             </div>
             
             <!-- Champ pour l'adresse mail (en lecture seule) -->
             <label class="text-small" for="mail">Adresse mail</label>
-            <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" title="Mon adresse mail" value="<?php echo $mail;?>" readonly>
+            <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" title="Mon adresse mail" value="<?php echo $mail;?>" readonly>
             
             <!-- Champ pour le pseudonyme -->
             <label class="text-small" for="pseudo">Pseudonyme*</label>
-            <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo" pattern="^(?:(\w+|\w+[\.\-_]?\w+)+" title="Saisir mon pseudonyme PACT" maxlength="16" required>
+            <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo" pattern="^(?:(\w+|\w+[\.\-_]?\w+)+" title="Saisir mon pseudonyme PACT" maxlength="16" required>
             
             <!-- Champs pour l'adresse -->
             <label class="text-small" for="adresse">Adresse postale*</label>
-            <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir mon adresse postale" maxlength="255" required>
+            <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir mon adresse postale" maxlength="255" required>
             
             <label class="text-small" for="complement">Complément d'adresse postale</label>
-            <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement" title="Complément d'adresse" maxlength="255">
+            <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement" title="Complément d'adresse" maxlength="255">
             
             <div class="flex flex-nowrap space-x-3 mb-1.5">
                 <div class="w-28">
                     <label class="text-small" for="code">Code postal*</label>
-                    <input class="text-right p-2 bg-base100 w-28 h-12 rounded-lg" type="text" id="code" name="code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal" minlength="5" maxlength="5" oninput="number(this)" required>
+                    <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code" name="code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal" minlength="5" maxlength="5" oninput="number(this)" required>
                 </div>
                 <div class="w-full">
                     <label class="text-small" for="ville">Ville*</label>
-                    <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="ville" name="ville" pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir ma ville" maxlength="50" required>
+                    <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="ville" name="ville" pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir ma ville" maxlength="50" required>
                 </div>
             </div>
 
             <!-- Champ pour le numéro de téléphone -->
             <label class="text-small" for="num_tel">Téléphone*</label>
             <div class="w-full">
-                <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel" pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14" oninput="formatTEL(this)" required>
+                <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel" pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14" oninput="formatTEL(this)" required>
             </div>
 
             <!-- Choix d'acceptation des termes et conditions -->

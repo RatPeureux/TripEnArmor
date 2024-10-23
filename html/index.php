@@ -23,7 +23,7 @@
         Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
         -->
         <a href="/pages/details.php">
-            <div class="card active relative bg-base300 rounded-xl flex flex-col">
+            <div class="card active relative bg-base200 rounded-xl flex flex-col">
                 <!-- En tête -->
                 <div class="en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
                     <h3 class="text-center font-bold">Restaurant le Brélévenez</h3>
@@ -66,7 +66,7 @@
             </div>
         </a>
 
-        <div class="card relative bg-base300 rounded-xl flex flex-col">
+        <div class="card relative bg-200 rounded-xl flex flex-col">
             <!-- En tête -->
             <div class="en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
                 <h3 class="text-center font-bold">Restaurant le Brélévenez</h3>
@@ -127,7 +127,7 @@
                 Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
                 -->
                 <a href="/pages/details.php">
-                    <div class="card active relative bg-base300 rounded-lg flex">
+                    <div class="card active relative bg-base200 rounded-lg flex">
                         <!-- Partie gauche -->
                         <div class="gauche grow relative shrink-0 basis-1/2 h-[280px] overflow-hidden">
                             <!-- En tête -->

@@ -21,7 +21,7 @@ if (!isset($_POST['id'])) {
     <!-- Lien vers le favicon de l'application -->
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <!-- Lien vers le fichier CSS pour le style de la page -->
-    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="stylesheet" href="../styles/output.css">
     <title>Connexion à la PACT</title>
     <!-- Inclusion de Font Awesome pour les icônes -->
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
@@ -33,21 +33,21 @@ if (!isset($_POST['id'])) {
     <div class="h-full flex flex-col items-center justify-center">
         <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
             <!-- Logo de l'application -->
-            <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
+            <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
 
-            <form class="bg-base200 w-full p-5 rounded-lg border-2 border-primary" action="login-membre.php" method="post" enctype="multipart/form-data">
+            <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="login-membre.php" method="post" enctype="multipart/form-data">
                 <p class="pb-3">J'ai un compte Membre</p>
                 
                 <!-- Champ pour l'identifiant -->
                 <label class="text-small" for="id">Identifiant</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id" 
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id" 
                         pattern="^(?:\w+|\w+[\.\-_]?\w+|0\d( \d{2}){4}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$" 
                         title="Saisir un identifiant (Pseudonyme, Adresse mail ou Téléphone)" value="<?php echo $id;?>" maxlength="255" required>
                 
                 <!-- Champ pour le mot de passe -->
                 <label class="text-small" for="mdp">Mot de passe</label>
                 <div class="relative w-full">
-                    <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp" 
+                    <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp" 
                             pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 
                             title="Saisir un mot de passe" minlength="8" autocomplete="current-password" required>
                     <!-- Icône pour afficher/masquer le mot de passe -->
