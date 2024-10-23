@@ -16,13 +16,74 @@
 
     <div id="header" class="mb-10"></div>
 
+    <?php
+        session_start();
+        $offre_id = $_SESSION['offre_id'];
+        $idPro = $_SESSION['id_pro'];
+
+        // Connexion avec la bdd
+        include('../../php-files/connect_params.php');
+        $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        // Avoir une variable $pro qui contient les informations du pro actuel.
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = $idPro");
+        $stmt->execute();
+        $pro = $stmt->fetch(PDO::FETCH_ASSOC);
+        $pro_nom = $pro['nompro'];
+
+        // Obtenir l'ensemble des offres du professionnel identifié
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE offre_id = $offre_id");
+        $stmt->execute();
+        $offre = $stmt->fetch(PDO::FETCH_ASSOC);
+        $description = $offre['description_offre'];
+        $resume = $offre['resume_offre'];
+        $est_en_ligne = $offre['est_en_ligne'];
+        $prix_mini = $offre['prix_mini'];
+        $date_mise_a_jour = $offre['date_mise_a_jour'];
+        $titre_offre = $offre['titre'];
+            // Obtenir le type de l'offre
+        $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE offre_id = $offre_id");
+        $stmt->execute();
+        $type_offre = $stmt->fetch(PDO::FETCH_ASSOC)['type_offre'];
+            // Obtenir la date de mise à jour
+        $est_en_ligne = $offre['est_en_ligne'];
+        $date_mise_a_jour = $offre['date_mise_a_jour'];
+        $date_mise_a_jour = new DateTime($date_mise_a_jour);
+        $date_mise_a_jour = $date_mise_a_jour->format('d/m/Y');
+            // Obtenir les tarifs minimaux et maximaux
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._tarif_public WHERE offre_id = $offre_id");
+        $stmt->execute();
+        $allTarifs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $tarif_min = 99999; $tarif_max = 0;
+        foreach($allTarifs as $tarif) {
+            if ($tarif['prix'] > $max_tarif_max) {
+                $tarif_max = $tarif['prix'];
+            }
+            if ($tarif['prix'] < $tarif_min) {
+                $tarif_min = $tarif['prix'];
+            }
+        }
+
+            // Détails de l'adresse
+        $adresse_id = $offre['adresse_id'];
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE adresse_id = $adresse_id");
+        $stmt->execute();
+        $adresse = $stmt->fetch(PDO::FETCH_ASSOC);
+        $code_postal = $adresse['code_postal'];
+        $ville = $adresse['ville'];
+        $numero_adresse = $adresse['numero'];
+        $odonyme = $adresse['odonyme'];
+        $complement_adresse = $adresse['complement_adresse'];
+    ?>
+
     <!-- VERSION TELEPHONE -->
     <main class="phone md:hidden flex flex-col"> 
 
         <div id="menu"></div>
 
         <!-- Slider des images de présentation -->
-        <div class="w-full h-80 overflow-hidden relative swiper default-carousel swiper-container">
+        <div class="w-full h-80 overflow-hidden relative swiper default-carousel swiper-container  border border-black rounded-lg">
             <!-- Wrapper -->
             <div class="swiper-wrapper">
                 <!-- Image n°1 -->
@@ -89,7 +150,7 @@
             <div class="tablette grow p-4 flex flex-col items-center gap-4">
 
                 <!-- CAROUSSEL -->
-                <div class="w-full h-[500px] overflow-hidden relative swiper default-carousel swiper-container">
+                <div class="w-full h-[500px] overflow-hidden relative swiper default-carousel swiper-container border border-black rounded-lg">
                     <!-- Wrapper -->
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
@@ -115,14 +176,14 @@
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="flex flex-col gap-2">
-                    <h1 class="text-h1">Restaurant le Hingar le Brélévenez</h1>
+                    <h1 class="text-h1"><?php echo $offre['titre'] ?></h1>
                 
                     <!-- Description + avis -->
                     <div class="description-et-avis">
 
                         <!-- Partie description -->
                         <div class="partie-description flex flex-col gap-4">
-                            <p class="professionnel">Restaurant le Brélévenez</p>
+                            <p class="professionnel"><?php echo $pro_nom ?></p>
 
                             <!-- Notation -->
 
@@ -131,25 +192,18 @@
                                 <div class="flex items-center gap-4">
                                     <i class="fa-solid fa-location-dot"></i>
                                     <div class="text-small">
-                                        <p>Lannion, 22300</p>
-                                        <p>1 rue du Stang ar Beo</p>
+                                        <p><?php echo $ville . ', ' . $code_postal ?></p>
+                                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement_adresse?></p>
                                     </div>
                                 </div>
-                                <p class="prix font-bold">10-80€</p>
+                                <p class="prix font-bold"><?php echo $tarif_min . '-' . $tarif_max ?>€</p>
                             </div>
 
                             <!-- Description détaillée -->
                             <div class="description flex flex-col gap-2">
                                 <h3>À propos</h3>
                                 <p class="text-justify text-small px-2">
-                                    Priscilla en salle, son mari Christophe chef de cuisine et toute l'équipe vous accueillent dans leur restaurant,
-                                    ouvert depuis Janvier 2018, dans le quartier Historique De Lannion : "Brélévenez"
-                                    <br>
-                                    Quartier célèbre pour son église avec son escalier de 142 marches pour y accéder.
-                                    Christophe vous propose une cuisine de produits locaux et de saisons.
-                                    Restaurant ouvert à l'année.
-                                    Fermé mardi et mercredi toute la journée et le samedi midi.
-                                    (Parking privé)
+                                    <?php echo $description ?>;
                                 </p>
                             </div>
                         </div>

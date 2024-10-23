@@ -15,29 +15,30 @@
 
     <?php
         session_start();
-        // $_SESSION['id'] = 1;
-        // $idPro = $_SESSION['id'];
+        $_SESSION['id_pro'] = 4;
+        $idPro = $_SESSION['id_pro'];
+
+        // Connexion avec la bdd
+        include('../../php-files/connect_params.php');
+        $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Avoir une variable $pro qui contient les informations du pro actuel.
-        // $stmt = $dbh->prepare("SELECT * FROM sae_db._pro_public WHERE id_compte == $idPro");
-        // $stmt->execute();
-        // $pro = $stmt->fetch(PDO::FETCH_ASSOC);
-        // $pro_nom = $pro['nom'];
-        
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = $idPro");
+        $stmt->execute();
+        $pro = $stmt->fetch(PDO::FETCH_ASSOC);
+        $pro_nom = $pro['nompro'];
 
-        // include('../php-files/connect_params.php');
-        // $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
-        // $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        // $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.idPro = sae_db._professionnel.id_compte WHERE id_compte == $idPro");
-        // $stmt->execute();
-        // $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Obtenir l'ensembre des offres du professionnel identifié
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.idPro = sae_db._professionnel.id_compte WHERE id_compte = $idPro");
+        $stmt->execute();
+        $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
     
     <main class="mx-10 self-center grow rounded-lg p-2 max-w-[1280px]">
         <!-- TOUTES LES OFFRES (offre & détails) -->
         <div class="tablette p-4 flex flex-col gap-4">
-            <h1 class="text-4xl">Mes offres</h1>
+            <h1 class="text-4xl text-center">Mes offres</h1>
     
             <!--
             ### CARD COMPONENT POUR LES PROS ! ###
@@ -45,20 +46,38 @@
             Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
             -->
             <?php
-            foreach($toutesMesOffres as $offre ) {
-                $description = $offre['description_offre'];
-                $resume = $offre['resume_offre'];
-                $est_en_ligne = $offre['est_en_ligne'];
-                $prix_mini = $offre['prix_mini'];
-                $date_mise_a_jour = $offre['date_mise_a_jour'];
-                $titre_offre = $offre['titre'];
-
-                $adresse_id = $offre['adresse_id'];
-                $stmt = $dbh->prepare("SELECT * FROM sae_db._addresse WHERE adresse_id == $adresse_id");
-                $stmt->execute();
-                $adresse = $stmt->fetch(PDO::FETCH_ASSOC);
-                $code_postal = $adresse['code_postal'];
-                $ville = $adresse['ville'];
+                if (!$toutesMesOffres) { 
+                    echo "<p clas='font-bold'>Vous n'avez aucune offre...</p>";
+                } else {
+                    foreach($toutesMesOffres as $offre) {
+                        // Détails de l'offre
+                        $offre_id = $offre['offre_id'];
+                        $description = $offre['description_offre'];
+                        $resume = $offre['resume_offre'];
+                        $est_en_ligne = $offre['est_en_ligne'];
+                        $prix_mini = $offre['prix_mini'];
+                        $date_mise_a_jour = $offre['date_mise_a_jour'];
+                        $titre_offre = $offre['titre'];
+                            // Obtenir la catégorie de l'offre
+                        $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_categorie WHERE offre_id = $offre_id");
+                        $stmt->execute();
+                        $categorie_offre = $stmt->fetch(PDO::FETCH_ASSOC)['type_offre'];
+                            // Obtenir la date de mise à jour
+                        $est_en_ligne = $offre['est_en_ligne'];
+                        $date_mise_a_jour = $offre['date_mise_a_jour'];
+                        $date_mise_a_jour = new DateTime($date_mise_a_jour);
+                        $date_mise_a_jour = $date_mise_a_jour->format('d/m/Y');
+                            // Obtenir le type de l'offre (gratuit, standard, premium)
+                            $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE offre_id = $offre_id");
+                            $stmt->execute();
+                            $type_offre = $stmt->fetch(PDO::FETCH_ASSOC)['nom_type_offre'];    
+                            // Détails de l'adresse
+                        $adresse_id = $offre['adresse_id'];
+                        $stmt = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE adresse_id = $adresse_id");
+                        $stmt->execute();
+                        $adresse = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $code_postal = $adresse['code_postal'];
+                        $ville = $adresse['ville'];
             ?>
 
             <div class="card active relative bg-base300 rounded-lg flex">
@@ -67,21 +86,43 @@
                     <!-- En tête -->
                     <div class="en-tete flex justify-around absolute top-0 w-full">
                         <div class="bg-bgBlur/75 backdrop-blur rounded-b-lg w-3/5">
-                            <h3 class="text-center text-h2 font-bold">Restaurant le Brélévenez</h3>
+                            <h3 class="text-center text-h2 font-bold"><?php echo $titre_offre ?></h3>
                             <div class="flex w-full justify-between px-2">
-                                <p class="text">Le brélévenez</p>
-                                <p class="text">Restauration</p>
+                                <p class="text"><?php echo $pro_nom ?></p>
+                                <p class="text">
+                                    <?php
+                                        echo $categorie_offre;
+                                    ?>
+                                </p>
                             </div>
                         </div>
-                        <a href="" onclick="confirm('Mettre XXX hors ligne ?')">
+
+                        <!-- OFFRE EN LIGNE ? -->
+                        <?php 
+                            if ($est_en_ligne) {
+                        ?>
+                        <a href="/pages/toggleLigne.php?offre_id=<?php echo $offre_id ?>" title="hors-ligne / en ligne ?">
                             <div class="bg-bgBlur/75 absolute right-4 backdrop-blur flex justify-center items-center p-1 rounded-b-lg">
                                 <i class="fa-solid fa-wifi text-h1"></i>
                             </div>
                         </a>
+                        <?php
+                            } else {
+                        ?>
+                        <a href="/pages/toggleLigne.php?offre_id=<?php echo $offre_id ?>">
+                            <div class="bg-bgBlur/75 absolute right-4 backdrop-blur flex justify-center items-center p-1 rounded-b-lg">
+                                <img src="/public/icones/hors-ligne.svg" alt="Hors ligne">
+                            </div>
+                        </a>
+                        <?php
+                            }
+                        ?>
+
+
                     </div>
                     <!-- Image de fond -->
-                    <a href="/pages/details.php">
-                        <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
+                    <a href="/pages/go_to_details.php?offre_id=<?php echo $offre_id ?>">
+                        <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre" title="consulter les détails">
                     </a>
                 </div>
                 <!-- Partie droite (infos principales) -->
@@ -99,7 +140,7 @@
                             </a>
                             <div class="details-menu hidden rounded-lg absolute right-0 bg-white">
                                 <ul class="rounded-lg flex flex-col">
-                                    <a href="/pages/go_to_details.php?id=<?php $idPro ?>">
+                                    <a href="/pages/go_to_details.php?offre_id=<?php echo $offre_id ?>">
                                         <li class="rounded-t-lg p-2 hover:bg-primary hover:text-white duration-200">Details</li>
                                     </a>
                                     <a href="">
@@ -109,13 +150,7 @@
                             </div>
                         </div>
                         <p class="line-clamp-6">
-                            Priscilla en salle, son mari Christophe chef de cuisine et toute l'équipe vous accueillent dans leur restaurant,
-                            ouvert depuis Janvier 2018, dans le quartier Historique De Lannion :" Brélévenez"
-                            Quartier célèbre pour son église avec son escalier de 142 marches pour y accéder.
-                            Christophe vous propose une cuisine de produits locaux et de saisons.
-                            Restaurant ouvert à l'année.
-                            Fermé mardi et mercredi toute la journée et le samedi midi.
-                            (Parking privé) 
+                            <?php echo $description ?>
                         </p>
                     </div>
                     <!-- A droite, en bas -->
@@ -123,10 +158,10 @@
                         <hr class="border-black w-full">
                         <div class="flex justify-around self-stretch">
                             <!-- Localisation -->
-                            <div class="localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center">
+                            <div title="localisation de l'offre" class="localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center">
                                 <i class="fa-solid fa-location-dot"></i>
-                                <p class="text-small">Lannion</p>
-                                <p class="text-small">22300</p>
+                                <p class="text-small"><?php echo $ville ?></p>
+                                <p class="text-small"><?php echo $code_postal ?></p>
                             </div>
                             <!-- Notation et Prix -->
                             <div class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
@@ -141,38 +176,37 @@
                             <div class="flex justify-between">
                                 <div class="flex italic justify-start gap-4">
                                     <!-- Non vus -->
-                                     <a href="" class="hover:text-primary">
+                                     <a title="avis non consultés" href="" class="hover:text-primary">
                                         <i class=" fa-solid fa-exclamation text-rouge-logo"></i>
-                                        (12)
+                                        (0)
                                      </a>
                                      <!-- Non répondus -->
-                                     <a href="" class="hover:text-primary">
+                                     <a title="avis sans réponse" href="" class="hover:text-primary">
                                         <i class="fa-solid fa-reply-all text-rouge-logo"></i>
-                                        (53)
+                                        (0)
                                      </a>
                                      <!-- Blacklistés -->
-                                     <a href="" class="hover:text-primary">
+                                     <a title="avis blacklistés" href="" class="hover:text-primary">
                                         <i class="fa-regular fa-eye-slash text-rouge-logo"></i>
-                                        (2)
+                                        (0)
                                      </a>
                                 </div>
-                                <p class="text-center grow">Standard</p>
+                                <p class="text-center grow"><?php echo $type_offre ?></p>
                             </div>
 
                             <!-- Dates de mise à jour -->
                             <div class="flex justify-between text-small">
                                 <div class="flex items-center gap-2">
                                     <i class="fa-solid fa-rotate text-xl"></i>
-                                    <p class="italic">Modifiée le XX/XX/XX</p>
+                                    <p class="italic">Modifiée le <?php echo $date_mise_a_jour ?></p>
                                 </div>
-                                
-                                <div class="flex items-center gap-2">
+                                <!-- <div class="flex items-center gap-2">
                                     <i class="fa-solid fa-gears text-xl"></i>
                                     <div>
                                         <p>‘A la Une’ 10/09/24-17/09/24</p>
                                         <p>‘En relief' 10/09/24-17/09/24</p>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                         </div>
@@ -182,11 +216,11 @@
 
             <?php
                 // Fin affichage des cartes
-                }
+                }}
             ?>
 
             <!-- Bouton de création d'offre -->
-            <a href="" class="font-bold p-4 self-end bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
+            <a href="/pages/creation-offre.html" class="font-bold p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
             focus:scale-[0.97] duration-100">
                 + Nouvelle offre
             </a>
@@ -195,6 +229,6 @@
     </main>
 
     <div id="footer-pro"></div>
-<script src="ajout.js"></script>
+    <script src="../ajout.js"></script>
 </body>
 </html>

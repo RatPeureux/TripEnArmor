@@ -1,11 +1,8 @@
 <?php
-    session_start();
+session_start();
 
-    if (isset($_GET['id'])) {
-        $_SESSION['id'] = $_GET['id']; // Set the session variable
-    }
-
-    // Optionally, redirect back to the original page or display a message
-    header("Location: /pages/details.php"); // Change this to your original page
-    exit();
-?>
+if (isset($_GET['offre_id'])) {
+    $_SESSION['offre_id'] = $_GET['offre_id'];
+}
+header('Location: details.php');
+exit();
