@@ -2,7 +2,7 @@
 session_start(); // Démarre la session pour accéder aux variables de session
 ob_start(); // Active la mise en mémoire tampon de sortie
 
-include("../connect_params.php"); // Inclut le fichier de configuration pour la connexion à la base de données
+include("../connect-params.php"); // Inclut le fichier de configuration pour la connexion à la base de données
 
 try {
     // Établit la connexion à la base de données avec PDO
@@ -20,7 +20,7 @@ try {
         // Vérifiez si $idoffre est un entier
         if (!is_numeric($idoffre)) {
             $_SESSION['message'] = "ID d'offre invalide : " . htmlspecialchars($idoffre);
-            header("Location: ../../../pages/accueil-pro.html"); // Redirection après message d'erreur
+            header("Location: ../../pages/accueil-pro.html"); // Redirection après message d'erreur
             exit();
         }
 
@@ -33,7 +33,7 @@ try {
             if ($offre === false) {
                 $_SESSION['message'] = "Offre non trouvée.";
                 sleep(5);
-                header("Location: ../../../pages/accueil-pro.html"); // Redirection après message d'erreur
+                header("Location: ../../pages/accueil-pro.html"); // Redirection après message d'erreur
                 exit();
             }
 

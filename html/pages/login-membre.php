@@ -11,13 +11,12 @@ if (!isset($_POST['id'])) {
         $id = $_SESSION['id']; // Récupère l'id utilisé avant l'erreur
         unset($_SESSION['error']); // Supprime le message d'erreur de la session après l'affichage
         unset($_SESSION['id']); // Supprime l'id' après l'affichage
-    }
-    ?>
+    } ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Lien vers le favicon de l'application -->
     <link rel="icon" type="image" href="../public/images/favicon.png">
@@ -27,7 +26,7 @@ if (!isset($_POST['id'])) {
     <!-- Inclusion de Font Awesome pour les icônes -->
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
-<body class="h-screen bg-base100 p-4 overflow-hidden">
+<body class="h-screen bg-white p-4 overflow-hidden">
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
     
@@ -82,7 +81,7 @@ if (!isset($_POST['id'])) {
 
 <?php } else {
 
-include('../php/connect_params.php'); // Inclut le fichier de paramètres de connexion à la base de données
+include('../php/connect-params.php'); // Inclut le fichier de paramètres de connexion à la base de données
 
 $error = ""; // Variable pour stocker les messages d'erreur
 
@@ -97,7 +96,7 @@ try {
         $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
 
         // Prépare une requête SQL pour trouver l'utilisateur par nom, email ou numéro de téléphone
-        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE nom_orga = :id OR email = :id OR num_tel = :id");
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :id OR email = :id OR num_tel = :id");
         $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
         $stmt->execute(); // Exécute la requête
 
@@ -110,13 +109,13 @@ try {
         error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
         
         // Vérifie si l'utilisateur existe et si le mot de passe est correct
-        if ($user && $user['motdepasse']) {
+        if ($user && password_verify($mdp, $user['mdp_hash'])) {
             // Stocke les informations de l'utilisateur dans la session
             $_SESSION['user_id'] = $user['id_compte'];
             $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_name'] = $user['prenom'];
-            header('location: accueil-pro.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
+            header('location: toutes-offres.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
             exit();
         } else {
             $_SESSION['error'] = "Identifiant ou mot de passe incorrect !"; // Stocke le message d'erreur dans la session

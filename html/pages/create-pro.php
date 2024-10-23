@@ -14,7 +14,7 @@
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
 </head>
-<body class="h-screen bg-base100 p-4 overflow-hidden">
+<body class="h-screen bg-white p-4 overflow-hidden">
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
@@ -31,7 +31,7 @@
                 <select class="text-small mt-1.5 mb-3 bg-base100 p-1 rounded-lg" id="statut" name="statut" title="Choisir un statut" onchange="updateLabel()" required>
                     <option value="" disabled selected> --- </option>
                     <option value="public">public</option>
-                    <option value="prive">privé</option>
+                    <option value="privé">privé</option>
                 </select>
                 <label class="text-small" for="statut">&nbsp;.</label></br>
 
@@ -101,7 +101,7 @@ $mdp = $_POST['mdp'];
     <title>Création de compte 2/2</title>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
-<body class="h-screen bg-base100 pt-4 px-4 overflow-x-hidden">
+<body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
@@ -111,6 +111,10 @@ $mdp = $_POST['mdp'];
 
         <form class="mb-4 bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php" method="post" enctype="multipart/form-data"">
             <p class="pb-3">Dites-nous en plus !</p>
+
+            <div class="mb-3">
+                <label class="text-small" for="nom" id="nom">Je suis un organisme <?php echo $statut;?>.</label>
+            </div>
 
             <?php if ($statut == "privé") { ?>
                 <!-- Champ pour la dénomination sociale (en lecture seule) -->
@@ -130,6 +134,9 @@ $mdp = $_POST['mdp'];
             <label class="text-small" for="adresse">Adresse postale*</label>
             <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" 
                    pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir une adresse postale" maxlength="255" required>
+            
+            <label class="text-small" for="complement">Complément d'adresse postale</label>
+            <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement" title="Complément d'adresse" maxlength="255">
             
             <div class="flex flex-nowrap space-x-3 mb-1.5">
                 <div class="w-28">
@@ -151,7 +158,7 @@ $mdp = $_POST['mdp'];
                        pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14" oninput="formatTEL(this)" required>
             </div>
 
-            <?php if ($statut=="prive") { ?>
+            <?php if ($statut=="privé") { ?>
                 <!-- Choix de saisie des informations bancaires -->
                 <div class="group">
                     <div class="mb-1.5 flex items-start">
@@ -191,7 +198,7 @@ $mdp = $_POST['mdp'];
 <?php } else {
 
 ob_start();
-include('../php/connect_params.php');
+include('../php/connect-params.php');
 
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
@@ -210,12 +217,8 @@ try {
 $message = ''; // Initialiser le message
 
 function extraireRibDepuisIban($iban) {
-    // Supprimer les espaces et vérifier que l'IBAN est bien de 27 caractères
+    // Supprimer les espaces
     $iban = str_replace(' ', '', $iban);
-
-    if (strlen($iban) != 27) {
-        throw new Exception("L'IBAN doit comporter 27 caractères.");
-    }
 
     $code_banque = substr($iban, 5, 5);
     $code_guichet = substr($iban, 10, 5);
@@ -233,66 +236,73 @@ function extraireRibDepuisIban($iban) {
 // Partie pour traiter la soumission du second formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
     // Assurer que tous les champs obligatoires sont remplis
-    $adresse = $_POST['adresse'];
-    $code = $_POST['code'];
-    $ville = $_POST['ville'];
-    $mdp = $_POST['mdp'];
+    $statut = $_POST['statut'];
     $nom = $_POST['nom'];
     $mail = $_POST['mail'];
-    $pseudo = $_POST['pseudo'];
+    $mdp = $_POST['mdp'];
+    $adresse = $_POST['adresse'];
+    $complement = $_POST['complement'];
+    $code = $_POST['code'];
+    $ville = $_POST['ville'];
     $tel = $_POST['num_tel'];
-    $compte_id = $_POST['compte_id'];
-    $iban = $_POST['iban']; // Assurez-vous que l'IBAN est récupéré du formulaire
+    if (isset($_POST['iban'])) {
+        $iban = $_POST['iban'];
+    }
 
     // Hachage du mot de passe
-    if (!empty($mdp)) {
-        $mdp_hache = password_hash($mdp, PASSWORD_DEFAULT);
+    $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-        // Insérer dans la base de données pour l'adresse
-        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (adresse_postale, code_postal, ville) VALUES (:adresse, :code, :ville)");
-        $stmtAdresse->bindParam(':ville', $ville);
-        $stmtAdresse->bindParam(':adresse', $adresse);
-        $stmtAdresse->bindParam(':code', $code);
-        
-        if ($stmtAdresse->execute()) {
-            $adresseId = $dbh->lastInsertId();
+    // Insérer dans la base de données pour l'adresse
+    $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (complement_adresse, code_postal, ville) VALUES (:adresse, :code, :ville)");
 
-            // Préparer l'insertion dans la table Professionnel
-            $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._professionnel (email, mdp_hash, num_tel, adresse_id, nom_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom)");
-            $stmtProfessionnel->bindParam(':mail', $mail);
-            $stmtProfessionnel->bindParam(':mdp', $mdp_hache);
-            $stmtProfessionnel->bindParam(':nom', $nom);
-            $stmtProfessionnel->bindParam(':num_tel', $tel);
-            $stmtProfessionnel->bindParam(':adresse_id', $adresseId);
+    // Lier les paramètres pour l'adresse
+    $stmtAdresse->bindParam(':adresse', $adresse);
+    $stmtAdresse->bindParam(':code', $code);
+    $stmtAdresse->bindParam(':ville', $ville);
+    
+    if ($stmtAdresse->execute()) {
+        // Récupérer l'ID de l'adresse insérée
+        $adresseId = $dbh->lastInsertId();
 
-            // Exécuter la requête pour le professionnel
-            if ($stmtProfessionnel->execute()) {
-                // Extraire les valeurs du RIB à partir de l'IBAN
-                try {
-                    $rib = extraireRibDepuisIban($iban);
-                    $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :compte_id)");
-                    $stmtRib->bindParam(':code_banque', $rib['code_banque']);
-                    $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
-                    $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
-                    $stmtRib->bindParam(':cle_rib', $rib['cle_rib']);
-                    $stmtRib->bindParam(':compte_id', $compte_id); // Assurez-vous que compte_id est défini
+        // Préparer l'insertion dans la table Professionnel
+        if ($statut === "public") {
+            $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, adresse_id, nom_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom)");
+        } else {
 
-                    if ($stmtRib->execute()) {
-                        $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
-                    } else {
-                        $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtRib->errorInfo());
-                    }
-                } catch (Exception $e) {
-                    $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
+        }
+
+        // Lier les paramètres pour le professionnel
+        $stmtProfessionnel->bindParam(':nom', $nom);
+        $stmtProfessionnel->bindParam(':mail', $mail);
+        $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
+        $stmtProfessionnel->bindParam(':num_tel', $tel);
+        $stmtProfessionnel->bindParam(':adresse_id', $adresseId);
+
+        // Exécuter la requête pour le professionnel
+        if ($stmtProfessionnel->execute()) {
+            // Extraire les valeurs du RIB à partir de l'IBAN
+            try {
+                $rib = extraireRibDepuisIban($iban);
+                $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :compte_id)");
+                $stmtRib->bindParam(':code_banque', $rib['code_banque']);
+                $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
+                $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
+                $stmtRib->bindParam(':cle_rib', $rib['cle_rib']);
+                $stmtRib->bindParam(':compte_id', $compte_id); // Assurez-vous que compte_id est défini
+
+                if ($stmtRib->execute()) {
+                    $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
+                } else {
+                    $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtRib->errorInfo());
                 }
-            } else {
-                $message = "Erreur lors de la création du compte professionnel : " . implode(", ", $stmtProfessionnel->errorInfo());
+            } catch (Exception $e) {
+                $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
             }
         } else {
-            $message = "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtAdresse->errorInfo());
+            $message = "Erreur lors de la création du compte professionnel : " . implode(", ", $stmtProfessionnel->errorInfo());
         }
     } else {
-        $message = "Mot de passe manquant.";
+        $message = "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtAdresse->errorInfo());
     }
 }
 

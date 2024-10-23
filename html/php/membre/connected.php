@@ -25,6 +25,6 @@ $pseudo = isset($_SESSION['user_pseudo']) ? $_SESSION['user_pseudo'] : 'Invité'
     <h1>Bonjour <?php echo htmlspecialchars($pseudo); ?>!</h1>
     <p>Bienvenue sur votre page de compte membre</p>
     <!-- Lien pour se déconnecter -->
-    <a href="logout_membre.php">Déconnexion</a>
+    <a href="logout.php">Déconnexion</a>
 </body>
 </html>
