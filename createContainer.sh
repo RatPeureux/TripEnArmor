@@ -19,17 +19,9 @@ CONTAINER_NAME=$(docker-compose ps -q)
 echo "Pour vous connecter au conteneur, exécutez la commande suivante dans un terminal :"
 echo "docker exec -it $CONTAINER_NAME /bin/bash"
 
-# Ouvrez le projet dans Visual Studio Code
-code .
-
-# Exécutez le serveur PHP intégré dans le conteneur Docker sur le port 8080
-docker exec -it $CONTAINER_NAME /bin/bash -c "php -S localhost:8080 &"
-
 # Exécutez un script d'initialisation local
 ./initialisation
 
-# Ouvrez l'URL spécifiée dans le navigateur par défaut
-open http://localhost:8080/TripEnArmor/dockerBDD/connexion/membre/login_membre.php
 
 # Définissez un piège pour arrêter les services Docker lorsque le script est interrompu
 trap 'docker-compose down -v' SIGINT SIGTERM

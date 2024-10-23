@@ -1,6 +1,3 @@
-<?php
-include("../../../php/authentification.php");
-?>
 
 <!-- 
     Composant du header pour le pro
@@ -22,7 +19,11 @@ include("../../../php/authentification.php");
             <a href="/pages/login-pro.php">
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
-            <?php if (activeLogout()) { ?>
+            <?php
+            
+            include("/home/etuinfo/lebleas/documents/lab/TripEnArmor/html/php/authentification.php");
+
+            if (activeLogout()) { ?>
                 <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">
                     <p>Se déconnecter</p>
                 </a>
