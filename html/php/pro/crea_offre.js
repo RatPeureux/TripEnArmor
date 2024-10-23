@@ -12,10 +12,8 @@ function showFormPart1() {
 
     // Si une option est sélectionnée, affiche le formulaire correspondant
     if (selectedValider) {
-        console.log("gqderfghesqherthgqdshehesdh");
         const selectedForm = document.getElementById('part-1'); // Récupère le formulaire correspondant à la valeur de l'option sélectionnée
         if (selectedForm) {
-            console.log("zehahahahahahahahahah0");
             document.getElementById('part-1').style.display = 'block'; // Affiche le formulaire
 
         }

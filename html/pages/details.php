@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/output.css">
-    <script type="module" src="../scripts/main.js" defer></script>
-    <script src="../scripts/loadcaroussel.js" type="module"></script>
+    <link rel="stylesheet" href="/styles/output.css">
+    <script type="module" src="/scripts/main.js" defer></script>
+    <script src="/scripts/loadcaroussel.js" type="module"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -14,7 +14,7 @@
 </head>
 <body class="flex flex-col">
 
-    <div id="header" class="mb-20"></div>
+    <div id="header" class="mb-10"></div>
 
     <!-- VERSION TELEPHONE -->
     <main class="phone md:hidden flex flex-col"> 
@@ -27,14 +27,14 @@
             <div class="swiper-wrapper">
                 <!-- Image n°1 -->
                 <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="../public/images/image-test.jpg" alt="">
+                    <img class="object-cover w-full h-full" src="/public/images/image-test.jpg" alt="">
                 </div>
                 <!-- Image n°2... etc -->
                 <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="../public/images/image-test2.jpg" alt="">
+                    <img class="object-cover w-full h-full" src="/public/images/image-test2.jpg" alt="">
                 </div>
                 <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="../public/images/pp.png" alt="">
+                    <img class="object-cover w-full h-full" src="/public/images/pp.png" alt="">
                 </div>
             </div>
             <!-- Boutons de navigation sur la slider -->
@@ -80,7 +80,7 @@
     </main>
     
     <!-- VERSION TABLETTE -->
-    <main class="hidden md:block bg-base200 mx-10 self-center rounded-lg p-2 max-w-[1024px]">
+    <main class="hidden md:block mx-10 self-center rounded-lg p-2 max-w-[1280px]">
         <div class="flex gap-3">
             <!-- PARTIE GAUCHE (menu) -->
             <div id="menu"></div>
@@ -93,20 +93,20 @@
                     <!-- Wrapper -->
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src="../public/images/image-test.jpg" alt="">
+                            <img class="object-cover w-full h-full" src="/public/images/image-test.jpg" alt="">
                         </div>
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src="../public/images/image-test2.jpg" alt="">
+                            <img class="object-cover w-full h-full" src="/public/images/image-test2.jpg" alt="">
                         </div>
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src="../public/images/pp.png" alt="">
+                            <img class="object-cover w-full h-full" src="/public/images/pp.png" alt="">
                         </div>
                     </div>
                     <!-- Boutons de navigation sur la slider -->
                     <div class="flex items-center gap-8 justify-center">
-                        <a class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-3/4 -translate-y-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                        <a class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !left-5 !bg-primary !text-white after:!text-base">
                         </a>
-                        <a class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-3/4 -translate-y-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                        <a class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !right-5 !bg-primary !text-white after:!text-base">
                         </a>
                     </div>
                     <a onclick="history.back()" class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center"><i class="fa-solid fa-arrow-left text-h1"></i></a>

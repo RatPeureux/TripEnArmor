@@ -34,7 +34,7 @@ values
  
 insert into _pro_public(adresse_id, email, mdp_hash, num_tel, type_orga, nom_orga)
 values
-  (6, 'gouvernement.macron@gmail.com', 'onFeraPas493', '0254152245', 'Associatif', 'France'),
+  (6, 'gouvernement.macron@gmail.com', '$2y$10$91w3BYtTehtFEtxpQ6VY8ujpcBoB9GAGyUNBZI3lzKWlZlJnEvDba', '0254152245', 'Associatif', 'France'), -- MDP = abc
   (7, 'gouvernement.trump@gmail.com', 'camalaLaBest', '0256965584', 'Organisation Publique', 'USA'),
   (8, 'test.okok@outlook.com', 'lalaland', '0256521245', 'Associatif', 'Dev Unirfou'),
   (9, 'adresse.mail@hotmail.fr', 'appleEstSupASamsung', '0256988884', 'Organisation Publique', 'PluDI D');
