@@ -29,7 +29,7 @@
 
 <body>
 	<!-- Conteneur principal pour le contenu -->
-	<div class="flex justify-center align-baseline px-24">
+	<div class="flex flex-col w-full justify-between items-center align-baseline">
 		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 			<!-- Lien de retour avec une icône et un titre -->
 			<div class="w-full text-left">
@@ -243,11 +243,16 @@
 						</div>
 
 						<div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionActivite hidden" id="activiteTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionVisite hidden" id="visiteTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionSpectacle hidden" id="spectacleTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionParcAttraction hidden" id="parcAttractionTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionRestauration hidden" id="restaurationTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionActivite hidden"
+								id="activiteTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionVisite hidden"
+								id="visiteTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionSpectacle hidden"
+								id="spectacleTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionParcAttraction hidden"
+								id="parcAttractionTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionRestauration hidden"
+								id="restaurationTags"></div>
 						</div>
 
 						<!-- PARAMÈTRES DÉPENDANT DE LA CATÉGORIE DE L'OFFRE -->
@@ -327,21 +332,25 @@
 						<!-- LANGUES -->
 						<div class="space-x-2 w-full flex items-center optionVisite hidden">
 							<p>
-								Langues parlées : 
+								Langues parlées :
 							</p>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('langueFR')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('langueFR')">
 								<label for="langueFR">Français</label>
 								<input type="checkbox" name="langueFR" id="langueFR" class="hidden" checked="true">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('langueEN')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('langueEN')">
 								<label for="langueEN">Anglais</label>
 								<input type="checkbox" name="langueEN" id="langueEN" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('langueES')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('langueES')">
 								<label for="langueES">Espagnol</label>
 								<input type="checkbox" name="langueES" id="langueES" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('langueDE')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('langueDE')">
 								<label for="langueDE">Allemand</label>
 								<input type="checkbox" name="langueDE" id="langueDE" class="hidden">
 							</div>
@@ -352,25 +361,30 @@
 						<!-- Repas servis -->
 						<div class="space-x-2 w-full flex justify-start items-center optionRestauration hidden">
 							<p>
-								Repas servis : 
+								Repas servis :
 							</p>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasPetitDejeuner')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('repasPetitDejeuner')">
 								<label for="repasPetitDejeuner">Petit-déjeuner</label>
 								<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBrunch')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('repasBrunch')">
 								<label for="repasBrunch">Brunch</label>
 								<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDejeuner')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('repasDejeuner')">
 								<label for="repasDejeuner">Déjeuner</label>
 								<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDiner')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('repasDiner')">
 								<label for="repasDiner">Dîner</label>
 								<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBoissons')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('repasBoissons')">
 								<label for="repasBoissons">Boissons</label>
 								<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
 							</div>
@@ -380,19 +394,17 @@
 						<!-- Parc d'attraction -->
 						<div class="flex flex-col justify-between w-full optionParcAttraction hidden">
 							<label for="photo-plan" class="text-nowrap w-full">Plan du parc d'attraction :</label>
-							<input type="file" name="photo-plan" id="photo-plan" 
-							class="text-center text-secondary block w-full
+							<input type="file" name="photo-plan" id="photo-plan" class="text-center text-secondary block w-full
 							border-dashed border-2 border-secondary rounded-lg p-2
 							file:mr-5 file:py-3 file:px-10
 							file:rounded-lg
 							file:text-small file:font-bold  file:text-secondary
 							file:border file:border-secondary
-							hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-								accept=".svg,.png,.jpg" />
+							hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
 						</div>
 
 						<!-- Services -->
-						 <!-- Formulaire pour entrer les informations -->
+						<!-- Formulaire pour entrer les informations -->
 						<div class="flex flex-col justify-center items-center w-full">
 							<!-- PRESTATIONS -->
 							<div class="w-full optionActivite hidden">
@@ -418,15 +430,25 @@
 												class="border border-secondary rounded-lg p-2 bg-white w-full">
 										</td>
 										<td class="w-fit group">
-											<input type="checkbox" name="newPrestationInclude" id="newPrestationInclude" class="hidden peer">
-											<label for="newPrestationInclude" class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
-												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-x"><rect width="28" height="28" x="2" y="2" rx="4" ry="4"/><path d="m24 8-16 16"/><path d="m8 8 16 16"/></svg>
+											<input type="checkbox" name="newPrestationInclude" id="newPrestationInclude"
+												class="hidden peer">
+											<label for="newPrestationInclude"
+												class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
+												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+													viewBox="0 0 32 32" fill="none" stroke="currentColor"
+													stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+													class="lucide lucide-square-x">
+													<rect width="28" height="28" x="2" y="2" rx="4" ry="4" />
+													<path d="m24 8-16 16" />
+													<path d="m8 8 16 16" />
+												</svg>
 											</label>
-											<label for="newPrestationInclude" class="hidden h-max w-full cursor-pointer justify-center items-center fill-secondary peer-checked:flex">
-												<svg xmlns="http://www.w3.org/2000/svg"
-												width="32" height="32"
-												viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-													<path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/>
+											<label for="newPrestationInclude"
+												class="hidden h-max w-full cursor-pointer justify-center items-center fill-secondary peer-checked:flex">
+												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+													viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+													<path
+														d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
 												</svg>
 											</label>
 										</td>
@@ -501,19 +523,22 @@
 							<div
 								class="flex flex-row mb-4 content-center justify-between items-center text-secondary w-full">
 								<!-- Sans option -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleRadio('option-rien')">
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									onclick="toggleRadio('option-rien')">
 									<input type="radio" id="option-rien" name="option" value="option-rien"
-										class="hidden"/>
+										class="hidden" />
 									<label for="option-rien">Sans option</label>
 								</div>
 								<!-- Option en relief -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleRadio('option-relief')">
-									<input type="radio" id="option-relief" name="option" value="option-relief" class="hidden"
-										checked="true" />
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									onclick="toggleRadio('option-relief')">
+									<input type="radio" id="option-relief" name="option" value="option-relief"
+										class="hidden" checked="true" />
 									<label for="option-relief">En Relief (3.99€)</label>
 								</div>
 								<!-- À la une -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleRadio('option-a-la-une')">
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									onclick="toggleRadio('option-a-la-une')">
 									<input type="radio" id="option-a-la-une" name="option" class="hidden"
 										value="option-a-la-une" />
 									<label for="option-a-la-une">À la une (5.99€)</label>
@@ -525,7 +550,8 @@
 					<div
 						class="w-full flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
 						<input type="submit" value="Créer l'offre" id="submitPart3"
-							class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300" disabled="true">
+							class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300"
+							disabled="true">
 					</div>
 				</form>
 				<!-- Mettre la preview à droite du fleuve -->
@@ -695,19 +721,19 @@
 													if (!container.classList.contains('hidden')) {
 														Array.from(container.children).map(tag => console.log(tag.childNodes[0].nodeValue));
 														const tags = Array.from(container.children).map(tag => tag.childNodes[0].nodeValue).join(', ');
-														tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags)  : "Ajouter un tag...";
+														tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags) : "Ajouter un tag...";
 													}
 												});
 											}
 											refreshTagPreview();
 
 											Array.from(document
-											.getElementsByClassName("tag-container")).forEach(
-												(container) => {
-													const observer = new MutationObserver(refreshTagPreview);
-													observer.observe(container, { childList: true });
-												}
-											)
+												.getElementsByClassName("tag-container")).forEach(
+													(container) => {
+														const observer = new MutationObserver(refreshTagPreview);
+														observer.observe(container, { childList: true });
+													}
+												)
 										</script>
 									</div>
 									<!-- Mise à jour du résumé en temps réel -->
@@ -759,9 +785,9 @@
 				</div>
 			</div>
 		</div>
+		<div id="footer-pro" class="w-full"></div>
 	</div>
-	</div>
-	</div>
+	<script src="../scripts/loadcomponents.js"></script>
 	<script src="../scripts/tagManager.js"></script>
 	<script src="../scripts/priceManager.js"></script>
 	<script src="../scripts/prestationManager.js"></script>
@@ -784,7 +810,7 @@
 		}
 
 		function showPart3() {
-			document.getElementById("submitPart3").ariaDisabled="false";
+			document.getElementById("submitPart3").ariaDisabled = "false";
 		}
 
 		function checkPart1Validity() {
