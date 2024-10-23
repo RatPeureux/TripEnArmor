@@ -31,15 +31,20 @@ class PrestationManager {
         const addPrestationButton = document.getElementById('addPrestationButton');
         
         addPrestationButton.addEventListener('click', () => {
+            console.log("Clicked");
             const name = document.getElementById('newPrestationName');
-            const incluse = document.getElementById('newPrestationIncluse');
+            const include = document.getElementById('newPrestationInclude');
 
-            this.prestationsContainer.addPrestation(name.value, incluse.ariaChecked);
-
-            name.value = '';
-            incluse.ariaChecked = 'false';
+            console.log(include.checked);
             
-            this.updatePrestations();
+            if (name.value !== '') {
+                this.prestationsContainer.addPrestation(name.value, include.checked);
+                
+                name.value = '';
+                include.checked = false;
+                
+                this.updatePrestations();
+            }
         })
     }
 
@@ -58,18 +63,21 @@ class PrestationManager {
             this.prestationInput.appendChild(emptyRow);
         } else {
             this.prestationsContainer["prestations"]
-            .sort((a, b) => a.prestation - b.prestation)
+            .sort((a, b) => b.isIncluded - a.isIncluded)
+            .sort((a, b) => b.name - a.name)
             .forEach(prestation => {
                 const elementDiv = document.createElement('tr');
                 
-                const elementTitle = document.createElement('td');
-                elementTitle.textContent = prestation.name;
-                elementTitle.classList.add('text-lg', 'font-semibold', 'text-center', 'mb-2', 'text-secondary');
-                elementDiv.appendChild(elementTitle);
+                const elementName = document.createElement('td');
+                elementName.textContent = prestation.name;
+                elementName.classList.add('text-lg', 'font-semibold', 'text-center', 'mb-2', 'text-secondary');
+                elementDiv.appendChild(elementName);
 
-                const elementPrestation = document.createElement('td');
-                // Ajouter le svg d'inclusion/exclusion
-                elementDiv.appendChild(elementPrestation);
+                const elementInclude = document.createElement('td');
+                elementInclude.classList.add('h-max', 'w-full', 'flex', 'justify-center', 'items-center', 'fill-secondary', 'rounded-full', 'bg-clip-content');
+                elementInclude.innerHTML= `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->${prestation.isIncluded ? `<path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/>` : `<path d="M384 80c8.8 0 16 7.2 16 16l0 320c0 8.8-7.2 16-16 16L64 432c-8.8 0-16-7.2-16-16L48 96c0-8.8 7.2-16 16-16l320 0zM64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32z"/>`}</svg>`
+                console.log(elementInclude);
+                elementDiv.appendChild(elementInclude);
 
                 const elementRemove = document.createElement('td');
                 const removeButton = document.createElement('div');
@@ -80,7 +88,7 @@ class PrestationManager {
                 removeButton.addEventListener('click', (e) => {
                     e.stopPropagation();
                     this.prestationsContainer.removePrestation(prestation.prestation, prestation.name);
-                    this.updateTarifs();
+                    this.updatePrestations();
                 });
                 elementRemove.appendChild(removeButton);
                 elementDiv.appendChild(elementRemove);

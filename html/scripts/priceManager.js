@@ -34,12 +34,15 @@ class PriceManager {
             const price = document.getElementById('newPrixValeur');
             const name = document.getElementById('newPrixName');
 
-            this.pricesContainer.addPrice(price.value, name.value);
+            if (price.value !== '' && name.value !== '') {
 
-            price.value = '';
-            name.value = '';
-            
-            this.updateTarifs();
+                this.pricesContainer.addPrice(price.value, name.value);
+                
+                price.value = '';
+                name.value = '';
+                
+                this.updateTarifs();
+            }
         })
     }
 
