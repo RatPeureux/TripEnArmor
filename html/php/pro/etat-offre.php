@@ -23,8 +23,6 @@ try {
             header("Location: /pages/accueil-pro.php"); // Redirection après message d'erreur
             exit();
         }
-
-
             // Récupérer l'état actuel de l'offre
             $stmt = $dbh->prepare("SELECT est_en_ligne FROM sae_db.Offre WHERE offre_id = :idoffre");
             $stmt->execute(['idoffre' => $idoffre]);

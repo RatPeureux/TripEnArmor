@@ -17,8 +17,7 @@
             </a>
             <?php 
             
-            include("/home/etuinfo/lebleas/documents/lab/TripEnArmor/html/php/authentification.php");
-            
+            include("../../php/authentification.php");
             if (activeLogout()) { ?>
                 <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">
                     <p>Se déconnecter</p>

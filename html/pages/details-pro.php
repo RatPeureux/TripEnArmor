@@ -14,7 +14,7 @@
 </head>
 <body class="flex flex-col">
 
-    <div id="header" class="sticky top-0 z-30 md:relative"></div>
+    <div id="header-pro" class="mb-20"></div>
 
     <?php
         session_start();
@@ -136,7 +136,7 @@
                 </div>
             </div>
             <!-- Boutons de navigation sur la slider -->
-            <a onclick="history.back()" class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center my-6"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="" onclick="history.back()" class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center"><i class="fa-solid fa-arrow-left"></i></a>
             <div class="swiper-pagination"></div>
         </div>
 
