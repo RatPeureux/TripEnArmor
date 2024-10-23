@@ -1,9 +1,6 @@
 // Liste de tags culturels
 const culturalTags = [
-    'Culturel', 'Patrimoine', 'Histoire', 'Urbain', 'Nature',
-    'Plein air', 'Sport', 'Nautique', 'Gastronomie', 'Musée',
-    'Atelier', 'Musique', 'Famille', 'Cinéma', 'Cirque',
-    'Son et lumière', 'Humour'
+    'Culturel', 'Patrimoine', 'Histoire', 'Urbain', 'Nature', 'Plein air', 'Sport', 'Nautique', 'Gastronomie', 'Musée', 'Atelier', 'Musique', 'Famille', 'Cinéma', 'Cirque', 'Son et lumière', 'Humour'
 ];
 
 // Liste de tags cuisine
@@ -52,20 +49,11 @@ class TagManager {
     }
 
     init() {
-        this.updateSuggestionList();
         for (const key in this.tagContainer) {
             if (typeof this.tagContainer[key] === 'string') {
                 this.tagContainer[key].classList.add('hidden');
             }
         };
-
-        this.tagInput.addEventListener('focus', () => {
-            this.updateSuggestionList();
-        });
-
-        this.tagInput.addEventListener('input', () => {
-            this.updateSuggestionList(); // Mettre à jour la liste lors de la saisie
-        });
 
         this.tagInput.addEventListener('change', (event) => {
             const tag = this.tagInput.value;
@@ -105,14 +93,17 @@ class TagManager {
     }
 
     updateSuggestionList() {
+        this.tagInput.innerHTML = `<option value="" class="hidden" selected>Rechercher un tag</option>`;
         const activityType = document.getElementById('activityType').value;
         const limitedTags = this.availableTags.filter(tag => !this.addedTags.has(tag, activityType)); // Limiter à 5 éléments
         limitedTags.forEach(tag => {
             const listItem = document.createElement('option');
+
             listItem.value = tag;
             listItem.append(tag);
             listItem.classList.add('suggestion-item', 'p-2', 'cursor-pointer', 'hover:bg-gray-200');
             listItem.setAttribute('data-tag', tag);
+
             this.tagInput.appendChild(listItem);
         });
     }
@@ -125,7 +116,7 @@ class TagManager {
 
         const tagDiv = document.createElement('div');
         tagDiv.textContent = tag;
-        tagDiv.classList.add('tag', 'bg-primary', 'text-white', 'py-1', 'px-3', 'rounded-full', 'mr-2', 'flex', 'items-center');
+        tagDiv.classList.add('bg-secondary', 'text-white', 'py-1', 'px-3', 'rounded-full', 'mr-2', 'flex', 'items-center');
 
         const removeBtn = document.createElement('span');
         removeBtn.textContent = 'X';
@@ -137,6 +128,7 @@ class TagManager {
         };
 
         tagDiv.appendChild(removeBtn);
+
         this.tagContainer[activityType].appendChild(tagDiv);
         this.addedTags[activityType].push(tag);
         this.updateSuggestionList();
