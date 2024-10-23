@@ -30,7 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (const option of options) {
             option.classList.remove("hidden");
-            option.ariaRequired = true;
+
+            const childElements = option.querySelectorAll('input, textarea, select');
+            childElements.forEach(child => {
+                child.required = true;
+            });
         }
     }
 
@@ -40,7 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             for (const option of options) {
                 option.classList.add('hidden');
-                option.ariaRequired = false;
+
+                const childElements = option.querySelectorAll('input:not([type="checkbox"]), textarea, select');
+                childElements.forEach(child => {
+                    child.required = false;
+                });
             }
         }
     }

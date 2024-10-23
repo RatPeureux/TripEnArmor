@@ -8,7 +8,9 @@
     --secondary-color: #00350D;
 }
 
-label:has(+ input[required])::after, label:has(+ textarea[required])::after {
+label:has(+ input[required]:not([type="checkbox"]))::after, 
+label:has(+ textarea[required])::after, 
+label:has(+ select[required])::after {
     content: " *";
     color: red;
 }

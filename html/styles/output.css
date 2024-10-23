@@ -586,9 +586,17 @@ video {
   width: 100%;
 }
 
+.\!container {
+  width: 100% !important;
+}
+
 @media (min-width: 640px) {
   .container {
     max-width: 640px;
+  }
+
+  .\!container {
+    max-width: 640px !important;
   }
 }
 
@@ -596,11 +604,19 @@ video {
   .container {
     max-width: 768px;
   }
+
+  .\!container {
+    max-width: 768px !important;
+  }
 }
 
 @media (min-width: 1024px) {
   .container {
     max-width: 1024px;
+  }
+
+  .\!container {
+    max-width: 1024px !important;
   }
 }
 
@@ -608,11 +624,19 @@ video {
   .container {
     max-width: 1280px;
   }
+
+  .\!container {
+    max-width: 1280px !important;
+  }
 }
 
 @media (min-width: 1536px) {
   .container {
     max-width: 1536px;
+  }
+
+  .\!container {
+    max-width: 1536px !important;
   }
 }
 
@@ -1617,6 +1641,11 @@ video {
   border-color: transparent;
 }
 
+.border-rouge-logo {
+  --tw-border-opacity: 1;
+  border-color: rgb(234 67 53 / var(--tw-border-opacity));
+}
+
 .border-x-current {
   border-left-color: currentColor;
   border-right-color: currentColor;
@@ -1998,6 +2027,10 @@ video {
 
 .stroke-transparent {
   stroke: transparent;
+}
+
+.stroke-rouge-logo {
+  stroke: #EA4335;
 }
 
 .object-cover {
@@ -2499,7 +2532,9 @@ video {
   --secondary-color: #00350D;
 }
 
-label:has(+ input[required])::after, label:has(+ textarea[required])::after {
+label:has(+ input[required]:not([type="checkbox"]))::after, 
+label:has(+ textarea[required])::after, 
+label:has(+ select[required])::after {
   content: " *";
   color: red;
 }

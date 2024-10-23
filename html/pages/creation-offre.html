@@ -11,7 +11,7 @@
 	<script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 	<script src="//unpkg.com/alpinejs" defer></script>
 	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=&language=fr "></script>
+		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="../scripts/autocomplete.js"></script>
 </head>
 
@@ -162,7 +162,7 @@
 
 						<div class="w-full justify-between">
 							<!-- Photo principale -->
-							<div class="flex flex-col justify-between w-full space-x-2">
+							<div class="flex flex-col justify-between w-full">
 								<label for="photo-upload-carte" class="text-nowrap w-full">Photo de la carte :</label>
 								<input type="file" name="photo-upload-carte" id="photo-upload-carte" class="text-center text-secondary block w-full
                               border-dashed border-2 border-secondary rounded-lg p-2
@@ -175,7 +175,7 @@
 							</div>
 
 							<!-- Photos détaillée -->
-							<div class="flex flex-col justify-between w-full space-x-2">
+							<div class="flex flex-col justify-between w-full">
 								<label for="photo-detail" class="text-nowrap w-full">Photos de l'offre détaillée:
 								</label>
 								<input type="file" name="photo-detail" id="photo-detail" class="text-center text-secondary block w-full
@@ -220,9 +220,9 @@
 
 						<!-- Sélection du type d'activité -->
 						<div class="w-full">
-							<label for="activityType" class="block text-nowrap">Type d'activité: *</label>
+							<label for="activityType" class="block text-nowrap">Type d'activité:</label>
 							<select id="activityType" name="activityType"
-								class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full">
+								class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full" required>
 								<option value="selection" selected hidden>Quel type d'activité ?</option>
 								<option value="activite">Activité</option>
 								<option value="visite">Visite</option>
@@ -235,124 +235,93 @@
 						<div
 							class="flex flex-col w-full optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
 							<label for="tag-input" class="block text-nowrap">Tags :</label>
-							<div class="relative">
-								<select type="text" id="tag-input"
-									class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full"
-									placeholder="Ajouter un tag...">
-									<option value="" class="hidden" selected>Rechercher un tag</option>
-								</select>
-							</div>
+							<select type="text" id="tag-input"
+								class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full"
+								placeholder="Ajouter un tag...">
+								<option value="" class="hidden" selected>Rechercher un tag</option>
+							</select>
 						</div>
 
 						<div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionActivite hidden"
-								id="activiteTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionVisite hidden"
-								id="visiteTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionSpectacle hidden"
-								id="spectacleTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionParcAttraction hidden"
-								id="parcAttractionTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionRestauration hidden"
-								id="restaurationTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionActivite hidden" id="activiteTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionVisite hidden" id="visiteTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionSpectacle hidden" id="spectacleTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionParcAttraction hidden" id="parcAttractionTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionRestauration hidden" id="restaurationTags"></div>
 						</div>
 
 						<!-- PARAMÈTRES DÉPENDANT DE LA CATÉGORIE DE L'OFFRE -->
 						<!-- Visite guidée -->
 						<!-- Visite -->
 						<div class="flex justify-between items-center w-full space-x-2 optionVisite hidden">
-							<label class="inline-flex items-center cursor-pointer space-x-4">
+							<div class="inline-flex items-center cursor-pointer space-x-4">
 								<p>Visite guidée :</p>
 								<input type="checkbox" value="" class="sr-only peer">
 								<div
 									class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
 								</div>
-							</label>
-						</div>
-
-						<!-- Gamme de prix -->
-						<!-- Restauration -->
-						<div class="flex justify-between items-center w-full space-x-2 optionRestauration hidden">
-							<label for="gamme" class="text-nowrap">Gamme de prix :</label>
-							<div>
-								<input type="radio" id="prix1" name="gamme2prix" value="prix1" />
-								<label for="prix1">€</label>
 							</div>
-							<div>
-								<input type="radio" id="prix2" name="gamme2prix" value="prix2" checked />
-								<label for="prix2">€€</label>
-							</div>
-							<div>
-								<input type="radio" id="prix3" name="gamme2prix" value="prix3" />
-								<label for="prix3">€€€</label>
-							</div>
-							<!-- TODO : Afficher les fourchettes de prix -->
-						</div>
-
-						<!-- Durée (HEURE & MIN) -->
-						<!-- Activité, Visite, Spectacle -->
-						<div
-							class="flex justify-between items-center w-full space-x-1 optionActivite optionVisite optionSpectacle hidden">
-							<label for="duree" class="text-nowrap">Durée :</label>
-							<input type="number" id="duree" pattern="/d+/" min="0" max="24"
-								class="border border-secondary rounded-lg p-2 bg-white w-full text-right">
-							<label for="minute">h </label>
-							<input type="number" id="minute" pattern="/d+/" min="0" max="59"
-								class="border border-secondary rounded-lg p-2 bg-white w-full text-right">
-							<p>min</p>
 						</div>
 
 						<!-- Âge requis -->
 						<!-- Activité, Parc d'attractions -->
 						<div
-							class="flex justify-between items-center w-full space-x-2 optionActivite optionParcAttraction hidden">
+							class="flex justify-start items-center w-full space-x-2 optionActivite optionParcAttraction hidden">
 							<label for="age-min" class="text-nowrap">Âge requis :</label>
 							<input type="number" id="age-min" pattern="/d+/" min="0" max="125"
-								class="border border-secondary rounded-lg p-2 bg-white w-full text-right">
+								class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 							<p>an(s)</p>
 						</div>
 
-						<!-- Prix minimal -->
-						<!-- Activité, Spectacle -->
+						<!-- Durée (HEURE & MIN) -->
+						<!-- Activité, Visite, Spectacle -->
 						<div
-							class="flex justify-between items-center w-full space-x-2 optionActivite optionSpectacle hidden">
-							<label for="prix-min" class="text-nowrap">Prix minimal :</label>
-							<input type="number" id="prix-min" pattern="/d+/" onchange="" min="0"
-								class="border border-secondary rounded-lg p-2 bg-white w-full text-right">
-							<p>€</p>
+							class="flex justify-start items-center w-full space-x-1 optionActivite optionVisite optionSpectacle hidden">
+							<label for="duree" class="text-nowrap">Durée :</label>
+							<input type="number" id="duree" pattern="/d+/" min="0" max="23"
+								class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+							<p>h </p>
+							<input type="number" id="minute" pattern="/d+/" min="0" max="59"
+								class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+							<p>min</p>
+						</div>
+
+						<!-- Gamme de prix -->
+						<!-- Restauration -->
+						<div class="flex justify-start items-center w-full space-x-4 optionRestauration hidden">
+							<label for="gamme" class="text-nowrap">Gamme de prix :</label>
+							<div class="flex  space-x-2">
+								<div>
+									<input type="radio" id="prix1" name="gamme2prix" value="prix1" />
+									<label for="prix1">€</label>
+								</div>
+								<div>
+									<input type="radio" id="prix2" name="gamme2prix" value="prix2" checked />
+									<label for="prix2">€€</label>
+								</div>
+								<div>
+									<input type="radio" id="prix3" name="gamme2prix" value="prix3" />
+									<label for="prix3">€€€</label>
+								</div>
+							</div>
 						</div>
 
 						<!-- Capacité d'accueil -->
 						<!-- Spectacle -->
-						<div class="flex justify-between items-center w-full space-x-2 optionSpectacle hidden">
+						<div class="flex justify-start items-center w-full space-x-2 optionSpectacle hidden">
 							<label for="place" class="text-nowrap">Capacité d'accueil :</label>
 							<input type="number" id="place" pattern="/d+/" onchange="" min="0"
-								class="border border-secondary rounded-lg p-2 bg-white w-full text-right">
+								class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 							<p>personnes</p>
 						</div>
 
 						<!-- Nombre d'attractions -->
 						<!-- Parc d'attractions -->
-						<div class="flex justify-between items-center w-full space-x-2 optionParcAttraction hidden">
+						<div class="flex justify-start items-center w-full space-x-2 optionParcAttraction hidden">
 							<label for="parc-numb" class="text-nowrap">Nombre d'attraction :</label>
 							<input type="number" id="parc-numb" pattern="/d+/" onchange="" min="0"
-								class="border border-secondary rounded-lg p-2 bg-white w-full text-right">
+								class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 							<p>attractions</p>
-						</div>
-
-						<!-- Plan du parc d'attraction -->
-						<!-- Parc d'attraction -->
-						<div class="flex flex-col justify-between w-full space-x-2 optionParcAttraction hidden">
-							<div class="h-4"></div>
-							<label for="photo-plan" class="text-nowrap w-full">Plan du parc d'attraction :</label>
-							<input type="file" name="photo-plan" id="photo-plan" class="text-small text-secondary block w-full
-                              file:flex file:flex-col
-                              file:mr-5 file:py-3 file:px-10
-                              file:rounded-lg
-                              file:text-small file:font-bold  file:text-secondary
-                              file:border file:border-secondary
-                              hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-								accept=".svg,.png,.jpg" />
 						</div>
 
 						<!-- LANGUES -->
@@ -378,6 +347,50 @@
 							</div>
 						</div>
 
+
+
+						<!-- Repas servis -->
+						<div class="space-x-2 w-full flex justify-start items-center optionRestauration hidden">
+							<p>
+								Repas servis : 
+							</p>
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasPetitDejeuner')">
+								<label for="repasPetitDejeuner">Petit-déjeuner</label>
+								<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner" class="hidden">
+							</div>
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBrunch')">
+								<label for="repasBrunch">Brunch</label>
+								<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
+							</div>
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDejeuner')">
+								<label for="repasDejeuner">Déjeuner</label>
+								<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
+							</div>
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDiner')">
+								<label for="repasDiner">Dîner</label>
+								<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
+							</div>
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBoissons')">
+								<label for="repasBoissons">Boissons</label>
+								<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
+							</div>
+						</div>
+
+						<!-- Plan du parc d'attraction -->
+						<!-- Parc d'attraction -->
+						<div class="flex flex-col justify-between w-full optionParcAttraction hidden">
+							<label for="photo-plan" class="text-nowrap w-full">Plan du parc d'attraction :</label>
+							<input type="file" name="photo-plan" id="photo-plan" 
+							class="text-center text-secondary block w-full
+							border-dashed border-2 border-secondary rounded-lg p-2
+							file:mr-5 file:py-3 file:px-10
+							file:rounded-lg
+							file:text-small file:font-bold  file:text-secondary
+							file:border file:border-secondary
+							hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
+								accept=".svg,.png,.jpg" />
+						</div>
+
 						<!-- Services -->
 						 <!-- Formulaire pour entrer les informations -->
 						<div class="flex flex-col justify-center items-center w-full">
@@ -389,8 +402,8 @@
 										<th>
 											Nom
 										</th>
-										<th>
-											Est Include ?
+										<th class="text-nowrap">
+											Est incluse ?
 										</th>
 										<th>
 											Actions
@@ -404,14 +417,10 @@
 											<input type="text" name="newPrestationName" id="newPrestationName"
 												class="border border-secondary rounded-lg p-2 bg-white w-full">
 										</td>
-										<td class="w-min group">
+										<td class="w-fit group">
 											<input type="checkbox" name="newPrestationInclude" id="newPrestationInclude" class="hidden peer">
-											<label for="newPrestationInclude" class="h-max w-full cursor-pointer flex justify-center items-center fill-secondary peer-checked:hidden">
-												<svg xmlns="http://www.w3.org/2000/svg"
-												width="32" height="32"
-												viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-													<path d="M384 80c8.8 0 16 7.2 16 16l0 320c0 8.8-7.2 16-16 16L64 432c-8.8 0-16-7.2-16-16L48 96c0-8.8 7.2-16 16-16l320 0zM64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32z"/>
-												</svg>
+											<label for="newPrestationInclude" class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
+												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-x"><rect width="28" height="28" x="2" y="2" rx="4" ry="4"/><path d="m24 8-16 16"/><path d="m8 8 16 16"/></svg>
 											</label>
 											<label for="newPrestationInclude" class="hidden h-max w-full cursor-pointer justify-center items-center fill-secondary peer-checked:flex">
 												<svg xmlns="http://www.w3.org/2000/svg"
@@ -435,33 +444,6 @@
 										</td>
 									</tr>
 								</table>
-							</div>
-
-							<!-- Repas servis -->
-							<div class="space-x-2 w-full flex justify-between items-center optionRestauration hidden">
-								<p>
-									Repas servis : 
-								</p>
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasPetitDejeuner')">
-									<label for="repasPetitDejeuner">Petit-déjeuner</label>
-									<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner" class="hidden">
-								</div>
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBrunch')">
-									<label for="repasBrunch">Brunch</label>
-									<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
-								</div>
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDejeuner')">
-									<label for="repasDejeuner">Déjeuner</label>
-									<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
-								</div>
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDiner')">
-									<label for="repasDiner">Dîner</label>
-									<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
-								</div>
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBoissons')">
-									<label for="repasBoissons">Boissons</label>
-									<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
-								</div>
 							</div>
 
 							<!-- GRILLE TARIFAIRE -->
@@ -699,22 +681,33 @@
                               ></p> -->
 										<!-- Mise à jour du tag en temps réel -->
 										<p class="text-white text-center rounded-lg bg-secondary font-bold w-fit p-2"
-											id="preview-tag-input"></p>
+											id="preview-tag-input">
+											Ajouter un tag...
+										</p>
 										<script>
 											function refreshTagPreview() {
 												const tagPreview = document.getElementById(
 													"preview-tag-input"
 												)
 
-												tagPreview.textContent = document.getElementById("tag-input").value ? (tagPreview.textContent + ", ").replace("Ajouter un tag..., ", "") + document.getElementById("tag-input").value : "Ajouter un tag...";
-
-												tagPreview.textContent = tagPreview.textContent.length > 30 ? tagPreview.textContent.substring(0, 30) + "..." : tagPreview.textContent;
+												const tagContainers = document.querySelectorAll('.tag-container');
+												tagContainers.forEach(container => {
+													if (!container.classList.contains('hidden')) {
+														Array.from(container.children).map(tag => console.log(tag.childNodes[0].nodeValue));
+														const tags = Array.from(container.children).map(tag => tag.childNodes[0].nodeValue).join(', ');
+														tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags)  : "Ajouter un tag...";
+													}
+												});
 											}
-
-											document
-											.getElementById("tag-input")
-											.addEventListener("input", refreshTagPreview);
 											refreshTagPreview();
+
+											Array.from(document
+											.getElementsByClassName("tag-container")).forEach(
+												(container) => {
+													const observer = new MutationObserver(refreshTagPreview);
+													observer.observe(container, { childList: true });
+												}
+											)
 										</script>
 									</div>
 									<!-- Mise à jour du résumé en temps réel -->
