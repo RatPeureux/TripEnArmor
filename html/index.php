@@ -1,6 +1,5 @@
 <?php
-include("/php/authentification.php");
-verifyUserPro();
+include("./php/authentification.php");
 ?>
 <!DOCTYPE html>
 <html lang="fr">

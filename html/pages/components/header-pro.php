@@ -1,3 +1,7 @@
+<?php
+include("../../../php/authentification.php");
+?>
+
 <!-- 
     Composant du header pour le pro
     Pour l'ajouter, écrier la balise <div id='header-pro'></div> dans votre code html

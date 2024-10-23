@@ -46,4 +46,7 @@ function verifyUserMember() {
     // Assigne le pseudo de l'utilisateur à la variable $pseudo, ou 'Invité' s'il n'est pas défini
     $pseudo = $_SESSION['user_pseudo'] ?? 'Invité';
 }
+
+
 ?>
+

@@ -15,7 +15,10 @@
             <a href="#">
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
-            <?php if (activeLogout()) { ?>
+            <?php 
+            
+            
+            if (activeLogout()) { ?>
                 <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">
                     <p>Se déconnecter</p>
                 </a>
