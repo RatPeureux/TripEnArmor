@@ -3,9 +3,9 @@ async function loadFooterHeader() {
     // Charger les fichiers des composants
     const footerHTML = await fetch('/pages/components/footer.html').then(response => response.text());
     const footerProHTML = await fetch('/pages/components/footer-pro.html').then(response => response.text());
-    const headerHTML = await fetch('/pages/components/header.html').then(response => response.text());
+    const headerHTML = await fetch('/pages/components/header.php').then(response => response.text());
     const menuHTML = await fetch('/pages/components/menu.html').then(response => response.text());
-    const headerProHTML = await fetch('/pages/components/header-pro.html').then(response => response.text());
+    const headerProHTML = await fetch('/pages/components/header-pro.php').then(response => response.text());
     const menuProHTML = await fetch('/pages/components/menu-pro.html').then(response => response.text());
 
     let headers = document.querySelectorAll('#header');

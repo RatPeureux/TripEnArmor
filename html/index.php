@@ -1,3 +1,6 @@
+
+<?php include("/home/etuinfo/lebleas/documents/lab/TripEnArmor/html/php/authentification.php"); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

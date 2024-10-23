@@ -34,7 +34,7 @@ COPY initialisation ./TripEnArmor
 COPY tailwindcss ./TripEnArmor
 
 
-
+COPY ../php-files/ ./TripEnArmor/php-files/
 
 # # Copie le fichier marche_pas.nepastoucher sous le nom index.php dans le répertoire de travail
 # COPY marche_pas.nepastoucher ./index.php
