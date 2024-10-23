@@ -63,6 +63,7 @@ class PriceManager {
             this.pricesContainer["prices"]
             .sort((a, b) => a.price - b.price)
             .forEach(price => {
+                // INTERESSE BAPTISTE
                 const elementDiv = document.createElement('tr');
                 
                 const elementTitle = document.createElement('td');
@@ -74,6 +75,7 @@ class PriceManager {
                 elementPrice.textContent = price.price + ' €';
                 elementPrice.classList.add('text-base');
                 elementDiv.appendChild(elementPrice);
+                // INTERESSE PLUS BAPTISTE
 
                 const elementRemove = document.createElement('td');
                 const removeButton = document.createElement('div');

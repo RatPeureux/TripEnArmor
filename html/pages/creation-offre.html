@@ -29,7 +29,8 @@
 
 <body>
 	<!-- Conteneur principal pour le contenu -->
-	<div class="flex justify-center align-baseline px-24">
+	<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
+		<div id="header" class="w-full"></div>
 		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 			<!-- Lien de retour avec une icône et un titre -->
 			<div class="w-full text-left">
@@ -38,15 +39,15 @@
 						<i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>
 					</div>
 					<div class="my-2">
-						<h1 class="text-h1"> Création d'offre</h1>
+						<h1 class="text-h1">Création d'offre</h1>
 					</div>
 				</a>
 			</div>
 			<!-- Section de sélection de l'offre -->
-			<div class="flex flex-wrap md:flex-nowrap md:space-x-[50px] space-y-6 md:space-y-0 p-6">
+			<div class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
 				<!-- Carte de l'offre gratuite -->
 				<div
-					class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full hidden">
+					class="border border-secondary rounded-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white 	md:h-full hidden">
 					<input type="radio" name="offer" id="offer1" class="hidden">
 					<label for="offer1"
 						class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -71,7 +72,7 @@
 				</div>
 				<!-- Carte de l'offre standard -->
 				<div
-					class="border border-primary rounded-lg flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full">
+					class="border border-primary rounded-lg flex-col justify-center w-fit text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full">
 					<input type="radio" name="offer" id="offer2" class="hidden">
 					<label for="offer2"
 						class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -97,14 +98,14 @@
 				</div>
 				<!-- Carte de l'offre premium -->
 				<div
-					class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full">
+					class="border border-secondary rounded-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-max">
 					<input type="radio" name="offer" id="offer3" class="hidden">
 					<label for="offer3"
 						class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
 						<div class="h-full divide-y divide-current">
 							<div>
 								<h1 class="text-h1 leading-none mt-1 text-center">Premium</h1>
-								<h1 class="text-center font-bold">Pour les entreprises et organismes privés</h1>
+								<h2 class="text-center font-bold">Pour les entreprises et organismes privés</h2>
 							</div>
 							<div class="h-full">
 								<p class="mt-2 text-small">Standard +</p>
@@ -243,20 +244,25 @@
 						</div>
 
 						<div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionActivite hidden" id="activiteTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionVisite hidden" id="visiteTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionSpectacle hidden" id="spectacleTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionParcAttraction hidden" id="parcAttractionTags"></div>
-							<div class="tag-container flex flex-wrap p-2 rounded-lg optionRestauration hidden" id="restaurationTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionActivite hidden"
+								id="activiteTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionVisite hidden"
+								id="visiteTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionSpectacle hidden"
+								id="spectacleTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionParcAttraction hidden"
+								id="parcAttractionTags"></div>
+							<div class="tag-container flex flex-wrap p-2 rounded-lg optionRestauration hidden"
+								id="restaurationTags"></div>
 						</div>
 
 						<!-- PARAMÈTRES DÉPENDANT DE LA CATÉGORIE DE L'OFFRE -->
 						<!-- Visite guidée -->
 						<!-- Visite -->
 						<div class="flex justify-between items-center w-full space-x-2 optionVisite hidden">
-							<div class="inline-flex items-center cursor-pointer space-x-4">
+							<div class="inline-flex items-center cursor-pointer space-x-4" onclick="toggleCheckbox('visiteGuidee')">
 								<p>Visite guidée :</p>
-								<input type="checkbox" value="" class="sr-only peer">
+								<input type="checkbox" id="visiteGuidee" value="" class="sr-only peer">
 								<div
 									class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
 								</div>
@@ -327,21 +333,25 @@
 						<!-- LANGUES -->
 						<div class="space-x-2 w-full flex items-center optionVisite hidden">
 							<p>
-								Langues parlées : 
+								Langues parlées :
 							</p>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('langueFR')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('langueFR')">
 								<label for="langueFR">Français</label>
 								<input type="checkbox" name="langueFR" id="langueFR" class="hidden" checked="true">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('langueEN')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('langueEN')">
 								<label for="langueEN">Anglais</label>
 								<input type="checkbox" name="langueEN" id="langueEN" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('langueES')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('langueES')">
 								<label for="langueES">Espagnol</label>
 								<input type="checkbox" name="langueES" id="langueES" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('langueDE')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('langueDE')">
 								<label for="langueDE">Allemand</label>
 								<input type="checkbox" name="langueDE" id="langueDE" class="hidden">
 							</div>
@@ -352,25 +362,30 @@
 						<!-- Repas servis -->
 						<div class="space-x-2 w-full flex justify-start items-center optionRestauration hidden">
 							<p>
-								Repas servis : 
+								Repas servis :
 							</p>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasPetitDejeuner')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('repasPetitDejeuner')">
 								<label for="repasPetitDejeuner">Petit-déjeuner</label>
 								<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBrunch')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('repasBrunch')">
 								<label for="repasBrunch">Brunch</label>
 								<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDejeuner')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('repasDejeuner')">
 								<label for="repasDejeuner">Déjeuner</label>
 								<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDiner')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('repasDiner')">
 								<label for="repasDiner">Dîner</label>
 								<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
 							</div>
-							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBoissons')">
+							<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								onclick="toggleCheckbox('repasBoissons')">
 								<label for="repasBoissons">Boissons</label>
 								<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
 							</div>
@@ -380,19 +395,17 @@
 						<!-- Parc d'attraction -->
 						<div class="flex flex-col justify-between w-full optionParcAttraction hidden">
 							<label for="photo-plan" class="text-nowrap w-full">Plan du parc d'attraction :</label>
-							<input type="file" name="photo-plan" id="photo-plan" 
-							class="text-center text-secondary block w-full
+							<input type="file" name="photo-plan" id="photo-plan" class="text-center text-secondary block w-full
 							border-dashed border-2 border-secondary rounded-lg p-2
 							file:mr-5 file:py-3 file:px-10
 							file:rounded-lg
 							file:text-small file:font-bold  file:text-secondary
 							file:border file:border-secondary
-							hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-								accept=".svg,.png,.jpg" />
+							hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
 						</div>
 
 						<!-- Services -->
-						 <!-- Formulaire pour entrer les informations -->
+						<!-- Formulaire pour entrer les informations -->
 						<div class="flex flex-col justify-center items-center w-full">
 							<!-- PRESTATIONS -->
 							<div class="w-full optionActivite hidden">
@@ -418,15 +431,25 @@
 												class="border border-secondary rounded-lg p-2 bg-white w-full">
 										</td>
 										<td class="w-fit group">
-											<input type="checkbox" name="newPrestationInclude" id="newPrestationInclude" class="hidden peer">
-											<label for="newPrestationInclude" class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
-												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-x"><rect width="28" height="28" x="2" y="2" rx="4" ry="4"/><path d="m24 8-16 16"/><path d="m8 8 16 16"/></svg>
+											<input type="checkbox" name="newPrestationInclude" id="newPrestationInclude"
+												class="hidden peer">
+											<label for="newPrestationInclude"
+												class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
+												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+													viewBox="0 0 32 32" fill="none" stroke="currentColor"
+													stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+													class="lucide lucide-square-x">
+													<rect width="28" height="28" x="2" y="2" rx="4" ry="4" />
+													<path d="m24 8-16 16" />
+													<path d="m8 8 16 16" />
+												</svg>
 											</label>
-											<label for="newPrestationInclude" class="hidden h-max w-full cursor-pointer justify-center items-center fill-secondary peer-checked:flex">
-												<svg xmlns="http://www.w3.org/2000/svg"
-												width="32" height="32"
-												viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-													<path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/>
+											<label for="newPrestationInclude"
+												class="hidden h-max w-full cursor-pointer justify-center items-center fill-secondary peer-checked:flex">
+												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+													viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+													<path
+														d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
 												</svg>
 											</label>
 										</td>
@@ -469,7 +492,7 @@
 											<input type="text" name="newPrixName" id="newPrixName"
 												class="border border-secondary rounded-lg p-2 bg-white w-full">
 										</td>
-										<td class="w-min">
+										<td class="w-fit">
 											<input type="number" name="newPrixValeur" id="newPrixValeur" min="0"
 												class="border border-secondary rounded-lg p-2 bg-white">
 										</td>
@@ -501,19 +524,19 @@
 							<div
 								class="flex flex-row mb-4 content-center justify-between items-center text-secondary w-full">
 								<!-- Sans option -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleRadio('option-rien')">
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" id="option-rien-div">
 									<input type="radio" id="option-rien" name="option" value="option-rien"
-										class="hidden"/>
+										class="hidden" />
 									<label for="option-rien">Sans option</label>
 								</div>
 								<!-- Option en relief -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleRadio('option-relief')">
-									<input type="radio" id="option-relief" name="option" value="option-relief" class="hidden"
-										checked="true" />
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" id="option-relief-div">
+									<input type="radio" id="option-relief" name="option" value="option-relief"
+										class="hidden" checked="true" />
 									<label for="option-relief">En Relief (3.99€)</label>
 								</div>
 								<!-- À la une -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleRadio('option-a-la-une')">
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" id="option-a-la-une-div">
 									<input type="radio" id="option-a-la-une" name="option" class="hidden"
 										value="option-a-la-une" />
 									<label for="option-a-la-une">À la une (5.99€)</label>
@@ -525,7 +548,8 @@
 					<div
 						class="w-full flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
 						<input type="submit" value="Créer l'offre" id="submitPart3"
-							class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300" disabled="true">
+							class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300"
+							disabled="true">
 					</div>
 				</form>
 				<!-- Mettre la preview à droite du fleuve -->
@@ -534,6 +558,32 @@
 						<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 						<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou a la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
 						<div class="card active relative bg-base300 rounded-xl flex flex-col w-full" id="card-preview">
+							<script>
+								// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
+								function toggleCardPreview(option) {
+									// Récupérer l'élément de la carte
+									const cardPreview = document.getElementById("card-preview");
+									// Ajouter ou retirer la classe active en fonction de l'option choisie
+									if (option === "option-rien") {
+										cardPreview.classList.remove("active");
+									} else {
+										cardPreview.classList.add("active");
+									}
+								}
+								// Ajouter un EventListener pour détecter les changements dans les options
+								document.getElementById("option-rien-div").addEventListener("click", function () {
+									toggleRadio("option-rien");
+									toggleCardPreview("option-rien");
+								});
+								document.getElementById("option-relief-div").addEventListener("click", function () {
+									toggleRadio("option-relief");
+									toggleCardPreview("option-relief");
+								});
+								document.getElementById("option-a-la-une-div").addEventListener("click", function () {
+									toggleRadio("option-a-la-une");
+									toggleCardPreview("option-a-la-une");
+								});
+							</script>
 							<!-- En tête -->
 							<div
 								class="en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
@@ -695,19 +745,19 @@
 													if (!container.classList.contains('hidden')) {
 														Array.from(container.children).map(tag => console.log(tag.childNodes[0].nodeValue));
 														const tags = Array.from(container.children).map(tag => tag.childNodes[0].nodeValue).join(', ');
-														tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags)  : "Ajouter un tag...";
+														tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags) : "Ajouter un tag...";
 													}
 												});
 											}
 											refreshTagPreview();
 
 											Array.from(document
-											.getElementsByClassName("tag-container")).forEach(
-												(container) => {
-													const observer = new MutationObserver(refreshTagPreview);
-													observer.observe(container, { childList: true });
-												}
-											)
+												.getElementsByClassName("tag-container")).forEach(
+													(container) => {
+														const observer = new MutationObserver(refreshTagPreview);
+														observer.observe(container, { childList: true });
+													}
+												)
 										</script>
 									</div>
 									<!-- Mise à jour du résumé en temps réel -->
@@ -759,9 +809,9 @@
 				</div>
 			</div>
 		</div>
+		<div id="footer-pro" class="w-full"></div>
 	</div>
-	</div>
-	</div>
+	<script src="../scripts/loadcomponents.js"></script>
 	<script src="../scripts/tagManager.js"></script>
 	<script src="../scripts/priceManager.js"></script>
 	<script src="../scripts/prestationManager.js"></script>
@@ -784,7 +834,11 @@
 		}
 
 		function showPart3() {
-			document.getElementById("submitPart3").ariaDisabled="false";
+			document.getElementById("submitPart3").removeAttribute("disabled");
+		}
+
+		function hidePart3() {
+			document.getElementById("submitPart3").setAttribute("disabled", "true");
 		}
 
 		function checkPart1Validity() {
@@ -810,7 +864,7 @@
 
 			requiredFields.forEach((field) => {
 				if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') { // Locality
-					if (field.value !== '' && RegExp('^((22)|(29)|(35)|(56))[0-9]{3}$').test(field.value) === false) {
+					if (field.value === '' || RegExp('^((22)|(29)|(35)|(56))[0-9]{3}$').test(field.value) === false) {
 						field.classList.remove("border-secondary")
 						field.classList.add('border-red-500');
 						isValid = false;
@@ -820,7 +874,12 @@
 					}
 				} else {
 					if (field.value.trim() === '') {
+						field.classList.remove("border-secondary")
+						field.classList.add('border-red-500');
 						isValid = false;
+					} else {
+						field.classList.remove("border-red-500");
+						field.classList.add('border-secondary');
 					}
 				}
 			});
@@ -832,12 +891,29 @@
 
 		function checkPart3Validity() {
 			checkPart2Validity();
+			console.log("Checking part 3 validity");
+			
+			const requiredFields = document.querySelectorAll('.part2 [required]');
 			let isValid = true;
 
-
-
+			requiredFields.forEach((field) => {
+				if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') {
+					if (field.value.trim() === '' || field.value < 0 || RegExp('^[0-9]+$').test(field.value) === false) {
+						console.log(field)
+						field.classList.remove("border-secondary")
+						field.classList.add('border-red-500');
+						isValid = false;
+					} else {
+						field.classList.remove("border-red-500");
+						field.classList.add('border-secondary');
+					}
+				}
+			});
+			
 			if (isValid) {
 				showPart3();
+			} else {
+				hidePart3();
 			}
 		}
 
@@ -859,11 +935,11 @@
 			});
 		});
 
-		const requiredFields = document.querySelectorAll('.part1 input[required], .part1 textarea[required]');
+		const fields = document.querySelectorAll('input, textarea, select');
 
-		requiredFields.forEach((field) => {
-			field.addEventListener('input', () => {
-				checkPart2Validity();
+		fields.forEach((field) => {
+			field.addEventListener('input', (e) => {
+				checkPart3Validity();
 				if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') {
 					field.value = field.value.replace(/[^0-9]/g, '');
 				}

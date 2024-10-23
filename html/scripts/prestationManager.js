@@ -63,6 +63,7 @@ class PrestationManager {
             .sort((a, b) => (0 + a.name) - (0 + b.name))
             .forEach(prestation => {
                 const elementDiv = document.createElement('tr');
+                // INTERESSE BAPTISTE
                 
                 const elementName = document.createElement('td');
                 elementName.textContent = prestation.name;
@@ -72,6 +73,7 @@ class PrestationManager {
                 const elementInclude = document.createElement('td');
                 elementInclude.classList.add('h-max', 'w-full', 'flex', 'justify-center', 'items-center', prestation.isIncluded ? 'fill-secondary' : 'text-rouge-logo', 'rounded-full', 'bg-clip-content');
                 elementInclude.innerHTML= prestation.isIncluded ? `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-x"><rect width="28" height="28" x="2" y="2" rx="4" ry="4"/><path d="m24 8-16 16"/><path d="m8 8 16 16"/></svg>`
+                // INTERESSE PLUS BAPTISTE
 
                 elementDiv.appendChild(elementInclude);
 
