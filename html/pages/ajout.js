@@ -65,12 +65,7 @@ async function loadOffres() {
                                     <i class="fa-solid fa-location-dot"></i>
                                     <p class="text-small">${offre.ville}</p>
                                     <p class="text-small">${offre.code_postal}</p>
-                                </div>
-                                <div class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
-                                    <p class="text-small">€€</p>
-                                    <a href="../php/pro/modifier_offre.php?offre-id=${offre.offre_id}">Modifier l'Offre</a>
-
-                                </div>
+                                </div>html/dockerBDD/connexion/pro/connected_pro.php
                             </div>
                         </div>
                     </div>
