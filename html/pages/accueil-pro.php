@@ -1,3 +1,7 @@
+<?php
+include("/php/authentification.php");
+verifyUserPro();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,6 +16,7 @@
     
     <div id="menu-pro" class="1"></div>
     <div id="header-pro" class="mb-20"></div>
+    <script src="confirm.js"></script>
 
     <?php
         session_start();

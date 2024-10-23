@@ -1,3 +1,4 @@
+
 <!-- 
     Composant du header pour le pro
     Pour l'ajouter, écrier la balise <div id='header-pro'></div> dans votre code html
@@ -18,9 +19,15 @@
             <a href="/pages/login-pro.php">
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
-            <a href="../php/pro/logout.php">
-                <p>Se déconnecter</p>
-            </a>
+            <?php
+            
+            include("/home/etuinfo/lebleas/documents/lab/TripEnArmor/html/php/authentification.php");
+
+            if (activeLogout()) { ?>
+                <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">
+                    <p>Se déconnecter</p>
+                </a>
+            <?php } ?>
         </div>
     </div>
 </header>
