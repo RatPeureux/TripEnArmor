@@ -14,7 +14,7 @@
 </head>
 <body class="flex flex-col">
 
-    <div id="header-pro" class="mb-10"></div>
+    <div id="header-pro" class="mb-20"></div>
 
     <?php
         session_start();
