@@ -122,7 +122,7 @@
 				</div>
 			</div>
 			<div class="flex space-x-12 w-full shrink-0 part1 hidden">
-				<form action="" method="GET" class="block w-full space-y-8">
+				<form action="" method="POST" class="block w-full space-y-8">
 					<div class="w-full flex flex-col justify-center items-center space-y-4">
 						<h2 class="w-full text-h2 text-secondary">Informations</h2>
 
@@ -224,11 +224,11 @@
 							<select id="activityType" name="activityType"
 								class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full" required>
 								<option value="selection" selected hidden>Quel type d'activité ?</option>
-								<option value="activite">Activité</option>
-								<option value="visite">Visite</option>
-								<option value="spectacle">Spectacle</option>
-								<option value="parc_attraction">Parc d'attraction</option>
-								<option value="restauration">Restauration</option>
+								<option value="activite" id="activite">Activité</option>
+								<option value="visite" id="visite">Visite</option>
+								<option value="spectacle" id="spectacle">Spectacle</option>
+								<option value="parc_attraction" id="parc_attraction">Parc d'attraction</option>
+								<option value="restauration" id="restauration">Restauration</option>
 							</select>
 						</div>
 
@@ -523,9 +523,8 @@
 					</div>
 					<!-- Créer l'offre -->
 					<div
-						class="w-full flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
-						<input type="submit" value="Créer l'offre" id="submitPart3"
-							class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300" disabled="true">
+						class="w-full flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction">
+						<input type="submit" value="Créer l'offre" id="submitPart3">
 					</div>
 				</form>
 				<!-- Mettre la preview à droite du fleuve -->
