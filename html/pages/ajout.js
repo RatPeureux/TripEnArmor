@@ -1,6 +1,6 @@
 async function loadOffres() {
     try {
-        const response = await fetch('../dockerBDD/connexion/pro/affiche-offre.php');
+        const response = await fetch('../php/pro/affiche-offre.php');
         const offres = await response.json();
 
         console.log('Données reçues:', offres); // Log des données reçues
@@ -22,6 +22,7 @@ async function loadOffres() {
                 card.className = 'card active relative bg-base300 rounded-lg flex h-[400px]';
 
                 console.log('ID de l\'offre:', offre.offre_id);
+                const offreId = offre.offre_id;
 
 
                 // Construire le HTML de l'offre
@@ -67,7 +68,7 @@ async function loadOffres() {
                                 </div>
                                 <div class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
                                     <p class="text-small">€€</p>
-                                    <a href="../dockerBDD/connexion/pro/modifier_offre.php?offre-id=<?php echo $offreId; ?>">Modifier l'Offre</a>
+                                    <a href="../php/pro/modifier_offre.php?offre-id=${offre.offre_id}">Modifier l'Offre</a>
 
                                 </div>
                             </div>
@@ -86,5 +87,9 @@ async function loadOffres() {
     }
 }
 
-// Appel de la fonction pour charger les offres
-loadOffres();
+document.addEventListener('DOMContentLoaded', () => {
+    loadOffres();
+});
+
+const container = document.getElementById('offres-container');
+console.log('Container trouvé:', container);

@@ -9,9 +9,9 @@ try {
 
     // Récupération des offres en ligne
     $stmt = $dbh->prepare("
-        SELECT o.*, a.adresse_postale, a.code_postal, a.ville 
-        FROM sae_db.Offre o 
-        JOIN sae_db.Adresse a ON o.adresse_id = a.adresse_id
+        SELECT o.*, a.code_postal, a.ville, a.numero, a.odonyme, a.complement_adresse 
+        FROM sae_db._offre o 
+        JOIN sae_db._adresse a ON o.adresse_id = a.adresse_id
     ");
     $stmt->execute();
     $offres = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -32,4 +32,7 @@ try {
     header('Content-Type: application/json'); // Assurez-vous que la réponse est en JSON même en cas d'erreur
     echo json_encode(['error' => 'Erreur de connexion à la base de données : ' . htmlspecialchars($e->getMessage())]);
 }
+
+error_log('Données récupérées : ' . print_r($offres, true), 0);
+
 ?>

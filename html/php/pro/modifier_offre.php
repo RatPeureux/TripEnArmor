@@ -14,9 +14,9 @@ try {
         die("ID d'offre invalide.");
     }
 
-    $sql = "SELECT o.*, a.adresse_postale, a.code_postal, a.ville 
-            FROM sae_db.Offre o 
-            JOIN sae_db.Adresse a ON o.adresse_id = a.adresse_id 
+    $sql = "SELECT o.*, a.code_postal, a.ville, a.numero, a.odonyme 
+            FROM sae_db._offre o 
+            JOIN sae_db._adresse a ON o.adresse_id = a.adresse_id 
             WHERE o.offre_id = :offre_id";
 
     $stmt = $dbh->prepare($sql);
@@ -31,18 +31,17 @@ try {
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $titre = isset($_POST['titre']) ? $_POST['titre'] : '';
-        $adresse = isset($_POST['adresse']) ? $_POST['adresse'] : '';
-        $code = isset($_POST['code']) ? $_POST['code'] : '';
-        $ville = isset($_POST['ville']) ? $_POST['ville'] : '';
-        $description = isset($_POST['description']) ? $_POST['description'] : '';
-        $resume = isset($_POST['resume']) ? $_POST['resume'] : '';
-        $age = isset($_POST['age']) ? $_POST['age'] : '';
-        $prix = isset($_POST['prix']) ? $_POST['prix'] : '';
+        $titre = isset($_POST['titre']);
+        $code = isset($_POST['code']);
+        $ville = isset($_POST['ville']);
+        $description = isset($_POST['description']);
+        $resume = isset($_POST['resume']);
+        $age = isset($_POST['age']);
+        $prix = isset($_POST['prix']);
 
-        if ($adresse && $code && $ville && $description && $resume && $titre && $age) {
+        if ($code && $ville && $description && $resume && $titre && $age) {
             // Mettre à jour l'adresse
-            $stmtAdresseOffre = $dbh->prepare("UPDATE sae_db.Adresse 
+            $stmtAdresseOffre = $dbh->prepare("UPDATE sae_db._adresse 
                 SET adresse_postale = :adresse, code_postal = :code, ville = :ville 
                 WHERE adresse_id = (SELECT adresse_id FROM sae_db.Offre WHERE offre_id = :offreId)
             ");
@@ -55,7 +54,7 @@ try {
                 $dateMiseAJour = date('Y-m-d H:i:s');
 
                 // Mettre à jour l'offre
-                $stmtOffre = $dbh->prepare("UPDATE sae_db.Offre 
+                $stmtOffre = $dbh->prepare("UPDATE sae_db._offre 
                     SET description_offre = :description, resume_offre = :resume, prix_mini = :prix, date_mise_a_jour = :date_mise_a_jour 
                     WHERE offre_id = :offreId
                 ");
@@ -66,7 +65,7 @@ try {
                 $stmtOffre->bindParam(':prix', $prix);
 
                 if ($stmtOffre->execute()) {
-                    $stmtTarifPublic = $dbh->prepare("UPDATE sae_db.Tarif_Public 
+                    $stmtTarifPublic = $dbh->prepare("UPDATE sae_db._tarif_Public 
                         SET titre_tarif = :titre, age_min = :age_min, age_max = :age_max 
                         WHERE offre_id = :offre_id
                     ");
@@ -106,8 +105,6 @@ try {
 <body>
     <h1>Modifier l'Offre</h1>
     <form method="POST" action="">
-        <label for="adresse">Adresse:</label>
-        <input type="text" name="adresse" value="<?php echo htmlspecialchars($offre['adresse_postale'] ?? '', ENT_QUOTES); ?>" required>
         
         <label for="code">Code Postal:</label>
         <input type="text" name="code" value="<?php echo htmlspecialchars($offre['code_postal'] ?? '', ENT_QUOTES); ?>" required>
