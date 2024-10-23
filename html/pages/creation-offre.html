@@ -617,18 +617,19 @@
 										<p class="text-white text-center rounded-lg bg-secondary font-bold w-fit p-2"
 											id="preview-tag-input"></p>
 										<script>
-											document.getElementById(
-												"preview-tag-input"
-											).textContent =
-												document.getElementById("tag-input").value ? document.getElementById("tag-input").value : "Ajouter un tag...";
+											function refreshTagPreview() {
+												const tagPreview = document.getElementById(
+													"preview-tag-input"
+												)
+
+												tagPreview.textContent = document.getElementById("tag-input").value ? tagPreview.textContent + ", " + document.getElementById("tag-input").value : "Ajouter un tag...";
+
+												tagPreview.textContent = tagPreview.textContent.length > 30 ? tagPreview.textContent.substring(0, 30) + "..." : tagPreview.textContent;
+											}
 											document
-												.getElementById("tag-input")
-												.addEventListener("input", function () {
-													document.getElementById(
-														"preview-tag-input"
-													).textContent =
-														document.getElementById("tag-input").value ? document.getElementById("tag-input").value : "Ajouter un tag...";
-												});
+											.getElementById("tag-input")
+											.addEventListener("input", refreshTagPreview);
+											refreshTagPreview();
 										</script>
 									</div>
 									<!-- Mise à jour du résumé en temps réel -->

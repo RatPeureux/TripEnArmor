@@ -19,7 +19,6 @@ class TagManager {
         this.tagContainer = {
             removeChild(activityType, child) {
                 this[activityType].removeChild(child);
-                console.log(this[activityType]);
             },
             "activite" : document.getElementById('activiteTags'),
             "visite" : document.getElementById('visiteTags'),
@@ -138,9 +137,6 @@ class TagManager {
         };
 
         tagDiv.appendChild(removeBtn);
-        console.log(activityType);
-        console.log(this.tagContainer);
-        console.log(this.tagContainer[activityType]);
 
         this.tagContainer[activityType].appendChild(tagDiv);
         this.addedTags[activityType].push(tag);
