@@ -114,9 +114,11 @@ class TagManager {
             return;
         }
 
+        // INTERESSE BAPTISTE
         const tagDiv = document.createElement('div');
         tagDiv.textContent = tag;
         tagDiv.classList.add('bg-secondary', 'text-white', 'py-1', 'px-3', 'rounded-full', 'mr-2', 'flex', 'items-center');
+        // INTERESSE PLUS BAPTISTE
 
         const removeBtn = document.createElement('span');
         removeBtn.textContent = 'X';

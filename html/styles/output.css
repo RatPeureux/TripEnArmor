@@ -1151,6 +1151,11 @@ video {
   width: 100%;
 }
 
+.w-max {
+  width: -moz-max-content;
+  width: max-content;
+}
+
 .w-min {
   width: -moz-min-content;
   width: min-content;
@@ -2908,6 +2913,11 @@ label:has(+ select[required])::after {
 
   .md\:h-full {
     height: 100%;
+  }
+
+  .md\:h-max {
+    height: -moz-max-content;
+    height: max-content;
   }
 
   .md\:flex-nowrap {
