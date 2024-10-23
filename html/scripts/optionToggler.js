@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (const option of options) {
             option.classList.remove("hidden");
+            option.ariaRequired = true;
         }
     }
 
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             for (const option of options) {
                 option.classList.add('hidden');
+                option.ariaRequired = false;
             }
         }
     }
