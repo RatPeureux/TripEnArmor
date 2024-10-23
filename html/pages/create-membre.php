@@ -302,8 +302,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         } else {
             $message = "Erreur lors de la création du compte : " . implode(", ", $stmtMembre->errorInfo());
         }
-    } else {
-        $message = "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtTest->errorInfo());
     }
 }
 
