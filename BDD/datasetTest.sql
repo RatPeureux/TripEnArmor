@@ -1,9 +1,5 @@
 set schema 'sae_db';
 
-
--- fonction permettant de récupérer les offres les 10 offres les plus récentes
--- create or replace function _offres_recentes()
-
 -- insertion d'adresses
 INSERT INTO _adresse (code_postal, ville, numero, odonyme, complement_adresse)
 VALUES
@@ -47,7 +43,121 @@ values
 
 -- Insert Offres, 2 chacunes -----------------------------------------------------------------------------------------------
 
-INSERT INTO _restauration (est_en_ligne, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, restauration_id, gamme_prix)
+INSERT INTO _restauration (est_en_ligne, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, gamme_prix)
 VALUES 
-(TRUE, 'Offre restaurant - Menu gastronomique', 'Menu gastronomique', 30, '2024-01-10', '2024-01-15', 6, 1, '€€€'),
-(TRUE, 'Jolie restaurant en bord de mer avec une vue imprenable sur la côte de granit rose', 'Petit restaurant avec du charme sur une vue mer', 15, '2024-01-12', '2024-01-18', 7, 2, '€');
+(true, 
+'Restaurant gastronomique offrant une expérience culinaire haut de gamme avec des plats raffinés à base de produits locaux et de saison. Notre chef vous propose un menu dégustation inoubliable.',
+'Restaurant gastronomique avec menu dégustation.', 
+50.00, 
+'2024-10-01', 
+'2024-10-15', 
+1, 
+'$$$'),
+
+(true, 
+'Bistro convivial offrant des plats traditionnels français dans un cadre chaleureux. Le menu change chaque jour, basé sur les produits frais du marché.',
+'Bistro avec cuisine française traditionnelle.', 
+25.00, 
+'2024-09-20', 
+'2024-10-01', 
+2, 
+'$$');
+
+
+
+INSERT INTO _activite (est_en_ligne, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, duree_activite, age_requis, prestations)
+VALUES 
+(true, 
+'Parcours de randonnée guidé à travers les montagnes avec des vues imprenables et des explications sur la faune et la flore locale. Idéal pour les amateurs de nature et de marche.',
+'Randonnée guidée en montagne avec paysages spectaculaires.', 
+30.00, 
+'2024-10-10', 
+'2024-10-20', 
+2, 
+'02:00:00', 
+12, 
+'Guide expérimenté, équipement fourni.'),
+
+(true, 
+'Cours de surf pour débutants sur la côte Atlantique. Apprenez les bases du surf avec un instructeur certifié dans un environnement sécurisé.',
+'Cours de surf pour débutants.', 
+40.00, 
+'2024-07-15', 
+'2024-07-30', 
+6, 
+'01:30:00', 
+10, 
+'Planche de surf fournie, instructeur qualifié.');
+
+
+
+INSERT INTO _spectacle (est_en_ligne, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, capacite_spectacle, duree_spectacle)
+VALUES 
+(true, 
+'Concert de musique symphonique avec orchestre philharmonique de la ville, jouant des oeuvres classiques de Mozart et Beethoven. Une soirée inoubliable pour les amateurs de musique.',
+'Concert symphonique avec orchestre.', 
+45.00, 
+'2024-10-05', 
+'2024-10-15', 
+3, 
+300, 
+'01:30:00'),
+
+(true, 
+'Spectacle de cirque moderne avec des acrobates, jongleurs, et numéros de trapèze impressionnants. Un divertissement pour toute la famille.',
+'Spectacle de cirque moderne avec acrobates.', 
+30.00, 
+'2024-11-01', 
+'2024-11-10', 
+7, 
+500, 
+'02:00:00');
+
+
+
+INSERT INTO _visite (est_en_ligne, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, duree_visite, guide_visite)
+VALUES 
+(true, 
+'Visite guidée du château médiéval avec explication de son histoire et des événements marquants. Une plongée dans le passé pour découvrir la vie au Moyen Âge.',
+'Visite guidée du château médiéval.', 
+20.00, 
+'2024-09-15', 
+'2024-09-30', 
+4, 
+'01:00:00', 
+true),
+
+(true, 
+'Visite guidée des caves à vin de la région avec dégustation de vins locaux. Une immersion dans l histoire viticole et un parcours à travers les vignes.',
+'Visite des caves à vin avec dégustation.', 
+50.00, 
+'2024-06-10', 
+'2024-06-20', 
+8, 
+'01:30:00', 
+true);
+
+
+INSERT INTO _parc_attraction (est_en_ligne, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, nb_attractions, age_requis)
+VALUES 
+(true, 
+'Parc d attractions pour toute la famille, avec plus de 20 manèges et attractions adaptés à tous les âges. Un lieu de divertissement incontournable pour petits et grands.',
+'Parc d attractions familial avec plus de 20 manèges.', 
+35.00, 
+'2024-08-01', 
+'2024-08-15', 
+5, 
+20, 
+true),
+
+(true, 
+'Parc aquatique avec toboggans géants, piscines à vagues, et espaces détente. Parfait pour se rafraîchir en été et s amuser en famille ou entre amis.',
+'Parc aquatique avec attractions et piscines.', 
+45.00, 
+'2024-05-01', 
+'2024-05-10', 
+9, 
+15, 
+false)
+;
+

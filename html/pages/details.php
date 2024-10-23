@@ -38,7 +38,7 @@
                 </div>
             </div>
             <!-- Boutons de navigation sur la slider -->
-            <a onclick="history.back()" class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="" onclick="history.back()" class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center"><i class="fa-solid fa-arrow-left"></i></a>
             <div class="swiper-pagination"></div>
         </div>
 
@@ -109,7 +109,7 @@
                         <a class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !right-5 !bg-primary !text-white after:!text-base">
                         </a>
                     </div>
-                    <a onclick="history.back()" class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center"><i class="fa-solid fa-arrow-left text-h1"></i></a>
+                    <a href="" onclick="history.back()" class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center"><i class="fa-solid fa-arrow-left text-h1"></i></a>
                     <div class="swiper-pagination"></div>
                 </div>
 
