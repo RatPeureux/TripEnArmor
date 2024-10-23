@@ -131,7 +131,7 @@ $mdp = $_POST['mdp'];
             <input class="p-2 text-gris bg-base100 w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail" title="Adresse mail" value="<?php echo $mail;?>" readonly>
             
             <!-- Champs pour l'adresse -->
-            <label class="text-small" for="adresse">Adresse postale*</label>
+            <label class="text-small" for="adresse">Adresse postale</label>
             <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse" 
                    pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir une adresse postale" maxlength="255" required>
             
@@ -140,19 +140,19 @@ $mdp = $_POST['mdp'];
             
             <div class="flex flex-nowrap space-x-3 mb-1.5">
                 <div class="w-28">
-                    <label class="text-small" for="code">Code postal*</label>
+                    <label class="text-small" for="code">Code postal</label>
                     <input class="text-right p-2 bg-base100 w-28 h-12 rounded-lg" type="text" id="code" name="code" 
                            pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Saisir un code postal" minlength="5" maxlength="5" oninput="number(this)" required>
                 </div>
                 <div class="w-full">
-                    <label class="text-small" for="ville">Ville*</label>
+                    <label class="text-small" for="ville">Ville</label>
                     <input class="p-2 bg-base100 w-full h-12 rounded-lg" type="text" id="ville" name="ville" 
                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir une ville" maxlength="50" required>
                 </div>
             </div>
 
             <!-- Champ pour le numéro de téléphone -->
-            <label class="text-small" for="num_tel">Téléphone*</label>
+            <label class="text-small" for="num_tel">Téléphone</label>
             <div class="w-full">
                 <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel" 
                        pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14" oninput="formatTEL(this)" required>
