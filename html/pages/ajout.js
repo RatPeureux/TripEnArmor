@@ -26,7 +26,7 @@ async function loadOffres() {
 
                 // Construire le HTML de l'offre
                 card.innerHTML = `
-                    <div class="gauche relative shrink-0 basis-1/2 overflow-hidden" onclick="location.href='details.html'">
+                    <div class="gauche relative shrink-0 basis-1/2 overflow-hidden" onclick="location.href='details.php'">
                         <div class="en-tete flex justify-around absolute top-0 w-full">
                             <div class="bg-bgBlur/75 backdrop-blur rounded-b-lg w-3/5">
                                 <h3 class="text-center font-bold">${offre.resume_offre}</h3>
@@ -50,7 +50,7 @@ async function loadOffres() {
                         </div>
                         <img class="rounded-l-lg w-full h-full object-cover object-center" src="../public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
                     </div>
-                    <div class="infos flex flex-col items-center self-stretch px-5 py-3 gap-3 justify-between" onclick="location.href='details.html'">
+                    <div class="infos flex flex-col items-center self-stretch px-5 py-3 gap-3 justify-between" onclick="location.href='details.php'">
                         <div class="description py-2 flex flex-col gap-2 h-full">
                             <div class="p-2 rounded-lg bg-secondary self-center">
                                 <p class="text-white text-center font-bold">Petit déjeuner, Dîner, Boissons</p>

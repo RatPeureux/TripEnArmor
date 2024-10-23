@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="../scripts/loaddetailsmenus.js"></script>
-    <link rel="stylesheet" href="../styles/output.css">
-    <script type="module" src="../scripts/main.js"></script>
+    <script type="module" src="/scripts/loaddetailsmenus.js"></script>
+    <link rel="stylesheet" href="/styles/output.css">
+    <script type="module" src="/scripts/main.js"></script>
     <title>PACT - Accueil</title>
 </head>
-<body class="flex flex-col">
+<body class="flex flex-col min-h-screen">
     
     <div id="menu-pro" class="1"></div>
-    <div id="header-pro" class="mb-40"></div>
+    <div id="header-pro" class="mb-20"></div>
     
-    <main class="bg-base200 mx-10 self-center rounded-lg p-2 max-w-[1024px]">
+    <main class="mx-10 self-center grow rounded-lg p-2 max-w-[1280px]">
         <!-- TOUTES LES OFFRES (offre & détails) -->
         <div class="tablette p-4 flex flex-col gap-4">
             <h1 class="text-4xl">Mes offres</h1>
@@ -29,10 +29,10 @@
                     <!-- En tête -->
                     <div class="en-tete flex justify-around absolute top-0 w-full">
                         <div class="bg-bgBlur/75 backdrop-blur rounded-b-lg w-3/5">
-                            <h3 class="text-center font-bold">Restaurant le Brélévenez</h3>
+                            <h3 class="text-center text-h2 font-bold">Restaurant le Brélévenez</h3>
                             <div class="flex w-full justify-between px-2">
-                                <p class="text-small">Le brélévenez</p>
-                                <p class="text-small">Restauration</p>
+                                <p class="text">Le brélévenez</p>
+                                <p class="text">Restauration</p>
                             </div>
                         </div>
                         <a href="" onclick="confirm('Mettre XXX hors ligne ?')">
@@ -42,7 +42,9 @@
                         </a>
                     </div>
                     <!-- Image de fond -->
-                    <img class="rounded-l-lg w-full h-full object-cover object-center" src="../public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
+                    <a href="/pages/details.php">
+                        <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
+                    </a>
                 </div>
                 <!-- Partie droite (infos principales) -->
                 <div class="infos flex flex-col items-center self-stretch px-5 py-3 justify-between">
@@ -59,7 +61,7 @@
                             </a>
                             <div class="details-menu hidden rounded-lg absolute right-0 bg-white">
                                 <ul class="rounded-lg flex flex-col">
-                                    <a href="./details.html">
+                                    <a href="/pages/details.php">
                                         <li class="rounded-t-lg p-2 hover:bg-primary hover:text-white duration-200" >Details</li>
                                     </a>
                                     <a href="">

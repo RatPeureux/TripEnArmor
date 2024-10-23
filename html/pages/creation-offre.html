@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../styles/output.css" />
+    <link rel="stylesheet" href="/styles/output.css" />
     <script
       src="https://kit.fontawesome.com/d815dd872f.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="../styles/output.css">
+    <link rel="stylesheet" href="/styles/output.css">
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script
       type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=&language=fr "
     ></script>
-    <script type="text/javascript" src="../scripts/autocomplete.js"></script>
+    <script type="text/javascript" src="/scripts/autocomplete.js"></script>
   </head>
 
   <!-- 
@@ -34,7 +34,7 @@
   <body>
     <!-- Conteneur principal pour le contenu -->
     <div class="flex justify-center align-baseline px-24">
-        <div class="bg-base200 min-w-[1024px] w-[1024px] flex flex-col items-center justify-center p-8 rounded-xl">
+        <div class="bg-base200 min-w-[1280px] w-[1280px] flex flex-col items-center justify-center p-8 rounded-xl">
             <!-- Lien de retour avec une icône et un titre -->
             <div class="w-full text-left">
                 <a href="" class="flex content-center space-x-">
@@ -616,6 +616,12 @@
                                 }
                               });
                           </script>
+                          <img
+                            class="h-48 w-full rounded-t-lg object-cover"
+                            src="/public/images/image-test.jpg"
+                            alt="Image promotionnelle de l'offre"
+                            id="preview-image"
+                          />
                           <!-- Infos principales -->
                           <div
                             class="infos flex items-center justify-around gap-2 px-2 grow"
@@ -745,9 +751,9 @@
         </div>
       </div>
     </div>
-    <script src="../scripts/tagManager.js"></script>
-    <script src="../scripts/priceManager.js"></script>
-    <script src="../scripts/optionToggler.js"></script>
+    <script src="/scripts/tagManager.js"></script>
+    <script src="/scripts/priceManager.js"></script>
+    <script src="/scripts/optionToggler.js"></script>
 
     <div class="hidden right-0 m-2 col-span-3">Je sais c'est honteux</div>
 </body>

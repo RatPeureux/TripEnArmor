@@ -37,14 +37,6 @@
     background-color: var(--primary-color) !important;
 }
 
-    /* TESTING */
-.line-clamp-auto {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    -webkit-line-clamp: unset; /* This allows the number of lines to adjust automatically */
-}
-
 @layer base {
     @font-face {
         font-family: 'Cormorant-Bold';

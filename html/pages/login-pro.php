@@ -19,9 +19,9 @@ if (!isset($_POST['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Lien vers le favicon de l'application -->
-    <link rel="icon" type="image" href="../public/images/favicon.png">
+    <link rel="icon" type="image" href="/public/images/favicon.png">
     <!-- Lien vers le fichier CSS pour le style de la page -->
-    <link rel="stylesheet" href="../styles/output.css">
+    <link rel="stylesheet" href="/styles/output.css">
     <title>Connexion à la PACT</title>
     <!-- Inclusion de Font Awesome pour les icônes -->
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
@@ -33,7 +33,7 @@ if (!isset($_POST['id'])) {
     <div class="h-full flex flex-col items-center justify-center">
         <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
             <!-- Logo de l'application -->
-            <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
+            <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
 
             <form class="bg-base200 w-full p-5 rounded-lg border-2 border-secondary" action="login-pro.php" method="post" enctype="multipart/form-data">
                 <p class="pb-3">J'ai un compte Professionnel</p>
@@ -81,7 +81,7 @@ if (!isset($_POST['id'])) {
 
 <?php } else { 
 
-include('../php/connect-params.php'); // Inclut le fichier de paramètres de connexion à la base de données
+include('/php/connect_params.php'); // Inclut le fichier de paramètres de connexion à la base de données
 
 $error = ""; // Variable pour stocker les messages d'erreur
 
@@ -115,7 +115,7 @@ try {
             $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_name'] = $user['prenom'];
-            header('location: accueil-pro.html?token=' . $_SESSION['token']); // Redirige vers la page connectée
+            header('location: accueil-pro.php?token=' . $_SESSION['token']); // Redirige vers la page connectée
             exit();
         } else {
             $_SESSION['error'] = "Identifiant ou mot de passe incorrect !"; // Stocke le message d'erreur dans la session

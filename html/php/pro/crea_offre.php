@@ -1,5 +1,5 @@
 <?php
-include('../connect_params.php');
+include('/php/connect_params.php');
 
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         if ($stmtTarifPublic->execute()) {
                             echo json_encode(['success' => true]);
-                            header("location: ../../../pages/accueil-pro.html");
+                            header("location: /pages/accueil-pro.php");
                         } else {
                             echo json_encode(['success' => false, 'error' => 'Erreur lors de l\'insertion dans la table Tarif_public : ' . implode(", ", $stmtTarifPublic->errorInfo())]);
                         }
