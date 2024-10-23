@@ -30,7 +30,7 @@
 <body>
 	<!-- Conteneur principal pour le contenu -->
 	<div class="flex justify-center align-baseline px-24">
-		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center p-8 rounded-xl">
+		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 			<!-- Lien de retour avec une icône et un titre -->
 			<div class="w-full text-left">
 				<a href="" class="flex content-center space-x-">
@@ -378,8 +378,92 @@
 							</div>
 						</div>
 
-						<!-- Formulaire pour entrer les informations -->
+						<!-- Services -->
+						 <!-- Formulaire pour entrer les informations -->
 						<div class="flex flex-col justify-center items-center w-full">
+							<!-- PRESTATIONS -->
+							<div class="w-full optionActivite hidden">
+								<h2 class="text-h2 text-secondary">Prestation</h2>
+								<table class="w-full">
+									<thead>
+										<th>
+											Nom
+										</th>
+										<th>
+											Est Incluse ?
+										</th>
+										<th>
+											Actions
+										</th>
+									</thead>
+									<tbody id="prestations">
+
+									</tbody>
+									<tr>
+										<td class="w-full">
+											<input type="text" name="newPrestationName" id="newPrestationName"
+												class="border border-secondary rounded-lg p-2 bg-white w-full">
+										</td>
+										<td class="w-min group">
+											<input type="checkbox" name="newPrestationIncluse" id="newPrestationIncluse" class="peer border border-secondary rounded-lg p-2 bg-white hidden">
+											<label for="newPrestationIncluse" class="h-max w-full cursor-pointer flex justify-center items-center fill-secondary peer-checked:hidden">
+												<svg xmlns="http://www.w3.org/2000/svg"
+												width="32" height="32"
+												viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+													<path d="M384 80c8.8 0 16 7.2 16 16l0 320c0 8.8-7.2 16-16 16L64 432c-8.8 0-16-7.2-16-16L48 96c0-8.8 7.2-16 16-16l320 0zM64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32z"/>
+												</svg>
+											</label>
+											<label for="newPrestationIncluse" class="hidden h-max w-full cursor-pointer justify-center items-center fill-secondary peer-checked:flex">
+												<svg xmlns="http://www.w3.org/2000/svg"
+												width="32" height="32"
+												viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+													<path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/>
+												</svg>
+											</label>
+										</td>
+										<td class="w-fit">
+											<div class="h-max w-full cursor-pointer flex justify-center items-center"
+												id="addPrestationButton">
+												<svg xmlns="http://www.w3.org/2000/svg"
+													class="fill-secondary rounded-lg border border-transparent hover:border-secondary border-box p-1"
+													width="32" height="32"
+													viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+													<path
+														d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
+												</svg>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+
+							<!-- Repas servis -->
+							<div class="space-x-2 w-full flex justify-between items-center optionRestauration hidden">
+								<p>
+									Repas servis : 
+								</p>
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasPetitDejeuner')">
+									<label for="repasPetitDejeuner">Petit-déjeuner</label>
+									<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner" class="hidden">
+								</div>
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBrunch')">
+									<label for="repasBrunch">Brunch</label>
+									<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
+								</div>
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDejeuner')">
+									<label for="repasDejeuner">Déjeuner</label>
+									<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
+								</div>
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDiner')">
+									<label for="repasDiner">Dîner</label>
+									<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
+								</div>
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBoissons')">
+									<label for="repasBoissons">Boissons</label>
+									<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
+								</div>
+							</div>
+
 							<!-- GRILLE TARIFAIRE -->
 							<div class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
 								<h2 class="text-h2 text-secondary">Grille tarifaire</h2>
@@ -457,17 +541,17 @@
 					</div>
 					<!-- Créer l'offre -->
 					<div
-						class="w-full flex justify-start items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
-						<input type="submit" value="Créer l'offre"
-							class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] w-1/2 m-1">
+						class="w-full flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
+						<input type="submit" value="Créer l'offre" id="submitPart3"
+							class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300" disabled="true">
 					</div>
 				</form>
 				<!-- Mettre la preview à droite du fleuve -->
-				<div class="w-full max-w-[450px] h-screen flex justify-center items-center sticky top-0">
-					<div class="h-fit w-fit p-4">
+				<div class="w-full min-w-[450px] max-w-[450px] h-screen flex justify-center items-center sticky top-0">
+					<div class="h-fit w-full">
 						<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 						<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou a la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-						<div class="card active relative bg-base300 rounded-xl flex flex-col" id="card-preview">
+						<div class="card active relative bg-base300 rounded-xl flex flex-col w-full" id="card-preview">
 							<!-- En tête -->
 							<div
 								class="en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
@@ -569,7 +653,7 @@
 									});
 							</script>
 							<!-- Infos principales -->
-							<div class="infos flex items-center justify-around gap-2 px-2 w-full">
+							<div class="infos flex items-center justify-around gap-2 px-2 w-full max-w-full">
 								<!-- Localisation -->
 								<div class="localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center">
 									<i class="fa-solid fa-location-dot"></i>
@@ -608,7 +692,7 @@
 								</div>
 								<hr class="h-20 border-black border" />
 								<!-- Résumé de l'offre -->
-								<div class="description py-2 flex flex-col gap-2 justify-center w-full">
+								<div class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
 									<div class="p-1 w-full flex justify-center items-center">
 										<!-- <p
                                 class="text-white text-center text-small w-full font-bold"
@@ -622,10 +706,11 @@
 													"preview-tag-input"
 												)
 
-												tagPreview.textContent = document.getElementById("tag-input").value ? tagPreview.textContent + ", " + document.getElementById("tag-input").value : "Ajouter un tag...";
+												tagPreview.textContent = document.getElementById("tag-input").value ? (tagPreview.textContent + ", ").replace("Ajouter un tag..., ", "") + document.getElementById("tag-input").value : "Ajouter un tag...";
 
 												tagPreview.textContent = tagPreview.textContent.length > 30 ? tagPreview.textContent.substring(0, 30) + "..." : tagPreview.textContent;
 											}
+
 											document
 											.getElementById("tag-input")
 											.addEventListener("input", refreshTagPreview);
@@ -686,7 +771,7 @@
 	</div>
 	<script src="../scripts/tagManager.js"></script>
 	<script src="../scripts/priceManager.js"></script>
-	<script src="../scripts/languageManager.js"></script>
+	<script src="../scripts/prestationManager.js"></script>
 	<script src="../scripts/optionToggler.js"></script>
 	<script>
 		// Fonction pour afficher la partie 1 du formulaire
@@ -703,6 +788,10 @@
 			const part2 = document.querySelector(".part2");
 			// Afficher les éléments
 			part2.classList.remove("hidden");
+		}
+
+		function showPart3() {
+			document.getElementById("submitPart3").ariaDisabled="false";
 		}
 
 		function checkPart1Validity() {
@@ -747,8 +836,29 @@
 				showPart2();
 			}
 		}
-		checkPart1Validity();
-		checkPart2Validity();
+
+		function checkPart3Validity() {
+			checkPart2Validity();
+			let isValid = true;
+
+
+
+			if (isValid) {
+				showPart3();
+			}
+		}
+
+		function toggleCheckbox(id) {
+			const checkbox = document.getElementById(id);
+			checkbox.checked = !checkbox.checked;
+		}
+
+		function toggleRadio(id) {
+			const radio = document.getElementById(id);
+			radio.checked = true;
+		}
+
+		checkPart3Validity();
 
 		document.querySelectorAll('input[name="offer"]').forEach((radio) => {
 			radio.addEventListener("change", () => {
@@ -766,16 +876,6 @@
 				}
 			});
 		});
-
-		function toggleCheckbox(id) {
-			const checkbox = document.getElementById(id);
-			checkbox.checked = !checkbox.checked;
-		}
-
-		function toggleRadio(id) {
-			const radio = document.getElementById(id);
-			radio.checked = true;
-		}
 	</script>
 
 	<div class="hidden right-0 m-2 col-span-3">Je sais c'est honteux</div>
