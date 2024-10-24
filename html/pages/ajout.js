@@ -65,7 +65,7 @@ async function loadOffres() {
                                     <i class="fa-solid fa-location-dot"></i>
                                     <p class="text-small">${offre.ville}</p>
                                     <p class="text-small">${offre.code_postal}</p>
-                                </div>html/dockerBDD/connexion/pro/connected_pro.php
+                                </div>
                             </div>
                         </div>
                     </div>
