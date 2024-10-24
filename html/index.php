@@ -1,6 +1,6 @@
 
 <?php
-    include("../php/authentification.php");
+    include("php/authentification.php");
 ?>
 
 <!DOCTYPE html>
@@ -114,7 +114,9 @@
                         $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = $idPro");
                         $stmt->execute();
                         $pro = $stmt->fetch(PDO::FETCH_ASSOC);
-                        $pro_nom = $pro['nompro'];
+                        if ($pro) {
+                            $pro_nom = $pro['nompro'];
+                        }
 
                         // Détails de l'offre
                         $offre_id = $offre['offre_id'];
