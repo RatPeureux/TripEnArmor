@@ -117,73 +117,11 @@
         }
     ?>
 
-    <!-- VERSION TELEPHONE -->
-    <main class="phone md:hidden flex flex-col"> 
-
-        <div id="menu"></div>
-
-        <!-- Slider des images de présentation -->
-        <div class="w-full h-80 overflow-hidden relative swiper default-carousel swiper-container  border border-black rounded-lg">
-            <!-- Wrapper -->
-            <div class="swiper-wrapper">
-                <!-- Image n°1 -->
-                <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="/public/images/image-test.png" alt="">
-                </div>
-                <!-- Image n°2... etc -->
-                <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="/public/images/image-test2.jpg" alt="">
-                </div>
-                <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="/public/images/image-test3.jpg" alt="">
-                </div>
-            </div>
-            <!-- Boutons de navigation sur la slider -->
-            <a href="" onclick="history.back()" class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center"><i class="fa-solid fa-arrow-left"></i></a>
-            <div class="swiper-pagination"></div>
-        </div>
-
-        <!-- Reste des informations sur l'offre -->
-        <div class="px-3 flex flex-col gap-5">
-            <!-- Titre de l'offre -->
-            <h1 class="text-h1"><?php echo $offre['titre'] ?></h1>
-            <!-- Afficher les tags de l'offre -->
-            <?php 
-                if ($tags) {
-                    echo ("<h3 class='text-h3'>$tags</h3>");
-                }
-            ?>
-
-            <!-- Nom du professionnel -->
-            <p class="text-small"><?php echo $pro_nom ?></p>
-
-            <!-- Prix + localisation -->
-            <div class="localisation-et-prix flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <div class="text-small">
-                        <p><?php echo $ville . ', ' . $code_postal ?></p>
-                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement_adresse?></p>
-                    </div>
-                </div>
-                <p class="prix font-bold"><?php echo $prix_a_afficher ?></p>
-            </div>
-
-            <!-- Description détaillée -->
-            <div class="description flex flex-col gap-2">
-                <h3>À propos</h3>
-                <p class="text-justify text-small px-2">
-                    <?php echo $description ?>
-                </p>
-            </div>
-        </div>
-    </main>
-    
     <!-- VERSION TABLETTE -->
     <main class="hidden md:block mx-10 self-center rounded-lg p-2 max-w-[1280px]">
         <div class="flex gap-3">
             <!-- PARTIE GAUCHE (menu) -->
-            <div id="menu"></div>
+            <div id="menu-pro"></div>
             
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="tablette grow p-4 flex flex-col items-center gap-4">
