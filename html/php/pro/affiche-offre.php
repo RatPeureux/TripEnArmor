@@ -1,6 +1,6 @@
 <?php
 // Inclure la connexion à la base de données
-include('/php/connect_params.php'); // Assurez-vous que ce fichier contient la connexion à votre base de données
+include('../connect_params.php'); // Assurez-vous que ce fichier contient la connexion à votre base de données
 
 try {
     // Connexion à la base de données
