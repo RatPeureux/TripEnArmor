@@ -44,7 +44,7 @@ if (!isset($_POST['id'])) {
                        title="Saisir un identifiant (Dénomination / Nom de l'organisation, Adresse mail ou Téléphone)" value="<?php echo $id;?>" maxlength="255" required>
                 
                 <!-- Champ pour le mot de passe -->
-                <label class="text-small" for="mdp">Mot de passe</label>
+                <label class="text-small" for="mdp">Mot de passe<span class="text-red-500"> *</span></label>
                 <div class="relative w-full">
                     <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp" 
                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 
