@@ -1,6 +1,6 @@
 <?php
-session_start(); // Démarre la session pour accéder aux variables de session
-ob_start(); // Active la mise en mémoire tampon de sortie
+    session_start(); // Démarre la session pour accéder aux variables de session
+    ob_start(); // Active la mise en mémoire tampon de sortie
 
 include("/php/connect_params.php"); // Inclut le fichier de configuration pour la connexion à la base de données
 

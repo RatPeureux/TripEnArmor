@@ -1,6 +1,5 @@
 <?php
-session_start();
-session_destroy();
-header('location: ../../pages/login-pro.php');
-exit();
-?>
+    session_start();
+    session_destroy();
+    header('location: ../../pages/login-pro.php');
+    exit();
