@@ -29,8 +29,8 @@ VALUES
 
 insert into _pro_prive(adresse_id, email, mdp_hash, num_tel, num_siren, nomPro)
 values
-  (4, 'eliott.janot@hotmail.com', 'ouioui', '0607080904','125214526', 'Google'),
-  (5, 'leo.blas@gmail.com', 'nonon', '0658457412','123456789', 'Amazon');
+  (4, 'eliott.janot@hotmail.com', 'ouiouioui', '0607080904','125214526', 'Google'),
+  (5, 'leo.blas@gmail.com', 'nononnon', '0658457412','123456789', 'Amazon');
  
 insert into _pro_public(adresse_id, email, mdp_hash, num_tel, type_orga, nomPro)
 values

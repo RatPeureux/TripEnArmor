@@ -31,7 +31,7 @@
         // Savoir de quel pro il s'agit
         $stmt = $dbh->prepare("SELECT idPro FROM sae_db._offre WHERE offre_id = $offre_id");
         $stmt->execute();
-        $idPro = $stmt->fetch(PDO::FETCH_ASSOC);
+        $idPro = $stmt->fetch(PDO::FETCH_ASSOC)['idpro'];
 
         // Avoir une variable $pro qui contient les informations du pro actuel.
         $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = $idPro");
@@ -63,13 +63,17 @@
         $stmt->execute();
         $allTarifs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $tarif_min = 99999; $tarif_max = 0;
-        foreach($allTarifs as $tarif) {
-            if ($tarif['prix'] > $max_tarif_max) {
-                $tarif_max = $tarif['prix'];
+        if ($allTarifs) {
+            foreach($allTarifs as $tarif) {
+                if ($tarif['prix'] > $max_tarif_max) {
+                    $tarif_max = $tarif['prix'];
+                }
+                if ($tarif['prix'] < $tarif_min) {
+                    $tarif_min = $tarif['prix'];
+                }
             }
-            if ($tarif['prix'] < $tarif_min) {
-                $tarif_min = $tarif['prix'];
-            }
+        } else {
+            $tarif_min = ''; $tarif_max = '';
         }
             // Détails de l'adresse
         $adresse_id = $offre['adresse_id'];

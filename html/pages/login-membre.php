@@ -80,15 +80,14 @@ if (!isset($_POST['id'])) {
 
 <?php } else {
 
-include('/php/connect_params.php'); // Inclut le fichier de paramètres de connexion à la base de données
-
 $error = ""; // Variable pour stocker les messages d'erreur
 
 try {
-    // Connexion à la base de données avec PDO
-    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
-
+    // Connexion avec la bdd
+    include('../../php-files/connect_params.php');
+    $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
     // Vérifie si la requête est une soumission de formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id']; // Récupère l'id soumise

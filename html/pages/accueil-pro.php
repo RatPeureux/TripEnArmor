@@ -1,13 +1,13 @@
 <?php
     session_start();
     include("../php/authentification.php");
-    // verifyUserPro();
+    verifyUserPro();
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
+    <head>
+        <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="module" src="/scripts/loaddetailsmenus.js"></script>
     <link rel="stylesheet" href="/styles/output.css">
@@ -18,10 +18,8 @@
     
     <div id="menu-pro" class="1"></div>
     <div id="header-pro" class="mb-20"></div>
-    <script src="confirm.js"></script>
-
+    
     <?php
-        $_SESSION['id_pro'] = 4;
         $idPro = $_SESSION['id_pro'];
 
         // Connexion avec la bdd
@@ -134,11 +132,7 @@
                             <h3 class="text-center text-h2 font-bold"><?php echo $titre_offre ?></h3>
                             <div class="flex w-full justify-between px-2">
                                 <p class="text"><?php echo $pro_nom ?></p>
-                                <p class="text">
-                                    <?php
-                                        echo $categorie_offre;
-                                    ?>
-                                </p>
+                                <p class="text"><?php echo $categorie_offre ?></p>
                             </div>
                         </div>
 
@@ -162,7 +156,6 @@
                         <?php
                             }
                         ?>
-
 
                     </div>
                     <!-- Image de fond -->
@@ -204,7 +197,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <p class="line-clamp-6">
+                        <p class="line-clamp-3">
                             <?php echo $resume ?>
                         </p>
                     </div>
