@@ -123,7 +123,7 @@
 				</div>
 			</div>
 			<div class="flex space-x-12 w-full shrink-0 part1 hidden">
-				<form action="" method="POST" class="block w-full space-y-8">
+				<form id="formulaire" action="../php/pro/crea_offre.php" method="POST" class="block w-full space-y-8">
 					<div class="w-full flex flex-col justify-center items-center space-y-4">
 						<h2 class="w-full text-h2 text-secondary">Informations</h2>
 
@@ -131,7 +131,7 @@
 						<div class="flex flex-col justify-center w-full">
 							<label for="titre" class="text-nowrap">Titre :</label>
 							<input type="text" id="titre" class="border border-secondary rounded-lg p-2 bg-white w-full"
-								placeholder="Escapade En Arvor" required>
+								name="titre" placeholder="Escapade En Arvor" required>
 						</div>
 
 						<!-- Auteur -->
@@ -153,11 +153,13 @@
 
 						<div class="justify-between items-center w-full">
 							<label for="locality" class="text-nowrap">Ville :</label>
-							<input type="text" id="locality" placeholder="Rennes"
+							<input type="text" id="locality" 
+								name="locality" placeholder="Rennes"
 								class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 
 							<label for="postal_code" class="text-nowrap">Code postal :</label>
-							<input type="number" min="0" step="10" max="57000" id="postal_code" placeholder="35000"
+							<input type="number" min="0" step="10" max="57000" id="postal_code"
+								name="postal_code" placeholder="35000"
 								class="border border-secondary rounded-lg p-2 bg-white w-24 w-full" required>
 						</div>
 
@@ -210,7 +212,7 @@
 						<!-- Accessibilité -->
 						<div class="flex flex-col justify-between items-center w-full">
 							<label for="accessibilite" class="text-nowrap w-full">Accessibilité :</label>
-							<textarea id="accessibilite" name="description"
+							<textarea id="accessibilite" name="accessibilite"
 								class="border border-secondary rounded-lg p-2 bg-white w-full" rows="5"
 								placeholder="Une description de l'accessibilité pour les personnes en situation de handicap, visible dans les détails de l'offre."></textarea>
 						</div>
@@ -273,9 +275,9 @@
 						<!-- Activité, Parc d'attractions -->
 						<div
 							class="flex justify-start items-center w-full space-x-2 optionActivite optionParcAttraction hidden">
-							<label for="age-min" class="text-nowrap">Âge requis :</label>
-							<input type="number" id="age-min" pattern="/d+/" min="0" max="125"
-								class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+							<label for="age" class="text-nowrap">Âge requis :</label>
+							<input type="number" id="age" pattern="/d+/" min="0" max="125"
+								name="age" class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 							<p>an(s)</p>
 						</div>
 
@@ -317,7 +319,7 @@
 						<div class="flex justify-start items-center w-full space-x-2 optionSpectacle hidden">
 							<label for="place" class="text-nowrap">Capacité d'accueil :</label>
 							<input type="number" id="place" pattern="/d+/" onchange="" min="0"
-								class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+								name="place" class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 							<p>personnes</p>
 						</div>
 
