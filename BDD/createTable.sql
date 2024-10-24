@@ -160,6 +160,15 @@ CREATE TABLE _log_changement_status (
 -- -------------------------------------------------------------------------------------Restaurants------- début
 
 -- Types de repas pour les restaurants --------------------------------------------------------
+
+-- Table de lien
+-- Type de repas 'petit dej' 'diner' etc...
+create table _type_repas (
+    type_repas_id SERIAL PRIMARY KEY,
+    nom_type_repas VARCHAR(255) NOT NULL UNIQUE
+);
+
+
 -- Héritage pour les types d'offres
 CREATE TABLE _restauration (
     restauration_id SERIAL PRIMARY KEY,
@@ -167,17 +176,10 @@ CREATE TABLE _restauration (
     type_repas_id integer references _type_repas(type_repas_id)
 ) INHERITS (_offre);
 
--- Table de lien
 create table _restaurant_type_repas (
     restauration_id serial REFERENCES _restauration(restauration_id) ON DELETE CASCADE,
     type_repas_id serial REFERENCES _type_repas(type_repas_id) ON DELETE CASCADE,
     PRIMARY KEY (restauration_id, type_repas_id)
-);
-
--- Type de repas 'petit dej' 'diner' etc...
-create table _type_repas (
-    type_repas_id SERIAL PRIMARY KEY,
-    nom_type_repas VARCHAR(255) NOT NULL UNIQUE
 );
 
 -- TAGs Restaurants --------------------------------------------------------
@@ -246,13 +248,13 @@ CREATE TABLE _langue (
 
 -- Table de lien pour les langues parlées durant les visites
 CREATE TABLE _visite_langue (
-    id_visite serial REFERENCES _visite(id_visite),
+    id_visite serial REFERENCES _visite(visite_id),
     langue_id serial REFERENCES _langue(langue_id)
 );
 
 -- TAG Visites 
 create table _tag_visite (
-  id_visite serial references _visite(id_visite),
+  id_visite serial references _visite(visite_id),
   tag_id serial references _tag(tag_id),
   primary key (id_visite, tag_id)
 );
@@ -261,7 +263,7 @@ create table _tag_visite (
 -- -------------------------------------------------------------------------------Parcs d'attractions----- début
 
 CREATE TABLE _parc_attraction (
-    parc_id SERIAL PRIMARY KEY,
+    id_parc_attraction SERIAL PRIMARY KEY,
     nb_attractions INTEGER,
     age_requis integer
 ) INHERITS (_offre);
@@ -301,13 +303,13 @@ CREATE TABLE _tarif_public (
 
 
 -- Table T_IMAGE_IMG
-CREATE TABLE T_Image_Img ( -- IMG = IMaGe
+CREATE TABLE T_Image_Img ( -- IMG = Image
     img_path varchar(255) primary key,
-    img_date_creation DATE NOT NULL,
+    img_date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     img_description TEXT,
     img_date_suppression DATE,
     offre_id INTEGER REFERENCES _offre(offre_id) ON DELETE CASCADE,
-    parc_id INTEGER REFERENCES _parc_attraction(parc_id) ON DELETE CASCADE,
+    parc_id INTEGER REFERENCES _parc_attraction(id_parc_attraction) ON DELETE CASCADE,
     
     -- Contrainte d'exclusivité : soit offre_id, soit parc_id doit être non nul, mais pas les deux
     CONSTRAINT chk_offre_parc_exclusif CHECK (

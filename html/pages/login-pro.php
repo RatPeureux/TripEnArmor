@@ -1,8 +1,7 @@
 <?php 
-
-session_start(); // Démarre la session au début du script
-global $error; // Variable pour stocker les messages d'erreur
-global $id; // Variable pour stocker les messages d'erreur
+    session_start(); // Démarre la session au début du script
+    global $error; // Variable pour stocker les messages d'erreur
+    global $id; // Variable pour stocker les messages d'erreur
 
 if (!isset($_POST['id'])) {
     // Vérifie si un message d'erreur est stocké dans la session
@@ -86,10 +85,11 @@ include('../php/connect_params.php'); // Inclut le fichier de paramètres de con
 $error = ""; // Variable pour stocker les messages d'erreur
 
 try {
-    // Connexion à la base de données avec PDO
-    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
-
+    // Connexion avec la bdd
+    include('../../php-files/connect_params.php');
+    $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
     // Vérifie si la requête est une soumission de formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id']; // Récupère l'id soumise
@@ -111,7 +111,7 @@ try {
         // Vérifie si l'utilisateur existe et si le mot de passe est correct
         if ($user && $user['mdp_hash']) {
             // Stocke les informations de l'utilisateur dans la session
-            $_SESSION['user_id'] = $user['id_compte'];
+            $_SESSION['id_pro'] = $user['id_compte'];
             $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_name'] = $user['prenom'];

@@ -12,7 +12,7 @@
             <img src="/public/images/logo-PACT.svg" alt="[img] Logo-PACT">
         </a>
         <div class="flex gap-4 items-center">  
-            <a href="#">
+            <a href="/pages/login-membre.php">
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
             <?php 
