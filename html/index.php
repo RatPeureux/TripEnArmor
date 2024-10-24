@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <!-- Image de fond -->
-                <img class="h-48 w-full rounded-t-lg object-cover" src="../public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
+                <img class="h-48 w-full rounded-t-lg object-cover" src="../public/images/image-test.png" alt="Image promotionnelle de l'offre">
                 <!-- Infos principales -->
                 <div class="infos flex items-center justify-center gap-2 px-2 grow">
                     <!-- Localisation -->
@@ -204,7 +204,7 @@
                                 </div>
                             </div>
                             <!-- Image de fond -->
-                            <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
+                            <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.png" alt="Image promotionnelle de l'offre">
                         </div>
                         <!-- Partie droite (infos principales) -->
                         <div class="infos flex flex-col items-center basis-1/2 p-3 gap-3 justify-between">

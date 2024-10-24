@@ -128,14 +128,14 @@
             <div class="swiper-wrapper">
                 <!-- Image n°1 -->
                 <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="/public/images/image-test.jpg" alt="">
+                    <img class="object-cover w-full h-full" src="/public/images/image-test.png" alt="">
                 </div>
                 <!-- Image n°2... etc -->
                 <div class="swiper-slide">
                     <img class="object-cover w-full h-full" src="/public/images/image-test2.jpg" alt="">
                 </div>
                 <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="/public/images/pp.png" alt="">
+                    <img class="object-cover w-full h-full" src="/public/images/image-test3.jpg" alt="">
                 </div>
             </div>
             <!-- Boutons de navigation sur la slider -->
@@ -193,13 +193,13 @@
                     <!-- Wrapper -->
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src="/public/images/image-test.jpg" alt="">
+                            <img class="object-cover w-full h-full" src="/public/images/image-test.png" alt="">
                         </div>
                         <div class="swiper-slide !w-full">
                             <img class="object-cover w-full h-full" src="/public/images/image-test2.jpg" alt="">
                         </div>
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src="/public/images/pp.png" alt="">
+                            <img class="object-cover w-full h-full" src="/public/images/image-test3.jpg" alt="">
                         </div>
                     </div>
                     <!-- Boutons de navigation sur la slider -->
