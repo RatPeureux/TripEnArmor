@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/styles/output.css">
     <script type="module" src="/scripts/main.js" defer></script>
     <title>PACT - Accueil</title>
+    <link rel="icon" type="image" href="/public/images/favicon.png">
 </head>
 <body class="flex flex-col min-h-screen">
 
