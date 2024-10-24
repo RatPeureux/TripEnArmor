@@ -231,11 +231,11 @@ function formatTEL(input) {
 <?php } else {
 
 ob_start();
-include('../php/connect-params.php');
-
-$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
-
+// Connexion avec la bdd
+include('../../php-files/connect_params.php');
+$dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
 $message = ''; // Initialiser le message
 
 // Partie pour traiter la soumission du second formulaire
@@ -273,6 +273,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         $stmtTest->bindParam(':numero', $test['numero']);
         $stmtTest->bindParam(':odonyme', $test['odonyme']);
         $stmtTest->bindParam(':complement', $complement); // Assurez-vous que compte_id est défini
+        // Récupérer l'ID de l'adresse insérée
+        $adresseId = $dbh->lastInsertId();
 
         if ($stmtTest->execute()) {
             $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
@@ -286,7 +288,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
     // Exécuter la requête pour l'adresse
     if ($stmtTest->execute()) {
         // Préparer l'insertion dans la table Membre
-        $stmtMembre = $dbh->prepare("INSERT INTO sae_db._membre (email, mdp_hash, num_tel, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :pseudo, :nom, :prenom)");
+        $stmtMembre = $dbh->prepare("INSERT INTO sae_db._membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :pseudo, :adresse_id, :nom, :prenom)");
 
         // Lier les paramètres pour le membre
         $stmtMembre->bindParam(':mail', $mail);
@@ -295,6 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         $stmtMembre->bindParam(':pseudo', $pseudo);
         $stmtMembre->bindParam(':nom', $nom);
         $stmtMembre->bindParam(':prenom', $prenom);
+        $stmtMembre->bindParam(':adresse_id', $adresseId);
 
         // Exécuter la requête pour le membre
         if ($stmtMembre->execute()) {
