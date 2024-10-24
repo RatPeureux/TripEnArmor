@@ -10,7 +10,7 @@
             <p>Menu</p>
         </a>
         <a href="/pages/accueil-pro.php">
-            <img src="/public/images/logo-PACT.svg" alt="[img] Logo-PACT">
+            <img src="/public/images/logo-PACT.svg" alt="Logo-PACT">
         </a>
         <div class="flex gap-4 items-center">
             <a href="">

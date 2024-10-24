@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -209,6 +210,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmtActivity && $stmtActivity->execute()) {
                 echo "Acitivité insérée avec succès.";
                 header("location: ../../../html/pages/accueil-pro.php");
+
+                // Gérer les fichiers images soumis
+                if (isset($_FILES)) {
+                    $uploadDir = '../../public/uploads/';
+                    foreach ($_FILES['photo-upload-carte']['tmp_name'] as $key => $tmpName) {
+                        $fileName = basename($_FILES['images']['name'][$key]);
+                        $targetFilePath = $uploadDir . $fileName;
+
+                        // Vérifier si le fichier est une image
+                        $check = getimagesize($tmpName);
+                        if ($check !== false) {
+                            if (move_uploaded_file($tmpName, $targetFilePath)) {
+                                // Insérer le chemin de l'image dans la base de données
+                                $stmtImage = $dbh->prepare("INSERT INTO sae_db.T_Image_Img (offre_id, img_path) VALUES (:offre_id, :file_path)");
+                                $stmtImage->bindParam(':offre_id', $offreId);
+                                $stmtImage->bindParam(':file_path', $targetFilePath);
+
+                                if (!$stmtImage->execute()) {
+                                    echo "Erreur lors de l'insertion de l'image : " . implode(", ", $stmtImage->errorInfo());
+                                }
+                            } else {
+                                echo "Erreur lors du téléchargement de l'image.";
+                            }
+                        } else {
+                            echo "Le fichier n'est pas une image.";
+                        }
+                    }
+                }
             } else {
                 echo "Erreur lors de l'insertion : " . implode(", ", $stmtActivity->errorInfo());
             }
