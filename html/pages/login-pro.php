@@ -114,7 +114,6 @@ try {
             $_SESSION['id_pro'] = $user['id_compte'];
             $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
             $_SESSION['user_email'] = $user['email'];
-            $_SESSION['user_name'] = $user['prenom'];
             header('location: accueil-pro.php?token=' . $_SESSION['token']); // Redirige vers la page connectée
             exit();
         } else {
