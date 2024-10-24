@@ -159,7 +159,7 @@
                     </div>
                     <!-- Image de fond -->
                     <a href="/pages/go_to_details_pro.php?offre_id=<?php echo $offre_id ?>">
-                        <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre" title="consulter les détails">
+                        <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.png" alt="Image promotionnelle de l'offre" title="consulter les détails">
                     </a>
                 </div>
                 <!-- Partie droite (infos principales) -->

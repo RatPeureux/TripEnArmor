@@ -49,7 +49,7 @@ async function loadOffres() {
                         </form>
 
                         </div>
-                        <img class="rounded-l-lg w-full h-full object-cover object-center" src="../public/images/image-test.jpg" alt="Image promotionnelle de l'offre">
+                        <img class="rounded-l-lg w-full h-full object-cover object-center" src="../public/images/image-test.png" alt="Image promotionnelle de l'offre">
                     </div>
                     <div class="infos flex flex-col items-center self-stretch px-5 py-3 gap-3 justify-between" onclick="location.href='details.php'">
                         <div class="description py-2 flex flex-col gap-2 h-full">

@@ -315,7 +315,7 @@
                 }
             });
         </script>
-        <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre" id="preview-image">
+        <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.png" alt="Image promotionnelle de l'offre" id="preview-image">
     </div>
     <!-- Partie droite (infos principales) -->
     <div class="infos flex flex-col items-center self-stretch px-5 py-3 gap-3 justify-between">

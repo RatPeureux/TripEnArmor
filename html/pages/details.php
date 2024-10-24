@@ -37,7 +37,9 @@
         $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = $idPro");
         $stmt->execute();
         $pro = $stmt->fetch(PDO::FETCH_ASSOC);
-        $pro_nom = $pro['nompro'];
+        if ($pro) {
+            $pro_nom = $pro['nompro'];
+        }
 
         // Obtenir l'ensemble des informations de l'offre
         $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE offre_id = $offre_id");
@@ -136,14 +138,14 @@
             <div class="swiper-wrapper">
                 <!-- Image n°1 -->
                 <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="/public/images/image-test.jpg" alt="">
+                    <img class="object-cover w-full h-full" src="/public/images/image-test.png" alt="">
                 </div>
                 <!-- Image n°2... etc -->
                 <div class="swiper-slide">
                     <img class="object-cover w-full h-full" src="/public/images/image-test2.jpg" alt="">
                 </div>
                 <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="/public/images/pp.png" alt="">
+                    <img class="object-cover w-full h-full" src="/public/images/image-test3.jpg" alt="">
                 </div>
             </div>
             <!-- Boutons de navigation sur la slider -->
@@ -163,7 +165,7 @@
             ?>
 
             <!-- Nom du professionnel -->
-            <p class="text-small"><?php echo $pro_nom ?></p>
+            <p class="text-small"><?php if ($pro_nom) echo $pro_nom ?></p>
 
             <!-- Prix + localisation -->
             <div class="localisation-et-prix flex items-center justify-between">
@@ -201,13 +203,13 @@
                     <!-- Wrapper -->
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src="/public/images/image-test.jpg" alt="">
+                            <img class="object-cover w-full h-full" src="/public/images/image-test.png" alt="">
                         </div>
                         <div class="swiper-slide !w-full">
                             <img class="object-cover w-full h-full" src="/public/images/image-test2.jpg" alt="">
                         </div>
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src="/public/images/pp.png" alt="">
+                            <img class="object-cover w-full h-full" src="/public/images/image-test3.jpg" alt="">
                         </div>
                     </div>
                     <!-- Boutons de navigation sur la slider -->
