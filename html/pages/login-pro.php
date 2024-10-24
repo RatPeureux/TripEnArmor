@@ -80,6 +80,8 @@ if (!isset($_POST['id'])) {
 
 <?php } else { 
 
+include('../php/connect_params.php'); // Inclut le fichier de paramètres de connexion à la base de données
+
 $error = ""; // Variable pour stocker les messages d'erreur
 
 try {
@@ -94,7 +96,7 @@ try {
         $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
 
         // Prépare une requête SQL pour trouver l'utilisateur par nom, email ou numéro de téléphone
-        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE nomPro = :id OR email = :id OR num_tel = :id");
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE nompro = :id OR email = :id OR num_tel = :id");
         $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
         $stmt->execute(); // Exécute la requête
 
