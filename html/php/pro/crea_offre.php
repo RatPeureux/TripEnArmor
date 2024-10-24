@@ -1,13 +1,12 @@
 <?php
 include('../../../php-files/connect_params.php');
 
+$dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
-
-$dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
