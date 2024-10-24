@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image" href="/public/images/favicon.png">
 	<title>Création d'offre</title>
-	<link rel="stylesheet" href="member../styles/output.css" />
+	<link rel="stylesheet" href="/styles/output.css" />
 	<script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 	<script src="//unpkg.com/alpinejs" defer></script>
@@ -34,7 +34,7 @@
 <body>
 	<!-- Conteneur principal pour le contenu -->
 	<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
-		<div id="header-pro" class="w-full"></div>
+		<div id="header-pro" class="w-full mb-20"></div>
 		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 			<!-- Lien de retour avec une icône et un titre -->
 			<div class="w-full text-left">
@@ -669,7 +669,7 @@
 								</div>
 							</div>
 							<!-- Image de fond -->
-							<img class="h-48 w-full rounded-t-lg object-cover" src="../public/images/Gina.png"
+							<img class="h-48 w-full rounded-t-lg object-cover" src="/public/images/image-test.png"
 								alt="Image promotionnelle de l'offre" id="preview-image" />
 							<script>
 								document
