@@ -4,84 +4,96 @@ include('../../../php-files/connect_params.php');
 $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+// Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Connexion à la base de données
+try {
+    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo json_encode(['success' => false, 'error' => 'Erreur de connexion à la base de données : ' . $e->getMessage()]);
+    exit;
+}
+
+// Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
+function calculerPrixMin($prices) {
+    $minPrice = null;
+    foreach ($prices as $price) {
+        if (isset($price['value']) && (is_null($minPrice) || $price['value'] < $minPrice)) {
+            $minPrice = $price['value'];
+        }
+    }
+    return $minPrice;
+}
+
+// Fonction pour extraire des informations d'adresse
+function extraireInfoAdresse($adresse) {
+    $parts = explode(' ', $adresse, 2); // Sépare l'adresse en numéro et odonyme
+    return [
+        'numero' => isset($parts[0]) ? $parts[0] : '',
+        'odonyme' => isset($parts[1]) ? $parts[1] : '',
+    ];
+}
+
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
-    function calculerPrixMin($prices) {
-        $minPrice = null;
-
-        foreach ($prices as $price) {
-            if (isset($price['value']) && (is_null($minPrice) || $price['value'] < $minPrice)) {
-                $minPrice = $price['value'];
-            }
-        }
-
-        return $minPrice;
-    }
-
-    // Récupérer les données soumises via POST
-    $adresse = $_POST['user_input_autocomplete_address'];
-    $code = $_POST['postal_code'];
-    $ville = $_POST['locality'];
-    $age = $_POST['age'];
+    // Récupération des données du formulaire
+    $adresse = $_POST['user_input_autocomplete_address'] ?? '';
+    $code = $_POST['postal_code'] ?? '';
+    $ville = $_POST['locality'] ?? '';
+    $age = $_POST['age'] ?? null; // age peut être vide
     $duree = !empty($_POST['duree']) ? $_POST['duree'] : '00:00:00';
+
+    // Vérification de la durée
     if (is_numeric($duree)) {
         $hours = floor($duree / 60);
         $minutes = $duree % 60;
         $dureeFormatted = sprintf('%02d:%02d:00', $hours, $minutes); // Format HH:MM:SS
     } else {
-        // Si $duree n'est pas valide, définir une valeur par défaut ou lever une erreur
-        $dureeFormatted = '00:00:00';  // Valeur par défaut
+        $dureeFormatted = '00:00:00'; // Valeur par défaut
     }
+
+    // Récupérer d'autres valeurs
     $capacite = $_POST['place'] ?? '';
     $nb_attractions = isset($_POST['parc-numb']) && is_numeric($_POST['parc-numb']) ? (int)$_POST['parc-numb'] : 0;
     $gamme_prix = $_POST['gamme_prix'] ?? '';
-    $description = $_POST['description'];
-    var_dump($description);
+    $description = $_POST['description'] ?? '';
     $resume = $_POST['resume'] ?? '';
     $prestations = $_POST['newPrestationName'] ?? '';
-    $prices = $_POST['prices'] ?? [];  // Récupérer les prix
+    $prices = $_POST['prices'] ?? []; // Récupérer les prix
     $titre = $_POST['titre'] ?? null;
-    
 
-    var_dump($prices);  // Pour le débogage des prix reçus
+    // Récupération des tags
+    $tagsActivite = $_POST['tags']['activite'] ?? [];
+    $tagsVisite = $_POST['tags']['visite'] ?? [];
+    $tagsSpectacle = $_POST['tags']['spectacle'] ?? [];
+    $tagsParcAttraction = $_POST['tags']['parc_attraction'] ?? [];
+    $tagsRestauration = $_POST['tags']['restauration'] ?? [];
 
-    if ($titre === null) {
-        echo "Le titre est null.";
+    // Validation du titre
+    if ($titre === null || trim($titre) === '') {
+        echo json_encode(['success' => false, 'error' => 'Le titre est requis.']);
         exit;
-    } else {
-        echo "Le titre est : " . htmlspecialchars($titre);
     }
 
     // Calculer le prix minimum parmi les tarifs
     $prixMin = calculerPrixMin($prices);
 
-    // Fonction pour extraire des informations depuis une adresse complète
-    function extraireInfoAdressse($adresse) {
-        $numero = substr($adresse, 0, 1);  // À adapter selon le format de l'adresse TODO R2CUPERER SELON PERMIER ESPACE
-        $odonyme = substr($adresse, 2);
-
-        return [
-            'numero' => $numero,
-            'odonyme' => $odonyme,
-        ];
-    }
-
     // Insérer l'adresse dans la base de données
-    $realAdresse = extraireInfoAdressse($adresse);
-    $stmtAdresseOffre = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement_adresse) VALUES (:postal_code, :locality, :numero, :odonyme, null)");
-    $stmtAdresseOffre->bindParam(':postal_code', $code);
-    $stmtAdresseOffre->bindParam(':locality', $ville);
-    $stmtAdresseOffre->bindParam(':numero', $realAdresse['numero']);
-    $stmtAdresseOffre->bindParam(':odonyme', $realAdresse['odonyme']);
+    $realAdresse = extraireInfoAdresse($adresse);
+    try {
+        $stmtAdresseOffre = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement_adresse) VALUES (:postal_code, :locality, :numero, :odonyme, null)");
+        $stmtAdresseOffre->bindParam(':postal_code', $code);
+        $stmtAdresseOffre->bindParam(':locality', $ville);
+        $stmtAdresseOffre->bindParam(':numero', $realAdresse['numero']);
+        $stmtAdresseOffre->bindParam(':odonyme', $realAdresse['odonyme']);
 
-    if ($stmtAdresseOffre->execute()) {
+        $stmtAdresseOffre->execute();
         $adresseId = $dbh->lastInsertId();
+
         $dateCreation = date('Y-m-d H:i:s');
 
         // Insérer l'offre dans la table `Offre`
@@ -107,8 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $age_min = (int)$age;  // Âge minimum par exemple
                 $prix_min = is_numeric($price['value']) ? floatval($price['value']) : null;
-
-                var_dump($age_min, $prix_min);  // Afficher les valeurs avant insertion
 
                 $stmtInsertPrice = $dbh->prepare("INSERT INTO sae_db._tarif_public (titre_tarif, prix, offre_id) VALUES (:titre, :prix, :offre_id)");
                 $stmtInsertPrice->bindParam(':titre', $price['name']);
@@ -157,8 +167,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 case 'spectacle':
 
-                    var_dump($capacite);
-
                     $stmtActivity = $dbh->prepare("INSERT INTO sae_db._spectacle(offre_id, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, adresse_id, capacite_spectacle, duree_spectacle) VALUES (:offre_id, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :adresse_id, :capacite, :duree)");
                     $stmtActivity->bindParam(':offre_id', $offreId);
                     $stmtActivity->bindParam(':description', $description);
@@ -206,46 +214,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit;
             }
 
-            if ($stmtActivity && $stmtActivity->execute()) {
-                echo "Acitivité insérée avec succès.";
-                header("location: ../../../html/pages/accueil-pro.php");
 
-                // Gérer les fichiers images soumis
-                if (isset($_FILES)) {
-                    $uploadDir = '../../public/uploads/';
-                    foreach ($_FILES['photo-upload-carte']['tmp_name'] as $key => $tmpName) {
-                        $fileName = basename($_FILES['images']['name'][$key]);
-                        $targetFilePath = $uploadDir . $fileName;
-
-                        // Vérifier si le fichier est une image
-                        $check = getimagesize($tmpName);
-                        if ($check !== false) {
-                            if (move_uploaded_file($tmpName, $targetFilePath)) {
-                                // Insérer le chemin de l'image dans la base de données
-                                $stmtImage = $dbh->prepare("INSERT INTO sae_db.T_Image_Img (offre_id, img_path) VALUES (:offre_id, :file_path)");
-                                $stmtImage->bindParam(':offre_id', $offreId);
-                                $stmtImage->bindParam(':file_path', $targetFilePath);
-
-                                if (!$stmtImage->execute()) {
-                                    echo "Erreur lors de l'insertion de l'image : " . implode(", ", $stmtImage->errorInfo());
-                                }
-                            } else {
-                                echo "Erreur lors du téléchargement de l'image.";
-                            }
-                        } else {
-                            echo "Le fichier n'est pas une image.";
-                        }
-                    }
+                if ($stmtActivity && $stmtActivity->execute()) {
+                    echo "Acitivité insérée avec succès.";
+                    header("location: ../../../html/pages/accueil-pro.php");
+                } else {
+                    echo "Erreur lors de l'insertion : " . implode(", ", $stmtActivity->errorInfo());
                 }
-            } else {
-                echo "Erreur lors de l'insertion : " . implode(", ", $stmtActivity->errorInfo());
-            }
         } else {
-            echo json_encode(['success' => false, 'error' => 'Erreur lors de la création de l\'offre : ' . implode(", ", $stmtOffre->errorInfo())]);
+            echo json_encode(['success' => false, 'error' => 'Méthode de requête non autorisée.']);
         }
-    } else {
-        echo "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtAdresseOffre->errorInfo());
+    } catch (PDOException $e) {
+        echo json_encode(['success' => false, 'error' => 'Erreur lors de l\'insertion de l\'adresse : ' . $e->getMessage()]);
+        exit;
     }
-} else {
-    echo json_encode(['success' => false, 'error' => 'Aucune soumission de formulaire détectée.']);
+
 }
+?>

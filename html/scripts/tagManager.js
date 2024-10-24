@@ -113,28 +113,41 @@ class TagManager {
             alert("Ce tag a déjà été ajouté.");
             return;
         }
-
-        // INTERESSE BAPTISTE
+    
+        // Ajout d'un champ caché pour le tag dans le formulaire
+        const form = document.getElementById('formulaire');
+    
+        const hiddenTagInput = document.createElement('input');
+        hiddenTagInput.type = 'hidden';
+        hiddenTagInput.name = `tags[${activityType}][]`;  // Stocker chaque tag selon le type d'activité
+        hiddenTagInput.value = tag;
+        form.appendChild(hiddenTagInput);
+    
+        // Création du tag visuel dans l'interface
         const tagDiv = document.createElement('div');
         tagDiv.textContent = tag;
         tagDiv.classList.add('bg-secondary', 'text-white', 'py-1', 'px-3', 'rounded-full', 'mr-2', 'flex', 'items-center');
-        // INTERESSE PLUS BAPTISTE
-
+    
         const removeBtn = document.createElement('span');
         removeBtn.textContent = 'X';
         removeBtn.classList.add('remove-tag', 'ml-8', 'cursor-pointer');
         removeBtn.onclick = () => {
+            // Suppression du tag visuel
             this.tagContainer.removeChild(activityType, tagDiv);
             this.addedTags.delete(tag);
+    
+            // Supprimer le champ caché correspondant
+            form.removeChild(hiddenTagInput);
+    
             this.updateSuggestionList();
         };
-
+    
         tagDiv.appendChild(removeBtn);
-
         this.tagContainer[activityType].appendChild(tagDiv);
         this.addedTags[activityType].push(tag);
         this.updateSuggestionList();
     }
+    
 }
 
 // Initialisation des tags
