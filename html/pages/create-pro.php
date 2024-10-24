@@ -48,7 +48,7 @@
                        title="Saisir une adresse mail" maxlength="255" required>
                 
                 <!-- Champ pour le mot de passe -->
-                <label class="text-small" for="mdp">Mot de passe</label>
+                <label class="text-small" for="mdp">Mot de passe<span class="text-red-500"> *</span></label>
                 <div class="relative w-full">
                     <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp" 
                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 
@@ -58,7 +58,7 @@
                 </div>
 
                 <!-- Champ pour confirmer le mot de passe -->
-                <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
+                <label class="text-small" for="confMdp">Confirmer le mot de passe<span class="text-red-500"> *</span></label>
                 <div class="relative w-full">
                     <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp" name="confMdp" 
                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}" 

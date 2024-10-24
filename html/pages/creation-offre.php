@@ -1,3 +1,8 @@
+<?php
+    include("../php/authentification.php");
+    // verifyUserPro();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image" href="/public/images/favicon.png">
 	<title>Création d'offre</title>
-	<link rel="stylesheet" href="../styles/output.css" />
+	<link rel="stylesheet" href="member../styles/output.css" />
 	<script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 	<script src="//unpkg.com/alpinejs" defer></script>
@@ -173,7 +178,7 @@
 									file:text-small file:font-bold  file:text-secondary
 									file:border file:border-secondary
 									hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-									accept=".svg,.png,.jpg" required />
+									accept=".svg,.png,.jpg,.jpeg,.webp" required />
 							</div>
 
 							<!-- Photos détaillée -->
@@ -187,7 +192,7 @@
                               file:text-small file:font-bold  file:text-secondary
                               file:border file:border-secondary
                               hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-									accept=".svg,.png,.jpg" />
+									accept=".svg,.png,.jpg,.jpeg,.webp" />
 							</div>
 						</div>
 
