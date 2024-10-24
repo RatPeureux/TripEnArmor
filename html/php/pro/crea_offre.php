@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Fonction pour extraire des informations depuis une adresse complète
     function extraireInfoAdressse($adresse) {
-        $numero = substr($adresse, 0, 1);  // À adapter selon le format de l'adresse
+        $numero = substr($adresse, 0, 1);  // À adapter selon le format de l'adresse TODO R2CUPERER SELON PERMIER ESPACE
         $odonyme = substr($adresse, 2);
 
         return [
@@ -127,118 +127,90 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             switch ($activity) {
                 case 'activite':
                     // Insertion spécifique à l'activité
-                    $stmtActivite = $dbh->prepare("INSERT INTO sae_db._activite (offre_id, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, adresse_id, duree_activite, age_requis, prestations) VALUES (:offre_id, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :adresse_id, :duree, :age, :prestations)");
-                    $stmtActivite->bindParam(':offre_id', $offreId);
-                    $stmtActivite->bindParam(':description', $description);
-                    $stmtActivite->bindParam(':resume', $resume);
-                    $stmtActivite->bindParam(':prix', $prixMin);
-                    $stmtActivite->bindParam(':date_creation', $dateCreation);
-                    $stmtActivite->bindParam(':adresse_id', $adresseId);
-                    $stmtActivite->bindParam(':duree', $dureeFormatted);
-                    $stmtActivite->bindParam(':age', $age);
-                    $stmtActivite->bindParam(':prestations', $prestations);
-                    $stmtActivite->bindParam(':titre', $titre);
-
-                    if ($stmtActivite->execute()) {
-                        echo "Activité insérée avec succès.";
-                        header("location: ../../../html/pages/accueil-pro.php");
-                    } else {
-                        echo "Erreur lors de l'insertion : " . implode(", ", $stmtActivite->errorInfo());
-                    }
+                    $stmtActivity = $dbh->prepare("INSERT INTO sae_db._activite (offre_id, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, adresse_id, duree_activite, age_requis, prestations) VALUES (:offre_id, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :adresse_id, :duree, :age, :prestations)");
+                    $stmtActivity->bindParam(':offre_id', $offreId);
+                    $stmtActivity->bindParam(':description', $description);
+                    $stmtActivity->bindParam(':resume', $resume);
+                    $stmtActivity->bindParam(':prix', $prixMin);
+                    $stmtActivity->bindParam(':date_creation', $dateCreation);
+                    $stmtActivity->bindParam(':adresse_id', $adresseId);
+                    $stmtActivity->bindParam(':duree', $dureeFormatted);
+                    $stmtActivity->bindParam(':age', $age);
+                    $stmtActivity->bindParam(':prestations', $prestations);
+                    $stmtActivity->bindParam(':titre', $titre);
 
                     break;
 
-                    case 'visite':
+                case 'visite':
 
-                    $stmtVisite = $dbh->prepare("INSERT INTO sae_db._visite(offre_id, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, adresse_id, duree_visite, guide_visite) VALUES (:offre_id, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :adresse_id, :duree, false)");
-                    $stmtVisite->bindParam(':offre_id', $offreId);
-                    $stmtVisite->bindParam(':description', $description);
-                    $stmtVisite->bindParam(':resume', $resume);
-                    $stmtVisite->bindParam(':prix', $prix);
-                    $stmtVisite->bindParam(':date_creation', $dateCreation);
-                    $stmtVisite->bindParam(':adresse_id', $adresseId);
-                    $stmtVisite->bindParam(':duree', $duree);
-                    $stmtVisite->bindParam(':titre', $titre);
-
-                    if ($stmtVisite->execute()) {
-                        echo "Visite insérée avec succès.";
-                        header("location: ../../../html/pages/accueil-pro.php");
-                    } else {
-                        echo "Erreur lors de l'insertion : " . implode(", ", $stmtVisite->errorInfo());
-                    }
+                    $stmtActivity = $dbh->prepare("INSERT INTO sae_db._visite(offre_id, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, adresse_id, duree_visite, guide_visite) VALUES (:offre_id, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :adresse_id, :duree, false)");
+                    $stmtActivity->bindParam(':offre_id', $offreId);
+                    $stmtActivity->bindParam(':description', $description);
+                    $stmtActivity->bindParam(':resume', $resume);
+                    $stmtActivity->bindParam(':prix', $prix);
+                    $stmtActivity->bindParam(':date_creation', $dateCreation);
+                    $stmtActivity->bindParam(':adresse_id', $adresseId);
+                    $stmtActivity->bindParam(':duree', $duree);
+                    $stmtActivity->bindParam(':titre', $titre);
 
                     break;
 
-                    case 'spectacle':
+                case 'spectacle':
 
-                        var_dump($capacite);
+                    var_dump($capacite);
 
-                    $stmtSpectacle = $dbh->prepare("INSERT INTO sae_db._spectacle(offre_id, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, adresse_id, capacite_spectacle, duree_spectacle) VALUES (:offre_id, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :adresse_id, :capacite, :duree)");
-                    $stmtSpectacle->bindParam(':offre_id', $offreId);
-                    $stmtSpectacle->bindParam(':description', $description);
-                    $stmtSpectacle->bindParam(':resume', $resume);
-                    $stmtSpectacle->bindParam(':prix', $prixMin);
-                    $stmtSpectacle->bindParam(':date_creation', $dateCreation);
-                    $stmtSpectacle->bindParam(':adresse_id', $adresseId);
-                    $stmtSpectacle->bindParam(':capacite', $capacite);
-                    $stmtSpectacle->bindParam(':duree', $duree);
-                    $stmtSpectacle->bindParam(':titre', $titre);
-
-                    if ($stmtSpectacle->execute()) {
-                        echo "Spectacle insérée avec succès.";
-                        header("location: ../../../html/pages/accueil-pro.php");
-                    } else {
-                        echo "Erreur lors de l'insertion : " . implode(", ", $stmtSpectacle->errorInfo());
-                    }
+                    $stmtActivity = $dbh->prepare("INSERT INTO sae_db._spectacle(offre_id, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, adresse_id, capacite_spectacle, duree_spectacle) VALUES (:offre_id, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :adresse_id, :capacite, :duree)");
+                    $stmtActivity->bindParam(':offre_id', $offreId);
+                    $stmtActivity->bindParam(':description', $description);
+                    $stmtActivity->bindParam(':resume', $resume);
+                    $stmtActivity->bindParam(':prix', $prixMin);
+                    $stmtActivity->bindParam(':date_creation', $dateCreation);
+                    $stmtActivity->bindParam(':adresse_id', $adresseId);
+                    $stmtActivity->bindParam(':capacite', $capacite);
+                    $stmtActivity->bindParam(':duree', $duree);
+                    $stmtActivity->bindParam(':titre', $titre);
 
                     break;
 
-                    case 'parc_attraction':
+                case 'parc_attraction':
 
-                    $stmtAttraction = $dbh->prepare("INSERT INTO sae_db._parc_attraction(offre_id, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, adresse_id, nb_attractions, age_requis) VALUES (:offre_id, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :adresse_id, :nb_attraction, :age)");
-                    $stmtAttraction->bindParam(':offre_id', $offreId);
-                    $stmtAttraction->bindParam(':description', $description);
-                    $stmtAttraction->bindParam(':resume', $resume);
-                    $stmtAttraction->bindParam(':prix', $prixMin);
-                    $stmtAttraction->bindParam(':date_creation', $dateCreation);
-                    $stmtAttraction->bindParam(':adresse_id', $adresseId);
-                    $stmtAttraction->bindParam(':nb_attraction', $nb_attractions);
-                    $stmtAttraction->bindParam(':age', $age);
-                    $stmtAttraction->bindParam(':titre', $titre);
-
-                    if ($stmtAttraction->execute()) {
-                        echo "Parc d'attraction insérée avec succès.";
-                        header("location: ../../../html/pages/accueil-pro.php");
-                    } else {
-                        echo "Erreur lors de l'insertion : " . implode(", ", $stmtAttraction->errorInfo());
-                    }
+                    $stmtActivity = $dbh->prepare("INSERT INTO sae_db._parc_attraction(offre_id, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, adresse_id, nb_attractions, age_requis) VALUES (:offre_id, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :adresse_id, :nb_attraction, :age)");
+                    $stmtActivity->bindParam(':offre_id', $offreId);
+                    $stmtActivity->bindParam(':description', $description);
+                    $stmtActivity->bindParam(':resume', $resume);
+                    $stmtActivity->bindParam(':prix', $prixMin);
+                    $stmtActivity->bindParam(':date_creation', $dateCreation);
+                    $stmtActivity->bindParam(':adresse_id', $adresseId);
+                    $stmtActivity->bindParam(':nb_attraction', $nb_attractions);
+                    $stmtActivity->bindParam(':age', $age);
+                    $stmtActivity->bindParam(':titre', $titre);
 
                     break;
 
-                    case 'restauration':
+                case 'restauration':
 
-                    $stmtRestauration = $dbh->prepare("INSERT INTO sae_db._restauration(offre_id, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, adresse_id, gamme_prix) VALUES (:offre_id, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :adresse_id, :gamme_prix)");
-                    $stmtRestauration->bindParam(':offre_id', $offreId);
-                    $stmtRestauration->bindParam(':description', $description);
-                    $stmtRestauration->bindParam(':resume', $resume);
-                    $stmtRestauration->bindParam(':prix', $prixMin);
-                    $stmtRestauration->bindParam(':date_creation', $dateCreation);
-                    $stmtRestauration->bindParam(':adresse_id', $adresseId);
-                    $stmtRestauration->bindParam(':gamme_prix', $gamme_prix);
-                    $stmtRestauration->bindParam(':titre', $titre);
-
-                    if ($stmtRestauration->execute()) {
-                        echo "Restauration insérée avec succès.";
-                        header("location: ../../../html/pages/accueil-pro.php");
-                    } else {
-                        echo "Erreur lors de l'insertion : " . implode(", ", $stmtRestauration->errorInfo());
-                    }
+                    $stmtActivity = $dbh->prepare("INSERT INTO sae_db._restauration(offre_id, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, adresse_id, gamme_prix) VALUES (:offre_id, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :adresse_id, :gamme_prix)");
+                    $stmtActivity->bindParam(':offre_id', $offreId);
+                    $stmtActivity->bindParam(':description', $description);
+                    $stmtActivity->bindParam(':resume', $resume);
+                    $stmtActivity->bindParam(':prix', $prixMin);
+                    $stmtActivity->bindParam(':date_creation', $dateCreation);
+                    $stmtActivity->bindParam(':adresse_id', $adresseId);
+                    $stmtActivity->bindParam(':gamme_prix', $gamme_prix);
+                    $stmtActivity->bindParam(':titre', $titre);
 
                     break;
                 
                 default:
                     echo "Veuillez sélectionner une activité.";
                     exit;
+            }
+
+            if ($stmtActivity && $stmtActivity->execute()) {
+                echo "Acitivité insérée avec succès.";
+                header("location: ../../../html/pages/accueil-pro.php");
+            } else {
+                echo "Erreur lors de l'insertion : " . implode(", ", $stmtActivity->errorInfo());
             }
         } else {
             echo json_encode(['success' => false, 'error' => 'Erreur lors de la création de l\'offre : ' . implode(", ", $stmtOffre->errorInfo())]);
