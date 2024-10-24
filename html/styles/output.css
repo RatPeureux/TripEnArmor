@@ -804,6 +804,10 @@ video {
   margin: 1rem;
 }
 
+.m-7 {
+  margin: 1.75rem;
+}
+
 .m-auto {
   margin: auto;
 }
@@ -914,6 +918,13 @@ video {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .line-clamp-5 {
@@ -1161,10 +1172,6 @@ video {
 
 .max-w-96 {
   max-width: 24rem;
-}
-
-.max-w-\[1024px\] {
-  max-width: 1024px;
 }
 
 .max-w-\[1280px\] {
@@ -2498,6 +2505,18 @@ video {
 
 .ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.\[_CF\:0\FFFD\2\FFFD\FFFD\FFFD\FFFD\7\FFFD\FFFDJ\] {
+  _-c-f: 0�������J;
+}
+
+.\[if\:\14\FFFD\1C 8\15\FFFD F\=\FFFD\] {
+  if: �8�F=�;
+}
+
+.\[r\:J\FFFD\] {
+  r: J�;
 }
 
 /* Style global */
