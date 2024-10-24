@@ -27,7 +27,7 @@ function verifyUserMember() {
     ob_start(); // Active la mise en mémoire tampon de sortie
 
     // Vérifie si l'utilisateur est connecté et si le token de session est valide
-    if (!isset($_SESSION['user_id']) || !isset($_GET['token']) || $_SESSION['token'] !== $_GET['token']) {
+    if (!isset($_SESSION['user_id'])) {
         // Si l'utilisateur n'est pas connecté ou si le token ne correspond pas
         header('location: login-membre.php');
         exit(); // Termine le script pour s'assurer que rien d'autre ne s'exécute après la redirection
@@ -36,5 +36,4 @@ function verifyUserMember() {
     // Assigne le pseudo de l'utilisateur à la variable $pseudo, ou 'Invité' s'il n'est pas défini
     $pseudo = $_SESSION['user_pseudo'] ?? 'Invité';
 }
-?>
 
