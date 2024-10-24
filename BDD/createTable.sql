@@ -12,8 +12,7 @@ CREATE TABLE _adresse (
     ville VARCHAR(255) NOT NULL,
     numero varchar(255) not null,
     odonyme varchar(255) not null,
-    complement_adresse varchar(255) not null
-    
+    complement_adresse varchar(255)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
 -- -----------------------------------------------------------------------------------------Comptes-------début 
@@ -303,9 +302,9 @@ CREATE TABLE _tarif_public (
 
 
 -- Table T_IMAGE_IMG
-CREATE TABLE T_Image_Img ( -- IMG = Image
+CREATE TABLE T_Image_Img ( -- IMG = IMaGe
     img_path varchar(255) primary key,
-    img_date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    img_date_creation DATE NOT NULL,
     img_description TEXT,
     img_date_suppression DATE,
     offre_id INTEGER REFERENCES _offre(offre_id) ON DELETE CASCADE,

@@ -7,15 +7,16 @@ set schema 'sae_db';
 -- insertion d'adresses
 INSERT INTO _adresse (code_postal, ville, numero, odonyme, complement_adresse)
 VALUES
-('75001', 'Paris', '123', 'Rue', 'des Fleurs'),
-('69002', 'Lyon', '45', 'Avenue', 'de la Paix'),
-('33000', 'Bordeaux', '78', 'Boulevard', 'de Marie'),
-('75004', 'Paris', '', 'Hôtel de Ville', ''),
-('84000', 'Avignon', '23', 'Rue', 'du Tourisme'),
-('75010', 'Paris', '12', 'Rue', 'de Jean-Macé'),
-('31000', 'Toulouse', '89', 'Rue', 'des Gourmets'),
-('69000', 'Lyon', '22', 'Rue', 'des Athlètes'),
-('44000', 'Nantes', '78', 'Boulevard', 'de la Culture');
+('29200', 'Brest', '123', 'Rue', 'des Fleurs'),
+('29600', 'Morlaix', '45', 'Avenue', 'de la Paix'),
+('22000', 'Saint-Brieuc', '', 'Hôtel de Ville', ''),
+('22300', 'Lannion', '78', 'Boulevard', 'de Marie'),
+('22200', 'Guimgamp', '23', 'Rue', 'du Tourisme'),
+('22100', 'Dinan', '12', 'Rue', 'de Jean-Macé'),
+('35400', 'Saint-Malo', '89', 'Rue', 'des Gourmets'),
+('29000', 'Quimper', '22', 'Rue', 'des Athlètes'),
+('35000', 'Rennes', '78', 'Boulevard', 'de la Culture'),
+('56100', 'Lannion', '2', 'Pl.', 'du Général Leclerc');
 
 
 -- insertion des comptes et pros
