@@ -1,4 +1,5 @@
 <?php
+session_start();
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
 ?>
 
