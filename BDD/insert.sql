@@ -30,7 +30,7 @@ VALUES
 
 insert into _pro_prive(adresse_id, email, mdp_hash, num_tel, num_siren, nomPro)
 values
-  (4, 'eliott.janot@hotmail.com', 'ouiouioui', '0607080904','125214526', 'Google'),
+  (4, 'chateau2kergrist@kergrist.fr', 'LeMeilleurChateau/5', '0296463271', '948058375', 'Château de Kergrist'),
   (5, 'leo.blas@gmail.com', 'nononnon', '0658457412','123456789', 'Amazon');
  
 insert into _pro_public(adresse_id, email, mdp_hash, num_tel, type_orga, nomPro)

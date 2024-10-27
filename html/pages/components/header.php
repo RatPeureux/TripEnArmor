@@ -11,13 +11,13 @@
         <a href="/">
             <img src="/public/images/logo-PACT.svg" alt="[img] Logo-PACT">
         </a>
-        <div class="flex gap-4 items-center">  
+        <div class="flex gap-4 items-center">
             <a href="/pages/login-membre.php">
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
-            <?php 
-            
-            include("../../php/authentification.php");
+            <?php
+
+            include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
             if (activeLogout()) { ?>
                 <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">
                     <p>Se déconnecter</p>

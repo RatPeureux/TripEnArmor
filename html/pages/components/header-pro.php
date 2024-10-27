@@ -1,4 +1,3 @@
-
 <!-- 
     Composant du header pour le pro
     Pour l'ajouter, écrier la balise <div id='header-pro'></div> dans votre code html
@@ -20,8 +19,8 @@
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
             <?php
-            
-            include("../../php/authentification.php");
+
+            include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
             if (activeLogout()) { ?>
                 <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">
                     <p>Se déconnecter</p>

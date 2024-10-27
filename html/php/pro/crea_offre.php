@@ -1,8 +1,6 @@
 <?php
-include('../../../php-files/connect_params.php');
-
-$dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
-$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Connexion avec la bdd
+include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -12,7 +10,8 @@ error_reporting(E_ALL);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
-    function calculerPrixMin($prices) {
+    function calculerPrixMin($prices)
+    {
         $minPrice = null;
 
         foreach ($prices as $price) {
@@ -39,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $dureeFormatted = '00:00:00';  // Valeur par défaut
     }
     $capacite = $_POST['place'] ?? '';
-    $nb_attractions = isset($_POST['parc-numb']) && is_numeric($_POST['parc-numb']) ? (int)$_POST['parc-numb'] : 0;
+    $nb_attractions = isset($_POST['parc-numb']) && is_numeric($_POST['parc-numb']) ? (int) $_POST['parc-numb'] : 0;
     $gamme_prix = $_POST['gamme_prix'] ?? '';
     $description = $_POST['description'];
     var_dump($description);
@@ -47,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prestations = $_POST['newPrestationName'] ?? '';
     $prices = $_POST['prices'] ?? [];  // Récupérer les prix
     $titre = $_POST['titre'] ?? null;
-    
+
 
     var_dump($prices);  // Pour le débogage des prix reçus
 
@@ -62,7 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prixMin = calculerPrixMin($prices);
 
     // Fonction pour extraire des informations depuis une adresse complète
-    function extraireInfoAdressse($adresse) {
+    function extraireInfoAdressse($adresse)
+    {
         $numero = substr($adresse, 0, 1);  // À adapter selon le format de l'adresse TODO R2CUPERER SELON PERMIER ESPACE
         $odonyme = substr($adresse, 2);
 
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     continue;
                 }
 
-                $age_min = (int)$age;  // Âge minimum par exemple
+                $age_min = (int) $age;  // Âge minimum par exemple
                 $prix_min = is_numeric($price['value']) ? floatval($price['value']) : null;
 
                 var_dump($age_min, $prix_min);  // Afficher les valeurs avant insertion
@@ -200,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmtActivity->bindParam(':titre', $titre);
 
                     break;
-                
+
                 default:
                     echo "Veuillez sélectionner une activité.";
                     exit;

@@ -1,34 +1,36 @@
 <?php
-    include("../php/authentification.php");
-    // verifyUserPro();
+include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
+verifyUserPro();
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+	<link rel="icon" type="image" href="/public/images/favicon.png">
 	<title>Création d'offre</title>
 	<link rel="stylesheet" href="/styles/output.css" />
 	<script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 	<script src="//unpkg.com/alpinejs" defer></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
 </head>
 
 <!-- 
-    À FAIRE :
-    X lier les champs, VILLE, CODE POSTAL, ADRESSE à l'aide de l'API GOOGLE.
-    - Faire les champs de recherches avec TAG, qui sera aussi utilisé pour VISITE : LANGUE, RESTAURATION : REPAS SERVIS (Petit-dej, Brunch, Dej, Diner, Boissons)
-    - Appliquer les scripts à tous les champs pour s'assurer de leur conformité
-    - Faire le PHP
-    - Faire du JS  
+	À FAIRE :
+	X lier les champs, VILLE, CODE POSTAL, ADRESSE à l'aide de l'API GOOGLE.
+	- Faire les champs de recherches avec TAG, qui sera aussi utilisé pour VISITE : LANGUE, RESTAURATION : REPAS SERVIS (Petit-dej, Brunch, Dej, Diner, Boissons)
+	- Appliquer les scripts à tous les champs pour s'assurer de leur conformité
+	- Faire le PHP
+	- Faire du JS  
 
-    TODO : Ajouter des 'i' d'informations pour expliquer les champs
-    TODO : Enlever la grille tarifaire pour les restaurants
+	TODO : Ajouter des 'i' d'informations pour expliquer les champs
+	TODO : Enlever la grille tarifaire pour les restaurants
 -->
 
 <body>
@@ -48,7 +50,8 @@
 				</a>
 			</div>
 			<!-- Section de sélection de l'offre -->
-			<div class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
+			<div
+				class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
 				<!-- Carte de l'offre gratuite -->
 				<div
 					class="border border-secondary rounded-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white 	md:h-full hidden">
@@ -127,7 +130,8 @@
 				</div>
 			</div>
 			<div class="flex space-x-12 w-full shrink-0 part1 hidden">
-				<form id="formulaire" action="../php/pro/crea_offre.php" method="POST" class="block w-full space-y-8"- enctype="multipart/form-data">
+				<form id="formulaire" action="../php/pro/crea_offre.php" method="POST" class="block w-full space-y-8" -
+					enctype="multipart/form-data">
 					<div class="w-full flex flex-col justify-center items-center space-y-4">
 						<h2 class="w-full text-h2 text-secondary">Informations</h2>
 
@@ -157,14 +161,13 @@
 
 						<div class="justify-between items-center w-full">
 							<label for="locality" class="text-nowrap">Ville :</label>
-							<input type="text" id="locality" 
-								name="locality" placeholder="Rennes"
+							<input type="text" id="locality" name="locality" placeholder="Rennes"
 								class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 
 							<label for="postal_code" class="text-nowrap">Code postal :</label>
-							<input type="number" min="0" step="10" max="57000" id="postal_code"
-								name="postal_code" placeholder="35000"
-								class="border border-secondary rounded-lg p-2 bg-white w-24 w-full" required>
+							<input type="number" min="0" step="10" max="57000" id="postal_code" name="postal_code"
+								placeholder="35000" class="border border-secondary rounded-lg p-2 bg-white w-24 w-full"
+								required>
 						</div>
 
 						<div class="w-full justify-between">
@@ -177,8 +180,8 @@
 									file:rounded-lg
 									file:text-small file:font-bold  file:text-secondary
 									file:border file:border-secondary
-									hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-									accept=".svg,.png,.jpg,.jpeg,.webp" required />
+									hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp"
+									required />
 							</div>
 
 							<!-- Photos détaillée -->
@@ -186,12 +189,12 @@
 								<label for="photo-detail" class="text-nowrap w-full">Photos de l'offre détaillée:
 								</label>
 								<input type="file" name="photo-detail" id="photo-detail" class="text-center text-secondary block w-full
-                              border-dashed border-2 border-secondary rounded-lg p-2
-                              file:mr-5 file:py-3 file:px-10
-                              file:rounded-lg
-                              file:text-small file:font-bold  file:text-secondary
-                              file:border file:border-secondary
-                              hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
+							  border-dashed border-2 border-secondary rounded-lg p-2
+							  file:mr-5 file:py-3 file:px-10
+							  file:rounded-lg
+							  file:text-small file:font-bold  file:text-secondary
+							  file:border file:border-secondary
+							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
 									accept=".svg,.png,.jpg,.jpeg,.webp" />
 							</div>
 						</div>
@@ -266,7 +269,8 @@
 						<!-- Visite guidée -->
 						<!-- Visite -->
 						<div class="flex justify-between items-center w-full space-x-2 optionVisite hidden">
-							<div class="inline-flex items-center cursor-pointer space-x-4" onclick="toggleCheckbox('visiteGuidee')">
+							<div class="inline-flex items-center cursor-pointer space-x-4"
+								onclick="toggleCheckbox('visiteGuidee')">
 								<p>Visite guidée :</p>
 								<input type="checkbox" id="visiteGuidee" value="" class="sr-only peer">
 								<div
@@ -280,8 +284,8 @@
 						<div
 							class="flex justify-start items-center w-full space-x-2 optionActivite optionParcAttraction hidden">
 							<label for="age" class="text-nowrap">Âge requis :</label>
-							<input type="number" id="age" pattern="/d+/" min="0" max="125"
-								name="age" class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+							<input type="number" id="age" pattern="/d+/" min="0" max="125" name="age"
+								class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 							<p>an(s)</p>
 						</div>
 
@@ -322,8 +326,8 @@
 						<!-- Spectacle -->
 						<div class="flex justify-start items-center w-full space-x-2 optionSpectacle hidden">
 							<label for="place" class="text-nowrap">Capacité d'accueil :</label>
-							<input type="number" id="place" pattern="/d+/" onchange="" min="0"
-								name="place" class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+							<input type="number" id="place" pattern="/d+/" onchange="" min="0" name="place"
+								class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 							<p>personnes</p>
 						</div>
 
@@ -530,19 +534,22 @@
 							<div
 								class="flex flex-row mb-4 content-center justify-between items-center text-secondary w-full">
 								<!-- Sans option -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" id="option-rien-div">
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									id="option-rien-div">
 									<input type="radio" id="option-rien" name="option" value="option-rien"
 										class="hidden" />
 									<label for="option-rien">Sans option</label>
 								</div>
 								<!-- Option en relief -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" id="option-relief-div">
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									id="option-relief-div">
 									<input type="radio" id="option-relief" name="option" value="option-relief"
 										class="hidden" checked="true" />
 									<label for="option-relief">En Relief (3.99€)</label>
 								</div>
 								<!-- À la une -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" id="option-a-la-une-div">
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									id="option-a-la-une-div">
 									<input type="radio" id="option-a-la-une" name="option" class="hidden"
 										value="option-a-la-une" />
 									<label for="option-a-la-une">À la une (5.99€)</label>
@@ -733,8 +740,8 @@
 								<div class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
 									<div class="p-1 w-full flex justify-center items-center">
 										<!-- <p
-                                class="text-white text-center text-small w-full font-bold"
-                              ></p> -->
+								class="text-white text-center text-small w-full font-bold"
+							  ></p> -->
 										<!-- Mise à jour du tag en temps réel -->
 										<p class="text-white text-center rounded-lg bg-secondary font-bold w-fit p-2"
 											id="preview-tag-input">
@@ -898,7 +905,7 @@
 		function checkPart3Validity() {
 			checkPart2Validity();
 			console.log("Checking part 3 validity");
-			
+
 			const requiredFields = document.querySelectorAll('.part2 [required]');
 			let isValid = true;
 
@@ -915,7 +922,7 @@
 					}
 				}
 			});
-			
+
 			if (isValid) {
 				showPart3();
 			} else {
