@@ -43,7 +43,6 @@ if (!isset($_POST['id'])) {
                     <!-- Champ pour l'identifiant -->
                     <label class="text-small" for="id">Identifiant</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
-                        pattern="^(?:\w+|\w+[\.\-_]?\w+|0\d( \d{2}){4}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$"
                         title="Saisir un identifiant (Dénomination / Nom de l'organisation, Adresse mail ou Téléphone)"
                         value="<?php echo $id; ?>" maxlength="255" required>
 
@@ -51,7 +50,6 @@ if (!isset($_POST['id'])) {
                     <label class="text-small" for="mdp">Mot de passe<span class="text-red-500"> *</span></label>
                     <div class="relative w-full">
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
-                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
                             title="Saisir un mot de passe" minlength="8" autocomplete="current-password" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword"></i>
@@ -112,7 +110,7 @@ if (!isset($_POST['id'])) {
             error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
 
             // Vérifie si l'utilisateur existe et si le mot de passe est correct
-            if ($user && $user['mdp_hash']) {
+            if ($user && password_verify($mdp, $user['mdp_hash'])) {
                 // Stocke les informations de l'utilisateur dans la session
                 $_SESSION['id_pro'] = $user['id_compte'];
                 $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session

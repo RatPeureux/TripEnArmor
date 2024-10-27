@@ -113,7 +113,7 @@ if (!isset($_POST['id'])) {
             error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
 
             // Vérifie si l'utilisateur existe et si le mot de passe est correct
-            if ($user && $user['mdp_hash']) {
+            if ($user && password_verify($mdp, $user['mdp_hash'])) {
                 // Stocke les informations de l'utilisateur dans la session
                 $_SESSION['user_id'] = $user['id_compte'];
                 $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session

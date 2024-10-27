@@ -22,16 +22,20 @@ VALUES
 -- insertion des comptes et pros
 
 INSERT INTO _membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom)
-VALUES 
-('jdupont@example.com', 'hash_mdp_1', '0600000001', 1, 'jdupont', 'Dupont', 'Jean'),
-('mlavigne@example.com', 'hash_mdp_2', '0600000002', 2, 'mlavigne', 'Lavigne', 'Marie'),
-('pbernard@example.com', 'hash_mdp_3', '0600000003', 3, 'pbernard', 'Bernard', 'Paul');
+VALUES
+-- hash_mdp_1
+-- ... etc
+('jdupont@example.com', '$2y$10$AWRYO2FfYz77O0FcIPfssuidZTyw9T3Y7kDn5WAwk77AJQ1clSmlm', '0600000001', 1, 'jdupont', 'Dupont', 'Jean'),
+('mlavigne@example.com', '$2y$10$lVNjBftVCaAAPt35NeQFRewdK0aRM9BfwAMNmTQ4HV4YmvBY47SSy', '0600000002', 2, 'mlavigne', 'Lavigne', 'Marie'),
+('pbernard@example.com', '$2y$10$hbWu0lvfTEPw4dBNYFLBBuwikIEbRLm2aT/gzIyLuhN2fn5wZYH.i', '0600000003', 3, 'pbernard', 'Bernard', 'Paul');
 
 
 insert into _pro_prive(adresse_id, email, mdp_hash, num_tel, num_siren, nomPro)
 values
-  (4, 'chateau2kergrist@kergrist.fr', 'LeMeilleurChateau/5', '0296463271', '948058375', 'Château de Kergrist'),
-  (5, 'leo.blas@gmail.com', 'nononnon', '0658457412','123456789', 'Amazon');
+-- LeMeilleurChateau/5
+  (4, 'chateau2kergrist@kergrist.fr', '$2y$10$GXXQOLrRyCjKrO2SLmTm2.kLs1HIWugRuelUynpBATOu9mhORFA1a', '0296463271', '948058375', 'Château de Kergrist'),
+-- nonnonnon
+  (5, 'leo.blas@gmail.com', '$2y$10$DZNXjLZgFIX1B7TDkPtz9O1IP3frVdkgAoySH4V8EkPVfg7vpSOIS', '0658457412','123456789', 'Amazon');
  
 insert into _pro_public(adresse_id, email, mdp_hash, num_tel, type_orga, nomPro)
 values
