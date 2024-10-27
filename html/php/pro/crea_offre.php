@@ -17,7 +17,8 @@ try {
 }
 
 // Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
-function calculerPrixMin($prices) {
+function calculerPrixMin($prices)
+{
     $minPrice = null;
     foreach ($prices as $price) {
         if (isset($price['value']) && (is_null($minPrice) || $price['value'] < $minPrice)) {
@@ -28,7 +29,8 @@ function calculerPrixMin($prices) {
 }
 
 // Fonction pour extraire des informations d'adresse
-function extraireInfoAdresse($adresse) {
+function extraireInfoAdresse($adresse)
+{
     $parts = explode(' ', $adresse, 2); // Sépare l'adresse en numéro et odonyme
     return [
         'numero' => isset($parts[0]) ? $parts[0] : '',
@@ -38,34 +40,11 @@ function extraireInfoAdresse($adresse) {
 
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-<<<<<<< HEAD
-
-    // Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
-    function calculerPrixMin($prices)
-    {
-        $minPrice = null;
-
-        foreach ($prices as $price) {
-            if (isset($price['value']) && (is_null($minPrice) || $price['value'] < $minPrice)) {
-                $minPrice = $price['value'];
-            }
-        }
-
-        return $minPrice;
-    }
-
-    // Récupérer les données soumises via POST
-    $adresse = $_POST['user_input_autocomplete_address'];
-    $code = $_POST['postal_code'];
-    $ville = $_POST['locality'];
-    $age = $_POST['age'];
-=======
     // Récupération des données du formulaire
     $adresse = $_POST['user_input_autocomplete_address'] ?? '';
     $code = $_POST['postal_code'] ?? '';
     $ville = $_POST['locality'] ?? '';
     $age = $_POST['age'] ?? null; // age peut être vide
->>>>>>> 2a9ad80ba1bfaba2137fd3484ee64afeb44f9eea
     $duree = !empty($_POST['duree']) ? $_POST['duree'] : '00:00:00';
 
     // Vérification de la durée
@@ -86,10 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prestations = $_POST['newPrestationName'] ?? '';
     $prices = $_POST['prices'] ?? []; // Récupérer les prix
     $titre = $_POST['titre'] ?? null;
-<<<<<<< HEAD
-
-=======
->>>>>>> 2a9ad80ba1bfaba2137fd3484ee64afeb44f9eea
 
     // Récupération des tags
     $tagsActivite = $_POST['tags']['activite'] ?? [];
@@ -107,21 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Calculer le prix minimum parmi les tarifs
     $prixMin = calculerPrixMin($prices);
 
-<<<<<<< HEAD
-    // Fonction pour extraire des informations depuis une adresse complète
-    function extraireInfoAdressse($adresse)
-    {
-        $numero = substr($adresse, 0, 1);  // À adapter selon le format de l'adresse TODO R2CUPERER SELON PERMIER ESPACE
-        $odonyme = substr($adresse, 2);
-
-        return [
-            'numero' => $numero,
-            'odonyme' => $odonyme,
-        ];
-    }
-
-=======
->>>>>>> 2a9ad80ba1bfaba2137fd3484ee64afeb44f9eea
     // Insérer l'adresse dans la base de données
     $realAdresse = extraireInfoAdresse($adresse);
     try {
@@ -255,12 +215,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
 
-                if ($stmtActivity && $stmtActivity->execute()) {
-                    echo "Acitivité insérée avec succès.";
-                    header("location: ../../../html/pages/accueil-pro.php");
-                } else {
-                    echo "Erreur lors de l'insertion : " . implode(", ", $stmtActivity->errorInfo());
-                }
+            if ($stmtActivity && $stmtActivity->execute()) {
+                echo "Acitivité insérée avec succès.";
+                header("location: ../../../html/pages/accueil-pro.php");
+            } else {
+                echo "Erreur lors de l'insertion : " . implode(", ", $stmtActivity->errorInfo());
+            }
         } else {
             echo json_encode(['success' => false, 'error' => 'Méthode de requête non autorisée.']);
         }

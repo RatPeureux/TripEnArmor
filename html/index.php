@@ -116,7 +116,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
 
                         // Avoir une variable $pro qui contient les informations du pro actuel.
                         $idPro = $offre['idpro'];
-                        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = $idPro");
+                        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :idPro");
+                        $stmt->bindParam(':idPro', $idPro);
                         $stmt->execute();
                         $pro = $stmt->fetch(PDO::FETCH_ASSOC);
                         if ($pro) {

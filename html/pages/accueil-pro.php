@@ -28,13 +28,15 @@ verifyUserPro();
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = $idPro");
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :idPro");
+    $stmt->bindParam(':idPro', $idPro);
     $stmt->execute();
     $pro = $stmt->fetch(PDO::FETCH_ASSOC);
     $pro_nom = $pro['nompro'];
 
     // Obtenir l'ensembre des offres du professionnel identifié
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.idPro = sae_db._professionnel.id_compte WHERE id_compte = $idPro");
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.idPro = sae_db._professionnel.id_compte WHERE id_compte = :idPro");
+    $stmt->bindParam(':idPro', $idPro);
     $stmt->execute();
     $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>

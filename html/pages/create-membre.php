@@ -323,8 +323,6 @@
         if ($stmtTest->execute()) {
             // Préparer l'insertion dans la table Membre
             $stmtMembre = $dbh->prepare("INSERT INTO sae_db._membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :pseudo, :adresse_id, :nom, :prenom)");
-
-            // Lier les paramètres pour le membre
             $stmtMembre->bindParam(':mail', $mail);
             $stmtMembre->bindParam(':mdp', $mdp_hash);
             $stmtMembre->bindParam(':num_tel', $tel);

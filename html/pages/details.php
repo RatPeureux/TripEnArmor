@@ -30,10 +30,12 @@ session_start();
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
-    $stmt = $dbh->prepare("SELECT idPro FROM sae_db._offre WHERE offre_id = $offre_id");
+    $stmt = $dbh->prepare("SELECT idPro FROM sae_db._offre WHERE offre_id = :offre_id");
+    $stmt->bindParam(':offre_id', $offre_id);
     $stmt->execute();
     $idPro = $stmt->fetch(PDO::FETCH_ASSOC)['idpro'];
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = $idPro");
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :idPro");
+    $stmt->bindParam(':idPro', $idPro);
     $stmt->execute();
     $pro = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($pro) {
@@ -41,7 +43,8 @@ session_start();
     }
 
     // Obtenir l'ensemble des informations de l'offre
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE offre_id = $offre_id");
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE offre_id = :offre_id");
+    $stmt->bindParam(':offre_id', $offre_id);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/get_details_offre.php';
