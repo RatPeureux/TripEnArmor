@@ -8,8 +8,9 @@
         <a href="" onclick="toggleMenu()" class="md:hidden">
             <i class="text-3xl fa-solid fa-bars"></i>
         </a>
-        <a href="/">
+        <a href="/" class="flex gap-3 items-center">
             <img src="/public/images/logo-PACT.svg" alt="[img] Logo-PACT">
+            <h1 class="text-h1 italic">Membre</h1>
         </a>
         <div class="flex gap-4 items-center">
             <a href="/pages/login-membre.php">

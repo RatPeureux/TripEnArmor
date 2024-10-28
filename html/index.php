@@ -30,7 +30,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
 
     // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
     if (!$toutesLesOffres) {
-        echo "<p clas='font-bold'>Vous n'avez aucune offre...</p>";
+        echo "<p class='font-bold'>Vous n'avez aucune offre...</p>";
     } else {
         $allCardsTextPhone = '';
         $allCardsTextTablette = '';
@@ -187,7 +187,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
         -->
         <?php
         if (!$toutesLesOffres) {
-            echo "<p clas='font-bold'>Vous n'avez aucune offre...</p>";
+            echo "<p class='font-bold'>Vous n'avez aucune offre...</p>";
         } else {
             print_r($allCardsTextPhone);
         }
@@ -212,7 +212,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
                 -->
                 <?php
                 if (!$toutesLesOffres) {
-                    echo "<p clas='font-bold'>Vous n'avez aucune offre...</p>";
+                    echo "<p class='font-bold'>Vous n'avez aucune offre...</p>";
                 } else {
                     print_r($allCardsTextTablette);
                 }

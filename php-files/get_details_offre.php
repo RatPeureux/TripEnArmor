@@ -70,6 +70,7 @@ if ($categorie_offre == 'restauration') {
 } else {
     $prix_a_afficher = $tarif_min . '-' . $tarif_max . '€';
 }
+$title_prix = $categorie_offre == 'restauration' ? '€ = X euros, €€ = XX euros, €€€ = XX euros' : 'fourchette des prix';
 
 // Tags pour le restaurant (pour la carte, on prend les types de repas) ou autres si ce n'est pas un restaurant
 if ($categorie_offre == 'restauration') {

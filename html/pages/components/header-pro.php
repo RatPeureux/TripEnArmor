@@ -8,8 +8,9 @@
             <i class="text-3xl fa-solid fa-bars"></i>
             <p>Menu</p>
         </a>
-        <a href="/pages/accueil-pro.php">
+        <a href="/pages/accueil-pro.php" class="flex gap-3 items-center">
             <img src="/public/images/logo-PACT.svg" alt="Logo-PACT">
+            <h1 class="text-h1 italic">Professionnel</h1>
         </a>
         <div class="flex gap-4 items-center">
             <a href="">
