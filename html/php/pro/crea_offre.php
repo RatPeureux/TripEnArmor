@@ -1,8 +1,6 @@
 <?php
-include('../../../php-files/connect_params.php');
-
-$dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
-$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Connexion avec la bdd
+include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
 
 // Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
@@ -19,7 +17,8 @@ try {
 }
 
 // Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
-function calculerPrixMin($prices) {
+function calculerPrixMin($prices)
+{
     $minPrice = null;
     foreach ($prices as $price) {
         if (isset($price['value']) && (is_null($minPrice) || $price['value'] < $minPrice)) {
@@ -30,7 +29,8 @@ function calculerPrixMin($prices) {
 }
 
 // Fonction pour extraire des informations d'adresse
-function extraireInfoAdresse($adresse) {
+function extraireInfoAdresse($adresse)
+{
     $parts = explode(' ', $adresse, 2); // Sépare l'adresse en numéro et odonyme
     return [
         'numero' => isset($parts[0]) ? $parts[0] : '',
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Récupérer d'autres valeurs
     $capacite = $_POST['place'] ?? '';
-    $nb_attractions = isset($_POST['parc-numb']) && is_numeric($_POST['parc-numb']) ? (int)$_POST['parc-numb'] : 0;
+    $nb_attractions = isset($_POST['parc-numb']) && is_numeric($_POST['parc-numb']) ? (int) $_POST['parc-numb'] : 0;
     $gamme_prix = $_POST['gamme_prix'] ?? '';
     $description = $_POST['description'] ?? '';
     $resume = $_POST['resume'] ?? '';
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     continue;
                 }
 
-                $age_min = (int)$age;  // Âge minimum par exemple
+                $age_min = (int) $age;  // Âge minimum par exemple
                 $prix_min = is_numeric($price['value']) ? floatval($price['value']) : null;
 
                 $stmtInsertPrice = $dbh->prepare("INSERT INTO sae_db._tarif_public (titre_tarif, prix, offre_id) VALUES (:titre, :prix, :offre_id)");
@@ -208,19 +208,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmtActivity->bindParam(':titre', $titre);
 
                     break;
-                
+
                 default:
                     echo "Veuillez sélectionner une activité.";
                     exit;
             }
 
 
-                if ($stmtActivity && $stmtActivity->execute()) {
-                    echo "Acitivité insérée avec succès.";
-                    header("location: ../../../html/pages/accueil-pro.php");
-                } else {
-                    echo "Erreur lors de l'insertion : " . implode(", ", $stmtActivity->errorInfo());
-                }
+            if ($stmtActivity && $stmtActivity->execute()) {
+                echo "Acitivité insérée avec succès.";
+                header("location: ../../../html/pages/accueil-pro.php");
+            } else {
+                echo "Erreur lors de l'insertion : " . implode(", ", $stmtActivity->errorInfo());
+            }
         } else {
             echo json_encode(['success' => false, 'error' => 'Méthode de requête non autorisée.']);
         }

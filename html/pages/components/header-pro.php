@@ -1,4 +1,3 @@
-
 <!-- 
     Composant du header pour le pro
     Pour l'ajouter, écrier la balise <div id='header-pro'></div> dans votre code html
@@ -9,8 +8,9 @@
             <i class="text-3xl fa-solid fa-bars"></i>
             <p>Menu</p>
         </a>
-        <a href="/pages/accueil-pro.php">
+        <a href="/pages/accueil-pro.php" class="flex gap-3 items-center">
             <img src="/public/images/logo-PACT.svg" alt="Logo-PACT">
+            <h1 class="text-h1 italic">Professionnel</h1>
         </a>
         <div class="flex gap-4 items-center">
             <a href="">
@@ -20,8 +20,8 @@
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
             <?php
-            
-            include("../../php/authentification.php");
+
+            include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
             if (activeLogout()) { ?>
                 <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">
                     <p>Se déconnecter</p>
