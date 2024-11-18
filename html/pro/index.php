@@ -2,7 +2,7 @@
 session_start();
 $idPro = $_SESSION['id_pro'];
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
-verifyUserPro();
+// verifyUserPro();
 ?>
 
 <!DOCTYPE html>
@@ -12,10 +12,11 @@ verifyUserPro();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <script type="module" src="/scripts/loaddetailsmenus.js"></script>
-    <link rel="stylesheet" href="/styles/output.css">
-    <script type="module" src="/scripts/main.js"></script>
-    <title>PACT - Accueil</title>
+    <title>Accueil | Professionnel | PACT</title>
+
+<link rel="stylesheet" href="/styles/output.css">
+<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
+<script type="module" src="/scripts/main.js" defer></script>
 </head>
 
 <body class="flex flex-col min-h-screen">

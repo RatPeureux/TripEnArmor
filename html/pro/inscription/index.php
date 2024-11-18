@@ -9,7 +9,7 @@
         <!-- Lien vers le favicon de l'application -->
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
-        <link rel="stylesheet" href="/styles/output.css">
+        <link rel="stylesheet" href="../styles/output.css">
         <title>Création de compte 1/2</title>
         <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
@@ -24,7 +24,7 @@
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
+                <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
 
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php"
                     method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
@@ -77,11 +77,11 @@
 
                         <!-- Bouton pour continuer -->
                         <input type="submit" value="Continuer"
-                            class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-green-900 hover:border-green-900 hover:text-white">
+                            class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                         <!-- Lien vers la page de connexion -->
                         <a href="login-pro.php"
-                            class="w-full h-12 p-1 bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-green-900 hover:border-green-900 focus:scale-[0.97]">
+                            class="w-full h-12 p-1 bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
                             J'ai déjà un compte
                         </a>
                     </form>
@@ -210,7 +210,7 @@
 
                     <!-- Bouton pour créer le compte -->
                     <input type="submit" value="Créer mon compte"
-                        class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-green-900 hover:border-green-900 hover:text-white">
+                        class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                     <input type="hidden" name="statut" value="<?php echo $statut; ?>">
                     <input type="hidden" name="mdp_test" value="<?php echo htmlspecialchars($mdp); ?>">

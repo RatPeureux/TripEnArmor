@@ -1,6 +1,6 @@
 <?php
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
-verifyUserPro();
+// include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
+// verifyUserPro();
 ?>
 
 <!DOCTYPE html>
@@ -9,16 +9,19 @@ verifyUserPro();
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
 	<link rel="icon" type="image" href="/public/images/favicon.png">
-	<title>Création d'offre</title>
-	<link rel="stylesheet" href="/styles/output.css" />
-	<script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-	<script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-	<script src="//unpkg.com/alpinejs" defer></script>
+	<title>Création d'offre | Professionnel | PACT</title>
+
+    <link rel="stylesheet" href="/styles/output.css">
+    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
+    <script type="module" src="/scripts/main.js" defer></script>
+
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
+    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
 </head>
 
 <!-- 
@@ -561,7 +564,7 @@ verifyUserPro();
 					<div
 						class="w-full flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
 						<input type="submit" value="Créer l'offre" id="submitPart3"
-							class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:border hover:bg-green-900 hover:border-green-900 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300"
+							class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300"
 							disabled="true">
 					</div>
 				</form>

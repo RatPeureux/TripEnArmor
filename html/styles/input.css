@@ -5,7 +5,7 @@
 /* Style global */
 :root {
     --primary-color: #F2771B;
-    --secondary-color: #00350D;
+    --secondary-color: #0a0035;
 }
 
 label:has(+ input[required]:not([type="checkbox"]))::after,

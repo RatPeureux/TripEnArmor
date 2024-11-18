@@ -85,6 +85,3 @@ async function loadOffres() {
 document.addEventListener('DOMContentLoaded', () => {
     loadOffres();
 });
-
-const container = document.getElementById('offres-container');
-console.log('Container trouvé:', container);
