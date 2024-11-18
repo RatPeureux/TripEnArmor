@@ -73,7 +73,7 @@ if (!isset($_POST['id'])) {
                             class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
                             Mot de passe oublié ?
                         </a>
-                        <a href="create-pro.php"
+                        <a href="/pro/inscription"
                             class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
                             Créer un compte
                         </a>
@@ -116,12 +116,12 @@ if (!isset($_POST['id'])) {
                 $_SESSION['id_pro'] = $user['id_compte'];
                 $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
                 $_SESSION['user_email'] = $user['email'];
-                header('location: accueil-pro.php?token=' . $_SESSION['token']); // Redirige vers la page connectée
+                header('location: /pro?token=' . $_SESSION['token']); // Redirige vers la page connectée
                 exit();
             } else {
                 $_SESSION['error'] = "Identifiant ou mot de passe incorrect !"; // Stocke le message d'erreur dans la session
                 $_SESSION['id'] = $id; // Stocke l'id saisi dans la session
-                header('location: login-pro.php'); // Retourne à la page de connexion
+                header('location: /pro/connexion'); // Retourne à la page de connexion
                 exit();
             }
         }

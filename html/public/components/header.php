@@ -13,14 +13,14 @@
             <h1 class="font-cormorant uppercase text-PACT">PACT</h1>
         </a>
         <div class="flex gap-4 items-center">
-            <a href="/pages/login-membre.php">
+            <a href="/connexion">
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
 
             <?php
             include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
             if (activeLogout()) { ?>
-                <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">
+                <a href="/scripts/deconnexion" onclick="return confirmLogout(event)">
                     <p>Se déconnecter</p>
                 </a>
             <?php } ?>

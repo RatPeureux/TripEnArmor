@@ -43,7 +43,7 @@
 		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 			<!-- Lien de retour avec une icône et un titre -->
 			<div class="w-full text-left">
-				<a href="" class="flex content-center space-x-">
+				<a href="" onclick="history.back()" class="flex content-center space-x-">
 					<div class="m-4">
 						<i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>
 					</div>
@@ -531,7 +531,7 @@
 							<h1 class="text-h2 text-secondary">Les options</h1>
 
 							<!-- CGU -->
-							<a href="" class="text-small underline text-secondary"> Voir les CGU</a>
+							<a href="/cgu" class="text-small underline text-secondary"> Voir les CGU</a>
 
 							<!-- Radio button -->
 							<div
@@ -827,11 +827,11 @@
 		</div>
 		<div id="footer-pro" class="w-full"></div>
 	</div>
-	<script src="../scripts/loadcomponents.js"></script>
-	<script src="../scripts/tagManager.js"></script>
-	<script src="../scripts/priceManager.js"></script>
-	<script src="../scripts/prestationManager.js"></script>
-	<script src="../scripts/optionToggler.js"></script>
+	<script src="/scripts/loadcomponents.js"></script>
+	<script src="/scripts/tagManager.js"></script>
+	<script src="/scripts/priceManager.js"></script>
+	<script src="/scripts/prestationManager.js"></script>
+	<script src="/scripts/optionToggler.js"></script>
 	<script>
 		// Fonction pour afficher la partie 1 du formulaire
 		function showPart1() {

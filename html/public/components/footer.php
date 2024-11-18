@@ -4,16 +4,16 @@
     (responsive)
 -->
 <footer class="bg-secondary flex text-white justify-center items-start h-40 p-4 gap-5 mt-2">
-    <a href="/pages/toutes-offres.html"><img src="/public/images/logo-footer.svg" alt="[img] Logo" class="grow-0"></a>
+    <a href="/offre"><img src="/public/images/logo-footer.svg" alt="[img] Logo" class="grow-0"></a>
     <div class="flex flex-col md:items-center">
         <div>
-            <a href="" class="hover:text-primary">Mentions légales</a>
+            <a href="/legal" class="hover:text-primary">Mentions légales</a>
             -
-            <a href="" class="hover:text-primary">CGU</a>
+            <a href="/cgu" class="hover:text-primary">CGU</a>
             -
-            <a href="" class="hover:text-primary">Contacter le support</a>
+            <a href="/support" class="hover:text-primary">Contacter le support</a>
             -
-            <a href="/pages/login-pro.php" class="hover:text-primary">Vous êtes un professionnel ?</a>
+            <a href="/pro/connexion" class="hover:text-primary">Vous êtes un professionnel ?</a>
         </div>
         <a href="" class="hover:text-primary">@2024, TripEnArmor</a>
     </div>

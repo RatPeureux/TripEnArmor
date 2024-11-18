@@ -52,7 +52,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
 
             // Ajouter le contenu des cartes pour le téléphone
             {
-                $allCardsTextPhone .= "<a href='/pages/go_to_details.php?offre_id=$offre_id'>
+                $allCardsTextPhone .= "<a href='/scripts/go_to_details.php?offre_id=$offre_id'>
                         <div class='card";
                 // Afficher en exergue si la carte a une option (à la une ou en relief)
                 if ($option) {
@@ -69,7 +69,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
                                 </div>
                             </div>
                             <!-- Image de fond -->
-                            <img class='h-48 w-full rounded-t-lg object-cover' src='../public/images/image-test.png'
+                            <img class='h-48 w-full rounded-t-lg object-cover' src='/public/images/image-test.png'
                                 alt='Image promotionnelle de l'offre'>
                             <!-- Infos principales -->
                             <div class='infos flex items-center justify-around gap-2 px-2 grow'>
@@ -109,7 +109,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
             // Afficher le contenu des cartes pour la tablette
             {
                 $allCardsTextTablette .= "
-                <a href='/pages/go_to_details.php?offre_id=$offre_id'>
+                <a href='/scripts/go_to_details.php?offre_id=$offre_id'>
                             <div class='card";
                 // Afficher en exergue si la carte a une option (à la une ou en relief)
                 if ($option) {

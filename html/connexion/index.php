@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
+                <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
 
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="login-membre.php"
                     method="post" enctype="multipart/form-data">
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
                             Mot de passe oublié ?
                         </a>
-                        <a href="create-membre.php"
+                        <a href="/inscription"
                             class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
                             Créer un compte
                         </a>
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $_SESSION['error'] = "Identifiant ou mot de passe incorrect !"; // Stocke le message d'erreur dans la session
             $_SESSION['id'] = $id; // Stocke l'id saisi dans la session
-            header('location: login-membre.php'); // Retourne à la page de connexion
+            header('location: /connexion'); // Retourne à la page de connexion
             exit();
         }
     } catch (PDOException $e) {

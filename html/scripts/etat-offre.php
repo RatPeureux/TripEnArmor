@@ -20,7 +20,7 @@ try {
         // Vérifiez si $idoffre est un entier
         if (!is_numeric($idoffre)) {
             $_SESSION['message'] = "ID d'offre invalide : " . htmlspecialchars($idoffre);
-            header("Location: /pages/accueil-pro.php"); // Redirection après message d'erreur
+            header("Location: /pro"); // Redirection après message d'erreur
             exit();
         }
             // Récupérer l'état actuel de l'offre
@@ -31,7 +31,7 @@ try {
             if ($offre === false) {
                 $_SESSION['message'] = "Offre non trouvée.";
                 sleep(5);
-                header("Location: /pages/accueil-pro.php"); // Redirection après message d'erreur
+                header("Location: /pro"); // Redirection après message d'erreur
                 exit();
             }
 
@@ -43,13 +43,13 @@ try {
                 $stmt = $dbh->prepare("UPDATE sae_db.Offre SET est_en_ligne = false WHERE offre_id = :idoffre");
                 $stmt->execute(['idoffre' => $idoffre]);
                 $_SESSION['message'] = "L'offre a été mise hors ligne avec succès.";
-                header("location: /pages/accueil-pro.php");
+                header("location: /pro");
             } else {
                 // Met à jour l'état de l'offre pour la mettre en ligne
                 $stmt = $dbh->prepare("UPDATE sae_db.Offre SET est_en_ligne = true WHERE offre_id = :idoffre");
                 $stmt->execute(['idoffre' => $idoffre]);
                 $_SESSION['message'] = "L'offre a été mise en ligne avec succès.";
-                header("location: /pages/accueil-pro.php");
+                header("location: /pro");
             }
             exit(); // Termine le script pour s'assurer que la redirection fonctionne
         }

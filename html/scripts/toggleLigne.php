@@ -24,5 +24,5 @@ if (isset($_GET['offre_id'])) {
 
     echo $est_en_ligne;
 }
-header('Location: /pages/accueil-pro.php');
+header('Location: /pro');
 exit();

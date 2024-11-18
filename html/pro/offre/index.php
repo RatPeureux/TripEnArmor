@@ -19,7 +19,7 @@ session_start();
     
     <link href="https:/ /cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="/scripts/js/loadCaroussel.js" type="module"></script>
+    <script src="/scripts/loadCaroussel.js" type="module"></script>
 </head>
 
 <body class="flex flex-col">

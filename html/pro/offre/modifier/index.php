@@ -75,7 +75,7 @@ try {
                     $stmtTarifPublic->bindParam(':offre_id', $offreId);
 
                     if ($stmtTarifPublic->execute()) {
-                        header("Location: /pages/accueil-pro.php");
+                        header("Location: /pro");
                         exit;
                     } else {
                         echo "Erreur lors de la mise à jour dans la table Tarif_Public : " . implode(", ", $stmtTarifPublic->errorInfo());
@@ -110,7 +110,7 @@ try {
 	<script src="//unpkg.com/alpinejs" defer></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
-	<script type="text/javascript" src="../scripts/autocomplete.js"></script>
+	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 </head>
 
 <!-- 
@@ -132,7 +132,7 @@ try {
 		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 			<!-- Lien de retour avec une icône et un titre -->
 			<div class="w-full text-left">
-				<a href="" class="flex content-center space-x-">
+				<a href="" onclick="history.back()" class="flex content-center space-x-">
 					<div class="m-4">
 						<i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>
 					</div>
@@ -618,7 +618,7 @@ try {
 							<h1 class="text-h2 text-secondary">Les options</h1>
 
 							<!-- CGU -->
-							<a href="" class="text-small underline text-secondary"> Voir les CGU</a>
+							<a href="/cgu" class="text-small underline text-secondary"> Voir les CGU</a>
 
 							<!-- Radio button -->
 							<div
@@ -911,11 +911,11 @@ try {
 		</div>
 		<div id="footer-pro" class="w-full"></div>
 	</div>
-	<script src="../scripts/loadcomponents.js"></script>
-	<script src="../scripts/tagManager.js"></script>
-	<script src="../scripts/priceManager.js"></script>
-	<script src="../scripts/prestationManager.js"></script>
-	<script src="../scripts/optionToggler.js"></script>
+	<script src="/scripts/loadcomponents.js"></script>
+	<script src="/scripts/tagManager.js"></script>
+	<script src="/scripts/priceManager.js"></script>
+	<script src="/scripts/prestationManager.js"></script>
+	<script src="/scripts/optionToggler.js"></script>
 	<script>
 		// Fonction pour afficher la partie 1 du formulaire
 		function showPart1() {

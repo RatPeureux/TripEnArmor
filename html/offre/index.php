@@ -12,10 +12,10 @@ session_start();
     <title>Détails d'une offre | PACT</title>
 
     <link rel="stylesheet" href="/styles/output.css">
-    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
+    <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
 
-    <script src="/scripts/loadcaroussel.js" type="module"></script>
+    <script src="/scripts/loadCaroussel.js" type="module"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

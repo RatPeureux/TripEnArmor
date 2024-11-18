@@ -77,7 +77,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
                                 </div>
                             </div>
                             <!-- Image de fond -->
-                            <a href="/pages/go_to_details_pro.php?offre_id=<?php echo $offre_id ?>">
+                            <a href="/scripts/go_to_details_pro.php?offre_id=<?php echo $offre_id ?>">
                                 <img class="rounded-l-lg w-full h-full object-cover object-center"
                                     src="/public/images/image-test.png" alt="Image promotionnelle de l'offre"
                                     title="consulter les détails">
@@ -95,7 +95,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
                                     <?php
                                     if ($est_en_ligne) {
                                         ?>
-                                        <a href="/pages/toggleLigne.php?offre_id=<?php echo $offre_id ?>"
+                                        <a href="/scripts/toggleLigne.php?offre_id=<?php echo $offre_id ?>"
                                             onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?');"
                                             title=" [!!!] mettre hors-ligne">
                                             <svg class="toggle-wifi-offline p-1 rounded-lg border-rouge-logo hover:border-y-2 border-solid duration-100 hover:fill-[#EA4335]"
@@ -109,7 +109,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
                                         <?php
                                     } else {
                                         ?>
-                                        <a href="/pages/toggleLigne.php?offre_id=<?php echo $offre_id ?>"
+                                        <a href="/scripts/toggleLigne.php?offre_id=<?php echo $offre_id ?>"
                                             onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> en ligne ?');"
                                             title="[!!!] mettre en ligne">
                                             <svg class="toggle-wifi-online p-1 rounded-lg hover:fill-[#00350D] border-secondary hover:border-y-2 border-solid duration-100"
@@ -130,7 +130,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
                                             <i
                                                 class="fa-solid fa-gear text-secondary text-h1 hover:text-primary duration-100"></i>
                                         </a>
-                                        <a href="/pages/go_to_details.php?offre_id=<?php echo $offre_id ?>"
+                                        <a href="/scripts/go_to_details.php?offre_id=<?php echo $offre_id ?>"
                                             title="voir l'offre">
                                             <i
                                                 class="fa-solid fa-arrow-right text-secondary text-h1 hover:text-primary duration-100"></i>
@@ -233,7 +233,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
             ?>
 
             <!-- Bouton de création d'offre -->
-            <a href="/pages/creation-offre.php" class="font-bold p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
+            <a href="/pro/offre/creer" class="font-bold p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
             focus:scale-[0.97] duration-100">
                 + Nouvelle offre
             </a>
@@ -241,7 +241,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
     </main>
 
     <div id="footer-pro"></div>
-    <script src="../ajout.js"></script>
+    <script src="/scripts/ajout.js"></script>
 </body>
 
 </html>

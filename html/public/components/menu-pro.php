@@ -8,11 +8,11 @@
 -->
 <div class="h-full bg-base100 fixed top-0 w-1/4 left-0 -translate-x-full duration-200 z-50">
     <div class="p-4 flex flex-row gap-3 justify-start items-center h-20 border-b-2 border-black">
-        <i class="text-3xl fa-solid fa-circle-xmark hover:cursor-pointer" onclick="toggleMenu()"></i>
+        <i class="text-3xl fa-solid fa-circle-xmark cursor-pointer" onclick="toggleMenu()"></i>
         <h1 class="text-h1">Menu</h1>
     </div>
     <div class="all-items flex flex-col items-stretch">
-        <a class="pl-5 py-3 border-b-2 border-black" href="/pages/accueil-pro.php">Accueil</a>
+        <a class="pl-5 py-3 border-b-2 border-black" href="/pro">Accueil</a>
         <a class="pl-5 py-3 border-b-2 border-black" href="#">...</a>
     </div>
 </div>

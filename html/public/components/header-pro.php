@@ -8,7 +8,7 @@
             <i class="text-3xl fa-solid fa-bars"></i>
             <p>Menu</p>
         </a>
-        <a href="/pages/accueil-pro.php" class="flex gap-3 items-center">
+        <a href="/" class="flex gap-3 items-center">
             <img src="/public/images/logo.svg" alt="Logo" width="50">
             <h1 class="font-cormorant uppercase text-PACT">PACT Pro</h1>
         </a> 
@@ -16,11 +16,10 @@
             <a href="">
                 <i class="text-3xl fa-solid fa-magnifying-glass"></i>
             </a>
-            <a href="/pages/login-pro.php">
+            <a href="/pro/connexion">
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
             <?php
-
             include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
             if (activeLogout()) { ?>
                 <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">

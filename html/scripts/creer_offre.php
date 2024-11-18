@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmtOffre->execute()) {
             $offreId = $dbh->lastInsertId();  // Récupérer l'ID de l'offre insérée
             // Redirigez vers l'accueil
-            header("Location: ../../../html/pages/accueil-pro.php");
+            header("Location: /");
 
             // Insérer les tarifs publics associés
             foreach ($prices as $price) {
@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($stmtActivity && $stmtActivity->execute()) {
                 echo "Acitivité insérée avec succès.";
-                header("location: ../../../html/pages/accueil-pro.php");
+                header("location: /");
             } else {
                 echo "Erreur lors de l'insertion : " . implode(", ", $stmtActivity->errorInfo());
             }
