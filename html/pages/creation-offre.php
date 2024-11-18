@@ -13,7 +13,6 @@ verifyUserPro();
 	<title>Création d'offre</title>
 	<link rel="stylesheet" href="/styles/output.css" />
 	<script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-	<script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 	<script src="//unpkg.com/alpinejs" defer></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
@@ -158,7 +157,7 @@ verifyUserPro();
 								name="user_input_autocomplete_address" placeholder="21, rue de la Paix"
 								class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 						</div>
-
+						
 						<div class="justify-between items-center w-full">
 							<label for="locality" class="text-nowrap">Ville :</label>
 							<input type="text" id="locality" name="locality" placeholder="Rennes"
