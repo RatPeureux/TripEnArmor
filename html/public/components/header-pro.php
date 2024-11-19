@@ -6,14 +6,16 @@
     <div class="flex w-full justify-between items-center">
         <a href="#" onclick="toggleMenu()" class="flex gap-4 items-center">
             <i class="text-3xl fa-solid fa-bars"></i>
-            <p>Menu</p>
+            <p class="hidden sm:block">Menu</p>
         </a>
         <a href="/" class="flex gap-3 items-center">
             <img src="/public/images/logo.svg" alt="Logo" width="50">
-            <h1 class="font-cormorant uppercase text-PACT">PACT Pro</h1>
+            <h1 class="font-cormorant uppercase whitespace-nowrap text-PACT">
+                <span class="hidden sm:inline">PACT</span> Pro
+            </h1>
         </a> 
         <div class="flex gap-4 items-center">
-            <a href="">
+            <a href="#" class="hidden sm:block">
                 <i class="text-3xl fa-solid fa-magnifying-glass"></i>
             </a>
             <a href="/pro/connexion">
