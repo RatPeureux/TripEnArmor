@@ -5,7 +5,7 @@
 /* Style global */
 :root {
     --primary-color: #F2771B;
-    --secondary-color: #00350D;
+    --secondary-color: #0a0035;
 }
 
 label:has(+ input[required]:not([type="checkbox"]))::after,
@@ -62,8 +62,8 @@ label:has(+ select[required])::after {
 @layer base {
     @font-face {
         font-family: 'Cormorant-Bold';
-        src: url(../public/polices/cormorant-webfont.woff2) format('woff2');
-        src: url(../public/polices/cormorant-webfont.woff) format('woff');
+        src: url(/public/polices/cormorant-webfont.woff2) format('woff2');
+        src: url(/public/polices/cormorant-webfont.woff) format('woff');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
@@ -71,8 +71,8 @@ label:has(+ select[required])::after {
 
     @font-face {
         font-family: 'Poppins';
-        src: url(../public/polices/poppins-webfont.woff2) format('woff2');
-        src: url(../public/polices/poppins-webfont.woff) format('woff');
+        src: url(/public/polices/poppins-webfont.woff2) format('woff2');
+        src: url(/public/polices/poppins-webfont.woff) format('woff');
         font-weight: normal;
         font-style: normal;
         font-display: swap;

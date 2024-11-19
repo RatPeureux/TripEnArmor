@@ -33,6 +33,14 @@ VALUES
 
 
 -- insertion des comptes et pros
+INSERT INTO _membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom)
+VALUES
+-- hash_mdp_1
+-- ... etc
+('jdupont@example.com', '$2y$10$AWRYO2FfYz77O0FcIPfssuidZTyw9T3Y7kDn5WAwk77AJQ1clSmlm', '0600000001', 1, 'jdupont', 'Dupont', 'Jean'),
+('mlavigne@example.com', '$2y$10$lVNjBftVCaAAPt35NeQFRewdK0aRM9BfwAMNmTQ4HV4YmvBY47SSy', '0600000002', 2, 'mlavigne', 'Lavigne', 'Marie');
+
+
 INSERT INTO _pro_prive(adresse_id, email, mdp_hash, num_tel, num_siren, nom_pro)
 VALUES
 -- LeMeilleurChateau/5
@@ -46,22 +54,6 @@ VALUES
   (7, 'gouvernement.trump@gmail.com', 'camalaLaBest', '0256965584', 'Organisation Publique', 'USA'),
   (8, 'test.okok@outlook.com', 'lalaland', '0256521245', 'Associatif', 'Dev Unirfou'),
   (9, 'adresse.mail@hotmail.fr', 'appleEstSupASamsung', '0256988884', 'Organisation Publique', 'PluDI D');
-  
-INSERT INTO _RIB (code_banque, code_guichet, numero_compte, cle_rib, compte_id)
-VALUES 
-  ('12345', '67890', '123456789012', '12', 4),
-  ('54321', '86589', '236524184856', '36', 5);
-
-INSERT INTO _membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom)
-VALUES
--- hash_mdp_1
--- ... etc
-('jdupont@example.com', '$2y$10$AWRYO2FfYz77O0FcIPfssuidZTyw9T3Y7kDn5WAwk77AJQ1clSmlm', '0600000001', 1, 'jdupont', 'Dupont', 'Jean'),
-('mlavigne@example.com', '$2y$10$lVNjBftVCaAAPt35NeQFRewdK0aRM9BfwAMNmTQ4HV4YmvBY47SSy', '0600000002', 2, 'mlavigne', 'Lavigne', 'Marie'),
-('pbernard@example.com', '$2y$10$hbWu0lvfTEPw4dBNYFLBBuwikIEbRLm2aT/gzIyLuhN2fn5wZYH.i', '0600000003', 3, 'pbernard', 'Bernard', 'Paul');
-
-
-
 
 
 
@@ -72,7 +64,7 @@ INSERT INTO _type_offre(nom_type_offre) VALUES
 ('Standard'),
 ('Gratuit');
 
-  
+
 
 -- Insertion dans les différents types d'offres, 2 chacunes -----------------------------------------------------------------------------------------------
 INSERT INTO _restauration (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, gamme_prix, id_pro, type_offre_id)
@@ -85,7 +77,7 @@ VALUES
 '2024-10-01', 
 '2024-10-15', 
 1, 
-'€€€', 3, 1),
+'€€€', 5, 1),
 
 (true, 
 'Le Bartab',
@@ -95,7 +87,7 @@ VALUES
 '2024-09-20', 
 '2024-10-01', 
 2, 
-'€€', 3, 1);
+'€€', 5, 1);
 
 INSERT INTO _activite (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, duree_activite, age_requis, prestations, id_pro, type_offre_id)
 VALUES 
@@ -109,7 +101,7 @@ VALUES
 2, 
 '02:00:00', 
 12, 
-'Guide expérimenté, équipement fourni.', 3, 2),
+'Guide expérimenté, équipement fourni.', 4, 2),
 
 (true, 
 'Surfing Sports', 
@@ -121,7 +113,7 @@ VALUES
 6, 
 '01:30:00', 
 10, 
-'Planche de surf fournie, instructeur qualifié.', 3, 3);
+'Planche de surf fournie, instructeur qualifié.', 4, 3);
 
 
 
