@@ -50,7 +50,7 @@ $tarif_min = 99999;
 $tarif_max = 0;
 if ($allTarifs) {
     foreach ($allTarifs as $tarif) {
-        if ($tarif['prix'] > $max_tarif_max) {
+        if ($tarif['prix'] > $tarif_max) {
             $tarif_max = $tarif['prix'];
         }
         if ($tarif['prix'] < $tarif_min) {

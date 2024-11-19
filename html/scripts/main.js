@@ -1,8 +1,8 @@
-// Import footer and header components
-import {} from "./loadcomponents.js";
+// Import utilitaries
 
-// Import all functions from utils (for example, toggleMenu)
-import {} from "./utils.js";
+import {} from './toggleMenu.js'
+
+import {} from './confirmLogout.js'
 
 // Load fontawesome CLI to load icons
 const script = document.createElement('script');

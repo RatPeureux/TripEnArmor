@@ -7,7 +7,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                'cormorant': ['"Cormorant-Bold"'],
+                'cormorant': ['Cormorant-Bold'],
                 'sans': ['Poppins'],
             },
             fontSize: {
@@ -17,13 +17,13 @@ module.exports = {
                 'h3': ['20px'],
                 'h4': ['18px'],
                 'PACT': ['35px', {
-                    letterSpacing: '10px',
+                    letterSpacing: '0.2em',
                 }],
             },
             colors: {
                 'rouge-logo':'#EA4335',
                 'primary': '#F2771B',
-                'secondary': '#00350D',
+                'secondary': '#0a0035', //00350D
                 'base100': '#F1F3F4',
                 'base200': '#E0E0E0',
                 'base300': '#CCCCCC',
