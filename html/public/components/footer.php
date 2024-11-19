@@ -3,7 +3,7 @@
     Pour l'ajouter, écrier la balise <div id='footer'></div> dans votre code html
     (responsive)
 -->
-<footer class="bg-secondary flex text-white justify-center items-start h-40 p-4 gap-5 mt-2">
+<footer class="bg-secondary flex text-white justify-center items-center p-8 gap-5 mt-2">
     <a href="/offre"><img src="/public/images/logo-footer.svg" alt="[img] Logo" class="grow-0"></a>
     <div class="flex flex-col md:items-center">
         <div>

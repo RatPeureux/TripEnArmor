@@ -2,7 +2,7 @@
     Composant du footer pour le pro
     Pour l'ajouter, écrier la balise <div id='footer'></div> dans votre code html
 -->
-<footer class="bg-secondary flex flex-col items-center text-white justify-center h-40 p-4 mt-2">
+<footer class="bg-secondary flex flex-col items-center text-white justify-center p-8 mt-2">
         <div>
             <a href="/pro/legal" class="hover:text-primary">Mentions légales</a>
             -
