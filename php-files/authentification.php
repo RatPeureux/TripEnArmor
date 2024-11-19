@@ -17,7 +17,7 @@ function verifyUserPro()
     // Vérifie si l'utilisateur est connecté et si le token de session est valide
     if (!isset($_SESSION['id_pro'])) {
         // Si l'utilisateur n'est pas connecté ou si le token ne correspond pas
-        header('location: pro/connexion');
+        header('location: /pro/connexion');
         exit(); // Termine le script pour s'assurer que rien d'autre ne s'exécute après la redirection
     }
 }

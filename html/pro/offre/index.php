@@ -1,7 +1,7 @@
 <?php
 session_start();
-// include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
-// verifyUserPro();
+include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
+verifyUserPro();
 ?>
 
 <!DOCTYPE html>

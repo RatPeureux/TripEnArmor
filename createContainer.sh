@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Tirez l'image Docker spécifiée à partir du registre
-docker image pull r408-php:ctrltp-apache-pdo &&
+docker image pull bigpapoo/r301-php:8.2-apache &&
 
 # Construisez une nouvelle image Docker à partir du Dockerfile spécifié
 docker image build -t apache-pdo:1.0 -f Dockerfile-apache-pdo . &&

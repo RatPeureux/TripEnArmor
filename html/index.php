@@ -30,9 +30,11 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    var_dump($toutesLesOffres);
+
     // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
     if (!$toutesLesOffres) {
-        echo "<p class='font-bold'>Vous n'avez aucune offre...</p>";
+        echo "<p class='font-bold'>Il n'existe aucune offre...</p>";
     } else {
         $allCardsTextPhone = '';
         $allCardsTextTablette = '';
