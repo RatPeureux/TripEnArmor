@@ -1,9 +1,9 @@
 <?php
 function activeLogout()
 {
-    // Vérifie si l'utilisateur est connecté et si le token de session est valide
-    if (!isset($_SESSION['user_id']) || !isset($_GET['token']) || $_SESSION['token'] !== $_GET['token']) {
-        // Si l'utilisateur n'est pas connecté ou si le token ne correspond pas
+    // Vérifie si l'utilisateur est connecté
+    if (!isset($_SESSION['user_id'])) {
+        // Si l'utilisateur n'est pas connecté
         return false;
     }
     // Sinon
@@ -14,7 +14,7 @@ function verifyUserPro()
 {
     ob_start(); // Active la mise en mémoire tampon de sortie
 
-    // Vérifie si l'utilisateur est connecté et si le token de session est valide
+    // Vérifie si l'utilisateur est connecté
     if (!isset($_SESSION['id_pro'])) {
         // Si l'utilisateur n'est pas connecté ou si le token ne correspond pas
         header('location: /pro/connexion');
@@ -26,7 +26,7 @@ function verifyUserMember()
 {
     ob_start(); // Active la mise en mémoire tampon de sortie
 
-    // Vérifie si l'utilisateur est connecté et si le token de session est valide
+    // Vérifie si l'utilisateur est connecté
     if (!isset($_SESSION['user_id'])) {
         // Si l'utilisateur n'est pas connecté ou si le token ne correspond pas
         header('location: /connexion');

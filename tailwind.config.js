@@ -21,7 +21,7 @@ module.exports = {
                 }],
             },
             colors: {
-                'rouge-logo':'#EA4335',
+                'rouge-logo': '#EA4335',
                 'primary': '#F2771B',
                 'secondary': '#0a0035', //00350D
                 'base100': '#F1F3F4',
@@ -30,7 +30,7 @@ module.exports = {
                 'neutre': '#000',
                 'gris': '#828282',
                 'bgBlur': "#F1F3F4",
-                'veryGris': "#BFBFBF", 
+                'veryGris': "#BFBFBF",
             },
             spacing: {
                 '1/6': '16%',

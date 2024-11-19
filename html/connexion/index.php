@@ -3,7 +3,7 @@ session_start(); // Démarre la session au début du script
 global $error; // Variable pour stocker les messages d'erreur
 global $id; // Variable pour stocker les messages d'erreur
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (!isset($_POST['id'])) {
     // Vérifie si un message d'erreur est stocké dans la session
     if (isset($_SESSION['error'])) {
         $error = $_SESSION['error']; // Récupère le message d'erreur de la session
@@ -18,12 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Lien vers le favicon de l'application -->
         <link rel="icon" type="image" href="/public/images/favicon.png">
+        <!-- Lien vers le fichier CSS pour le style de la page -->
+        <link rel="stylesheet" href="../styles/output.css">
         <title>Connexion à la PACT</title>
-
-        <link rel="stylesheet" href="/styles/output.css">
-        <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
-        <script type="module" src="/scripts/main.js" defer></script>
+        <!-- Inclusion de Font Awesome pour les icônes -->
+        <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
@@ -33,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
+                <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
 
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="login-membre.php"
                     method="post" enctype="multipart/form-data">
@@ -73,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
                             Mot de passe oublié ?
                         </a>
-                        <a href="/inscription"
+                        <a href="create-membre.php"
                             class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
                             Créer un compte
                         </a>
@@ -81,26 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </form>
             </div>
         </div>
-
-        <script>
-            // Récupération de l'élément pour afficher/masquer le mot de passe
-            const togglePassword = document.getElementById('togglePassword');
-            const mdp = document.getElementById('mdp');
-
-            // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-            togglePassword.addEventListener('mousedown', function () {
-                mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-                this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
-                this.classList.add('fa-eye-slash');
-            });
-
-            // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
-            togglePassword.addEventListener('mouseup', function () {
-                mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
-                this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
-                this.classList.add('fa-eye');
-            });
-        </script>
     </body>
 
     </html>
@@ -112,36 +93,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Connexion avec la bdd
         include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
-        $id = $_POST['id']; // Récupère l'id soumise
-        $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
 
-        // Prépare une requête SQL pour trouver l'utilisateur par nom, email ou numéro de téléphone
-        $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :id OR email = :id OR num_tel = :id");
-        $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
-        $stmt->execute(); // Exécute la requête
+        // Vérifie si la requête est une soumission de formulaire
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id']; // Récupère l'id soumise
+            $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
 
-        // Vérifie s'il y a une erreur SQL
-        if ($stmt->errorInfo()[0] !== '00000') {
-            error_log("SQL Error: " . print_r($stmt->errorInfo(), true)); // Log l'erreur
-        }
+            // Prépare une requête SQL pour trouver l'utilisateur par nom, email ou numéro de téléphone
+            $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :id OR email = :id OR num_tel = :id");
+            $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
+            $stmt->execute(); // Exécute la requête
 
-        $user = $stmt->fetch(PDO::FETCH_ASSOC); // Récupère les données de l'utilisateur
-        error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
+            // Vérifie s'il y a une erreur SQL
+            if ($stmt->errorInfo()[0] !== '00000') {
+                error_log("SQL Error: " . print_r($stmt->errorInfo(), true)); // Log l'erreur
+            }
 
-        // Vérifie si l'utilisateur existe et si le mot de passe est correct
-        if ($user && password_verify($mdp, $user['mdp_hash'])) {
-            // Stocke les informations de l'utilisateur dans la session
-            $_SESSION['user_id'] = $user['id_compte'];
-            $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
-            $_SESSION['user_email'] = $user['email'];
-            $_SESSION['user_name'] = $user['prenom'];
-            header('location: /?token=' . $_SESSION['token']); // Redirige vers la page connectée
-            exit();
-        } else {
-            $_SESSION['error'] = "Identifiant ou mot de passe incorrect !"; // Stocke le message d'erreur dans la session
-            $_SESSION['id'] = $id; // Stocke l'id saisi dans la session
-            header('location: /connexion'); // Retourne à la page de connexion
-            exit();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC); // Récupère les données de l'utilisateur
+            error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
+
+            // Vérifie si l'utilisateur existe et si le mot de passe est correct
+            if ($user && password_verify($mdp, $user['mdp_hash'])) {
+                // Stocke les informations de l'utilisateur dans la session
+                $_SESSION['user_id'] = $user['id_compte'];
+                $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
+                $_SESSION['user_email'] = $user['email'];
+                $_SESSION['user_name'] = $user['prenom'];
+                header('location: /?token=' . $_SESSION['token']); // Redirige vers la page connectée
+                exit();
+            } else {
+                $_SESSION['error'] = "Identifiant ou mot de passe incorrect !"; // Stocke le message d'erreur dans la session
+                $_SESSION['id'] = $id; // Stocke l'id saisi dans la session
+                header('location: login-membre.php'); // Retourne à la page de connexion
+                exit();
+            }
         }
     } catch (PDOException $e) {
         echo "Erreur !: " . $e->getMessage(); // Affiche une erreur si la connexion échoue
@@ -149,3 +134,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 } ?>
+
+<script>
+    // Récupération de l'élément pour afficher/masquer le mot de passe
+    const togglePassword = document.getElementById('togglePassword');
+    const mdp = document.getElementById('mdp');
+
+    // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
+    togglePassword.addEventListener('mousedown', function () {
+        mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+        this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
+        this.classList.add('fa-eye-slash');
+    });
+
+    // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
+    togglePassword.addEventListener('mouseup', function () {
+        mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
+        this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
+        this.classList.add('fa-eye');
+    });
+</script>
