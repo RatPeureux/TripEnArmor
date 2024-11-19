@@ -9,32 +9,32 @@ RUN http_proxy=http://129.20.239.11:3128 apt-get install -y libpq-dev
 RUN docker-php-ext-install pdo_pgsql
 
 # Définit le répertoire de travail à /var/www/html
-WORKDIR /var/www/html
+WORKDIR /var/www
 
 # Supprime le répertoire img, si présent
 RUN rm -rf img
 
 # Copie le dossier html dans le docker
-COPY ../html/ ./TripEnArmor/html/
+COPY ../html/ ./html/
 
 
 ################################ tailwind.config ################################
 
 # Copie le fichier de configuration de Tailwind
-COPY tailwind.config.js ./TripEnArmor/
+COPY tailwind.config.js ./
 
 ################################ initialisation ################################
 
 # Copie le script d'initialisation
-COPY initialisation ./TripEnArmor
+COPY initialisation ./
 
 ################################ tailwind ################################
 
 # Copie le répertoire de Tailwind CSS
-COPY tailwindcss ./TripEnArmor
+COPY tailwindcss ./
 
 
-COPY ../php-files/ ./TripEnArmor/php-files/
+COPY ../php-files/ ./php-files/
 
 # # Copie le fichier marche_pas.nepastoucher sous le nom index.php dans le répertoire de travail
 # COPY marche_pas.nepastoucher ./index.php
