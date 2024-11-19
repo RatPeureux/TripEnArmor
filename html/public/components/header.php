@@ -2,7 +2,7 @@
     Composant du header pour les visiteurs / membres
     Pour l'ajouter, écrier la balise <div id='header'></div> dans votre code html
     (responsive)
-    -->
+-->
 <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
     <div class="flex w-full justify-between items-center">
         <a href="" onclick="toggleMenu()" class="md:hidden">

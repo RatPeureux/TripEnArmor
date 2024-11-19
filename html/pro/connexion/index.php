@@ -37,7 +37,7 @@ if (!isset($_POST['id'])) {
                 <!-- Logo de l'application -->
                 <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="login-pro.php"
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/connexion"
                     method="post" enctype="multipart/form-data">
                     <p class="pb-3">J'ai un compte Professionnel</p>
 
@@ -48,7 +48,7 @@ if (!isset($_POST['id'])) {
                         value="<?php echo $id; ?>" maxlength="255" required>
 
                     <!-- Champ pour le mot de passe -->
-                    <label class="text-small" for="mdp">Mot de passe<span class="text-red-500"> *</span></label>
+                    <label class="text-small" for="mdp">Mot de passe</label>
                     <div class="relative w-full">
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
                             title="Saisir un mot de passe" minlength="8" autocomplete="current-password" required>
@@ -98,7 +98,7 @@ if (!isset($_POST['id'])) {
             $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
 
             // Prépare une requête SQL pour trouver l'utilisateur par nom, email ou numéro de téléphone
-            $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE nompro = :id OR email = :id OR num_tel = :id");
+            $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE nom_pro = :id OR email = :id OR num_tel = :id");
             $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
             $stmt->execute(); // Exécute la requête
 
@@ -111,16 +111,19 @@ if (!isset($_POST['id'])) {
             error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
 
             // Vérifie si l'utilisateur existe et si le mot de passe est correct
-            if ($user && password_verify($mdp, $user['mdp_hash'])) {
-                // Stocke les informations de l'utilisateur dans la session
-                $_SESSION['id_pro'] = $user['id_compte'];
-                $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
-                $_SESSION['user_email'] = $user['email'];
-                header('location: /pro?token=' . $_SESSION['token']); // Redirige vers la page connectée
-                exit();
+            if ($user) {
+                if (password_verify($mdp, $user['mdp_hash'])) {
+                    // Stocke les informations de l'utilisateur dans la session
+                    $_SESSION['id_pro'] = $user['id_compte'];
+                    header('location: /pro?token=' . $_SESSION['token']); // Redirige vers la page connectée
+                    exit();
+                } else {
+                    $_SESSION['error'] = "Mot de passe incorrect"; // Stocke le message d'erreur dans la session
+                    header('location: /pro/connexion'); // Retourne à la page de connexion
+                    exit();
+                }
             } else {
-                $_SESSION['error'] = "Identifiant ou mot de passe incorrect !"; // Stocke le message d'erreur dans la session
-                $_SESSION['id'] = $id; // Stocke l'id saisi dans la session
+                $_SESSION['error'] = "Nous ne trouvons pas de compte avec cet identifiant"; // Stocke le message d'erreur dans la session
                 header('location: /pro/connexion'); // Retourne à la page de connexion
                 exit();
             }

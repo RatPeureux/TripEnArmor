@@ -12,11 +12,11 @@
             <img src="/public/images/logo.svg" alt="Logo" width="50">
             <h1 class="font-cormorant uppercase text-PACT">PACT Pro</h1>
         </a> 
-        <div class="flex gap-4 items-center">
-            <a href="">
+        <div class="flex gap-10 items-center">
+            <a href="" title="rechercher parmi mes offres">
                 <i class="text-3xl fa-solid fa-magnifying-glass"></i>
             </a>
-            <a href="/pro/connexion">
+            <a href="/pro/connexion" title="me connecter/déconnecter">
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
             <?php
