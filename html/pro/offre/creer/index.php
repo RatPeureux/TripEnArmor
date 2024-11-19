@@ -161,7 +161,7 @@
 								name="user_input_autocomplete_address" placeholder="21, rue de la Paix"
 								class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 						</div>
-
+						
 						<div class="justify-between items-center w-full">
 							<label for="locality" class="text-nowrap">Ville :</label>
 							<input type="text" id="locality" name="locality" placeholder="Rennes"
