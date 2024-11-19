@@ -149,17 +149,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $stmtActiviteTag = $dbh->prepare("INSERT INTO sae_db._tag_activite () VALUES ()");
                             if ($stmtActiviteTag->execute()) {
                                 echo "Activité insérée avec succès.";
-                                header('location: ../../pages/accueil-pro.php);
+                                header('location: ../../pages/accueil-pro.php');
                             } else {
-                                echo "Erreur lors de l'insertion : " . implode(", ", $stmtActiviteTag->errorInfo());
+                                echo "Erreur lors de l insertion : " . implode(", ", $stmtActiviteTag->errorInfo());
                             }
                         } else {
-                            echo "Erreur lors de l'insertion : " . implode(", ", $stmtTags->errorInfo());
+                            echo "Erreur lors de l insertion : " . implode(", ", $stmtTags->errorInfo());
                         }
 
 
                     } else {
-                        echo "Erreur lors de l'insertion : " . implode(", ", $stmtActivite->errorInfo());
+                        echo "Erreur lors de l insertion : " . implode(", ", $stmtActivite->errorInfo());
                     }
 
                     break;
@@ -178,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtVisite->execute()) {
                         echo "Visite insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php);
+                        header('location: ../../pages/accueil-pro.php');
                     } else {
                         echo "Erreur lors de l'insertion : " . implode(", ", $stmtVisite->errorInfo());
                     }
@@ -202,9 +202,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtSpectacle->execute()) {
                         echo "Spectacle insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php);
+                        header('location: ../../pages/accueil-pro.php');
                     } else {
-                        echo "Erreur lors de l'insertion : " . implode(", ", $stmtSpectacle->errorInfo());
+                        echo "Erreur lors de l insertion : " . implode(", ", $stmtSpectacle->errorInfo());
                     }
 
                     break;
@@ -224,7 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtAttraction->execute()) {
                         echo "Parc d'attraction insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php);
+                        header('location: ../../pages/accueil-pro.php');
                     } else {
                         echo "Erreur lors de l'insertion : " . implode(", ", $stmtAttraction->errorInfo());
                     }
@@ -245,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtRestauration->execute()) {
                         echo "Restauration insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php);
+                        header('location: ../../pages/accueil-pro.php');
                     } else {
                         echo "Erreur lors de l'insertion : " . implode(", ", $stmtRestauration->errorInfo());
                     }
