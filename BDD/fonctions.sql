@@ -1,5 +1,18 @@
 set schema 'sae_db';
 
+-- vérifie que les insertions dans la table compte respectent les contraintes de clés privée
+CREATE OR REPLACE FUNCTION ftg_verifier_cles_compte() RETURNS TRIGGER AS $$
+BEGIN
+    RAISE EXCEPTION 'PAS BIENG !';
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER tg_verifier_cles_compte
+BEFORE INSERT ON _compte
+FOR EACH ROW
+EXECUTE FUNCTION verifier_cles_compte();
+
+
 -- vérifie que l'email est valide
 CREATE OR REPLACE FUNCTION verifier_email_connexion(email_input VARCHAR)
 RETURNS TEXT AS $$
@@ -29,7 +42,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER offer_update_timestamp
+CREATE OR REPLACE TRIGGER offer_update_timestamp
 BEFORE UPDATE ON _offre
 FOR EACH ROW
 EXECUTE FUNCTION update_offer_timestamp();
@@ -45,11 +58,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER log_changement_statut
+CREATE OR REPLACE TRIGGER log_changement_statut
 AFTER UPDATE ON _offre
 FOR EACH ROW
 WHEN (OLD.est_en_ligne IS DISTINCT FROM NEW.est_en_ligne)
 EXECUTE FUNCTION trigger_log_changement_statut();
-
-
---- modification d'une offre du professionnel

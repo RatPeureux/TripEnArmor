@@ -16,7 +16,6 @@
             <a href="/pages/login-membre.php">
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
-
             <?php
             include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
             if (activeLogout()) { ?>

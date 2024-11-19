@@ -37,7 +37,7 @@ $code_postal = $adresse['code_postal'];
 $ville = $adresse['ville'];
 
 // #################################################################################
-// ######### CAS DES AFFICHAGES QUI DIFFÈRENT SELON LA CATÉGORIE DE L'OFFRE #########
+// ######### CAS DES AFFICHAGES QUI DIFFÈRENT SELON LA CATÉGORIE DE L'OFFRE ########
 // #################################################################################
 
 // Afficher les prix ou la gamme de prix si c'est un restaurant

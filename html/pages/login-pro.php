@@ -85,8 +85,8 @@ if (!isset($_POST['id'])) {
     </html>
 
 <?php } else {
-
     $error = ""; // Variable pour stocker les messages d'erreur
+
     try {
         // Connexion avec la bdd
         include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
@@ -110,15 +110,22 @@ if (!isset($_POST['id'])) {
             error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
 
             // Vérifie si l'utilisateur existe et si le mot de passe est correct
-            if ($user && password_verify($mdp, $user['mdp_hash'])) {
-                // Stocke les informations de l'utilisateur dans la session
-                $_SESSION['id_pro'] = $user['id_compte'];
-                $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
-                $_SESSION['user_email'] = $user['email'];
-                header('location: accueil-pro.php?token=' . $_SESSION['token']); // Redirige vers la page connectée
-                exit();
+            if ($user) {
+                if (password_verify($mdp, $user['mdp_hash'])) {
+                    // Stocke les informations de l'utilisateur dans la session
+                    $_SESSION['user_id'] = $user['id_compte'];
+                    $_SESSION['user_email'] = $user['email'];
+                    $_SESSION['user_name'] = $user['prenom'];
+                    header('location: /pages/accueil-pro.php'); // Redirige vers la page connectée
+                    exit();
+                } else {
+                    $_SESSION['error'] = "Mot de passe incorrect"; // Stocke le message d'erreur dans la session
+                    $_SESSION['id'] = $id; // Stocke l'id saisi dans la session
+                    header('location: login-pro.php'); // Retourne à la page de connexion
+                    exit();
+                }
             } else {
-                $_SESSION['error'] = "Identifiant ou mot de passe incorrect !"; // Stocke le message d'erreur dans la session
+                $_SESSION['error'] = "Identifiant incorrect"; // Stocke le message d'erreur dans la session
                 $_SESSION['id'] = $id; // Stocke l'id saisi dans la session
                 header('location: login-pro.php'); // Retourne à la page de connexion
                 exit();
@@ -137,16 +144,17 @@ if (!isset($_POST['id'])) {
     const mdp = document.getElementById('mdp');
 
     // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-    togglePassword.addEventListener('mousedown', function () {
-        mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-        this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
-        this.classList.add('fa-eye-slash');
-    });
-
-    // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
-    togglePassword.addEventListener('mouseup', function () {
-        mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
-        this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
-        this.classList.add('fa-eye');
-    });
+    if (togglePassword) {
+        togglePassword.addEventListener('mousedown', function () {
+            mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+            this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
+            this.classList.add('fa-eye-slash');
+        });
+        // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
+        togglePassword.addEventListener('mouseup', function () {
+            mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
+            this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
+            this.classList.add('fa-eye');
+        });
+    }
 </script>
