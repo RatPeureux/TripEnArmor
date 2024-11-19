@@ -226,7 +226,7 @@
 
     ob_start();
     // Connexion à la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Alteration de la table pour s'assurer que numero_compte est un VARCHAR
     try {

@@ -1,7 +1,7 @@
 <?php
 session_start();
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
-verifyUserPro();
+include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+verifyPro();
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +31,7 @@ verifyUserPro();
     $idPro = $_SESSION['id_pro'];
 
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare('SELECT * FROM sae_db._professionnel WHERE id_compte = :idPro');
@@ -45,7 +45,7 @@ verifyUserPro();
     $stmt->bindParam(':offre_id', $offre_id);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/get_details_offre.php';
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     ?>
 
     <!-- VERSION TABLETTE -->

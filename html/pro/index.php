@@ -1,8 +1,8 @@
 <?php
 session_start();
 $idPro = $_SESSION['id_pro'];
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
-// verifyUserPro();
+include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+// verifyPro();
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
 
     <?php
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :idPro");
@@ -58,7 +58,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
             } else {
                 foreach ($toutesMesOffres as $offre) {
                     // Obtenir les différentes variables avec les infos nécessaires via des requêtes SQL
-                    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/get_details_offre.php';
+                    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
                     ?>
 
                     <div class="card <?php if ($option)
@@ -215,7 +215,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
                                         <!-- <div class="flex items-center gap-2">
                                             <i class="fa-solid fa-gears text-xl"></i>
                                             <div>
-                                                <p>‘A la Une’ 10/09/24-17/09/24</p>
+                                                <p>‘À la une’ 10/09/24-17/09/24</p>
                                                 <p>‘En relief' 10/09/24-17/09/24</p>
                                             </div>
                                         </div> -->

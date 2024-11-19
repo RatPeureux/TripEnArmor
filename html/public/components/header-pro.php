@@ -20,7 +20,7 @@
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
             <?php
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
+            include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (activeLogout()) { ?>
                 <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">
                     <p>Se déconnecter</p>

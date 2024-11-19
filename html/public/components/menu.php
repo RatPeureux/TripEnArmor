@@ -39,7 +39,7 @@
         <p>Toutes les offres</p>
         <p>></p>
       </a>
-      <a class="pl-10 py-3 border-b-2 border-black" href="/offre/a-la-une">A la une</a>
+      <a class="pl-10 py-3 border-b-2 border-black" href="/offre/a-la-une">À la une</a>
       <a class="pl-10 py-3 border-b-2 border-black" href="/offre/consultees-recemment">Consultées récemment</a>
       <a class="pl-10 py-3 border-b-2 border-black" href="/offre/nouveau">Nouveautés</a>
     </div>
@@ -60,7 +60,7 @@
       <p>Toutes les offres</p>
       <p>></p>
     </a>
-    <a class="pl-10 py-3 border-t-2 border-black" href="/offre/a-la-une">A la une</a>
+    <a class="pl-10 py-3 border-t-2 border-black" href="/offre/a-la-une">À la une</a>
     <a class="pl-10 py-3 border-t-2 border-black" href="/offre/consultees-recemment">Consultées récemment</a>
     <a class="pl-10 py-3 border-t-2 border-black" href="/offre/nouveau">Nouveautés</a>
   </div>
