@@ -1,6 +1,6 @@
 <?php
-// include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
-// verifyUserPro();
+include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
+verifyUserPro();
 ?>
 
 <!DOCTYPE html>
@@ -161,7 +161,7 @@
 								name="user_input_autocomplete_address" placeholder="21, rue de la Paix"
 								class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 						</div>
-
+						
 						<div class="justify-between items-center w-full">
 							<label for="locality" class="text-nowrap">Ville :</label>
 							<input type="text" id="locality" name="locality" placeholder="Rennes"
@@ -248,7 +248,7 @@
 						<div
 							class="flex flex-col w-full optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
 							<label for="tag-input" class="block text-nowrap">Tags :</label>
-							<select type="text" id="tag-input"
+							<select type="text" id="tag-input" name="tag-input"
 								class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full"
 								placeholder="Ajouter un tag...">
 								<option value="" class="hidden" selected>Rechercher un tag</option>

@@ -13,9 +13,7 @@
         <title>Création de compte 1/2</title>
         <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-
     </head>
-
 
     <body class="h-screen bg-white p-4 overflow-hidden">
         <!-- Icône pour revenir à la page précédente -->
@@ -41,17 +39,17 @@
 
                     <!-- Champ pour le nom -->
                     <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
-                        <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                            pattern="^?:(\w+|\w+[\.\-_]?\w+)+$" title="Saisir le nom de l'entreprise" maxlength="100" required>
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
+                        pattern="^?:(\w+|\w+[\.\-_]?\w+)+$" title="Saisir le nom de l'entreprise" maxlength="100" required>
 
-                        <!-- Champ pour l'adresse mail -->
-                        <label class="text-small" for="mail">Adresse mail</label>
-                        <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail"
-                            maxlength="255" required>
+                    <!-- Champ pour l'adresse mail -->
+                    <label class="text-small" for="mail">Adresse mail</label>
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
+                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail"
+                        maxlength="255" required>
 
                         <!-- Champ pour le mot de passe -->
-                        <label class="text-small" for="mdp">Mot de passe</span></label>
+                        <label class="text-small" for="mdp">Mot de passe</label>
                         <div class="relative w-full">
                             <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
                                 pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
@@ -70,24 +68,24 @@
                             <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword2"></i>
                         </div>
 
-                        <!-- Messages d'erreurs -->
-                        <span id="error-message" class="error text-rouge-logo text-small"></span>
+                    <!-- Messages d'erreurs -->
+                    <span id="error-message" class="error text-rouge-logo text-small"></span>
 
-                        <!-- Bouton pour continuer -->
-                        <input type="submit" value="Continuer"
-                            class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                    <!-- Bouton pour continuer -->
+                    <input type="submit" value="Continuer"
+                        class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
-                        <!-- Lien vers la page de connexion -->
-                        <a href="/pro/connexion"
-                            class="w-full h-12 p-1 bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
-                            J'ai déjà un compte
-                        </a>
-                    </form>
-                </div>
+                    <!-- Lien vers la page de connexion -->
+                    <a href="/pro/connexion"
+                        class="w-full h-12 p-1 bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
+                        J'ai déjà un compte
+                    </a>
+                </form>
             </div>
-        </body>
+        </div>
+    </body>
 
-        </html>
+    </html>
 
 <?php } elseif (isset($_POST['mail']) && !isset($_POST['num_tel'])) {
 
@@ -98,33 +96,36 @@
     $mdp = $_POST['mdp'];
     ?>
 
-        <!DOCTYPE html>
-        <html lang="fr">
+    <!DOCTYPE html>
+    <html lang="fr">
 
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="icon" type="image" href="/public/images/favicon.png">
-            <link rel="stylesheet" href="/styles/output.css">
-            <title>Création de compte 2/2</title>
-            <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-        </head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image" href="/public/images/favicon.png">
+        <link rel="stylesheet" href="/styles/output.css">
+        <title>Création de compte 2/2</title>
+        <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+        <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+        <script type="text/javascript" src="/scripts/autocomplete.js"></script>
+    </head>
 
-        <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
-            <!-- Icône pour revenir à la page précédente -->
-            <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+    <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
+        <!-- Icône pour revenir à la page précédente -->
+        <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
-            <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
-                <!-- Logo de l'application -->
-                <img class="text mb-4" src="/public/images/logo.svg" alt="moine" width="57">
+        <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
+            <!-- Logo de l'application -->
+            <img class="text mb-4" src="/public/images/logo.svg" alt="moine" width="57">
 
                 <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action=""
                     method="post" enctype="multipart/form-data">
             <p class=" pb-3">Dites-nous en plus !</p>
 
-                    <div class="mb-3">
-                        <label class="text-small" for="nom" id="nom">Je suis un organisme <?php echo $statut; ?>.</label>
-                    </div>
+                <div class="mb-3">
+                    <label class="text-small" for="nom" id="nom">Je suis un organisme <?php echo $statut; ?>.</label>
+                </div>
 
                     <?php if ($statut == "privé") { ?>
                             <!-- Champ pour la dénomination sociale (en lecture seule) -->
@@ -138,10 +139,10 @@
                                 title="Nom de l'organisation" value="<?php echo $nom_pro; ?>" readonly>
                     <?php } ?>
 
-                    <!-- Champ pour l'adresse mail (en lecture seule) -->
-                    <label class="text-small" for="mail">Adresse mail</label>
-                    <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                        title="Adresse mail" value="<?php echo $mail; ?>" readonly>
+                <!-- Champ pour l'adresse mail (en lecture seule) -->
+                <label class="text-small" for="mail">Adresse mail</label>
+                <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
+                    title="Adresse mail" value="<?php echo $mail; ?>" readonly>
 
                     <!-- Choix du type d'organisme public -->
                     <?php if ($statut == 'public') { ?>
@@ -164,9 +165,9 @@
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse"
                         pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir une adresse postale" maxlength="255" required>
 
-                    <label class="text-small" for="complement">Complément d'adresse postale</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
-                        title="Complément d'adresse" maxlength="255">
+                <label class="text-small" for="complement">Complément d'adresse postale</label>
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
+                    title="Complément d'adresse" maxlength="255">
 
                     <div class="flex flex-nowrap space-x-3 mb-1.5">
                         <div class="w-28">
@@ -191,24 +192,24 @@
                             oninput="formatTEL(this)" required>
                     </div>
 
-                    <?php if ($statut == "privé") { ?>
-                            <!-- Choix de saisie des informations bancaires -->
-                            <div class="group">
-                                <div class="mb-1.5 flex items-start">
-                                    <input class="mt-0.5 mr-1.5" type="checkbox" id="plus" name="plus" onchange="toggleIBAN()">
-                                    <label class="text-small" for="plus">Je souhaite saisir mes informations bancaires dès maintenant
-                                        !</label>
-                                </div>
+                <?php if ($statut == "privé") { ?>
+                    <!-- Choix de saisie des informations bancaires -->
+                    <div class="group">
+                        <div class="mb-1.5 flex items-start">
+                            <input class="mt-0.5 mr-1.5" type="checkbox" id="plus" name="plus" onchange="toggleIBAN()">
+                            <label class="text-small" for="plus">Je souhaite saisir mes informations bancaires dès maintenant
+                                !</label>
+                        </div>
 
-                                <!-- Champ pour l'IBAN -->
-                                <div id="iban-container" class="hidden">
-                                    <label class="text-small" for="iban">IBAN</label>
-                                    <input class="p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="iban" name="iban"
-                                        pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Saisir un IBAN (FR)" minlength="33" maxlength="33"
-                                        oninput="formatIBAN(this)" disabled>
-                                </div>
-                            </div>
-                    <?php } ?>
+                        <!-- Champ pour l'IBAN -->
+                        <div id="iban-container" class="hidden">
+                            <label class="text-small" for="iban">IBAN</label>
+                            <input class="p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="iban" name="iban"
+                                pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Saisir un IBAN (FR)" minlength="33" maxlength="33"
+                                oninput="formatIBAN(this)" disabled>
+                        </div>
+                    </div>
+                <?php } ?>
 
                     <!-- Choix d'acceptation des termes et conditions -->
                     <div class="mb-1.5 flex items-start">
@@ -220,12 +221,12 @@
                         </label>
                     </div>
 
-                    <!-- Messages d'erreurs -->
-                    <span id="error-message" class="error text-rouge-logo text-small"></span>
+                <!-- Messages d'erreurs -->
+                <span id="error-message" class="error text-rouge-logo text-small"></span>
 
-                    <!-- Bouton pour créer le compte -->
-                    <input type="submit" value="Créer mon compte"
-                        class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                <!-- Bouton pour créer le compte -->
+                <input type="submit" value="Créer mon compte"
+                    class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                     <input type="hidden" name="statut" value="<?php echo $statut; ?>">
                     <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
@@ -233,7 +234,7 @@
             </div>
         </body>
 
-        </html>
+    </html>
 
 <?php } else {
 
@@ -243,7 +244,7 @@
 
     // Alteration de la table pour s'assurer que numero_compte est un VARCHAR
     try {
-        $dbh->exec("ALTER TABLE sae_db._rib ALTER COLUMN numero_compte TYPE VARCHAR(11)");
+        $dbh->exec("ALTER TABLE sae_db._rib ALTER COLUMN numero_compte TYPE VARCHAR(12)");
     } catch (PDOException $e) {
         // Ignorer l'erreur si la colonne est déjà au bon type
         if ($e->getCode() !== '42P07') {
@@ -371,36 +372,36 @@
     ob_end_flush();
     ?>
 
-        <!-- Affichage du message dans le HTML -->
-        <!DOCTYPE html>
-        <html lang="fr">
+    <!-- Affichage du message dans le HTML -->
+    <!DOCTYPE html>
+    <html lang="fr">
 
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Création de Compte</title>
-            <script>
-                // Fonction de redirection après un délai
-                function redirectToLogin() {
-                    setTimeout(function () {
-                        window.location.href = "/pro/connexion";
-                    }, 5000); // 5000 ms = 5 secondes
-                }
-            </script>
-        </head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Création de Compte</title>
+        <script>
+            // Fonction de redirection après un délai
+            function redirectToLogin() {
+                setTimeout(function () {
+                    window.location.href = "/pro/connexion";
+                }, 5000); // 5000 ms = 5 secondes
+            }
+        </script>
+    </head>
 
-        <body>
-            <h1>Création de Compte</h1>
+    <body>
+        <h1>Création de Compte</h1>
 
-            <?php if (!empty($message)): ?>
-                    <div class="alert alert-success"><?php echo $message; ?></div>
-                    <script>redirectToLogin();</script>
-            <?php endif; ?>
+        <?php if (!empty($message)): ?>
+            <div class="alert alert-success"><?php echo $message; ?></div>
+            <script>redirectToLogin();</script>
+        <?php endif; ?>
 
-            <!-- Formulaire de création de compte ici -->
-        </body>
+        <!-- Formulaire de création de compte ici -->
+    </body>
 
-        </html>
+    </html>
 
 <?php } ?>
 
