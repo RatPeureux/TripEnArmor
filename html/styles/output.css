@@ -768,6 +768,14 @@ video {
   top: 1.75rem;
 }
 
+.right-auto {
+  right: auto;
+}
+
+.left-auto {
+  left: auto;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -973,6 +981,10 @@ video {
 
 .ml-0 {
   margin-left: 0px;
+}
+
+.ml-48 {
+  margin-left: 12rem;
 }
 
 .line-clamp-2 {
@@ -1217,6 +1229,14 @@ video {
   width: min-content;
 }
 
+.w-64 {
+  width: 16rem;
+}
+
+.w-48 {
+  width: 12rem;
+}
+
 .min-w-\[1280px\] {
   min-width: 1280px;
 }
@@ -1243,6 +1263,10 @@ video {
 
 .max-w-full {
   max-width: 100%;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
 }
 
 .flex-shrink {
@@ -2423,6 +2447,11 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -2923,6 +2952,10 @@ label:has(+ select[required])::after {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.hover\:underline:hover {
+  text-decoration-line: underline;
+}
+
 .hover\:file\:cursor-pointer::file-selector-button:hover {
   cursor: pointer;
 }
@@ -3088,6 +3121,10 @@ label:has(+ select[required])::after {
     --tw-space-y-reverse: 0;
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
+  }
+
+  .md\:text-center {
+    text-align: center;
   }
 
   .md\:text-right {
