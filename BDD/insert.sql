@@ -274,7 +274,7 @@ VALUES (
         '02:00:00',
         12,
         'Guide expérimenté, équipement fourni.',
-        4,
+        3,
         2
     ),
 

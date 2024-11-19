@@ -115,7 +115,7 @@ if (!isset($_POST['id'])) {
                 if (password_verify($mdp, $user['mdp_hash'])) {
                     // Stocke les informations de l'utilisateur dans la session
                     $_SESSION['id_pro'] = $user['id_compte'];
-                    header('location: /pro?token=' . $_SESSION['token']); // Redirige vers la page connectée
+                    header('location: /); // Redirige vers la page connectée
                     exit();
                 } else {
                     $_SESSION['error'] = "Mot de passe incorrect"; // Stocke le message d'erreur dans la session
