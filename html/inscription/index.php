@@ -155,6 +155,9 @@
         <link rel="stylesheet" href="/styles/output.css">
         <title>Création de compte 2/2</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+        <script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+	    <script type="text/javascript" src="/scripts/autocomplete.js"></script>
     </head>
 
     <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
@@ -194,8 +197,10 @@
                     pattern="^(?:(\w+|\w+[\.\-_]?\w+)+" title="Saisir mon pseudonyme PACT" maxlength="16" required>
 
                 <!-- Champs pour l'adresse -->
-                <label class="text-small" for="adresse">Adresse postale*</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse"
+                <label class="text-small" for="user_input_autocomplete_address">Adresse postale</label>
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" 
+                id="user_input_autocomplete_address" 
+                name="user_input_autocomplete_address"
                     pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir mon adresse postale" maxlength="255" required>
 
                 <label class="text-small" for="complement">Complément d'adresse postale</label>
@@ -204,14 +209,14 @@
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
-                        <label class="text-small" for="code">Code postal*</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code" name="code"
+                        <label class="text-small" for="postal_code">Code postal</label>
+                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code" name="postal_code"
                             pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal" minlength="5"
                             maxlength="5" oninput="number(this)" required>
                     </div>
                     <div class="w-full">
-                        <label class="text-small" for="ville">Ville*</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="ville" name="ville"
+                        <label class="text-small" for="locality">Ville</label>
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" name="locality"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir ma ville"
                             maxlength="50" required>
                     </div>
