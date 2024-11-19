@@ -2,7 +2,7 @@
 function activeLogout()
 {
     // Vérifie si l'utilisateur est connecté
-    if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['id_user'])) {
         // Si l'utilisateur n'est pas connecté
         return false;
     }
@@ -27,10 +27,9 @@ function verifyUserMember()
     ob_start(); // Active la mise en mémoire tampon de sortie
 
     // Vérifie si l'utilisateur est connecté
-    if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['id_user'])) {
         // Si l'utilisateur n'est pas connecté ou si le token ne correspond pas
         header('location: /connexion');
         exit(); // Termine le script pour s'assurer que rien d'autre ne s'exécute après la redirection
     }
 }
-
