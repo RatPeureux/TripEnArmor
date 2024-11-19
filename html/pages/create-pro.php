@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Lien vers le favicon de l'application -->
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" type="image" href="../public/images/favicon.png">
     <!-- Lien vers le fichier CSS pour le style de la page -->
-    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="stylesheet" href="../styles/output.css">
     <title>Création de compte 1/2</title>
     <!-- Inclusion de Font Awesome pour les icônes -->
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
@@ -21,9 +21,9 @@
     <div class="h-full flex flex-col items-center justify-center">
         <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
             <!-- Logo de l'application -->
-            <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
+            <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
 
-            <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <p class="pb-3">Je créé un compte Professionnel</p>
 
                 <!-- Choix du statut de l'utilisateur -->
@@ -89,6 +89,7 @@ $statut = $_POST['statut'];
 $nom = $_POST['nom'];
 $mail = strtolower($_POST['mail']);
 $mdp = $_POST['mdp'];
+echo $mdp;
 ?>
 
 <!DOCTYPE html>
@@ -96,8 +97,8 @@ $mdp = $_POST['mdp'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="icon" type="image" href="../public/images/favicon.png">
+    <link rel="stylesheet" href="../styles/output.css">
     <title>Création de compte 2/2</title>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
@@ -107,9 +108,9 @@ $mdp = $_POST['mdp'];
 
     <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
         <!-- Logo de l'application -->
-        <img class="text mb-4" src="/public/images/logo.svg" alt="moine" width="57">
+        <img class="text mb-4" src="../public/images/logo.svg" alt="moine" width="57">
 
-        <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php" method="post" enctype="multipart/form-data"">
+        <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php" method="POST" enctype="multipart/form-data"">
             <p class="pb-3">Dites-nous en plus !</p>
 
             <div class="mb-3">
@@ -189,7 +190,7 @@ $mdp = $_POST['mdp'];
             <input type="submit" value="Créer mon compte" class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-green-900 hover:border-green-900 hover:text-white">
             
             <input type="hidden" name="statut" value="<?php echo $statut; ?>">
-            <input type="hidden" name="mdp_test" value="<?php echo htmlspecialchars($mdp); ?>">
+            <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
         </form>
     </div>
 </body>
@@ -198,14 +199,14 @@ $mdp = $_POST['mdp'];
 <?php } else {
 
 ob_start();
-include('/php/connect_params.php');
+include('../php/connect_params.php');
 
 $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Gère les erreurs de PDO
 
 // Alteration de la table pour s'assurer que numero_compte est un VARCHAR
 try {
-    $dbh->exec("ALTER TABLE sae_db._rib ALTER COLUMN numero_compte TYPE VARCHAR(11)");
+    $dbh->exec("ALTER TABLE sae_db._rib ALTER COLUMN numero_compte TYPE VARCHAR(12)");
 } catch (PDOException $e) {
     // Ignorer l'erreur si la colonne est déjà au bon type
     if ($e->getCode() !== '42P07') {
@@ -249,16 +250,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         $iban = $_POST['iban'];
     }
 
+    function extraireInfoAdressse($adresse) {
+        $numero = substr($adresse, 0, 1);
+        $odonyme = substr($adresse, 2);
+    
+        return [
+            'numero' => $numero,
+            'odonyme' => $odonyme,
+        ];
+    }
+
     // Hachage du mot de passe
     $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-    // Insérer dans la base de données pour l'adresse
-    $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (complement_adresse, code_postal, ville) VALUES (:adresse, :code, :ville)");
+    try {
+        $test = extraireInfoAdressse($adresse);
+        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement_adresse) VALUES (:code, :ville, :numero, :odonyme, :complement)");
+        $stmtAdresse->bindParam(':code', $code);
+        $stmtAdresse->bindParam(':ville', $ville);
+        $stmtAdresse->bindParam(':numero', $test['numero']);
+        $stmtAdresse->bindParam(':odonyme', $test['odonyme']);
+        $stmtAdresse->bindParam(':complement', $complement); // Assurez-vous que compte_id est défini
+        // Récupérer l'ID de l'adresse insérée
+        $adresseId = $dbh->lastInsertId();
 
-    // Lier les paramètres pour l'adresse
-    $stmtAdresse->bindParam(':adresse', $adresse);
-    $stmtAdresse->bindParam(':code', $code);
-    $stmtAdresse->bindParam(':ville', $ville);
+        if ($stmtAdresse->execute()) {
+            $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
+        } else {
+            $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtTest->errorInfo());
+        }
+    } catch (Exception $e) {
+        $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
+    }
     
     if ($stmtAdresse->execute()) {
         // Récupérer l'ID de l'adresse insérée
@@ -266,41 +289,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
 
         // Préparer l'insertion dans la table Professionnel
         if ($statut === "public") {
-            $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, adresse_id, nom_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom)");
-        } else {
+            $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, adresse_id, nompro, type_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom, 'oui')");
 
-        }
+            // Lier les paramètres pour le professionnel
+            $stmtProfessionnel->bindParam(':nom', $nom);
+            $stmtProfessionnel->bindParam(':mail', $mail);
+            $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
+            $stmtProfessionnel->bindParam(':num_tel', $tel);
+            $stmtProfessionnel->bindParam(':adresse_id', $adresseId);
 
-        // Lier les paramètres pour le professionnel
-        $stmtProfessionnel->bindParam(':nom', $nom);
-        $stmtProfessionnel->bindParam(':mail', $mail);
-        $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
-        $stmtProfessionnel->bindParam(':num_tel', $tel);
-        $stmtProfessionnel->bindParam(':adresse_id', $adresseId);
-
-        // Exécuter la requête pour le professionnel
-        if ($stmtProfessionnel->execute()) {
-            // Extraire les valeurs du RIB à partir de l'IBAN
-            try {
-                $rib = extraireRibDepuisIban($iban);
-                $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :compte_id)");
-                $stmtRib->bindParam(':code_banque', $rib['code_banque']);
-                $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
-                $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
-                $stmtRib->bindParam(':cle_rib', $rib['cle_rib']);
-                $stmtRib->bindParam(':compte_id', $compte_id); // Assurez-vous que compte_id est défini
-
-                if ($stmtRib->execute()) {
-                    $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
-                } else {
-                    $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtRib->errorInfo());
-                }
-            } catch (Exception $e) {
-                $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
-            }
+            $stmtProfessionnel->execute();
+            $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
+            // Exécuter la requête pour le professionnel
+            
         } else {
             $message = "Erreur lors de la création du compte professionnel : " . implode(", ", $stmtProfessionnel->errorInfo());
         }
+
+        
+
+        
     } else {
         $message = "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtAdresse->errorInfo());
     }

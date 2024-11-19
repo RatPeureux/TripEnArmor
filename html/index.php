@@ -1,6 +1,6 @@
 
 <?php
-    include("../php/authentification.php");
+    include("php/authentification.php");
 ?>
 
 <!DOCTYPE html>
@@ -8,8 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/output.css">
-    <script type="module" src="/scripts/main.js" defer></script>
+    <link rel="stylesheet" href="styles/output.css">
+    <script type="module" src="scripts/main.js" defer></script>
     <title>PACT - Accueil</title>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -18,8 +18,8 @@
 
     <?php
         // Connexion avec la bdd
-        include('../php-files/connect_params.php');
-        $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
+        include('php/connect_params.php');
+        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Obtenir l'ensembre des offres
@@ -39,7 +39,7 @@
         Composant dynamique (généré avec les données en php)
         Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
         -->
-        <a href="/pages/details.php">
+        <a href="pages/details.php">
             <div class="card active relative bg-base200 rounded-xl flex flex-col">
                 <!-- En tête -->
                 <div class="en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
@@ -111,7 +111,7 @@
 
                         // Avoir une variable $pro qui contient les informations du pro actuel.
                         $idPro = $offre['idpro'];
-                        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = $idPro");
+                        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = 1");
                         $stmt->execute();
                         $pro = $stmt->fetch(PDO::FETCH_ASSOC);
                         $pro_nom = $pro['nompro'];

@@ -86,8 +86,8 @@ $error = ""; // Variable pour stocker les messages d'erreur
 
 try {
     // Connexion avec la bdd
-    include('../../php-files/connect_params.php');
-    $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
+    include('../php/connect_params.php');
+    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Vérifie si la requête est une soumission de formulaire
@@ -109,12 +109,12 @@ try {
         error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
         
         // Vérifie si l'utilisateur existe et si le mot de passe est correct
-        if ($user && $user['mdp_hash']) {
+        if ($user && password_verify($mdp, $user['mdp_hash'])) {
             // Stocke les informations de l'utilisateur dans la session
             $_SESSION['id_pro'] = $user['id_compte'];
             $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
             $_SESSION['user_email'] = $user['email'];
-            $_SESSION['user_name'] = $user['prenom'];
+            $_SESSION['user_name'] = $user['nompro'];
             header('location: accueil-pro.php?token=' . $_SESSION['token']); // Redirige vers la page connectée
             exit();
         } else {

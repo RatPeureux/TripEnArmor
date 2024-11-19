@@ -9,9 +9,9 @@
     <head>
         <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="/scripts/loaddetailsmenus.js"></script>
-    <link rel="stylesheet" href="/styles/output.css">
-    <script type="module" src="/scripts/main.js"></script>
+    <script type="module" src="../scripts/loaddetailsmenus.js"></script>
+    <link rel="stylesheet" href="../styles/output.css">
+    <script type="module" src="../scripts/main.js"></script>
     <title>PACT - Accueil</title>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -23,8 +23,8 @@
         $idPro = $_SESSION['id_pro'];
 
         // Connexion avec la bdd
-        include('../../php-files/connect_params.php');
-        $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
+        include('../php/connect_params.php');
+        $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Avoir une variable $pro qui contient les informations du pro actuel.
@@ -269,7 +269,7 @@
             ?>
 
             <!-- Bouton de création d'offre -->
-            <a href="/pages/creation-offre.html" class="font-bold p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
+            <a href="creation-offre.html" class="font-bold p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
             focus:scale-[0.97] duration-100">
                 + Nouvelle offre
             </a>
