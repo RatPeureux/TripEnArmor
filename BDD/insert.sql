@@ -1,6 +1,19 @@
+-- Note : pour insérer dans les tables, en raison de l'héritage
+--        [!!!][!!!][!!!][!!!][!!!][!!!][!!!]
+--        il faut UNIQUEMENT insérer dans les tables enfants qui ont des contraintes bien définies
+--        si une insertion se fait sur une table abstrate (_compte, _offre...),
+--        il y aura des problèmes de cohérence, de contraintes, de doublons... etc.
+--        [!!!][!!!][!!!][!!!][!!!][!!!][!!!]
+
+
+-- Listing des tables abstraites
+--  _compte
+--  _professionnel
+--  _offre
+
+
+
 set schema 'sae_db';
-
-
 
 
 
@@ -20,7 +33,6 @@ VALUES
 
 
 -- insertion des comptes et pros
-
 INSERT INTO _membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom)
 VALUES
 -- hash_mdp_1
@@ -50,8 +62,7 @@ values
   ('54321', '86589', '236524184856', '36', 5);
   
 
--- Insert Offres, 2 chacunes -----------------------------------------------------------------------------------------------
-
+-- Insertion dans les différents types d'offres, 2 chacunes -----------------------------------------------------------------------------------------------
 INSERT INTO _restauration (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, gamme_prix, idPro, type_offre_id)
 VALUES 
 (true,
@@ -73,8 +84,6 @@ VALUES
 '2024-10-01', 
 2, 
 '€€',4, 1);
-
-
 
 INSERT INTO _activite (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, duree_activite, age_requis, prestations, idPro, type_offre_id)
 VALUES 
@@ -127,8 +136,6 @@ VALUES
 7, 
 500, 
 '02:00:00', 5, 1);
-
-
 
 INSERT INTO _visite (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, duree_visite, guide_visite, idPro,type_offre_id)
 VALUES 

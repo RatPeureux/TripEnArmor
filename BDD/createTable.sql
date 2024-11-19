@@ -5,6 +5,11 @@
 --        il y aura des problèmes de cohérence, de contraintes, de doublons... etc.
 --        [!!!][!!!][!!!][!!!][!!!][!!!][!!!]
 
+-- Listing des tables abstraites
+--  _compte
+--  _professionnel
+--  _offre
+
 
 
 -- Initialisation du schéma
@@ -47,50 +52,52 @@ CREATE TABLE _compte (
 
 -- Table _membre
 CREATE TABLE _membre (
-    pseudo VARCHAR(255) PRIMARY KEY,
+    pseudo VARCHAR(255) UNIQUE,
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL
 ) INHERITS (_compte);
 
--- Héritage des types de comptes (abstr.)
-CREATE TABLE _professionnel (nomPro varchar(255) not null) INHERITS (_compte);
-CREATE TABLE _pro_public (type_orga VARCHAR(255) NOT NULL) INHERITS (_professionnel);
-CREATE TABLE _pro_prive (num_siren VARCHAR(255) UNIQUE NOT NULL) INHERITS (_professionnel);
+-- Héritage des types de _compte (abstr.)
+CREATE TABLE _professionnel (
+    nomPro varchar(255) not null
+) INHERITS (_compte);
+CREATE TABLE _pro_public (
+    type_orga VARCHAR(255) NOT NULL
+) INHERITS (_professionnel);
+CREATE TABLE _pro_prive (
+    num_siren VARCHAR(255) UNIQUE NOT NULL
+) INHERITS (_professionnel);
 
 -- Rajouter les contraintes principales perdues à cause de l'héritage (clés primaires & étrangères & UNIQUE);
-ALTER TABLE
-    _pro_public
-ADD
-    CONSTRAINT pk_pro_public PRIMARY KEY (id_compte);
-ALTER TABLE
-    _pro_public
-ADD
-    CONSTRAINT unique_mail_pro_public UNIQUE (email);
-ALTER TABLE
-    _pro_public
-ADD
-    CONSTRAINT unique_tel_pro_public UNIQUE (num_tel);
-ALTER TABLE
-    _pro_public
-ADD
-    CONSTRAINT fk_pro_public FOREIGN KEY adresse_id REFERENCES _adresse(adresse_id);
+ALTER TABLE _professionnel
+    ADD CONSTRAINT pk_professionnel PRIMARY KEY (id_compte);
 
-ALTER TABLE
-    _pro_prive
-ADD
-    CONSTRAINT pk_pro_prive PRIMARY KEY (id_compte);
-ALTER TABLE
-    _pro_prive
-ADD
-    CONSTRAINT unique_mail_pro_prive UNIQUE (email);
-ALTER TABLE
-    _pro_prive
-ADD
-    CONSTRAINT unique_tel_pro_prive UNIQUE (num_tel);
-ALTER TABLE
-    _pro_prive
-ADD
-    CONSTRAINT fk_pro_prive FOREIGN KEY adresse_id REFERENCES _adresse(adresse_id);
+ALTER TABLE _membre
+    ADD CONSTRAINT pk_membre PRIMARY KEY (id_compte);
+ALTER TABLE _membre
+    ADD CONSTRAINT unique_mail_membre UNIQUE (email);
+ALTER TABLE _membre
+    ADD CONSTRAINT unique_tel_membre UNIQUE (num_tel);
+ALTER TABLE _membre
+    ADD CONSTRAINT fk_membre FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
+
+ALTER TABLE _pro_public
+    ADD CONSTRAINT pk_pro_public PRIMARY KEY (id_compte);
+ALTER TABLE _pro_public
+    ADD CONSTRAINT unique_mail_pro_public UNIQUE (email);
+ALTER TABLE _pro_public
+    ADD CONSTRAINT unique_tel_pro_public UNIQUE (num_tel);
+ALTER TABLE _pro_public
+    ADD CONSTRAINT fk_pro_public FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
+
+ALTER TABLE _pro_prive
+    ADD CONSTRAINT pk_pro_prive PRIMARY KEY (id_compte);
+ALTER TABLE _pro_prive
+    ADD CONSTRAINT unique_mail_pro_prive UNIQUE (email);
+ALTER TABLE _pro_prive
+    ADD CONSTRAINT unique_tel_pro_prive UNIQUE (num_tel);
+ALTER TABLE _pro_prive
+    ADD CONSTRAINT fk_pro_prive FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
 -- ------------------------------------------------------------------------------------------------------- fin
 
 
@@ -138,8 +145,8 @@ CREATE TABLE _offre (
     date_creation DATE NOT NULL,
     date_mise_a_jour DATE,
     date_suppression DATE,
-    idPro integer references _professionnel(id_compte),
-    type_offre_id integer references _type_offre(type_offre_id),
+    id_pro integer REFERENCES _professionnel(id_compte),
+    type_offre_id integer REFERENCES _type_offre(type_offre_id),
     adresse_id serial REFERENCES _adresse(adresse_id),
     option VARCHAR(10)
 );
@@ -155,7 +162,7 @@ CREATE TABLE _offre (
  
  -- créer une politique RLS (les professionnels uniquement peuvent accéder à leur offre=
  CREATE POLICY offre_filter_pro ON _offre
- USING (idPro = current_setting('app.current_professional')::INTEGER);
+ USING (id_pro = current_setting('app.current_professional')::INTEGER);
  
  -- créer une politique RLS (les visiteurs peuvent accéder à toutes les offres)
  CREATE POLICY offre_filter_visiteur ON _offre
@@ -166,17 +173,17 @@ CREATE TABLE _offre (
  -- créer politique RLS sur l'insertion
  CREATE POLICY offre_insert_pro ON _offre
  FOR INSERT
- WITH CHECK (idPro = current_setting('app.current_professional')::INTEGER);
+ WITH CHECK (id_pro = current_setting('app.current_professional')::INTEGER);
  
  -- créer politique RLS sur la mise à jour
  CREATE POLICY offre_update_pro ON _offre
  FOR UPDATE
- USING (idPro = current_setting('app.current_professional')::INTEGER);
+ USING (id_pro = current_setting('app.current_professional')::INTEGER);
  
  -- créer politique RLS sur la supression
  CREATE POLICY offre_delete_pro ON _offre
  FOR DELETE
- USING (idPro = current_setting('app.current_professional')::INTEGER);
+ USING (id_pro = current_setting('app.current_professional')::INTEGER);
  
  -- assure que même les supers utilisateurs respectent la politique de sécurité
  ALTER TABLE _offre FORCE ROW LEVEL SECURITY;
@@ -206,7 +213,6 @@ CREATE TABLE _facture (
 
 
 
-
 -- -----------------------------------------------------------------------------------------------Logs---- début
 CREATE TABLE _log_changement_status (
     id SERIAL PRIMARY KEY,
@@ -214,7 +220,6 @@ CREATE TABLE _log_changement_status (
     date_changement DATE NOT NULL
 );
 -- ------------------------------------------------------------------------------------------------------- fin
-
 
 
 
@@ -231,6 +236,16 @@ CREATE TABLE _restauration (
     gamme_prix varchar(3) NOT NULL,
     type_repas_id integer references _type_repas(type_repas_id)
 ) INHERITS (_offre);
+
+-- Rajout des contraintes perdues pour _restauration à cause de l'héritage
+ALTER TABLE _restauration
+    ADD CONSTRAINT pk_restauration SERIAL PRIMARY KEY (offre_id);    
+ALTER TABLE _restauration
+    ADD CONSTRAINT fk_restauration_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
+ALTER TABLE _restauration
+    ADD CONSTRAINT fk_restauration_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre(type_offre_id);
+ALTER TABLE _restauration
+    ADD CONSTRAINT fk_restauration_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_pro);
 
 -- Lien entre restauration et type_repas
 create table _restaurant_type_repas (
@@ -264,6 +279,16 @@ CREATE TABLE _activite (
     prestations VARCHAR(255)
 ) INHERITS (_offre);
 
+-- Rajout des contraintes perdues pour _activite à cause de l'héritage
+ALTER TABLE _activite
+    ADD CONSTRAINT pk_activite SERIAL PRIMARY KEY (offre_id);    
+ALTER TABLE _activite
+    ADD CONSTRAINT fk_activite_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
+ALTER TABLE _activite
+    ADD CONSTRAINT fk_activite_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre(type_offre_id);
+ALTER TABLE _activite
+    ADD CONSTRAINT fk_activite_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_pro);
+
 -- TAGs Activité---------------------------------------------
 create table _tag_activite (
     id_activite serial references _activite(id_activite),
@@ -283,6 +308,16 @@ CREATE TABLE _spectacle (
     duree_spectacle TIME
 ) INHERITS (_offre);
 
+-- Rajout des contraintes perdues pour _spectacle à cause de l'héritage
+ALTER TABLE _spectacle
+    ADD CONSTRAINT pk_spectacle SERIAL PRIMARY KEY (offre_id);    
+ALTER TABLE _spectacle
+    ADD CONSTRAINT fk_spectacle_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
+ALTER TABLE _spectacle
+    ADD CONSTRAINT fk_spectacle_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre(type_offre_id);
+ALTER TABLE _spectacle
+    ADD CONSTRAINT fk_spectacle_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_pro);
+
 -- TAG Spectacles 
 create table _tag_spectacle (
     id_spectacle serial references _spectacle(id_spectacle),
@@ -300,6 +335,16 @@ CREATE TABLE _visite (
     duree_visite TIME,
     guide_visite BOOLEAN
 ) INHERITS (_offre);
+
+-- Rajout des contraintes perdues pour _visite à cause de l'héritage
+ALTER TABLE _visite
+    ADD CONSTRAINT pk_visite SERIAL PRIMARY KEY (offre_id);    
+ALTER TABLE _visite
+    ADD CONSTRAINT fk_visite_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
+ALTER TABLE _visite
+    ADD CONSTRAINT fk_visite_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre(type_offre_id);
+ALTER TABLE _visite
+    ADD CONSTRAINT fk_visite_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_pro);
 
 -- langues parlées durant la visite
 CREATE TABLE _langue (
@@ -337,6 +382,17 @@ create table _tag_parc_attraction (
     tag_id serial references _tag(tag_id),
     primary key (id_parc_attraction, tag_id)
 );
+
+-- Rajout des contraintes perdues pour _parc_attraction à cause de l'héritage
+ALTER TABLE _parc_attraction
+    ADD CONSTRAINT pk_parc_attraction SERIAL PRIMARY KEY (offre_id);    
+ALTER TABLE _parc_attraction
+    ADD CONSTRAINT fk_parc_attraction_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
+ALTER TABLE _parc_attraction
+    ADD CONSTRAINT fk_parc_attraction_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre(type_offre_id);
+ALTER TABLE _parc_attraction
+    ADD CONSTRAINT fk_parc_attraction_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_pro);
+
 -- ------------------------------------------------------------------------------------------------------- fin
 
 
