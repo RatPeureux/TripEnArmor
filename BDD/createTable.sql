@@ -19,6 +19,8 @@ SET SCHEMA 'sae_db';
 
 
 
+
+
 -- -------------------------------------------------------------------------------------------Adresse----- début
 -- Table Adresse
 CREATE TABLE _adresse (
@@ -30,6 +32,8 @@ CREATE TABLE _adresse (
     complement_adresse varchar(255)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
+
+
 
 
 
@@ -102,6 +106,8 @@ ALTER TABLE _pro_prive
 
 
 
+
+
 -- ----------------------------------------------------------------------------------------------RIB------ début
 -- Table _RIB
 CREATE TABLE _RIB (
@@ -117,6 +123,8 @@ CREATE TABLE _RIB (
 
 
 
+
+
 -- -----------------------------------------------------------------------------------------------TAG----- début
 -- Table _tag
 CREATE TABLE _tag (
@@ -127,12 +135,22 @@ CREATE TABLE _tag (
 
 
 
+
+
 -- ---------------------------------------------------------------------------------------------Offre----- début
 -- Table _type_offre (gratuite OU standard OU prenium)
 create table _type_offre (
     type_offre_id SERIAL PRIMARY KEY not null,
     nom_type_offre varchar(255) not null
 );
+
+-- ARCHITECTURE DES ENFANTS DE _offre :
+-- _offre (abstract)
+--     _restauration
+--     _activite
+--     _parc_attraction
+--     _spectacle
+--     _visite
 
 -- Table globale _offre (abstr.)
 CREATE TABLE _offre (
@@ -192,6 +210,8 @@ CREATE TABLE _offre (
 
 
 
+
+
 -- TAGs Offre ------------------------------------------------------------ début
 CREATE TABLE _tag_offre (
     offre_id serial REFERENCES _offre(offre_id),
@@ -199,6 +219,8 @@ CREATE TABLE _tag_offre (
     PRIMARY KEY (offre_id, tag_id)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
+
+
 
 
 
@@ -213,6 +235,8 @@ CREATE TABLE _facture (
 
 
 
+
+
 -- -----------------------------------------------------------------------------------------------Logs---- début
 CREATE TABLE _log_changement_status (
     id SERIAL PRIMARY KEY,
@@ -220,6 +244,8 @@ CREATE TABLE _log_changement_status (
     date_changement DATE NOT NULL
 );
 -- ------------------------------------------------------------------------------------------------------- fin
+
+
 
 
 
@@ -232,26 +258,25 @@ create table _type_repas (
 
 -- Table _restauration (hérite _offre)
 CREATE TABLE _restauration (
-    restauration_id SERIAL PRIMARY KEY,
     gamme_prix varchar(3) NOT NULL,
     type_repas_id integer references _type_repas(type_repas_id)
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _restauration à cause de l'héritage
 ALTER TABLE _restauration
-    ADD CONSTRAINT pk_restauration SERIAL PRIMARY KEY (offre_id);    
+    ADD CONSTRAINT pk_restauration PRIMARY KEY (offre_id);    
 ALTER TABLE _restauration
     ADD CONSTRAINT fk_restauration_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
 ALTER TABLE _restauration
     ADD CONSTRAINT fk_restauration_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre(type_offre_id);
 ALTER TABLE _restauration
-    ADD CONSTRAINT fk_restauration_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_pro);
+    ADD CONSTRAINT fk_restauration_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_compte);
 
 -- Lien entre restauration et type_repas
 create table _restaurant_type_repas (
-    restauration_id serial REFERENCES _restauration(restauration_id) ON DELETE CASCADE,
+    offre_id serial REFERENCES _restauration(offre_id) ON DELETE CASCADE,
     type_repas_id serial REFERENCES _type_repas(type_repas_id) ON DELETE CASCADE,
-    PRIMARY KEY (restauration_id, type_repas_id)
+    PRIMARY KEY (offre_id, type_repas_id)
 );
 
 -- Type de restaurant : gastronomie, kebab, etc..
@@ -262,18 +287,19 @@ create table _tag_restaurant (
 
 -- table 1 restaurant <-> 1..* tag
 create table _tag_restaurant_restauration (
-    restauration_id serial references _restauration(restauration_id),
+    offre_id serial references _restauration(offre_id),
     tag_restaurant_id serial references _tag_restaurant(tag_restaurant_id),
-    primary key (restauration_id, tag_restaurant_id)
+    primary key (offre_id, tag_restaurant_id)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
+
+
 
 
 
 -- ----------------------------------------------------------------------------------------Activités------ début
 -- Table _activite (hérite de _offre)
 CREATE TABLE _activite (
-    id_activite SERIAL PRIMARY KEY,
     duree_activite TIME,
     age_requis INTEGER,
     prestations VARCHAR(255)
@@ -281,21 +307,22 @@ CREATE TABLE _activite (
 
 -- Rajout des contraintes perdues pour _activite à cause de l'héritage
 ALTER TABLE _activite
-    ADD CONSTRAINT pk_activite SERIAL PRIMARY KEY (offre_id);    
+    ADD CONSTRAINT pk_activite PRIMARY KEY (offre_id);    
 ALTER TABLE _activite
     ADD CONSTRAINT fk_activite_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
 ALTER TABLE _activite
     ADD CONSTRAINT fk_activite_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre(type_offre_id);
 ALTER TABLE _activite
-    ADD CONSTRAINT fk_activite_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_pro);
+    ADD CONSTRAINT fk_activite_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_compte);
 
 -- TAGs Activité---------------------------------------------
 create table _tag_activite (
-    id_activite serial references _activite(id_activite),
+    offre_id serial references _activite(offre_id),
     tag_id serial references _tag(tag_id),
-    primary key (id_activite, tag_id)
+    primary key (offre_id, tag_id)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
+
 
 
 
@@ -303,48 +330,48 @@ create table _tag_activite (
 -- -----------------------------------------------------------------------------------------Spectacles---- début
 -- Table _spectacle (hérite de _offre)
 CREATE TABLE _spectacle (
-    id_spectacle SERIAL PRIMARY KEY,
     capacite_spectacle INTEGER,
     duree_spectacle TIME
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _spectacle à cause de l'héritage
 ALTER TABLE _spectacle
-    ADD CONSTRAINT pk_spectacle SERIAL PRIMARY KEY (offre_id);    
+    ADD CONSTRAINT pk_spectacle PRIMARY KEY (offre_id);    
 ALTER TABLE _spectacle
     ADD CONSTRAINT fk_spectacle_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
 ALTER TABLE _spectacle
     ADD CONSTRAINT fk_spectacle_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre(type_offre_id);
 ALTER TABLE _spectacle
-    ADD CONSTRAINT fk_spectacle_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_pro);
+    ADD CONSTRAINT fk_spectacle_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_compte);
 
 -- TAG Spectacles 
 create table _tag_spectacle (
-    id_spectacle serial references _spectacle(id_spectacle),
+    offre_id serial references _spectacle(offre_id),
     tag_id serial references _tag(tag_id),
-    primary key (id_spectacle, tag_id)
+    primary key (offre_id, tag_id)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
+
+
 
 
 
 -- --------------------------------------------------------------------------------------------Visites---- début
 -- Table _visite (hérite de _offre)
 CREATE TABLE _visite (
-    visite_id SERIAL PRIMARY KEY,
     duree_visite TIME,
     guide_visite BOOLEAN
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _visite à cause de l'héritage
 ALTER TABLE _visite
-    ADD CONSTRAINT pk_visite SERIAL PRIMARY KEY (offre_id);    
+    ADD CONSTRAINT pk_visite PRIMARY KEY (offre_id);    
 ALTER TABLE _visite
     ADD CONSTRAINT fk_visite_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
 ALTER TABLE _visite
     ADD CONSTRAINT fk_visite_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre(type_offre_id);
 ALTER TABLE _visite
-    ADD CONSTRAINT fk_visite_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_pro);
+    ADD CONSTRAINT fk_visite_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_compte);
 
 -- langues parlées durant la visite
 CREATE TABLE _langue (
@@ -354,45 +381,44 @@ CREATE TABLE _langue (
 
 -- Table de lien pour les langues parlées durant les visites
 CREATE TABLE _visite_langue (
-    id_visite serial REFERENCES _visite(visite_id),
+    offre_id serial REFERENCES _visite(offre_id),
     langue_id serial REFERENCES _langue(langue_id)
 );
 
 -- TAG Visites 
 create table _tag_visite (
-    id_visite serial references _visite(visite_id),
+    offre_id serial references _visite(offre_id),
     tag_id serial references _tag(tag_id),
-    primary key (id_visite, tag_id)
+    primary key (offre_id, tag_id)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
+
 
 
 
 -- -------------------------------------------------------------------------------Parcs d'attractions----- début
 -- Table _parc_attraction (hérite de _offre)
 CREATE TABLE _parc_attraction (
-    id_parc_attraction SERIAL PRIMARY KEY,
     nb_attractions INTEGER,
     age_requis integer
 ) INHERITS (_offre);
 
--- TAG Parcs
-create table _tag_parc_attraction (
-    id_parc_attraction serial references _parc_attraction(id_parc_attraction),
-    tag_id serial references _tag(tag_id),
-    primary key (id_parc_attraction, tag_id)
-);
-
 -- Rajout des contraintes perdues pour _parc_attraction à cause de l'héritage
 ALTER TABLE _parc_attraction
-    ADD CONSTRAINT pk_parc_attraction SERIAL PRIMARY KEY (offre_id);    
+    ADD CONSTRAINT pk_parc_attraction PRIMARY KEY (offre_id);    
 ALTER TABLE _parc_attraction
     ADD CONSTRAINT fk_parc_attraction_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse(adresse_id);
 ALTER TABLE _parc_attraction
     ADD CONSTRAINT fk_parc_attraction_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre(type_offre_id);
 ALTER TABLE _parc_attraction
-    ADD CONSTRAINT fk_parc_attraction_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_pro);
+    ADD CONSTRAINT fk_parc_attraction_professionnel FOREIGN KEY (id_pro) REFERENCES _professionnel(id_compte);
 
+-- TAG Parcs
+create table _tag_parc_attraction (
+    offre_id serial references _parc_attraction(offre_id),
+    tag_id serial references _tag(tag_id),
+    primary key (offre_id, tag_id)
+);
 -- ------------------------------------------------------------------------------------------------------- fin
 
 
@@ -427,7 +453,7 @@ CREATE TABLE T_Image_Img (
     img_description TEXT,
     img_date_suppression DATE,
     offre_id INTEGER REFERENCES _offre(offre_id) ON DELETE CASCADE,
-    parc_id INTEGER REFERENCES _parc_attraction(id_parc_attraction) ON DELETE CASCADE,
+    parc_id INTEGER REFERENCES _parc_attraction(offre_id) ON DELETE CASCADE,
     -- Contrainte d'exclusivité : soit offre_id, soit parc_id doit être non nul, mais pas les deux
     CONSTRAINT chk_offre_parc_exclusif CHECK (
         (

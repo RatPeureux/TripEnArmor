@@ -74,7 +74,7 @@ $title_prix = $categorie_offre == 'restauration' ? '€ = X euros, €€ = XX e
 
 // Tags pour le restaurant (pour la carte, on prend les types de repas) ou autres si ce n'est pas un restaurant
 if ($categorie_offre == 'restauration') {
-    $stmt = $dbh->prepare("SELECT type_repas_id FROM sae_db._restaurant_type_repas WHERE restauration_id = :offre_id");
+    $stmt = $dbh->prepare("SELECT type_repas_id FROM sae_db._restaurant_type_repas WHERE offre_id = :offre_id");
     $stmt->bindParam(':offre_id', $offre_id);
     $stmt->execute();
     $repasIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
