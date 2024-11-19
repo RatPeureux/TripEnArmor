@@ -27,9 +27,9 @@ CREATE TABLE _adresse (
     adresse_id SERIAL PRIMARY KEY,
     code_postal CHAR(5) NOT NULL,
     ville VARCHAR(255) NOT NULL,
-    numero varchar(255) not null,
-    odonyme varchar(255) not null,
-    complement_adresse varchar(255)
+    numero VARCHAR(255) NOT NULL,
+    odonyme VARCHAR(255) NOT NULL,
+    complement_adresse VARCHAR(255)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
 
@@ -51,7 +51,7 @@ CREATE TABLE _compte (
     email VARCHAR(255) NOT NULL,
     mdp_hash VARCHAR(255) NOT NULL,
     num_tel VARCHAR(255) NOT NULL,
-    adresse_id integer
+    adresse_id INTEGER
 );
 
 -- Table _membre
@@ -63,7 +63,7 @@ CREATE TABLE _membre (
 
 -- Héritage des types de _compte (abstr.)
 CREATE TABLE _professionnel (
-    nomPro varchar(255) not null
+    nom_pro VARCHAR(255) NOT NULL
 ) INHERITS (_compte);
 CREATE TABLE _pro_public (
     type_orga VARCHAR(255) NOT NULL
@@ -112,11 +112,11 @@ ALTER TABLE _pro_prive
 -- Table _RIB
 CREATE TABLE _RIB (
     rib_id SERIAL PRIMARY KEY,
-    code_banque varchar(255) NOT NULL,
-    code_guichet varchar(255) NOT NULL,
-    numero_compte varchar(255) NOT NULL,
-    cle_rib varchar(255) NOT NULL,
-    compte_id serial REFERENCES _pro_prive(id_compte) UNIQUE
+    code_banque VARCHAR(255) NOT NULL,
+    code_guichet VARCHAR(255) NOT NULL,
+    numero_compte VARCHAR(255) NOT NULL,
+    cle_rib VARCHAR(255) NOT NULL,
+    compte_id SERIAL REFERENCES _pro_prive(id_compte) UNIQUE
 );
 
 -- ------------------------------------------------------------------------------------------------------- fin
@@ -140,8 +140,8 @@ CREATE TABLE _tag (
 -- ---------------------------------------------------------------------------------------------Offre----- début
 -- Table _type_offre (gratuite OU standard OU prenium)
 create table _type_offre (
-    type_offre_id SERIAL PRIMARY KEY not null,
-    nom_type_offre varchar(255) not null
+    type_offre_id SERIAL PRIMARY KEY NOT NULL,
+    nom_type_offre VARCHAR(255) NOT NULL
 );
 
 -- ARCHITECTURE DES ENFANTS DE _offre :
@@ -159,13 +159,13 @@ CREATE TABLE _offre (
     description_offre TEXT,
     resume_offre TEXT,
     prix_mini FLOAT,
-    titre varchar(255) NOT NULL,
+    titre VARCHAR(255) NOT NULL,
     date_creation DATE NOT NULL,
     date_mise_a_jour DATE,
     date_suppression DATE,
-    id_pro integer REFERENCES _professionnel(id_compte),
-    type_offre_id integer REFERENCES _type_offre(type_offre_id),
-    adresse_id serial REFERENCES _adresse(adresse_id),
+    id_pro INTEGER REFERENCES _professionnel(id_compte),
+    type_offre_id INTEGER REFERENCES _type_offre(type_offre_id),
+    adresse_id SERIAL REFERENCES _adresse(adresse_id),
     option VARCHAR(10)
 );
 -- ------------------------------------------------------------------------------------------------------ fin
@@ -214,8 +214,8 @@ CREATE TABLE _offre (
 
 -- TAGs Offre ------------------------------------------------------------ début
 CREATE TABLE _tag_offre (
-    offre_id serial REFERENCES _offre(offre_id),
-    tag_id serial REFERENCES _tag(tag_id),
+    offre_id SERIAL REFERENCES _offre(offre_id),
+    tag_id SERIAL REFERENCES _tag(tag_id),
     PRIMARY KEY (offre_id, tag_id)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
@@ -228,7 +228,7 @@ CREATE TABLE _tag_offre (
 CREATE TABLE _facture (
     facture_id SERIAL PRIMARY KEY,
     jour_en_ligne DATE NOT NULL,
-    offre_id serial REFERENCES _offre(offre_id)
+    offre_id SERIAL REFERENCES _offre(offre_id)
 );
 
 -- ------------------------------------------------------------------------------------------------------- fin
@@ -240,7 +240,7 @@ CREATE TABLE _facture (
 -- -----------------------------------------------------------------------------------------------Logs---- début
 CREATE TABLE _log_changement_status (
     id SERIAL PRIMARY KEY,
-    offre_id serial REFERENCES _offre(offre_id),
+    offre_id SERIAL REFERENCES _offre(offre_id),
     date_changement DATE NOT NULL
 );
 -- ------------------------------------------------------------------------------------------------------- fin
@@ -258,8 +258,8 @@ create table _type_repas (
 
 -- Table _restauration (hérite _offre)
 CREATE TABLE _restauration (
-    gamme_prix varchar(3) NOT NULL,
-    type_repas_id integer references _type_repas(type_repas_id)
+    gamme_prix VARCHAR(3) NOT NULL,
+    type_repas_id INTEGER REFERENCES _type_repas(type_repas_id)
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _restauration à cause de l'héritage
@@ -274,22 +274,22 @@ ALTER TABLE _restauration
 
 -- Lien entre restauration et type_repas
 create table _restaurant_type_repas (
-    offre_id serial REFERENCES _restauration(offre_id) ON DELETE CASCADE,
-    type_repas_id serial REFERENCES _type_repas(type_repas_id) ON DELETE CASCADE,
+    offre_id SERIAL REFERENCES _restauration(offre_id) ON DELETE CASCADE,
+    type_repas_id SERIAL REFERENCES _type_repas(type_repas_id) ON DELETE CASCADE,
     PRIMARY KEY (offre_id, type_repas_id)
 );
 
 -- Type de restaurant : gastronomie, kebab, etc..
 create table _tag_restaurant (
-    tag_restaurant_id serial primary key,
-    nom_tag varchar(255) not null
+    tag_restaurant_id SERIAL PRIMARY KEY,
+    nom_tag VARCHAR(255) NOT NULL
 );
 
 -- table 1 restaurant <-> 1..* tag
 create table _tag_restaurant_restauration (
-    offre_id serial references _restauration(offre_id),
-    tag_restaurant_id serial references _tag_restaurant(tag_restaurant_id),
-    primary key (offre_id, tag_restaurant_id)
+    offre_id SERIAL REFERENCES _restauration(offre_id),
+    tag_restaurant_id SERIAL REFERENCES _tag_restaurant(tag_restaurant_id),
+    PRIMARY KEY (offre_id, tag_restaurant_id)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
 
@@ -317,9 +317,9 @@ ALTER TABLE _activite
 
 -- TAGs Activité---------------------------------------------
 create table _tag_activite (
-    offre_id serial references _activite(offre_id),
-    tag_id serial references _tag(tag_id),
-    primary key (offre_id, tag_id)
+    offre_id SERIAL REFERENCES _activite(offre_id),
+    tag_id SERIAL REFERENCES _tag(tag_id),
+    PRIMARY KEY (offre_id, tag_id)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
 
@@ -346,9 +346,9 @@ ALTER TABLE _spectacle
 
 -- TAG Spectacles 
 create table _tag_spectacle (
-    offre_id serial references _spectacle(offre_id),
-    tag_id serial references _tag(tag_id),
-    primary key (offre_id, tag_id)
+    offre_id SERIAL REFERENCES _spectacle(offre_id),
+    tag_id SERIAL REFERENCES _tag(tag_id),
+    PRIMARY KEY (offre_id, tag_id)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
 
@@ -381,15 +381,15 @@ CREATE TABLE _langue (
 
 -- Table de lien pour les langues parlées durant les visites
 CREATE TABLE _visite_langue (
-    offre_id serial REFERENCES _visite(offre_id),
-    langue_id serial REFERENCES _langue(langue_id)
+    offre_id SERIAL REFERENCES _visite(offre_id),
+    langue_id SERIAL REFERENCES _langue(langue_id)
 );
 
 -- TAG Visites 
 create table _tag_visite (
-    offre_id serial references _visite(offre_id),
-    tag_id serial references _tag(tag_id),
-    primary key (offre_id, tag_id)
+    offre_id SERIAL REFERENCES _visite(offre_id),
+    tag_id SERIAL REFERENCES _tag(tag_id),
+    PRIMARY KEY (offre_id, tag_id)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
 
@@ -400,7 +400,7 @@ create table _tag_visite (
 -- Table _parc_attraction (hérite de _offre)
 CREATE TABLE _parc_attraction (
     nb_attractions INTEGER,
-    age_requis integer
+    age_requis INTEGER
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _parc_attraction à cause de l'héritage
@@ -415,9 +415,9 @@ ALTER TABLE _parc_attraction
 
 -- TAG Parcs
 create table _tag_parc_attraction (
-    offre_id serial references _parc_attraction(offre_id),
-    tag_id serial references _tag(tag_id),
-    primary key (offre_id, tag_id)
+    offre_id SERIAL REFERENCES _parc_attraction(offre_id),
+    tag_id SERIAL REFERENCES _tag(tag_id),
+    PRIMARY KEY (offre_id, tag_id)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
 
@@ -432,7 +432,7 @@ CREATE TABLE _horaire (
     fermeture TIME NOT NULL,
     pause_debut TIME,
     pause_fin TIME,
-    offre_id serial REFERENCES _offre(offre_id)
+    offre_id SERIAL REFERENCES _offre(offre_id)
 );
 
 -- Table TARIF public
@@ -448,7 +448,7 @@ CREATE TABLE _tarif_public (
 -- Table T_IMAGE_IMG
 CREATE TABLE T_Image_Img (
     -- IMG = IMaGe
-    img_path varchar(255) primary key,
+    img_path VARCHAR(255) PRIMARY KEY,
     img_date_creation DATE NOT NULL,
     img_description TEXT,
     img_date_suppression DATE,

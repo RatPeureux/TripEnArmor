@@ -13,7 +13,7 @@
 
 
 
-set schema 'sae_db';
+SET SCHEMA 'sae_db';
 
 
 
@@ -33,6 +33,25 @@ VALUES
 
 
 -- insertion des comptes et pros
+INSERT INTO _pro_prive(adresse_id, email, mdp_hash, num_tel, num_siren, nom_pro)
+VALUES
+-- LeMeilleurChateau/5
+  (4, 'chateau2kergrist@kergrist.fr', '$2y$10$GXXQOLrRyCjKrO2SLmTm2.kLs1HIWugRuelUynpBATOu9mhORFA1a', '0296463271', '948058375', 'Château de Kergrist'),
+-- nonnonnon
+  (5, 'leo.blas@gmail.com', '$2y$10$DZNXjLZgFIX1B7TDkPtz9O1IP3frVdkgAoySH4V8EkPVfg7vpSOIS', '0658457412','123456789', 'Amazon');
+ 
+INSERT INTO _pro_public(adresse_id, email, mdp_hash, num_tel, type_orga, nom_pro)
+VALUES
+  (6, 'gouvernement.macron@gmail.com', 'onFeraPas493', '0254152245', 'Associatif', 'France'),
+  (7, 'gouvernement.trump@gmail.com', 'camalaLaBest', '0256965584', 'Organisation Publique', 'USA'),
+  (8, 'test.okok@outlook.com', 'lalaland', '0256521245', 'Associatif', 'Dev Unirfou'),
+  (9, 'adresse.mail@hotmail.fr', 'appleEstSupASamsung', '0256988884', 'Organisation Publique', 'PluDI D');
+  
+INSERT INTO _RIB (code_banque, code_guichet, numero_compte, cle_rib, compte_id)
+VALUES 
+  ('12345', '67890', '123456789012', '12', 4),
+  ('54321', '86589', '236524184856', '36', 5);
+
 INSERT INTO _membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom)
 VALUES
 -- hash_mdp_1
@@ -42,28 +61,21 @@ VALUES
 ('pbernard@example.com', '$2y$10$hbWu0lvfTEPw4dBNYFLBBuwikIEbRLm2aT/gzIyLuhN2fn5wZYH.i', '0600000003', 3, 'pbernard', 'Bernard', 'Paul');
 
 
-insert into _pro_prive(adresse_id, email, mdp_hash, num_tel, num_siren, nomPro)
-values
--- LeMeilleurChateau/5
-  (4, 'chateau2kergrist@kergrist.fr', '$2y$10$GXXQOLrRyCjKrO2SLmTm2.kLs1HIWugRuelUynpBATOu9mhORFA1a', '0296463271', '948058375', 'Château de Kergrist'),
--- nonnonnon
-  (5, 'leo.blas@gmail.com', '$2y$10$DZNXjLZgFIX1B7TDkPtz9O1IP3frVdkgAoySH4V8EkPVfg7vpSOIS', '0658457412','123456789', 'Amazon');
- 
-insert into _pro_public(adresse_id, email, mdp_hash, num_tel, type_orga, nomPro)
-values
-  (6, 'gouvernement.macron@gmail.com', 'onFeraPas493', '0254152245', 'Associatif', 'France'),
-  (7, 'gouvernement.trump@gmail.com', 'camalaLaBest', '0256965584', 'Organisation Publique', 'USA'),
-  (8, 'test.okok@outlook.com', 'lalaland', '0256521245', 'Associatif', 'Dev Unirfou'),
-  (9, 'adresse.mail@hotmail.fr', 'appleEstSupASamsung', '0256988884', 'Organisation Publique', 'PluDI D');
-  
-insert into _RIB (code_banque, code_guichet, numero_compte, cle_rib, compte_id)
-values 
-  ('12345', '67890', '123456789012', '12', 4),
-  ('54321', '86589', '236524184856', '36', 5);
+
+
+
+
+
+-- insertion des types d'offres (Standard, Premium, Gratuite)
+INSERT INTO _type_offre(nom_type_offre) VALUES
+('Premium'),
+('Standard'),
+('Gratuit');
+
   
 
 -- Insertion dans les différents types d'offres, 2 chacunes -----------------------------------------------------------------------------------------------
-INSERT INTO _restauration (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, gamme_prix, idPro, type_offre_id)
+INSERT INTO _restauration (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, gamme_prix, id_pro, type_offre_id)
 VALUES 
 (true,
 'Fougères', 
@@ -73,7 +85,7 @@ VALUES
 '2024-10-01', 
 '2024-10-15', 
 1, 
-'€€€', 4, 1),
+'€€€', 3, 1),
 
 (true, 
 'Le Bartab',
@@ -83,9 +95,9 @@ VALUES
 '2024-09-20', 
 '2024-10-01', 
 2, 
-'€€',4, 1);
+'€€', 3, 1);
 
-INSERT INTO _activite (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, duree_activite, age_requis, prestations, idPro, type_offre_id)
+INSERT INTO _activite (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, duree_activite, age_requis, prestations, id_pro, type_offre_id)
 VALUES 
 (true, 
 'Lannion Parcours', 
@@ -113,7 +125,7 @@ VALUES
 
 
 
-INSERT INTO _spectacle (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, capacite_spectacle, duree_spectacle, idPro, type_offre_id)
+INSERT INTO _spectacle (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, capacite_spectacle, duree_spectacle, id_pro, type_offre_id)
 VALUES 
 (true, 
 'Carpediem', 
@@ -137,7 +149,7 @@ VALUES
 500, 
 '02:00:00', 5, 1);
 
-INSERT INTO _visite (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, duree_visite, guide_visite, idPro,type_offre_id)
+INSERT INTO _visite (est_en_ligne, titre, description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, duree_visite, guide_visite, id_pro,type_offre_id)
 VALUES 
 (true, 
 'Remontez dans le temps', 
@@ -162,7 +174,7 @@ true, 6, 2),
 true, 7, 3);
 
 
-INSERT INTO _parc_attraction (est_en_ligne, titre,description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, nb_attractions, age_requis, idPro,type_offre_id)
+INSERT INTO _parc_attraction (est_en_ligne, titre,description_offre, resume_offre, prix_mini, date_creation, date_mise_a_jour, adresse_id, nb_attractions, age_requis, id_pro,type_offre_id)
 VALUES 
 (true, 
 'Pour les gaullois', 
@@ -191,21 +203,13 @@ VALUES
 1)
 ;
 
------- insert types repas 
+------ insertion types repas 
 INSERT INTO _type_repas (nom_type_repas) VALUES 
 ('Petit dej'),
 ('Déjeuner'),
 ('Dîner'),
 ('Boissons'),
 ('Brunch');
-
-
--- insertion des types d'offres (Standard, Premium, Gratuite)
-
-INSERT INTO _type_offre(nom_type_offre) VALUES
-('Premium'),
-('Standard'),
-('Gratuit');
 
 INSERT INTO _tarif_public(titre_tarif, age_min, age_max, prix, offre_id) VALUES
 (
