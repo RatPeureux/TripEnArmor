@@ -9,7 +9,6 @@ async function retrieveElement(id) {
 
 let headerPro = await retrieveElement('header-pro');
 let footerPro = await retrieveElement('footer-pro');
-
 let menuPro = await retrieveElement('menu-pro');
 
 // Ajouter la classe 'active' à l'item du menu sur lequel l'utilisateur se trouve (où il est dans la navigation)

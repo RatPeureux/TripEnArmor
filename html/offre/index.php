@@ -33,10 +33,10 @@ session_start();
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
-    $stmt = $dbh->prepare("SELECT idPro FROM sae_db._offre WHERE offre_id = :offre_id");
+    $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE offre_id = :offre_id");
     $stmt->bindParam(':offre_id', $offre_id);
     $stmt->execute();
-    $idPro = $stmt->fetch(PDO::FETCH_ASSOC)['idpro'];
+    $idPro = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
     $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :idPro");
     $stmt->bindParam(':idPro', $idPro);
     $stmt->execute();
