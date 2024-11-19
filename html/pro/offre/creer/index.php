@@ -1,6 +1,6 @@
 <?php
-// include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
-// verifyUserPro();
+include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
+verifyUserPro();
 ?>
 
 <!DOCTYPE html>
@@ -248,7 +248,7 @@
 						<div
 							class="flex flex-col w-full optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
 							<label for="tag-input" class="block text-nowrap">Tags :</label>
-							<select type="text" id="tag-input"
+							<select type="text" id="tag-input" name="tag-input"
 								class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full"
 								placeholder="Ajouter un tag...">
 								<option value="" class="hidden" selected>Rechercher un tag</option>

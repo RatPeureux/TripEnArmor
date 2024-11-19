@@ -116,6 +116,7 @@ if (!isset($_POST['id'])) {
                 $_SESSION['id_pro'] = $user['id_compte'];
                 $_SESSION['token'] = bin2hex(random_bytes(32)); // Génère un token de session
                 $_SESSION['user_email'] = $user['email'];
+                $_SESSION['user_name'] = $user['nompro'];
                 header('location: /pro?token=' . $_SESSION['token']); // Redirige vers la page connectée
                 exit();
             } else {
