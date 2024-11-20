@@ -11,21 +11,21 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Vérifie si un ID d'offre a été fourni
-    if (isset($_POST['idoffre'])) {
-        $idoffre = $_POST['idoffre'];
+    if (isset($_POST['id_offre'])) {
+        $id_offre = $_POST['id_offre'];
         
         // Debug : affichez la valeur reçue
-        error_log("Valeur d'idoffre : " . $idoffre); // Cela envoie le message à votre log d'erreurs PHP
+        error_log("Valeur d'id_offre : " . $id_offre); // Cela envoie le message à votre log d'erreurs PHP
 
-        // Vérifiez si $idoffre est un entier
-        if (!is_numeric($idoffre)) {
-            $_SESSION['message'] = "ID d'offre invalide : " . htmlspecialchars($idoffre);
+        // Vérifiez si $id_offre est un entier
+        if (!is_numeric($id_offre)) {
+            $_SESSION['message'] = "ID d'offre invalide : " . htmlspecialchars($id_offre);
             header("Location: /pro"); // Redirection après message d'erreur
             exit();
         }
             // Récupérer l'état actuel de l'offre
-            $stmt = $dbh->prepare("SELECT est_en_ligne FROM sae_db.Offre WHERE offre_id = :idoffre");
-            $stmt->execute(['idoffre' => $idoffre]);
+            $stmt = $dbh->prepare("SELECT est_en_ligne FROM sae_db.Offre WHERE id_offre = :id_offre");
+            $stmt->execute(['id_offre' => $id_offre]);
             $offre = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($offre === false) {
@@ -40,14 +40,14 @@ try {
 
             if ($est_en_ligne) {
                 // Met à jour l'état de l'offre pour la mettre hors ligne
-                $stmt = $dbh->prepare("UPDATE sae_db.Offre SET est_en_ligne = false WHERE offre_id = :idoffre");
-                $stmt->execute(['idoffre' => $idoffre]);
+                $stmt = $dbh->prepare("UPDATE sae_db.Offre SET est_en_ligne = false WHERE id_offre = :id_offre");
+                $stmt->execute(['id_offre' => $id_offre]);
                 $_SESSION['message'] = "L'offre a été mise hors ligne avec succès.";
                 header("location: /pro");
             } else {
                 // Met à jour l'état de l'offre pour la mettre en ligne
-                $stmt = $dbh->prepare("UPDATE sae_db.Offre SET est_en_ligne = true WHERE offre_id = :idoffre");
-                $stmt->execute(['idoffre' => $idoffre]);
+                $stmt = $dbh->prepare("UPDATE sae_db.Offre SET est_en_ligne = true WHERE id_offre = :id_offre");
+                $stmt->execute(['id_offre' => $id_offre]);
                 $_SESSION['message'] = "L'offre a été mise en ligne avec succès.";
                 header("location: /pro");
             }

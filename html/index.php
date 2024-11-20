@@ -52,7 +52,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
             // Ajouter le contenu des cartes pour le téléphone
             {
-                $allCardsTextPhone .= "<a href='/scripts/go_to_details.php?offre_id=$offre_id'>
+                $allCardsTextPhone .= "<a href='/scripts/go_to_details.php?id_offre=$id_offre'>
                         <div class='card";
                 // Afficher en exergue si la carte a une option (à la une ou en relief)
                 if ($option) {
@@ -109,7 +109,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             // Afficher le contenu des cartes pour la tablette
             {
                 $allCardsTextTablette .= "
-                <a href='/scripts/go_to_details.php?offre_id=$offre_id'>
+                <a href='/scripts/go_to_details.php?id_offre=$id_offre'>
                             <div class='card";
                 // Afficher en exergue si la carte a une option (à la une ou en relief)
                 if ($option) {

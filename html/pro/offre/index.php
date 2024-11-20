@@ -27,7 +27,7 @@ verifyPro();
     <div id="header-pro" class="mb-20"></div>
 
     <?php
-    $offre_id = $_SESSION['offre_id'];
+    $id_offre = $_SESSION['id_offre'];
     $idPro = $_SESSION['id_pro'];
 
     // Connexion avec la bdd
@@ -41,8 +41,8 @@ verifyPro();
     $pro_nom = $pro['nompro'];
 
     // Obtenir l'ensemble des informations de l'offre
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE offre_id = :offre_id");
-    $stmt->bindParam(':offre_id', $offre_id);
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
+    $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';

@@ -59,7 +59,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     foreach($toutesMesOffres as $offre) {
                         
                         // Détails de l'offre
-                        $offre_id = $offre['offre_id'];
+                        $id_offre = $offre['id_offre'];
                         $description = $offre['description_offre'];
                         $resume = $offre['resume_offre'];
                         // $option = $offre['option'];
@@ -67,7 +67,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                         $prix_mini = $offre['prix_mini'];
                         $titre_offre = $offre['titre'];
                             // Obtenir la catégorie de l'offre
-                        $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_categorie WHERE offre_id = $offre_id");
+                        $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_categorie WHERE id_offre = $id_offre");
                         $stmt->execute();
                         $categorie_offre = $stmt->fetch(PDO::FETCH_ASSOC)['type_offre'];
                         print_r($categorie_offre);
@@ -85,9 +85,9 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                         }
 
                         // Obtenir le type de l'offre (gratuit, standard, premium)
-                        $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE offre_id = :offre_id");
-                        $stmt->bindParam(':offre_id', $offre_id, PDO::PARAM_INT);
-                        print_r($offre_id);
+                        $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE id_offre = :id_offre");
+                        $stmt->bindParam(':id_offre', $id_offre, PDO::PARAM_INT);
+                        print_r($id_offre);
                         $stmt->execute();
                         
                         // Récupérer le résultat
@@ -98,12 +98,12 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                             $type_offre = $result['nom_type_offre'];
                         } else {
                             // Traiter l'erreur, par exemple :
-                            echo "Aucun résultat trouvé pour l'offre ID $offre_id.";
+                            echo "Aucun résultat trouvé pour l'offre ID $id_offre.";
                         }
                             
                             // Détails de l'adresse
-                        $adresse_id = $offre['adresse_id'];
-                        $stmt = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE adresse_id = $adresse_id");
+                        $id_adresse = $offre['id_adresse'];
+                        $stmt = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = $id_adresse");
                         $stmt->execute();
                         $adresse = $stmt->fetch(PDO::FETCH_ASSOC);
                         $code_postal = $adresse['code_postal'];
@@ -113,7 +113,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                             // Afficher les prix ou la gamme de prix si c'est un restaurant
                         $prix_sur_carte;
                         if ($categorie_offre == 'restauration') {
-                            $stmt = $dbh->prepare("SELECT * FROM sae_db._restauration WHERE offre_id = $offre_id");
+                            $stmt = $dbh->prepare("SELECT * FROM sae_db._restauration WHERE id_offre = $id_offre");
                             $stmt->execute();
                             $prix_sur_carte = $stmt->fetch(PDO::FETCH_ASSOC)['gamme_prix'];
                         } else {
@@ -121,26 +121,26 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                         }
                             // Tags pour le restaurant (pour la carte, on prend les types de repas) ou autres si ce n'est pas un restaurant
                         if ($categorie_offre == 'restauration') {
-                            $stmt = $dbh->prepare("SELECT type_repas_id FROM sae_db._restaurant_type_repas WHERE restauration_id = $offre_id");
+                            $stmt = $dbh->prepare("SELECT id_type_repas FROM sae_db._restaurant_type_repas WHERE id_offre = $id_offre");
                             $stmt->execute();
                             $repasIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             $tags = '';
                             // Récup chaque nom de tag, et l'ajouter aux tags
                             foreach($repasIds as $repasId) {
-                                $stmt = $dbh->prepare("SELECT nom_type_repas FROM sae_db._type_repas WHERE type_repas_id = $repasId");
+                                $stmt = $dbh->prepare("SELECT nom_type_repas FROM sae_db._type_repas WHERE id_type_repas = $repasId");
                                 $stmt->execute();
                                 $nom_tag = $stmt->fetch(PDO::FETCH_ASSOC);
                                 $tags = $tags . ', ' . $nom_tag;
                             }
                             // Tags pour les autres types d'offre
                         } else {
-                            $stmt = $dbh->prepare("SELECT tag_id FROM sae_db._tag_$categorie_offre WHERE id_$categorie_offre = $offre_id");
+                            $stmt = $dbh->prepare("SELECT id_tag FROM sae_db._tag_$categorie_offre WHERE id_$categorie_offre = $id_offre");
                             $stmt->execute();
                             $tagIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             $tags = '';
                             // Récup chaque nom de tag, et l'ajouter aux tags
                             foreach($tagIds as $tagId => $values) {
-                                $stmt = $dbh->prepare("SELECT nom_tag FROM sae_db._tag WHERE tag_id = $tagId");
+                                $stmt = $dbh->prepare("SELECT nom_tag FROM sae_db._tag WHERE id_tag = $tagId");
                                 $stmt->execute();
                                 $nom_tag = $stmt->fetch(PDO::FETCH_ASSOC);
                                 $tags = $tags . ', ' . $nom_tag;
@@ -165,7 +165,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                         <?php 
                             if ($est_en_ligne) {
                         ?>
-                        <a href="/pages/toggleLigne.php?offre_id=<?php echo $offre_id ?>" title="hors-ligne / en ligne ?">
+                        <a href="/pages/toggleLigne.php?id_offre=<?php echo $id_offre ?>" title="hors-ligne / en ligne ?">
                             <div class="bg-bgBlur/75 absolute right-4 backdrop-blur flex justify-center items-center p-1 rounded-b-lg">
                                 <i class="fa-solid fa-wifi text-h1"></i>
                             </div>
@@ -173,7 +173,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                         <?php
                             } else {
                         ?>
-                        <a href="/pages/toggleLigne.php?offre_id=<?php echo $offre_id ?>">
+                        <a href="/pages/toggleLigne.php?id_offre=<?php echo $id_offre ?>">
                             <div class="bg-bgBlur/75 absolute right-4 backdrop-blur flex justify-center items-center p-1 rounded-b-lg">
                                 <img src="/public/icones/hors-ligne.svg" alt="Hors ligne">
                             </div>
@@ -184,7 +184,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
                     </div>
                     <!-- Image de fond -->
-                    <a href="/pages/go_to_details_pro.php?offre_id=<?php echo $offre_id ?>">
+                    <a href="/pages/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>">
                         <img class="rounded-l-lg w-full h-full object-cover object-center" src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre" title="consulter les détails">
                     </a>
                 </div>
@@ -213,7 +213,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                             </a>
                             <div class="details-menu hidden rounded-lg absolute right-0 bg-white">
                                 <ul class="rounded-lg flex flex-col">
-                                    <a href="/pages/go_to_details.php?offre_id=<?php echo $offre_id ?>">
+                                    <a href="/pages/go_to_details.php?id_offre=<?php echo $id_offre ?>">
                                         <li class="rounded-t-lg p-2 hover:bg-primary hover:text-white duration-200">Details</li>
                                     </a>
                                     <a href="">

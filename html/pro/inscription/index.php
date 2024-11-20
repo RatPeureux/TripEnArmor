@@ -316,7 +316,7 @@
 
         if ($stmtAdresse->execute()) {
             // Récupérer l'ID de l'adresse insérée
-            $adresseId = $dbh->lastInsertId();
+            $id_adresse = $dbh->lastInsertId();
 
             // Récupérer les information du compte à créer
             $statut = $_POST['statut'];
@@ -335,10 +335,10 @@
 
             // Préparer l'insertion dans la table Professionnel (séparer public / privé)
             if ($statut === "public") {
-                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, adresse_id, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom_pro, :type_orga)");
+                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :type_orga)");
                 $stmtProfessionnel->bindParam(':type_orga', $type_orga);
             } else {
-                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, adresse_id, nom_pro, num_siren) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom_pro, :num_siren)");
+                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :num_siren)");
                 $stmtProfessionnel->bindParam(':num_siren', $num_siren);
             }
 
@@ -347,7 +347,7 @@
             $stmtProfessionnel->bindParam(':mail', $mail);
             $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
             $stmtProfessionnel->bindParam(':num_tel', $tel);
-            $stmtProfessionnel->bindParam(':adresse_id', $adresseId);
+            $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
 
             // Exécuter la requête pour le professionnel
             if ($stmtProfessionnel->execute()) {
@@ -355,12 +355,12 @@
                 if ($iban) {
                     try {
                         $rib = extraireRibDepuisIban($iban);
-                        $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :compte_id)");
+                        $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle_rib, id_compte) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :id_compte)");
                         $stmtRib->bindParam(':code_banque', $rib['code_banque']);
                         $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
                         $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
                         $stmtRib->bindParam(':cle_rib', $rib['cle_rib']);
-                        $stmtRib->bindParam(':compte_id', $compte_id); // Assurez-vous que compte_id est défini
+                        $stmtRib->bindParam(':id_compte', $id_compte); // Assurez-vous que id_compte est défini
 
                         if ($stmtRib->execute()) {
                             $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";

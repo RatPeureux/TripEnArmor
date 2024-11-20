@@ -31,14 +31,14 @@ class Facture extends BDD {
      * @param string $jour_en_ligne La date à laquelle la facture a été mise en ligne.
      * @return array|int Retourne un tableau contenant l'identifiant de la nouvelle facture ou -1 en cas d'erreur.
      */
-    static function createFacture($jour_en_ligne, $offre_id) {
+    static function createFacture($jour_en_ligne, $id_offre) {
         // Requête SQL pour insérer une nouvelle facture
-        $query = "INSERT INTO " . self::$nom_table ." (jour_en_ligne, offre_id) VALUES (?, ?) RETURNING id_facture";
+        $query = "INSERT INTO " . self::$nom_table ." (jour_en_ligne, id_offre) VALUES (?, ?) RETURNING id_facture";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $jour_en_ligne);
-        $statement->bindParam(2, $offre_id);
+        $statement->bindParam(2, $id_offre);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
@@ -54,14 +54,14 @@ class Facture extends BDD {
      * @param string $jour_en_ligne La nouvelle date à laquelle la facture est mise en ligne.
      * @return array|int Retourne un tableau contenant l'identifiant de la facture mise à jour ou -1 en cas d'erreur.
      */
-    static function updateFacture($id_facture, $jour_en_ligne, $offre_id) {
+    static function updateFacture($id_facture, $jour_en_ligne, $id_offre) {
         // Requête SQL pour mettre à jour une facture existante
-        $query = "UPDATE " . self::$nom_table ." SET jour_en_ligne = ?, offre_id = ? WHERE id_facture = ? RETURNING id_facture";
+        $query = "UPDATE " . self::$nom_table ." SET jour_en_ligne = ?, id_offre = ? WHERE id_facture = ? RETURNING id_facture";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $jour_en_ligne);
-        $statement->bindParam(2, $offre_id);
+        $statement->bindParam(2, $id_offre);
         $statement->bindParam(3, $id_facture);
 
         // Exécute la requête et retourne les résultats ou une erreur
