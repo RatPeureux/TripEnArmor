@@ -10,6 +10,7 @@ class Rib extends BDD {
      * @return array|int Retourne un tableau contenant les données du RIB ou -1 en cas d'erreur.
      */
     static function getRibById($id) {
+        self::initBDD();
         // Requête SQL pour sélectionner un RIB par son ID
         $query = "SELECT * FROM " . self::$nom_table ." WHERE id_rib = ?";
         
@@ -36,6 +37,7 @@ class Rib extends BDD {
      * @return array|int Retourne un tableau contenant l'identifiant du nouveau RIB ou -1 en cas d'erreur.
      */
     static function createRib($code_banque, $code_guichet, $numero_compte, $cle_rib, $compte_id) {
+        self::initBDD();
         // Requête SQL pour insérer un nouveau RIB
         $query = "INSERT INTO " . self::$nom_table ." (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (?, ?, ?, ?, ?) RETURNING id_rib";
         
@@ -66,6 +68,7 @@ class Rib extends BDD {
      * @return array|int Retourne un tableau contenant l'identifiant du RIB mis à jour ou -1 en cas d'erreur.
      */
     static function updateRib($id_rib, $code_banque, $code_guichet, $numero_compte, $cle_rib, $compte_id) {
+        self::initBDD();
         // Requête SQL pour mettre à jour un RIB existant
         $query = "UPDATE " . self::$nom_table ." SET code_banque = ?, code_guichet = ?, numero_compte = ?, cle_rib = ?, compte_id = ? WHERE id_rib = ? RETURNING id_rib";
         
@@ -93,6 +96,7 @@ class Rib extends BDD {
      * @return array|int Retourne un tableau vide si la suppression réussit ou -1 en cas d'erreur.
      */
     static function deleteRib($id) {
+        self::initBDD();
         // Requête SQL pour supprimer un RIB par son ID
         $query = "DELETE FROM " . self::$nom_table ." WHERE id_rib = ?";
         

@@ -10,6 +10,7 @@ class Horaire extends BDD {
      * @return array|int Retourne un tableau contenant les données de l'horaire ou -1 en cas d'erreur.
      */
     static function getHoraireById($id) {
+        self::initBDD();
         // Requête SQL pour sélectionner un horaire par son ID
         $query = "SELECT * FROM " . self::$nom_table ." WHERE id_horaire = ?";
         
@@ -35,6 +36,7 @@ class Horaire extends BDD {
      * @return array|int Retourne un tableau contenant l'identifiant du nouvel horaire ou -1 en cas d'erreur.
      */
     static function createHoraire($ouverture, $fermeture, $pause_debut, $pause_fin) {
+        self::initBDD();
         // Requête SQL pour insérer un nouvel horaire
         $query = "INSERT INTO " . self::$nom_table ." (ouverture, fermeture, pause_debut, pause_fin) VALUES (?, ?, ?, ?) RETURNING id_horaire";
         
@@ -63,6 +65,7 @@ class Horaire extends BDD {
      * @return array|int Retourne un tableau contenant l'identifiant de l'horaire mis à jour ou -1 en cas d'erreur.
      */
     static function updateHoraire($id_horaire, $ouverture, $fermeture, $pause_debut, $pause_fin) {
+        self::initBDD();
         // Requête SQL pour mettre à jour un horaire existant
         $query = "UPDATE " . self::$nom_table ." SET ouverture = ?, fermeture = ?, pause_debut = ?, pause_fin = ? WHERE id_horaire = ? RETURNING id_horaire";
         
@@ -89,6 +92,7 @@ class Horaire extends BDD {
      * @return array|int Retourne un tableau vide si la suppression réussit ou -1 en cas d'erreur.
      */
     static function deleteHoraire($id) {
+        self::initBDD();
         // Requête SQL pour supprimer un horaire par son ID
         $query = "DELETE FROM " . self::$nom_table ." WHERE id_horaire = ?";
         

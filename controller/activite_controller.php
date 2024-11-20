@@ -62,10 +62,29 @@ class OffreController {
                 $prix_mini !== false ? $prix_mini : $offre["prix_mini"], 
                 $id_pro !== false ? $id_pro : $offre["id_pro"], 
                 $type_offre_id !== false ? $type_offre_id : $offre["id_type_offre"], 
-                $adresse_id !== false ? $adresse_id : $offre["adresse_id"]
+                $adresse_id !== false ? $adresse_id : $offre["adresse_id"],
+                $offre["enLigne"]
             );
 
             return $updatedOffreId;
         }
+    }
+
+    public function toggleEnLigne($id) {
+        $offre = $this->model::getOffreById($id);
+        
+        $updatedOffreId = $this->model::updateOffre(
+            $id, 
+            $offre["titre"], 
+            $offre["description"], 
+            $offre["resume"], 
+            $offre["prix_mini"], 
+            $offre["id_pro"], 
+            $offre["id_type_offre"], 
+            $offre["adresse_id"],
+            !$offre["enLigne"],
+        );
+
+        return $updatedOffreId;
     }
 }

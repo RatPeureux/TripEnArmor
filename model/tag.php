@@ -10,6 +10,7 @@ class Tag extends BDD {
      * @return array|int Retourne un tableau contenant les données du tag ou -1 en cas d'erreur.
      */
     static function getTagById($id) {
+        self::initBDD();
         // Requête SQL pour sélectionner un tag par son ID
         $query = "SELECT * FROM " . self::$nom_table ." WHERE id_tag = ?";
         
@@ -32,6 +33,7 @@ class Tag extends BDD {
      * @return array|int Retourne un tableau contenant l'identifiant du nouveau tag ou -1 en cas d'erreur.
      */
     static function createTag($nom_tag) {
+        self::initBDD();
         // Requête SQL pour insérer un nouveau tag
         $query = "INSERT INTO " . self::$nom_table ." (nom_tag) VALUES (?) RETURNING id_tag";
         
@@ -54,6 +56,7 @@ class Tag extends BDD {
      * @return array|int Retourne un tableau contenant l'identifiant du tag mis à jour ou -1 en cas d'erreur.
      */
     static function updateTag($id_tag, $nom_tag) {
+        self::initBDD();
         // Requête SQL pour mettre à jour un tag existant
         $query = "UPDATE " . self::$nom_table ." SET nom_tag = ? WHERE id_tag = ? RETURNING id_tag";
         
@@ -77,6 +80,7 @@ class Tag extends BDD {
      * @return array|int Retourne un tableau vide si la suppression réussit ou -1 en cas d'erreur.
      */
     static function deleteTag($id) {
+        self::initBDD();
         // Requête SQL pour supprimer un tag par son ID
         $query = "DELETE FROM " . self::$nom_table ." WHERE id_tag = ?";
         
