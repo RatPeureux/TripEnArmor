@@ -49,7 +49,7 @@ class Offre extends BDD {
 
     static function updateOffre($id, $titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id) { // U
         self::initBDD();
-        $query = "UPDATE " . self::$nom_table . " SET titre = ?, description = ?, resume = ?, prix_mini = ?, id_pro = ?, type_offre_id = ?, adresse_id = ? WHERE offre_id = ? RETURNING offre_id";
+        $query = "UPDATE " . self::$nom_table . " SET titre = ?, description = ?, resume = ?, prix_mini = ?, id_pro = ?, type_offre_id = ?, adresse_id = ?, date_mise_a_jour = CURRENT_TIMESTAMP WHERE offre_id = ? RETURNING offre_id";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $titre);
         $statement->bindParam(2, $description);
