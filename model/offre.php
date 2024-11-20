@@ -3,7 +3,27 @@
 class Offre extends BDD {
     private $nom_table = "_offre";
 
-    static function getOffreById($id, $enLigne = true) {
+    static function createOffre($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id) { // C
+        self::initBDD();
+        $query = "INSERT INTO (titre, description, resume, prix_mini, id_pro, type_offre_id, adresse_id". self::$nom_table ."VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id";
+        $statement = self::$db->prepare($query);
+        $statement->bindParam(1, $titre);
+        $statement->bindParam(2, $description);
+        $statement->bindParam(3, $resume);
+        $statement->bindParam(4, $prix_mini);
+        $statement->bindParam(5, $id_pro);
+        $statement->bindParam(6, $type_offre_id);
+        $statement->bindParam(7, $adresse_id);
+        
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR: Impossible de créer l'offre";
+            return -1;
+        }
+    }
+
+    static function getOffreById($id, $enLigne = true) { // R
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table ." WHERE offre_id = ? AND est_en_ligne = ?";
         $statement = self::$db->prepare($query);
@@ -27,9 +47,9 @@ class Offre extends BDD {
         }
     }
 
-    static function createOffre($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id) {
+    static function updateOffre($id, $titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id) { // U
         self::initBDD();
-        $query = "INSERT INTO (titre, description, resume, prix_mini, id_pro, type_offre_id, adresse_id". self::$nom_table ."VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id";
+        $query = "UPDATE " . self::$nom_table . " SET titre = ?, description = ?, resume = ?, prix_mini = ?, id_pro = ?, type_offre_id = ?, adresse_id = ? WHERE offre_id = ? RETURNING offre_id";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $titre);
         $statement->bindParam(2, $description);
@@ -38,14 +58,27 @@ class Offre extends BDD {
         $statement->bindParam(5, $id_pro);
         $statement->bindParam(6, $type_offre_id);
         $statement->bindParam(7, $adresse_id);
+        $statement->bindParam(8, $id);
 
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            echo "ERREUR: Impossible de créer l'offre";
+            echo "ERREUR: Impossible de mettre à jour l'offre";
             return -1;
         }
     }
 
-    // ...
+    static function deleteOffre($id) { // D
+        self::initBDD();
+        $query = "DELETE FROM ". self::$nom_table . "WHERE offre_id = ?";
+        $statement = self::$db->prepare($query);
+        $statement->bindParam(1, $id);
+
+        if ($statement->execute()) {
+            return true;
+        } else {
+            echo "ERREUR: Impossible de supprimer l'offre";
+            return false;
+        }
+    }
 }
