@@ -27,6 +27,7 @@
                 </a>
 
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription"
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action=""
                     method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Professionnel</p>
 
@@ -38,7 +39,6 @@
                         <option value="public">public</option>
                         <option value="privé">privé</option>
                     </select>
-                    <label class="text-small" for="statut">&nbsp;.</label></br>
 
                     <!-- Champ pour le nom -->
                     <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
@@ -51,26 +51,25 @@
                         pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail"
                         maxlength="255" required>
 
-                    <!-- Champ pour le mot de passe -->
-                    <label class="text-small" for="mdp">Mot de passe<span class="text-red-500"> *</span></label>
-                    <div class="relative w-full">
-                        <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
-                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
-                            title="Saisir un mot de passe" minlength="8" autocomplete="new-password" required>
-                        <!-- Icône pour afficher/masquer le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword1"></i>
-                    </div>
+                        <!-- Champ pour le mot de passe -->
+                        <label class="text-small" for="mdp">Mot de passe</label>
+                        <div class="relative w-full">
+                            <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
+                                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
+                                title="Saisir un mot de passe" minlength="8" autocomplete="new-password" required>
+                            <!-- Icône pour afficher/masquer le mot de passe -->
+                            <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword1"></i>
+                        </div>
 
-                    <!-- Champ pour confirmer le mot de passe -->
-                    <label class="text-small" for="confMdp">Confirmer le mot de passe<span class="text-red-500">
-                            *</span></label>
-                    <div class="relative w-full">
-                        <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp"
-                            name="confMdp"
-                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
-                            title="Saisir le même mot de passe" minlength="8" autocomplete="new-password" required>
-                        <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword2"></i>
-                    </div>
+                        <!-- Champ pour confirmer le mot de passe -->
+                        <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
+                        <div class="relative w-full">
+                            <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp"
+                                name="confMdp"
+                                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
+                                title="Saisir le même mot de passe" minlength="8" autocomplete="new-password" required>
+                            <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword2"></i>
+                        </div>
 
                     <!-- Messages d'erreurs -->
                     <span id="error-message" class="error text-rouge-logo text-small"></span>
@@ -95,7 +94,7 @@
 
     // Si le formulaire a été soumis
     $statut = $_POST['statut'];
-    $nom = $_POST['nom'];
+    $nom_pro = $_POST['nom'];
     $mail = strtolower($_POST['mail']);
     $mdp = $_POST['mdp'];
     ?>
@@ -123,63 +122,78 @@
             <!-- Logo de l'application -->
             <img class="text mb-4" src="/public/images/logo.svg" alt="moine" width="57">
 
-            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription"
-                method="post" enctype="multipart/form-data"">
+                <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action=""
+                    method="post" enctype="multipart/form-data">
             <p class=" pb-3">Dites-nous en plus !</p>
 
                 <div class="mb-3">
                     <label class="text-small" for="nom" id="nom">Je suis un organisme <?php echo $statut; ?>.</label>
                 </div>
 
-                <?php if ($statut == "privé") { ?>
-                    <!-- Champ pour la dénomination sociale (en lecture seule) -->
-                    <label class="text-small" for="nom" id="nom">Dénomination sociale</label>
-                    <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                        title="Dénomination sociale" value="<?php echo $nom; ?>" readonly>
-                <?php } else { ?>
-                    <!-- Champ pour le nom de l'organisation (en lecture seule) -->
-                    <label class="text-small" for="nom" id="nom">Nom de l'organisation</label>
-                    <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                        title="Nom de l'organisation" value="<?php echo $nom; ?>" readonly>
-                <?php } ?>
+                    <?php if ($statut == "privé") { ?>
+                            <!-- Champ pour la dénomination sociale (en lecture seule) -->
+                            <label class="text-small" for="nom" id="nom">Dénomination sociale</label>
+                            <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
+                                title="Dénomination sociale" value="<?php echo $nom_pro; ?>" readonly>
+                    <?php } else { ?>
+                            <!-- Champ pour le nom de l'organisation (en lecture seule) -->
+                            <label class="text-small" for="nom" id="nom">Nom de l'organisation</label>
+                            <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
+                                title="Nom de l'organisation" value="<?php echo $nom_pro; ?>" readonly>
+                    <?php } ?>
 
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
                     title="Adresse mail" value="<?php echo $mail; ?>" readonly>
 
-                <!-- Champs pour l'adresse -->
-                <label class="text-small" for="user_input_autocomplete_address">Adresse postale</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
-                    name="user_input_autocomplete_address" pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir une adresse postale"
-                    maxlength="255" required>
+                    <!-- Choix du type d'organisme public -->
+                    <?php if ($statut == 'public') { ?>
+                        <label class="text-small" for="type_orga">Je suis une&nbsp;</label>
+                        <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="type_orga" name="type_orga"
+                            title="Choisir un type d'organisme public" onchange="updateLabel()" required>
+                            <option value="" disabled selected> --- </option>
+                            <option value="public">association</option>
+                            <option value="privé">organisation autre</option>
+                        </select>
+                        <br>
+                    <?php } else { ?>
+                    <!-- Inscription du numéro de SIREN -->
+                        <label class="text-small" for="num_siren">Numéro SIREN</label>
+                        <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="num_siren" name="num_siren" required>
+                    <?php } ?>
+
+                    <!-- Champs pour l'adresse -->
+                    <label class="text-small" for="adresse">Adresse postale</label>
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse"
+                        pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir une adresse postale" maxlength="255" required>
 
                 <label class="text-small" for="complement">Complément d'adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
                     title="Complément d'adresse" maxlength="255">
 
-                <div class="flex flex-nowrap space-x-3 mb-1.5">
-                    <div class="w-28">
-                        <label class="text-small" for="postal_code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code"
-                            name="postal_code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$"
-                            title="Saisir un code postal" minlength="5" maxlength="5" oninput="number(this)" required>
+                    <div class="flex flex-nowrap space-x-3 mb-1.5">
+                        <div class="w-28">
+                            <label class="text-small" for="code">Code postal</label>
+                            <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code" name="code"
+                                pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Saisir un code postal" minlength="5"
+                                maxlength="5" oninput="number(this)" required>
+                        </div>
+                        <div class="w-full">
+                            <label class="text-small" for="ville">Ville</label>
+                            <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="ville" name="ville"
+                                pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir une ville"
+                                maxlength="50" required>
+                        </div>
                     </div>
-                    <div class="w-full">
-                        <label class="text-small" for="locality">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" name="locality"
-                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir une ville"
-                            maxlength="50" required>
-                    </div>
-                </div>
 
-                <!-- Champ pour le numéro de téléphone -->
-                <label class="text-small" for="num_tel">Téléphone</label>
-                <div class="w-full">
-                    <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
-                        pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14"
-                        oninput="formatTEL(this)" required>
-                </div>
+                    <!-- Champ pour le numéro de téléphone -->
+                    <div class="w-full flex flex-col">
+                        <label class="text-small" for="num_tel">Téléphone</label>
+                        <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
+                            pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14"
+                            oninput="formatTEL(this)" required>
+                    </div>
 
                 <?php if ($statut == "privé") { ?>
                     <!-- Choix de saisie des informations bancaires -->
@@ -200,14 +214,15 @@
                     </div>
                 <?php } ?>
 
-                <!-- Choix d'acceptation des termes et conditions -->
-                <div class="mb-1.5 flex items-start">
-                    <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
-                        required>
-                    <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions
-                            d'utilisation</u> et vous confirmez que vous avez lu notre <u class="cursor-pointer">Politique
-                            de confidentialité et d'utilisation des cookies</u>.</label>
-                </div>
+                    <!-- Choix d'acceptation des termes et conditions -->
+                    <div class="mb-1.5 flex items-start">
+                        <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
+                            required>
+                        <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions
+                            d'utilisation</u> et vous confirmez que vous avez lu notre
+                            <u class="cursor-pointer">Politique de confidentialité et d'utilisation des cookies</u>.
+                        </label>
+                    </div>
 
                 <!-- Messages d'erreurs -->
                 <span id="error-message" class="error text-rouge-logo text-small"></span>
@@ -216,11 +231,11 @@
                 <input type="submit" value="Créer mon compte"
                     class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
-                <input type="hidden" name="statut" value="<?php echo $statut; ?>">
-                <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
-            </form>
-        </div>
-    </body>
+                    <input type="hidden" name="statut" value="<?php echo $statut; ?>">
+                    <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
+                </form>
+            </div>
+        </body>
 
     </html>
 
@@ -260,81 +275,76 @@
         ];
     }
 
+    function extraireInfoAdresse($adresse)
+    {
+        $numero = substr($adresse, 0, 1);
+        $odonyme = substr($adresse, 2);
+
+        return [
+            'numero' => $numero,
+            'odonyme' => $odonyme,
+        ];
+    }
+
     // Partie pour traiter la soumission du second formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
-        // Assurer que tous les champs obligatoires sont remplis
-        $statut = $_POST['statut'];
-        $nom = $_POST['nom'];
-        $mail = $_POST['mail'];
-        $mdp = $_POST['mdp'];
+
+        // Récupérer les information de l'adresse
         $adresse = $_POST['adresse'];
+        $infosSup = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
         $code = $_POST['code'];
         $ville = $_POST['ville'];
-        $tel = $_POST['num_tel'];
-        if (isset($_POST['iban'])) {
-            $iban = $_POST['iban'];
-        }
 
-        function extraireInfoAdressse($adresse)
-        {
-            $numero = substr($adresse, 0, 1);
-            $odonyme = substr($adresse, 2);
+        // Insérer dans la base de données pour l'adresse
+        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement_adresse) VALUES (:code, :ville, :numero, :odonyme, :complement)");
 
-            return [
-                'numero' => $numero,
-                'odonyme' => $odonyme,
-            ];
-        }
-
-        // Hachage du mot de passe
-        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
-
-        try {
-            $test = extraireInfoAdressse($adresse);
-            $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement_adresse) VALUES (:code, :ville, :numero, :odonyme, :complement)");
-            $stmtAdresse->bindParam(':code', $code);
-            $stmtAdresse->bindParam(':ville', $ville);
-            $stmtAdresse->bindParam(':numero', $test['numero']);
-            $stmtAdresse->bindParam(':odonyme', $test['odonyme']);
-            $stmtAdresse->bindParam(':complement', $complement); // Assurez-vous que compte_id est défini
-            // Récupérer l'ID de l'adresse insérée
-            $adresseId = $dbh->lastInsertId();
-
-            if ($stmtAdresse->execute()) {
-                $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
-            } else {
-                $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtTest->errorInfo());
-            }
-        } catch (Exception $e) {
-            $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
-        }
+        // Lier les paramètres pour l'adresse
+        $stmtAdresse->bindParam(':complement', $complement);
+        $stmtAdresse->bindParam(':odonyme', $infosSup['odonyme']);
+        $stmtAdresse->bindParam(':numero', $infosSup['numero']);
+        $stmtAdresse->bindParam(':code', $code);
+        $stmtAdresse->bindParam(':ville', $ville);
 
         if ($stmtAdresse->execute()) {
             // Récupérer l'ID de l'adresse insérée
             $adresseId = $dbh->lastInsertId();
 
-            // Préparer l'insertion dans la table Professionnel
+            // Récupérer les information du compte à créer
+            $statut = $_POST['statut'];
+            $type_orga = $_POST['type_orga'];
+            $num_siren = $_POST['num_siren'];
+            $nom_pro = $_POST['nom'];
+            $mail = $_POST['mail'];
+            $mdp = $_POST['mdp'];
+            $tel = $_POST['num_tel'];
+            if (isset($_POST['iban'])) {
+                $iban = $_POST['iban'];
+            }
+
+            // Hachage du mot de passe
+            $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
+
+            // Préparer l'insertion dans la table Professionnel (séparer public / privé)
             if ($statut === "public") {
-                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, adresse_id, nompro, type_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom, 'oui')");
-
-                // Lier les paramètres pour le professionnel
-                $stmtProfessionnel->bindParam(':nom', $nom);
-                $stmtProfessionnel->bindParam(':mail', $mail);
-                $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
-                $stmtProfessionnel->bindParam(':num_tel', $tel);
-                $stmtProfessionnel->bindParam(':adresse_id', $adresseId);
-
-                $stmtProfessionnel->execute();
-                $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
+                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, adresse_id, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom_pro, :type_orga)");
+                $stmtProfessionnel->bindParam(':type_orga', $type_orga);
             } else {
-                // Pro privé
+                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, adresse_id, nom_pro, num_siren) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom_pro, :num_siren)");
+                $stmtProfessionnel->bindParam(':num_siren', $num_siren);
+            }
 
-                // TODO: insertion du pro en lui-même
+            // Lier les paramètres pour le professionnel
+            $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
+            $stmtProfessionnel->bindParam(':mail', $mail);
+            $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
+            $stmtProfessionnel->bindParam(':num_tel', $tel);
+            $stmtProfessionnel->bindParam(':adresse_id', $adresseId);
 
-                // Exécuter la requête pour le professionnel
-                if ($stmtProfessionnel->execute()) {
-                    // Extraire les valeurs du RIB à partir de l'IBAN
+            // Exécuter la requête pour le professionnel
+            if ($stmtProfessionnel->execute()) {
+                // Extraire les valeurs du RIB à partir de l'IBAN
+                if ($iban) {
                     try {
                         $rib = extraireRibDepuisIban($iban);
                         $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :compte_id)");
@@ -343,21 +353,22 @@
                         $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
                         $stmtRib->bindParam(':cle_rib', $rib['cle_rib']);
                         $stmtRib->bindParam(':compte_id', $compte_id); // Assurez-vous que compte_id est défini
-
+    
                         if ($stmtRib->execute()) {
                             $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
                         } else {
                             $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtRib->errorInfo());
                         }
+
                     } catch (Exception $e) {
                         $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
                     }
-                } else {
-                    $message = "Erreur lors de la création du compte professionnel : " . implode(", ", $stmtProfessionnel->errorInfo());
                 }
+            } else {
+                $message = "Erreur lors de la création du compte professionnel : " . implode(", ", $stmtProfessionnel->errorInfo());
             }
         } else {
-            $message = "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtAdresse->errorInfo());
+            $message = "Erreur lors de l'insertion dans la table _adresse : " . implode(", ", $stmtAdresse->errorInfo());
         }
     }
 
@@ -404,29 +415,31 @@
     const mdp = document.getElementById('mdp');
     const confMdp = document.getElementById('confMdp');
 
-    togglePassword1.addEventListener('mousedown', function () {
-        mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-        this.classList.remove('fa-eye'); // Change l'icône
-        this.classList.add('fa-eye-slash');
-    });
+    if (togglePassword1) {
+        togglePassword1.addEventListener('mousedown', function () {
+            mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+            this.classList.remove('fa-eye'); // Change l'icône
+            this.classList.add('fa-eye-slash');
+        });
+        togglePassword1.addEventListener('mouseup', function () {
+            mdp.type = 'password'; // Masque le mot de passe à nouveau
+            this.classList.remove('fa-eye-slash');
+            this.classList.add('fa-eye');
+        });
+    }
 
-    togglePassword1.addEventListener('mouseup', function () {
-        mdp.type = 'password'; // Masque le mot de passe à nouveau
-        this.classList.remove('fa-eye-slash');
-        this.classList.add('fa-eye');
-    });
-
-    togglePassword2.addEventListener('mousedown', function () {
-        confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-        this.classList.remove('fa-eye');
-        this.classList.add('fa-eye-slash');
-    });
-
-    togglePassword2.addEventListener('mouseup', function () {
-        confMdp.type = 'password'; // Masque le mot de passe à nouveau
-        this.classList.remove('fa-eye-slash');
-        this.classList.add('fa-eye');
-    });
+    if (togglePassword2) {
+        togglePassword2.addEventListener('mousedown', function () {
+            confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+            this.classList.remove('fa-eye');
+            this.classList.add('fa-eye-slash');
+        });
+        togglePassword2.addEventListener('mouseup', function () {
+            confMdp.type = 'password'; // Masque le mot de passe à nouveau
+            this.classList.remove('fa-eye-slash');
+            this.classList.add('fa-eye');
+        });
+    }
 
     // Fonction de validation du formulaire
     function validateForm() {
@@ -446,13 +459,15 @@
 
     // Fonction pour mettre à jour le label en fonction du statut choisit
     function updateLabel() {
-        const statut = document.getElementById('statut').value;
+        const statut = document.getElementById('statut');
         const labelNom = document.getElementById('nom');
 
-        if (statut === 'public') {
-            labelNom.textContent = 'Nom de l\'organisation';
-        } else {
-            labelNom.textContent = 'Dénomination sociale';
+        if (statut) {
+            if (statut.value === 'public') {
+                labelNom.textContent = 'Nom de l\'organisation';
+            } else {
+                labelNom.textContent = 'Dénomination sociale';
+            }
         }
     }
 

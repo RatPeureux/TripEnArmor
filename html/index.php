@@ -30,8 +30,6 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    var_dump($toutesLesOffres);
-
     // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
     if (!$toutesLesOffres) {
         echo "<p class='font-bold'>Il n'existe aucune offre...</p>";
@@ -40,13 +38,13 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
         $allCardsTextTablette = '';
         foreach ($toutesLesOffres as $offre) {
             // Avoir une variable $pro qui contient les informations du pro actuel.
-            $idPro = $offre['idpro'];
+            $idPro = $offre['id_pro'];
             $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :idPro");
             $stmt->bindParam(':idPro', $idPro);
             $stmt->execute();
             $pro = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($pro) {
-                $pro_nom = $pro['nompro'];
+                $pro_nom = $pro['nom_pro'];
             }
 
             // Obtenir les différentes variables avec les infos nécessaires via des requêtes SQL sécurisées (bindParams)
