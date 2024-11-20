@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             switch ($activity) {
                 case 'activite':
                     // Insertion spécifique à l'activité
-                    $stmtActivite = $dbh->prepare("INSERT INTO sae_db._activite (id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, id_adresse, duree_activite, age_requis, prestations) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :duree, :age, :prestations)");
+                    $stmtActivite = $dbh->prepare("INSERT INTO sae_db._activite (id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, duree_activite, age_requis, prestations) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :duree, :age, :prestations)");
                     $stmtActivite->bindParam(':id_offre', $id_offre);
                     $stmtActivite->bindParam(':description', $description);
                     $stmtActivite->bindParam(':resume', $resume);
@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 case 'visite':
 
-                    $stmtVisite = $dbh->prepare("INSERT INTO sae_db._visite(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, id_adresse, duree_visite, guide_visite) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :duree, false)");
+                    $stmtVisite = $dbh->prepare("INSERT INTO sae_db._visite(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, duree_visite, guide_visite) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :duree, false)");
                     $stmtVisite->bindParam(':id_offre', $id_offre);
                     $stmtVisite->bindParam(':description', $description);
                     $stmtVisite->bindParam(':resume', $resume);
@@ -189,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     var_dump($capacite);
 
-                    $stmtSpectacle = $dbh->prepare("INSERT INTO sae_db._spectacle(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, id_adresse, capacite_spectacle, duree_spectacle) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :capacite, :duree)");
+                    $stmtSpectacle = $dbh->prepare("INSERT INTO sae_db._spectacle(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, capacite_spectacle, duree_spectacle) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :capacite, :duree)");
                     $stmtSpectacle->bindParam(':id_offre', $id_offre);
                     $stmtSpectacle->bindParam(':description', $description);
                     $stmtSpectacle->bindParam(':resume', $resume);
@@ -211,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 case 'parc_attraction':
 
-                    $stmtAttraction = $dbh->prepare("INSERT INTO sae_db._parc_attraction(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, id_adresse, nb_attractions, age_requis) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :nb_attraction, :age)");
+                    $stmtAttraction = $dbh->prepare("INSERT INTO sae_db._parc_attraction(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, nb_attractions, age_requis) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :nb_attraction, :age)");
                     $stmtAttraction->bindParam(':id_offre', $id_offre);
                     $stmtAttraction->bindParam(':description', $description);
                     $stmtAttraction->bindParam(':resume', $resume);
@@ -233,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 case 'restauration':
 
-                    $stmtRestauration = $dbh->prepare("INSERT INTO sae_db._restauration(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, idpro, id_adresse, gamme_prix) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :gamme_prix)");
+                    $stmtRestauration = $dbh->prepare("INSERT INTO sae_db._restauration(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, gamme_prix) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :gamme_prix)");
                     $stmtRestauration->bindParam(':id_offre', $id_offre);
                     $stmtRestauration->bindParam(':description', $description);
                     $stmtRestauration->bindParam(':resume', $resume);

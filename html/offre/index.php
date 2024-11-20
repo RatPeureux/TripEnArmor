@@ -36,9 +36,9 @@ session_start();
     $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
-    $idPro = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :idPro");
-    $stmt->bindParam(':idPro', $idPro);
+    $id_pro = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
+    $stmt->bindParam(':id_pro', $id_pro);
     $stmt->execute();
     $pro = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($pro) {

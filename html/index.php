@@ -38,9 +38,9 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
         $allCardsTextTablette = '';
         foreach ($toutesLesOffres as $offre) {
             // Avoir une variable $pro qui contient les informations du pro actuel.
-            $idPro = $offre['id_pro'];
-            $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :idPro");
-            $stmt->bindParam(':idPro', $idPro);
+            $id_pro = $offre['id_pro'];
+            $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
+            $stmt->bindParam(':id_pro', $id_pro);
             $stmt->execute();
             $pro = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($pro) {
