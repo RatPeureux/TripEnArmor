@@ -58,6 +58,4 @@ class Facture extends BDD {
             return -1;
         }
     }
-
-    //...
 }

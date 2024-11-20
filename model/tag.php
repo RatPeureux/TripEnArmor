@@ -58,6 +58,4 @@ class Tag extends BDD {
             return -1;
         }
     }
-
-    //...
 }

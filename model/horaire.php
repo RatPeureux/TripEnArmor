@@ -64,6 +64,4 @@ class Horaire extends BDD {
             return -1;
         }
     }
-
-    //...
 }

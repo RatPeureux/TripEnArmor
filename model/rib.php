@@ -66,6 +66,4 @@ class Rib extends BDD {
             return -1;
         }
     }
-
-    //...
 }

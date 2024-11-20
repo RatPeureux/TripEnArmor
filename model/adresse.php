@@ -66,6 +66,4 @@ class Adresse extends BDD {
             return -1;
         }
     }
-
-    //...
 }
