@@ -6,7 +6,7 @@ SET SCHEMA 'sae_db';
 -- -------------------------------------------------------------------------------------------Adresse----- début
 
 -- Table Adresse
-CREATE TABLE _adresse (
+CREATE TABLE _adresse ( -- Léo
     id_adresse SERIAL PRIMARY KEY,
     code_postal CHAR(5) NOT NULL,
     ville VARCHAR(255) NOT NULL,
@@ -40,14 +40,14 @@ CREATE TABLE _professionnel (
 ALTER TABLE _professionnel ADD CONSTRAINT unique_id_compte_Professionnel UNIQUE (id_compte);
 
 
-CREATE TABLE _pro_prive (
+CREATE TABLE _pro_prive ( -- Antoine
     num_siren VARCHAR(255) NOT NULL
 ) INHERITS (_professionnel);
 
 ALTER TABLE _pro_prive ADD CONSTRAINT unique_id_compte_Pro_Prive UNIQUE (id_compte);
 
 
-CREATE TABLE _pro_public (
+CREATE TABLE _pro_public ( -- Antoine
     type_orga VARCHAR(255) UNIQUE NOT NULL
 ) INHERITS (_professionnel);
 
@@ -114,7 +114,7 @@ EXECUTE FUNCTION unique_vals_compte ();
 -- ------------------------------------------------------------------------------------------------------- fin
 -- ----------------------------------------------------------------------------------------------Avis----- début
 
-CREATE TABLE _avis (
+CREATE TABLE _avis ( -- Maxime
   date_publication DATE,
   date_experience DATE,
   reponse_pro varchar(1024),
@@ -123,7 +123,7 @@ CREATE TABLE _avis (
 );
 -- ----------------------------------------------------------------------------------------------RIB------ début
 -- Table RIB
-CREATE TABLE _RIB (
+CREATE TABLE _RIB ( -- Léo
     id_rib SERIAL PRIMARY KEY,
     code_banque varchar(255) NOT NULL,
     code_guichet varchar(255) NOT NULL,
@@ -136,13 +136,13 @@ CREATE TABLE _RIB (
 -- -----------------------------------------------------------------------------------------------TAG----- début
 -- Table TAG
 
-CREATE TABLE _tag (
+CREATE TABLE _tag ( -- Antoine
     id_tag SERIAL PRIMARY KEY,
     nom_tag VARCHAR(255) NOT NULL
 );
 
 -- ---------------------------------------------------------------------------------------------Offre----- début
-create table _type_offre (
+create table _type_offre ( -- Antoine
   type_offre_id SERIAL PRIMARY KEY not null,
   nom_type_offre varchar(255) not null
 );
@@ -202,7 +202,7 @@ ALTER TABLE _offre FORCE ROW LEVEL SECURITY;
 
 -- TAGs Offre ------------------------------------------------------------
 
-CREATE TABLE _tag_offre (
+CREATE TABLE _tag_offre ( -- Maxime
     id_offre serial REFERENCES _offre(id_offre),
     id_tag serial REFERENCES _tag(id_tag),
     PRIMARY KEY (id_offre, id_tag)
@@ -210,7 +210,7 @@ CREATE TABLE _tag_offre (
 -- ------------------------------------------------------------------------------------------------------- fin
 -- --------------------------------------------------------------------------------------------Facture---- début
 
-CREATE TABLE _facture (
+CREATE TABLE _facture ( -- Maxime
     id_facture SERIAL PRIMARY KEY,
     jour_en_ligne DATE NOT NULL,
     id_offre serial REFERENCES _offre(id_offre)
@@ -219,7 +219,7 @@ CREATE TABLE _facture (
 
 -- -----------------------------------------------------------------------------------------------Logs---- début
 
-CREATE TABLE _log_changement_status (
+CREATE TABLE _log_changement_status ( -- Maxime
     id_log_changement_status SERIAL PRIMARY KEY,
     id_offre serial REFERENCES _offre(id_offre),
     date_changement DATE NOT NULL
@@ -245,14 +245,14 @@ $$ LANGUAGE plpgsql;
 
 -- Table de lien
 -- Type de repas 'petit dej' 'diner' etc...
-create table _type_repas (
+create table _type_repas ( -- Baptiste
     type_repas_id SERIAL PRIMARY KEY,
     nom_type_repas VARCHAR(255) NOT NULL UNIQUE
 );
 
 
 -- Héritage pour les types d'offres
-CREATE TABLE _restauration (
+CREATE TABLE _restauration ( -- (MVC) Léo
     id_restauration SERIAL PRIMARY KEY,
     gamme_prix varchar(3) NOT NULL,
     type_repas_id integer references _type_repas(type_repas_id)
@@ -277,7 +277,7 @@ EXECUTE FUNCTION fk_vers_professionnel ();
 -- ADD CONSTRAINT fk_restauration_professionnel FOREIGN KEY (id_pro) REFERENCES _pro_prive (id_compte);
 
 -- Lien entre restauration et type_repas
-create table _restaurant_type_repas (
+create table _restaurant_type_repas ( -- Baptiste
     id_restauration serial REFERENCES _restauration(id_restauration) ON DELETE CASCADE,
     type_repas_id serial REFERENCES _type_repas(type_repas_id) ON DELETE CASCADE,
     PRIMARY KEY (id_restauration, type_repas_id)
@@ -285,13 +285,13 @@ create table _restaurant_type_repas (
 
 -- TAGs Restaurants --------------------------------------------------------
 -- Type de restaurant : gastronomie, kebab, etc..
-create table _tag_restaurant (
+create table _tag_restaurant ( -- Maxime
   id_tag_restaurant serial primary key,
   nom_tag varchar(255) not null
 );
 
 -- table qui dit que 1 restaurant à 1 tag
-create table _tag_restaurant_restauration (
+create table _tag_restaurant_restauration ( -- Maxime
   id_restauration serial references _restauration(id_restauration),
   id_tag_restaurant serial references _tag_restaurant(id_tag_restaurant),
   primary key (id_restauration, id_tag_restaurant)
@@ -300,7 +300,7 @@ create table _tag_restaurant_restauration (
 -- ------------------------------------------------------------------------------------------------------- fin
 -- ----------------------------------------------------------------------------------------Activités------ début
 
-CREATE TABLE _activite (
+CREATE TABLE _activite ( -- MVC (Léo)
     id_activite SERIAL PRIMARY KEY,
     duree_activite TIME,
     age_requis INTEGER,
@@ -323,7 +323,7 @@ INSERT
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- TAGs Activité---------------------------------------------
-create table _tag_activite (
+create table _tag_activite ( -- Maxime
   id_activite serial references _activite(id_activite),
   id_tag serial references _tag(id_tag),
   primary key (id_activite, id_tag)
@@ -333,7 +333,7 @@ create table _tag_activite (
 -- -----------------------------------------------------------------------------------------Spectacles---- début
 -- Spectacles ---------------------------------------------------
 
-CREATE TABLE _spectacle (
+CREATE TABLE _spectacle ( -- MVC (Léo)
     id_spectacle SERIAL PRIMARY KEY,
     capacite_spectacle INTEGER,
     duree_spectacle TIME
@@ -355,7 +355,7 @@ INSERT
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- TAG Spectacles 
-create table _tag_spectacle (
+create table _tag_spectacle ( -- Maxime
   id_spectacle serial references _spectacle(id_spectacle),
   id_tag serial references _tag(id_tag),
   primary key (id_spectacle, id_tag)
@@ -364,7 +364,7 @@ create table _tag_spectacle (
 -- ------------------------------------------------------------------------------------------------------- fin
 -- --------------------------------------------------------------------------------------------Visites---- début
 
-CREATE TABLE _visite (
+CREATE TABLE _visite ( -- MVC (Léo)
     id_visite SERIAL PRIMARY KEY,
     duree_visite TIME,
     guide_visite BOOLEAN
@@ -385,19 +385,19 @@ INSERT
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- langues parlées durant la visite
-CREATE TABLE _langue (
+CREATE TABLE _langue ( -- Antoine
     id_langue SERIAL PRIMARY KEY,
     nom_langue VARCHAR(255)
 );
 
 -- Table de lien pour les langues parlées durant les visites
-CREATE TABLE _visite_langue (
+CREATE TABLE _visite_langue ( -- Antoine
     id_visite serial REFERENCES _visite(id_visite),
     id_langue serial REFERENCES _langue(id_langue)
 );
 
 -- TAG Visites 
-create table _tag_visite (
+create table _tag_visite ( -- Maxime
   id_visite serial references _visite(id_visite),
   id_tag serial references _tag(id_tag),
   primary key (id_visite, id_tag)
@@ -406,7 +406,7 @@ create table _tag_visite (
 -- ------------------------------------------------------------------------------------------------------- fin
 -- -------------------------------------------------------------------------------Parcs d'attractions----- début
 
-CREATE TABLE _parc_attraction (
+CREATE TABLE _parc_attraction ( -- MVC (Léo)
     id_parc_attraction SERIAL PRIMARY KEY,
     nb_attractions INTEGER,
     age_requis integer
@@ -428,7 +428,7 @@ INSERT
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- TAG Parcs
-create table _tag_parc_attraction (
+create table _tag_parc_attraction ( -- Maxime
   id_parc_attraction serial references _parc_attraction(id_parc_attraction),
   id_tag serial references _tag(id_tag),
   primary key (id_parc_attraction, id_tag)
@@ -437,7 +437,7 @@ create table _tag_parc_attraction (
 -- ------------------------------------------------------------------------------------------------------- fin
 ----------------------------------------------------------------------------------------- autres
 -- Table Horaire
-CREATE TABLE _horaire (
+CREATE TABLE _horaire ( -- Antoine
     id_horaire SERIAL PRIMARY KEY,
     ouverture TIME NOT NULL,
     fermeture TIME NOT NULL,
@@ -447,7 +447,7 @@ CREATE TABLE _horaire (
 );
 
 -- Table TARIF public
-CREATE TABLE _tarif_public (
+CREATE TABLE _tarif_public ( -- Baptiste
     id_tarif SERIAL PRIMARY KEY,
     titre_tarif VARCHAR(255) NOT NULL,
     age_min INTEGER,
