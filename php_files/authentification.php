@@ -24,7 +24,7 @@ function verifyMember()
 
     // Vérifie si l'utilisateur est connecté
     if (!isset($_SESSION['id_user'])) {
-        // Si l'utilisateur n'est pas connect
+        // Si l'utilisateur n'est pas connecté
         header('location: /401');
         exit(); // Termine le script pour s'assurer que rien d'autre ne s'exécute après la redirection
     }

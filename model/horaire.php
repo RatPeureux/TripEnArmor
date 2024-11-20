@@ -11,7 +11,7 @@ class Horaire extends BDD {
      */
     static function getHoraireById($id) {
         // Requête SQL pour sélectionner un horaire par son ID
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE horaire_id = ?";
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_horaire = ?";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -36,7 +36,7 @@ class Horaire extends BDD {
      */
     static function createHoraire($ouverture, $fermeture, $pause_debut, $pause_fin) {
         // Requête SQL pour insérer un nouvel horaire
-        $query = "INSERT INTO " . self::$nom_table ." (ouverture, fermeture, pause_debut, pause_fin) VALUES (?, ?, ?, ?) RETURNING horaire_id";
+        $query = "INSERT INTO " . self::$nom_table ." (ouverture, fermeture, pause_debut, pause_fin) VALUES (?, ?, ?, ?) RETURNING id_horaire";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -62,9 +62,9 @@ class Horaire extends BDD {
      * @param string|null $pause_fin Nouvelle fin de pause (facultatif).
      * @return array|int Retourne un tableau contenant l'identifiant de l'horaire mis à jour ou -1 en cas d'erreur.
      */
-    static function updateHoraire($ouverture, $fermeture, $pause_debut, $pause_fin) {
+    static function updateHoraire($id_horaire, $ouverture, $fermeture, $pause_debut, $pause_fin) {
         // Requête SQL pour mettre à jour un horaire existant
-        $query = "UPDATE " . self::$nom_table ." SET ouverture = ?, fermeture = ?, pause_debut = ?, pause_fin = ? RETURNING horaire_id";
+        $query = "UPDATE " . self::$nom_table ." SET ouverture = ?, fermeture = ?, pause_debut = ?, pause_fin = ? WHERE id_horaire = ? RETURNING id_horaire";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -72,6 +72,7 @@ class Horaire extends BDD {
         $statement->bindParam(2, $fermeture);
         $statement->bindParam(3, $pause_debut);
         $statement->bindParam(4, $pause_fin);
+        $statement->bindParam(5, $id_horaire);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
@@ -89,7 +90,7 @@ class Horaire extends BDD {
      */
     static function deleteHoraire($id) {
         // Requête SQL pour supprimer un horaire par son ID
-        $query = "DELETE FROM " . self::$nom_table ." WHERE horaire_id = ?";
+        $query = "DELETE FROM " . self::$nom_table ." WHERE id_horaire = ?";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);

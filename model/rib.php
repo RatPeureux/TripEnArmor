@@ -11,7 +11,7 @@ class Rib extends BDD {
      */
     static function getRibById($id) {
         // Requête SQL pour sélectionner un RIB par son ID
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE rib_id = ?";
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_rib = ?";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -37,7 +37,7 @@ class Rib extends BDD {
      */
     static function createRib($code_banque, $code_guichet, $numero_compte, $cle_rib, $compte_id) {
         // Requête SQL pour insérer un nouveau RIB
-        $query = "INSERT INTO " . self::$nom_table ." (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (?, ?, ?, ?, ?) RETURNING rib_id";
+        $query = "INSERT INTO " . self::$nom_table ." (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (?, ?, ?, ?, ?) RETURNING id_rib";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -65,9 +65,9 @@ class Rib extends BDD {
      * @param int $compte_id Le nouvel identifiant du compte associé.
      * @return array|int Retourne un tableau contenant l'identifiant du RIB mis à jour ou -1 en cas d'erreur.
      */
-    static function updateRib($code_banque, $code_guichet, $numero_compte, $cle_rib, $compte_id) {
+    static function updateRib($id_rib, $code_banque, $code_guichet, $numero_compte, $cle_rib, $compte_id) {
         // Requête SQL pour mettre à jour un RIB existant
-        $query = "UPDATE " . self::$nom_table ." SET code_banque = ?, code_guichet = ?, numero_compte = ?, cle_rib = ?, compte_id = ? RETURNING rib_id";
+        $query = "UPDATE " . self::$nom_table ." SET code_banque = ?, code_guichet = ?, numero_compte = ?, cle_rib = ?, compte_id = ? WHERE id_rib = ? RETURNING id_rib";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -76,6 +76,7 @@ class Rib extends BDD {
         $statement->bindParam(3, $numero_compte);
         $statement->bindParam(4, $cle_rib);
         $statement->bindParam(5, $compte_id);
+        $statement->bindParam(6, $id_rib);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
@@ -93,7 +94,7 @@ class Rib extends BDD {
      */
     static function deleteRib($id) {
         // Requête SQL pour supprimer un RIB par son ID
-        $query = "DELETE FROM " . self::$nom_table ." WHERE rib_id = ?";
+        $query = "DELETE FROM " . self::$nom_table ." WHERE id_rib = ?";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
