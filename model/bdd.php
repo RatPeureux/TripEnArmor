@@ -10,17 +10,14 @@ abstract class BDD {
      * Constructeur de la classe BDD
      * Initialise une connexion PDO à la base de données en utilisant les paramètres fournis
      */
-    public function __construct() {
+    static public function initBDD() {
         // Récupération des paramètres de connexion globaux définis dans connect_params.php
         global $driver, $server, $port, $dbname, $user, $pass;
 
         // Création d'une nouvelle connexion PDO avec les paramètres de la base de données
-        $dbh = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
-
-        // Affectation de l'objet PDO à la propriété $db de la classe
-        $this->db = $dbh;
+        self::$db = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);
 
         // Configuration de l'instance PDO pour lancer des exceptions en cas d'erreur SQL
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 }
