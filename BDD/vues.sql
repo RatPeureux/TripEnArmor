@@ -22,8 +22,8 @@ JOIN
 CREATE OR REPLACE VIEW vue_offres_publiques AS
 SELECT 
     titre,
-    description_offre,
-    resume_offre,
+    description,
+    resume,
     prix_mini,
     date_creation
 FROM 
@@ -89,4 +89,4 @@ create or replace view vue_offre_type as
 select id_offre, nom_type_offre
 from _offre 
 join _type_offre on  
-_type_offre.type_id_offre = _offre.type_id_offre;
+_type_offre.id_type_offre = _offre.id_type_offre;
