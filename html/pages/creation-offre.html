@@ -123,7 +123,7 @@
 				</div>
 			</div>
 			<div class="flex space-x-12 w-full shrink-0 part1 hidden">
-				<form id="formulaire" action="../php/pro/crea_offre.php" method="POST" class="block w-full space-y-8">
+				<form id="formulaire" action="../php/pro/crea_offre.php" method="post" class="block w-full space-y-8">
 					<div class="w-full flex flex-col justify-center items-center space-y-4">
 						<h2 class="w-full text-h2 text-secondary">Informations</h2>
 
@@ -241,7 +241,7 @@
 							<select type="text" id="tag-input" name="tag-input"
 								class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full"
 								placeholder="Ajouter un tag...">
-								<option value="" class="hidden" selected>Rechercher un tag</option>
+								<option id="tags" value="" class="hidden" selected>Rechercher un tag</option>
 							</select>
 						</div>
 

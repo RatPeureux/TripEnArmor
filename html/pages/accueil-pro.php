@@ -21,6 +21,7 @@
     
     <?php
         $idPro = $_SESSION['id_pro'];
+        print_r($idPro);
 
         // Connexion avec la bdd
         include('../php/connect_params.php');
@@ -54,28 +55,50 @@
                     echo "<p clas='font-bold'>Vous n'avez aucune offre...</p>";
                 } else {
                     foreach($toutesMesOffres as $offre) {
+                        
                         // Détails de l'offre
                         $offre_id = $offre['offre_id'];
                         $description = $offre['description_offre'];
                         $resume = $offre['resume_offre'];
-                        $option = $offre['option'];
+                        // $option = $offre['option'];
                         $est_en_ligne = $offre['est_en_ligne'];
                         $prix_mini = $offre['prix_mini'];
-                        $date_mise_a_jour = $offre['date_mise_a_jour'];
                         $titre_offre = $offre['titre'];
                             // Obtenir la catégorie de l'offre
                         $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_categorie WHERE offre_id = $offre_id");
                         $stmt->execute();
                         $categorie_offre = $stmt->fetch(PDO::FETCH_ASSOC)['type_offre'];
-                            // Obtenir la date de mise à jour
+                        print_r($categorie_offre);
                         $est_en_ligne = $offre['est_en_ligne'];
                         $date_mise_a_jour = $offre['date_mise_a_jour'];
-                        $date_mise_a_jour = new DateTime($date_mise_a_jour);
-                        $date_mise_a_jour = $date_mise_a_jour->format('d/m/Y');
-                            // Obtenir le type de l'offre (gratuit, standard, premium)
-                        $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE offre_id = $offre_id");
+
+                        if ($date_mise_a_jour) {
+                            $date_mise_a_jour = DateTime::createFromFormat('Y-m-d H:i:s', $date_mise_a_jour);
+                            
+                            if ($date_mise_a_jour === false) {
+                                $date_mise_a_jour = new DateTime();
+                            }
+                        } else {
+                            $date_mise_a_jour = new DateTime();
+                        }
+
+                        // Obtenir le type de l'offre (gratuit, standard, premium)
+                        $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE offre_id = :offre_id");
+                        $stmt->bindParam(':offre_id', $offre_id, PDO::PARAM_INT);
+                        print_r($offre_id);
                         $stmt->execute();
-                        $type_offre = $stmt->fetch(PDO::FETCH_ASSOC)['nom_type_offre'];    
+                        
+                        // Récupérer le résultat
+                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                        
+                        // Vérifier si le résultat est valide
+                        if ($result) {
+                            $type_offre = $result['nom_type_offre'];
+                        } else {
+                            // Traiter l'erreur, par exemple :
+                            echo "Aucun résultat trouvé pour l'offre ID $offre_id.";
+                        }
+                            
                             // Détails de l'adresse
                         $adresse_id = $offre['adresse_id'];
                         $stmt = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE adresse_id = $adresse_id");
@@ -114,7 +137,7 @@
                             $tagIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             $tags = '';
                             // Récup chaque nom de tag, et l'ajouter aux tags
-                            foreach($tagIds as $tagId) {
+                            foreach($tagIds as $tagId => $values) {
                                 $stmt = $dbh->prepare("SELECT nom_tag FROM sae_db._tag WHERE tag_id = $tagId");
                                 $stmt->execute();
                                 $nom_tag = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -246,7 +269,8 @@
                             <div class="flex justify-between text-small">
                                 <div class="flex items-center gap-2">
                                     <i class="fa-solid fa-rotate text-xl"></i>
-                                    <p class="italic">Modifiée le <?php echo $date_mise_a_jour ?></p>
+                                    <p class="italic">Modifiée le <?php echo $date_mise_a_jour->format('d F Y'); ?></p>
+
                                 </div>
                                 <!-- Cacher les options tant que ce n'est pas à développer -->
                                 <!-- <div class="flex items-center gap-2">
