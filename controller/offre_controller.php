@@ -43,6 +43,29 @@ class OffreController {
 
     // VIEW -> MODEL
     public function createOffre($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id) {
+        if (!is_string($titre)) {
+            echo "ERREUR: Le titre doit être une chaîne de caractères";
+            return -1;
+        } else if (!is_string($description)) {
+            echo "ERREUR: La description doit être une chaîne de caractères";
+            return -1;
+        } else if (!is_string($resume)) {
+            echo "ERREUR: Le résumé doit être une chaîne de caractères";
+            return -1;
+        } else if (!is_float($prix_mini)) {
+            echo "ERREUR: Le prix mini doit être un nombre";
+            return -1;
+        } else if (!is_numeric($id_pro)) {
+            echo "ERREUR: L'ID du professionnel doit être un nombre";
+            return -1;
+        } else if (!is_numeric($type_offre_id)) {
+            echo "ERREUR: L'ID du type d'offre doit être un nombre";
+            return -1;
+        } else if (!is_numeric($adresse_id)) {
+            echo "ERREUR: L'ID de l'adresse doit être un nombre";
+            return -1;
+        }
+
         $offreID = $this->model::createOffre($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id);
         return $offreID;
     }
@@ -52,6 +75,29 @@ class OffreController {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {
+            if ($titre !== false && !is_string($titre)) {
+                echo "ERREUR: Le titre doit être une chaîne de caractères";
+                return -1;
+            } else if ($description !== false && !is_string($description)) {
+                echo "ERREUR: La description doit être une chaîne de caractères";
+                return -1;
+            } else if ($resume !== false && !is_string($resume)) {
+                echo "ERREUR: Le résumé doit être une chaîne de caractères";
+                return -1;
+            } else if ($prix_mini !== false && !is_float($prix_mini)) {
+                echo "ERREUR: Le prix mini doit être un nombre";
+                return -1;
+            } else if ($id_pro !== false && !is_numeric($id_pro)) {
+                echo "ERREUR: L'ID du professionnel doit être un nombre";
+                return -1;
+            } else if ($type_offre_id !== false && !is_numeric($type_offre_id)) {
+                echo "ERREUR: L'ID du type d'offre doit être un nombre";
+                return -1;
+            } else if ($adresse_id !== false && !is_numeric($adresse_id)) {
+                echo "ERREUR: L'ID de l'adresse doit être un nombre";
+                return -1;
+            }
+
             $offre = $this->model::getOffreById($id);
             
             $updatedOffreId = $this->model::updateOffre(
