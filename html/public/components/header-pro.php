@@ -18,14 +18,18 @@
             <a href="#" class="hidden sm:block" title="rechercher parmi mes offres">
                 <i class="text-3xl fa-solid fa-magnifying-glass"></i>
             </a>
-            <a href="/pro/connexion" title="me connecter/déconnecter">
-                <i class="text-3xl fa-regular fa-user"></i>
-            </a>
+            <!-- Si connecté -->
             <?php
             include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-            if (activeLogout()) { ?>
-                <a href="/php/membre/logout.php" onclick="return confirmLogout(event)">
-                    <p>Se déconnecter</p>
+            if (isConnectedAsMember()) { ?>
+                <a href="#" class="flex flex-col items-center" onclick="confirmLogout()">
+                    <i class="text-3xl fa-regular fa-user"></i>
+                    <p class="italic">(Auth.)</p>
+                </a>
+            <?php } else { ?>
+                <!-- Sinon si pas connecté -->
+                <a href="/connexion">
+                    <i class="text-3xl fa-regular fa-user"></i>
                 </a>
             <?php } ?>
         </div>

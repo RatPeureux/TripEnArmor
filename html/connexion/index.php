@@ -84,7 +84,7 @@ if (!isset($_POST['id'])) {
 
                     <!-- Liens pour mot de passe oublié et création de compte -->
                     <div class="flex flex-nowrap h-12 space-x-1.5">
-                        <a href=""
+                        <a href="#"
                             class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
                             Mot de passe oublié ?
                         </a>
@@ -130,7 +130,7 @@ if (!isset($_POST['id'])) {
             if ($user) {
                 if (password_verify($mdp, $user['mdp_hash'])) {
                     // Stocke les informations de l'utilisateur dans la session
-                    $_SESSION['id_user'] = $user['id_compte'];
+                    $_SESSION['id_member'] = $user['id_compte'];
                     header('location: /'); // Redirige vers la page connectée
                     exit();
                 } else {

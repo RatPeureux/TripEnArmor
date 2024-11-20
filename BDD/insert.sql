@@ -98,7 +98,7 @@ INSERT INTO
         email,
         mdp_hash,
         num_tel,
-        adresse_id,
+        id_adresse,
         pseudo,
         nom,
         prenom
@@ -127,7 +127,7 @@ VALUES
 
 INSERT INTO
     _pro_prive (
-        adresse_id,
+        id_adresse,
         email,
         mdp_hash,
         num_tel,
@@ -156,7 +156,7 @@ VALUES
 
 INSERT INTO
     _pro_public (
-        adresse_id,
+        id_adresse,
         email,
         mdp_hash,
         num_tel,
@@ -208,15 +208,15 @@ INSERT INTO
     _restauration (
         est_en_ligne,
         titre,
-        description_offre,
-        resume_offre,
+        description,
+        resume,
         prix_mini,
         date_creation,
         date_mise_a_jour,
-        adresse_id,
+        id_adresse,
         gamme_prix,
         id_pro,
-        type_offre_id
+        id_type_offre
     )
 VALUES (
         true,
@@ -250,17 +250,17 @@ INSERT INTO
     _activite (
         est_en_ligne,
         titre,
-        description_offre,
-        resume_offre,
+        description,
+        resume,
         prix_mini,
         date_creation,
         date_mise_a_jour,
-        adresse_id,
+        id_adresse,
         duree_activite,
         age_requis,
         prestations,
         id_pro,
-        type_offre_id
+        id_type_offre
     )
 VALUES (
         true,
@@ -274,7 +274,7 @@ VALUES (
         '02:00:00',
         12,
         'Guide expérimenté, équipement fourni.',
-        3,
+        4,
         2
     ),
 
@@ -298,16 +298,16 @@ INSERT INTO
     _spectacle (
         est_en_ligne,
         titre,
-        description_offre,
-        resume_offre,
+        description,
+        resume,
         prix_mini,
         date_creation,
         date_mise_a_jour,
-        adresse_id,
+        id_adresse,
         capacite_spectacle,
         duree_spectacle,
         id_pro,
-        type_offre_id
+        id_type_offre
     )
 VALUES (
         true,
@@ -343,16 +343,16 @@ INSERT INTO
     _visite (
         est_en_ligne,
         titre,
-        description_offre,
-        resume_offre,
+        description,
+        resume,
         prix_mini,
         date_creation,
         date_mise_a_jour,
-        adresse_id,
+        id_adresse,
         duree_visite,
         guide_visite,
         id_pro,
-        type_offre_id
+        id_type_offre
     )
 VALUES (
         true,
@@ -388,16 +388,16 @@ INSERT INTO
     _parc_attraction (
         est_en_ligne,
         titre,
-        description_offre,
-        resume_offre,
+        description,
+        resume,
         prix_mini,
         date_creation,
         date_mise_a_jour,
-        adresse_id,
+        id_adresse,
         nb_attractions,
         age_requis,
         id_pro,
-        type_offre_id
+        id_type_offre
     )
 VALUES (
         true,
@@ -444,7 +444,7 @@ INSERT INTO
         age_min,
         age_max,
         prix,
-        offre_id
+        id_offre
     )
 VALUES (
         'pour les petits',

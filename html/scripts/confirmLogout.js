@@ -1,12 +1,9 @@
-function confirmLogout(event) {
+export function confirmLogout() {
     // Affiche une boîte de confirmation
-    const confirmation = confirm("Êtes-vous sûr de vouloir vous déconnecter ?");
+    console.log("test");
     
-    // Si l'utilisateur annule, on empêche l'action par défaut (la déconnexion)
-    if (!confirmation) {
-        event.preventDefault();
-    }
-
+    const confirmation = confirm("Êtes-vous sûr de vouloir vous déconnecter ?");
     // Si l'utilisateur confirme, l'action par défaut (déconnexion) continue
     return confirmation;
 }
+window.confirmLogout = confirmLogout;

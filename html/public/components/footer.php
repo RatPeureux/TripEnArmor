@@ -14,7 +14,7 @@
                 -
                 <a href="/pro/support" class="hover:text-primary">Contacter le support</a>
                 -
-                <a href="/" class="hover:text-primary">Vous êtes un professionnel ?</a>
+                <a href="/pro/connexion" class="hover:text-primary">Vous êtes un professionnel ?</a>
             </div>
             @2024, <a href="#" class="hover:text-primary">TripEnArmor</a>
         </div>
@@ -27,7 +27,7 @@
                 -
                 <a href="/pro/support" class="hover:text-primary">Contacter le support</a>
                 -
-                <a href="/" class="hover:text-primary">Vous êtes un professionnel ?</a>
+                <a href="/pro/connexion" class="hover:text-primary">Vous êtes un professionnel ?</a>
                 -
                 @2024, <a href="#" class="hover:text-primary">TripEnArmor</a>
             </div>
