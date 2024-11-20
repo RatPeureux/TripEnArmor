@@ -5,50 +5,65 @@
 /* Style global */
 :root {
     --primary-color: #F2771B;
-    --secondary-color: #00350D;
+    --secondary-color: #0a0035;
 }
 
-label:has(+ input[required]:not([type="checkbox"]))::after, 
-label:has(+ textarea[required])::after, 
+label:has(+ input[required]:not([type="checkbox"]))::after,
+label:has(+ textarea[required])::after,
 label:has(+ select[required])::after {
     content: " *";
     color: red;
 }
 
-    /* ACTIVATION DU MENU */
-#menu>.active, #menu-pro>.active {
+/* ACTIVATION DU MENU */
+#menu>.active,
+#menu-pro>.active {
     --tw-translate-x: 0%;
 }
-#menu a.active, #menu-pro a.active {
+
+#menu a.active,
+#menu-pro a.active {
     color: white;
     background-color: var(--primary-color);
 }
+
 #layer-background.active {
     display: block;
     background-color: rgba(0, 0, 0, .20);
     backdrop-filter: blur(5px);
 }
 
-    /* CARTES DES OFFRES */
+/* CARTES DES OFFRES */
 .card.active {
     box-shadow: 0 0 8px 3px var(--secondary-color);
 }
 
-    /* SLIDER D'IMAGES (détails d'une offre) */
+/* SLIDER D'IMAGES (détails d'une offre) */
 .swiper-pagination-bullet {
     background-color: white !important;
     opacity: 1 !important;
     border: 1px black solid;
 }
+
 .swiper-pagination-bullet-active {
     background-color: var(--primary-color) !important;
+}
+
+/* LOGO WIFI POUR METTRE EN LIGNE / HORS LIGNE UNE OFFRE */
+.toggle-wifi-offline:hover path:last-child {
+    visibility: visible;
+}
+
+.toggle-wifi-online:hover path:last-child {
+    visibility: hidden;
+    display: none;
 }
 
 @layer base {
     @font-face {
         font-family: 'Cormorant-Bold';
-        src: url(../public/polices/cormorant-webfont.woff2) format('woff2');
-        src: url(../public/polices/cormorant-webfont.woff) format('woff');
+        src: url(/public/polices/cormorant-webfont.woff2) format('woff2');
+        src: url(/public/polices/cormorant-webfont.woff) format('woff');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
@@ -56,8 +71,8 @@ label:has(+ select[required])::after {
 
     @font-face {
         font-family: 'Poppins';
-        src: url(../public/polices/poppins-webfont.woff2) format('woff2');
-        src: url(../public/polices/poppins-webfont.woff) format('woff');
+        src: url(/public/polices/poppins-webfont.woff2) format('woff2');
+        src: url(/public/polices/poppins-webfont.woff) format('woff');
         font-weight: normal;
         font-style: normal;
         font-display: swap;

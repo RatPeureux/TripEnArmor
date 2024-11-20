@@ -3,7 +3,7 @@ set schema 'sae_db';
 
 -- vue pour accéder à un compte pro mais sans voir son rib
 
-CREATE VIEW vue_pro_prive_sans_rib AS
+CREATE OR REPLACE VIEW vue_pro_prive_sans_rib AS
 SELECT 
     pp.num_siren,
     a.ville,
@@ -19,7 +19,7 @@ JOIN
     
 
 -- créer une vue des offres que les membres et visiteurs verront
-CREATE VIEW vue_offres_publiques AS
+CREATE OR REPLACE VIEW vue_offres_publiques AS
 SELECT 
     titre,
     description_offre,
