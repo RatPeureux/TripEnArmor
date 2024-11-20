@@ -14,7 +14,7 @@
                 -
                 <a href="/" class="hover:text-primary">Retour vers la PACT</a>
             </div>
-            @2024/5, <a href="#" class="hover:text-primary">TripEnArmor</a>
+            @2024, <a href="#" class="hover:text-primary">TripEnArmor</a>
         </div>
         <!-- Format téléphone -->
         <div class="text-center block sm:hidden">
