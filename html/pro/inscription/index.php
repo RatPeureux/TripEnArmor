@@ -26,9 +26,8 @@
                     <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription"
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action=""
-                    method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription" method="post"
+                    enctype="multipart/form-data" onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Professionnel</p>
 
                     <!-- Choix du statut de l'utilisateur -->
@@ -43,33 +42,39 @@
                     <!-- Champ pour le nom -->
                     <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                        pattern="^?:(\w+|\w+[\.\-_]?\w+)+$" title="Saisir le nom de l'entreprise" maxlength="100" required>
+                        title="Saisir le nom de l'entreprise" maxlength="100" required>
 
                     <!-- Champ pour l'adresse mail -->
                     <label class="text-small" for="mail">Adresse mail</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="mail" id="mail" name="mail"
+                        pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail"
                         maxlength="255" required>
 
-                        <!-- Champ pour le mot de passe -->
+                    <!-- Champ pour le mot de passe -->
+                    <div class="relative w-full">
                         <label class="text-small" for="mdp">Mot de passe</label>
-                        <div class="relative w-full">
-                            <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
-                                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
-                                title="Saisir un mot de passe" minlength="8" autocomplete="new-password" required>
-                            <!-- Icône pour afficher/masquer le mot de passe -->
-                            <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword1"></i>
-                        </div>
+                        <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
+                            pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
+                            • 8 caractères au moins
+                            • 1 majuscule
+                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
+                        <!-- Icône pour afficher/masquer le mot de passe -->
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                            id="togglePassword1"></i>
+                    </div>
 
-                        <!-- Champ pour confirmer le mot de passe -->
+                    <!-- Champ pour confirmer le mot de passe -->
+                    <div class="relative w-full">
                         <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
-                        <div class="relative w-full">
-                            <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp"
-                                name="confMdp"
-                                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
-                                title="Saisir le même mot de passe" minlength="8" autocomplete="new-password" required>
-                            <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword2"></i>
-                        </div>
+                        <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp"
+                            name="confMdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
+                            • 8 caractères au moins
+                            • 1 majuscule
+                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
+                        <!-- Icône pour afficher/masquer le mot de passe -->
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                            id="togglePassword2"></i>
+                    </div>
 
                     <!-- Messages d'erreurs -->
                     <span id="error-message" class="error text-rouge-logo text-small"></span>
@@ -122,78 +127,81 @@
             <!-- Logo de l'application -->
             <img class="text mb-4" src="/public/images/logo.svg" alt="moine" width="57">
 
-                <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action=""
-                    method="post" enctype="multipart/form-data">
-            <p class=" pb-3">Dites-nous en plus !</p>
+            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="post"
+                enctype="multipart/form-data">
+                <p class=" pb-3">Dites-nous en plus !</p>
 
                 <div class="mb-3">
                     <label class="text-small" for="nom" id="nom">Je suis un organisme <?php echo $statut; ?>.</label>
                 </div>
 
-                    <?php if ($statut == "privé") { ?>
-                            <!-- Champ pour la dénomination sociale (en lecture seule) -->
-                            <label class="text-small" for="nom" id="nom">Dénomination sociale</label>
-                            <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                                title="Dénomination sociale" value="<?php echo $nom_pro; ?>" readonly>
-                    <?php } else { ?>
-                            <!-- Champ pour le nom de l'organisation (en lecture seule) -->
-                            <label class="text-small" for="nom" id="nom">Nom de l'organisation</label>
-                            <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                                title="Nom de l'organisation" value="<?php echo $nom_pro; ?>" readonly>
-                    <?php } ?>
+                <?php if ($statut == "privé") { ?>
+                    <!-- Champ pour la dénomination sociale (en lecture seule) -->
+                    <label class="text-small" for="nom" id="nom">Dénomination sociale</label>
+                    <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
+                        title="Dénomination sociale" value="<?php echo $nom_pro; ?>" readonly>
+                <?php } else { ?>
+                    <!-- Champ pour le nom de l'organisation (en lecture seule) -->
+                    <label class="text-small" for="nom" id="nom">Nom de l'organisation</label>
+                    <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
+                        title="Nom de l'organisation" value="<?php echo $nom_pro; ?>" readonly>
+                <?php } ?>
 
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
                     title="Adresse mail" value="<?php echo $mail; ?>" readonly>
 
-                    <!-- Choix du type d'organisme public -->
-                    <?php if ($statut == 'public') { ?>
-                        <label class="text-small" for="type_orga">Je suis une&nbsp;</label>
-                        <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="type_orga" name="type_orga"
-                            title="Choisir un type d'organisme public" onchange="updateLabel()" required>
-                            <option value="" disabled selected> --- </option>
-                            <option value="public">association</option>
-                            <option value="privé">organisation autre</option>
-                        </select>
-                        <br>
-                    <?php } else { ?>
+                <!-- Choix du type d'organisme public -->
+                <?php if ($statut == 'public') { ?>
+                    <label class="text-small" for="type_orga">Je suis une&nbsp;</label>
+                    <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="type_orga" name="type_orga"
+                        title="Choisir un type d'organisme public" onchange="updateLabel()" required>
+                        <option value="" disabled selected> --- </option>
+                        <option value="public">association</option>
+                        <option value="privé">organisation autre</option>
+                    </select>
+                    <br>
+                <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
-                        <label class="text-small" for="num_siren">Numéro SIREN</label>
-                        <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="num_siren" name="num_siren" required>
-                    <?php } ?>
+                    <label class="text-small" for="num_siren">Numéro SIREN</label>
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="num_siren" name="num_siren"
+                        title="14 chiffres"
+                        pattern="^\d{14}$"
+                        required>
+                <?php } ?>
 
-                    <!-- Champs pour l'adresse -->
-                    <label class="text-small" for="adresse">Adresse postale</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse"
-                        pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir une adresse postale" maxlength="255" required>
+                <!-- Champs pour l'adresse -->
+                <label class="text-small" for="adresse">Adresse postale</label>
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse"
+                    title="ex: 2 rue Saint-Jean OU rue Edouard Branly" maxlength="255" required>
 
                 <label class="text-small" for="complement">Complément d'adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
                     title="Complément d'adresse" maxlength="255">
 
-                    <div class="flex flex-nowrap space-x-3 mb-1.5">
-                        <div class="w-28">
-                            <label class="text-small" for="code">Code postal</label>
-                            <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code" name="code"
-                                pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Saisir un code postal" minlength="5"
-                                maxlength="5" oninput="number(this)" required>
-                        </div>
-                        <div class="w-full">
-                            <label class="text-small" for="ville">Ville</label>
-                            <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="ville" name="ville"
-                                pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir une ville"
-                                maxlength="50" required>
-                        </div>
+                <div class="flex flex-nowrap space-x-3 mb-1.5">
+                    <div class="w-28">
+                        <label class="text-small" for="code">Code postal</label>
+                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code" name="code"
+                            pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Saisir un code postal" minlength="5"
+                            maxlength="5" oninput="number(this)" required>
                     </div>
+                    <div class="w-full">
+                        <label class="text-small" for="ville">Ville</label>
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="ville" name="ville"
+                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir une ville"
+                            maxlength="50" required>
+                    </div>
+                </div>
 
-                    <!-- Champ pour le numéro de téléphone -->
-                    <div class="w-full flex flex-col">
-                        <label class="text-small" for="num_tel">Téléphone</label>
-                        <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
-                            pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14"
-                            oninput="formatTEL(this)" required>
-                    </div>
+                <!-- Champ pour le numéro de téléphone -->
+                <div class="w-full flex flex-col">
+                    <label class="text-small" for="num_tel">Téléphone</label>
+                    <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
+                        pattern="^0\d( \d{2}){4}" title="0X XX XX XX XX" minlength="14" maxlength="14"
+                        oninput="formatTEL(this)" required>
+                </div>
 
                 <?php if ($statut == "privé") { ?>
                     <!-- Choix de saisie des informations bancaires -->
@@ -214,15 +222,15 @@
                     </div>
                 <?php } ?>
 
-                    <!-- Choix d'acceptation des termes et conditions -->
-                    <div class="mb-1.5 flex items-start">
-                        <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
-                            required>
-                        <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions
+                <!-- Choix d'acceptation des termes et conditions -->
+                <div class="mb-1.5 flex items-start">
+                    <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
+                        required>
+                    <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions
                             d'utilisation</u> et vous confirmez que vous avez lu notre
-                            <u class="cursor-pointer">Politique de confidentialité et d'utilisation des cookies</u>.
-                        </label>
-                    </div>
+                        <u class="cursor-pointer">Politique de confidentialité et d'utilisation des cookies</u>.
+                    </label>
+                </div>
 
                 <!-- Messages d'erreurs -->
                 <span id="error-message" class="error text-rouge-logo text-small"></span>
@@ -231,11 +239,11 @@
                 <input type="submit" value="Créer mon compte"
                     class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
-                    <input type="hidden" name="statut" value="<?php echo $statut; ?>">
-                    <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
-                </form>
-            </div>
-        </body>
+                <input type="hidden" name="statut" value="<?php echo $statut; ?>">
+                <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
+            </form>
+        </div>
+    </body>
 
     </html>
 
@@ -353,7 +361,7 @@
                         $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
                         $stmtRib->bindParam(':cle_rib', $rib['cle_rib']);
                         $stmtRib->bindParam(':compte_id', $compte_id); // Assurez-vous que compte_id est défini
-    
+
                         if ($stmtRib->execute()) {
                             $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
                         } else {
@@ -373,40 +381,11 @@
     }
 
     ob_end_flush();
-    ?>
 
-    <!-- Affichage du message dans le HTML -->
-    <!DOCTYPE html>
-    <html lang="fr">
+    // Quand tout est bien réalisé, rediriger au login avec la confimation de création du compte
+    header("location: /pro/connexion?created=1");
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Création de Compte</title>
-        <script>
-            // Fonction de redirection après un délai
-            function redirectToLogin() {
-                setTimeout(function () {
-                    window.location.href = "/pro/connexion";
-                }, 5000); // 5000 ms = 5 secondes
-            }
-        </script>
-    </head>
-
-    <body>
-        <h1>Création de Compte</h1>
-
-        <?php if (!empty($message)): ?>
-            <div class="alert alert-success"><?php echo $message; ?></div>
-            <script>redirectToLogin();</script>
-        <?php endif; ?>
-
-        <!-- Formulaire de création de compte ici -->
-    </body>
-
-    </html>
-
-<?php } ?>
+} ?>
 
 <script>
     // Gestion des icônes pour afficher/masquer le mot de passe

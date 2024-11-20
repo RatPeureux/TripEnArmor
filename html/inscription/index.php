@@ -34,40 +34,45 @@
                         <div class="w-full">
                             <label class="text-small" for="prenom">Prénom</label>
                             <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="prenom" name="prenom"
-                                pattern="^[a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon prénom"
-                                maxlength="50" required>
+                                title="Saisir mon prénom" maxlength="50" required>
                         </div>
                         <div class="w-full">
                             <label class="text-small" for="nom">Nom</label>
                             <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="nom" name="nom"
-                                pattern="^[a-zA-Zéèêëàâôûç\-']+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir mon nom"
-                                maxlength="50" required>
+                                title="Saisir mon nom" maxlength="50" required>
                         </div>
                     </div>
 
                     <!-- Champ pour l'adresse mail -->
                     <label class="text-small" for="mail">Adresse mail</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="mail" id="mail" name="mail"
+                        pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail"
                         maxlength="255" required>
 
                     <!-- Champ pour le mot de passe -->
-                    <label class="text-small" for="mdp">Mot de passe</label>
                     <div class="relative w-full">
+                        <label class="text-small" for="mdp">Mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
-                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
-                            title="Saisir un mot de passe" minlength="8" autocomplete="new-password" required>
-                        <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword1"></i>
+                            pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
+                            • 8 caractères au moins
+                            • 1 majuscule
+                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
+                        <!-- Oeil pour afficher le mot de passe -->
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                            id="togglePassword1"></i>
                     </div>
 
                     <!-- Champ pour confirmer le mot de passe -->
-                    <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
                     <div class="relative w-full">
+                        <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp"
-                            name="confMdp"
-                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
-                            title="Saisir le même mot de passe" minlength="8" autocomplete="new-password" required>
-                        <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword2"></i>
+                            name="confMdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
+                            • 8 caractères au moins
+                            • 1 majuscule
+                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
+                        <!-- Oeil pour afficher le mot de passe -->
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                            id="togglePassword1"></i>
                     </div>
 
                     <!-- Messages d'erreurs -->
@@ -159,8 +164,8 @@
         <title>Création de compte 2/2</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
-	    <script type="text/javascript" src="/scripts/autocomplete.js"></script>
+            src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+        <script type="text/javascript" src="/scripts/autocomplete.js"></script>
     </head>
 
     <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
@@ -196,14 +201,13 @@
                 <!-- Champ pour le pseudonyme -->
                 <label class="text-small" for="pseudo">Pseudonyme</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo"
-                    pattern="^(?:(\w+|\w+[\.\-_]?\w+)+" title="Saisir mon pseudonyme PACT" maxlength="16" required>
+                    maxlength="16" required>
 
                 <!-- Champs pour l'adresse -->
                 <label class="text-small" for="user_input_autocomplete_address">Adresse postale</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" 
-                id="user_input_autocomplete_address" 
-                name="user_input_autocomplete_address"
-                    pattern="\d{1,5}\s[\w\s.-]+$" title="Saisir mon adresse postale" maxlength="255" required>
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
+                    name="user_input_autocomplete_address" title="ex: 2 rue Saint-Jean OU rue Edouard Branly"
+                    maxlength="255" required>
 
                 <label class="text-small" for="complement">Complément d'adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
@@ -211,14 +215,14 @@
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
-                        <label class="text-small" for="postal_code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code" name="postal_code"
-                            pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal" minlength="5"
-                            maxlength="5" oninput="number(this)" required>
+                        <label class="text-small" for="code">Code postal</label>
+                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code"
+                            name="code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal"
+                            minlength="5" maxlength="5" oninput="number(this)" required>
                     </div>
                     <div class="w-full">
-                        <label class="text-small" for="locality">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" name="locality"
+                        <label class="text-small" for="ville">Ville</label>
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="ville" name="ville"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir ma ville"
                             maxlength="50" required>
                     </div>
@@ -329,7 +333,7 @@
         // Exécuter la requête pour l'adresse
         if ($stmtTest->execute()) {
             // Préparer l'insertion dans la table Membre
-            $stmtMembre = $dbh->prepare("INSERT INTO sae_db._membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :pseudo, :adresse_id, :nom, :prenom)");
+            $stmtMembre = $dbh->prepare("INSERT INTO sae_db._membre (email, mdp_hash, num_tel, adresse_id, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :adresse_id, :pseudo :nom, :prenom)");
             $stmtMembre->bindParam(':mail', $mail);
             $stmtMembre->bindParam(':mdp', $mdp_hash);
             $stmtMembre->bindParam(':num_tel', $tel);
@@ -348,37 +352,8 @@
     }
 
     ob_end_flush();
-    ?>
 
-    <!-- Affichage du message dans le HTML -->
-    <!DOCTYPE html>
-    <html lang="fr">
+    // Quand tout est bien réalisé, rediriger au login avec la confimation de création du compte
+    header("location: /connexion?created=1");
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Création de Compte</title>
-        <script>
-            // Fonction de redirection après un délai
-            function redirectToLogin() {
-                setTimeout(function () {
-                    window.location.href = "login-membre.php";
-                }, 5000); // 5000 ms = 5 secondes
-            }
-        </script>
-    </head>
-
-    <body>
-        <h1>Création de Compte</h1>
-
-        <?php if (!empty($message)): ?>
-            <div class="alert alert-success"><?php echo $message; ?></div>
-            <script>redirectToLogin();</script>
-        <?php endif; ?>
-
-        <!-- Formulaire de création de compte ici -->
-    </body>
-
-    </html>
-
-<?php } ?>
+} ?>

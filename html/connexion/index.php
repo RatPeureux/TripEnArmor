@@ -38,6 +38,17 @@ if (!isset($_POST['id'])) {
                     <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
                 </a>
 
+                <!-- Notification du compte bien créé -->
+                <?php
+                if (isset($_GET['created'])) { ?>
+                    <div class="relative">
+                        <p class="bg-primary text-white p-2 rounded-lg mb-2 border border-primary">Compte créé avec succès
+                            ✓</p>
+                        <div class="absolute top-0 w-full h-full z-10 bg-white animate-expand-width"></div>
+                    </div>
+                <?php } ?>
+
+
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/connexion"
                     method="post" enctype="multipart/form-data">
                     <p class="pb-3">J'ai un compte Membre</p>
@@ -45,18 +56,19 @@ if (!isset($_POST['id'])) {
                     <!-- Champ pour l'identifiant -->
                     <label class="text-small" for="id">Identifiant</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
-                        pattern="^(?:\w+|\w+[\.\-_]?\w+|0\d( \d{2}){4}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$"
-                        title="Saisir un identifiant (Pseudonyme, Adresse mail ou Téléphone)" value="<?php echo $id; ?>"
-                        maxlength="255" required>
+                        title="pseudo / mail / téléphone" value="<?php echo $id; ?>" maxlength="255" required>
 
                     <!-- Champ pour le mot de passe -->
-                    <label class="text-small" for="mdp">Mot de passe</label>
                     <div class="relative w-full">
+                        <label class="text-small" for="mdp">Mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
-                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
-                            title="Saisir un mot de passe" minlength="8" autocomplete="current-password" required>
+                            pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
+                            • 8 caractères au moins
+                            • 1 majuscule
+                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword"></i>
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                            id="togglePassword"></i>
                     </div>
 
                     <?php if ($error !== "") { ?>
@@ -150,7 +162,7 @@ if (!isset($_POST['id'])) {
             this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
             this.classList.add('fa-eye-slash');
         });
-    
+
         // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
         togglePassword.addEventListener('mouseup', function () {
             mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
