@@ -3,7 +3,7 @@
 require_once "../model/offre.php";
 
 class OffreController {
-    static private $model;
+    static private $model;  
 
     function __construct() {
         $this->model = 'Offre';
