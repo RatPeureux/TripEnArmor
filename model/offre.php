@@ -4,11 +4,11 @@ class Offre extends BDD {
     private $nom_table = "_offre";
 
     static function getOffreById($id, $enLigne = true) {
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id = ? AND est_en_ligne = ?";
-
+        self::initBDD();
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE offre_id = ? AND est_en_ligne = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id); // éviter les injections SQL (Gros pbs)
-        $statement->bindValue(2, $enLigne);
+        $statement->bindParam(2, $enLigne);
 
         if ($statement->execute()) {
             // exécution a fonctionnée
@@ -28,8 +28,8 @@ class Offre extends BDD {
     }
 
     static function createOffre($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id) {
-        $query = "INSERT INTO " . self::$nom_table . " (titre, description, resume, prix_mini, id_pro, type_offre_id, adresse_id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING offre_id";
-        
+        self::initBDD();
+        $query = "INSERT INTO (titre, description, resume, prix_mini, id_pro, type_offre_id, adresse_id". self::$nom_table ."VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $titre);
         $statement->bindParam(2, $description);
