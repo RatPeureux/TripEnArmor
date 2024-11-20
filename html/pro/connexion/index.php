@@ -1,4 +1,3 @@
-
 <?php
 session_start(); // Démarre la session au début du script
 global $error; // Variable pour stocker les messages d'erreur
@@ -37,6 +36,15 @@ if (!isset($_POST['id'])) {
                 <!-- Logo de l'application -->
                 <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
 
+                <!-- Notification du compte bien créé -->
+                <?php
+                if (isset($_GET['created'])) { ?>
+                    <div class="relative">
+                        <p class="bg-secondary/75 text-white p-2 rounded-lg mb-2 border border-primary">Compte créé avec succès ✓</p>
+                        <div class="absolute top-0 w-full h-full z-10 bg-white animate-expand-width"></div>
+                    </div>
+                <?php } ?>
+
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/connexion"
                     method="post" enctype="multipart/form-data">
                     <p class="pb-3">J'ai un compte Professionnel</p>
@@ -48,12 +56,16 @@ if (!isset($_POST['id'])) {
                         value="<?php echo $id; ?>" maxlength="255" required>
 
                     <!-- Champ pour le mot de passe -->
-                    <label class="text-small" for="mdp">Mot de passe</label>
                     <div class="relative w-full">
+                        <label class="text-small" for="mdp">Mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
-                            title="Saisir un mot de passe" minlength="8" autocomplete="current-password" required>
+                            pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
+                            • 8 caractères au moins
+                            • 1 majuscule
+                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-6 right-4 cursor-pointer" id="togglePassword"></i>
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                            id="togglePassword"></i>
                     </div>
 
                     <?php if ($error !== "") { ?>
