@@ -126,7 +126,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
                                     <!-- Voir l'offre & modifier -->
                                     <div class="flex gap-10 items-center">
-                                        <a href="" title="modifier l'offre">
+                                        <a href="#" title="modifier l'offre">
                                             <i
                                                 class="fa-solid fa-gear text-secondary text-h1 hover:text-primary duration-100"></i>
                                         </a>
@@ -187,17 +187,17 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                                     <div class="flex justify-between">
                                         <div class="flex italic justify-start gap-4">
                                             <!-- Non vus -->
-                                            <a title="avis non consultés" href="" class="hover:text-primary">
+                                            <a title="avis non consultés" href="#" class="hover:text-primary">
                                                 <i class=" fa-solid fa-exclamation text-rouge-logo"></i>
                                                 (0)
                                             </a>
                                             <!-- Non répondus -->
-                                            <a title="avis sans réponse" href="" class="hover:text-primary">
+                                            <a title="avis sans réponse" href="#" class="hover:text-primary">
                                                 <i class="fa-solid fa-reply-all text-rouge-logo"></i>
                                                 (0)
                                             </a>
                                             <!-- Blacklistés -->
-                                            <a title="avis blacklistés" href="" class="hover:text-primary">
+                                            <a title="avis blacklistés" href="#" class="hover:text-primary">
                                                 <i class="fa-regular fa-eye-slash text-rouge-logo"></i>
                                                 (0)
                                             </a>

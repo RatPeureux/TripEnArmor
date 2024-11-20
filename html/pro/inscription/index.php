@@ -153,7 +153,7 @@
                     title="Adresse mail" value="<?php echo $mail; ?>" readonly>
 
                 <!-- Choix du type d'organisme public -->
-                <?php if ($statut == 'public') { ?>
+                <?php if($statut == 'public') { ?>
                     <label class="text-small" for="type_orga">Je suis une&nbsp;</label>
                     <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="type_orga" name="type_orga"
                         title="Choisir un type d'organisme public" onchange="updateLabel()" required>
