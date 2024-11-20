@@ -22,9 +22,11 @@
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
+                <a href="/pro" class="w-full">
+                    <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
+                </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php"
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription"
                     method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Professionnel</p>
 
@@ -121,7 +123,7 @@
             <!-- Logo de l'application -->
             <img class="text mb-4" src="/public/images/logo.svg" alt="moine" width="57">
 
-            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="create-pro.php"
+            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription"
                 method="post" enctype="multipart/form-data"">
             <p class=" pb-3">Dites-nous en plus !</p>
 
@@ -226,7 +228,7 @@
 
     ob_start();
     // Connexion à la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Alteration de la table pour s'assurer que numero_compte est un VARCHAR
     try {

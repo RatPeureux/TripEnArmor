@@ -34,9 +34,11 @@ if (!isset($_POST['id'])) {
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <img class="absolute -top-24" src="../public/images/logo.svg" alt="moine" width="108">
+                <a href="/" class="w-full">
+                    <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
+                </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="login-membre.php"
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/connexion"
                     method="post" enctype="multipart/form-data">
                     <p class="pb-3">J'ai un compte Membre</p>
 
@@ -74,7 +76,7 @@ if (!isset($_POST['id'])) {
                             class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
                             Mot de passe oublié ?
                         </a>
-                        <a href="create-membre.php"
+                        <a href="/inscription"
                             class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
                             Créer un compte
                         </a>
@@ -92,7 +94,7 @@ if (!isset($_POST['id'])) {
 
     try {
         // Connexion avec la bdd
-        include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
+        include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
         // Vérifie si la requête est une soumission de formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -132,7 +134,6 @@ if (!isset($_POST['id'])) {
         echo "Erreur !: " . $e->getMessage(); // Affiche une erreur si la connexion échoue
         die(); // Arrête l'exécution du script
     }
-
 } ?>
 
 <script>
@@ -141,14 +142,14 @@ if (!isset($_POST['id'])) {
     const mdp = document.getElementById('mdp');
 
     // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-    togglePassword.addEventListener('mousedown', function () {
+    togglePassword.addEventListener('mousedown', function() {
         mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
         this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
         this.classList.add('fa-eye-slash');
     });
 
     // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
-    togglePassword.addEventListener('mouseup', function () {
+    togglePassword.addEventListener('mouseup', function() {
         mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
         this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
         this.classList.add('fa-eye');

@@ -21,9 +21,11 @@
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
+                <a href="/" class="w-full">
+                    <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
+                </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="create-membre.php"
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription"
                     method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Membre</p>
 
@@ -77,7 +79,7 @@
                         class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
 
                     <!-- Lien vers la page de connexion -->
-                    <a href="login-membre.php"
+                    <a href="/connexion"
                         class="w-full h-12 p-1 bg-transparent text-primary font-bold rounded-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
                         J'ai déjà un compte
                     </a>
@@ -168,8 +170,7 @@
             <!-- Logo de l'application -->
             <img class="text mb-4" src="/public/images/logo.svg" alt="moine" width="57">
 
-            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="create-membre.php"
-                method="post" enctype="multipart/form-data">
+            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="post" enctype="multipart/form-data">
                 <p class="pb-3">Dites-nous en plus !</p>
 
                 <!-- Champs pour le prénom et le nom (en lecture seule) -->
@@ -272,7 +273,7 @@
 
     ob_start();
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     $message = ''; // Initialiser le message
 

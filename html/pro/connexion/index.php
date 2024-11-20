@@ -35,9 +35,11 @@ if (!isset($_POST['id'])) {
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <img class="absolute -top-24" src="/public/images/logo.svg" alt="moine" width="108">
+                <a href="/pro" class="w-full">
+                    <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
+                </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="login-pro.php"
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/connexion"
                     method="post" enctype="multipart/form-data">
                     <p class="pb-3">J'ai un compte Professionnel</p>
 
@@ -90,7 +92,7 @@ if (!isset($_POST['id'])) {
     $error = ""; // Variable pour stocker les messages d'erreur
     try {
         // Connexion avec la bdd
-        include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
+        include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
         // Vérifie si la requête est une soumission de formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

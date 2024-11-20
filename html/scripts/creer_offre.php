@@ -1,6 +1,6 @@
 <?php
 // Connexion avec la bdd
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
+include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 // Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);

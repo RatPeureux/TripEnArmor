@@ -1,6 +1,6 @@
 <?php
 session_start();
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
+include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +23,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
 
     <?php
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Obtenir l'ensembre des offres
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true");
@@ -50,7 +50,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/authentification.php';
             }
 
             // Obtenir les différentes variables avec les infos nécessaires via des requêtes SQL sécurisées (bindParams)
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/get_details_offre.php';
+            include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
 
             // Ajouter le contenu des cartes pour le téléphone
             {

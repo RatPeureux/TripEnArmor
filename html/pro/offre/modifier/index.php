@@ -656,7 +656,7 @@ try {
 				<div class="w-full min-w-[450px] max-w-[450px] h-screen flex justify-center items-center sticky top-0">
 					<div class="h-fit w-full">
 						<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
-						<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou a la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
+						<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
 						<div class="card active relative bg-base300 rounded-xl flex flex-col w-full" id="card-preview">
 							<script>
 								// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
