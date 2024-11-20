@@ -100,13 +100,10 @@ ADD CONSTRAINT unique_tel_membre UNIQUE (num_tel);
 ALTER TABLE _membre
 ADD CONSTRAINT fk_membre FOREIGN KEY (adresse_id) REFERENCES _adresse (adresse_id);
 
-CREATE TRIGGER tg_unique_vals_compte
-BEFORE INSERT ON _membre
-FOR EACH ROW
-EXECUTE FUNCTION unique_vals_compte();
-
-
-
+CREATE TRIGGER tg_unique_vals_compte BEFORE
+INSERT
+    ON _membre FOR EACH ROW
+EXECUTE FUNCTION unique_vals_compte ();
 
 ALTER TABLE _pro_public
 ADD CONSTRAINT pk_pro_public PRIMARY KEY (id_compte);
@@ -120,14 +117,10 @@ ADD CONSTRAINT unique_tel_pro_public UNIQUE (num_tel);
 ALTER TABLE _pro_public
 ADD CONSTRAINT fk_pro_public FOREIGN KEY (adresse_id) REFERENCES _adresse (adresse_id);
 
-CREATE TRIGGER tg_unique_vals_compte
-BEFORE INSERT ON _pro_public
-FOR EACH ROW
-EXECUTE FUNCTION unique_vals_compte();
-
-
-
-
+CREATE TRIGGER tg_unique_vals_compte BEFORE
+INSERT
+    ON _pro_public FOR EACH ROW
+EXECUTE FUNCTION unique_vals_compte ();
 
 ALTER TABLE _pro_prive
 ADD CONSTRAINT pk_pro_prive PRIMARY KEY (id_compte);
@@ -141,10 +134,10 @@ ADD CONSTRAINT unique_tel_pro_prive UNIQUE (num_tel);
 ALTER TABLE _pro_prive
 ADD CONSTRAINT fk_pro_prive FOREIGN KEY (adresse_id) REFERENCES _adresse (adresse_id);
 
-CREATE TRIGGER tg_unique_vals_compte
-BEFORE INSERT ON _pro_prive
-FOR EACH ROW
-EXECUTE FUNCTION unique_vals_compte();
+CREATE TRIGGER tg_unique_vals_compte BEFORE
+INSERT
+    ON _pro_prive FOR EACH ROW
+EXECUTE FUNCTION unique_vals_compte ();
 
 -- ------------------------------------------------------------------------------------------------------- fin
 
@@ -248,8 +241,6 @@ CREATE TABLE _facture (
 
 -- ------------------------------------------------------------------------------------------------------- fin
 
-
-
 -- -----------------------------------------------------------------------------------------------Logs---- début
 CREATE TABLE _log_changement_status (
     id SERIAL PRIMARY KEY,
@@ -257,8 +248,6 @@ CREATE TABLE _log_changement_status (
     date_changement DATE NOT NULL
 );
 -- ------------------------------------------------------------------------------------------------------- fin
-
-
 
 -- Fonction pour vérifier une clé étrangère manuellement, car sinon pb avec raisons de double héritage
 CREATE OR REPLACE FUNCTION fk_vers_professionnel() RETURNS TRIGGER AS $$
@@ -295,10 +284,10 @@ ADD CONSTRAINT fk_restauration_adresse FOREIGN KEY (adresse_id) REFERENCES _adre
 ALTER TABLE _restauration
 ADD CONSTRAINT fk_restauration_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre (type_offre_id);
 
-CREATE TRIGGER fk_restauration_professionnel
-BEFORE INSERT ON _restauration
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE TRIGGER fk_restauration_professionnel BEFORE
+INSERT
+    ON _restauration FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- ALTER TABLE _restauration
 -- ADD CONSTRAINT fk_restauration_professionnel FOREIGN KEY (id_pro) REFERENCES _pro_prive (id_compte);
@@ -342,10 +331,10 @@ ADD CONSTRAINT fk_activite_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse 
 ALTER TABLE _activite
 ADD CONSTRAINT fk_activite_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre (type_offre_id);
 
-CREATE TRIGGER fk_restauration_professionnel
-BEFORE INSERT ON _activite
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE TRIGGER fk_restauration_professionnel BEFORE
+INSERT
+    ON _activite FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- TAGs Activité---------------------------------------------
 create table _tag_activite (
@@ -372,10 +361,10 @@ ADD CONSTRAINT fk_spectacle_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse
 ALTER TABLE _spectacle
 ADD CONSTRAINT fk_spectacle_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre (type_offre_id);
 
-CREATE TRIGGER fk_restauration_professionnel
-BEFORE INSERT ON _spectacle
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE TRIGGER fk_restauration_professionnel BEFORE
+INSERT
+    ON _spectacle FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- TAG Spectacles
 create table _tag_spectacle (
@@ -401,10 +390,10 @@ ADD CONSTRAINT fk_visite_adresse FOREIGN KEY (adresse_id) REFERENCES _adresse (a
 ALTER TABLE _visite
 ADD CONSTRAINT fk_visite_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre (type_offre_id);
 
-CREATE TRIGGER fk_restauration_professionnel
-BEFORE INSERT ON _visite
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE TRIGGER fk_restauration_professionnel BEFORE
+INSERT
+    ON _visite FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- langues parlées durant la visite
 CREATE TABLE _langue (
@@ -443,10 +432,10 @@ ADD CONSTRAINT fk_parc_attraction_adresse FOREIGN KEY (adresse_id) REFERENCES _a
 ALTER TABLE _parc_attraction
 ADD CONSTRAINT fk_parc_attraction_type_offre FOREIGN KEY (type_offre_id) REFERENCES _type_offre (type_offre_id);
 
-CREATE TRIGGER fk_restauration_professionnel
-BEFORE INSERT ON _parc_attraction
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE TRIGGER fk_restauration_professionnel BEFORE
+INSERT
+    ON _parc_attraction FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- TAG Parcs
 create table _tag_parc_attraction (
