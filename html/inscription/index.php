@@ -52,7 +52,7 @@
                         maxlength="255" required>
 
                     <!-- Champ pour le mot de passe -->
-                    <label class="text-small" for="mdp">Mot de passe<span class="text-red-500"> *</span></label>
+                    <label class="text-small" for="mdp">Mot de passe</label>
                     <div class="relative w-full">
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
                             pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&*(),.?&quot;:{}|&gt;&lt;]{8,}"
@@ -61,8 +61,7 @@
                     </div>
 
                     <!-- Champ pour confirmer le mot de passe -->
-                    <label class="text-small" for="confMdp">Confirmer le mot de passe<span class="text-red-500">
-                            *</span></label>
+                    <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
                     <div class="relative w-full">
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp"
                             name="confMdp"
@@ -97,29 +96,31 @@
         const mdp = document.getElementById('mdp');
         const confMdp = document.getElementById('confMdp');
 
-        togglePassword1.addEventListener('mousedown', function () {
-            mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-            this.classList.remove('fa-eye'); // Change l'icône
-            this.classList.add('fa-eye-slash');
-        });
+        if (togglePassword1) {
+            togglePassword1.addEventListener('mousedown', function () {
+                mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+                this.classList.remove('fa-eye'); // Change l'icône
+                this.classList.add('fa-eye-slash');
+            });
+            togglePassword1.addEventListener('mouseup', function () {
+                mdp.type = 'password'; // Masque le mot de passe à nouveau
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            });
+        }
 
-        togglePassword1.addEventListener('mouseup', function () {
-            mdp.type = 'password'; // Masque le mot de passe à nouveau
-            this.classList.remove('fa-eye-slash');
-            this.classList.add('fa-eye');
-        });
-
-        togglePassword2.addEventListener('mousedown', function () {
-            confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-            this.classList.remove('fa-eye');
-            this.classList.add('fa-eye-slash');
-        });
-
-        togglePassword2.addEventListener('mouseup', function () {
-            confMdp.type = 'password'; // Masque le mot de passe à nouveau
-            this.classList.remove('fa-eye-slash');
-            this.classList.add('fa-eye');
-        });
+        if (togglePassword2) {
+            togglePassword2.addEventListener('mousedown', function () {
+                confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            });
+            togglePassword2.addEventListener('mouseup', function () {
+                confMdp.type = 'password'; // Masque le mot de passe à nouveau
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            });
+        }
 
         // Fonction de validation du formulaire
         function validateForm() {
@@ -193,7 +194,7 @@
                     title="Mon adresse mail" value="<?php echo $mail; ?>" readonly>
 
                 <!-- Champ pour le pseudonyme -->
-                <label class="text-small" for="pseudo">Pseudonyme*</label>
+                <label class="text-small" for="pseudo">Pseudonyme</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo"
                     pattern="^(?:(\w+|\w+[\.\-_]?\w+)+" title="Saisir mon pseudonyme PACT" maxlength="16" required>
 
@@ -224,8 +225,8 @@
                 </div>
 
                 <!-- Champ pour le numéro de téléphone -->
-                <label class="text-small" for="num_tel">Téléphone</label>
-                <div class="w-full">
+                <div class="w-full flex flex-col">
+                    <label class="text-small" for="num_tel">Téléphone</label>
                     <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
                         pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14"
                         oninput="formatTEL(this)" required>
@@ -291,7 +292,7 @@
         $ville = $_POST['ville'];
         $tel = $_POST['num_tel'];
 
-        function extraireInfoAdressse($adresse)
+        function extraireInfoAdresse($adresse)
         {
             $numero = substr($adresse, 0, 1);
             $odonyme = substr($adresse, 2);
@@ -306,7 +307,7 @@
         $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
         try {
-            $test = extraireInfoAdressse($adresse);
+            $test = extraireInfoAdresse($adresse);
             $stmtTest = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement_adresse) VALUES (:code, :ville, :numero, :odonyme, :complement)");
             $stmtTest->bindParam(':code', $code);
             $stmtTest->bindParam(':ville', $ville);

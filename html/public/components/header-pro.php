@@ -14,11 +14,11 @@
                 <span class="hidden sm:inline">PACT</span> Pro
             </h1>
         </a> 
-        <div class="flex gap-4 items-center">
-            <a href="#" class="hidden sm:block">
+        <div class="flex gap-10 items-center">
+            <a href="#" class="hidden sm:block" title="rechercher parmi mes offres">
                 <i class="text-3xl fa-solid fa-magnifying-glass"></i>
             </a>
-            <a href="/pro/connexion">
+            <a href="/pro/connexion" title="me connecter/déconnecter">
                 <i class="text-3xl fa-regular fa-user"></i>
             </a>
             <?php

@@ -46,12 +46,12 @@
   </div>
 </div>
 
-<div id="layer-background" onclick="toggleMenu()" class="md:!hidden fixed w-full h-full top-0 left-0 z-40"></div>
+<div id="layer-background" onclick="toggleMenu()" class="hidden fixed w-full h-full top-0 left-0 z-40"></div>
 
 <!-- VERSION TABLETTE OU PLUS (+768px) -->
 <div class="hidden w-52 sticky top-2 md:block bg-white z-20 border-black border rounded-b-lg rounded-tr-lg">
   <div class="p-4 flex flex-row gap-3 justify-start items-center">
-    <i class="text-3xl fa-solid fa-bars" onclick="toggleMenu()"></i>
+    <i class="text-3xl fa-solid fa-bars"></i>
     <h1 class="text-h1">Menu</h1>
   </div>
   <div class="all-items flex flex-col items-stretch">
