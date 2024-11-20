@@ -34,7 +34,7 @@ COPY initialisation ./
 COPY tailwindcss ./
 
 
-COPY ../php-files/ ./php-files/
+COPY ../php_files/ ./php_files/
 
 # # Copie le fichier marche_pas.nepastoucher sous le nom index.php dans le répertoire de travail
 # COPY marche_pas.nepastoucher ./index.php

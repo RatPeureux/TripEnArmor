@@ -30,7 +30,7 @@ session_start();
     $offre_id = $_SESSION['offre_id'];
 
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/connect_to_bdd.php';
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE offre_id = :offre_id");
@@ -50,7 +50,7 @@ session_start();
     $stmt->bindParam(':offre_id', $offre_id);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php-files/get_details_offre.php';
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     ?>
 
     <!-- VERSION TELEPHONE -->

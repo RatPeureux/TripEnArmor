@@ -4,7 +4,7 @@
 docker image pull bigpapoo/r301-php:8.2-apache &&
 
 # Construisez une nouvelle image Docker à partir du Dockerfile spécifié
-docker image build -t apache-pdo:1.0 -f Dockerfile-apache-pdo . &&
+docker image build -t apache-pdo:1.0 -f dockerfile-apache-pdo . &&
 
 # Lancez les services définis dans le fichier docker-compose en mode détaché
 docker-compose up -d
@@ -21,7 +21,6 @@ echo "docker exec -it $CONTAINER_NAME /bin/bash"
 
 # Exécutez un script d'initialisation local
 ./initialisation
-
 
 # Définissez un piège pour arrêter les services Docker lorsque le script est interrompu
 trap 'docker-compose down -v' SIGINT SIGTERM
