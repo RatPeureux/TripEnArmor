@@ -14,13 +14,13 @@ class OffreController {
         $offre = $this->model::getOffreById($id);
 
         $result = [
-            "id_offre" => $offre["id"],
+            "offre_id" => $offre["offre_id"],
             "titre" => $offre["titre"],
-            "resume" => $offre["resume"],
+            "resume" => $offre["resume_offre"],
             "prix_mini" => $offre["prix_mini"],
             "id_pro" => $offre["id_pro"],
-            "id_adresse"=> $offre["id_adresse"],
-            "id_type_offre" => $offre["id_type_offre"],
+            "adresse_id"=> $offre["adresse_id"],
+            "type_offre_id" => $offre["type_offre_id"],
         ];
 
         return $result;
@@ -61,7 +61,7 @@ class OffreController {
                 $resume !== false ? $resume : $offre["resume"], 
                 $prix_mini !== false ? $prix_mini : $offre["prix_mini"], 
                 $id_pro !== false ? $id_pro : $offre["id_pro"], 
-                $type_offre_id !== false ? $type_offre_id : $offre["type_offre_id"], 
+                $type_offre_id !== false ? $type_offre_id : $offre["id_type_offre"], 
                 $adresse_id !== false ? $adresse_id : $offre["adresse_id"]
             );
 
