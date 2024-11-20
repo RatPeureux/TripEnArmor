@@ -23,7 +23,7 @@ module.exports = {
             colors: {
                 'rouge-logo': '#EA4335',
                 'primary': '#F2771B',
-                'secondary': '#0a0035', //00350D
+                'secondary': '#0a0035',
                 'base100': '#F1F3F4',
                 'base200': '#E0E0E0',
                 'base300': '#CCCCCC',
@@ -34,6 +34,15 @@ module.exports = {
             },
             spacing: {
                 '1/6': '16%',
+            },
+            animation: {
+                'expand-width': 'expandWidth 1s ease-out forwards',
+            },
+            keyframes: {
+                expandWidth: {
+                    '0%': { width: '100%' },
+                    '100%': { width: '0%' },
+                },
             }
         },
     },
