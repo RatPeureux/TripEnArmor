@@ -4,7 +4,7 @@ class Offre extends BDD {
     private $nom_table = "_offre";
 
     static function getOffreById($id, $enLigne = true) {
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id = ? AND est_en_ligne = ?";
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ? AND est_en_ligne = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id); // éviter les injections SQL (Gros pbs)
         $statement->bindValue(2, $enLigne);
