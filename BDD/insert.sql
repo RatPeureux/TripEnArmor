@@ -137,7 +137,7 @@ INSERT INTO
 VALUES
     -- LeMeilleurChateau/5
     (
-        3,
+        4,
         'chateau2kergrist@kergrist.fr',
         '$2y$10$GXXQOLrRyCjKrO2SLmTm2.kLs1HIWugRuelUynpBATOu9mhORFA1a',
         '0296463271',
@@ -198,10 +198,10 @@ VALUES (
 
 -- insertion des types d'offres (Standard, Premium, Gratuite)
 INSERT INTO
-    _type_offre (nom_type_offre)
-VALUES ('Premium'),
-    ('Standard'),
-    ('Gratuit');
+    _type_offre (id_type_offre, nom)
+VALUES (1, 'Premium'),
+    (2, 'Standard'),
+    (3, 'Gratuit');
 
 -- Insertion dans les différents types d'offres, 2 chacunes -----------------------------------------------------------------------------------------------
 INSERT INTO
@@ -228,7 +228,7 @@ VALUES (
         '2024-10-15',
         1,
         '€€€',
-        3,
+        5,
         1
     ),
 
