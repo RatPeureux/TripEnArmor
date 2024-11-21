@@ -22,7 +22,7 @@ abstract class Compte extends BDD {
 
     static function getCompteById($id){
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE compte_id = ?";
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
 
@@ -33,7 +33,8 @@ abstract class Compte extends BDD {
             return false;
         }
     }
-    
+
+
     static function updateCompte($id, $email, $mdp, $tel, $adresseId) {
         $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, adresse_id = ? WHERE id_compte = ?";
         $statement = self::$db->prepare($query);

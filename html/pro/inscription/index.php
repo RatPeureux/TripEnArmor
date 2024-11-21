@@ -10,7 +10,7 @@
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
         <link rel="stylesheet" href="../styles/output.css">
-        <title>Création de compte 1/2</title>
+        <title>Création de compte</title>
         <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     </head>
@@ -112,7 +112,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/output.css">
-        <title>Création de compte 2/2</title>
+        <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
@@ -121,7 +121,7 @@
 
     <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
         <!-- Icône pour revenir à la page précédente -->
-        <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+        <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
@@ -153,7 +153,7 @@
                     title="Adresse mail" value="<?php echo $mail; ?>" readonly>
 
                 <!-- Choix du type d'organisme public -->
-                <?php if ($statut == 'public') { ?>
+                <?php if($statut == 'public') { ?>
                     <label class="text-small" for="type_orga">Je suis une&nbsp;</label>
                     <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="type_orga" name="type_orga"
                         title="Choisir un type d'organisme public" onchange="updateLabel()" required>
@@ -316,7 +316,7 @@
 
         if ($stmtAdresse->execute()) {
             // Récupérer l'ID de l'adresse insérée
-            $adresseId = $dbh->lastInsertId();
+            $id_adresse = $dbh->lastInsertId();
 
             // Récupérer les information du compte à créer
             $statut = $_POST['statut'];
@@ -335,10 +335,10 @@
 
             // Préparer l'insertion dans la table Professionnel (séparer public / privé)
             if ($statut === "public") {
-                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, adresse_id, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom_pro, :type_orga)");
+                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :type_orga)");
                 $stmtProfessionnel->bindParam(':type_orga', $type_orga);
             } else {
-                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, adresse_id, nom_pro, num_siren) VALUES (:mail, :mdp, :num_tel, :adresse_id, :nom_pro, :num_siren)");
+                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :num_siren)");
                 $stmtProfessionnel->bindParam(':num_siren', $num_siren);
             }
 
@@ -347,7 +347,7 @@
             $stmtProfessionnel->bindParam(':mail', $mail);
             $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
             $stmtProfessionnel->bindParam(':num_tel', $tel);
-            $stmtProfessionnel->bindParam(':adresse_id', $adresseId);
+            $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
 
             // Exécuter la requête pour le professionnel
             if ($stmtProfessionnel->execute()) {
@@ -355,12 +355,12 @@
                 if ($iban) {
                     try {
                         $rib = extraireRibDepuisIban($iban);
-                        $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle_rib, compte_id) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :compte_id)");
+                        $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle_rib, id_compte) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :id_compte)");
                         $stmtRib->bindParam(':code_banque', $rib['code_banque']);
                         $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
                         $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
                         $stmtRib->bindParam(':cle_rib', $rib['cle_rib']);
-                        $stmtRib->bindParam(':compte_id', $compte_id); // Assurez-vous que compte_id est défini
+                        $stmtRib->bindParam(':id_compte', $id_compte); // Assurez-vous que id_compte est défini
 
                         if ($stmtRib->execute()) {
                             $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";

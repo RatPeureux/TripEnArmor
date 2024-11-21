@@ -22,7 +22,7 @@ if (!isset($_POST['id'])) {
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
         <link rel="stylesheet" href="/styles/output.css">
-        <title>Connexion à la PACT</title>
+        <title>Connexion au compte</title>
         <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     </head>
@@ -83,7 +83,7 @@ if (!isset($_POST['id'])) {
 
                     <!-- Liens pour mot de passe oublié et création de compte -->
                     <div class="flex flex-nowrap h-12 space-x-1.5">
-                        <a href=""
+                        <a href="#"
                             class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
                             Mot de passe oublié ?
                         </a>
@@ -129,7 +129,7 @@ if (!isset($_POST['id'])) {
                 if (password_verify($mdp, $user['mdp_hash'])) {
                     // Stocke les informations de l'utilisateur dans la session
                     $_SESSION['id_pro'] = $user['id_compte'];
-                    header('location: /'); // Redirige vers la page connectée
+                    header('location: /pro/'); // Redirige vers la page connectée
                     exit();
                 } else {
                     $_SESSION['error'] = "Mot de passe incorrect"; // Stocke le message d'erreur dans la session

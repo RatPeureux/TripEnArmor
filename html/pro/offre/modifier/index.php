@@ -9,18 +9,18 @@ try {
 
     // Vérifier si l'ID de l'offre est passé et est un entier
     if (isset($_GET['offre-id']) && is_numeric($_GET['offre-id'])) {
-        $offreId = (int) $_GET['offre-id'];
+        $id_offre = (int) $_GET['offre-id'];
     } else {
         die("ID d'offre invalide.");
     }
 
     $sql = "SELECT o.*, a.code_postal, a.ville, a.numero, a.odonyme 
             FROM sae_db._offre o 
-            JOIN sae_db._adresse a ON o.adresse_id = a.adresse_id 
-            WHERE o.offre_id = :offre_id";
+            JOIN sae_db._adresse a ON o.id_adresse = a.id_adresse 
+            WHERE o.id_offre = :id_offre";
 
     $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(':offre_id', $offreId, PDO::PARAM_INT); // Spécifiez le type pour être sûr
+    $stmt->bindParam(':id_offre', $id_offre, PDO::PARAM_INT); // Spécifiez le type pour être sûr
     $stmt->execute();
 
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -43,12 +43,12 @@ try {
             // Mettre à jour l'adresse
             $stmtAdresseOffre = $dbh->prepare("UPDATE sae_db._adresse 
                 SET adresse_postale = :adresse, code_postal = :code, ville = :ville 
-                WHERE adresse_id = (SELECT adresse_id FROM sae_db.Offre WHERE offre_id = :offreId)
+                WHERE id_adresse = (SELECT id_adresse FROM sae_db.Offre WHERE id_offre = :id_offre)
             ");
             $stmtAdresseOffre->bindParam(':ville', $ville);
             $stmtAdresseOffre->bindParam(':adresse', $adresse);
             $stmtAdresseOffre->bindParam(':code', $code);
-            $stmtAdresseOffre->bindParam(':offreId', $offreId);
+            $stmtAdresseOffre->bindParam(':id_offre', $id_offre);
 
             if ($stmtAdresseOffre->execute()) {
                 $dateMiseAJour = date('Y-m-d H:i:s');
@@ -56,23 +56,23 @@ try {
                 // Mettre à jour l'offre
                 $stmtOffre = $dbh->prepare("UPDATE sae_db._offre 
                     SET description_offre = :description, resume_offre = :resume, prix_mini = :prix, date_mise_a_jour = :date_mise_a_jour 
-                    WHERE offre_id = :offreId
+                    WHERE id_offre = :id_offre
                 ");
                 $stmtOffre->bindParam(':description', $description);
                 $stmtOffre->bindParam(':resume', $resume);
-                $stmtOffre->bindParam(':offreId', $offreId);
+                $stmtOffre->bindParam(':id_offre', $id_offre);
                 $stmtOffre->bindParam(':date_mise_a_jour', $dateMiseAJour);
                 $stmtOffre->bindParam(':prix', $prix);
 
                 if ($stmtOffre->execute()) {
                     $stmtTarifPublic = $dbh->prepare("UPDATE sae_db._tarif_Public 
                         SET titre_tarif = :titre, age_min = :age_min, age_max = :age_max 
-                        WHERE offre_id = :offre_id
+                        WHERE id_offre = :id_offre
                     ");
                     $stmtTarifPublic->bindParam(':titre', $titre);
                     $stmtTarifPublic->bindParam(':age_min', $age);
                     $stmtTarifPublic->bindParam(':age_max', $age);
-                    $stmtTarifPublic->bindParam(':offre_id', $offreId);
+                    $stmtTarifPublic->bindParam(':id_offre', $id_offre);
 
                     if ($stmtTarifPublic->execute()) {
                         header("Location: /pro");
@@ -132,7 +132,7 @@ try {
 		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 			<!-- Lien de retour avec une icône et un titre -->
 			<div class="w-full text-left">
-				<a href="" onclick="history.back()" class="flex content-center space-x-">
+				<a href="#" onclick="history.back()" class="flex content-center space-x-">
 					<div class="m-4">
 						<i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>
 					</div>

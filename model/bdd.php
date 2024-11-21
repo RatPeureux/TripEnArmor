@@ -4,8 +4,8 @@ include('connect_params.php'); // Inclusion des paramètres de connexion à la b
 // Définition d'une classe abstraite BDD qui sert de modèle pour les classes qui interagiront avec la base de données.
 abstract class BDD {
     // Propriété pour stocker l'instance de la connexion à la base de données
-    public $db;
-    public $isInit = false;
+    static public $db;
+    static public $isInit = false;
 
     /**
      * Constructeur de la classe BDD
