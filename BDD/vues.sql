@@ -15,15 +15,15 @@ FROM
 JOIN 
     _compte c ON pp.id_compte = c.id_compte
 JOIN 
-    _adresse a ON c.adresse_id = a.adresse_id;
+    _adresse a ON c.id_adresse = a.id_adresse;
     
 
 -- créer une vue des offres que les membres et visiteurs verront
 CREATE OR REPLACE VIEW vue_offres_publiques AS
 SELECT 
     titre,
-    description_offre,
-    resume_offre,
+    description,
+    resume,
     prix_mini,
     date_creation
 FROM 
@@ -57,27 +57,27 @@ $$ LANGUAGE plpgsql;
 -- création de la vue permettant de voire les types d'offres 
 CREATE OR REPLACE VIEW vue_offre_categorie AS
 SELECT 
-    o.offre_id,
+    o.id_offre,
     'restauration' AS type_offre
 FROM _restauration o
 UNION ALL
 SELECT 
-    o.offre_id,
+    o.id_offre,
     'parc_attraction' AS type_offre
 FROM _parc_attraction o
 UNION ALL
 SELECT 
-    o.offre_id,
+    o.id_offre,
     'visite' AS type_offre
 FROM _visite o
 UNION ALL
 SELECT 
-    o.offre_id,
+    o.id_offre,
     'activite' AS type_offre
 FROM _activite o
 UNION ALL
 SELECT 
-    o.offre_id,
+    o.id_offre,
     'spectacle' AS type_offre
 FROM _spectacle o;
 
@@ -86,7 +86,7 @@ FROM _spectacle o;
 
 
 create or replace view vue_offre_type as 
-select offre_id, nom_type_offre
+select id_offre, nom_type_offre
 from _offre 
 join _type_offre on  
-_type_offre.type_offre_id = _offre.type_offre_id;
+_type_offre.id_type_offre = _offre.id_type_offre;

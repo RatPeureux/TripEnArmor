@@ -1,15 +1,10 @@
 <?php
+session_start();
 
-function activeLogout()
+function isConnectedAsMember(): bool
 {
-    // Vérifie si l'utilisateur est connecté
-    if (!isset($_SESSION['id_user'])) {
-        // Si l'utilisateur n'est pas connecté
-        return false;
-    }
-    // Sinon
-    return true;
-}
+    return isset($_SESSION['id_member'])
+;}
 
 function verifyPro()
 {

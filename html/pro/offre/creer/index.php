@@ -43,7 +43,7 @@ verifyPro();
 		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 			<!-- Lien de retour avec une icône et un titre -->
 			<div class="w-full text-left">
-				<a href="" onclick="history.back()" class="flex content-center space-x-">
+				<a href="#" onclick="history.back()" class="flex content-center space-x-">
 					<div class="m-4">
 						<i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>
 					</div>
