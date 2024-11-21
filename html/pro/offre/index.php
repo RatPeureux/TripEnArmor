@@ -27,22 +27,22 @@ verifyPro();
     <div id="header-pro" class="mb-20"></div>
 
     <?php
-    $offre_id = $_SESSION['offre_id'];
-    $idPro = $_SESSION['id_pro'];
+    $id_offre = $_SESSION['id_offre'];
+    $id_pro = $_SESSION['id_pro'];
 
     // Connexion avec la bdd
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
-    $stmt = $dbh->prepare('SELECT * FROM sae_db._professionnel WHERE id_compte = :idPro');
-    $stmt->bindParam(':idPro', $idPro);
+    $stmt = $dbh->prepare('SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro');
+    $stmt->bindParam(':id_pro', $id_pro);
     $stmt->execute();
     $pro = $stmt->fetch(PDO::FETCH_ASSOC);
     $pro_nom = $pro['nompro'];
 
     // Obtenir l'ensemble des informations de l'offre
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE offre_id = :offre_id");
-    $stmt->bindParam(':offre_id', $offre_id);
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
+    $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
@@ -94,7 +94,7 @@ verifyPro();
                     <!-- Afficher les tags de l'offre -->
                     <?php
                     if ($tags) {
-                        echo ("<h3 class='text-h3'>$tags</h3>");
+                        echo "<h3 class='text-h3'>$tags</h3>";
                     }
                     ?>
 

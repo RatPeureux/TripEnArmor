@@ -137,7 +137,7 @@ INSERT INTO
 VALUES
     -- LeMeilleurChateau/5
     (
-        4,
+        3,
         'chateau2kergrist@kergrist.fr',
         '$2y$10$GXXQOLrRyCjKrO2SLmTm2.kLs1HIWugRuelUynpBATOu9mhORFA1a',
         '0296463271',
@@ -228,7 +228,7 @@ VALUES (
         '2024-10-15',
         1,
         '€€€',
-        5,
+        3,
         1
     ),
 

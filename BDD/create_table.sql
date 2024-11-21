@@ -172,7 +172,7 @@ CREATE TABLE _RIB ( -- Léo
 -- -----------------------------------------------------------------------------------------------TAG----- début
 -- Table TAG
 
-CREATE TABLE _tag ( -- Antoine
+CREATE TABLE _tag ( -- V-A
     id_tag SERIAL PRIMARY KEY,
     nom_tag VARCHAR(255) NOT NULL
 );
@@ -424,7 +424,7 @@ FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel();
 
 -- langues parlées durant la visite
-CREATE TABLE _langue ( -- Antoine
+CREATE TABLE _langue ( -- V-A
     id_langue SERIAL PRIMARY KEY,
     nom_langue VARCHAR(255)
 );
@@ -503,7 +503,7 @@ CREATE TABLE T_Image_Img (
     img_date_suppression DATE,
     id_offre INTEGER REFERENCES _offre (id_offre) ON DELETE CASCADE,
     id_parc INTEGER REFERENCES _parc_attraction (id_offre) ON DELETE CASCADE,
-    -- Contrainte d'exclusivité : soit offre_id, soit id_parc doit être non nul, mais pas les deux
+    -- Contrainte d'exclusivité : soit id_offre, soit id_parc doit être non nul, mais pas les deux
     CONSTRAINT chk_offre_parc_exclusif CHECK (
         (
             id_offre IS NOT NULL
