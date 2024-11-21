@@ -34,7 +34,7 @@ if (!isset($_POST['id'])) {
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <a href="/pro" class="w-full">
+                <a href="/" class="w-full">
                     <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
                 </a>
 
