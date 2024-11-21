@@ -89,11 +89,6 @@ class Tag extends BDD {
         $statement->bindParam(1, $id);
 
         // Exécute la requête et retourne les résultats ou une erreur
-        if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            echo "ERREUR : Impossible de supprimer le tag";
-            return -1;
-        }
+        return $statement->execute();
     }
 }
