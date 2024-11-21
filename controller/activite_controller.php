@@ -14,13 +14,13 @@ class OffreController {
         $offre = $this->model::getOffreById($id);
 
         $result = [
-            "id_offre" => $offre["id_offre"],
+            "offre_id" => $offre["offre_id"],
             "titre" => $offre["titre"],
             "resume" => $offre["resume_offre"],
             "prix_mini" => $offre["prix_mini"],
             "id_pro" => $offre["id_pro"],
-            "id_adresse"=> $offre["id_adresse"],
-            "id_type_offre" => $offre["id_type_offre"],
+            "adresse_id"=> $offre["adresse_id"],
+            "type_offre_id" => $offre["type_offre_id"],
         ];
 
         return $result;
@@ -42,30 +42,49 @@ class OffreController {
     }
 
     // VIEW -> MODEL
-    public function createOffre($titre, $description, $resume, $prix_mini, $id_pro, $id_type_offre, $id_adresse) {
-        $id_offre = $this->model::createOffre($titre, $description, $resume, $prix_mini, $id_pro, $id_type_offre, $id_adresse);
-        return $id_offre;
+    public function createOffre($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id) {
+        $offreID = $this->model::createOffre($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id);
+        return $offreID;
     }
     
-    public function updateOffre($id, $titre=false, $description=false, $resume=false, $prix_mini=false, $id_pro=false, $id_type_offre=false, $id_adresse=false) {
-        if ($titre === false && $description === false && $resume === false && $prix_mini === false && $id_pro === false && $id_type_offre === false && $id_adresse === false) {
+    public function updateOffre($id, $titre=false, $description=false, $resume=false, $prix_mini=false, $id_pro=false, $type_offre_id=false, $adresse_id=false) {
+        if ($titre === false && $description === false && $resume === false && $prix_mini === false && $id_pro === false && $type_offre_id === false && $adresse_id === false) {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {
             $offre = $this->model::getOffreById($id);
             
-            $updatedid_offre = $this->model::updateOffre(
+            $updatedOffreId = $this->model::updateOffre(
                 $id, 
                 $titre !== false ? $titre : $offre["titre"], 
                 $description !== false ? $description : $offre["description"], 
                 $resume !== false ? $resume : $offre["resume"], 
                 $prix_mini !== false ? $prix_mini : $offre["prix_mini"], 
                 $id_pro !== false ? $id_pro : $offre["id_pro"], 
-                $id_type_offre !== false ? $id_type_offre : $offre["id_type_offre"], 
-                $id_adresse !== false ? $id_adresse : $offre["id_adresse"]
+                $type_offre_id !== false ? $type_offre_id : $offre["id_type_offre"], 
+                $adresse_id !== false ? $adresse_id : $offre["adresse_id"],
+                $offre["enLigne"]
             );
 
-            return $updatedid_offre;
+            return $updatedOffreId;
         }
+    }
+
+    public function toggleEnLigne($id) {
+        $offre = $this->model::getOffreById($id);
+        
+        $updatedOffreId = $this->model::updateOffre(
+            $id, 
+            $offre["titre"], 
+            $offre["description"], 
+            $offre["resume"], 
+            $offre["prix_mini"], 
+            $offre["id_pro"], 
+            $offre["id_type_offre"], 
+            $offre["adresse_id"],
+            !$offre["enLigne"],
+        );
+
+        return $updatedOffreId;
     }
 }

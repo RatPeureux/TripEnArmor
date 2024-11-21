@@ -172,7 +172,7 @@ CREATE TABLE _RIB ( -- Léo
 -- -----------------------------------------------------------------------------------------------TAG----- début
 -- Table TAG
 
-CREATE TABLE _tag ( -- Antoine
+CREATE TABLE _tag ( -- V-A
     id_tag SERIAL PRIMARY KEY,
     nom_tag VARCHAR(255) NOT NULL
 );
@@ -197,14 +197,14 @@ create table _type_offre (
 -- Table globale _offre (abstr.)
 CREATE TABLE _offre (
     id_offre SERIAL PRIMARY KEY,
-    titre VARCHAR(255) NOT NULL,
+    est_en_ligne BOOLEAN NOT NULL,
     description TEXT,
     resume TEXT,
     prix_mini FLOAT,
+    titre VARCHAR(255) NOT NULL,
     date_creation DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     date_mise_a_jour DATE,
     date_suppression DATE,
-    est_en_ligne BOOLEAN NOT NULL,
     id_type_offre INTEGER REFERENCES _type_offre (id_type_offre),
     id_pro INTEGER REFERENCES _professionnel (id_compte),
     id_adresse SERIAL REFERENCES _adresse (id_adresse),
@@ -424,7 +424,7 @@ FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel();
 
 -- langues parlées durant la visite
-CREATE TABLE _langue ( -- Antoine
+CREATE TABLE _langue ( -- V-A
     id_langue SERIAL PRIMARY KEY,
     nom_langue VARCHAR(255)
 );

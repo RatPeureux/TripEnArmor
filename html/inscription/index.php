@@ -13,12 +13,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/output.css">
-        <title>Création de compte 1/2</title>
+        <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
-
         <!-- Icône pour revenir à la page précédente -->
         <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
@@ -76,7 +75,7 @@
                             • 1 chiffre" minlength="8" autocomplete="new-password" required>
                         <!-- Oeil pour afficher le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                            id="togglePassword1"></i>
+                            id="togglePassword2"></i>
                     </div>
 
                     <!-- Messages d'erreurs -->
@@ -165,7 +164,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/output.css">
-        <title>Création de compte 2/2</title>
+        <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
@@ -174,7 +173,7 @@
 
     <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
         <!-- Icône pour revenir à la page précédente -->
-        <i onclick="history.back()" class="absolute top-7 fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+        <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
