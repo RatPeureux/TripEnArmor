@@ -10,8 +10,8 @@ class ProPriveController {
         $this->model = 'ProPrive';
     }
 
-    public function createProPrive($email, $mdp, $tel, $adresseId, $nomPro, $num_siren) {
-        $proPriveID = $this->model::createProPublic($email, $mdp, $tel, $adresseId, $nomPro, $num_siren);
+    public function createProPrive($email, $mdp, $tel, $adresseId, $nom_pro, $num_siren) {
+        $proPriveID = $this->model::createProPublic($email, $mdp, $tel, $adresseId, $nom_pro, $num_siren);
         return $proPriveID;
     }
 
@@ -23,15 +23,15 @@ class ProPriveController {
             "email" => $proPrive["email"],
             "tel" => $proPrive["num_tel"],
             "adresse" => $proPrive["id_adresse"],
-            "nomPro" => $proPrive["nomPro"],
+            "nom_pro" => $proPrive["nom_pro"],
             "num_siren" => $proPrive["num_siren"],
         ];
 
         return $result;
     }
 
-    public function updateProPrive($id, $email = false, $mdp =false, $tel = false, $adresseId = false, $nomPro = false, $num_siren = false) {  
-        if ($email === false && $mdp === false && $tel === false && $adresseId === false && $nomPro === false && $num_siren === false) {
+    public function updateProPrive($id, $email = false, $mdp =false, $tel = false, $adresseId = false, $nom_pro = false, $num_siren = false) {  
+        if ($email === false && $mdp === false && $tel === false && $adresseId === false && $nom_pro === false && $num_siren === false) {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {
