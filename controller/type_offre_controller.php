@@ -16,7 +16,7 @@ class TypeOffreController {
 
         $result = [
             "id_type_offre" => $typeOffre["id_type_offre"],
-            "nom_type_offre" => $typeOffre["nom_type_offre"]
+            "nom" => $typeOffre["nom"]
         ];
 
         return $result;

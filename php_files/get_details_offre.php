@@ -28,7 +28,7 @@ $date_mise_a_jour = $date_mise_a_jour->format('d/m/Y');
 $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE id_offre = :id_offre");
 $stmt->bindParam(':id_offre', $id_offre);
 $stmt->execute();
-$type_offre = $stmt->fetch(PDO::FETCH_ASSOC)['nom_type_offre'];
+$type_offre = $stmt->fetch(PDO::FETCH_ASSOC)['nom'];
 
 // Détails de l'adresse
 $id_adresse = $offre['id_adresse'];
@@ -84,11 +84,11 @@ if ($categorie_offre == 'restauration') {
     $tags = '';
     // Récup chaque nom de tag, et l'ajouter aux tags
     foreach ($ids_repas as $id_repas) {
-        $stmt = $dbh->prepare("SELECT nom_type_repas FROM sae_db._type_repas WHERE id_type_repas = :id_repas");
+        $stmt = $dbh->prepare("SELECT nom FROM sae_db._type_repas WHERE id_type_repas = :id_repas");
         $stmt->bindParam(':id_repas', $id_repas);
         $stmt->execute();
-        $nom_tag = $stmt->fetch(PDO::FETCH_ASSOC);
-        $tags = $tags . ', ' . $nom_tag;
+        $nom = $stmt->fetch(PDO::FETCH_ASSOC);
+        $tags = $tags . ', ' . $nom;
     }
     // Tags pour les autres types d'offre
 } else {
@@ -99,10 +99,10 @@ if ($categorie_offre == 'restauration') {
     $tags = '';
     // Récup chaque nom de tag, et l'ajouter aux tags
     foreach ($ids_tag as $id_tag) {
-        $stmt = $dbh->prepare("SELECT nom_tag FROM sae_db._tag WHERE id_tag = :id_tag");
+        $stmt = $dbh->prepare("SELECT nom FROM sae_db._tag WHERE id_tag = :id_tag");
         $stmt->bindParam(':id_tag', $id_tag);
         $stmt->execute();
-        $nom_tag = $stmt->fetch(PDO::FETCH_ASSOC);
-        $tags = $tags . ', ' . $nom_tag;
+        $nom = $stmt->fetch(PDO::FETCH_ASSOC);
+        $tags = $tags . ', ' . $nom;
     }
 }

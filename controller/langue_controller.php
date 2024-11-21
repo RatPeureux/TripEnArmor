@@ -15,7 +15,7 @@ class LangueController {
 
         $result = [
             "id_langue" => $langue["id_langue"],
-            "nom_langue" => $langue["nom_langue"]
+            "nom" => $langue["nom"]
         ];
 
         return $result;
