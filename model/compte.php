@@ -5,7 +5,7 @@ abstract class Compte extends BDD {
     private $nom_table = "_compte";
 
     static function createCompte($email, $mdp, $tel, $adresseId) {
-        $query = "INSERT INTO (email, mdp_hash, num_tel, adresse_id". self::$nom_table ."VALUES (?, ?, ?, ?) RETURNING id_compte";
+        $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse". self::$nom_table ."VALUES (?, ?, ?, ?) RETURNING id_compte";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);
@@ -36,7 +36,7 @@ abstract class Compte extends BDD {
 
 
     static function updateCompte($id, $email, $mdp, $tel, $adresseId) {
-        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, adresse_id = ? WHERE id_compte = ?";
+        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ? WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);

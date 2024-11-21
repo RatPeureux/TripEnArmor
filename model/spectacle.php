@@ -75,7 +75,7 @@ class Spectacle extends BDD {
         $statement->bindParam(1, $id);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->execute();
         } else {
             echo "ERREUR : Impossible de supprimer le spectacle";
             return -1;

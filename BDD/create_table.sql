@@ -172,7 +172,7 @@ CREATE TABLE _RIB ( -- Léo
 -- -----------------------------------------------------------------------------------------------TAG----- début
 -- Table TAG
 
-CREATE TABLE _tag ( -- V-A
+CREATE TABLE _tag ( -- Antoine
     id_tag SERIAL PRIMARY KEY,
     nom_tag VARCHAR(255) NOT NULL
 );
@@ -424,7 +424,7 @@ FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel();
 
 -- langues parlées durant la visite
-CREATE TABLE _langue ( -- V-A
+CREATE TABLE _langue ( -- Antoine
     id_langue SERIAL PRIMARY KEY,
     nom_langue VARCHAR(255)
 );
@@ -433,7 +433,7 @@ CREATE TABLE _langue ( -- V-A
 CREATE TABLE _visite_langue ( -- Antoine
     id_offre SERIAL REFERENCES _visite (id_offre),
     id_langue SERIAL REFERENCES _langue (id_langue)
-);
+); -- Primary key
 
 -- TAG Visites
 create table _tag_visite ( -- Maxime
