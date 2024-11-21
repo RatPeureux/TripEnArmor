@@ -120,7 +120,7 @@ if (!isset($_POST['id'])) {
                 if (password_verify($mdp, $user['mdp_hash'])) {
                     // Connecte le pro, enlève toute éventuelle connexion à un membre
                     $_SESSION['id_pro'] = $user['id_compte'];
-                    unset($_SESSION['id_member']);
+                    unset($_SESSION['id_membre']);
                     header('location: /pro/'); // Redirige vers la page connectée
                     exit();
                 } else {

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <?php if (!isset($_POST['mail'])) { ?>
 
     <!DOCTYPE html>
@@ -38,6 +42,7 @@
                         <option value="public">public</option>
                         <option value="privé">privé</option>
                     </select>
+                    <br>
 
                     <!-- Champ pour le nom -->
                     <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
@@ -170,6 +175,7 @@
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="num_siren" name="num_siren"
                         title="14 chiffres"
                         pattern="^\d{14}$"
+                        maxlength="14"
                         required>
                 <?php } ?>
 
@@ -352,6 +358,8 @@
 
             // Exécuter la requête pour le professionnel
             if ($stmtProfessionnel->execute()) {
+                $id_pro = $dbh->lastInsertId();
+
                 // Extraire les valeurs du RIB à partir de l'IBAN
                 if ($iban) {
                     try {
@@ -381,7 +389,9 @@
     }
 
     // Quand tout est bien réalisé, rediriger vers l'accueil du pro en étant connecté
-    header("location: /pro/");
+    $_SESSION['id_pro'] = $id_pro;
+    unset($_SESSION['id_membre']);
+    header("location: /pro");
 } ?>
 
 <script>
@@ -403,7 +413,6 @@
             this.classList.add('fa-eye');
         });
     }
-
     if (togglePassword2) {
         togglePassword2.addEventListener('mousedown', function () {
             confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe

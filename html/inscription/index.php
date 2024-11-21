@@ -352,7 +352,7 @@
     }
 
     // Quand tout est bien réalisé, rediriger vers l'accueil en étant connecté
-    $_SESSION['id_member'] = $id_membre;
+    $_SESSION['id_membre'] = $id_membre;
     unset($_SESSION['id_pro']);
     header("location: /");
 } ?>
