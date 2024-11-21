@@ -103,7 +103,7 @@ session_start();
                         <i class="fa-solid fa-location-dot"></i>
                         <div class="text-small">
                             <p><?php echo $ville . ', ' . $code_postal ?></p>
-                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement_adresse ?></p>
+                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement ?></p>
                     </div>
                 </div>
                 <p class="prix font-bold"><?php echo $prix_a_afficher ?></p>
@@ -182,7 +182,7 @@ session_start();
                                     <i class="fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement_adresse ?>
+                                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement ?>
                                         </p>
                                     </div>
                                 </div>

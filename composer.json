@@ -1,0 +1,21 @@
+{
+    "name": "etudiant/tripenarmor",
+    "description": "A project for TripEnArmor",
+    "type": "project",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "TripEnArmor\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Phenixis",
+            "email": "maxime.duhamel@etudiant.univ-rennes.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "license": "MIT"
+}

@@ -65,7 +65,7 @@ try {
 
                 if ($stmtOffre->execute()) {
                     $stmtTarifPublic = $dbh->prepare("UPDATE sae_db._tarif_Public 
-                        SET titre_tarif = :titre, age_min = :age_min, age_max = :age_max 
+                        SET titre = :titre, age_min = :age_min, age_max = :age_max 
                         WHERE id_offre = :id_offre
                     ");
                     $stmtTarifPublic->bindParam(':titre', $titre);

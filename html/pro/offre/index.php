@@ -111,7 +111,7 @@ verifyPro();
                                     <i class="fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement_adresse ?>
+                                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement ?>
                                         </p>
                                     </div>
                                 </div>

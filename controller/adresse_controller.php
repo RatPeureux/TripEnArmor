@@ -17,20 +17,20 @@ class AdresseController {
             "ville" => $adresse["ville"],
             "numero" => $adresse["numero"],
             "odonyme" => $adresse["odonyme"],
-            "complement_adresse" => $adresse["complement_adresse"]
+            "complement" => $adresse["complement"]
         ];
 
         return $res;
     }
 
-    public function createAdresse($code_postal, $ville, $numero, $odonyme, $complement_adresse) {
-        $adresse = $this->model::createActivite($code_postal, $ville, $numero, $odonyme, $complement_adresse);
+    public function createAdresse($code_postal, $ville, $numero, $odonyme, $complement) {
+        $adresse = $this->model::createActivite($code_postal, $ville, $numero, $odonyme, $complement);
 
         return $adresse;
     }
     
-    public function updateAdresse($id, $code_postal = false, $ville = false, $numero = false, $odonyme = false, $complement_adresse = false) {
-        if ($ville === false && $numero === false && $odonyme === false && $complement_adresse === false ) {
+    public function updateAdresse($id, $code_postal = false, $ville = false, $numero = false, $odonyme = false, $complement = false) {
+        if ($ville === false && $numero === false && $odonyme === false && $complement === false ) {
             echo "ERREUR : Aucun champ à modifier";
             return -1;
         } else {
@@ -42,7 +42,7 @@ class AdresseController {
                 $ville !== false ? $ville : $adresse["ville"], 
                 $numero !== false ? $numero : $adresse["numero"], 
                 $odonyme !== false ? $odonyme : $adresse["odonyme"], 
-                $complement_adresse !== false ? $complement_adresse : $adresse["complement_adresse"]
+                $complement !== false ? $complement : $adresse["complement"]
             );
 
             return $res;

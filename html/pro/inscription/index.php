@@ -274,13 +274,13 @@
         $code_banque = substr($iban, 5, 5);
         $code_guichet = substr($iban, 10, 5);
         $numero_compte = substr($iban, 15, 11);
-        $cle_rib = substr($iban, 26, 2);
+        $cle = substr($iban, 26, 2);
 
         return [
             'code_banque' => $code_banque,
             'code_guichet' => $code_guichet,
             'numero_compte' => $numero_compte,
-            'cle_rib' => $cle_rib,
+            'cle' => $cle,
         ];
     }
 
@@ -306,7 +306,7 @@
         $ville = $_POST['ville'];
 
         // Insérer dans la base de données pour l'adresse
-        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement_adresse) VALUES (:code, :ville, :numero, :odonyme, :complement)");
+        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement) VALUES (:code, :ville, :numero, :odonyme, :complement)");
 
         // Lier les paramètres pour l'adresse
         $stmtAdresse->bindParam(':complement', $complement);
@@ -356,11 +356,11 @@
                 if ($iban) {
                     try {
                         $rib = extraireRibDepuisIban($iban);
-                        $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle_rib, id_compte) VALUES (:code_banque, :code_guichet, :numero_compte, :cle_rib, :id_compte)");
+                        $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle, id_compte) VALUES (:code_banque, :code_guichet, :numero_compte, :cle, :id_compte)");
                         $stmtRib->bindParam(':code_banque', $rib['code_banque']);
                         $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
                         $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
-                        $stmtRib->bindParam(':cle_rib', $rib['cle_rib']);
+                        $stmtRib->bindParam(':cle', $rib['cle']);
                         $stmtRib->bindParam(':id_compte', $id_compte); // Assurez-vous que id_compte est défini
 
                         if ($stmtRib->execute()) {

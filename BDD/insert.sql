@@ -19,7 +19,7 @@ INSERT INTO
         ville,
         numero,
         odonyme,
-        complement_adresse
+        complement
     )
 VALUES (
         '29200',
@@ -137,7 +137,7 @@ INSERT INTO
 VALUES
     -- LeMeilleurChateau/5
     (
-        3,
+        4,
         'chateau2kergrist@kergrist.fr',
         '$2y$10$GXXQOLrRyCjKrO2SLmTm2.kLs1HIWugRuelUynpBATOu9mhORFA1a',
         '0296463271',
@@ -198,7 +198,7 @@ VALUES (
 
 -- insertion des types d'offres (Standard, Premium, Gratuite)
 INSERT INTO
-    _type_offre (nom_type_offre)
+    _type_offre (nom)
 VALUES ('Premium'),
     ('Standard'),
     ('Gratuit');
@@ -228,7 +228,7 @@ VALUES (
         '2024-10-15',
         1,
         '€€€',
-        3,
+        5,
         1
     ),
 
@@ -256,7 +256,7 @@ INSERT INTO
         date_creation,
         date_mise_a_jour,
         id_adresse,
-        duree_activite,
+        duree,
         age_requis,
         prestations,
         id_pro,
@@ -304,8 +304,8 @@ INSERT INTO
         date_creation,
         date_mise_a_jour,
         id_adresse,
-        capacite_spectacle,
-        duree_spectacle,
+        capacite,
+        duree,
         id_pro,
         id_type_offre
     )
@@ -349,8 +349,8 @@ INSERT INTO
         date_creation,
         date_mise_a_jour,
         id_adresse,
-        duree_visite,
-        guide_visite,
+        duree,
+        avec_guide,
         id_pro,
         id_type_offre
     )
@@ -431,7 +431,7 @@ VALUES (
 
 ------ insertion types repas
 INSERT INTO
-    _type_repas (nom_type_repas)
+    _type_repas (nom)
 VALUES ('Petit dej'),
     ('Déjeuner'),
     ('Dîner'),
@@ -440,7 +440,7 @@ VALUES ('Petit dej'),
 
 INSERT INTO
     _tarif_public (
-        titre_tarif,
+        titre,
         age_min,
         age_max,
         prix,
