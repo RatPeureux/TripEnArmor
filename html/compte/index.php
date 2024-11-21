@@ -40,7 +40,7 @@
                     <p class="text-small">Supprimer mon compte.</p>
                 </div>
             </a>
-            <a href="/compte/sécurité" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+            <a href="/compte/sécurité" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-shield"></i>
                 <div class="w-full">
                     <p class="text-h2">Sécurité</p>

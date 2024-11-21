@@ -31,7 +31,7 @@
             <p class="text-h1 mb-4">Informations publiques</p>
 
             <label class="text-h3" for="pseudo">Nom d'utilisateur</label>
-            <input value="Nom d'utilisateur" class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="pseudo" name="pseudo" title="" value="<?php echo $pseudo; ?>" maxlength="255">
+            <input value="Nom d'utilisateur" class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="pseudo" name="pseudo" maxlength="255">
 
             <button id="save" class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent" disabled>
                 Enregistrer les modifications
@@ -57,15 +57,16 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const save = document.getElementById("save");
-        const field = document.getElementById("pseudo");
+        const initialValues = {
+            pseudo: document.getElementById("pseudo").value,
+        };
 
-        let pseudo = field.value;
+        function activeSave() {
+            const save = document.getElementById("save");
+            const pseudo = document.getElementById("pseudo").value;
 
-        document.getElementById("pseudo").addEventListener("input", function() {
-            if (field.value !== pseudo) {
+            if (pseudo !== initialValues.pseudo) {
                 save.disabled = false;
-
                 save.classList.remove("opacity-50");
                 save.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
             } else {
@@ -73,6 +74,8 @@
                 save.classList.add("opacity-50");
                 save.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
             }
-        });
+        }
+
+        document.getElementById("pseudo").addEventListener("input", activeSave);
     });
 </script>

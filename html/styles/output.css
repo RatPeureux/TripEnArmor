@@ -879,6 +879,10 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.mb-0 {
+  margin-bottom: 0px;
+}
+
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -889,6 +893,10 @@ video {
 
 .mb-10 {
   margin-bottom: 2.5rem;
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
 }
 
 .mb-2 {
@@ -1013,18 +1021,6 @@ video {
 
 .mt-auto {
   margin-top: auto;
-}
-
-.mr-\[1\.08px\] {
-  margin-right: 1.08px;
-}
-
-.mb-0 {
-  margin-bottom: 0px;
-}
-
-.mb-12 {
-  margin-bottom: 3rem;
 }
 
 .line-clamp-2 {
@@ -1243,6 +1239,10 @@ video {
   width: 60%;
 }
 
+.w-32 {
+  width: 8rem;
+}
+
 .w-36 {
   width: 9rem;
 }
@@ -1283,6 +1283,10 @@ video {
   width: 24rem;
 }
 
+.w-\[50px\] {
+  width: 50px;
+}
+
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;
@@ -1297,16 +1301,8 @@ video {
   width: min-content;
 }
 
-.w-\[50px\] {
-  width: 50px;
-}
-
-.w-\[13\.75rem\] {
-  width: 13.75rem;
-}
-
-.w-32 {
-  width: 8rem;
+.w-12 {
+  width: 3rem;
 }
 
 .min-w-\[1280px\] {
@@ -1337,6 +1333,14 @@ video {
   max-width: 12rem;
 }
 
+.max-w-52 {
+  max-width: 13rem;
+}
+
+.max-w-56 {
+  max-width: 14rem;
+}
+
 .max-w-60 {
   max-width: 15rem;
 }
@@ -1353,8 +1357,16 @@ video {
   max-width: 1280px;
 }
 
+.max-w-\[23rem\] {
+  max-width: 23rem;
+}
+
 .max-w-\[300px\] {
   max-width: 300px;
+}
+
+.max-w-\[44rem\] {
+  max-width: 44rem;
 }
 
 .max-w-\[450px\] {
@@ -1387,52 +1399,16 @@ video {
   max-width: 24rem;
 }
 
-.max-w-52 {
-  max-width: 13rem;
+.max-w-36 {
+  max-width: 9rem;
 }
 
-.max-w-56 {
-  max-width: 14rem;
+.max-w-72 {
+  max-width: 18rem;
 }
 
-.max-w-\[13\.5rem\] {
-  max-width: 13.5rem;
-}
-
-.max-w-\[13\.75rem\] {
-  max-width: 13.75rem;
-}
-
-.max-w-\[\] {
-  max-width: ;
-}
-
-.max-w-\[14rem\] {
-  max-width: 14rem;
-}
-
-.max-w-\[20rem\] {
-  max-width: 20rem;
-}
-
-.max-w-\[30rem\] {
-  max-width: 30rem;
-}
-
-.max-w-\[26rem\] {
-  max-width: 26rem;
-}
-
-.max-w-\[22rem\] {
-  max-width: 22rem;
-}
-
-.max-w-\[23rem\] {
-  max-width: 23rem;
-}
-
-.max-w-\[44rem\] {
-  max-width: 44rem;
+.max-w-12 {
+  max-width: 3rem;
 }
 
 .flex-1 {
@@ -2495,14 +2471,6 @@ video {
 
 .pt-4 {
   padding-top: 1rem;
-}
-
-.pr-\[1\.08px\] {
-  padding-right: 1.08px;
-}
-
-.pr-\[9\.08px\] {
-  padding-right: 9.08px;
 }
 
 .text-left {
