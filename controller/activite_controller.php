@@ -1,90 +1,90 @@
 <?php
 
-require_once "../model/offre.php";
+require_once "../model/activite.php";
 
-class OffreController {
+class ActiviteController {
     static private $model;  
 
     function __construct() {
-        $this->model = 'Offre';
+        $this->model = 'Activite';
     }
 
-    // DATA: MODEL -> VIEW
-    public function getInfosCarte($id) {
-        $offre = $this->model::getOffreById($id);
+    public function getInfosActivite($id) {
+        $activite = $this->model::getActiviteById($id);
 
-        $result = [
-            "offre_id" => $offre["offre_id"],
-            "titre" => $offre["titre"],
-            "resume" => $offre["resume_offre"],
-            "prix_mini" => $offre["prix_mini"],
-            "id_pro" => $offre["id_pro"],
-            "adresse_id"=> $offre["adresse_id"],
-            "type_offre_id" => $offre["type_offre_id"],
+        $res = [
+            "est_en_ligne" => $activite["est_en_ligne"],
+            "description" => $activite["description"],
+            "resume" => $activite["resume"],
+            "prix_mini" => $activite["prix_mini"],
+            "titre" => $activite["titre"],
+            "id_pro"=> $activite["id_pro"],
+            "id_type_offre" => $activite["id_type_offre"],
+            "id_adresse" => $activite["id_adresse"],
+            "duree" => $activite["duree"],
+            "age_requis" => $activite["age_requis"],
+            "prestations" => $activite["prestations"]
         ];
 
-        return $result;
+        return $res;
     }
 
-    public function getInfosDetails($id) {
-        $offre = $this->model::getOffreById($id);
+    public function createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations) {
+        $activite = $this->model::createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations);
 
-        $result = [
-            "id_offre" => $offre["id"],
-            "titre" => $offre["titre"],
-            "description" => $offre["description"],
-            "id_pro" => $offre["id_pro"],
-            "id_adresse"=> $offre["id_adresse"],
-            "id_type_offre" => $offre["id_type_offre"],
-        ];
-
-        return $result;
-    }
-
-    // VIEW -> MODEL
-    public function createOffre($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id) {
-        $offreID = $this->model::createOffre($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id);
-        return $offreID;
+        return $activite;
     }
     
-    public function updateOffre($id, $titre=false, $description=false, $resume=false, $prix_mini=false, $id_pro=false, $type_offre_id=false, $adresse_id=false) {
-        if ($titre === false && $description === false && $resume === false && $prix_mini === false && $id_pro === false && $type_offre_id === false && $adresse_id === false) {
-            echo "ERREUR: Aucun champ à modifier";
+    public function updateActivite($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $duree = false, $age_requis = false, $prestations = false) {
+        if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $duree === false && $age_requis === false && $prestations === false) {
+            echo "ERREUR : Aucun champ à modifier";
             return -1;
         } else {
-            $offre = $this->model::getOffreById($id);
+            $activite = $this->model::getActiviteById($id);
             
-            $updatedOffreId = $this->model::updateOffre(
+            $res = $this->model::updateActivite(
                 $id, 
-                $titre !== false ? $titre : $offre["titre"], 
-                $description !== false ? $description : $offre["description"], 
-                $resume !== false ? $resume : $offre["resume"], 
-                $prix_mini !== false ? $prix_mini : $offre["prix_mini"], 
-                $id_pro !== false ? $id_pro : $offre["id_pro"], 
-                $type_offre_id !== false ? $type_offre_id : $offre["id_type_offre"], 
-                $adresse_id !== false ? $adresse_id : $offre["adresse_id"],
-                $offre["enLigne"]
+                $est_en_ligne,
+                $description !== false ? $description : $activite["description"], 
+                $resume !== false ? $resume : $activite["resume"], 
+                $prix_mini !== false ? $prix_mini : $activite["prix_mini"], 
+                $titre !== false ? $titre : $activite["titre"], 
+                $id_pro !== false ? $id_pro : $activite["id_pro"], 
+                $id_type_offre !== false ? $id_type_offre : $activite["id_type_offre"], 
+                $id_adresse !== false ? $id_adresse : $activite["id_adresse"],
+                $duree !== false ? $duree : $activite["duree"], 
+                $age_requis !== false ? $age_requis : $activite["age_requis"], 
+                $prestations !== false ? $prestations : $activite["prestations"]
             );
 
-            return $updatedOffreId;
+            return $res;
         }
     }
 
-    public function toggleEnLigne($id) {
-        $offre = $this->model::getOffreById($id);
+    public function deleteActivite($id) {
+        $activite = $this->model::deleteActivite($id);
+
+        return $activite;
+    }
+
+    public function toggleOnline($id) {
+        $activite = $this->model::getActiviteById($id);
         
-        $updatedOffreId = $this->model::updateOffre(
-            $id, 
-            $offre["titre"], 
-            $offre["description"], 
-            $offre["resume"], 
-            $offre["prix_mini"], 
-            $offre["id_pro"], 
-            $offre["id_type_offre"], 
-            $offre["adresse_id"],
-            !$offre["enLigne"],
+        $res = $this->model::updateActivite(
+            $id,
+            !$activite["est_en_ligne"],
+            $activite["description"],
+            $activite["resume"],
+            $activite["prix_mini"],
+            $activite["titre"],
+            $activite["id_pro"],
+            $activite["id_type_offre"],
+            $activite["id_adresse"],
+            $activite["duree"],
+            $activite["age_requis"],
+            $activite["prestations"]
         );
 
-        return $updatedOffreId;
+        return $res;
     }
 }

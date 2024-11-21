@@ -21,7 +21,7 @@ class MembreController {
             "id_compte" => $membre["id_compte"],
             "email" => $membre["email"],
             "tel" => $membre["num_tel"],
-            "adresse" => $membre["adresse_id"],
+            "adresse" => $membre["id_adresse"],
             "pseudo" => $membre["pseudo"],
             "prenom" => $membre["prenom"],
             "nom" => $membre["nom"]
@@ -42,7 +42,7 @@ class MembreController {
                 $email !== false ? $email : $membre["email"], 
                 $mdp !== false ? $mdp : $membre["mdp_hash"], 
                 $tel !== false ? $tel : $membre["num_tel"], 
-                $adresseId !== false ? $adresseId : $membre["adresse_id"]
+                $adresseId !== false ? $adresseId : $membre["id_adresse"]
             );
             return $updatedMembreId;
         }
