@@ -1,5 +1,4 @@
 <?php
-ob_start();
 include('../connect_params.php');
 
 try {

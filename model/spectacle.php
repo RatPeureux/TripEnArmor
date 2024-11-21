@@ -73,12 +73,6 @@ class Spectacle extends BDD {
         
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
-
-        if ($statement->execute()) {
-            return $statement->execute();
-        } else {
-            echo "ERREUR : Impossible de supprimer le spectacle";
-            return -1;
-        }
+        return $statement->execute();
     }
 }
