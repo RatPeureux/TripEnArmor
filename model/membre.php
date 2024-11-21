@@ -26,7 +26,7 @@ class Membre extends BDD {
 
     static function getMembreById($id){
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE compte_id = ?";
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
 
@@ -66,12 +66,8 @@ class Membre extends BDD {
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
 
-        if($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            echo "ERREUR: Impossible de supprimer le compte membre";
-            return -1;
-        }
+        return $statement->execute();
+
     }
 }
 

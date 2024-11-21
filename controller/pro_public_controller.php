@@ -11,7 +11,7 @@ class ProPublicController {
     }
     
     public function createProPublic($email, $mdp, $tel, $adresseId, $nomPro, $type_orga) {
-        $proPublicID = $this->model::createCompte($email, $mdp, $tel, $adresseId, $nomPro, $type_orga);
+        $proPublicID = $this->model::createProPublic($email, $mdp, $tel, $adresseId, $nomPro, $type_orga);
         return $proPublicID;
     }
     public function getInfosProPublic($id){
@@ -21,7 +21,7 @@ class ProPublicController {
             "id_compte" => $proPublic["id_compte"],
             "email" => $proPublic["email"],
             "tel" => $proPublic["num_tel"],
-            "adresse" => $proPublic["adresse_id"],
+            "adresse" => $proPublic["id_adresse"],
             "nomPro" => $proPublic["nomPro"],
             "type_orga" => $proPublic["type_orga"],
         ];
@@ -41,7 +41,7 @@ class ProPublicController {
                 $email !== false ? $email : $proPublic["email"], 
                 $mdp !== false ? $mdp : $proPublic["mdp_hash"], 
                 $tel !== false ? $tel : $proPublic["num_tel"], 
-                $adresseId !== false ? $adresseId : $proPublic["adresse_id"]
+                $adresseId !== false ? $adresseId : $proPublic["id_adresse"],
             );
             return $updatedProPublicId;
         }

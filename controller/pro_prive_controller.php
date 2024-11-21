@@ -11,7 +11,7 @@ class ProPriveController {
     }
 
     public function createProPrive($email, $mdp, $tel, $adresseId, $nomPro, $num_siren) {
-        $proPriveID = $this->model::createCompte($email, $mdp, $tel, $adresseId, $nomPro, $num_siren);
+        $proPriveID = $this->model::createProPublic($email, $mdp, $tel, $adresseId, $nomPro, $num_siren);
         return $proPriveID;
     }
 
@@ -22,7 +22,7 @@ class ProPriveController {
             "id_compte" => $proPrive["id_compte"],
             "email" => $proPrive["email"],
             "tel" => $proPrive["num_tel"],
-            "adresse" => $proPrive["adresse_id"],
+            "adresse" => $proPrive["id_adresse"],
             "nomPro" => $proPrive["nomPro"],
             "num_siren" => $proPrive["num_siren"],
         ];
@@ -42,7 +42,7 @@ class ProPriveController {
                 $email !== false ? $email : $proPrive["email"], 
                 $mdp !== false ? $mdp : $proPrive["mdp_hash"], 
                 $tel !== false ? $tel : $proPrive["num_tel"], 
-                $adresseId !== false ? $adresseId : $proPrive["adresse_id"]
+                $adresseId !== false ? $adresseId : $proPrive["id_adresse"]
             );
             return $updatedProPriveId;
         }

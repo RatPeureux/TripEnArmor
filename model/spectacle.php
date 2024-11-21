@@ -73,7 +73,6 @@ class Spectacle extends BDD {
         
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
-
         return $statement->execute();
     }
 }
