@@ -10,17 +10,17 @@ class Offre extends BDD {
      * @param bool $enLigne Indique si l'offre doit être en ligne ou non (par défaut true).
      * @return array|int Retourne un tableau contenant les informations de l'offre ou -1 en cas d'erreur.
      */
-    static function createOffre($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id) { // C
+    static function createOffre($titre, $description, $resume, $prix_mini, $id_pro, $id_type_offre, $id_adresse) { // C
         self::initBDD();
-        $query = "INSERT INTO (titre, description, resume, prix_mini, id_pro, type_offre_id, adresse_id". self::$nom_table ."VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id";
+        $query = "INSERT INTO (titre, description, resume, prix_mini, id_pro, id_type_offre, id_adresse". self::$nom_table ."VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $titre);
         $statement->bindParam(2, $description);
         $statement->bindParam(3, $resume);
         $statement->bindParam(4, $prix_mini);
         $statement->bindParam(5, $id_pro);
-        $statement->bindParam(6, $type_offre_id);
-        $statement->bindParam(7, $adresse_id);
+        $statement->bindParam(6, $id_type_offre);
+        $statement->bindParam(7, $id_adresse);
         
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -42,14 +42,6 @@ class Offre extends BDD {
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC);
-            /*
-            Exemple de retour possible :
-            {
-                offre_id: 3,
-                est_en_ligne: false,
-                ...
-            }
-            */
         } else {
             echo "ERREUR : Impossible d'obtenir cette offre";
             return -1;
@@ -63,13 +55,13 @@ class Offre extends BDD {
      * @param string $resume Un résumé de l'offre.
      * @param float $prix_mini Le prix minimum de l'offre.
      * @param int $id_pro L'identifiant du professionnel qui propose l'offre.
-     * @param int $type_offre_id L'identifiant du type d'offre.
-     * @param int $adresse_id L'identifiant de l'adresse liée à l'offre.
+     * @param int $id_type_offre L'identifiant du type d'offre.
+     * @param int $id_adresse L'identifiant de l'adresse liée à l'offre.
      * @return array|int Retourne un tableau contenant l'identifiant de la nouvelle offre ou -1 en cas d'erreur.
      */
-    static function createOffre($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id) {
+    static function createOffre($titre, $description, $resume, $prix_mini, $id_pro, $id_type_offre, $id_adresse) {
         // Requête SQL pour insérer une nouvelle offre
-        $query = "INSERT INTO " . self::$nom_table . " (titre, description, resume, prix_mini, id_pro, type_offre_id, adresse_id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING offre_id";
+        $query = "INSERT INTO " . self::$nom_table . " (titre, description, resume, prix_mini, id_pro, id_type_offre, id_adresse) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -78,8 +70,8 @@ class Offre extends BDD {
         $statement->bindParam(3, $resume);
         $statement->bindParam(4, $prix_mini);
         $statement->bindParam(5, $id_pro);
-        $statement->bindParam(6, $type_offre_id);
-        $statement->bindParam(7, $adresse_id);
+        $statement->bindParam(6, $id_type_offre);
+        $statement->bindParam(7, $id_adresse);
         $statement->bindParam(8, $id);
 
         // Exécute la requête et retourne les résultats ou une erreur

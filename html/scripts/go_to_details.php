@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-if (isset($_GET['offre_id'])) {
-    $_SESSION['offre_id'] = $_GET['offre_id'];
+if (isset($_GET['id_offre'])) {
+    $_SESSION['id_offre'] = $_GET['id_offre'];
 }
 
-header('Location: /offre?id='.$_GET['offre_id']);
+header('Location: /offre');
 exit();

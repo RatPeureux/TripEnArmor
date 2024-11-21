@@ -52,8 +52,8 @@ CREATE OR REPLACE FUNCTION trigger_log_changement_statut()
 RETURNS TRIGGER AS $$
 BEGIN
     -- Enregistrement de la date de changement de statut
-    INSERT INTO _log_changement_status (offre_id, date_changement)
-    VALUES (NEW.offre_id, CURRENT_DATE);
+    INSERT INTO _log_changement_status (id_offre, date_changement)
+    VALUES (NEW.id_offre, CURRENT_DATE);
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;

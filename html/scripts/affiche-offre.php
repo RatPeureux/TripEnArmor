@@ -11,7 +11,7 @@ try {
     $stmt = $dbh->prepare("
         SELECT o.*, a.code_postal, a.ville, a.numero, a.odonyme, a.complement_adresse 
         FROM sae_db._offre o 
-        JOIN sae_db._adresse a ON o.adresse_id = a.adresse_id
+        JOIN sae_db._adresse a ON o.id_adresse = a.id_adresse
     ");
     $stmt->execute();
     $offres = $stmt->fetchAll(PDO::FETCH_ASSOC);

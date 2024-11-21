@@ -5,7 +5,7 @@ class Compte extends BDD {
     private $nom_table = "_compte";
 
     static function getCompteById($id){
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE compte_id = ?";
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
 
@@ -17,13 +17,13 @@ class Compte extends BDD {
         }
     }
 
-    static function createCompte($email, $mdp, $tel, $adresseId) {
-        $query = "INSERT INTO (email, mdp_hash, num_tel, adresse_id". self::$nom_table ."VALUES (?, ?, ?, ?) RETURNING id_compte";
+    static function createCompte($email, $mdp, $tel, $id_adresse) {
+        $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse". self::$nom_table ."VALUES (?, ?, ?, ?) RETURNING id_compte";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);
         $statement->bindParam(3, $tel);
-        $statement->bindParam(4, $adresseId);
+        $statement->bindParam(4, $id_adresse);
         
         if($statement->execute()){
             return $statement->fetchAll(PDO::FETCH_ASSOC);
