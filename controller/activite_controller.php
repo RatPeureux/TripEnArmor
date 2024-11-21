@@ -30,7 +30,7 @@ class ActiviteController {
     }
 
     public function createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations) {
-        $activite = $this->model::createActivite($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id);
+        $activite = $this->model::createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations);
 
         return $activite;
     }
@@ -50,8 +50,8 @@ class ActiviteController {
                 $prix_mini !== false ? $prix_mini : $activite["prix_mini"], 
                 $titre !== false ? $titre : $activite["titre"], 
                 $id_pro !== false ? $id_pro : $activite["id_pro"], 
-                $id_type_offre !== false ? $type_offre_id : $activite["id_type_offre"], 
-                $id_adresse !== false ? $adresse_id : $activite["adresse_id"],
+                $id_type_offre !== false ? $id_type_offre : $activite["id_type_offre"], 
+                $id_adresse !== false ? $id_adresse : $activite["id_adresse"],
                 $duree !== false ? $duree : $activite["duree"], 
                 $age_requis !== false ? $age_requis : $activite["age_requis"], 
                 $prestations !== false ? $prestations : $activite["prestations"]

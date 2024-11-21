@@ -13,30 +13,29 @@ class RestaurationController {
         $restauration = $this->model::getRestaurationById($id);
 
         $res = [
-            "est_en_ligne" => $activite["est_en_ligne"],
-            "description" => $activite["description"],
-            "resume" => $activite["resume"],
-            "prix_mini" => $activite["prix_mini"],
-            "titre" => $activite["titre"],
-            "id_pro"=> $activite["id_pro"],
-            "id_type_offre" => $activite["id_type_offre"],
-            "id_adresse" => $activite["id_adresse"],
-            "duree" => $activite["duree"],
-            "age_requis" => $activite["age_requis"],
-            "prestations" => $activite["prestations"]
+            "est_en_ligne" => $restauration["est_en_ligne"],
+            "description" => $restauration["description"],
+            "resume" => $restauration["resume"],
+            "prix_mini" => $restauration["prix_mini"],
+            "titre" => $restauration["titre"],
+            "id_pro"=> $restauration["id_pro"],
+            "id_type_offre" => $restauration["id_type_offre"],
+            "id_adresse" => $restauration["id_adresse"],
+            "gamme_prix" => $restauration["gamme_prix"],
+            "id_type_repas" => $restauration["id_type_repas"]
         ];
 
         return $res;
     }
 
-    public function createRestauration($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations) {
-        $restauration = $this->model::createRestauration($titre, $description, $resume, $prix_mini, $id_pro, $type_offre_id, $adresse_id);
+    public function createRestauration($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas) {
+        $restauration = $this->model::createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas);
 
         return $restauration;
     }
     
-    public function updateRestauration($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $duree = false, $age_requis = false, $prestations = false) {
-        if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $duree === false && $age_requis === false && $prestations === false) {
+    public function updateRestauration($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $gamme_prix = false, $id_type_repas = false) {
+        if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $gamme_prix === false && $id_type_repas === false) {
             echo "ERREUR : Aucun champ à modifier";
             return -1;
         } else {
@@ -50,11 +49,10 @@ class RestaurationController {
                 $prix_mini !== false ? $prix_mini : $restauration["prix_mini"], 
                 $titre !== false ? $titre : $restauration["titre"], 
                 $id_pro !== false ? $id_pro : $restauration["id_pro"], 
-                $id_type_offre !== false ? $type_offre_id : $restauration["id_type_offre"], 
-                $id_adresse !== false ? $adresse_id : $restauration["adresse_id"],
-                $duree !== false ? $duree : $restauration["duree"], 
-                $age_requis !== false ? $age_requis : $restauration["age_requis"], 
-                $prestations !== false ? $prestations : $restauration["prestations"]
+                $id_type_offre !== false ? $id_type_offre : $restauration["id_type_offre"], 
+                $id_adresse !== false ? $id_adresse : $restauration["id_adresse"],
+                $gamme_prix !== false ? $gamme_prix : $restauration["gamme_prix"], 
+                $id_type_repas !== false ? $id_type_repas : $restauration["id_type_repas"]
             );
 
             return $res;
@@ -80,9 +78,8 @@ class RestaurationController {
             $restauration["id_pro"],
             $restauration["id_type_offre"],
             $restauration["id_adresse"],
-            $restauration["duree"],
-            $restauration["age_requis"],
-            $restauration["prestations"]
+            $restauration["gamme_prix"],
+            $restauration["id_type_repas"]
         );
 
         return $res;
