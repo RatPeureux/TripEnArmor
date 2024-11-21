@@ -139,7 +139,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmtActivite->bindParam(':age', $age);
                     $stmtActivite->bindParam(':prestations', $prestations);
                     $stmtActivite->bindParam(':titre', $titre);
-                    echo "test";
 
                     if ($stmtActivite->execute()) {
                         echo "Activité insérée avec succès.";

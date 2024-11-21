@@ -2993,6 +2993,11 @@ label:has(+ select[required])::after {
   border-width: 1px;
 }
 
+.hover\:border-y-2:hover {
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+}
+
 .hover\:border-orange-600:hover {
   --tw-border-opacity: 1;
   border-color: rgb(234 88 12 / var(--tw-border-opacity));
@@ -3034,6 +3039,14 @@ label:has(+ select[required])::after {
 
 .hover\:bg-secondary\/90:hover {
   background-color: rgb(10 0 53 / 0.9);
+}
+
+.hover\:fill-\[\#00350D\]:hover {
+  fill: #00350D;
+}
+
+.hover\:fill-\[\#EA4335\]:hover {
+  fill: #EA4335;
 }
 
 .hover\:text-primary:hover {

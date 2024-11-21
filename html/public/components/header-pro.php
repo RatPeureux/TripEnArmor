@@ -28,7 +28,7 @@
                 </a>
             <?php } else { ?>
                 <!-- Sinon si pas connecté -->
-                <a href="/connexion" class="hover:text-primary duration-100">
+                <a href="/pro/connexion" class="hover:text-primary duration-100">
                     <i class="text-3xl fa-regular fa-user"></i>
                 </a>
             <?php } ?>

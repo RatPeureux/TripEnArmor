@@ -249,8 +249,7 @@
 
 <?php } else {
 
-    ob_start();
-    // Connexion à la bdd
+// Connexion à la bdd
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Alteration de la table pour s'assurer que numero_compte est un VARCHAR
@@ -367,7 +366,6 @@
                         } else {
                             $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtRib->errorInfo());
                         }
-
                     } catch (Exception $e) {
                         $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
                     }
@@ -380,11 +378,8 @@
         }
     }
 
-    ob_end_flush();
-
-    // Quand tout est bien réalisé, rediriger au login avec la confimation de création du compte
-    header("location: /pro/connexion?created=1");
-
+    // Quand tout est bien réalisé, rediriger vers l'accueil du pro en étant connecté
+    header("location: /pro/");
 } ?>
 
 <script>

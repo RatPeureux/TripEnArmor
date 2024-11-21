@@ -2,7 +2,7 @@
 session_start();
 $id_pro = $_SESSION['id_pro'];
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-// verifyPro();
+verifyPro();
 ?>
 
 <!DOCTYPE html>
@@ -12,11 +12,10 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <title>Accueil | Professionnel | PACT</title>
-
     <link rel="stylesheet" href="/styles/output.css">
-    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
-    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/main.js"></script>
+    <script type="module" src="/scripts/loadComponentsPro.js"></script>
+    <title>PACT - Accueil</title>
 </head>
 
 <body class="flex flex-col min-h-screen">
@@ -57,100 +56,17 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                 echo "<p clas='font-bold'>Vous n'avez aucune offre...</p>";
             } else {
                 foreach ($toutesMesOffres as $offre) {
-
-                    // Détails de l'offre
-                    $id_offre = $offre['id_offre'];
-                    $description = $offre['description_offre'];
-                    $resume = $offre['resume_offre'];
-                    // $option = $offre['option'];
-                    $est_en_ligne = $offre['est_en_ligne'];
-                    $prix_mini = $offre['prix_mini'];
-                    $titre_offre = $offre['titre'];
-                    // Obtenir la catégorie de l'offre
-                    $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_categorie WHERE id_offre = $id_offre");
-                    $stmt->execute();
-                    $categorie_offre = $stmt->fetch(PDO::FETCH_ASSOC)['type_offre'];
-                    $est_en_ligne = $offre['est_en_ligne'];
-                    $date_mise_a_jour = $offre['date_mise_a_jour'];
-
-                    if ($date_mise_a_jour) {
-                        $date_mise_a_jour = DateTime::createFromFormat('Y-m-d H:i:s', $date_mise_a_jour);
-                        if ($date_mise_a_jour === false) {
-                            $date_mise_a_jour = new DateTime();
-                        }
-                    } else {
-                        $date_mise_a_jour = new DateTime();
-                    }
-
-                    // Obtenir le type de l'offre (gratuit, standard, premium)
-                    $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE id_offre = :id_offre");
-                    $stmt->bindParam(':id_offre', $id_offre, PDO::PARAM_INT);
-                    $stmt->execute();
-
-                    // Récupérer le résultat
-                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                    // Vérifier si le résultat est valide
-                    if ($result) {
-                        $type_offre = $result['nom_type_offre'];
-                    } else {
-                        // Traiter l'erreur, par exemple :
-                        echo "Aucun résultat trouvé pour l'offre ID $id_offre.";
-                    }
-
-                    // Détails de l'adresse
-                    $id_adresse = $offre['id_adresse'];
-                    $stmt = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = $id_adresse");
-                    $stmt->execute();
-                    $adresse = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $code_postal = $adresse['code_postal'];
-                    $ville = $adresse['ville'];
-
-                    // CAS DES AFFICHAGES QUI DIFFÈRENT SELON LA CATÉGORIE DE L'OFFRE
-                    // Afficher les prix ou la gamme de prix si c'est un restaurant
-                    $prix_sur_carte;
-                    if ($categorie_offre == 'restauration') {
-                        $stmt = $dbh->prepare("SELECT * FROM sae_db._restauration WHERE id_offre = $id_offre");
-                        $stmt->execute();
-                        $prix_sur_carte = $stmt->fetch(PDO::FETCH_ASSOC)['gamme_prix'];
-                    } else {
-                        $prix_sur_carte = $offre['prix_mini'] . '€';
-                    }
-                    // Tags pour le restaurant (pour la carte, on prend les types de repas) ou autres si ce n'est pas un restaurant
-                    if ($categorie_offre == 'restauration') {
-                        $stmt = $dbh->prepare("SELECT id_type_repas FROM sae_db._restaurant_type_repas WHERE id_offre = $id_offre");
-                        $stmt->execute();
-                        $repasIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                        $tags = '';
-                        // Récup chaque nom de tag, et l'ajouter aux tags
-                        foreach ($repasIds as $repasId) {
-                            $stmt = $dbh->prepare("SELECT nom_type_repas FROM sae_db._type_repas WHERE id_type_repas = $repasId");
-                            $stmt->execute();
-                            $nom_tag = $stmt->fetch(PDO::FETCH_ASSOC);
-                            $tags = $tags . ', ' . $nom_tag;
-                        }
-                        // Tags pour les autres types d'offre
-                    } else {
-                        $stmt = $dbh->prepare("SELECT id_tag FROM sae_db._tag_$categorie_offre WHERE id_$categorie_offre = $id_offre");
-                        $stmt->execute();
-                        $tagIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                        $tags = '';
-                        // Récup chaque nom de tag, et l'ajouter aux tags
-                        foreach ($tagIds as $tagId => $values) {
-                            $stmt = $dbh->prepare("SELECT nom_tag FROM sae_db._tag WHERE id_tag = $tagId");
-                            $stmt->execute();
-                            $nom_tag = $stmt->fetch(PDO::FETCH_ASSOC);
-                            $tags = $tags . ', ' . $nom_tag;
-                        }
-                    }
+                    // Obtenir les différentes variables avec les infos nécessaires via des requêtes SQL
+                    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
                     ?>
 
                     <div class="card <?php if ($option)
                         echo 'active' ?> relative min-w-[1280px] bg-base300 rounded-lg flex">
-                            <!-- Partie gauche -->
+
+                            <!-- PARTIE DE GAUCHE -->
                             <div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
                                 <!-- En tête -->
-                                <div class="en-tete flex justify-around absolute top-0 w-full">
+                                <div class="en-tete flex justify-center absolute top-0 w-full">
                                     <div class="bg-bgBlur/75 backdrop-blur rounded-b-lg w-3/5">
                                         <h3 class="text-center text-h2 font-bold"><?php echo $titre_offre ?></h3>
                                     <div class="flex w-full justify-between px-2">
@@ -158,81 +74,92 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                                         <p class="text"><?php echo $categorie_offre ?></p>
                                     </div>
                                 </div>
-
-                                <!-- OFFRE EN LIGNE ? -->
-                                <?php
-                                if ($est_en_ligne) {
-                                    ?>
-                                    <a href="/pages/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
-                                        title="hors-ligne / en ligne ?">
-                                        <div
-                                            class="bg-bgBlur/75 absolute right-4 backdrop-blur flex justify-center items-center p-1 rounded-b-lg">
-                                            <i class="fa-solid fa-wifi text-h1"></i>
-                                        </div>
-                                    </a>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <a href="/pages/toggleLigne.php?id_offre=<?php echo $id_offre ?>">
-                                        <div
-                                            class="bg-bgBlur/75 absolute right-4 backdrop-blur flex justify-center items-center p-1 rounded-b-lg">
-                                            <img src="/public/icones/hors-ligne.svg" alt="Hors ligne">
-                                        </div>
-                                    </a>
-                                    <?php
-                                }
-                                ?>
-
                             </div>
                             <!-- Image de fond -->
                             <a href="/pages/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>">
                                 <img class="rounded-l-lg w-full h-full object-cover object-center"
-                                    src="/public/images/image-test.jpg" alt="Image promotionnelle de l'offre"
+                                    src="/public/images/image-test.png" alt="Image promotionnelle de l'offre"
                                     title="consulter les détails">
                             </a>
                         </div>
-                        <!-- Partie droite (infos principales) -->
-                        <div class="infos flex flex-col items-center basis-1/2 self-stretch px-5 py-3 justify-between">
-                            <!-- Description -->
-                            <div class="description py-2 flex flex-col gap-2 w-full">
-                                <div class="flex justify-center relative">
-                                    <div class="p-2 rounded-lg bg-secondary self-center">
-                                        <p class="text-white text-center font-bold">
-                                            <?php
-                                            // Si c'est un restaurant, afficher les types de plats, sinon aficher les tags de l'offre
-                                            if ($tags) {
-                                                echo $tags;
-                                            } else {
-                                                echo 'Aucun tag';
-                                            }
-                                            ?>
-                                        </p>
-                                    </div>
-                                    <a href="">
-                                        <div
-                                            class="flex justify-center items-center rounded-lg absolute top-1/2 right-0 -translate-y-1/2">
+
+
+                        <!-- PARTIE DE DROITE (infos principales) -->
+                        <div class="infos relative flex flex-col items-center basis-1/2 self-stretch px-5 py-3 justify-between">
+
+                            <div class="w-full">
+                                <!-- A droite, en haut -->
+                                <div class="flex w-full items-center justify-between">
+                                    <!-- OFFRE EN LIGNE ? -->
+                                    <?php
+                                    if ($est_en_ligne) {
+                                        ?>
+                                        <a href="/pages/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
+                                            onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?');"
+                                            title=" [!!!] mettre hors-ligne">
+                                            <svg class="toggle-wifi-offline p-1 rounded-lg border-rouge-logo hover:border-y-2 border-solid duration-100 hover:fill-[#EA4335]"
+                                                width="55" height="40" viewBox="0 0 40 32" fill="#00350D">
+                                                <path
+                                                    d="M3.3876 12.6812C7.7001 8.54375 13.5501 6 20.0001 6C26.4501 6 32.3001 8.54375 36.6126 12.6812C37.4126 13.4437 38.6751 13.4187 39.4376 12.625C40.2001 11.8313 40.1751 10.5625 39.3814 9.8C34.3563 4.96875 27.5251 2 20.0001 2C12.4751 2 5.64385 4.96875 0.612605 9.79375C-0.181145 10.5625 -0.206145 11.825 0.556355 12.625C1.31885 13.425 2.5876 13.45 3.38135 12.6812H3.3876ZM20.0001 16C23.5501 16 26.7876 17.3188 29.2626 19.5C30.0939 20.2313 31.3564 20.15 32.0876 19.325C32.8189 18.5 32.7376 17.2312 31.9126 16.5C28.7376 13.7 24.5626 12 20.0001 12C15.4376 12 11.2626 13.7 8.09385 16.5C7.2626 17.2312 7.1876 18.4938 7.91885 19.325C8.6501 20.1562 9.9126 20.2313 10.7439 19.5C13.2126 17.3188 16.4501 16 20.0064 16H20.0001ZM24.0001 26C24.0001 24.9391 23.5787 23.9217 22.8285 23.1716C22.0784 22.4214 21.061 22 20.0001 22C18.9392 22 17.9218 22.4214 17.1717 23.1716C16.4215 23.9217 16.0001 24.9391 16.0001 26C16.0001 27.0609 16.4215 28.0783 17.1717 28.8284C17.9218 29.5786 18.9392 30 20.0001 30C21.061 30 22.0784 29.5786 22.8285 28.8284C23.5787 28.0783 24.0001 27.0609 24.0001 26Z" />
+                                                <path class="invisible" d="M31 26.751L6 2.75098" stroke-width="3" stroke="#EA4335"
+                                                    stroke-linecap="round" />
+                                            </svg>
+                                        </a>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <a href="/pages/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
+                                            onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> en ligne ?');"
+                                            title="[!!!] mettre en ligne">
+                                            <svg class="toggle-wifi-online p-1 rounded-lg hover:fill-[#00350D] border-secondary hover:border-y-2 border-solid duration-100"
+                                                width="55" height="40" viewBox="0 0 40 32" fill="#EA4335">
+                                                <path
+                                                    d="M3.3876 12.6812C7.7001 8.54375 13.5501 6 20.0001 6C26.4501 6 32.3001 8.54375 36.6126 12.6812C37.4126 13.4437 38.6751 13.4187 39.4376 12.625C40.2001 11.8313 40.1751 10.5625 39.3814 9.8C34.3563 4.96875 27.5251 2 20.0001 2C12.4751 2 5.64385 4.96875 0.612605 9.79375C-0.181145 10.5625 -0.206145 11.825 0.556355 12.625C1.31885 13.425 2.5876 13.45 3.38135 12.6812H3.3876ZM20.0001 16C23.5501 16 26.7876 17.3188 29.2626 19.5C30.0939 20.2313 31.3564 20.15 32.0876 19.325C32.8189 18.5 32.7376 17.2312 31.9126 16.5C28.7376 13.7 24.5626 12 20.0001 12C15.4376 12 11.2626 13.7 8.09385 16.5C7.2626 17.2312 7.1876 18.4938 7.91885 19.325C8.6501 20.1562 9.9126 20.2313 10.7439 19.5C13.2126 17.3188 16.4501 16 20.0064 16H20.0001ZM24.0001 26C24.0001 24.9391 23.5787 23.9217 22.8285 23.1716C22.0784 22.4214 21.061 22 20.0001 22C18.9392 22 17.9218 22.4214 17.1717 23.1716C16.4215 23.9217 16.0001 24.9391 16.0001 26C16.0001 27.0609 16.4215 28.0783 17.1717 28.8284C17.9218 29.5786 18.9392 30 20.0001 30C21.061 30 22.0784 29.5786 22.8285 28.8284C23.5787 28.0783 24.0001 27.0609 24.0001 26Z" />
+                                                <path class="visible" d="M31 26.751L6 2.75098" stroke-width="3" stroke="#EA4335"
+                                                    stroke-linecap="round" />
+                                            </svg>
+                                        </a>
+                                        <?php
+                                    }
+                                    ?>
+
+                                    <!-- Voir l'offre & modifier -->
+                                    <div class="flex gap-10 items-center">
+                                        <a href="" title="modifier l'offre">
                                             <i
-                                                class="px-2 rounded-lg border border-primary text-primary hover:bg-primary h-full duration-100 text-h1 hover:text-white details-menu-toggle fa-solid fa-ellipsis"></i>
-                                        </div>
-                                    </a>
-                                    <div class="details-menu hidden rounded-lg absolute right-0 bg-white">
-                                        <ul class="rounded-lg flex flex-col">
-                                            <a href="/pages/go_to_details.php?id_offre=<?php echo $id_offre ?>">
-                                                <li class="rounded-t-lg p-2 hover:bg-primary hover:text-white duration-200">
-                                                    Details</li>
-                                            </a>
-                                            <a href="">
-                                                <li
-                                                    class="rounded-b-lg p-2 hover:bg-primary hover:text-white border-solid border-t-2 border-black duration-200">
-                                                    Modifier</li>
-                                            </a>
-                                        </ul>
+                                                class="fa-solid fa-gear text-secondary text-h1 hover:text-primary duration-100"></i>
+                                        </a>
+                                        <a href="/pages/go_to_details.php?id_offre=<?php echo $id_offre ?>"
+                                            title="voir l'offre">
+                                            <i
+                                                class="fa-solid fa-arrow-right text-secondary text-h1 hover:text-primary duration-100"></i>
+                                        </a>
                                     </div>
                                 </div>
-                                <p class="line-clamp-3">
-                                    <?php echo $resume ?>
-                                </p>
+
+                                <!-- A droite, au milieu : description avec éventuels tags -->
+                                <div class=" description py-2 flex flex-col gap-2 w-full">
+                                    <div class="flex justify-center relative">
+                                        <div class="p-2 rounded-lg bg-secondary self-center">
+                                            <p class="text-white text-center font-bold">
+                                                <?php
+                                                // Afficher les tags de l'offre (ou plats si c'est un resto), sinon indiquer qu'il n'y a aucun tag
+                                                if ($tags) {
+                                                    echo $tags;
+                                                } else {
+                                                    echo 'Aucun tag';
+                                                }
+                                                ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p class="line-clamp-3 text-center">
+                                        <?php echo $resume ?>
+                                    </p>
+                                </div>
                             </div>
+
+
                             <!-- A droite, en bas -->
                             <div class="self-stretch flex flex-col shrink-0 gap-2">
                                 <hr class="border-black w-full">
@@ -246,7 +173,9 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                                     </div>
                                     <!-- Notation et Prix -->
                                     <div class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
-                                        <p class="text-small"><?php echo $prix_sur_carte ?></p>
+                                        <p class="text-small" title="<?php echo $title_prix ?>">
+                                            <?php echo $prix_a_afficher ?>
+                                        </p>
                                     </div>
                                 </div>
 
@@ -272,24 +201,23 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                                                 (0)
                                             </a>
                                         </div>
-                                        <p class="text-center grow"><?php echo $type_offre ?></p>
+                                        <p class="text-center grow" title="type de l'offre"><?php echo $type_offre ?></p>
                                     </div>
 
                                     <!-- Dates de mise à jour -->
                                     <div class="flex justify-between text-small">
                                         <div class="flex items-center gap-2">
                                             <i class="fa-solid fa-rotate text-xl"></i>
-                                            <p class="italic">Modifiée le <?php echo $date_mise_a_jour->format('d F Y'); ?></p>
-
+                                            <p class="italic">Modifiée le <?php echo $date_mise_a_jour ?></p>
                                         </div>
                                         <!-- Cacher les options tant que ce n'est pas à développer -->
                                         <!-- <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-gears text-xl"></i>
-                                    <div>
-                                        <p>‘A la Une’ 10/09/24-17/09/24</p>
-                                        <p>‘En relief' 10/09/24-17/09/24</p>
-                                    </div>
-                                </div> -->
+                                            <i class="fa-solid fa-gears text-xl"></i>
+                                            <div>
+                                                <p>‘A la Une’ 10/09/24-17/09/24</p>
+                                                <p>‘En relief' 10/09/24-17/09/24</p>
+                                            </div>
+                                        </div> -->
                                     </div>
 
                                 </div>
@@ -304,7 +232,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             ?>
 
             <!-- Bouton de création d'offre -->
-            <a href="creation-offre.html" class="font-bold p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
+            <a href="/pages/creation-offre.php" class="font-bold p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
             focus:scale-[0.97] duration-100">
                 + Nouvelle offre
             </a>
@@ -312,7 +240,6 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     </main>
 
     <div id="footer-pro"></div>
-    <script src="/scripts/ajout.js"></script>
 </body>
 
 </html>
