@@ -94,7 +94,7 @@ verifyPro();
                                     <?php
                                     if ($est_en_ligne) {
                                         ?>
-                                        <a href="/pages/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
+                                        <a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
                                             onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?');"
                                             title=" [!!!] mettre hors-ligne">
                                             <svg class="toggle-wifi-offline p-1 rounded-lg border-rouge-logo hover:border-y-2 border-solid duration-100 hover:fill-[#EA4335]"
@@ -108,7 +108,7 @@ verifyPro();
                                         <?php
                                     } else {
                                         ?>
-                                        <a href="/pages/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
+                                        <a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
                                             onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> en ligne ?');"
                                             title="[!!!] mettre en ligne">
                                             <svg class="toggle-wifi-online p-1 rounded-lg hover:fill-[#00350D] border-secondary hover:border-y-2 border-solid duration-100"

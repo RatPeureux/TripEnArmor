@@ -21,7 +21,7 @@
             <!-- Si connecté -->
             <?php
             include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-            if (isConnectedAsMember()) { ?>
+            if (isConnectedAsPro()) { ?>
                 <a href="#" class="flex flex-col items-center hover:text-primary duration-100" onclick="confirmLogout()">
                     <i class="text-3xl fa-regular fa-user"></i>
                     <p class="italic">(Auth.)</p>
