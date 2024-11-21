@@ -19,13 +19,13 @@ SET SCHEMA 'sae_db';
 
 -- -------------------------------------------------------------------------------------------Adresse----- début
 -- Table Adresse
-CREATE TABLE _adresse ( -- Léo
+CREATE TABLE _adresse ( 
     id_adresse SERIAL PRIMARY KEY,
     code_postal CHAR(5) NOT NULL,
     ville VARCHAR(255) NOT NULL,
     numero VARCHAR(255) NOT NULL,
     odonyme VARCHAR(255) NOT NULL,
-    complement_adresse VARCHAR(255)
+    complement VARCHAR(255)
 );
 -- ------------------------------------------------------------------------------------------------------- fin
 
@@ -75,11 +75,11 @@ CREATE TABLE _membre (
 -- Héritage des types de _compte (abstr.)
 CREATE TABLE _professionnel (nom_pro VARCHAR(255) NOT NULL) INHERITS (_compte);
 
-CREATE TABLE _pro_public ( -- Antoine
+CREATE TABLE _pro_public ( 
     type_orga VARCHAR(255) NOT NULL
 ) INHERITS (_professionnel);
 
-CREATE TABLE _pro_prive ( -- Antoine
+CREATE TABLE _pro_prive ( 
     num_siren VARCHAR(255) UNIQUE NOT NULL
 ) INHERITS (_professionnel);
 
@@ -158,12 +158,12 @@ CREATE TABLE _avis ( -- Maxime
 );
 -- ----------------------------------------------------------------------------------------------RIB------ début
 -- Table RIB
-CREATE TABLE _RIB ( -- Léo
+CREATE TABLE _RIB ( 
     id_rib SERIAL PRIMARY KEY,
     code_banque VARCHAR(255) NOT NULL,
     code_guichet VARCHAR(255) NOT NULL,
     numero_compte VARCHAR(255) NOT NULL,
-    cle_rib VARCHAR(255) NOT NULL,
+    cle VARCHAR(255) NOT NULL,
     id_compte SERIAL REFERENCES _pro_prive (id_compte) UNIQUE
 );
 
@@ -172,18 +172,18 @@ CREATE TABLE _RIB ( -- Léo
 -- -----------------------------------------------------------------------------------------------TAG----- début
 -- Table TAG
 
-CREATE TABLE _tag ( -- Antoine
+CREATE TABLE _tag ( 
     id_tag SERIAL PRIMARY KEY,
-    nom_tag VARCHAR(255) NOT NULL
+    nom VARCHAR(255) NOT NULL
 );
 -- -------------------------------------------------------------------------------------------------------- fin
 
 -- ---------------------------------------------------------------------------------------------Offre----- début
 -- Table _type_offre (gratuite OU standard OU prenium)
--- Antoine
+
 create table _type_offre (
     id_type_offre SERIAL PRIMARY KEY NOT NULL,
-    nom_type_offre VARCHAR(255) NOT NULL
+    nom VARCHAR(255) NOT NULL
 );
 
 -- ARCHITECTURE DES ENFANTS DE _offre :
@@ -251,7 +251,7 @@ CREATE TABLE _tag_offre (
 -- ------------------------------------------------------------------------------------------------------- fin
 
 -- --------------------------------------------------------------------------------------------Facture---- début
--- Maxime
+
 CREATE TABLE _facture (
     id_facture SERIAL PRIMARY KEY,
     jour_en_ligne DATE NOT NULL,
@@ -264,7 +264,7 @@ CREATE TABLE _facture (
 
 -- -----------------------------------------------------------------------------------------------Logs---- début
 CREATE TABLE _log_changement_status ( -- Maxime
-    id SERIAL PRIMARY KEY,
+    id_log_changement_status SERIAL PRIMARY KEY,
     id_offre SERIAL REFERENCES _offre (id_offre),
     date_changement DATE NOT NULL
 );
@@ -286,13 +286,13 @@ $$ LANGUAGE plpgsql;
 
 -- -------------------------------------------------------------------------------------Restaurants------- début
 -- Type de repas 'petit dej' 'diner' etc...
-create table _type_repas ( -- Baptiste
+create table _type_repas ( 
     id_type_repas SERIAL PRIMARY KEY,
-    nom_type_repas VARCHAR(255) NOT NULL UNIQUE
+    nom VARCHAR(255) NOT NULL UNIQUE
 );
 
 -- Table _restauration (hérite _offre)
--- (MVC) Léo
+
 CREATE TABLE _restauration (
     gamme_prix VARCHAR(3) NOT NULL,
     id_type_repas INTEGER REFERENCES _type_repas (id_type_repas)
@@ -317,7 +317,7 @@ EXECUTE FUNCTION fk_vers_professionnel();
 -- ADD CONSTRAINT fk_restauration_professionnel FOREIGN KEY (id_pro) REFERENCES _pro_prive (id_compte);
 
 -- Lien entre restauration et type_repas
-create table _restaurant_type_repas ( -- Baptiste
+create table _restaurant_type_repas ( 
     id_offre SERIAL REFERENCES _restauration (id_offre) ON DELETE CASCADE,
     id_type_repas SERIAL REFERENCES _type_repas (id_type_repas) ON DELETE CASCADE,
     PRIMARY KEY (id_offre, id_type_repas)
@@ -327,7 +327,7 @@ create table _restaurant_type_repas ( -- Baptiste
 create table _tag_restaurant (
     -- Maxime
     id_tag_restaurant SERIAL PRIMARY KEY,
-    nom_tag VARCHAR(255) NOT NULL
+    nom VARCHAR(255) NOT NULL
 );
 
 -- table 1 restaurant <-> 1..* tag
@@ -341,9 +341,9 @@ create table _tag_restaurant_restauration (
 
 -- ----------------------------------------------------------------------------------------Activités------ début
 -- Table _activite (hérite de _offre)
--- (MVC) Léo
+
 CREATE TABLE _activite (
-    duree_activite TIME,
+    duree TIME,
     age_requis INTEGER,
     prestations VARCHAR(255)
 ) INHERITS (_offre);
@@ -373,9 +373,9 @@ create table _tag_activite ( -- Maxime
 
 -- -----------------------------------------------------------------------------------------Spectacles---- début
 -- Table _spectacle (hérite de _offre)
-CREATE TABLE _spectacle ( -- (MVC) Léo
-    capacite_spectacle INTEGER,
-    duree_spectacle TIME
+CREATE TABLE _spectacle ( 
+    capacite INTEGER,
+    duree TIME
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _spectacle à cause de l'héritage
@@ -403,10 +403,10 @@ create table _tag_spectacle ( -- Maxime
 
 -- --------------------------------------------------------------------------------------------Visites---- début
 -- Table _visite (hérite de _offre)
--- (MVC) Léo
+
 CREATE TABLE _visite (
-    duree_visite TIME,
-    guide_visite BOOLEAN
+    duree TIME,
+    avec_guide BOOLEAN
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _visite à cause de l'héritage
@@ -424,13 +424,13 @@ FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel();
 
 -- langues parlées durant la visite
-CREATE TABLE _langue ( -- Antoine
+CREATE TABLE _langue ( 
     id_langue SERIAL PRIMARY KEY,
-    nom_langue VARCHAR(255)
+    nom VARCHAR(255)
 );
 
 -- Table de lien pour les langues parlées durant les visites
-CREATE TABLE _visite_langue ( -- Antoine
+CREATE TABLE _visite_langue ( 
     id_offre SERIAL REFERENCES _visite (id_offre),
     id_langue SERIAL REFERENCES _langue (id_langue)
 ); -- Primary key
@@ -445,7 +445,7 @@ create table _tag_visite ( -- Maxime
 
 -- -------------------------------------------------------------------------------Parcs d'attractions----- début
 -- Table _parc_attraction (hérite de _offre)
-CREATE TABLE _parc_attraction ( -- (MVC) Léo
+CREATE TABLE _parc_attraction ( 
     nb_attractions INTEGER,
     age_requis INTEGER
 ) INHERITS (_offre);
@@ -475,7 +475,7 @@ create table _tag_parc_attraction ( -- Maxime
 
 ----------------------------------------------------------------------------------------- autres -- début
 -- Table Horaire
-CREATE TABLE _horaire ( -- Antoine
+CREATE TABLE _horaire ( 
     id_horaire SERIAL PRIMARY KEY,
     ouverture TIME NOT NULL,
     fermeture TIME NOT NULL,
@@ -485,9 +485,9 @@ CREATE TABLE _horaire ( -- Antoine
 );
 
 -- Table TARIF public
-CREATE TABLE _tarif_public ( -- Baptiste
+CREATE TABLE _tarif_public ( 
     id_tarif SERIAL PRIMARY KEY,
-    titre_tarif VARCHAR(255) NOT NULL,
+    titre VARCHAR(255) NOT NULL,
     age_min INTEGER,
     age_max INTEGER,
     prix INTEGER,

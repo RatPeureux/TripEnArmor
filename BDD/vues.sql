@@ -86,7 +86,7 @@ FROM _spectacle o;
 
 
 create or replace view vue_offre_type as 
-select id_offre, nom_type_offre
+select id_offre, nom
 from _offre 
 join _type_offre on  
 _type_offre.id_type_offre = _offre.id_type_offre;

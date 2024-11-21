@@ -9,7 +9,7 @@ try {
 
     // Récupération des offres en ligne
     $stmt = $dbh->prepare("
-        SELECT o.*, a.code_postal, a.ville, a.numero, a.odonyme, a.complement_adresse 
+        SELECT o.*, a.code_postal, a.ville, a.numero, a.odonyme, a.complement 
         FROM sae_db._offre o 
         JOIN sae_db._adresse a ON o.id_adresse = a.id_adresse
     ");
