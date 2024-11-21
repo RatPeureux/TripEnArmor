@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <?php if (!isset($_POST['mail'])) { ?>
 
     <!DOCTYPE html>
@@ -22,7 +26,7 @@
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <a href="/pro" class="w-full">
+                <a href="/" class="w-full">
                     <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
                 </a>
 
@@ -38,6 +42,7 @@
                         <option value="public">public</option>
                         <option value="privé">privé</option>
                     </select>
+                    <br>
 
                     <!-- Champ pour le nom -->
                     <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
@@ -125,7 +130,9 @@
 
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
-            <img class="text mb-4" src="/public/images/logo.svg" alt="moine" width="57">
+            <a href="/" class="w-full">
+                    <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
+                </a>
 
             <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="post"
                 enctype="multipart/form-data">
@@ -168,6 +175,7 @@
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="num_siren" name="num_siren"
                         title="14 chiffres"
                         pattern="^\d{14}$"
+                        maxlength="14"
                         required>
                 <?php } ?>
 
@@ -350,6 +358,8 @@
 
             // Exécuter la requête pour le professionnel
             if ($stmtProfessionnel->execute()) {
+                $id_pro = $dbh->lastInsertId();
+
                 // Extraire les valeurs du RIB à partir de l'IBAN
                 if ($iban) {
                     try {
@@ -379,7 +389,9 @@
     }
 
     // Quand tout est bien réalisé, rediriger vers l'accueil du pro en étant connecté
-    header("location: /pro/");
+    $_SESSION['id_pro'] = $id_pro;
+    unset($_SESSION['id_membre']);
+    header("location: /pro");
 } ?>
 
 <script>
@@ -401,7 +413,6 @@
             this.classList.add('fa-eye');
         });
     }
-
     if (togglePassword2) {
         togglePassword2.addEventListener('mousedown', function () {
             confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe

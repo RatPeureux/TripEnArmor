@@ -25,7 +25,7 @@
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
                 <a href="/" class="w-full">
-                    <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
+                    <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription"
@@ -177,7 +177,9 @@
 
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
-            <img class="text mb-4" src="/public/images/logo.svg" alt="moine" width="57">
+            <a href="/" class="w-full">
+                <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
+            </a>
 
             <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="post" enctype="multipart/form-data">
                 <p class="pb-3">Dites-nous en plus !</p>
@@ -350,7 +352,7 @@
     }
 
     // Quand tout est bien réalisé, rediriger vers l'accueil en étant connecté
-    $_SESSION['id_member'] = $id_membre;
+    $_SESSION['id_membre'] = $id_membre;
     unset($_SESSION['id_pro']);
     header("location: /");
 } ?>

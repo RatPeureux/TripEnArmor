@@ -3,7 +3,7 @@ session_start();
 
 function isConnectedAsMember(): bool
 {
-    return isset($_SESSION['id_member']);
+    return isset($_SESSION['id_membre']);
 }
 
 function isConnectedAsPro(): bool {
@@ -22,7 +22,7 @@ function verifyPro()
 function verifyMember()
 {
     // Vérifie si l'utilisateur est connecté en tant que membre, sinon le renvoie à la page de connexion
-    if (!isset($_SESSION['id_member'])) {
+    if (!isset($_SESSION['id_membre'])) {
         header('location: /connexion');
         exit();
     }

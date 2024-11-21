@@ -1,7 +1,9 @@
 <?php
 
+require_once __DIR__ . "/bdd.php";
+
 class Activite extends BDD {
-    private $nom_table = "_activite";
+    static private $nom_table = "_activite";
 
     static function getActiviteById($id, $online = true) { 
         self::initBDD();

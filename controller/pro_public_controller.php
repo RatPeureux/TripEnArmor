@@ -10,8 +10,8 @@ class ProPublicController {
         $this->model = 'ProPublic';
     }
     
-    public function createProPublic($email, $mdp, $tel, $adresseId, $nomPro, $type_orga) {
-        $proPublicID = $this->model::createProPublic($email, $mdp, $tel, $adresseId, $nomPro, $type_orga);
+    public function createProPublic($email, $mdp, $tel, $adresseId, $nom_pro, $type_orga) {
+        $proPublicID = $this->model::createProPublic($email, $mdp, $tel, $adresseId, $nom_pro, $type_orga);
         return $proPublicID;
     }
     public function getInfosProPublic($id){
@@ -22,15 +22,15 @@ class ProPublicController {
             "email" => $proPublic["email"],
             "tel" => $proPublic["num_tel"],
             "adresse" => $proPublic["id_adresse"],
-            "nomPro" => $proPublic["nomPro"],
+            "nom_pro" => $proPublic["nom_pro"],
             "type_orga" => $proPublic["type_orga"],
         ];
 
         return $result;
     }
 
-    public function updateProPublic($id, $email = false, $mdp =false, $tel = false, $adresseId = false, $nomPro = false, $type_orga = false) {  
-        if ($email === false && $mdp === false && $tel === false && $adresseId === false && $nomPro === false && $type_orga === false) {
+    public function updateProPublic($id, $email = false, $mdp =false, $tel = false, $adresseId = false, $nom_pro = false, $type_orga = false) {  
+        if ($email === false && $mdp === false && $tel === false && $adresseId === false && $nom_pro === false && $type_orga === false) {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {
