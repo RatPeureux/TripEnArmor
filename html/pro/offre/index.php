@@ -38,7 +38,7 @@ verifyPro();
     $stmt->bindParam(':id_pro', $id_pro);
     $stmt->execute();
     $pro = $stmt->fetch(PDO::FETCH_ASSOC);
-    $pro_nom = $pro['nompro'];
+    $nom_pro = $pro['nom_pro'];
 
     // Obtenir l'ensemble des informations de l'offre
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
@@ -103,7 +103,7 @@ verifyPro();
 
                         <!-- Partie description -->
                         <div class="partie-description flex flex-col gap-4">
-                            <p class="professionnel"><?php echo $pro_nom ?></p>
+                            <p class="professionnel"><?php echo $nom_pro ?></p>
 
                             <!-- Prix + localisation -->
                             <div class="localisation-et-prix flex flex-col gap-4">

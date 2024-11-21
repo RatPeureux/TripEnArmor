@@ -4,14 +4,14 @@ class ProPublic extends BDD {
 
     private $nom_table = "_pro_public";
 
-    static function createProPublic($email, $mdp, $tel, $adresseId, $nomPro, $type_orga) {
-        $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse, nomPro, type_orga". self::$nom_table ."VALUES (?, ?, ?, ?, ?, ?) RETURNING id_compte";
+    static function createProPublic($email, $mdp, $tel, $adresseId, $nom_pro, $type_orga) {
+        $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga". self::$nom_table ."VALUES (?, ?, ?, ?, ?, ?) RETURNING id_compte";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);
         $statement->bindParam(3, $tel);
         $statement->bindParam(4, $adresseId);
-        $statement->bindParam(5, $nomPro);
+        $statement->bindParam(5, $nom_pro);
         $statement->bindParam(6, $type_orga);
         
         if($statement->execute()){
@@ -36,15 +36,15 @@ class ProPublic extends BDD {
         }
     }
     
-    static function updateProPublic($id, $email, $mdp, $tel, $adresseId, $nomPro, $type_orga) {
+    static function updateProPublic($id, $email, $mdp, $tel, $adresseId, $nom_pro, $type_orga) {
         self::initBDD();
-        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, $nomPro = ?, type_orga = ? WHERE id_compte = ?";
+        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, $nom_pro = ?, type_orga = ? WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);
         $statement->bindParam(3, $tel);
         $statement->bindParam(4, $adresseId);
-        $statement->bindParam(5, $nomPro);
+        $statement->bindParam(5, $nom_pro);
         $statement->bindParam(6, $type_orga);
         $statement->bindParam(7, $id);
 

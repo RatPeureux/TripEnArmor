@@ -17,7 +17,7 @@
             <?php
             include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsMember()) { ?>
-                <a href="#" class="flex flex-col items-center" onclick="confirmLogout()">
+                <a href="/scripts/logout.php" class="flex flex-col items-center" onclick="return confirmLogout()">
                     <i class="text-3xl fa-regular fa-user"></i>
                     <p class="italic">(Auth.)</p>
                 </a>

@@ -42,7 +42,7 @@ session_start();
     $stmt->execute();
     $pro = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($pro) {
-        $pro_nom = $pro['nompro'];
+        $pro_nom = $pro['nom_pro'];
     }
 
     // Obtenir l'ensemble des informations de l'offre

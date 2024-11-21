@@ -34,7 +34,7 @@ if (!isset($_POST['id'])) {
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <a href="/pro" class="w-full">
+                <a href="/" class="w-full">
                     <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
                 </a>
 
@@ -73,9 +73,9 @@ if (!isset($_POST['id'])) {
                         class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                     <!-- Liens pour mot de passe oublié et création de compte -->
-                    <div class="flex flex-nowrap h-12 space-x-1.5">
-                        <a href="#"
-                            class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
+                    <div class="flex items-center flex-nowrap h-12 space-x-1.5">
+                    <a href="#"
+                            class="text-small text-center w-full text-wrap bg-transparent text-secondary underline font-bold focus:scale-[0.97]">
                             Mot de passe oublié ?
                         </a>
                         <a href="/pro/inscription"
@@ -120,7 +120,7 @@ if (!isset($_POST['id'])) {
                 if (password_verify($mdp, $user['mdp_hash'])) {
                     // Connecte le pro, enlève toute éventuelle connexion à un membre
                     $_SESSION['id_pro'] = $user['id_compte'];
-                    unset($_SESSION['id_member']);
+                    unset($_SESSION['id_membre']);
                     header('location: /pro/'); // Redirige vers la page connectée
                     exit();
                 } else {
