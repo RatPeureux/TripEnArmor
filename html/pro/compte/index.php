@@ -8,23 +8,23 @@
     <link rel="stylesheet" href="/styles/output.css">
     <title>Mon compte</title>
     <script type="module" src="/scripts/main.js" defer></script>
-    <script type="module" src="/scripts/loadComponents.js" defer></script>
+    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
+        <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
+            <i class="text-3xl fa-solid fa-bars"></i>
+        </a>
         <div class="flex w-full items-center">
-            <a href="" onclick="toggleMenu()" class="mr-4 md:hidden">
-                <i class="text-3xl fa-solid fa-bars"></i>
-            </a>
-            <p class="text-h2">Prénom Nom</p>
+            <p class="text-h2">Dénomination/Nom de l'organisation</p>
         </div>
     </header>
+    <div id="menu-pro"></div>
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div id="menu" class="absolute md:block"></div>
         <div class="max-w-[23rem] mt-8 mx-auto space-y-12 flex flex-col items-center">
-            <a href="/compte/profil" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+            <a href="/pro/compte/profil" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-user"></i>
                 <div class="w-full">
                     <p class="text-h2">Profil</p>
@@ -32,7 +32,7 @@
                     <p class="text-small">Voir mes activités récentes.</p>
                 </div>
             </a>
-            <a href="/compte/paramètres" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+            <a href="/pro/compte/paramètres" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-gear"></i>
                 <div class="w-full">
                     <p class="text-h2">Paramètres</p>
@@ -40,7 +40,7 @@
                     <p class="text-small">Supprimer mon compte.</p>
                 </div>
             </a>
-            <a href="/compte/sécurité" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+            <a href="/pro/compte/sécurité" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-shield"></i>
                 <div class="w-full">
                     <p class="text-h2">Sécurité</p>
@@ -50,7 +50,7 @@
             </a>
         </div>
     </main>
-    <div id="footer"></div>
+    <div id="footer-pro"></div>
 </body>
 
 </html>
