@@ -24,22 +24,22 @@
     <main class="md:w-full mt-0 m-auto flex flex-col max-w-[1280px] p-2">
         <div id=menu class="absolute md:block"></div>
         <div class="mt-8 flex flex-col items-center">
-            <div class="max-w-[357px] rounded-lg shadow-2xl space-x-8 flex items-center px-8 py-4">
+            <a href="/compte/profil" class="cursor-pointer rounded-lg shadow-2xl space-x-8 flex items-center px-8 py-4">
                 <i class="text-5xl fa-solid fa-user"></i>
-                <div">
+                <div>
                     <p class="text-h2">Profil</p>
                     <p>Modifier mon profile public.</p>
                     <p>Voir mes activités récentes.</p>
                 </div>
-            </div>
-            <div class="self-center mt-16 max-w-[357px] rounded-lg shadow-2xl space-x-8 flex items-center px-8 py-4">
+            </a>
+            <a href="/compte/paramètres" class="cursor-pointer rounded-lg shadow-2xl space-x-8 flex items-center px-8 py-4">
                 <i class="text-5xl fa-solid fa-gears"></i>
                 <div>
                     <p class="text-h2">Paramètres</p>
                     <p>Modifier mes informations privées.</p>
                     <p>Supprimer mon compte.</p>
                 </div>
-            </div>
+            </a>
         </div>
     </main>
     <div id="footer"></div>
