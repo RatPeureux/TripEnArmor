@@ -40,14 +40,14 @@ CREATE TABLE _professionnel (
 ALTER TABLE _professionnel ADD CONSTRAINT unique_id_compte_Professionnel UNIQUE (id_compte);
 
 
-CREATE TABLE _pro_prive ( -- Antoine
+CREATE TABLE _pro_prive ( -- V-A
     num_siren VARCHAR(255) NOT NULL
 ) INHERITS (_professionnel);
 
 ALTER TABLE _pro_prive ADD CONSTRAINT unique_id_compte_Pro_Prive UNIQUE (id_compte);
 
 
-CREATE TABLE _pro_public ( -- Antoine
+CREATE TABLE _pro_public ( -- V-A
     type_orga VARCHAR(255) UNIQUE NOT NULL
 ) INHERITS (_professionnel);
 
@@ -136,14 +136,14 @@ CREATE TABLE _RIB ( -- Léo
 -- -----------------------------------------------------------------------------------------------TAG----- début
 -- Table TAG
 
-CREATE TABLE _tag ( -- Antoine
+CREATE TABLE _tag ( -- V-A
     id_tag SERIAL PRIMARY KEY,
     nom_tag VARCHAR(255) NOT NULL
 );
 
 -- ---------------------------------------------------------------------------------------------Offre----- début
-create table _type_offre ( -- Antoine
-  type_offre_id SERIAL PRIMARY KEY not null,
+create table _type_offre ( -- V-A
+  id_type_offre SERIAL PRIMARY KEY not null,
   nom_type_offre varchar(255) not null
 );
 
@@ -385,7 +385,7 @@ INSERT
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- langues parlées durant la visite
-CREATE TABLE _langue ( -- Antoine
+CREATE TABLE _langue ( -- V-A
     id_langue SERIAL PRIMARY KEY,
     nom_langue VARCHAR(255)
 );
