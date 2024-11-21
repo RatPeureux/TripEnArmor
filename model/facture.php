@@ -10,6 +10,7 @@ class Facture extends BDD {
      * @return array|int Retourne un tableau contenant les données de la facture ou -1 en cas d'erreur.
      */
     static function getFactureById($id) {
+        self::initBDD();
         // Requête SQL pour sélectionner une facture par son ID
         $query = "SELECT * FROM " . self::$nom_table ." WHERE id_facture = ?";
         
@@ -32,6 +33,7 @@ class Facture extends BDD {
      * @return array|int Retourne un tableau contenant l'identifiant de la nouvelle facture ou -1 en cas d'erreur.
      */
     static function createFacture($jour_en_ligne, $id_offre) {
+        self::initBDD();
         // Requête SQL pour insérer une nouvelle facture
         $query = "INSERT INTO " . self::$nom_table ." (jour_en_ligne, id_offre) VALUES (?, ?) RETURNING id_facture";
         
@@ -55,6 +57,7 @@ class Facture extends BDD {
      * @return array|int Retourne un tableau contenant l'identifiant de la facture mise à jour ou -1 en cas d'erreur.
      */
     static function updateFacture($id_facture, $jour_en_ligne, $id_offre) {
+        self::initBDD();
         // Requête SQL pour mettre à jour une facture existante
         $query = "UPDATE " . self::$nom_table ." SET jour_en_ligne = ?, id_offre = ? WHERE id_facture = ? RETURNING id_facture";
         
@@ -79,6 +82,7 @@ class Facture extends BDD {
      * @return array|int Retourne un tableau vide si la suppression réussit ou -1 en cas d'erreur.
      */
     static function deleteFacture($id) {
+        self::initBDD();
         // Requête SQL pour supprimer une facture par son ID
         $query = "DELETE FROM " . self::$nom_table ." WHERE id_facture = ?";
         
