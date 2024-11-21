@@ -32,7 +32,7 @@ verifyPro();
     $stmt->bindParam(':id_pro', $id_pro);
     $stmt->execute();
     $pro = $stmt->fetch(PDO::FETCH_ASSOC);
-    $pro_nom = $pro['nompro'];
+    $pro_nom = $pro['nom_pro'];
 
     // Obtenir l'ensembre des offres du professionnel identifié
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro");
@@ -232,7 +232,7 @@ verifyPro();
             ?>
 
             <!-- Bouton de création d'offre -->
-            <a href="/pages/creation-offre.php" class="font-bold p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
+            <a href="/pro/offre/creer" class="font-bold p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
             focus:scale-[0.97] duration-100">
                 + Nouvelle offre
             </a>

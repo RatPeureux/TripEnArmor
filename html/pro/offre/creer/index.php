@@ -42,16 +42,12 @@ verifyPro();
 		<div id="header-pro" class="w-full mb-20"></div>
 		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 			<!-- Lien de retour avec une icône et un titre -->
-			<div class="w-full text-left">
-				<a href="#" onclick="history.back()" class="flex content-center space-x-">
-					<div class="m-4">
-						<i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>
-					</div>
-					<div class="my-2">
-						<h1 class="text-h1">Création d'offre</h1>
-					</div>
-				</a>
-			</div>
+			<a href="" onclick="history.back()" class="flex w-full gap-4 items-center content-center space-x-">
+				<i class="fa-solid fa-arrow-left fa-2xl"></i>
+				<div class="my-2">
+					<h1 class="text-h1">Création d'offre</h1>
+				</div>
+			</a>
 			<!-- Section de sélection de l'offre -->
 			<div
 				class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
