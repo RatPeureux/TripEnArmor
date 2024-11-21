@@ -38,15 +38,6 @@ if (!isset($_POST['id'])) {
                     <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <!-- Notification du compte bien créé -->
-                <?php
-                if (isset($_GET['created'])) { ?>
-                    <div class="relative">
-                        <p class="bg-secondary/75 text-white p-2 rounded-lg mb-2 border border-primary">Compte créé avec succès ✓</p>
-                        <div class="absolute top-0 w-full h-full z-10 bg-white animate-expand-width"></div>
-                    </div>
-                <?php } ?>
-
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/connexion"
                     method="post" enctype="multipart/form-data">
                     <p class="pb-3">J'ai un compte Professionnel</p>
@@ -127,8 +118,9 @@ if (!isset($_POST['id'])) {
             // Vérifie si l'utilisateur existe et si le mot de passe est correct
             if ($user) {
                 if (password_verify($mdp, $user['mdp_hash'])) {
-                    // Stocke les informations de l'utilisateur dans la session
+                    // Connecte le pro, enlève toute éventuelle connexion à un membre
                     $_SESSION['id_pro'] = $user['id_compte'];
+                    unset($_SESSION['id_member']);
                     header('location: /pro/'); // Redirige vers la page connectée
                     exit();
                 } else {

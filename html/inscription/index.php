@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <?php if (!isset($_POST['mail'])) { ?>
 
     <!DOCTYPE html>
@@ -274,8 +278,6 @@
     </script>
 
 <?php } else {
-
-    ob_start();
     // Connexion avec la bdd
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
@@ -284,17 +286,10 @@
     // Partie pour traiter la soumission du second formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         // Assurer que tous les champs obligatoires sont remplis
-        $prenom = $_POST['prenom'];
-        $nom = $_POST['nom'];
-        $mail = $_POST['mail'];
-        $mdp = $_POST['mdp']; // Récupérer le mot de passe du champ caché
-        $pseudo = $_POST['pseudo'];
         $adresse = $_POST['adresse'];
         $complement = $_POST['complement'];
         $code = $_POST['code'];
         $ville = $_POST['ville'];
-        $tel = $_POST['num_tel'];
-
         function extraireInfoAdresse($adresse)
         {
             $numero = substr($adresse, 0, 1);
@@ -306,33 +301,40 @@
             ];
         }
 
-        // Hachage du mot de passe
-        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
-
         try {
-            $test = extraireInfoAdresse($adresse);
-            $stmtTest = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement_adresse) VALUES (:code, :ville, :numero, :odonyme, :complement)");
-            $stmtTest->bindParam(':code', $code);
-            $stmtTest->bindParam(':ville', $ville);
-            $stmtTest->bindParam(':numero', $test['numero']);
-            $stmtTest->bindParam(':odonyme', $test['odonyme']);
-            $stmtTest->bindParam(':complement', $complement); // Assurez-vous que id_compte est défini
-            // Récupérer l'ID de l'adresse insérée
-            $id_adresse = $dbh->lastInsertId();
+            $infosSupAdresse = extraireInfoAdresse($adresse);
+            $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement_adresse) VALUES (:code, :ville, :numero, :odonyme, :complement)");
+            $stmtAdresse->bindParam(':code', $code);
+            $stmtAdresse->bindParam(':ville', $ville);
+            $stmtAdresse->bindParam(':numero', $infosSupAdresse['numero']);
+            $stmtAdresse->bindParam(':odonyme', $infosSupAdresse['odonyme']);
+            $stmtAdresse->bindParam(':complement', $complement); // Assurez-vous que id_compte est défini
 
-            if ($stmtTest->execute()) {
+            if($stmtAdresse->execute()) {
                 $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
             } else {
-                $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtTest->errorInfo());
+                $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtAdresse->errorInfo());
             }
         } catch (Exception $e) {
             $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
         }
 
         // Exécuter la requête pour l'adresse
-        if ($stmtTest->execute()) {
-            // Préparer l'insertion dans la table Membre
-            $stmtMembre = $dbh->prepare("INSERT INTO sae_db._membre (email, mdp_hash, num_tel, id_adresse, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :id_adresse, :pseudo :nom, :prenom)");
+        if ($stmtAdresse->execute()) {
+
+            $id_adresse = $dbh->lastInsertId();
+
+            // Infos pour insérer dans le membre
+            $prenom = $_POST['prenom'];
+            $nom = $_POST['nom'];
+            $mail = $_POST['mail'];
+            $mdp = $_POST['mdp'];
+            $pseudo = $_POST['pseudo'];
+            $tel = $_POST['num_tel'];
+            $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
+
+            // Préparer l'insertion dans la table _membre
+            $stmtMembre = $dbh->prepare("INSERT INTO sae_db._membre (email, mdp_hash, num_tel, id_adresse, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :id_adresse, :pseudo, :nom, :prenom)");
             $stmtMembre->bindParam(':mail', $mail);
             $stmtMembre->bindParam(':mdp', $mdp_hash);
             $stmtMembre->bindParam(':num_tel', $tel);
@@ -341,18 +343,14 @@
             $stmtMembre->bindParam(':prenom', $prenom);
             $stmtMembre->bindParam(':id_adresse', $id_adresse);
 
-            // Exécuter la requête pour le membre
             if ($stmtMembre->execute()) {
-                $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
-            } else {
-                $message = "Erreur lors de la création du compte : " . implode(", ", $stmtMembre->errorInfo());
+                $id_membre = $dbh->lastInsertId();
             }
         }
     }
 
-    ob_end_flush();
-
-    // Quand tout est bien réalisé, rediriger au login avec la confimation de création du compte
-    header("location: /connexion?created=1");
-
+    // Quand tout est bien réalisé, rediriger vers l'accueil en étant connecté
+    $_SESSION['id_member'] = $id_membre;
+    unset($_SESSION['id_pro']);
+    header("location: /");
 } ?>

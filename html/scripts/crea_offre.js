@@ -1,6 +1,4 @@
 function showFormPart1() {
-    console.log("test"); // Affiche "test" dans la console pour vérifier que la fonction est appelée
-
     const selectedValider = document.getElementById('part-1');
     console.log(selectedValider); // Affiche l'option sélectionnée dans la console
 
