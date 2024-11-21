@@ -15,7 +15,7 @@ class TagController {
 
         $result = [
             "id_tag" => $tag["id_tag"],
-            "nom_tag" => $tag["nom_tag"]
+            "nom" => $tag["nom"]
         ];
 
         return $result;
