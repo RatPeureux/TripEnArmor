@@ -1,9 +1,9 @@
 <?php
 
-require_once "../model/activite.php";
+require_once __DIR__ . "/../model/activite.php";
 
 class ActiviteController {
-    static private $model;  
+    private $model;  
 
     function __construct() {
         $this->model = 'Activite';
