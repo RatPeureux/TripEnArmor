@@ -36,7 +36,7 @@
             <label class="text-h3" for="num_tel">Numéro de téléphone</label>
             <input value="Téléphone" class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel" minlength="14" maxlength="14">
 
-            <button id=" save1" class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent" disabled>
+            <button id="save1" class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent" disabled>
                 Enregistrer les modifications
             </button>
 
