@@ -20,7 +20,8 @@ if (!isset($_POST['id'])) {
         <!-- Lien vers le favicon de l'application -->
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
-        <script src="https://cdn.tailwindcss.com"></script>
+        <script rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
     content: [
