@@ -43,6 +43,9 @@ module.exports = {
                     '0%': { width: '100%' },
                     '100%': { width: '0%' },
                 },
+            },
+            boxShadow: {
+                'custom': '0 0 12px 12px rgba(210, 210, 210, 0.5)',
             }
         },
     },

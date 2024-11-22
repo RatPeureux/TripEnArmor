@@ -19,32 +19,36 @@
                 <i class="text-3xl fa-solid fa-bars"></i>
             </a>
             <p class="text-h2">
-                <i onclick="history.back()" class="mr-4 fa-solid fa-arrow-left fa-xl cursor-pointer"></i>
                 <a href="/compte">Mon compte</a>
                 >
-                <a href="/compte/profil">Profil</a>
+                <a href="/compte/profil" class="underline">Profil</a>
             </p>
         </div>
     </header>
-    <main class="md:w-full mt-0 m-auto flex flex-col max-w-[1280px] p-2">
-        <p class="text-h1">Informations publiques</p>
+    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
+        <div id="menu" class="absolute md:block"></div>
+        <div class="max-w-[44rem] m-auto flex flex-col">
+            <p class="text-h1 mb-4">Informations publiques</p>
 
-        <label class="text-h3" for="id">Nom d'utilisateur</label>
-        <input value="Nom d'utilisateur" class="border-2 border-secondary p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id" title="pseudo / mail / téléphone" value="<?php echo $id; ?>" maxlength="255">
+            <label class="text-h3" for="pseudo">Nom d'utilisateur</label>
+            <input value="Nom d'utilisateur" class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="pseudo" name="pseudo" maxlength="255">
 
-        <button id="save" class="self-end opacity-50 max-w-sm h-12 my-1.5 px-4 text-white font-bold bg-primary rounded-lg border border-transparent" disabled>
-            Enregistrer les modifications
-        </button>
+            <button id="save" class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent" disabled>
+                Enregistrer les modifications
+            </button>
 
-        <br><hr><br>
+            <hr class="mb-8">
 
-        <a href="/compte/paramètres" class="cursor-pointer rounded-lg shadow-2xl space-x-8 flex items-center px-8 py-4">
-            <i class="text-5xl fa-solid fa-egg"></i>
-            <div>
-                <p class="text-h2">Avis</p>
-                <p>Consulter l’ensemble des avis que j’ai postés sur les différentes offres de la PACT.</p>
+            <div class="max-w-[23rem] mx-auto">
+                <a href="/compte/profil" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+                    <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
+                    <div class="w-full">
+                        <p class="text-h2">Avis</p>
+                        <p class="text-small">Consulter l’ensemble des avis que j’ai postés sur les différentes offres de la PACT.</p>
+                    </div>
+                </a>
             </div>
-        </a>
+        </div>
     </main>
     <div id="footer"></div>
 </body>
@@ -52,29 +56,26 @@
 </html>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const inputField = document.getElementById("id");
-        const save = document.getElementById("save");
+    document.addEventListener("DOMContentLoaded", function() {
+        const initialValues = {
+            pseudo: document.getElementById("pseudo").value,
+        };
 
-        // Valeur initiale du champ
-        let initialValue = inputField.value;
+        function activeSave() {
+            const save = document.getElementById("save");
+            const pseudo = document.getElementById("pseudo").value;
 
-        // Écouter les modifications
-        inputField.addEventListener("input", function () {
-            // Comparer la valeur actuelle avec la valeur initiale
-            if (inputField.value !== initialValue) {
+            if (pseudo !== initialValues.pseudo) {
                 save.disabled = false;
-                focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white
-                save.classList.add("cursor-pointer");
-                save.classList.add("cursor-pointer");
-                save.classList.add("cursor-pointer");
-                save.classList.add("cursor-pointer");
-                save.classList.add("cursor-pointer");
                 save.classList.remove("opacity-50");
+                save.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
             } else {
                 save.disabled = true;
                 save.classList.add("opacity-50");
+                save.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
             }
-        });
+        }
+
+        document.getElementById("pseudo").addEventListener("input", activeSave);
     });
 </script>
