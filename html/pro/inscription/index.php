@@ -13,7 +13,8 @@ session_start();
         <!-- Lien vers le favicon de l'application -->
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
-        <script src="https://cdn.tailwindcss.com"></script>
+        <script rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
     content: [
@@ -169,7 +170,8 @@ tailwind.config = {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image" href="/public/images/favicon.png">
-        <script src="https://cdn.tailwindcss.com"></script>
+        <script rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
     content: [

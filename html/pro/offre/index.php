@@ -13,6 +13,7 @@ verifyPro();
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <title>Détails d'une offre | Professionnel | PACT</title>
 
+    <script rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
