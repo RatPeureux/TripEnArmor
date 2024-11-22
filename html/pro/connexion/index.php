@@ -1,15 +1,7 @@
 <?php
 session_start(); // Démarre la session au début du script
-global $error; // Variable pour stocker les messages d'erreur
-global $id; // Variable pour stocker les messages d'erreur
-
-if (!isset($_POST['id'])) {
-    // Vérifie si un message d'erreur est stocké dans la session
-    if (isset($_SESSION['error'])) {
-        $error = $_SESSION['error']; // Récupère le message d'erreur de la session
-        $id = $_POST['id']; // Récupère l'id utilisé avant l'erreur
-        unset($_SESSION['error']); // Supprime le message d'erreur de la session après l'affichage
-    } ?>
+if(empty($_POST)) {
+?>
 
     <!DOCTYPE html>
     <html lang="fr">
@@ -20,65 +12,13 @@ if (!isset($_POST['id'])) {
         <!-- Lien vers le favicon de l'application -->
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
-        <script rel="stylesheet" href="/styles/input.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-    content: [
-        "./html/**/*",
-    ],
-    theme: {
-        extend: {
-            fontFamily: {
-                'cormorant': ['Cormorant-Bold'],
-                'sans': ['Poppins'],
-            },
-            fontSize: {
-                'small': ['14px'],
-                'h1': ['32px'],
-                'h2': ['24px'],
-                'h3': ['20px'],
-                'h4': ['18px'],
-                'PACT': ['35px', {
-                    letterSpacing: '0.2em',
-                }],
-            },
-            colors: {
-                'rouge-logo': '#EA4335',
-                'primary': '#F2771B',
-                'secondary': '#0a0035',
-                'base100': '#F1F3F4',
-                'base200': '#E0E0E0',
-                'base300': '#CCCCCC',
-                'neutre': '#000',
-                'gris': '#828282',
-                'bgBlur': "#F1F3F4",
-                'veryGris': "#BFBFBF",
-            },
-            spacing: {
-                '1/6': '16%',
-            },
-            animation: {
-                'expand-width': 'expandWidth 1s ease-out forwards',
-            },
-            keyframes: {
-                expandWidth: {
-                    '0%': { width: '100%' },
-                    '100%': { width: '0%' },
-                },
-            },
-            boxShadow: {
-                'custom': '0 0 12px 12px rgba(210, 210, 210, 0.5)',
-            }
-        },
-    },
-    plugins: [],
-}
-</script>
+        <link rel="stylesheet" href="/styles/output.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+
         <title>Connexion au compte</title>
-        <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     </head>
+
 
     <body class="h-screen bg-white p-4 overflow-hidden">
         <!-- Icône pour revenir à la page précédente -->
@@ -144,8 +84,6 @@ tailwind.config = {
     </html>
 
 <?php } else {
-
-    $error = ""; // Variable pour stocker les messages d'erreur
     try {
         // Connexion avec la bdd
         include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';

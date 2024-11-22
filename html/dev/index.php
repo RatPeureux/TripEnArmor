@@ -1,5 +1,4 @@
 <?php
-
 $mode = "erreur";
 $className = "font-bold";
 $message = "Message d'erreur";
@@ -13,4 +12,3 @@ $message = "Message de succès";
 
 require __DIR__ . "/../../view/bouton.php";
 unset($mode, $className, $message);
-?>

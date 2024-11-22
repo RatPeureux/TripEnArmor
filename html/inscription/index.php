@@ -243,7 +243,7 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
                 <?php
                 if (isset($_GET['invalid_pseudo'])) { ?>
                     <span id="mail-error-message"
-                        class="error text-rouge-logo text-small"><?php echo $_SESSION['error']?></span><br>
+                        class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span><br>
                     <?php
                 }
                 ?>
@@ -267,7 +267,7 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
                         <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code" name="code"
                             pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal" minlength="5"
                             maxlength="5" oninput="number(this)"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['code']?>" required>
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['code'] ?>" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="ville">Ville</label>
@@ -289,7 +289,7 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
                 <?php
                 if (isset($_GET['invalid_phone_number'])) { ?>
                     <span id="mail-error-message"
-                        class="error text-rouge-logo text-small"><?php echo $_SESSION['error']?></span>
+                        class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span>
                     <?php
                 }
                 ?>
@@ -350,7 +350,6 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
     // Si il y a au moins un compte déjà avec ce numéro de téléphone
     if (count($result) > 0) {
         $_SESSION['error'] = "Ce pseudonyme est déjà utilisé";
-        echo "test";
         // Revenir sur sur l'inscription comme au début
         header("location: /inscription?valid_mail=true&invalid_pseudo=true");
     }
