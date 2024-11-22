@@ -64,7 +64,7 @@
 
         <div class="max-w-[23rem] mx-auto">
             <a href="/pro/compte/profil" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
-                <i class="w-[50px] text-center text-5xl fa-solid fa-user"></i>
+                <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
                 <div class="w-full">
                     <p class="text-h2">Avis</p>
                     <p class="text-small">Consulter l’ensemble des avis sur mes offres de la PACT.</p>

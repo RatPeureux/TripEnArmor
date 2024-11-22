@@ -23,7 +23,7 @@
     </header>
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
         <div id="menu" class="absolute md:block"></div>
-        <div class="max-w-[23rem] mt-8 mx-auto space-y-12 flex flex-col items-center">
+        <div class="max-w-[23rem] my-8 mx-auto space-y-12 flex flex-col items-center">
             <a href="/compte/profil" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-user"></i>
                 <div class="w-full">
@@ -47,6 +47,11 @@
                     <p class="text-small">Modifier mes informations sensibles.</p>
                     <p class="text-small">Protéger mon compte.</p>
                 </div>
+            </a>
+
+            <a href="#"
+                class="w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent rounded-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
+                Se déconnecter
             </a>
         </div>
     </main>
