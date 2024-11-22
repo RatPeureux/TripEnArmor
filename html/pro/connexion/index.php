@@ -20,7 +20,60 @@ if (!isset($_POST['id'])) {
         <!-- Lien vers le favicon de l'application -->
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
-        <link rel="stylesheet" href="/styles/output.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    content: [
+        "./html/**/*",
+    ],
+    theme: {
+        extend: {
+            fontFamily: {
+                'cormorant': ['Cormorant-Bold'],
+                'sans': ['Poppins'],
+            },
+            fontSize: {
+                'small': ['14px'],
+                'h1': ['32px'],
+                'h2': ['24px'],
+                'h3': ['20px'],
+                'h4': ['18px'],
+                'PACT': ['35px', {
+                    letterSpacing: '0.2em',
+                }],
+            },
+            colors: {
+                'rouge-logo': '#EA4335',
+                'primary': '#F2771B',
+                'secondary': '#0a0035',
+                'base100': '#F1F3F4',
+                'base200': '#E0E0E0',
+                'base300': '#CCCCCC',
+                'neutre': '#000',
+                'gris': '#828282',
+                'bgBlur': "#F1F3F4",
+                'veryGris': "#BFBFBF",
+            },
+            spacing: {
+                '1/6': '16%',
+            },
+            animation: {
+                'expand-width': 'expandWidth 1s ease-out forwards',
+            },
+            keyframes: {
+                expandWidth: {
+                    '0%': { width: '100%' },
+                    '100%': { width: '0%' },
+                },
+            },
+            boxShadow: {
+                'custom': '0 0 12px 12px rgba(210, 210, 210, 0.5)',
+            }
+        },
+    },
+    plugins: [],
+}
+</script>
         <title>Connexion au compte</title>
         <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
