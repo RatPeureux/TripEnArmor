@@ -23,22 +23,6 @@ COPY ../model/ ./model/
 
 COPY ../view/ ./view/
 
-################################ tailwind.config ################################
-
-# Copie le fichier de configuration de Tailwind
-COPY tailwind.config.js ./
-
-################################ initialisation ################################
-
-# Copie le script d'initialisation
-COPY initialisation ./
-
-################################ tailwind ################################
-
-# Copie le répertoire de Tailwind CSS
-COPY tailwindcss ./
-
-
 COPY ../php_files/ ./php_files/
 
 # # Copie le fichier marche_pas.nepastoucher sous le nom index.php dans le répertoire de travail
