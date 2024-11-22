@@ -1,6 +1,5 @@
 <?php
 session_start();
-$id_pro = $_SESSION['id_pro'];
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 verifyPro();
 ?>
@@ -26,6 +25,8 @@ verifyPro();
     <?php
     // Connexion avec la bdd
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+    $id_pro = $_SESSION['id_pro'];
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");

@@ -98,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmtAdresseOffre->execute()) {
         $id_offre = $dbh->lastInsertId();  // Récupérer l'ID de l'offre insérée
         // // Redirigez vers l'accueil
-        // header('location: ../../pages/accueil-pro.php);
 
         // Insérer les tarifs publics associés
         foreach ($prices as $price) {
@@ -148,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $stmtActiviteTag = $dbh->prepare("INSERT INTO sae_db._tag_activite () VALUES ()");
                             if ($stmtActiviteTag->execute()) {
                                 echo "Activité insérée avec succès.";
-                                header('location: ../../pages/accueil-pro.php');
+                                header('location: /pro');
                             } else {
                                 echo "Erreur lors de l insertion : " . implode(", ", $stmtActiviteTag->errorInfo());
                             }
@@ -177,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtVisite->execute()) {
                         echo "Visite insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php');
+                        header('location: /pro');
                     } else {
                         echo "Erreur lors de l'insertion : " . implode(", ", $stmtVisite->errorInfo());
                     }
@@ -201,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtSpectacle->execute()) {
                         echo "Spectacle insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php');
+                        header('location: /pro');
                     } else {
                         echo "Erreur lors de l insertion : " . implode(", ", $stmtSpectacle->errorInfo());
                     }
@@ -223,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtAttraction->execute()) {
                         echo "Parc d'attraction insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php');
+                        header('location: /pro');
                     } else {
                         echo "Erreur lors de l'insertion : " . implode(", ", $stmtAttraction->errorInfo());
                     }
@@ -244,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtRestauration->execute()) {
                         echo "Restauration insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php');
+                        header('location: /pro');
                     } else {
                         echo "Erreur lors de l'insertion : " . implode(", ", $stmtRestauration->errorInfo());
                     }

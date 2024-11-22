@@ -29,7 +29,7 @@
                 </a>
 
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription"
-                    method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                    method="POST" onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Membre</p>
 
                     <!-- Champs pour le prénom et le nom -->
@@ -181,7 +181,7 @@
                 <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
             </a>
 
-            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="post" enctype="multipart/form-data">
+            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="POST">
                 <p class="pb-3">Dites-nous en plus !</p>
 
                 <!-- Champs pour le prénom et le nom (en lecture seule) -->

@@ -1,12 +1,11 @@
 <?php
-session_start();
-
 function isConnectedAsMember(): bool
 {
     return isset($_SESSION['id_membre']);
 }
 
-function isConnectedAsPro(): bool {
+function isConnectedAsPro(): bool
+{
     return isset($_SESSION['id_pro']);
 }
 
