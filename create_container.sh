@@ -19,9 +19,6 @@ CONTAINER_NAME=$(docker-compose ps -q)
 echo "Pour vous connecter au conteneur, exécutez la commande suivante dans un terminal :"
 echo "docker exec -it $CONTAINER_NAME /bin/bash"
 
-# Exécutez un script d'initialisation local
-./initialisation
-
 # Définissez un piège pour arrêter les services Docker lorsque le script est interrompu
 trap 'docker-compose down -v' SIGINT SIGTERM
 
