@@ -1,10 +1,7 @@
 <?php
-include('../connect_params.php');
-
 try {
     // Connexion à la base de données
-    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Vérifier si l'ID de l'offre est passé et est un entier
     if (isset($_GET['offre-id']) && is_numeric($_GET['offre-id'])) {
@@ -762,7 +759,7 @@ try {
 								</div>
 							</div>
 							<!-- Image de fond -->
-							<img class="h-48 w-full rounded-t-lg object-cover" src="../public/images/Gina.png"
+							<img class="h-48 w-full rounded-t-lg object-cover" src="/public/images/Gina.png"
 								alt="Image promotionnelle de l'offre" id="preview-image" />
 							<script>
 								document

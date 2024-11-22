@@ -7,9 +7,8 @@ if (!isset($_POST['id'])) {
     // Vérifie si un message d'erreur est stocké dans la session
     if (isset($_SESSION['error'])) {
         $error = $_SESSION['error']; // Récupère le message d'erreur de la session
-        $id = $_SESSION['id']; // Récupère l'id utilisé avant l'erreur
+        $id = $_POST['id']; // Récupère l'id utilisé avant l'erreur
         unset($_SESSION['error']); // Supprime le message d'erreur de la session après l'affichage
-        unset($_SESSION['id']); // Supprime l'id' après l'affichage
     } ?>
 
     <!DOCTYPE html>
@@ -35,11 +34,11 @@ if (!isset($_POST['id'])) {
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
                 <a href="/" class="w-full">
-                    <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
+                    <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/connexion"
-                    method="post" enctype="multipart/form-data">
+                    method="POST">
                     <p class="pb-3">J'ai un compte Professionnel</p>
 
                     <!-- Champ pour l'identifiant -->
@@ -138,8 +137,8 @@ if (!isset($_POST['id'])) {
         echo "Erreur !: " . $e->getMessage(); // Affiche une erreur si la connexion échoue
         die(); // Arrête l'exécution du script
     }
-
-} ?>
+}
+?>
 
 <script>
     // Récupération de l'élément pour afficher/masquer le mot de passe

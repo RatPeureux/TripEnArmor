@@ -1,11 +1,7 @@
 <?php
-// Inclure la connexion à la base de données
-include('../connect_params.php'); // Assurez-vous que ce fichier contient la connexion à votre base de données
-
 try {
     // Connexion à la base de données
-    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Récupération des offres en ligne
     $stmt = $dbh->prepare("
