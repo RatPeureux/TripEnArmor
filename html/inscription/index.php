@@ -1,8 +1,18 @@
 <?php
-    session_start();
+session_start();
+// Réinistialiser les messages d'erreur quand on arrive pour la première fois sur la page
+if (!isset($_SESSION['data_en_cours_inscription'])) {
+    unset($_SESSION['error']);
+}
 ?>
 
-<?php if (!isset($_POST['mail'])) { ?>
+<!-- 1ère étape de la création -->
+<!-- !isset($_SESSION['data_en_cours_inscription']['num_tel']) -->
+<?php if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
+    if (isset($_SESSION['data_en_cours_inscription']['num_tel'])) {
+        $_SESSION['error'] = '';
+    }
+    ?>
 
     <!DOCTYPE html>
     <html lang="fr">
@@ -28,8 +38,8 @@
                     <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription"
-                    method="POST" onsubmit="return validateForm()">
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="POST"
+                    onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Membre</p>
 
                     <!-- Champs pour le prénom et le nom -->
@@ -37,20 +47,24 @@
                         <div class="w-full">
                             <label class="text-small" for="prenom">Prénom</label>
                             <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="prenom" name="prenom"
-                                title="Saisir mon prénom" maxlength="50" required>
+                                title="Saisir mon prénom" maxlength="50"
+                                value="<?php echo $_SESSION['data_en_cours_inscription']['prenom'] ?>" required>
                         </div>
                         <div class="w-full">
                             <label class="text-small" for="nom">Nom</label>
                             <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="nom" name="nom"
-                                title="Saisir mon nom" maxlength="50" required>
+                                title="Saisir mon nom" maxlength="50"
+                                value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?>" required>
                         </div>
                     </div>
 
                     <!-- Champ pour l'adresse mail -->
                     <label class="text-small" for="mail">Adresse mail</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="mail" id="mail" name="mail"
-                        pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail"
-                        maxlength="255" required>
+                        title="Jean@gmail.com" pattern=".*@[^\.]+.*\..*$" maxlength="255"
+                        value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?>" required>
+                    <!-- Message d'erreur pour l'adresse mail -->
+                    <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span>
 
                     <!-- Champ pour le mot de passe -->
                     <div class="relative w-full">
@@ -59,7 +73,8 @@
                             pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
                             • 8 caractères au moins
                             • 1 majuscule
-                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
+                            • 1 chiffre" minlength="8"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>" required>
                         <!-- Oeil pour afficher le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword1"></i>
@@ -72,7 +87,8 @@
                             name="confMdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
                             • 8 caractères au moins
                             • 1 majuscule
-                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
+                            • 1 chiffre" minlength="8"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?>" required>
                         <!-- Oeil pour afficher le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword2"></i>
@@ -147,13 +163,28 @@
         }
     </script>
 
-<?php } elseif (isset($_POST['mail']) && !isset($_POST['num_tel'])) {
+    <!-- 2ème étape de l'inscription -->
+<?php } elseif (!isset($_POST['num_tel'])) {
+    // Garder les informations remplies par l'utilisateur
+    if (!empty($_POST)) {
+        $_SESSION['data_en_cours_inscription'] = $_POST;
+    }
 
-    // Si le formulaire a été soumis
-    $prenom = str_contains($_POST['prenom'], "-") ? ucfirst(strtolower(strstr($_POST['prenom'], '-', true))) . "-" . ucfirst(strtolower(substr(strstr($_POST['prenom'], '-'), 1))) : ucfirst(strtolower($_POST['prenom']));
-    $nom = strtoupper($_POST['nom']);
-    $mail = strtolower($_POST['mail']);
-    $mdp = $_POST['mdp'];
+    // Est-ce que cette adresse mail est déjà utilisée ?
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
+    $stmt->bindParam(":mail", $_POST['mail']);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+
+    // Si il y a au moins un compte déjà avec cette adresse mail
+    if (count($result) > 0) {
+        $_SESSION['error'] = "Cette adresse mail est déjà utilisée";
+        // Revenir sur sur l'inscription comme au début
+        header("location: /inscription");
+    } elseif (!isset($_SESSION['data_en_cours_inscription']['num_tel'])) {
+        $_SESSION['error'] = '';
+    }
     ?>
 
     <!DOCTYPE html>
@@ -189,47 +220,60 @@
                     <div class="w-full">
                         <label class="text-small" for="prenom">Prénom</label>
                         <input class="p-2 text-gris bg-white w-full h-12 rounded-lg" type="text" id="prenom" name="prenom"
-                            title="Mon prénom" value="<?php echo $prenom; ?>" readonly>
+                            title="Mon prénom" value="<?php echo $_SESSION['data_en_cours_inscription']['prenom']; ?>"
+                            readonly>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="nom">Nom</label>
                         <input class="p-2 text-gris bg-white w-full h-12 rounded-lg" type="text" id="nom" name="nom"
-                            title="Mon nom" value="<?php echo $nom; ?>" readonly>
+                            title="Mon nom" value="<?php echo $_SESSION['data_en_cours_inscription']['nom']; ?>" readonly>
                     </div>
                 </div>
 
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                    title="Mon adresse mail" value="<?php echo $mail; ?>" readonly>
+                    title="Mon adresse mail" value="<?php echo $_SESSION['data_en_cours_inscription']['mail']; ?>" readonly>
 
                 <!-- Champ pour le pseudonyme -->
                 <label class="text-small" for="pseudo">Pseudonyme</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo"
-                    maxlength="16" required>
+                    maxlength="16" value="<?php echo $_SESSION['data_en_cours_inscription']['pseudo'] ?>" required>
+                <!-- Message d'erreur pour le téléphone -->
+                <?php
+                if (isset($_GET['invalid_pseudo'])) { ?>
+                    <span id="mail-error-message"
+                        class="error text-rouge-logo text-small"><?php echo $_SESSION['error']?></span><br>
+                    <?php
+                }
+                ?>
 
                 <!-- Champs pour l'adresse -->
                 <label class="text-small" for="user_input_autocomplete_address">Adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
-                    name="user_input_autocomplete_address" title="ex: 2 rue Saint-Jean OU rue Edouard Branly"
-                    maxlength="255" required>
+                    name="user_input_autocomplete_address" placeholder="ex : (2) rue Saint-Jean"
+                    title="ex: 2 rue Saint-Jean OU rue Edouard Branly" maxlength="255"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
+                    required>
 
                 <label class="text-small" for="complement">Complément d'adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
-                    title="Complément d'adresse" maxlength="255">
+                    title="Complément d'adresse" maxlength="255"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
                         <label class="text-small" for="code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code"
-                            name="code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal"
-                            minlength="5" maxlength="5" oninput="number(this)" required>
+                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code" name="code"
+                            pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal" minlength="5"
+                            maxlength="5" oninput="number(this)"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['code']?>" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="ville">Ville</label>
                         <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="ville" name="ville"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir ma ville"
-                            maxlength="50" required>
+                            maxlength="50" value="<?php echo $_SESSION['data_en_cours_inscription']['ville'] ?>" required>
                     </div>
                 </div>
 
@@ -238,8 +282,17 @@
                     <label class="text-small" for="num_tel">Téléphone</label>
                     <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
                         pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14"
-                        oninput="formatTEL(this)" required>
+                        oninput="formatTEL(this)" value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?>"
+                        required>
                 </div>
+                <!-- Message d'erreur pour le téléphone -->
+                <?php
+                if (isset($_GET['invalid_phone_number'])) { ?>
+                    <span id="mail-error-message"
+                        class="error text-rouge-logo text-small"><?php echo $_SESSION['error']?></span>
+                    <?php
+                }
+                ?>
 
                 <!-- Choix d'acceptation des termes et conditions -->
                 <div class="mb-1.5 flex items-start">
@@ -257,7 +310,9 @@
                 <input type="submit" value="Créer mon compte"
                     class="mt-1.5 cursor-pointer w-full h-12 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
 
-                <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
+                <!-- Garder le mdp en mémoire mais le cacher -->
+                <input type="hidden" name="mdp" value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>">
+                <input type="hidden" name="confMdp" value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>">
             </form>
         </div>
     </body>
@@ -279,11 +334,39 @@
         }
     </script>
 
+    <!-- 3ème étape de l'inscription (écriture dans la base de données) -->
 <?php } else {
-    // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    // Garder les informations remplies par l'utilisateur
+    if (!empty($_POST)) {
+        $_SESSION['data_en_cours_inscription'] = $_POST;
+    }
 
-    $message = ''; // Initialiser le message
+    // Est-ce que ce pseudo a déjà été utilisé ?
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :pseudo");
+    $stmt->bindParam(":pseudo", $_POST['pseudo']);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    // Si il y a au moins un compte déjà avec ce numéro de téléphone
+    if (count($result) > 0) {
+        $_SESSION['error'] = "Ce pseudonyme est déjà utilisé";
+        echo "test";
+        // Revenir sur sur l'inscription comme au début
+        header("location: /inscription?valid_mail=true&invalid_pseudo=true");
+    }
+
+    // Est-ce que le numéro de téléphone renseigné a déjà été utilisé ?
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE num_tel = :num_tel");
+    $stmt->bindParam(":num_tel", $_POST['num_tel']);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    // Si il y a au moins un compte déjà avec ce numéro de téléphone
+    if (count($result) > 0) {
+        $_SESSION['error'] = "Ce numéro de téléphone est déjà utilisé";
+        // Revenir sur sur l'inscription comme au début
+        header("location: /inscription?valid_mail=true&invalid_phone_number=true");
+    }
 
     // Partie pour traiter la soumission du second formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
@@ -311,19 +394,12 @@
             $stmtAdresse->bindParam(':numero', $infosSupAdresse['numero']);
             $stmtAdresse->bindParam(':odonyme', $infosSupAdresse['odonyme']);
             $stmtAdresse->bindParam(':complement', $complement); // Assurez-vous que id_compte est défini
-
-            if($stmtAdresse->execute()) {
-                $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
-            } else {
-                $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtAdresse->errorInfo());
-            }
         } catch (Exception $e) {
             $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
         }
 
         // Exécuter la requête pour l'adresse
         if ($stmtAdresse->execute()) {
-
             $id_adresse = $dbh->lastInsertId();
 
             // Infos pour insérer dans le membre
@@ -355,4 +431,5 @@
     $_SESSION['id_membre'] = $id_membre;
     unset($_SESSION['id_pro']);
     header("location: /");
-} ?>
+}
+?>

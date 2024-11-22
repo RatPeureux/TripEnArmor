@@ -21,7 +21,7 @@
             <p class="text-h2">
                 <a href="/compte">Mon compte</a>
                 >
-                <a href="/compte/profil" class="underline">Paramètres</a>
+                <p class="underline">Paramètres</p>
             </p>
         </div>
     </header>

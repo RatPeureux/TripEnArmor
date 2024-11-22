@@ -21,7 +21,7 @@
             <p class="text-h2">
                 <a href="/pro/compte">Mon compte</a>
                 >
-                <a href="/pro/compte/sécurité" class="underline">Sécurité</a>
+                <p class="underline">Sécurité</p>
             </p>
         </div>
     </header>

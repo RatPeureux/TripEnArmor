@@ -42,7 +42,7 @@ if (!isset($_POST['id'])) {
                     <p class="pb-3">J'ai un compte Professionnel</p>
 
                     <!-- Champ pour l'identifiant -->
-                    <label class="text-small" for="id">Identifiant</label>
+                    <label class="text-small" for="id">Identifiant (nom, téléphone, mail)</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
                         title="Saisir un identifiant (Dénomination / Nom de l'organisation, Adresse mail ou Téléphone)"
                         value="<?php echo $id; ?>" maxlength="255" required>

@@ -101,13 +101,31 @@ session_start();
     </html>
 
 <?php } elseif (isset($_POST['mail']) && !isset($_POST['num_tel'])) {
-
     // Si le formulaire a été soumis
     $statut = $_POST['statut'];
     $nom_pro = $_POST['nom'];
     $mail = strtolower($_POST['mail']);
     $mdp = $_POST['mdp'];
-    ?>
+
+    // Est-ce que cette adresse mail est déjà utilisée ?
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+    // Alteration de la table pour s'assurer que numero_compte est un VARCHAR
+    try {
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
+        $stmt->bindParam(":mail", $mail);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        print_r($result);
+    } catch (PDOException $e) {
+        // Ignorer l'erreur si la colonne est déjà au bon type
+        if ($e->getCode() !== '42P07') {
+            // 42P07 est le code d'erreur pour une table ou colonne déjà existante
+            throw $e;
+        }
+    }
+
+?>
 
     <!DOCTYPE html>
     <html lang="fr">
