@@ -19,6 +19,7 @@ error_reporting(E_ALL);
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    // *********************************************************************************************************************** Définition de fonctions
     // Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
     function calculerPrixMin($prices)
     {
@@ -45,13 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
     }
 
+    // *********************************************************************************************************************** Récupération des données du POST
     // Récupération des données du formulaire
     $adresse = $_POST['user_input_autocomplete_address'];
     $code = $_POST['postal_code'];
     $ville = $_POST['locality'];
-    $age = $_POST['age'];
     $duree = !empty($_POST['duree']) ? $_POST['duree'] : '00:00:00';
-
     // Vérification de la durée
     if (is_numeric($duree)) {
         $hours = floor($duree / 60);
@@ -61,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Si $duree n'est pas valide, définir une valeur par défaut ou lever une erreur
         $dureeFormatted = '00:00:00'; // Valeur par défaut
     }
-
     // Récupérer d'autres valeurs
     $capacite = $_POST['place'] ?? '';
     $nb_attractions = isset($_POST['parc-numb']) && is_numeric($_POST['parc-numb']) ? (int) $_POST['parc-numb'] : 0;
@@ -71,35 +70,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prestations = $_POST['newPrestationName'] ?? '';
     $prices = $_POST['prices'] ?? []; // Récupérer les prix
     $titre = $_POST['titre'] ?? null;
-
     $tag = $_POST['tag-input'];
 
-    var_dump($prices);
+    // TODO: Récupérer l'id du pro, l'id du type d'offre choisi
+    
+    // *********************************************************************************************************************** Insertion
+    /* Ordre de l'insertion :
+    1. Adresse
+    2. Tag
+    3. Image
+    4. Langue
+    5. Offre
+    6. Offre_Tag
+    7. Offre_Image
+    8. Offre_Langue
+    9. Horaires
+    10. Tarif_Public
+    11. Facture
+    */
 
-    if ($titre === null) {
-        echo "Le titre est null.";
-        exit;
-    } else {
-        echo "Le titre est : " . htmlspecialchars($titre);
-    }
-
-    // Calculer le prix minimum parmi les tarifs
-    $prixMin = calculerPrixMin($prices);
 
     // Insérer l'adresse dans la base de données
     $realAdresse = extraireInfoAdresse($adresse);
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/adresse_controller.php';
+    $adresseController = new AdresseController();
+    $adresseId = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
+    if (!$adresseId) {
+        echo "Erreur lors de la création de l'adresse.";
+        exit;
+    }
+    
+    // Insérer les prix dans la base de données
+    $prixMin = calculerPrixMin($prices);
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tarif_public_controller.php';
+    $tarifController = new TarifPublicController();
+    foreach($prices as $price) {
+        if (!isset($price['name']) || !isset($price['value'])) {
+            echo "Erreur : données de prix invalides.";
+            continue;
+        }
 
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-    $stmtAdresseOffre = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement) VALUES (:postal_code, :locality, :numero, :odonyme, null)");
-    $stmtAdresseOffre->bindParam(':postal_code', $code);
-    $stmtAdresseOffre->bindParam(':locality', $ville);
-    $stmtAdresseOffre->bindParam(':numero', $realAdresse['numero']);
-    $stmtAdresseOffre->bindParam(':odonyme', $realAdresse['odonyme']);
+        $tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
+    }
 
     if ($stmtAdresseOffre->execute()) {
-        $id_offre = $dbh->lastInsertId();  // Récupérer l'ID de l'offre insérée
-        // // Redirigez vers l'accueil
 
         // Insérer les tarifs publics associés
         foreach ($prices as $price) {
