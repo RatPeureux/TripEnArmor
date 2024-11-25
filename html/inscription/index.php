@@ -22,7 +22,9 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image" href="/public/images/favicon.png">
-        <link rel="stylesheet" href="/styles/output.css">
+        <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
         <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     </head>
@@ -194,7 +196,9 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image" href="/public/images/favicon.png">
-        <link rel="stylesheet" href="/styles/output.css">
+        <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
         <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"

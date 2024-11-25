@@ -12,9 +12,9 @@ if(empty($_POST)) {
         <!-- Lien vers le favicon de l'application -->
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
-        <link rel="stylesheet" href="/styles/output.css">
-        <script src="https://cdn.tailwindcss.com"></script>
-
+        <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
         <title>Connexion au compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     </head>

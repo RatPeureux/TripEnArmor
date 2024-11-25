@@ -12,8 +12,9 @@ if (!isset($_POST['mail'])) { ?>
         <!-- Lien vers le favicon de l'application -->
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
-        <link rel="stylesheet" href="/styles/output.css">
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
         <title>Création de compte</title>
         <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
@@ -134,9 +135,10 @@ if (!isset($_POST['mail'])) { ?>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="icon" type="image" href="/public/images/favicon.png">
-        <link rel="stylesheet" href="/styles/output.css">
-
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
+        <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
