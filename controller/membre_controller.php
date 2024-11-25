@@ -14,6 +14,7 @@ class MembreController {
         $membreID = $this->model::createCompte($email, $mdp, $tel, $adresseId, $pseudo, $prenom, $nom);
         return $membreID;
     }
+    
     public function getInfosMembre($id){
         $membre = $this->model::getMembreById($id);
 
