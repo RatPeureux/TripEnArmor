@@ -20,4 +20,8 @@ class TagController {
 
         return $result;
     }
+
+    public function createTag($nom) {
+        return $this->model::createTag($nom)["id_tag"];
+    }
 }

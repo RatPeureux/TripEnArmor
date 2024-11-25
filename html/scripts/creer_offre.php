@@ -7,15 +7,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// // Connexion à la base de données
-// try {
-//     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-//     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-// } catch (PDOException $e) {
-//     echo json_encode(['success' => false, 'error' => 'Erreur de connexion à la base de données : ' . $e->getMessage()]);
-//     exit;
-// }
-
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -51,16 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $adresse = $_POST['user_input_autocomplete_address'];
     $code = $_POST['postal_code'];
     $ville = $_POST['locality'];
-    $duree = !empty($_POST['duree']) ? $_POST['duree'] : '00:00:00';
-    // Vérification de la durée
-    if (is_numeric($duree)) {
-        $hours = floor($duree / 60);
-        $minutes = $duree % 60;
-        $dureeFormatted = sprintf('%02d:%02d:00', $hours, $minutes); // Format HH:MM:SS
-    } else {
-        // Si $duree n'est pas valide, définir une valeur par défaut ou lever une erreur
-        $dureeFormatted = '00:00:00'; // Valeur par défaut
-    }
+    $dureeFormatted = sprintf('%02d:%02d:00', $_POST["hours"], $_POST["minutes"]); // Format HH:MM:SS
     // Récupérer d'autres valeurs
     $capacite = $_POST['place'] ?? '';
     $nb_attractions = isset($_POST['parc-numb']) && is_numeric($_POST['parc-numb']) ? (int) $_POST['parc-numb'] : 0;
@@ -70,17 +52,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prestations = $_POST['newPrestationName'] ?? '';
     $prices = $_POST['prices'] ?? []; // Récupérer les prix
     $titre = $_POST['titre'] ?? null;
-    $tag = $_POST['tag-input'];
+    $tags = $_POST['tags'] ?? [];
+    $activity = $_POST['activityType'];
 
     // TODO: Récupérer l'id du pro, l'id du type d'offre choisi
+    $id_pro = $_SESSION['id_pro'];
 
     // *********************************************************************************************************************** Insertion
     /* Ordre de l'insertion :
     1. [x] Adresse
-    2. Tag
-    3. Image
-    4. Langue
-    5. Offre 
+    2. [x] Tag
+    3. [x] Image
+    5. Offre
     6. Offre_Tag
     7. Offre_Image
     8. Offre_Langue
@@ -93,31 +76,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $realAdresse = extraireInfoAdresse($adresse);
     require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/adresse_controller.php';
     $adresseController = new AdresseController();
-    $adresseId = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
-    if (!$adresseId) {
+    $id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
+    if (!$id_adresse) {
         echo "Erreur lors de la création de l'adresse.";
         exit;
     }
 
-    $activity = $_POST['activityType'];
+    // Insérer les tags dans la base de données
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_controller.php';
+    $tagController = new TagController();
+    $tagIds = [];
+    foreach($tags[$activity] as $tag) {
+        $tagIds[] = $tagController->createTag($tag);
+    }
+
+    // Insérer les image dans la base de données
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/image_controller.php';
+    $uploadDir = dirname($_SERVER['DOCUMENT_ROOT']) . '/../public/images/';
+    
+    $imageController = new ImageController();
+    $imageIds = [];
+    $imagesIds['carte'] = $imageController->createImage($_POST['photo-upload-carte']);
+    foreach($images as $image) {
+        $imageIds['details'][] = $imageController->createImage($image);
+    }
+
+    $prixMin = calculerPrixMin($prices);
     $id_offre;
     switch ($activity) {
         case 'activite':
             // Insertion spécifique à l'activité
             require dirname($_SERVER['DOCUMENT_ROOT']) .'../controller/activite_controller.php';
             $activiteController = new ActiviteController();
-            $activiteController->createActivite($description, $resume)
-            $stmtActivite = $dbh->prepare("INSERT INTO sae_db._activite (est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, duree, age_requis, prestations) VALUES (true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :duree, :age, :prestations)");
-            $stmtActivite->bindParam(':id_offre', $id_offre);
-            $stmtActivite->bindParam(':description', $description);
-            $stmtActivite->bindParam(':resume', $resume);
-            $stmtActivite->bindParam(':prix', $prixMin);
-            $stmtActivite->bindParam(':date_creation', $dateCreation);
-            $stmtActivite->bindParam(':id_adresse', $id_adresse);
-            $stmtActivite->bindParam(':duree', $dureeFormatted);
-            $stmtActivite->bindParam(':age', $age);
-            $stmtActivite->bindParam(':prestations', $prestations);
-            $stmtActivite->bindParam(':titre', $titre);
+            $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
 
             if ($stmtActivite->execute()) {
                 echo "Activité insérée avec succès.";
@@ -236,7 +227,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insérer les prix dans la base de données
-    $prixMin = calculerPrixMin($prices);
     require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tarif_public_controller.php';
     $tarifController = new TarifPublicController();
     foreach ($prices as $price) {
