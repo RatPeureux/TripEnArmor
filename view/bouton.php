@@ -13,7 +13,7 @@ if (isset($mode) && isset($className) && isset($message)) {
         $className = $modes[$mode] . $className;
     }
 
-    ?>
+?>
     <div class="<?php echo $className ?>">
         <p>
             <?php echo $message; ?>
