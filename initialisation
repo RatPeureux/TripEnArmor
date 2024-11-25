@@ -1,5 +1,0 @@
-#! /bin/bash
-
-./tailwindcss init
-
-./tailwindcss -i ./html/styles/input.css -o ./html/styles/output.css --watch

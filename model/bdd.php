@@ -1,5 +1,5 @@
 <?php
-include('connect_params.php'); // Inclusion des paramètres de connexion à la base de données
+include(dirname($_SERVER['DOCUMENT_ROOT']) . '/../php_files/connect_params.php'); // Inclusion des paramètres de connexion à la base de données
 
 // Définition d'une classe abstraite BDD qui sert de modèle pour les classes qui interagiront avec la base de données.
 abstract class BDD {

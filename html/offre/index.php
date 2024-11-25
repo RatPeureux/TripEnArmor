@@ -11,15 +11,15 @@ session_start();
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <title>Détails d'une offre | PACT</title>
 
-    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
-
     <script src="/scripts/loadCaroussel.js" type="module"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
+    <title>Détails d'une offre | PACT</title>
 </head>
 
 <body class="flex flex-col">
@@ -42,7 +42,7 @@ session_start();
     $stmt->execute();
     $pro = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($pro) {
-        $pro_nom = $pro['nompro'];
+        $pro_nom = $pro['nom_pro'];
     }
 
     // Obtenir l'ensemble des informations de l'offre
@@ -103,7 +103,7 @@ session_start();
                         <i class="fa-solid fa-location-dot"></i>
                         <div class="text-small">
                             <p><?php echo $ville . ', ' . $code_postal ?></p>
-                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement_adresse ?></p>
+                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement ?></p>
                     </div>
                 </div>
                 <p class="prix font-bold"><?php echo $prix_a_afficher ?></p>
@@ -182,7 +182,7 @@ session_start();
                                     <i class="fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement_adresse ?>
+                                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement ?>
                                         </p>
                                     </div>
                                 </div>

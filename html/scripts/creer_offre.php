@@ -19,6 +19,7 @@ error_reporting(E_ALL);
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    // *********************************************************************************************************************** Définition de fonctions
     // Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
     function calculerPrixMin($prices)
     {
@@ -45,13 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
     }
 
+    // *********************************************************************************************************************** Récupération des données du POST
     // Récupération des données du formulaire
     $adresse = $_POST['user_input_autocomplete_address'];
     $code = $_POST['postal_code'];
     $ville = $_POST['locality'];
-    $age = $_POST['age'];
     $duree = !empty($_POST['duree']) ? $_POST['duree'] : '00:00:00';
-
     // Vérification de la durée
     if (is_numeric($duree)) {
         $hours = floor($duree / 60);
@@ -61,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Si $duree n'est pas valide, définir une valeur par défaut ou lever une erreur
         $dureeFormatted = '00:00:00'; // Valeur par défaut
     }
-
     // Récupérer d'autres valeurs
     $capacite = $_POST['place'] ?? '';
     $nb_attractions = isset($_POST['parc-numb']) && is_numeric($_POST['parc-numb']) ? (int) $_POST['parc-numb'] : 0;
@@ -71,34 +70,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prestations = $_POST['newPrestationName'] ?? '';
     $prices = $_POST['prices'] ?? []; // Récupérer les prix
     $titre = $_POST['titre'] ?? null;
-
     $tag = $_POST['tag-input'];
 
-    var_dump($prices);
+    // TODO: Récupérer l'id du pro, l'id du type d'offre choisi
+    
+    // *********************************************************************************************************************** Insertion
+    /* Ordre de l'insertion :
+    1. Adresse
+    2. Tag
+    3. Image
+    4. Langue
+    5. Offre
+    6. Offre_Tag
+    7. Offre_Image
+    8. Offre_Langue
+    9. Horaires
+    10. Tarif_Public
+    11. Facture
+    */
 
-    if ($titre === null) {
-        echo "Le titre est null.";
-        exit;
-    } else {
-        echo "Le titre est : " . htmlspecialchars($titre);
-    }
-
-    // Calculer le prix minimum parmi les tarifs
-    $prixMin = calculerPrixMin($prices);
 
     // Insérer l'adresse dans la base de données
     $realAdresse = extraireInfoAdresse($adresse);
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/adresse_controller.php';
+    $adresseController = new AdresseController();
+    $adresseId = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
+    if (!$adresseId) {
+        echo "Erreur lors de la création de l'adresse.";
+        exit;
+    }
+    
+    // Insérer les prix dans la base de données
+    $prixMin = calculerPrixMin($prices);
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tarif_public_controller.php';
+    $tarifController = new TarifPublicController();
+    foreach($prices as $price) {
+        if (!isset($price['name']) || !isset($price['value'])) {
+            echo "Erreur : données de prix invalides.";
+            continue;
+        }
 
-    $stmtAdresseOffre = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement_adresse) VALUES (:postal_code, :locality, :numero, :odonyme, null)");
-    $stmtAdresseOffre->bindParam(':postal_code', $code);
-    $stmtAdresseOffre->bindParam(':locality', $ville);
-    $stmtAdresseOffre->bindParam(':numero', $realAdresse['numero']);
-    $stmtAdresseOffre->bindParam(':odonyme', $realAdresse['odonyme']);
+        $tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
+    }
 
     if ($stmtAdresseOffre->execute()) {
-        $id_offre = $dbh->lastInsertId();  // Récupérer l'ID de l'offre insérée
-        // // Redirigez vers l'accueil
-        // header('location: ../../pages/accueil-pro.php);
 
         // Insérer les tarifs publics associés
         foreach ($prices as $price) {
@@ -112,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             var_dump($age_min, $prix_min);  // Afficher les valeurs avant insertion
 
-            $stmtInsertPrice = $dbh->prepare("INSERT INTO sae_db._tarif_public (titre_tarif, prix, id_offre) VALUES (:titre, :prix, :id_offre)");
+            $stmtInsertPrice = $dbh->prepare("INSERT INTO sae_db._tarif_public (titre, prix, id_offre) VALUES (:titre, :prix, :id_offre)");
             $stmtInsertPrice->bindParam(':titre', $price['name']);
             $stmtInsertPrice->bindParam(':prix', $price['value']);
             $stmtInsertPrice->bindParam(':id_offre', $id_offre);
@@ -128,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             switch ($activity) {
                 case 'activite':
                     // Insertion spécifique à l'activité
-                    $stmtActivite = $dbh->prepare("INSERT INTO sae_db._activite (id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, duree_activite, age_requis, prestations) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :duree, :age, :prestations)");
+                    $stmtActivite = $dbh->prepare("INSERT INTO sae_db._activite (id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, duree, age_requis, prestations) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :duree, :age, :prestations)");
                     $stmtActivite->bindParam(':id_offre', $id_offre);
                     $stmtActivite->bindParam(':description', $description);
                     $stmtActivite->bindParam(':resume', $resume);
@@ -142,13 +157,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtActivite->execute()) {
                         echo "Activité insérée avec succès.";
-                        $stmtTags = $dbh->prepare("INSERT INTO sae_db._tag (nom_tag) VALUES (:tag)");
+                        $stmtTags = $dbh->prepare("INSERT INTO sae_db._tag (nom) VALUES (:tag)");
                         $stmtTags->bindParam(':tag', $tag);
                         if ($stmtTags->execute()) {
                             $stmtActiviteTag = $dbh->prepare("INSERT INTO sae_db._tag_activite () VALUES ()");
                             if ($stmtActiviteTag->execute()) {
                                 echo "Activité insérée avec succès.";
-                                header('location: ../../pages/accueil-pro.php');
+                                header('location: /pro');
                             } else {
                                 echo "Erreur lors de l insertion : " . implode(", ", $stmtActiviteTag->errorInfo());
                             }
@@ -165,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 case 'visite':
 
-                    $stmtVisite = $dbh->prepare("INSERT INTO sae_db._visite(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, duree_visite, guide_visite) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :duree, false)");
+                    $stmtVisite = $dbh->prepare("INSERT INTO sae_db._visite(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, duree, avec_guide) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :duree, false)");
                     $stmtVisite->bindParam(':id_offre', $id_offre);
                     $stmtVisite->bindParam(':description', $description);
                     $stmtVisite->bindParam(':resume', $resume);
@@ -177,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtVisite->execute()) {
                         echo "Visite insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php');
+                        header('location: /pro');
                     } else {
                         echo "Erreur lors de l'insertion : " . implode(", ", $stmtVisite->errorInfo());
                     }
@@ -188,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     var_dump($capacite);
 
-                    $stmtSpectacle = $dbh->prepare("INSERT INTO sae_db._spectacle(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, capacite_spectacle, duree_spectacle) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :capacite, :duree)");
+                    $stmtSpectacle = $dbh->prepare("INSERT INTO sae_db._spectacle(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, capacite, duree) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :capacite, :duree)");
                     $stmtSpectacle->bindParam(':id_offre', $id_offre);
                     $stmtSpectacle->bindParam(':description', $description);
                     $stmtSpectacle->bindParam(':resume', $resume);
@@ -201,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtSpectacle->execute()) {
                         echo "Spectacle insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php');
+                        header('location: /pro');
                     } else {
                         echo "Erreur lors de l insertion : " . implode(", ", $stmtSpectacle->errorInfo());
                     }
@@ -223,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtAttraction->execute()) {
                         echo "Parc d'attraction insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php');
+                        header('location: /pro');
                     } else {
                         echo "Erreur lors de l'insertion : " . implode(", ", $stmtAttraction->errorInfo());
                     }
@@ -244,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmtRestauration->execute()) {
                         echo "Restauration insérée avec succès.";
-                        header('location: ../../pages/accueil-pro.php');
+                        header('location: /pro');
                     } else {
                         echo "Erreur lors de l'insertion : " . implode(", ", $stmtRestauration->errorInfo());
                     }

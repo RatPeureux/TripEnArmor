@@ -10,16 +10,19 @@ verifyPro();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <title>Détails d'une offre | Professionnel | PACT</title>
 
-    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
-    
-    <link href="https:/ /cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
+    
+    <title>Détails d'une offre | Professionnel | PACT</title>
 </head>
 
 <body class="flex flex-col">
@@ -38,7 +41,7 @@ verifyPro();
     $stmt->bindParam(':id_pro', $id_pro);
     $stmt->execute();
     $pro = $stmt->fetch(PDO::FETCH_ASSOC);
-    $pro_nom = $pro['nompro'];
+    $nom_pro = $pro['nom_pro'];
 
     // Obtenir l'ensemble des informations de l'offre
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
@@ -103,7 +106,7 @@ verifyPro();
 
                         <!-- Partie description -->
                         <div class="partie-description flex flex-col gap-4">
-                            <p class="professionnel"><?php echo $pro_nom ?></p>
+                            <p class="professionnel"><?php echo $nom_pro ?></p>
 
                             <!-- Prix + localisation -->
                             <div class="localisation-et-prix flex flex-col gap-4">
@@ -111,7 +114,7 @@ verifyPro();
                                     <i class="fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement_adresse ?>
+                                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement ?>
                                         </p>
                                     </div>
                                 </div>

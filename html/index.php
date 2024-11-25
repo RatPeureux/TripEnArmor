@@ -1,5 +1,9 @@
 <?php
 session_start();
+// Enlever les informations gardées lors des étapes de connexion / inscription quand on reveint à la page d'accueil (seul point de sortie de la connexion / inscription)
+unset($_SESSION['data_en_cours_connexion']);
+unset($_SESSION['data_en_cours_inscription']);
+
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 ?>
 
@@ -12,7 +16,9 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <title>Accueil | PACT</title>
 
-    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
 </head>

@@ -1,10 +1,7 @@
 <?php
-include('../connect_params.php');
-
 try {
     // Connexion à la base de données
-    $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Vérifier si l'ID de l'offre est passé et est un entier
     if (isset($_GET['offre-id']) && is_numeric($_GET['offre-id'])) {
@@ -65,7 +62,7 @@ try {
 
                 if ($stmtOffre->execute()) {
                     $stmtTarifPublic = $dbh->prepare("UPDATE sae_db._tarif_Public 
-                        SET titre_tarif = :titre, age_min = :age_min, age_max = :age_max 
+                        SET titre = :titre, age_min = :age_min, age_max = :age_max 
                         WHERE id_offre = :id_offre
                     ");
                     $stmtTarifPublic->bindParam(':titre', $titre);
@@ -100,16 +97,17 @@ try {
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Modifier une offre | Professionnel | PACT</title>
 
-    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
-	
 	<script src="//unpkg.com/alpinejs" defer></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
+	
+	<title>Modifier une offre | Professionnel | PACT</title>
 </head>
 
 <!-- 
@@ -762,7 +760,7 @@ try {
 								</div>
 							</div>
 							<!-- Image de fond -->
-							<img class="h-48 w-full rounded-t-lg object-cover" src="../public/images/Gina.png"
+							<img class="h-48 w-full rounded-t-lg object-cover" src="/public/images/Gina.png"
 								alt="Image promotionnelle de l'offre" id="preview-image" />
 							<script>
 								document

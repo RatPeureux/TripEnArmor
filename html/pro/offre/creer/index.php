@@ -1,6 +1,6 @@
 <?php
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-verifyPro();
+// verifyPro();
 ?>
 
 <!DOCTYPE html>
@@ -9,19 +9,20 @@ verifyPro();
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
+
 	<link rel="icon" type="image" href="/public/images/favicon.png">
 	<title>Création d'offre | Professionnel | PACT</title>
 
-    <link rel="stylesheet" href="/styles/output.css">
-    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
-    <script type="module" src="/scripts/main.js" defer></script>
-
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+	<link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
+	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
+	<script type="module" src="/scripts/main.js" defer></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
-    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
+	
+	<title>Création d'offre | Professionnel | PACT</title>
 </head>
 
 <!-- 
@@ -37,21 +38,21 @@ verifyPro();
 -->
 
 <body>
+	<?php
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		echo "Offre en cours de création...";
+	} else { ?>
 	<!-- Conteneur principal pour le contenu -->
 	<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
 		<div id="header-pro" class="w-full mb-20"></div>
 		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 			<!-- Lien de retour avec une icône et un titre -->
-			<div class="w-full text-left">
-				<a href="#" onclick="history.back()" class="flex content-center space-x-">
-					<div class="m-4">
-						<i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>
-					</div>
-					<div class="my-2">
-						<h1 class="text-h1">Création d'offre</h1>
-					</div>
-				</a>
-			</div>
+			<a href="" onclick="history.back()" class="flex w-full gap-4 items-center content-center space-x-">
+				<i class="fa-solid fa-arrow-left fa-2xl"></i>
+				<div class="my-2">
+					<h1 class="text-h1">Création d'offre</h1>
+				</div>
+			</a>
 			<!-- Section de sélection de l'offre -->
 			<div
 				class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
@@ -133,8 +134,7 @@ verifyPro();
 				</div>
 			</div>
 			<div class="flex space-x-12 w-full shrink-0 part1 hidden">
-				<form id="formulaire" action="../php/pro/crea_offre.php" method="POST" class="block w-full space-y-8" -
-					enctype="multipart/form-data">
+				<form id="formulaire" action="/pro/offre/creer" method="POST" class="block w-full space-y-8">
 					<div class="w-full flex flex-col justify-center items-center space-y-4">
 						<h2 class="w-full text-h2 text-secondary">Informations</h2>
 
@@ -161,7 +161,7 @@ verifyPro();
 								name="user_input_autocomplete_address" placeholder="21, rue de la Paix"
 								class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 						</div>
-						
+
 						<div class="justify-between items-center w-full">
 							<label for="locality" class="text-nowrap">Ville :</label>
 							<input type="text" id="locality" name="locality" placeholder="Rennes"
@@ -963,7 +963,7 @@ verifyPro();
 		});
 	</script>
 
-	<div class="hidden right-0 m-2 col-span-3">Je sais c'est honteux</div>
+	<?php } ?>
 </body>
 
 </html>

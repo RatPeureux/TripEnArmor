@@ -13,7 +13,7 @@
             <h1 class="font-cormorant uppercase whitespace-nowrap text-PACT">
                 <span class="hidden sm:inline">PACT</span> Pro
             </h1>
-        </a> 
+        </a>
         <div class="flex gap-10 items-center">
             <a href="#" class="hidden sm:block" title="rechercher parmi mes offres">
                 <i class="text-3xl fa-solid fa-magnifying-glass hover:text-primary duration-100"></i>
@@ -22,7 +22,8 @@
             <?php
             include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsPro()) { ?>
-                <a href="#" class="flex flex-col items-center hover:text-primary duration-100" onclick="confirmLogout()">
+                <a href="/scripts/logout.php" class="flex flex-col items-center hover:text-primary duration-100"
+                    onclick="return confirmLogout()">
                     <i class="text-3xl fa-regular fa-user"></i>
                     <p class="italic">(Auth.)</p>
                 </a>

@@ -17,22 +17,11 @@ RUN rm -rf img
 # Copie le dossier html dans le docker
 COPY ../html/ ./html/
 
+COPY ../controller/ ./controller/
 
-################################ tailwind.config ################################
+COPY ../model/ ./model/
 
-# Copie le fichier de configuration de Tailwind
-COPY tailwind.config.js ./
-
-################################ initialisation ################################
-
-# Copie le script d'initialisation
-COPY initialisation ./
-
-################################ tailwind ################################
-
-# Copie le répertoire de Tailwind CSS
-COPY tailwindcss ./
-
+COPY ../view/ ./view/
 
 COPY ../php_files/ ./php_files/
 
