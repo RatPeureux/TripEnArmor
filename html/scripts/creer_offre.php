@@ -89,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insérer l'adresse dans la base de données
     $realAdresse = extraireInfoAdresse($adresse);
 
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
     $stmtAdresseOffre = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement) VALUES (:postal_code, :locality, :numero, :odonyme, null)");
     $stmtAdresseOffre->bindParam(':postal_code', $code);
     $stmtAdresseOffre->bindParam(':locality', $ville);
