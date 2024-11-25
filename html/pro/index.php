@@ -1,6 +1,5 @@
 <?php
 session_start();
-$id_pro = $_SESSION['id_pro'];
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 verifyPro();
 ?>
@@ -12,7 +11,9 @@ verifyPro();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/output.css">
+    <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js"></script>
     <script type="module" src="/scripts/loadComponentsPro.js"></script>
     <title>PACT - Accueil</title>
@@ -26,6 +27,8 @@ verifyPro();
     <?php
     // Connexion avec la bdd
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+    $id_pro = $_SESSION['id_pro'];
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");

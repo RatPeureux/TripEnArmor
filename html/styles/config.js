@@ -1,6 +1,4 @@
-/** @type {import('tailwindcss').Config} */
-
-module.exports = {
+tailwind.config = {
     content: [
         "./html/**/*",
     ],

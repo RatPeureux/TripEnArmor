@@ -13,7 +13,9 @@ session_start();
         <!-- Lien vers le favicon de l'application -->
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
-        <link rel="stylesheet" href="../styles/output.css">
+        <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
         <title>Création de compte</title>
         <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
@@ -27,11 +29,11 @@ session_start();
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
                 <a href="/" class="w-full">
-                    <img class="relative mx-auto -top-8" src="../public/images/logo.svg" alt="moine" width="108">
+                    <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription" method="post"
-                    enctype="multipart/form-data" onsubmit="return validateForm()">
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription"
+                    method="POST" onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Professionnel</p>
 
                     <!-- Choix du statut de l'utilisateur -->
@@ -116,7 +118,9 @@ session_start();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image" href="/public/images/favicon.png">
-        <link rel="stylesheet" href="/styles/output.css">
+        <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
         <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
@@ -131,11 +135,11 @@ session_start();
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <a href="/" class="w-full">
-                    <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
-                </a>
+                <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
+            </a>
 
-            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="post"
-                enctype="multipart/form-data">
+            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription"
+                method="POST">
                 <p class=" pb-3">Dites-nous en plus !</p>
 
                 <div class="mb-3">
@@ -160,7 +164,7 @@ session_start();
                     title="Adresse mail" value="<?php echo $mail; ?>" readonly>
 
                 <!-- Choix du type d'organisme public -->
-                <?php if($statut == 'public') { ?>
+                <?php if ($statut == 'public') { ?>
                     <label class="text-small" for="type_orga">Je suis une&nbsp;</label>
                     <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="type_orga" name="type_orga"
                         title="Choisir un type d'organisme public" onchange="updateLabel()" required>
@@ -173,10 +177,7 @@ session_start();
                     <!-- Inscription du numéro de SIREN -->
                     <label class="text-small" for="num_siren">Numéro SIREN</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="num_siren" name="num_siren"
-                        title="14 chiffres"
-                        pattern="^\d{14}$"
-                        maxlength="14"
-                        required>
+                        title="14 chiffres" pattern="^\d{14}$" maxlength="14" required>
                 <?php } ?>
 
                 <!-- Champs pour l'adresse -->
@@ -257,7 +258,7 @@ session_start();
 
 <?php } else {
 
-// Connexion à la bdd
+    // Connexion à la bdd
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Alteration de la table pour s'assurer que numero_compte est un VARCHAR

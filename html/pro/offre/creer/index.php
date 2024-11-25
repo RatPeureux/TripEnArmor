@@ -9,19 +9,21 @@ verifyPro();
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
+
 	<link rel="icon" type="image" href="/public/images/favicon.png">
 	<title>Création d'offre | Professionnel | PACT</title>
 
-    <link rel="stylesheet" href="/styles/output.css">
-    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
-    <script type="module" src="/scripts/main.js" defer></script>
+	<link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
+	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
+	<script type="module" src="/scripts/main.js" defer></script>
 
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
-    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
+	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
 </head>
 
 <!-- 
@@ -129,8 +131,7 @@ verifyPro();
 				</div>
 			</div>
 			<div class="flex space-x-12 w-full shrink-0 part1 hidden">
-				<form id="formulaire" action="../php/pro/crea_offre.php" method="POST" class="block w-full space-y-8" -
-					enctype="multipart/form-data">
+				<form id="formulaire" action="/pro/offre/creer" method="POST" class="block w-full space-y-8">
 					<div class="w-full flex flex-col justify-center items-center space-y-4">
 						<h2 class="w-full text-h2 text-secondary">Informations</h2>
 
@@ -157,7 +158,7 @@ verifyPro();
 								name="user_input_autocomplete_address" placeholder="21, rue de la Paix"
 								class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 						</div>
-						
+
 						<div class="justify-between items-center w-full">
 							<label for="locality" class="text-nowrap">Ville :</label>
 							<input type="text" id="locality" name="locality" placeholder="Rennes"

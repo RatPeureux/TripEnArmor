@@ -12,7 +12,9 @@
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image" href="/public/images/favicon.png">
-        <link rel="stylesheet" href="/styles/output.css">
+        <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
         <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     </head>
@@ -29,7 +31,7 @@
                 </a>
 
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription"
-                    method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                    method="POST" onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Membre</p>
 
                     <!-- Champs pour le prénom et le nom -->
@@ -163,7 +165,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image" href="/public/images/favicon.png">
-        <link rel="stylesheet" href="/styles/output.css">
+        <link rel="stylesheet" href="/styles/input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/styles/config.js"></script>
         <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
@@ -181,7 +185,7 @@
                 <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
             </a>
 
-            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="post" enctype="multipart/form-data">
+            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="POST">
                 <p class="pb-3">Dites-nous en plus !</p>
 
                 <!-- Champs pour le prénom et le nom (en lecture seule) -->
