@@ -8,9 +8,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <title>Page non trouvée</title>
+
+    <link rel="stylesheet" href="/styles/output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="/scripts/loadComponents.js" defer=""></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
+    
+    <title>Page non trouvée</title>
 </head>
 
 <body class="min-h-screen flex flex-col">

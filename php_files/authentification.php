@@ -1,4 +1,5 @@
 <?php
+session_start();
 function isConnectedAsMember(): bool
 {
     return isset($_SESSION['id_membre']);

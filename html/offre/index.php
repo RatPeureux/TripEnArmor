@@ -16,12 +16,10 @@ session_start();
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
-
     <script src="/scripts/loadCaroussel.js" type="module"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
+    <title>Détails d'une offre | PACT</title>
 </head>
 
 <body class="flex flex-col">

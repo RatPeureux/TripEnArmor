@@ -18,12 +18,11 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     <script src="/styles/config.js"></script>
 	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
 	<script type="module" src="/scripts/main.js" defer></script>
-
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
-	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
+	
+	<title>Création d'offre | Professionnel | PACT</title>
 </head>
 
 <!-- 

@@ -12,6 +12,8 @@
     <script type="module" src="/scripts/main.js" defer></script>
     <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+
+    <title>Profil</title>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
@@ -23,7 +25,7 @@
             <p class="text-h2">
                 <a href="/compte">Mon compte</a>
                 >
-                <a href="/compte/profil" class="underline">Profil</a>
+                <p class="underline">Profil</p>
             </p>
         </div>
     </header>
