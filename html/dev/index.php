@@ -20,14 +20,14 @@
     $className = "font-bold";
     $message = "Message d'erreur";
 
-    require __DIR__ . "/../../view/bouton.php";
+    require dirname($_SERVER['DOCUMENT_ROOT']) . "/../view/bouton.php";
     unset($mode, $className, $message);
 
     $mode = "succes";
     $className = "font-bold";
     $message = "Message de succès";
 
-    require __DIR__ . "/../../view/bouton.php";
+    require dirname($_SERVER['DOCUMENT_ROOT']) . "/../view/bouton.php";
     unset($mode, $className, $message);
     ?>
 </body>

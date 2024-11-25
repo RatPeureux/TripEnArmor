@@ -1,7 +1,7 @@
 <?php
 
 class Tag extends BDD {
-    private $nom_table = "_tag";
+    private $nom_table = "sae_db._tag";
 
     /**
      * Récupère un tag par son ID.

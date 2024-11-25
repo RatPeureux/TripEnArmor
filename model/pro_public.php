@@ -2,7 +2,7 @@
 
 class ProPublic extends BDD {
 
-    private $nom_table = "_pro_public";
+    private $nom_table = "sae_db._pro_public";
 
     static function createProPublic($email, $mdp, $tel, $adresseId, $nom_pro, $type_orga) {
         $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga". self::$nom_table ."VALUES (?, ?, ?, ?, ?, ?) RETURNING id_compte";

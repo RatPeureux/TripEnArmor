@@ -2,7 +2,7 @@
 
 class Facture extends BDD {
     // Nom de la table utilisée pour les opérations sur les factures
-    private $nom_table = "_facture";
+    private $nom_table = "sae_db._facture";
 
     /**
      * Récupère une facture par son ID.

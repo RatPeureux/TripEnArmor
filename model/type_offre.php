@@ -2,7 +2,7 @@
 
 class TypeOffre extends BDD {
 
-    private $nom_table = "_type_offre";
+    private $nom_table = "sae_db._type_offre";
 
     static function getTypeOffreById($id_type_offre){
         self::initBDD();
