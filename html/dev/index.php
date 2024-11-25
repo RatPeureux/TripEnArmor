@@ -21,7 +21,6 @@
     
     require __DIR__ . "/../../view/bouton.php";
     unset($mode, $message, $icone);
-
     $mode = "rouge-outline";
     $message = "Écrire";
     $icone = "fa-solid fa-pen";
@@ -42,7 +41,6 @@
     
     require __DIR__ . "/../../view/bouton.php";
     unset($mode, $message, $icone);
-
 
     $mode = "secondary";
     

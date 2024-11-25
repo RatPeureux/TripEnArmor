@@ -1,7 +1,7 @@
 <?php
 
 class Spectacle extends BDD {
-    private $nom_table = "_spectacle";
+    private $nom_table = "sae_db._spectacle";
 
     static function getSpectacleById($id, $online = true) { 
         self::initBDD();

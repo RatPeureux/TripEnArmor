@@ -16,8 +16,6 @@ class TarifPublicController {
         $result = [
             "id_tarif" => $tarifPublic["id_tarif"],
             "titre_tarif" => $tarifPublic["titre_tarif"],
-            "age_min" => $tarifPublic["age_min"],
-            "age_max" => $tarifPublic["age_max"],
             "prix" => $tarifPublic["prix"],
             "id_offre" => $tarifPublic["id_offre"],
         ];
@@ -25,13 +23,13 @@ class TarifPublicController {
         return $result;
     }
 
-    public function createTarifPublic($titre_tarif, $age_min, $age_max, $prix, $id_offre) {
-        $tarifPublicID = $this->model::createTarifPublic($titre_tarif, $age_min, $age_max, $prix, $id_offre);
+    public function createTarifPublic($titre_tarif, $prix, $id_offre) {
+        $tarifPublicID = $this->model::createTarifPublic($titre_tarif, $prix, $id_offre);
         return $tarifPublicID;
     }
 
-    public function updateTarifPublic($id, $titre_tarif = false, $age_min =false, $age_max = false, $prix = false, $id_offre = false) {
-        if ($titre_tarif === false && $age_min === false && $age_max === false && $prix === false && $id_offre === false) {
+    public function updateTarifPublic($id, $titre_tarif = false, $prix = false, $id_offre = false) {
+        if ($titre_tarif === false && $prix === false && $id_offre === false) {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {
@@ -39,9 +37,7 @@ class TarifPublicController {
             
             $updatedTarifPublicId = $this->model::createTarifPublic(
                 $id, 
-                $titre_tarif !== false ? $titre_tarif : $tarifPublic["titre_tarif"], 
-                $age_min !== false ? $age_min : $tarifPublic["age_min"], 
-                $age_max !== false ? $age_max : $tarifPublic["age_max"], 
+                $titre_tarif !== false ? $titre_tarif : $tarifPublic["titre_tarif"],
                 $prix !== false ? $prix : $tarifPublic["prix"],
                 $id_offre !== false ? $id_offre : $tarifPublic["id_offre"]
             );

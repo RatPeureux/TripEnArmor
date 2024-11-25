@@ -2,7 +2,7 @@
 
 class Rib extends BDD {
     // Nom de la table utilisée dans les requêtes
-    private $nom_table = "_rib";
+    private $nom_table = "sae_db._rib";
 
     /**
      * Récupère un RIB par son ID.

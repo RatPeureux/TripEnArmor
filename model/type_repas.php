@@ -2,7 +2,7 @@
 
 class TypeRepas extends BDD {
 
-    private $nom_table = "_type_repas";
+    private $nom_table = "sae_db._type_repas";
 
     static function getTypeRepasById($id){
 

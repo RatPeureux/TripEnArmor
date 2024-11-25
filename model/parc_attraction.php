@@ -1,7 +1,7 @@
 <?php
 
 class ParcAttraction extends BDD {
-    private $nom_table = "_parc_attraction";
+    private $nom_table = "sae_db._parc_attraction";
 
     static function getParcAttractionById($id, $online = true) { 
         self::initBDD();

@@ -367,8 +367,6 @@ CREATE TABLE _horaire (
 CREATE TABLE _tarif_public ( 
     id_tarif SERIAL PRIMARY KEY,
     titre VARCHAR(255) NOT NULL,
-    age_min INTEGER,
-    age_max INTEGER,
     prix INTEGER,
     id_offre INTEGER NOT NULL
 );

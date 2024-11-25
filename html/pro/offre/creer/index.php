@@ -1,6 +1,6 @@
 <?php
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-verifyPro();
+// verifyPro();
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +39,10 @@ verifyPro();
 -->
 
 <body>
+	<?php
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		echo "Offre en cours de création...";
+	} else { ?>
 	<!-- Conteneur principal pour le contenu -->
 	<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
 		<div id="header-pro" class="w-full mb-20"></div>
@@ -960,7 +964,7 @@ verifyPro();
 		});
 	</script>
 
-	<div class="hidden right-0 m-2 col-span-3">Je sais c'est honteux</div>
+	<?php } ?>
 </body>
 
 </html>
