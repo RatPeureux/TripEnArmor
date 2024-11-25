@@ -20,16 +20,14 @@ class TarifPublic extends BDD {
 
     }
 
-    static function createTarifPublic($titre_tarif, $age_min, $age_max, $prix, $id_offre){
+    static function createTarifPublic($titre_tarif, $prix, $id_offre){
 
-        $query = "INSERT INTO " . self::$nom_table . "(titre_tarif, age_min, age_max, prix, id_offre) VALUES (?, ?, ?, ?, ?) RETURNING type_repas_id";
-        $id_offre = $db->lastInsertId();
+        $query = "INSERT INTO " . self::$nom_table . "(titre_tarif, prix, id_offre) VALUES (?, ?, ?) RETURNING type_repas_id";
+        $id_offre = self::$db->lastInsertId();
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $titre_tarif);
-        $stmt->bindParam(2, $age_min);
-        $stmt->bindParam(3, $age_max);
-        $stmt->bindParam(4, $prix);
-        $stmt->bindParam(5, $id_offre);
+        $stmt->bindParam(2, $prix);
+        $stmt->bindParam(3, $id_offre);
 
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -40,15 +38,13 @@ class TarifPublic extends BDD {
 
     }
 
-    static function updateTarifPublic($titre_tarif, $age_min, $age_max, $prix, $id_offre) {
-        $query = "UPDATE " . self::$nom_table ." SET titre_tarif = ?, age_min = ?, age_max = ?, prix = ?, id_offre = ? RETURNING type_repas_id";
+    static function updateTarifPublic($titre_tarif, $prix, $id_offre) {
+        $query = "UPDATE " . self::$nom_table ." SET titre_tarif = ?, prix = ?, id_offre = ? RETURNING type_repas_id";
         
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $titre_tarif);
-        $stmt->bindParam(2, $age_min);
-        $stmt->bindParam(3, $age_max);
-        $stmt->bindParam(4, $prix);
-        $stmt->bindParam(5, $id_offre);
+        $stmt->bindParam(2, $prix);
+        $stmt->bindParam(3, $id_offre);
 
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
