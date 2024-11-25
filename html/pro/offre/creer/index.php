@@ -1,6 +1,6 @@
 <?php
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-verifyPro();
+// verifyPro();
 ?>
 
 <!DOCTYPE html>
@@ -18,12 +18,11 @@ verifyPro();
     <script src="/styles/config.js"></script>
 	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
 	<script type="module" src="/scripts/main.js" defer></script>
-
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
-	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
+	
+	<title>Création d'offre | Professionnel | PACT</title>
 </head>
 
 <!-- 
@@ -39,6 +38,10 @@ verifyPro();
 -->
 
 <body>
+	<?php
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		echo "Offre en cours de création...";
+	} else { ?>
 	<!-- Conteneur principal pour le contenu -->
 	<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
 		<div id="header-pro" class="w-full mb-20"></div>
@@ -960,7 +963,7 @@ verifyPro();
 		});
 	</script>
 
-	<div class="hidden right-0 m-2 col-span-3">Je sais c'est honteux</div>
+	<?php } ?>
 </body>
 
 </html>

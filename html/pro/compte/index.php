@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,6 +13,8 @@
     <script type="module" src="/scripts/main.js" defer></script>
     <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+
+    <title>Mon compte</title>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
@@ -34,7 +37,7 @@
                     <p class="text-small">Voir mes activités récentes.</p>
                 </div>
             </a>
-            <a href="/pro/compte/paramètres" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+            <a href="/pro/compte/parametres" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-gear"></i>
                 <div class="w-full">
                     <p class="text-h2">Paramètres</p>
@@ -42,7 +45,7 @@
                     <p class="text-small">Supprimer mon compte.</p>
                 </div>
             </a>
-            <a href="/pro/compte/sécurité" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
+            <a href="/pro/compte/securite" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-shield"></i>
                 <div class="w-full">
                     <p class="text-h2">Sécurité</p>

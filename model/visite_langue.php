@@ -2,7 +2,7 @@
 
 class VisiteLangue extends BDD {
 
-    private $nom_table = "_visite_langue";
+    private $nom_table = "sae_db._visite_langue";
 
     static function createVisiteLangue($id_offre,$id_langue) {
         $query = "INSERT INTO (id_offre, id_langue". self::$nom_table ."VALUES (?, ?) RETURNING id_offre";

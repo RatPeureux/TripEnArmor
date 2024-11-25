@@ -1,5 +1,7 @@
 <?php
 session_start();
+// Enlever les informations gardées lors de l'étape de connexion quand on reveint à la page (retour en arrière)
+unset($_SESSION['data_en_cours_connexion']);
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 verifyPro();
 ?>
@@ -10,12 +12,14 @@ verifyPro();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js"></script>
     <script type="module" src="/scripts/loadComponentsPro.js"></script>
+
     <title>PACT - Accueil</title>
 </head>
 

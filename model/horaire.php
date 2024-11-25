@@ -2,7 +2,7 @@
 
 class Horaire extends BDD {
     // Nom de la table utilisée dans les requêtes
-    private $nom_table = "_horaire";
+    private $nom_table = "sae_db._horaire";
 
     /**
      * Récupère un horaire par son ID.

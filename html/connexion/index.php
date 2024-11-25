@@ -1,17 +1,12 @@
 <?php
 session_start(); // Démarre la session au début du script
-global $error; // Variable pour stocker les messages d'erreur
-global $id; // Variable pour stocker les messages d'erreur
+// Vider les messages d'erreur si c'est la première fois qu'on vient sur la page de connexion
+if (!isset($_SESSION['data_en_cours_connexion'])) {
+    unset($_SESSION['error']);
+}
 
-if (!isset($_POST['id'])) {
-    // Vérifie si un message d'erreur est stocké dans la session
-    if (isset($_SESSION['error'])) {
-        $error = $_SESSION['error']; // Récupère le message d'erreur de la session
-        $id = $_SESSION['id']; // Récupère l'id utilisé avant l'erreur
-        unset($_SESSION['error']); // Supprime le message d'erreur de la session après l'affichage
-        unset($_SESSION['id']); // Supprime l'id' après l'affichage
-    } ?>
-
+// 1ère étape : remplir les informations de connexion
+if (empty($_POST)) { ?>
     <!DOCTYPE html>
     <html lang="fr">
 
@@ -22,8 +17,8 @@ if (!isset($_POST['id'])) {
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
         <link rel="stylesheet" href="/styles/input.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/styles/config.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/styles/config.js"></script>
         <title>Connexion au compte</title>
         <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
@@ -40,14 +35,14 @@ if (!isset($_POST['id'])) {
                     <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/connexion"
-                    method="POST">
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/connexion" method="POST">
                     <p class="pb-3">J'ai un compte Membre</p>
 
                     <!-- Champ pour l'identifiant -->
-                    <label class="text-small" for="id">Identifiant</label>
+                    <label class="text-small" for="id">Identifiant (pseudo, téléphone, mail)</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
-                        title="pseudo / mail / téléphone" value="<?php echo $id; ?>" maxlength="255" required>
+                        title="pseudo / mail / téléphone" maxlength="255"
+                        value="<?php echo $_SESSION['data_en_cours_connexion']['id']; ?>" required>
 
                     <!-- Champ pour le mot de passe -->
                     <div class="relative w-full">
@@ -56,18 +51,16 @@ if (!isset($_POST['id'])) {
                             pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
                             • 8 caractères au moins
                             • 1 majuscule
-                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
+                            • 1 chiffre" minlength="8" autocomplete="new-password"
+                            value="<?php echo $_SESSION['data_en_cours_connexion']['mdp']; ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword"></i>
                     </div>
 
-                    <?php if ($error !== "") { ?>
-                        <!-- Messages d'erreurs -->
-                        <span id="error-message" class="error text-rouge-logo text-small">
-                            <?php echo $error; ?>
-                        </span>
-                    <?php } ?>
+                    <span id="error-message" class="error text-rouge-logo text-small">
+                        <?php echo $_SESSION['error']; ?>
+                    </span>
 
                     <!-- Bouton de connexion -->
                     <input type="submit" value="Me connecter"
@@ -89,18 +82,40 @@ if (!isset($_POST['id'])) {
         </div>
     </body>
 
+    <script>
+        // Récupération de l'élément pour afficher/masquer le mot de passe
+        const togglePassword = document.getElementById('togglePassword');
+        const mdp = document.getElementById('mdp');
+
+        // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
+        if (togglePassword) {
+            togglePassword.addEventListener('mousedown', function () {
+                mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+                this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
+                this.classList.add('fa-eye-slash');
+            });
+
+            // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
+            togglePassword.addEventListener('mouseup', function () {
+                mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
+                this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
+                this.classList.add('fa-eye');
+            });
+        }
+    </script>
+
     </html>
 
+    <!-- 2ème étape, essayer de se connecter à la base, et inscrire une erreur sinon -->
 <?php } else {
-
-    $error = ""; // Variable pour stocker les messages d'erreur
-
     try {
         // Connexion avec la bdd
         include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
         // Vérifie si la requête est une soumission de formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //  Pour garder les informations dans le formulaire si erreur
+            $_SESSION['data_en_cours_connexion'] = $_POST;
             $id = $_POST['id']; // Récupère l'id soumise
             $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
 
@@ -108,14 +123,7 @@ if (!isset($_POST['id'])) {
             $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :id OR email = :id OR num_tel = :id");
             $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
             $stmt->execute(); // Exécute la requête
-
-            // Vérifie s'il y a une erreur SQL
-            if ($stmt->errorInfo()[0] !== '00000') {
-                error_log("SQL Error: " . print_r($stmt->errorInfo(), true)); // Log l'erreur
-            }
-
             $user = $stmt->fetch(PDO::FETCH_ASSOC); // Récupère les données de l'utilisateur
-            error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
 
             // Vérifie si l'utilisateur existe et si le mot de passe est correct
             if ($user) {
@@ -138,28 +146,6 @@ if (!isset($_POST['id'])) {
         }
     } catch (PDOException $e) {
         echo "Erreur !: " . $e->getMessage(); // Affiche une erreur si la connexion échoue
-        die(); // Arrête l'exécution du script
     }
-} ?>
-
-<script>
-    // Récupération de l'élément pour afficher/masquer le mot de passe
-    const togglePassword = document.getElementById('togglePassword');
-    const mdp = document.getElementById('mdp');
-
-    // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-    if (togglePassword) {
-        togglePassword.addEventListener('mousedown', function () {
-            mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-            this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
-            this.classList.add('fa-eye-slash');
-        });
-
-        // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
-        togglePassword.addEventListener('mouseup', function () {
-            mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
-            this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
-            this.classList.add('fa-eye');
-        });
-    }
-</script>
+}
+?>

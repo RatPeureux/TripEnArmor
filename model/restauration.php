@@ -1,7 +1,7 @@
 <?php
 
 class Restauration extends BDD {
-    private $nom_table = "_restauration";
+    private $nom_table = "sae_db._restauration";
 
     static function getRestaurationById($id, $online = true) { 
         self::initBDD();

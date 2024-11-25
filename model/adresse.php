@@ -2,7 +2,7 @@
 
 class Adresse extends BDD {
     // Nom de la table utilisée dans les requêtes
-    private $nom_table = "_adresse";
+    private $nom_table = "sae_db._adresse";
 
     /**
      * Récupère une adresse par son ID.
