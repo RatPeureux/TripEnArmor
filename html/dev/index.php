@@ -16,19 +16,48 @@
 
 <body class="flex flex-col min-h-screen">
     <?php
-    $mode = "erreur";
-    $className = "font-bold";
+    $mode = "rouge";
     $message = "Message d'erreur";
+    
+    require __DIR__ . "/../../view/bouton.php";
+    unset($mode, $message, $icone);
+    $mode = "rouge-outline";
+    $message = "Écrire";
+    $icone = "fa-solid fa-pen";
+    
+    require __DIR__ . "/../../view/bouton.php";
+    unset($mode, $message, $icone);
+    
+    $mode = "primary";
+    $message = "Écrire";
+    $icone = "fa-solid fa-pen";
+    
+    require __DIR__ . "/../../view/bouton.php";
+    unset($mode, $message, $icone);
 
-    require dirname($_SERVER['DOCUMENT_ROOT']) . "/../view/bouton.php";
-    unset($mode, $className, $message);
+    $mode = "primary-outline";
+    $message = "Écrire";
+    $icone ="fa-solid fa-house";
+    
+    require __DIR__ . "/../../view/bouton.php";
+    unset($mode, $message, $icone);
 
-    $mode = "succes";
-    $className = "font-bold";
-    $message = "Message de succès";
+    $mode = "secondary";
+    
+    require __DIR__ . "/../../view/bouton.php";
+    ?>
+    <input type="submit" id="submit1000" class="<?php echo $modeSelected?>" value="test">
+    <?php
+    unset($mode);
+    $mode = "secondary-outline";
+    
+    require __DIR__ . "/../../view/bouton.php";
+    ?>
 
-    require dirname($_SERVER['DOCUMENT_ROOT']) . "/../view/bouton.php";
-    unset($mode, $className, $message);
+    
+    <input type="submit" id="submit1000" class="<?php echo $modeSelected?>" value="test">
+    <?php
+    unset($mode);
     ?>
 </body>
 
