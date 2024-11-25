@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
 
 class Activite extends BDD {
     static private $nom_table = "_activite";
