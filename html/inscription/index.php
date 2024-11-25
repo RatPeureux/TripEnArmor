@@ -4,11 +4,11 @@ session_start();
 if (!isset($_SESSION['data_en_cours_inscription'])) {
     unset($_SESSION['error']);
 }
-?>
 
-<!-- 1ère étape de la création -->
-<!-- !isset($_SESSION['data_en_cours_inscription']['num_tel']) -->
-<?php if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
+// 1ère étape de la création
+if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
+
+    // Supprimer les messages d'erreur si on revient de l'étape 2 à l'étape 1
     if (isset($_SESSION['data_en_cours_inscription']['num_tel'])) {
         $_SESSION['error'] = '';
     }
@@ -96,7 +96,7 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
                             id="togglePassword2"></i>
                     </div>
 
-                    <!-- Messages d'erreurs -->
+                    <!-- Mots de passe ne correspondent pas -->
                     <span id="error-message" class="error text-rouge-logo text-small"></span>
 
                     <!-- Bouton pour continuer -->
@@ -165,6 +165,9 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
         }
     </script>
 
+
+
+
     <!-- 2ème étape de l'inscription -->
 <?php } elseif (!isset($_POST['num_tel'])) {
     // Garder les informations remplies par l'utilisateur
@@ -199,11 +202,11 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
         <link rel="stylesheet" href="/styles/input.css">
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="/styles/config.js"></script>
-        <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
+        <title>Création de compte</title>
     </head>
 
     <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
@@ -243,11 +246,10 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
                 <label class="text-small" for="pseudo">Pseudonyme</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo"
                     maxlength="16" value="<?php echo $_SESSION['data_en_cours_inscription']['pseudo'] ?>" required>
-                <!-- Message d'erreur pour le téléphone -->
+                <!-- Message d'erreur pour le pseudonyme déjà utilisé -->
                 <?php
                 if (isset($_GET['invalid_pseudo'])) { ?>
-                    <span id="mail-error-message"
-                        class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span><br>
+                    <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span><br>
                     <?php
                 }
                 ?>
@@ -292,8 +294,7 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
                 <!-- Message d'erreur pour le téléphone -->
                 <?php
                 if (isset($_GET['invalid_phone_number'])) { ?>
-                    <span id="mail-error-message"
-                        class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span>
+                    <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span>
                     <?php
                 }
                 ?>
@@ -307,9 +308,6 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
                             de confidentialité et d'utilisation des cookies</u>.</label>
                 </div>
 
-                <!-- Messages d'erreurs -->
-                <span id="error-message" class="error text-rouge-logo text-small"></span>
-
                 <!-- Bouton pour créer le compte -->
                 <input type="submit" value="Créer mon compte"
                     class="mt-1.5 cursor-pointer w-full h-12 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
@@ -320,8 +318,6 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
             </form>
         </div>
     </body>
-
-    </html>
 
     <script>
         // Fonction pour autoriser uniquement les chiffres dans l'input
@@ -337,6 +333,8 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
             input.value = formattedValue;
         }
     </script>
+
+    </html>
 
     <!-- 3ème étape de l'inscription (écriture dans la base de données) -->
 <?php } else {
@@ -359,7 +357,6 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
     }
 
     // Est-ce que le numéro de téléphone renseigné a déjà été utilisé ?
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE num_tel = :num_tel");
     $stmt->bindParam(":num_tel", $_POST['num_tel']);
     $stmt->execute();
@@ -370,38 +367,34 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
         // Revenir sur sur l'inscription comme au début
         header("location: /inscription?valid_mail=true&invalid_phone_number=true");
     }
+    function extraireInfoAdresse($adresse)
+    {
+        $numero = substr($adresse, 0, 1);
+        $odonyme = substr($adresse, 2);
+
+        return [
+            'numero' => $numero,
+            'odonyme' => $odonyme,
+        ];
+    }
 
     // Partie pour traiter la soumission du second formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         // Assurer que tous les champs obligatoires sont remplis
         $adresse = $_POST['adresse'];
+        $infosSupAdresse = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
         $code = $_POST['code'];
         $ville = $_POST['ville'];
-        function extraireInfoAdresse($adresse)
-        {
-            $numero = substr($adresse, 0, 1);
-            $odonyme = substr($adresse, 2);
-
-            return [
-                'numero' => $numero,
-                'odonyme' => $odonyme,
-            ];
-        }
-
-        try {
-            $infosSupAdresse = extraireInfoAdresse($adresse);
-            $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement) VALUES (:code, :ville, :numero, :odonyme, :complement)");
-            $stmtAdresse->bindParam(':code', $code);
-            $stmtAdresse->bindParam(':ville', $ville);
-            $stmtAdresse->bindParam(':numero', $infosSupAdresse['numero']);
-            $stmtAdresse->bindParam(':odonyme', $infosSupAdresse['odonyme']);
-            $stmtAdresse->bindParam(':complement', $complement); // Assurez-vous que id_compte est défini
-        } catch (Exception $e) {
-            $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
-        }
 
         // Exécuter la requête pour l'adresse
+        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement) VALUES (:code, :ville, :numero, :odonyme, :complement)");
+        $stmtAdresse->bindParam(':code', $code);
+        $stmtAdresse->bindParam(':ville', $ville);
+        $stmtAdresse->bindParam(':numero', $infosSupAdresse['numero']);
+        $stmtAdresse->bindParam(':odonyme', $infosSupAdresse['odonyme']);
+        $stmtAdresse->bindParam(':complement', $complement); // Assurez-vous que id_compte est défini
+
         if ($stmtAdresse->execute()) {
             $id_adresse = $dbh->lastInsertId();
 

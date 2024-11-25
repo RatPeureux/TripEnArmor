@@ -1,7 +1,18 @@
 <?php
 session_start();
+// Réinistialiser les messages d'erreur quand on arrive pour la première fois sur la page
+if (!isset($_SESSION['data_en_cours_inscription'])) {
+    unset($_SESSION['error']);
+}
 
-if (!isset($_POST['mail'])) { ?>
+// 1ère étape de la création
+if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
+
+    // Effacer les messages d'erreur si on revient de l'étape 2 vers l'étape 1
+    if (isset($_SESSION['data_en_cours_inscription']['num_tel'])) {
+        $_SESSION['error'] = '';
+    }
+    ?>
 
     <!DOCTYPE html>
     <html lang="fr">
@@ -9,15 +20,12 @@ if (!isset($_POST['mail'])) { ?>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Lien vers le favicon de l'application -->
         <link rel="icon" type="image" href="/public/images/favicon.png">
-        <!-- Lien vers le fichier CSS pour le style de la page -->
         <link rel="stylesheet" href="/styles/input.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/styles/config.js"></script>
-        <title>Création de compte</title>
-        <!-- Inclusion de Font Awesome pour les icônes -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/styles/config.js"></script>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+        <title>Création de compte</title>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
@@ -39,22 +47,28 @@ if (!isset($_POST['mail'])) { ?>
                     <label class="text-small" for="statut">Je suis un organisme&nbsp;</label>
                     <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="statut" name="statut"
                         title="Choisir un statut" onchange="updateLabel()" required>
-                        <option value="" disabled selected> --- </option>
-                        <option value="public">public</option>
-                        <option value="privé">privé</option>
-                    </select>
-                    <br>
+                        <option value="" disabled <?php if ($_SESSION['data_en_cours_inscription']['statut'] == "")
+                            echo 'selected' ?>> --- </option>
+                            <option value="public" <?php if ($_SESSION['data_en_cours_inscription']['statut'] == "public")
+                            echo 'selected'; ?>>public</option>
+                        <option value="privé" <?php if ($_SESSION['data_en_cours_inscription']['statut'] == "privé")
+                            echo 'selected' ?>>privé</option>
+                        </select>
+                        <br>
 
-                    <!-- Champ pour le nom -->
-                    <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                        title="Saisir le nom de l'entreprise" maxlength="100" required>
+                        <!-- Champ pour le nom -->
+                        <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
+                        <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
+                            title="Saisir le nom de l'entreprise" maxlength="100"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?>" required>
 
                     <!-- Champ pour l'adresse mail -->
-                    <label class="text-small" for="mail">Adresse mail</label>
+                    <label class=" text-small" for="mail">Adresse mail</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="mail" id="mail" name="mail"
                         pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail"
-                        maxlength="255" required>
+                        maxlength="255" value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?>" required>
+                    <!-- Message d'erreur pour l'adresse mail -->
+                    <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span>
 
                     <!-- Champ pour le mot de passe -->
                     <div class="relative w-full">
@@ -63,7 +77,8 @@ if (!isset($_POST['mail'])) { ?>
                             pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
                             • 8 caractères au moins
                             • 1 majuscule
-                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
+                            • 1 chiffre" minlength="8" autocomplete="new-password"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword1"></i>
@@ -76,13 +91,14 @@ if (!isset($_POST['mail'])) { ?>
                             name="confMdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
                             • 8 caractères au moins
                             • 1 majuscule
-                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
+                            • 1 chiffre" minlength="8" autocomplete="new-password"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword2"></i>
                     </div>
 
-                    <!-- Messages d'erreurs -->
+                    <!-- Mots de passe ne correspondent pas -->
                     <span id="error-message" class="error text-rouge-logo text-small"></span>
 
                     <!-- Bouton pour continuer -->
@@ -99,32 +115,97 @@ if (!isset($_POST['mail'])) { ?>
         </div>
     </body>
 
+    <script>
+        // Gestion des icônes pour afficher/masquer le mot de passe
+        const togglePassword1 = document.getElementById('togglePassword1');
+        const togglePassword2 = document.getElementById('togglePassword2');
+        const mdp = document.getElementById('mdp');
+        const confMdp = document.getElementById('confMdp');
+
+        if (togglePassword1) {
+            togglePassword1.addEventListener('mousedown', function () {
+                mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+                this.classList.remove('fa-eye'); // Change l'icône
+                this.classList.add('fa-eye-slash');
+            });
+            togglePassword1.addEventListener('mouseup', function () {
+                mdp.type = 'password'; // Masque le mot de passe à nouveau
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            });
+        }
+        if (togglePassword2) {
+            togglePassword2.addEventListener('mousedown', function () {
+                confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            });
+            togglePassword2.addEventListener('mouseup', function () {
+                confMdp.type = 'password'; // Masque le mot de passe à nouveau
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            });
+        }
+
+        // Fonction de validation du formulaire
+        function validateForm() {
+            var mdp = document.getElementById("mdp").value;
+            var confMdp = document.getElementById("confMdp").value;
+            var errorMessage = document.getElementById("error-message");
+
+            // Vérifie si les mots de passe correspondent
+            if (mdp !== confMdp) {
+                errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
+                return false; // Empêche l'envoi du formulaire
+            }
+
+            errorMessage.textContent = ""; // Réinitialise le message d'erreur
+            return true; // Permet l'envoi du formulaire
+        }
+
+        // Fonction pour mettre à jour le label en fonction du statut choisit
+        function updateLabel() {
+            const statut = document.getElementById('statut');
+            const labelNom = document.getElementById('nom');
+
+            if (statut) {
+                if (statut.value === 'public') {
+                    labelNom.textContent = 'Nom de l\'organisation';
+                } else {
+                    labelNom.textContent = 'Dénomination sociale';
+                }
+            }
+        }
+    </script>
+
     </html>
 
-<?php } elseif (isset($_POST['mail']) && !isset($_POST['num_tel'])) {
-    // Si le formulaire a été soumis
-    $statut = $_POST['statut'];
-    $nom_pro = $_POST['nom'];
-    $mail = strtolower($_POST['mail']);
-    $mdp = $_POST['mdp'];
+
+    <!-- 2ème étape de l'inscription -->
+<?php } elseif (!isset($_POST['num_tel'])) {
+    // Garder les informations remplies par l'utilisateur
+    if (!empty($_POST)) {
+        $_SESSION['data_en_cours_inscription'] = $_POST;
+    }
 
     // Est-ce que cette adresse mail est déjà utilisée ?
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
+    $stmt->bindParam(":mail", $_POST['mail']);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
 
-    // Alteration de la table pour s'assurer que numero_compte est un VARCHAR
-    try {
-        $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
-        $stmt->bindParam(":mail", $mail);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-        print_r($result);
-    } catch (PDOException $e) {
-        // Ignorer l'erreur si la colonne est déjà au bon type
-        if ($e->getCode() !== '42P07') {
-            // 42P07 est le code d'erreur pour une table ou colonne déjà existante
-            throw $e;
-        }
+    // Si il y a au moins un compte déjà avec cette adresse mail
+    if (count($result) > 0) {
+        $_SESSION['error'] = "Cette adresse mail est déjà utilisée";
+        // Revenir sur sur l'inscription comme au début
+        header("location: /pro/inscription");
+    } elseif (!isset($_SESSION['data_en_cours_inscription']['num_tel'])) {
+        $_SESSION['error'] = '';
     }
+
+    // Variables utiles car souvent utilisées
+    $statut = $_SESSION['data_en_cours_inscription']['statut'];
     ?>
 
     <!DOCTYPE html>
@@ -136,9 +217,8 @@ if (!isset($_POST['mail'])) { ?>
 
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/input.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/styles/config.js"></script>
-        <title>Création de compte</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/styles/config.js"></script>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
@@ -162,64 +242,75 @@ if (!isset($_POST['mail'])) { ?>
                 <p class=" pb-3">Dites-nous en plus !</p>
 
                 <div class="mb-3">
-                    <label class="text-small" for="nom" id="nom">Je suis un organisme <?php echo $statut; ?>.</label>
+                    <label class="text-small" for="nom" id="nom">Je suis un organisme
+                        <?php echo $statut ?></label>
                 </div>
 
                 <?php if ($statut == "privé") { ?>
                     <!-- Champ pour la dénomination sociale (en lecture seule) -->
                     <label class="text-small" for="nom" id="nom">Dénomination sociale</label>
                     <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                        title="Dénomination sociale" value="<?php echo $nom_pro; ?>" readonly>
+                        title="Dénomination sociale" value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?>"
+                        readonly>
                 <?php } else { ?>
                     <!-- Champ pour le nom de l'organisation (en lecture seule) -->
                     <label class="text-small" for="nom" id="nom">Nom de l'organisation</label>
                     <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                        title="Nom de l'organisation" value="<?php echo $nom_pro; ?>" readonly>
+                        title="Nom de l'organisation" value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?>"
+                        readonly>
                 <?php } ?>
 
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                    title="Adresse mail" value="<?php echo $mail; ?>" readonly>
+                    title="Adresse mail" value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?>" readonly>
 
                 <!-- Choix du type d'organisme public -->
                 <?php if ($statut == 'public') { ?>
                     <label class="text-small" for="type_orga">Je suis une&nbsp;</label>
                     <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="type_orga" name="type_orga"
-                        title="Choisir un type d'organisme public" onchange="updateLabel()" required>
-                        <option value="" disabled selected> --- </option>
-                        <option value="public">association</option>
-                        <option value="privé">organisation autre</option>
+                        title="Choisir un type d'organisme public" required>
+                        <option value="" disabled <?php if ($_SESSION['data_en_cours_inscription']['type_orga'] == '')
+                            echo 'selected'; ?>> --- </option>
+                        <option value="public" <?php if ($_SESSION['data_en_cours_inscription']['type_orga'] == 'association')
+                            echo 'selected'; ?>>association</option>
+                        <option value="privé" <?php if ($_SESSION['data_en_cours_inscription']['type_orga'] == 'organisation autre')
+                            echo 'selected'; ?>>organisation autre</option>
                     </select>
                     <br>
                 <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
                     <label class="text-small" for="num_siren">Numéro SIREN</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="num_siren" name="num_siren"
-                        title="14 chiffres" pattern="^\d{14}$" maxlength="14" required>
+                        title="14 chiffres" pattern="^\d{14}$" maxlength="14"
+                        value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?>" required>
                 <?php } ?>
 
                 <!-- Champs pour l'adresse -->
                 <label class="text-small" for="adresse">Adresse postale</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="adresse" name="adresse"
-                    title="ex: 2 rue Saint-Jean OU rue Edouard Branly" maxlength="255" required>
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
+                    name="user_input_autocomplete_address" placeholder="(2) rue Saint-Jean" maxlength="255"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
+                    required>
 
                 <label class="text-small" for="complement">Complément d'adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
-                    title="Complément d'adresse" maxlength="255">
+                    title="Complément d'adresse" maxlength="255"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
                         <label class="text-small" for="code">Code postal</label>
                         <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code" name="code"
                             pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Saisir un code postal" minlength="5"
-                            maxlength="5" oninput="number(this)" required>
+                            maxlength="5" oninput="number(this)"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['code'] ?>" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="ville">Ville</label>
                         <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="ville" name="ville"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir une ville"
-                            maxlength="50" required>
+                            maxlength="50" value="<?php echo $_SESSION['data_en_cours_inscription']['ville'] ?>" required>
                     </div>
                 </div>
 
@@ -227,16 +318,25 @@ if (!isset($_POST['mail'])) { ?>
                 <div class="w-full flex flex-col">
                     <label class="text-small" for="num_tel">Téléphone</label>
                     <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
-                        pattern="^0\d( \d{2}){4}" title="0X XX XX XX XX" minlength="14" maxlength="14"
-                        oninput="formatTEL(this)" required>
+                        pattern="^0\d( \d{2}){4}" title="06 01 02 03 04" minlength="14" maxlength="14"
+                        oninput="formatTEL(this)" value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?>"
+                        required>
                 </div>
+                <!-- Message d'erreur pour le téléphone -->
+                <?php
+                if (isset($_GET['invalid_phone_number'])) { ?>
+                    <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span>
+                    <?php
+                }
+                ?>
 
                 <?php if ($statut == "privé") { ?>
                     <!-- Choix de saisie des informations bancaires -->
                     <div class="group">
                         <div class="mb-1.5 flex items-start">
                             <input class="mt-0.5 mr-1.5" type="checkbox" id="plus" name="plus" onchange="toggleIBAN()">
-                            <label class="text-small" for="plus">Je souhaite saisir mes informations bancaires dès maintenant
+                            <label class="text-small" for="plus">Je souhaite saisir mes informations bancaires dès
+                                maintenant
                                 !</label>
                         </div>
 
@@ -245,7 +345,8 @@ if (!isset($_POST['mail'])) { ?>
                             <label class="text-small" for="iban">IBAN</label>
                             <input class="p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="iban" name="iban"
                                 pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Saisir un IBAN (FR)" minlength="33" maxlength="33"
-                                oninput="formatIBAN(this)" disabled>
+                                oninput="formatIBAN(this)" value="<?php echo $_SESSION['data_en_cours_inscription']['iban'] ?>"
+                                disabled>
                         </div>
                     </div>
                 <?php } ?>
@@ -260,38 +361,81 @@ if (!isset($_POST['mail'])) { ?>
                     </label>
                 </div>
 
-                <!-- Messages d'erreurs -->
-                <span id="error-message" class="error text-rouge-logo text-small"></span>
-
                 <!-- Bouton pour créer le compte -->
                 <input type="submit" value="Créer mon compte"
                     class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
-                <input type="hidden" name="statut" value="<?php echo $statut; ?>">
-                <input type="hidden" name="mdp" value="<?php echo htmlspecialchars($mdp); ?>">
+                <!-- Garder les informations de POST même si les champs ne sont plus visibles -->
+                <input type="hidden" name="statut" value="<?php echo $_SESSION['data_en_cours_inscription']['statut'] ?>">
+                <input type="hidden" name="mdp" value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>">
+                <input type="hidden" name="confMdp" value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>">
             </form>
         </div>
     </body>
 
+    <script>
+        // Fonction pour autoriser uniquement les chiffres dans l'input
+        function number(input) {
+            let value = input.value.replace(/[^0-9]/g, '');
+            input.value = value;
+        }
+
+        // Fonction pour formater le numéro de téléphone
+        function formatTEL(input) {
+            let value = input.value.replace(/[^0-9]/g, '');
+            const formattedValue = value.match(/.{1,2}/g)?.join(' ') || ''; // Formatage en paires de chiffres
+            input.value = formattedValue;
+        }
+
+        // Fonction pour afficher ou masquer le champ IBAN
+        function toggleIBAN() {
+            const checkbox = document.getElementById('plus');
+            const ibanContainer = document.getElementById('iban-container');
+            const iban = document.getElementById('iban');
+
+            // Afficher ou masquer le conteneur IBAN
+            ibanContainer.classList.toggle('hidden', !checkbox.checked);
+
+            if (checkbox.checked) {
+                iban.value = 'FR'; // Ajoute le préfixe 'FR'
+                iban.disabled = false; // Active le champ
+            } else {
+                iban.value = ''; // Supprime toute saisie
+                iban.disabled = true; // Désactive le champ
+            }
+        }
+
+        // Fonction pour formater l'IBAN
+        function formatIBAN(input) {
+            let value = input.value.replace(/[^0-9]/g, '');
+            const prefix = "FR"; // Préfixe de l'IBAN
+            const formattedValue = value.length > 0 ? (prefix + value).match(/.{1, 4}/g)?.join(' ') : prefix; // Formatage de l'IBAN
+            input.value = formattedValue;
+        }
+    </script>
+
     </html>
 
+    <!-- 3ème étape de création (essayer d'insérer dans la base) -->
 <?php } else {
-
-    // Connexion à la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-    // Alteration de la table pour s'assurer que numero_compte est un VARCHAR
-    try {
-        $dbh->exec("ALTER TABLE sae_db._rib ALTER COLUMN numero_compte TYPE VARCHAR(12)");
-    } catch (PDOException $e) {
-        // Ignorer l'erreur si la colonne est déjà au bon type
-        if ($e->getCode() !== '42P07') {
-            // 42P07 est le code d'erreur pour une table ou colonne déjà existante
-            throw $e;
-        }
+    // Garder les informations remplies par l'utilisateur
+    if (!empty($_POST)) {
+        $_SESSION['data_en_cours_inscription'] = $_POST;
     }
 
-    $message = ''; // Initialiser le message
+    // Est-ce que le numéro de téléphone renseigné a déjà été utilisé ?
+    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE num_tel = :num_tel");
+    $stmt->bindParam(":num_tel", $_POST['num_tel']);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    // Si il y a au moins un compte déjà avec ce numéro de téléphone
+    if (count($result) > 0) {
+        $_SESSION['error'] = "Ce numéro de téléphone est déjà utilisé";
+        // Revenir sur sur l'inscription comme au début
+        header("location: /pro/inscription?valid_mail=true&invalid_phone_number=true");
+    }
+
     function extraireRibDepuisIban($iban)
     {
         // Supprimer les espaces
@@ -309,7 +453,6 @@ if (!isset($_POST['mail'])) { ?>
             'cle' => $cle,
         ];
     }
-
     function extraireInfoAdresse($adresse)
     {
         $numero = substr($adresse, 0, 1);
@@ -323,26 +466,22 @@ if (!isset($_POST['mail'])) { ?>
 
     // Partie pour traiter la soumission du second formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
-
-        // Récupérer les information de l'adresse
+        // Assurer que tous les champs obligatoires sont remplis
         $adresse = $_POST['adresse'];
-        $infosSup = extraireInfoAdresse($adresse);
+        $infosSupAdresse = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
         $code = $_POST['code'];
         $ville = $_POST['ville'];
 
-        // Insérer dans la base de données pour l'adresse
+        // Exécuter la requête pour l'adresse
         $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement) VALUES (:code, :ville, :numero, :odonyme, :complement)");
-
-        // Lier les paramètres pour l'adresse
         $stmtAdresse->bindParam(':complement', $complement);
-        $stmtAdresse->bindParam(':odonyme', $infosSup['odonyme']);
-        $stmtAdresse->bindParam(':numero', $infosSup['numero']);
+        $stmtAdresse->bindParam(':odonyme', $infosSupAdresse['odonyme']);
+        $stmtAdresse->bindParam(':numero', $infosSupAdresse['numero']);
         $stmtAdresse->bindParam(':code', $code);
         $stmtAdresse->bindParam(':ville', $ville);
 
         if ($stmtAdresse->execute()) {
-            // Récupérer l'ID de l'adresse insérée
             $id_adresse = $dbh->lastInsertId();
 
             // Récupérer les information du compte à créer
@@ -353,14 +492,12 @@ if (!isset($_POST['mail'])) { ?>
             $mail = $_POST['mail'];
             $mdp = $_POST['mdp'];
             $tel = $_POST['num_tel'];
+            $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
             if (isset($_POST['iban'])) {
                 $iban = $_POST['iban'];
             }
 
-            // Hachage du mot de passe
-            $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
-
-            // Préparer l'insertion dans la table Professionnel (séparer public / privé)
+            // Préparer l'insertion dans la table _professionnel (séparer public / privé)
             if ($statut === "public") {
                 $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :type_orga)");
                 $stmtProfessionnel->bindParam(':type_orga', $type_orga);
@@ -382,29 +519,16 @@ if (!isset($_POST['mail'])) { ?>
 
                 // Extraire les valeurs du RIB à partir de l'IBAN
                 if ($iban) {
-                    try {
-                        $rib = extraireRibDepuisIban($iban);
-                        $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle, id_compte) VALUES (:code_banque, :code_guichet, :numero_compte, :cle, :id_compte)");
-                        $stmtRib->bindParam(':code_banque', $rib['code_banque']);
-                        $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
-                        $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
-                        $stmtRib->bindParam(':cle', $rib['cle']);
-                        $stmtRib->bindParam(':id_compte', $id_compte); // Assurez-vous que id_compte est défini
-
-                        if ($stmtRib->execute()) {
-                            $message = "Votre compte a bien été créé. Vous allez maintenant être redirigé vers la page de connexion.";
-                        } else {
-                            $message = "Erreur lors de l'insertion dans la table RIB : " . implode(", ", $stmtRib->errorInfo());
-                        }
-                    } catch (Exception $e) {
-                        $message = "Erreur lors de l'extraction des données RIB : " . $e->getMessage();
-                    }
+                    $rib = extraireRibDepuisIban($iban);
+                    $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle, id_compte) VALUES (:code_banque, :code_guichet, :numero_compte, :cle, :id_compte)");
+                    $stmtRib->bindParam(':code_banque', $rib['code_banque']);
+                    $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
+                    $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
+                    $stmtRib->bindParam(':cle', $rib['cle']);
+                    $stmtRib->bindParam(':id_compte', $id_compte); // Assurez-vous que id_compte est défini
                 }
-            } else {
-                $message = "Erreur lors de la création du compte professionnel : " . implode(", ", $stmtProfessionnel->errorInfo());
+
             }
-        } else {
-            $message = "Erreur lors de l'insertion dans la table _adresse : " . implode(", ", $stmtAdresse->errorInfo());
         }
     }
 
@@ -413,105 +537,3 @@ if (!isset($_POST['mail'])) { ?>
     unset($_SESSION['id_membre']);
     header("location: /pro");
 } ?>
-
-<script>
-    // Gestion des icônes pour afficher/masquer le mot de passe
-    const togglePassword1 = document.getElementById('togglePassword1');
-    const togglePassword2 = document.getElementById('togglePassword2');
-    const mdp = document.getElementById('mdp');
-    const confMdp = document.getElementById('confMdp');
-
-    if (togglePassword1) {
-        togglePassword1.addEventListener('mousedown', function () {
-            mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-            this.classList.remove('fa-eye'); // Change l'icône
-            this.classList.add('fa-eye-slash');
-        });
-        togglePassword1.addEventListener('mouseup', function () {
-            mdp.type = 'password'; // Masque le mot de passe à nouveau
-            this.classList.remove('fa-eye-slash');
-            this.classList.add('fa-eye');
-        });
-    }
-    if (togglePassword2) {
-        togglePassword2.addEventListener('mousedown', function () {
-            confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-            this.classList.remove('fa-eye');
-            this.classList.add('fa-eye-slash');
-        });
-        togglePassword2.addEventListener('mouseup', function () {
-            confMdp.type = 'password'; // Masque le mot de passe à nouveau
-            this.classList.remove('fa-eye-slash');
-            this.classList.add('fa-eye');
-        });
-    }
-
-    // Fonction de validation du formulaire
-    function validateForm() {
-        var mdp = document.getElementById("mdp").value;
-        var confMdp = document.getElementById("confMdp").value;
-        var errorMessage = document.getElementById("error-message");
-
-        // Vérifie si les mots de passe correspondent
-        if (mdp !== confMdp) {
-            errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
-            return false; // Empêche l'envoi du formulaire
-        }
-
-        errorMessage.textContent = ""; // Réinitialise le message d'erreur
-        return true; // Permet l'envoi du formulaire
-    }
-
-    // Fonction pour mettre à jour le label en fonction du statut choisit
-    function updateLabel() {
-        const statut = document.getElementById('statut');
-        const labelNom = document.getElementById('nom');
-
-        if (statut) {
-            if (statut.value === 'public') {
-                labelNom.textContent = 'Nom de l\'organisation';
-            } else {
-                labelNom.textContent = 'Dénomination sociale';
-            }
-        }
-    }
-
-    // Fonction pour autoriser uniquement les chiffres dans l'input
-    function number(input) {
-        let value = input.value.replace(/[^0-9]/g, '');
-        input.value = value;
-    }
-
-    // Fonction pour formater le numéro de téléphone
-    function formatTEL(input) {
-        let value = input.value.replace(/[^0-9]/g, '');
-        const formattedValue = value.match(/.{1, 2}/g)?.join(' ') || ''; // Formatage en paires de chiffres
-        input.value = formattedValue;
-    }
-
-    // Fonction pour afficher ou masquer le champ IBAN
-    function toggleIBAN() {
-        const checkbox = document.getElementById('plus');
-        const ibanContainer = document.getElementById('iban-container');
-        const iban = document.getElementById('iban');
-
-        // Afficher ou masquer le conteneur IBAN
-        ibanContainer.classList.toggle('hidden', !checkbox.checked);
-
-        if (checkbox.checked) {
-            iban.value = 'FR'; // Ajoute le préfixe 'FR'
-            iban.disabled = false; // Active le champ
-        } else {
-            iban.value = ''; // Supprime toute saisie
-            iban.disabled = true; // Désactive le champ
-        }
-    }
-
-    // Fonction pour formater l'IBAN
-    function formatIBAN(input) {
-        let value = input.value.replace(/[^0-9]/g, '');
-        const prefix = "FR"; // Préfixe de l'IBAN
-        const formattedValue = value.length > 0 ? (prefix + value).match(/.{1, 4}/g)?.join(' ') : prefix; // Formatage de l'IBAN
-        input.value = formattedValue;
-    }
-</script>
