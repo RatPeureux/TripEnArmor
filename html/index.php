@@ -44,7 +44,6 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true $sort_order");
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
     if (!$toutesLesOffres) {
         echo "<p class='font-bold'>Il n'existe aucune offre...</p>";
@@ -84,7 +83,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                                 </div>
                             </div>
                             <!-- Image de fond -->
-                            <img class='h-48 w-full rounded-t-lg object-cover' src='/public/images/image-test.png'
+                            <img class='h-48 w-full rounded-t-lg object-cover' src='/public/images/<?php echo ($id_type_offre == 1) ? 'restauration' : ($id_type_offre == 2) ? 'activite' : ($id_type_offre == 3) ? 'spectacle' : ($id_type_offre == 4) ? 'visite' : ($id_type_offre == 5) ? 'parc_attraction' : 'ex' ?>.jpg'
                                 alt='Image promotionnelle de l'offre'>
                             <!-- Infos principales -->
                             <div class='infos flex items-center justify-around gap-2 px-2 grow'>
@@ -144,7 +143,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                                     </div>
                                     <!-- Image de fond -->
                                     <img class='rounded-l-lg w-full h-full object-cover object-center'
-                                        src='/public/images/image-test.png' alt='Image promotionnelle de l'offre'>
+                                        src='/public/images/<?php echo ($id_type_offre == 1) ? 'restauration' : ($id_type_offre == 2) ? 'activite' : ($id_type_offre == 3) ? 'spectacle' : ($id_type_offre == 4) ? 'visite' : ($id_type_offre == 5) ? 'parc_attraction' : 'ex' ?>.jpg' alt='Image promotionnelle de l'offre'>
                                 </div>
                                 <!-- Partie droite (infos principales) -->
                                 <div class='infos flex flex-col items-center basis-1/2 p-3 gap-3 justify-between'>
