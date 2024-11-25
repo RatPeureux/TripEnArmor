@@ -1,8 +1,13 @@
 <?php
 session_start(); // Démarre la session au début du script
-if(empty($_POST)) {
-?>
+// Vider les messages d'erreur si c'est la première fois qu'on vient sur la page de connexion
+if (!isset($_SESSION['data_en_cours_connexion'])) {
+    unset($_SESSION['error']);
+}
 
+// 1ère étape : saisir les identifiants de connexion
+if (empty($_POST)) {
+    ?>
     <!DOCTYPE html>
     <html lang="fr">
 
@@ -13,8 +18,8 @@ if(empty($_POST)) {
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
         <link rel="stylesheet" href="/styles/input.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/styles/config.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/styles/config.js"></script>
         <title>Connexion au compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
     </head>
@@ -36,10 +41,10 @@ if(empty($_POST)) {
                     <p class="pb-3">J'ai un compte Professionnel</p>
 
                     <!-- Champ pour l'identifiant -->
-                    <label class="text-small" for="id">Identifiant (nom, téléphone, mail)</label>
+                    <label class="text-small" for="id">Identifiant (dénomination, téléphone, mail)</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
                         title="Saisir un identifiant (Dénomination / Nom de l'organisation, Adresse mail ou Téléphone)"
-                        value="<?php echo $id; ?>" maxlength="255" required>
+                        maxlength="255" value="<?php echo $_SESSION['data_en_cours_connexion']['id']; ?>" required>
 
                     <!-- Champ pour le mot de passe -->
                     <div class="relative w-full">
@@ -48,18 +53,16 @@ if(empty($_POST)) {
                             pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
                             • 8 caractères au moins
                             • 1 majuscule
-                            • 1 chiffre" minlength="8" autocomplete="new-password" required>
+                            • 1 chiffre" minlength="8" autocomplete="new-password"
+                            value="<?php echo $_SESSION['data_en_cours_connexion']['mdp']; ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword"></i>
                     </div>
 
-                    <?php if ($error !== "") { ?>
-                        <!-- Messages d'erreurs -->
-                        <span id="error-message" class="error text-rouge-logo text-small">
-                            <?php echo $error; ?>
-                        </span>
-                    <?php } ?>
+                    <span id="error-message" class="error text-rouge-logo text-small">
+                        <?php echo $_SESSION['error']; ?>
+                    </span>
 
                     <!-- Bouton de connexion -->
                     <input type="submit" value="Me connecter"
@@ -67,7 +70,7 @@ if(empty($_POST)) {
 
                     <!-- Liens pour mot de passe oublié et création de compte -->
                     <div class="flex items-center flex-nowrap h-12 space-x-1.5">
-                    <a href="#"
+                        <a href="#"
                             class="text-small text-center w-full text-wrap bg-transparent text-secondary underline font-bold focus:scale-[0.97]">
                             Mot de passe oublié ?
                         </a>
@@ -81,8 +84,29 @@ if(empty($_POST)) {
         </div>
     </body>
 
+    <script>
+        // Récupération de l'élément pour afficher/masquer le mot de passe
+        const togglePassword = document.getElementById('togglePassword');
+        const mdp = document.getElementById('mdp');
+
+        // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
+        togglePassword.addEventListener('mousedown', function () {
+            mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
+            this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
+            this.classList.add('fa-eye-slash');
+        });
+
+        // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
+        togglePassword.addEventListener('mouseup', function () {
+            mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
+            this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
+            this.classList.add('fa-eye');
+        });
+    </script>
+
     </html>
 
+    <!-- 2ème étape : se connecter une fois que les données ont été saisies -->
 <?php } else {
     try {
         // Connexion avec la bdd
@@ -90,6 +114,9 @@ if(empty($_POST)) {
 
         // Vérifie si la requête est une soumission de formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //  Pour garder les informations dans le formulaire si erreur
+            $_SESSION['data_en_cours_connexion'] = $_POST;
+
             $id = $_POST['id']; // Récupère l'id soumise
             $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
 
@@ -97,14 +124,7 @@ if(empty($_POST)) {
             $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE nom_pro = :id OR email = :id OR num_tel = :id");
             $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
             $stmt->execute(); // Exécute la requête
-
-            // Vérifie s'il y a une erreur SQL
-            if ($stmt->errorInfo()[0] !== '00000') {
-                error_log("SQL Error: " . print_r($stmt->errorInfo(), true)); // Log l'erreur
-            }
-
             $user = $stmt->fetch(PDO::FETCH_ASSOC); // Récupère les données de l'utilisateur
-            error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
 
             // Vérifie si l'utilisateur existe et si le mot de passe est correct
             if ($user) {
@@ -127,27 +147,6 @@ if(empty($_POST)) {
         }
     } catch (PDOException $e) {
         echo "Erreur !: " . $e->getMessage(); // Affiche une erreur si la connexion échoue
-        die(); // Arrête l'exécution du script
     }
 }
 ?>
-
-<script>
-    // Récupération de l'élément pour afficher/masquer le mot de passe
-    const togglePassword = document.getElementById('togglePassword');
-    const mdp = document.getElementById('mdp');
-
-    // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-    togglePassword.addEventListener('mousedown', function () {
-        mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-        this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
-        this.classList.add('fa-eye-slash');
-    });
-
-    // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
-    togglePassword.addEventListener('mouseup', function () {
-        mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
-        this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
-        this.classList.add('fa-eye');
-    });
-</script>

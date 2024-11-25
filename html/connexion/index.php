@@ -4,9 +4,9 @@ session_start(); // Démarre la session au début du script
 if (!isset($_SESSION['data_en_cours_connexion'])) {
     unset($_SESSION['error']);
 }
-if (empty($_POST)) { ?>
 
-    <!-- 1ère étape : remplir les informations de connexion -->
+// 1ère étape : remplir les informations de connexion
+if (empty($_POST)) { ?>
     <!DOCTYPE html>
     <html lang="fr">
 
@@ -17,8 +17,8 @@ if (empty($_POST)) { ?>
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <!-- Lien vers le fichier CSS pour le style de la page -->
         <link rel="stylesheet" href="/styles/input.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/styles/config.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/styles/config.js"></script>
         <title>Connexion au compte</title>
         <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
@@ -123,14 +123,7 @@ if (empty($_POST)) { ?>
             $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :id OR email = :id OR num_tel = :id");
             $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
             $stmt->execute(); // Exécute la requête
-
-            // Vérifie s'il y a une erreur SQL
-            if ($stmt->errorInfo()[0] !== '00000') {
-                error_log("SQL Error: " . print_r($stmt->errorInfo(), true)); // Log l'erreur
-            }
-
             $user = $stmt->fetch(PDO::FETCH_ASSOC); // Récupère les données de l'utilisateur
-            error_log(print_r($user, true)); // Log les données de l'utilisateur pour débogage
 
             // Vérifie si l'utilisateur existe et si le mot de passe est correct
             if ($user) {
@@ -153,7 +146,6 @@ if (empty($_POST)) { ?>
         }
     } catch (PDOException $e) {
         echo "Erreur !: " . $e->getMessage(); // Affiche une erreur si la connexion échoue
-        die(); // Arrête l'exécution du script
     }
 }
 ?>
