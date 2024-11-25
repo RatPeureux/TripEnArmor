@@ -2,7 +2,7 @@
 
 class TarifPublic extends BDD {
 
-    private $nom_table = "_tarif_public";
+    private $nom_table = "sae_db._tarif_public";
 
     static function getTarifPublicById($id){
 

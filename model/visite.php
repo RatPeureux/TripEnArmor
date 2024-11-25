@@ -1,7 +1,7 @@
 <?php
 
 class Visite extends BDD {
-    private $nom_table = "_visite";
+    private $nom_table = "sae_db._visite";
 
     static function getVisiteById($id, $online = true) { 
         self::initBDD();
