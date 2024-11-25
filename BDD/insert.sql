@@ -251,13 +251,13 @@ VALUES
     (
         true,
         'Le Gourmet',
-        'Le Gourmet est un restaurant gastronomique situé à Saint-Brieuc, offrant une expérience culinaire raffinée où la cuisine traditionnelle française rencontre des touches modernes. Chaque plat est une œuvre d''art, préparée avec des produits locaux et de saison, soigneusement sélectionnés pour leur qualité et leur saveur. L’ambiance du restaurant est élégante et chaleureuse, idéale pour un dîner romantique ou un repas d''affaires. Le chef met un point d''honneur à revisiter les classiques de la gastronomie française avec créativité et finesse.',
+        'Le Gourmet est un restaurant gastronomique situé à Saint-Brieuc, offrant une expérience culinaire raffinée où la cuisine traditionnelle française rencontre des touches modernes. Chaque plat est une œuvre d''art, préparée avec des produits locaux et de saison, soigneusement sélectionnés pour leur qualité et leur saveur. L''ambiance du restaurant est élégante et chaleureuse, idéale pour un dîner romantique ou un repas d''affaires. Le chef met un point d''honneur à revisiter les classiques de la gastronomie française avec créativité et finesse.',
         'Restaurant français haut de gamme, offrant une expérience gastronomique à base de produits locaux.',
         30,
         '2024-05-10',
         '2024-11-25',
         7,
-        'Moyenne à Haute',
+        '€€€',
         7,
         3
     ),
@@ -271,12 +271,12 @@ VALUES
         '2024-06-20',
         '2024-11-25',
         8,
-        'Moyenne',
+        '€€',
         7,
         3
     );
 
-INSERT INTO1
+INSERT INTO
     _activite (
         est_en_ligne,
         titre,
@@ -296,15 +296,15 @@ VALUES
     (
         true,
         'Randonnée en forêt',
-        'Partez à la découverte de la forêt de Lannion lors d''une randonnée guidée qui vous permettra de vous reconnecter à la nature. Votre guide vous fera découvrir les secrets de cette forêt, en vous expliquant la diversité de sa faune et de sa flore. Vous traverserez des sentiers ombragés, découvrirez des points de vue panoramiques et profiterez de la sérénité des lieux. Cette excursion est idéale pour les amateurs de randonnée et ceux qui souhaitent passer une journée en pleine nature tout en apprenant davantage sur l’écosystème local.',
-        'Randonnée guidée d’une journée dans la forêt de Lannion, idéale pour les amoureux de la nature.',
+        'Partez à la découverte de la forêt de Lannion lors d''une randonnée guidée qui vous permettra de vous reconnecter à la nature. Votre guide vous fera découvrir les secrets de cette forêt, en vous expliquant la diversité de sa faune et de sa flore. Vous traverserez des sentiers ombragés, découvrirez des points de vue panoramiques et profiterez de la sérénité des lieux. Cette excursion est idéale pour les amateurs de randonnée et ceux qui souhaitent passer une journée en pleine nature tout en apprenant davantage sur l''écosystème local.',
+        'Randonnée guidée d''une journée dans la forêt de Lannion, idéale pour les amoureux de la nature.',
         15, 
         '2024-07-15', 
         '2024-11-25', 
         9, 
-        360, 
+        '05:00:00', 
         10, 
-        'Prévoir des chaussures de marche et de l’eau. Service de guide inclus.',
+        'Prévoir des chaussures de marche et de l''eau. Service de guide inclus.',
         5, 
         3
     ),
@@ -312,13 +312,13 @@ VALUES
     (
         true,
         'Kayak sur la rivière',
-        'Embarquez pour une aventure en kayak sur la rivière de Lannion et découvrez des paysages époustouflants au fil de l’eau. Vous serez guidé à travers les méandres de la rivière, un environnement naturel où faune et flore se mêlent harmonieusement. Cette activité est idéale pour les amoureux de la nature et les amateurs de sports nautiques, qu’ils soient débutants ou expérimentés. Le guide vous fournira tout le matériel nécessaire, y compris le kayak et le gilet de sauvetage, tout en vous offrant des conseils pour une expérience agréable et sécurisée.',
+        'Embarquez pour une aventure en kayak sur la rivière de Lannion et découvrez des paysages époustouflants au fil de l''eau. Vous serez guidé à travers les méandres de la rivière, un environnement naturel où faune et flore se mêlent harmonieusement. Cette activité est idéale pour les amoureux de la nature et les amateurs de sports nautiques, qu''ils soient débutants ou expérimentés. Le guide vous fournira tout le matériel nécessaire, y compris le kayak et le gilet de sauvetage, tout en vous offrant des conseils pour une expérience agréable et sécurisée.',
         'Excursion en kayak sur la rivière de Lannion, offrant une vue imprenable sur la nature environnante.',
         20, 
         '2024-06-01', 
         '2024-11-25', 
         10, 
-        120, 
+        '02:00:00', 
         8, 
         'Kayak, gilet de sauvetage, et guide fourni. Prévoir des vêtements adaptés.',
         5, 
@@ -344,14 +344,14 @@ VALUES
     (
         true,
         'Spectacle de magie',
-        'Venez assister à un spectacle de magie incroyable qui mélange illusions, prestidigitation et humour. Ce show interactif, adapté à tous les âges, vous plonge dans un univers fascinant où les limites de la réalité sont constamment repoussées. Le magicien, avec son charisme et ses talents, émerveillera petits et grands avec des tours étonnants. Ce spectacle est idéal pour passer un moment inoubliable en famille, en particulier pour les enfants, qui participeront activement aux tours de magie, rendant l’expérience encore plus magique.',
+        'Venez assister à un spectacle de magie incroyable qui mélange illusions, prestidigitation et humour. Ce show interactif, adapté à tous les âges, vous plonge dans un univers fascinant où les limites de la réalité sont constamment repoussées. Le magicien, avec son charisme et ses talents, émerveillera petits et grands avec des tours étonnants. Ce spectacle est idéal pour passer un moment inoubliable en famille, en particulier pour les enfants, qui participeront activement aux tours de magie, rendant l''expérience encore plus magique.',
         'Magicien local présente un show interactif avec des tours de magie et des illusions impressionnantes.',
         10, 
         '2024-09-01', 
         '2024-11-25', 
         11, 
         200, 
-        90, 
+        '01:30:00', 
         4, 
         1
     ),
@@ -359,14 +359,14 @@ VALUES
     (
         true,
         'Concert acoustique en plein air',
-        'Le concert acoustique en plein air est une expérience musicale unique qui vous permet de découvrir des artistes locaux dans un cadre naturel exceptionnel. Profitez de la musique bretonne traditionnelle et folk, jouée par des musiciens talentueux, tout en admirant les paysages environnants. Que ce soit sur une place publique, dans un parc ou près d’un monument historique, ce concert en plein air offre une atmosphère détendue et conviviale, idéale pour passer un agréable moment en famille ou entre amis. L’événement est accessible à tous et promet de belles découvertes musicales.',
+        'Le concert acoustique en plein air est une expérience musicale unique qui vous permet de découvrir des artistes locaux dans un cadre naturel exceptionnel. Profitez de la musique bretonne traditionnelle et folk, jouée par des musiciens talentueux, tout en admirant les paysages environnants. Que ce soit sur une place publique, dans un parc ou près d''un monument historique, ce concert en plein air offre une atmosphère détendue et conviviale, idéale pour passer un agréable moment en famille ou entre amis. L''événement est accessible à tous et promet de belles découvertes musicales.',
         'Concert en plein air avec des artistes locaux pour découvrir la musique bretonne traditionnelle et contemporaine.',
         12, 
         '2024-06-10', 
         '2024-11-25', 
         12, 
         500, 
-        120, 
+        '02:00:00', 
         5, 
         3
     );
@@ -390,14 +390,14 @@ VALUES
     (
         true,
         'Visite du centre historique de Lannion',
-        'La visite guidée du centre historique de Lannion vous plonge au cœur de l’histoire de cette belle cité bretonne. Lors de cette excursion, vous découvrirez ses rues pavées, ses maisons à colombages typiques et ses monuments emblématiques, tels que l’église Saint-Jean et la tour de l’Horloge. Votre guide partagera avec vous des anecdotes sur le passé de la ville et ses habitants. Cette visite est l''occasion idéale de comprendre l’évolution de Lannion, de son époque médiévale à aujourd’hui, tout en explorant ses joyaux architecturaux.',
-        'Visite guidée du centre historique de Lannion, avec un guide expert sur l’histoire locale.',
+        'La visite guidée du centre historique de Lannion vous plonge au cœur de l''histoire de cette belle cité bretonne. Lors de cette excursion, vous découvrirez ses rues pavées, ses maisons à colombages typiques et ses monuments emblématiques, tels que l''église Saint-Jean et la tour de l''Horloge. Votre guide partagera avec vous des anecdotes sur le passé de la ville et ses habitants. Cette visite est l''occasion idéale de comprendre l''évolution de Lannion, de son époque médiévale à aujourd''hui, tout en explorant ses joyaux architecturaux.',
+        'Visite guidée du centre historique de Lannion, avec un guide expert sur l''histoire locale.',
         12, 
         '2024-03-01', 
         '2024-11-25', 
         13, 
-        120, 
-        1, 
+        '02:00:00', 
+        true, 
         6, 
         3
     ),
@@ -405,14 +405,14 @@ VALUES
     (
         true,
         'Excursion au château',
-        'L’excursion au château de Lannion vous invite à découvrir l’histoire fascinante de ce monument historique, qui a joué un rôle important dans la défense et le développement de la ville. Accompagné d''un guide passionné, vous parcourrez les salles majestueuses, les remparts et les jardins, tout en apprenant les secrets de la forteresse. De là, vous profiterez également d''une vue imprenable sur la ville et la campagne environnante. C’est une expérience inoubliable pour les amateurs d’histoire et de patrimoine.',
-        'Excursion au château de Lannion avec un guide passionné pour explorer l’histoire du site et son rôle dans la région.',
+        'L''excursion au château de Lannion vous invite à découvrir l''histoire fascinante de ce monument historique, qui a joué un rôle important dans la défense et le développement de la ville. Accompagné d''un guide passionné, vous parcourrez les salles majestueuses, les remparts et les jardins, tout en apprenant les secrets de la forteresse. De là, vous profiterez également d''une vue imprenable sur la ville et la campagne environnante. C''est une expérience inoubliable pour les amateurs d''histoire et de patrimoine.',
+        'Excursion au château de Lannion avec un guide passionné pour explorer l''histoire du site et son rôle dans la région.',
         15,
         '2024-06-15', 
         '2024-11-25', 
         14, 
-        180, 
-        1, 
+        '03:00:00', 
+        true, 
         6, 
         3
     );
@@ -437,20 +437,20 @@ VALUES
         true,
         'Parc Astérix', 
         'Le Parc Astérix, inspiré des célèbres bandes dessinées d''Astérix le Gaulois, offre une expérience unique à travers des attractions à thèmes gaulois, romains, et égyptiens. Vous y découvrirez des montagnes russes effrayantes, des spectacles historiques, ainsi que des zones interactives pour les enfants. Le parc, qui fait la part belle à l''humour et à l''aventure, accueille les visiteurs dans un univers magique où se mêlent rires et sensations fortes. Idéal pour les familles, le parc propose également des espaces de restauration et de détente.', 
-        'Parc à thème basé sur l’univers d’Astérix, avec des attractions pour tous les âges.',
+        'Parc à thème basé sur l''univers d''Astérix, avec des attractions pour tous les âges.',
         30, 
         '1989-04-30', 
         '2024-11-25', 
         15, 
         40, 
         3, 
-        1, 
+        2, 
         2
     ),
     (
         true,
         'La Récré des Trois Curés', 
-        'La Récré des Trois Curés est un parc d''attractions familial situé en Bretagne, parfait pour une journée de divertissement en famille. Ce parc propose des manèges adaptés à tous les âges, des montagnes russes palpitantes aux attractions douces pour les plus jeunes. Vous pourrez aussi profiter d''espaces de détente en plein air, d’aires de pique-nique, et d’animations tout au long de la journée. En plus des manèges, le parc met en valeur la nature environnante, offrant ainsi un cadre agréable pour toute la famille.', 
+        'La Récré des Trois Curés est un parc d''attractions familial situé en Bretagne, parfait pour une journée de divertissement en famille. Ce parc propose des manèges adaptés à tous les âges, des montagnes russes palpitantes aux attractions douces pour les plus jeunes. Vous pourrez aussi profiter d''espaces de détente en plein air, d''aires de pique-nique, et d''animations tout au long de la journée. En plus des manèges, le parc met en valeur la nature environnante, offrant ainsi un cadre agréable pour toute la famille.', 
         'Parc familial avec des attractions adaptées à toute la famille, situé en Bretagne.',
         18, 
         '1989-07-01', 
