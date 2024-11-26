@@ -231,20 +231,19 @@ VALUES (
         5,
         1
     ),
-
-(
-    true,
-    'Le Bartab',
-    'Bistro convivial offrant des plats traditionnels français dans un cadre chaleureux. Le menu change chaque jour, basé sur les produits frais du marché.',
-    'Bistro avec cuisine française traditionnelle.',
-    25.00,
-    '2024-09-20',
-    '2024-10-01',
-    2,
-    '€€',
-    5,
-    1
-);
+    (
+        true,
+        'Le Bartab',
+        'Bistro convivial offrant des plats traditionnels français dans un cadre chaleureux. Le menu change chaque jour, basé sur les produits frais du marché.',
+        'Bistro avec cuisine française traditionnelle.',
+        25.00,
+        '2024-09-20',
+        '2024-10-01',
+        2,
+        '€€',
+        5,
+        1
+    );
 
 INSERT INTO
     _activite (
@@ -277,22 +276,21 @@ VALUES (
         4,
         2
     ),
-
-(
-    true,
-    'Surfing Sports',
-    'Cours de surf pour débutants sur la côte Atlantique. Apprenez les bases du surf avec un instructeur certifié dans un environnement sécurisé.',
-    'Cours de surf pour débutants.',
-    40.00,
-    '2024-07-15',
-    '2024-07-30',
-    6,
-    '01:30:00',
-    10,
-    'Planche de surf fournie, instructeur qualifié.',
-    4,
-    3
-);
+    (
+        true,
+        'Surfing Sports',
+        'Cours de surf pour débutants sur la côte Atlantique. Apprenez les bases du surf avec un instructeur certifié dans un environnement sécurisé.',
+        'Cours de surf pour débutants.',
+        40.00,
+        '2024-07-15',
+        '2024-07-30',
+        6,
+        '01:30:00',
+        10,
+        'Planche de surf fournie, instructeur qualifié.',
+        4,
+        3
+    );
 
 INSERT INTO
     _spectacle (
@@ -323,21 +321,20 @@ VALUES (
         4,
         1
     ),
-
-(
-    true,
-    'Circus',
-    'Spectacle de cirque moderne avec des acrobates, jongleurs, et numéros de trapèze impressionnants. Un divertissement pour toute la famille.',
-    'Spectacle de cirque moderne avec acrobates.',
-    30.00,
-    '2024-11-01',
-    '2024-11-10',
-    7,
-    500,
-    '02:00:00',
-    5,
-    1
-);
+    (
+        true,
+        'Circus',
+        'Spectacle de cirque moderne avec des acrobates, jongleurs, et numéros de trapèze impressionnants. Un divertissement pour toute la famille.',
+        'Spectacle de cirque moderne avec acrobates.',
+        30.00,
+        '2024-11-01',
+        '2024-11-10',
+        7,
+        500,
+        '02:00:00',
+        5,
+        1
+    );
 
 INSERT INTO
     _visite (
@@ -368,21 +365,20 @@ VALUES (
         6,
         2
     ),
-
-(
-    true,
-    'Raisains frais',
-    'Visite guidée des caves à vin de la région avec dégustation de vins locaux. Une immersion dans l histoire viticole et un parcours à travers les vignes.',
-    'Visite des caves à vin avec dégustation.',
-    50.00,
-    '2024-06-10',
-    '2024-06-20',
-    8,
-    '01:30:00',
-    true,
-    7,
-    3
-);
+    (
+        true,
+        'Raisains frais',
+        'Visite guidée des caves à vin de la région avec dégustation de vins locaux. Une immersion dans l histoire viticole et un parcours à travers les vignes.',
+        'Visite des caves à vin avec dégustation.',
+        50.00,
+        '2024-06-10',
+        '2024-06-20',
+        8,
+        '01:30:00',
+        true,
+        7,
+        3
+    );
 
 INSERT INTO
     _parc_attraction (
@@ -413,26 +409,25 @@ VALUES (
         7,
         2
     ),
-
-(
-    true,
-    'Vive les baleines',
-    'Parc aquatique avec toboggans géants, piscines à vagues, et espaces détente. Parfait pour se rafraîchir en été et s amuser en famille ou entre amis.',
-    'Parc aquatique avec attractions et piscines.',
-    45.00,
-    '2024-05-01',
-    '2024-05-10',
-    9,
-    15,
-    8,
-    8,
-    1
-);
+    (
+        true,
+        'Vive les baleines',
+        'Parc aquatique avec toboggans géants, piscines à vagues, et espaces détente. Parfait pour se rafraîchir en été et s amuser en famille ou entre amis.',
+        'Parc aquatique avec attractions et piscines.',
+        45.00,
+        '2024-05-01',
+        '2024-05-10',
+        9,
+        15,
+        8,
+        8,
+        1
+    );
 
 ------ insertion types repas
 INSERT INTO
     _type_repas (nom)
-VALUES ('Petit dej'),
+VALUES ('Petit déjeuner'),
     ('Déjeuner'),
     ('Dîner'),
     ('Boissons'),
@@ -460,4 +455,20 @@ VALUES (
         50,
         5
     );
-    
+
+INSERT INTO
+    _langue (
+        nom
+    )
+VALUES (
+        'Français'
+    ),
+    (
+        'Anglais'
+    ),
+    (
+        'Espagnol'
+    ),
+    (
+        'Allemand'
+    );
