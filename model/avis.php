@@ -8,7 +8,7 @@ class Avis extends BDD
     Idée d'amélioration :
     Ajouter des valeurs statiques pour représenter les erreurs
     */
-    private $nom_table = "_avis";
+    static private $nom_table = "sae_db._avis";
 
     static function getAvisById($id)
     {
@@ -55,11 +55,11 @@ class Avis extends BDD
         }
     }
 
-    static function createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse)
+    static function createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse = null)
     {
         self::initBDD();
 
-        $query = "INSERT INTO " . self::$nom_table . " (titre, commentaire, date_experience, id_compte, id_offre, id_avis_reponse) VALUES (?, ?, ?, ?, ?) RETURNING id_avis";
+        $query = "INSERT INTO " . self::$nom_table . " (titre, commentaire, date_experience, id_compte, id_offre, id_avis_reponse) VALUES (?, ?, ?, ?, ?, ?) RETURNING id_avis";
 
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $titre);
