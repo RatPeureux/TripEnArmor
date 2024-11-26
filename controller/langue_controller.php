@@ -20,4 +20,16 @@ class LangueController {
 
         return $result;
     }
+
+    public function getInfosLangueByName($name){
+        $langue = $this->model::getLangueByName($name);
+
+        $result = [
+            "id_langue" => $langue["id_langue"],
+            "nom" => $langue["nom"]
+        ];
+
+        return $result;
+   
+    }
 }
