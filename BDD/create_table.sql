@@ -128,8 +128,8 @@ CREATE TABLE _tag (
 create table _type_offre (
     id_type_offre SERIAL PRIMARY KEY NOT NULL,
     nom VARCHAR(255) NOT NULL,
-    prix_ttc FLOAT NOT NULL,
-    prix_ht FLOAT NOT NULL
+    prix_ttc FLOAT,
+    prix_ht FLOAT
 );
 
 -- ARCHITECTURE DES ENFANTS DE _offre :

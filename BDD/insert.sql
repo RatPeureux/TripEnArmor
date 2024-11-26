@@ -226,7 +226,7 @@ INSERT INTO
     _type_offre (nom, prix_ht, prix_ttc)
 VALUES ('Premium', 3.34, 4),
     ('Standard', 1.67, 2),
-    ('Gratuit');
+    ('Gratuit', NULL, NULL);
 
 INSERT INTO
     _restauration (
