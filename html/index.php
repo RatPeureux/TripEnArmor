@@ -31,11 +31,19 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     // Connexion avec la bdd
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-    // Obtenir l'ensembre des offres
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true");
+    $sort_order = '';
+    if (isset($_GET['sort'])) {
+        if ($_GET['sort'] == 'price-ascending') {
+            $sort_order = 'ORDER BY prix_mini ASC';
+        } elseif ($_GET['sort'] == 'price-descending') {
+            $sort_order = 'ORDER BY prix_mini DESC';
+        }
+    }
+
+    // Obtenez l'ensemble des offres avec le tri approprié
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true $sort_order");
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
     if (!$toutesLesOffres) {
         echo "<p class='font-bold'>Il n'existe aucune offre...</p>";
@@ -75,7 +83,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                                 </div>
                             </div>
                             <!-- Image de fond -->
-                            <img class='h-48 w-full rounded-t-lg object-cover' src='/public/images/image-test.png'
+                            <img class='h-48 w-full rounded-t-lg object-cover' src='/public/images/<?php echo ($id_type_offre == 1) ? 'restauration' : ($id_type_offre == 2) ? 'activite' : ($id_type_offre == 3) ? 'spectacle' : ($id_type_offre == 4) ? 'visite' : ($id_type_offre == 5) ? 'parc_attraction' : 'ex' ?>.jpg'
                                 alt='Image promotionnelle de l'offre'>
                             <!-- Infos principales -->
                             <div class='infos flex items-center justify-around gap-2 px-2 grow'>
@@ -135,7 +143,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                                     </div>
                                     <!-- Image de fond -->
                                     <img class='rounded-l-lg w-full h-full object-cover object-center'
-                                        src='/public/images/image-test.png' alt='Image promotionnelle de l'offre'>
+                                        src='/public/images/<?php echo ($id_type_offre == 1) ? 'restauration' : ($id_type_offre == 2) ? 'activite' : ($id_type_offre == 3) ? 'spectacle' : ($id_type_offre == 4) ? 'visite' : ($id_type_offre == 5) ? 'parc_attraction' : 'ex' ?>.jpg' alt='Image promotionnelle de l'offre'>
                                 </div>
                                 <!-- Partie droite (infos principales) -->
                                 <div class='infos flex flex-col items-center basis-1/2 p-3 gap-3 justify-between'>
@@ -202,6 +210,39 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
         ?>
     </main>
 
+    <div class="block md:hidden p-4 h-16 w-full bg-bgBlur/75 backdrop-blur border-t-2 border-black fixed bottom-0 flex items-center justify-between">
+        <a href="#" class="p-2 flex items-center gap-2 hover:text-primary duration-100">
+            <i class="text xl fa-solid fa-filter"></i>
+            <p>Filtrer</p>
+        </a>
+
+        <a href="#" class="p-2 flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tel">
+            <i class="text xl fa-solid fa-sort"></i>
+            <p>Trier par</p>
+        </a>
+    </div>
+
+    <div class="hidden md:hidden bg-white fixed bottom-[4.5rem] right-2 border border-black p-2 w-44 flex flex-col" id="sorting-section-tel">
+        <a href="<?php echo ($_GET['sort'] === 'rating-ascending') ? '/' : '?sort=rating-ascending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'rating-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+            <p>Note croissante</p>
+        </a>
+        &nbsp;
+        &nbsp;
+        <a href="<?php echo ($_GET['sort'] === 'rating-descending') ? '/' : '?sort=rating-descending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'rating-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+            <p>Note décroissante</p>
+        </a>
+        &nbsp;
+        &nbsp;
+        <a href="<?php echo ($_GET['sort'] === 'price-ascending') ? '/' : '?sort=price-ascending'; ?>" class="flex items-center <?php echo ($_GET['sort'] === 'price-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+            <p>Prix croissant</p>
+        </a> 
+        &nbsp;
+        &nbsp;
+        <a href="<?php echo ($_GET['sort'] === 'price-descending') ? '/' : '?sort=price-descending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'price-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+            <p>Prix décroissant</p>
+        </a>
+    </div>
+
     <!-- VERSION TABLETTE -->
     <main class="hidden md:block grow mx-10 self-center rounded-lg p-2 max-w-[1280px]">
         <div class="flex gap-3">
@@ -211,7 +252,35 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             <!-- PARTIE DROITE (offres & leurs détails) -->
             <div class="tablette p-4 flex flex-col gap-4">
 
-                <h1 class="text-4xl">Toutes les offres</h1>
+                <div class="flex justify-between items-end">
+                    <h1 class="text-4xl">Toutes les offres</h1>
+
+                    <a href="#" class="flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
+                        <i class="text xl fa-solid fa-sort"></i>
+                        <p>Trier par</p>
+                    </a>
+                </div>
+
+                <div class="hidden self-end bg-white border border-black p-2 w-44 flex flex-col" id="sorting-section-tab">
+                    <a href="<?php echo ($_GET['sort'] === 'rating-ascending') ? '/' : '?sort=rating-ascending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'rating-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                        <p>Note croissante</p>
+                    </a>
+                    &nbsp;
+                    &nbsp;
+                    <a href="<?php echo ($_GET['sort'] === 'rating-descending') ? '/' : '?sort=rating-descending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'rating-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                        <p>Note décroissante</p>
+                    </a>
+                    &nbsp;
+                    &nbsp;
+                    <a href="<?php echo ($_GET['sort'] === 'price-ascending') ? '/' : '?sort=price-ascending'; ?>" class="flex items-center <?php echo ($_GET['sort'] === 'price-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                        <p>Prix croissant</p>
+                    </a> 
+                    &nbsp;
+                    &nbsp;
+                    <a href="<?php echo ($_GET['sort'] === 'price-descending') ? '/' : '?sort=price-descending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'price-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                        <p>Prix décroissant</p>
+                    </a>
+                </div>
 
                 <!--
                 ### CARD COMPONENT ! ###
@@ -230,7 +299,33 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     </main>
 
     <div id="footer"></div>
-
 </body>
 
 </html>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleSortButtonTel = document.getElementById('sort-button-tel');
+        const sortingOptionsTel = document.getElementById('sorting-section-tel');
+
+        // Vérifie si les éléments existent
+        if (toggleSortButtonTel && sortingOptionsTel) {
+            toggleSortButtonTel.addEventListener('click', function(event) {
+                event.preventDefault(); // Empêche le comportement par défaut du lien
+                sortingOptionsTel.classList.toggle('hidden'); // Bascule la visibilité
+            });
+        }
+
+        const toggleSortButtonTab = document.getElementById('sort-button-tab');
+        const sortingOptionsTab = document.getElementById('sorting-section-tab');
+
+        // Vérifie si les éléments existent
+        if (toggleSortButtonTab && sortingOptionsTab) {
+            toggleSortButtonTab.addEventListener('click', function(event) {
+                event.preventDefault(); // Empêche le comportement par défaut du lien
+                sortingOptionsTab.classList.toggle('hidden'); // Bascule la visibilité
+            });
+        }
+    });
+</script>
