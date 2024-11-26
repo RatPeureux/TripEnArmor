@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/membre.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/membre.php";
 
 class MembreController {
 

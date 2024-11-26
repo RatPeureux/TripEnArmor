@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/type_repas.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/type_repas.php";
 
 class TypeRepasController {
 

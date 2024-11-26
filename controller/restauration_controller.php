@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/restauration.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/restauration.php";
 
 class RestaurationController {
     static private $model;  
