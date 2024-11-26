@@ -11,16 +11,40 @@ class PrestationController {
     }
 
     public function getPrestationById($id) {
-        $this->model = $this->model::getPrestationById($id);
+        $prestation = $this->model::getPrestationById($id);
 
-        return $this->model;
+        return $prestation;
     }
 
     public function getPrestationByName($name) {
-        $this->model = $this->model::getPrestationByName($name);
+        $prestation = $this->model::getPrestationByName($name);
 
-        return $this->model;
+        return $prestation;
     }
 
-    // TODO: à finir
+    public function createPrestation($name, $isIncluded) {
+        $prestation = $this->model::createPrestation($name, $isIncluded);
+
+        return $prestation;
+    }
+
+    public function updatePrestation($id, $name = false, $isIncluded = false) {
+        if ($name === false && $isIncluded === false) {
+            echo "ERREUR: Aucun champ à modifier";
+            return -1;
+        } else {
+            $prestation = $this->model::getPrestationById($id);
+
+            $updatedPrestationId = $this->model::createPrestation(
+                $id,
+                $name !== false ? $name : $prestation["nom"],
+                $isIncluded !== false ? $isIncluded : $prestation["is_included"]
+            );
+            return $updatedPrestationId;
+        }
+    }
+
+    public function deletePrestation($id) {
+        return $this->model::deletePrestationById($id);
+    }
 }
