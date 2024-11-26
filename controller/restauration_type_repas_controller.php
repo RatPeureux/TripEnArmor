@@ -2,7 +2,7 @@
 
 require_once "../model/restauration_type_repas.php";
 
-class VisiteLangueController {
+class RestaurationTypeRepasController {
 
     private $model;
 

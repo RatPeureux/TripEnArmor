@@ -567,6 +567,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 									class="optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
 
+									<!-- TODO: donner la durée en semaines + la date de lancement -->
+
 									<!-- CGU -->
 									<a href="/cgu" class="text-small underline text-secondary"> Voir les CGU</a>
 
