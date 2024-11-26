@@ -6,7 +6,7 @@ class VisiteLangue extends BDD {
 
     private $nom_table = "sae_db._visite_langue";
 
-    function getLanguesBydIdVisite($id_offre){
+    static function getLanguesBydIdVisite($id_offre){
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ?";
         $statement = self::$db->prepare($query);
@@ -20,7 +20,7 @@ class VisiteLangue extends BDD {
         }
     }
 
-    function getVisitesByIdLangue($id_langue){
+    static function getVisitesByIdLangue($id_langue){
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table ." WHERE id_langue = ?";
         $statement = self::$db->prepare($query);
@@ -34,7 +34,7 @@ class VisiteLangue extends BDD {
         }
     }
 
-    function checkIfLinkExists($id_offre, $id_langue) {
+    static function checkIfLinkExists($id_offre, $id_langue) {
         self::initBDD();
         $query = "SELECT * FROM ". self::$nom_table ." WHERE id_offre = ? AND id_langue = ?";
 
@@ -49,7 +49,7 @@ class VisiteLangue extends BDD {
         }
     }
 
-    function createVisiteLangue($id_offre,$id_langue) {
+    static function createVisiteLangue($id_offre,$id_langue) {
         $query = "INSERT INTO (id_offre, id_langue". self::$nom_table ."VALUES (?, ?) RETURNING *";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id_offre);
@@ -62,7 +62,7 @@ class VisiteLangue extends BDD {
         }
     }
 
-    function deleteVisiteLangue($id_offre, $id_langue) {
+    static function deleteVisiteLangue($id_offre, $id_langue) {
         self::initBDD();
         $query = "DELETE FROM". self::$nom_table ."WHERE id_offre = ?";
 

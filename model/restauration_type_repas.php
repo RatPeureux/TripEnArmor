@@ -6,7 +6,7 @@ class RestaurationTypeRepas extends BDD {
 
     private $nom_table = "sae_db._restaurant_type_repas";
 
-    function getTypesRepasBydIdRestaurant($id_offre){
+    static function getTypesRepasBydIdRestaurant($id_offre){
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ?";
         $statement = self::$db->prepare($query);
@@ -20,7 +20,7 @@ class RestaurationTypeRepas extends BDD {
         }
     }
 
-    function getRestaurantsByIdTypesRepas($id_type_repas){
+    static function getRestaurantsByIdTypesRepas($id_type_repas){
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table ." WHERE id_type_repas = ?";
         $statement = self::$db->prepare($query);
@@ -34,7 +34,7 @@ class RestaurationTypeRepas extends BDD {
         }
     }
 
-    function checkIfLinkExists($id_offre, $id_type_repas) {
+    static function checkIfLinkExists($id_offre, $id_type_repas) {
         self::initBDD();
         $query = "SELECT * FROM ". self::$nom_table ." WHERE id_offre = ? AND id_type_repas = ?";
 
@@ -49,7 +49,7 @@ class RestaurationTypeRepas extends BDD {
         }
     }
 
-    function createRestaurantTypeRepas($id_offre,$id_type_repas) {
+    static function createRestaurantTypeRepas($id_offre,$id_type_repas) {
         $query = "INSERT INTO (id_offre, id_type_repas". self::$nom_table ."VALUES (?, ?) RETURNING *";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id_offre);
@@ -62,7 +62,7 @@ class RestaurationTypeRepas extends BDD {
         }
     }
 
-    function deleteRestaurantTypeRepas($id_offre, $id_type_repas) {
+    static function deleteRestaurantTypeRepas($id_offre, $id_type_repas) {
         self::initBDD();
         $query = "DELETE FROM". self::$nom_table ."WHERE id_offre = ?";
 

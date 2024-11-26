@@ -262,14 +262,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $activitePrestationController = new ActivitePrestationController();
 
         foreach ($prestations as $prestation => $isIncluded) {
-            if ($isIncluded) {
-                $id_prestation = $prestationController->getPrestationByName($prestation);
-                if ($id_prestation < 0) {
-                    $id_prestation = $prestationController->createPrestation($prestation);
-                }
-
-                $activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
+            $id_prestation = $prestationController->getPrestationByName($prestation);
+            if ($id_prestation < 0) {
+                $id_prestation = $prestationController->createPrestation($prestation, $isIncluded);
             }
+
+            $activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
         }
     }
 

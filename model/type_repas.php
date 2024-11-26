@@ -7,7 +7,7 @@ class TypeRepas extends BDD
 
     private $nom_table = "sae_db._type_repas";
 
-    function getTypeRepasById($id)
+    static function getTypeRepasById($id)
     {
 
         $query = "SELECT * FROM " . self::$nom_table . " WHERE type_repas_id = ?";
@@ -23,7 +23,7 @@ class TypeRepas extends BDD
         }
     }
 
-    function getTypesRepasByName($name)
+    static function getTypesRepasByName($name)
     {
 
         $query = "SELECT * FROM " . self::$nom_table . " WHERE nom_type_repas = ?";
@@ -39,7 +39,7 @@ class TypeRepas extends BDD
         }
     }
 
-    function createTypeRepas($nom_type_repas)
+    static function createTypeRepas($nom_type_repas)
     {
 
         $query = "INSERT INTO " . self::$nom_table . "(nom_type_repas) VALUES (?) RETURNING type_repas_id";
@@ -56,7 +56,7 @@ class TypeRepas extends BDD
 
     }
 
-    function updateTypeRepas($nom_type_repas)
+    static function updateTypeRepas($nom_type_repas)
     {
         $query = "UPDATE " . self::$nom_table . " SET nom_type_repas = ? RETURNING type_repas_id";
 
@@ -71,7 +71,7 @@ class TypeRepas extends BDD
         }
     }
 
-    function deleteTag($id)
+    static function deleteTag($id)
     {
         $query = "DELETE FROM " . self::$nom_table . " WHERE type_repas_id = ?";
 
