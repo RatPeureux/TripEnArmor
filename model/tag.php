@@ -26,6 +26,22 @@ class Tag extends BDD {
         }
     }
 
+    static function getTagsByName($nom) {
+        self::initBDD();
+
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE nom = ?";
+
+        $statement = self::$db->prepare($query);
+        $statement->bindParam(1, $nom);
+
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR : Impossible d'obtenir ce tag";
+            return -1;
+        }
+    }
+
     static function createTag($nom) {
         self::initBDD();
         $query = "INSERT INTO " . self::$nom_table . " (nom) VALUES (?) RETURNING id_tag";
