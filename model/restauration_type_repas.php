@@ -13,21 +13,21 @@ class RestaurationTypeRepas extends BDD {
         $statement->bindParam(1, $id_offre);
 
         if ($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         } else {
             echo "ERREUR";
             return false;
         }
     }
 
-    function getRestaurantByIdTypesRepas($id_type_repas){
+    function getRestaurantsByIdTypesRepas($id_type_repas){
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table ." WHERE id_type_repas = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id_type_repas);
 
         if ($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         } else {
             echo "ERREUR";
             return false;

@@ -13,7 +13,7 @@ class VisiteLangue extends BDD {
         $statement->bindParam(1, $id_offre);
 
         if ($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         } else {
             echo "ERREUR";
             return false;
@@ -27,7 +27,7 @@ class VisiteLangue extends BDD {
         $statement->bindParam(1, $id_langue);
 
         if ($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         } else {
             echo "ERREUR";
             return false;

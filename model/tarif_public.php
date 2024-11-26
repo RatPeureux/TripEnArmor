@@ -23,9 +23,8 @@ class TarifPublic extends BDD {
     }
 
     static function createTarifPublic($titre_tarif, $prix, $id_offre){
-
         $query = "INSERT INTO " . self::$nom_table . "(titre_tarif, prix, id_offre) VALUES (?, ?, ?) RETURNING type_repas_id";
-        $id_offre = self::$db->lastInsertId();
+        
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $titre_tarif);
         $stmt->bindParam(2, $prix);

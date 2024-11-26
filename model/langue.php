@@ -19,14 +19,14 @@ class Langue extends BDD {
         }
     }
 
-    static function getLangueByName($name) {
+    static function getLanguesByName($name) {
         $query = "SELECT * FROM " . self::$nom_table ." WHERE nom = ?";
         
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $name);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         } else {
             echo "ERREUR : Impossible d'obtenir ce language";
             return -1;

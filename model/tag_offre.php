@@ -43,7 +43,7 @@ class TagOffre extends BDD
         $statement->bindValue(2, $id_tag);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+            return !empty($statement->fetchAll(PDO::FETCH_ASSOC));
         } else {
             return -1;
         }

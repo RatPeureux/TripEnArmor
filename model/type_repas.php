@@ -23,7 +23,7 @@ class TypeRepas extends BDD
         }
     }
 
-    function getTypeRepasByName($name)
+    function getTypesRepasByName($name)
     {
 
         $query = "SELECT * FROM " . self::$nom_table . " WHERE nom_type_repas = ?";
@@ -32,7 +32,7 @@ class TypeRepas extends BDD
         $stmt->bindParam(1, $name);
 
         if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
             echo "ERREUR : Impossible d'obtenir ce type repas";
             return -1;
