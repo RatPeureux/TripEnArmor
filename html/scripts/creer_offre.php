@@ -1,5 +1,5 @@
 <?php
-require dirname($_SERVER['DOCUMENT_ROOT']) . '../model/bdd.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../model/bdd.php';
 
 // Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     2. [x] Tag
     3. [x] Image
     5. [x] Offre
-    6. Offre_Tag
+    6. [x] Offre_Tag
     7. [x] Offre_Image
     8. Offre_Langue
     9. Horaires
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insérer l'adresse dans la base de données
     $realAdresse = extraireInfoAdresse($adresse);
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/adresse_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/adresse_controller.php';
     $adresseController = new AdresseController();
     $id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
     if (!$id_adresse) {
@@ -89,20 +89,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Insérer les tags dans la base de données
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_controller.php';
-    $tagController = new TagController();
-    $tagIds = [];
-    foreach ($tags[$activity] as $tag) {
-        $tagIds[] = $tagController->createTag($tag);
-    }
+    // Insérer les tags dans la base de données --- INUTILE car ils choississent des tags déjà existants
+    // require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_controller.php';
+    // $tagController = new TagController();
+    // $tagIds = [];
+    // foreach ($tags as $tag) {
+    //     $tagIds[] = $tagController->createTag($tag);
+    // }
 
     $prixMin = calculerPrixMin($prices);
     $id_offre;
     switch ($activity) {
         case 'activite':
             // Insertion spécifique à l'activité
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/activite_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/activite_controller.php';
 
             $activiteController = new ActiviteController();
             $id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'visite':
 
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/visite_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/visite_controller.php';
 
             $visiteController = new VisiteController();
             $id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'spectacle':
 
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/spectacle_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/spectacle_controller.php';
 
             $spectacleController = new SpectacleController();
             $id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $capacite);
@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'parc_attraction':
 
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/parc_attraction_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/parc_attraction_controller.php';
 
             $parcAttractionController = new ParcAttractionController();
             $id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
@@ -154,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'restauration':
 
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/restauration_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/restauration_controller.php';
 
             $restaurationController = new RestaurationController();
             $id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas);
@@ -171,15 +171,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
     }
 
-    // Insérer les liens avec les tags dans la base de données
-    $tagController;
-    if ($activityType) {
-        require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_controller.php';
-        $tagController = new 
+    // Insérer les liens entre les offres et les tags dans la base de données
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_offre_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_controller.php';
+    $tagController = new TagController();
+    $tagOffreController = new TagOffreController();
+
+    foreach ($tags as $tag) {
+        $tagId = $tagController->getTagsByName($tag, 0);
+        $tagOffreController->linkOffreAndTag($id_offre, $tagId);
     }
 
     // Insérer les image dans la base de données
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/image_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/image_controller.php';
     $uploadDir = dirname($_SERVER['DOCUMENT_ROOT']) . '/../public/images/';
 
     $imageController = new ImageController();
@@ -218,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insérer les prix dans la base de données
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tarif_public_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tarif_public_controller.php';
     $tarifController = new TarifPublicController();
     foreach ($prices as $price) {
         if (!isset($price['name']) || !isset($price['value'])) {
