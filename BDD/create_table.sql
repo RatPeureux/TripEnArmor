@@ -169,14 +169,14 @@ CREATE TABLE _tag_offre (
 
 -- Création de la table _avis
 CREATE TABLE _avis (
-  id_avis SERIAL PRIMARY KEY,  
-  date_publication DATE NOT NULL,
-  date_experience DATE NOT NULL,
-  titre VARCHAR(50),
-  commentaire VARCHAR(1024),
-  id_compte INT NOT NULL,
-  id_offre INT NOT NULL,
-  id_avis_reponse INT REFERENCES _avis(id_avis),
+  id_avis SERIAL PRIMARY KEY, -- id unique  
+  date_publication DATE NOT NULL, 
+  date_experience DATE NOT NULL, -- date où la personne a visité/mangé/...
+  titre VARCHAR(50), -- titre de l'avis
+  commentaire VARCHAR(1024), -- commentaire de l'avis
+  id_compte INT NOT NULL, -- compte de l'utilisateur  |
+  id_offre INT NOT NULL, -- Offre à laquelle est lié l'avis
+  id_avis_reponse INT REFERENCES _avis(id_avis), -- id de l'avis de la réponse du pro
   -- Contrainte pour empêcher plusieurs avis initiaux d'un même membre sur une offre
   CONSTRAINT unique_avis_per_member UNIQUE (id_compte, id_offre)
 );
