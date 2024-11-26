@@ -52,7 +52,9 @@ CREATE TABLE _membre (
 ) INHERITS (_compte);
 
 -- Héritage des types de _compte (abstr.)
-CREATE TABLE _professionnel (nom_pro VARCHAR(255) NOT NULL) INHERITS (_compte);
+CREATE TABLE _professionnel (
+    nom_pro VARCHAR(255) NOT NULL
+) INHERITS (_compte);
 
 CREATE TABLE _pro_public (
     type_orga VARCHAR(255) NOT NULL
