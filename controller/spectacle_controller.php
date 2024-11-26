@@ -22,14 +22,14 @@ class SpectacleController {
             "id_type_offre" => $spectacle["id_type_offre"],
             "id_adresse" => $spectacle["id_adresse"],
             "capacite" => $spectacle["capacite"],
-            "avec_guide" => $spectacle["avec_guide"]
+            "duree" => $spectacle["duree"]
         ];
 
         return $res;
     }
 
-    public function createSpectacle($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $avec_guide) {
-        $spectacle = $this->model::createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $avec_guide);
+    public function createSpectacle($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree) {
+        $spectacle = $this->model::createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree);
 
         return $spectacle;
     }
