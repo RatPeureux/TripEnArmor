@@ -5,3 +5,6 @@ tailwindcss
 styles/output.css
 
 .env
+
+/vendor
+/composer.lock
