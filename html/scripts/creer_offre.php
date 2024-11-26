@@ -1,6 +1,5 @@
 <?php
-// Connexion avec la bdd
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '../model/bdd.php';
 
 // Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
@@ -9,7 +8,6 @@ error_reporting(E_ALL);
 
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     // *********************************************************************************************************************** Définition de fonctions
     // Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
     function calculerPrixMin($prices)
@@ -36,41 +34,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'odonyme' => $odonyme,
         ];
     }
-
     // *********************************************************************************************************************** Récupération des données du POST
     // Récupération des données du formulaire
+    // *** Données standard
+    $type_offre = $_POST["offre"];
+    $titre = $_POST['titre'];
     $adresse = $_POST['user_input_autocomplete_address'];
     $code = $_POST['postal_code'];
     $ville = $_POST['locality'];
-    $dureeFormatted = sprintf('%02d:%02d:00', $_POST["hours"], $_POST["minutes"]); // Format HH:MM:SS
-    // Récupérer d'autres valeurs
-    $capacite = $_POST['place'] ?? '';
-    $nb_attractions = isset($_POST['parc-numb']) && is_numeric($_POST['parc-numb']) ? (int) $_POST['parc-numb'] : 0;
-    $gamme_prix = $_POST['gamme_prix'] ?? '';
-    $description = $_POST['description'] ?? '';
-    $resume = $_POST['resume'] ?? '';
-    $prestations = $_POST['newPrestationName'] ?? '';
-    $prices = $_POST['prices'] ?? []; // Récupérer les prix
-    $titre = $_POST['titre'] ?? null;
-    $tags = $_POST['tags'] ?? [];
-    $activity = $_POST['activityType'];
+    $resume = $_POST['resume'];
+    $description = $_POST['description'];
+    $accessibilite = $_POST['accessibilite'];
 
-    // TODO: Récupérer l'id du pro, l'id du type d'offre choisi
+    $activityType = $_POST['activityType'];
+    // *** Données spécifiques
+    $avec_guide = $_POST["guide"] ?? "on"; // VISITE
+    $age = $_POST["age"];
+    $dureeFormatted = sprintf('%02d:%02d:00', $_POST["hours"], $_POST["minutes"]); // ACTIVITE, VISITE, SPECTACLE
+    $gamme_prix = $_POST['gamme_prix'];
+    $capacite = $_POST['capacite'] ?? '';
+    $langues = [$_POST["langueFR"] ?? "on" , $_POST["langueEN"] ?? "on", $_POST["langueES"] ?? "on", $_POST["langueDE"] ?? "on"]; // VISITE
+    $nb_attractions = (int) $_POST['nb_attractions'] ?? 0; // PARC_ATTRACTION
+    $prices = $_POST['prices'] ?? [];
+    $tags = $_POST['tags'][$activityType] ?? [];
     $id_pro = $_SESSION['id_pro'];
+
+    // Récupérer d'autres valeurs
+    $prestations = $_POST['newPrestationName'] ?? [];
+
 
     // *********************************************************************************************************************** Insertion
     /* Ordre de l'insertion :
     1. [x] Adresse
     2. [x] Tag
     3. [x] Image
-    5. Offre
+    5. [x] Offre
     6. Offre_Tag
-    7. Offre_Image
+    7. [x] Offre_Image
     8. Offre_Langue
     9. Horaires
     10. [x] Tarif_Public
     11. Facture
     */
+    BDD::startTransaction();
 
     // Insérer l'adresse dans la base de données
     $realAdresse = extraireInfoAdresse($adresse);
@@ -79,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
     if (!$id_adresse) {
         echo "Erreur lors de la création de l'adresse.";
+        BDD::rollbackTransaction();
         exit;
     }
 
@@ -86,19 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_controller.php';
     $tagController = new TagController();
     $tagIds = [];
-    foreach($tags[$activity] as $tag) {
+    foreach ($tags[$activity] as $tag) {
         $tagIds[] = $tagController->createTag($tag);
-    }
-
-    // Insérer les image dans la base de données
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/image_controller.php';
-    $uploadDir = dirname($_SERVER['DOCUMENT_ROOT']) . '/../public/images/';
-    
-    $imageController = new ImageController();
-    $imageIds = [];
-    $imagesIds['carte'] = $imageController->createImage($_POST['photo-upload-carte']);
-    foreach($images as $image) {
-        $imageIds['details'][] = $imageController->createImage($image);
     }
 
     $prixMin = calculerPrixMin($prices);
@@ -106,124 +102,119 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($activity) {
         case 'activite':
             // Insertion spécifique à l'activité
-            require dirname($_SERVER['DOCUMENT_ROOT']) .'../controller/activite_controller.php';
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/activite_controller.php';
+
             $activiteController = new ActiviteController();
-            $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
+            $id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
 
-            if ($stmtActivite->execute()) {
-                echo "Activité insérée avec succès.";
-                $stmtTags = $dbh->prepare("INSERT INTO sae_db._tag (nom) VALUES (:tag)");
-                $stmtTags->bindParam(':tag', $tag);
-                if ($stmtTags->execute()) {
-                    $stmtActiviteTag = $dbh->prepare("INSERT INTO sae_db._tag_activite () VALUES ()");
-                    if ($stmtActiviteTag->execute()) {
-                        echo "Activité insérée avec succès.";
-                        header('location: /pro');
-                    } else {
-                        echo "Erreur lors de l insertion : " . implode(", ", $stmtActiviteTag->errorInfo());
-                    }
-                } else {
-                    echo "Erreur lors de l insertion : " . implode(", ", $stmtTags->errorInfo());
-                }
-
-
-            } else {
-                echo "Erreur lors de l insertion : " . implode(", ", $stmtActivite->errorInfo());
+            if ($id_offre < 0) { // Cas d'erreur
+                echo "Erreur lors de l'insertion : " . $id_offre;
+                BDD::rollbackTransaction();
             }
-
             break;
 
         case 'visite':
 
-            $stmtVisite = $dbh->prepare("INSERT INTO sae_db._visite(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, duree, avec_guide) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :duree, false)");
-            $stmtVisite->bindParam(':id_offre', $id_offre);
-            $stmtVisite->bindParam(':description', $description);
-            $stmtVisite->bindParam(':resume', $resume);
-            $stmtVisite->bindParam(':prix', $prix);
-            $stmtVisite->bindParam(':date_creation', $dateCreation);
-            $stmtVisite->bindParam(':id_adresse', $id_adresse);
-            $stmtVisite->bindParam(':duree', $duree);
-            $stmtVisite->bindParam(':titre', $titre);
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/visite_controller.php';
 
-            if ($stmtVisite->execute()) {
-                echo "Visite insérée avec succès.";
-                header('location: /pro');
-            } else {
-                echo "Erreur lors de l'insertion : " . implode(", ", $stmtVisite->errorInfo());
+            $visiteController = new VisiteController();
+            $id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
+
+            if ($id_offre < 0) {
+                echo "Erreur lors de l'insertion : " . $id_offre;
+                BDD::rollbackTransaction();
             }
-
             break;
 
         case 'spectacle':
 
-            var_dump($capacite);
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/spectacle_controller.php';
 
-            $stmtSpectacle = $dbh->prepare("INSERT INTO sae_db._spectacle(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, capacite, duree) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :capacite, :duree)");
-            $stmtSpectacle->bindParam(':id_offre', $id_offre);
-            $stmtSpectacle->bindParam(':description', $description);
-            $stmtSpectacle->bindParam(':resume', $resume);
-            $stmtSpectacle->bindParam(':prix', $prixMin);
-            $stmtSpectacle->bindParam(':date_creation', $dateCreation);
-            $stmtSpectacle->bindParam(':id_adresse', $id_adresse);
-            $stmtSpectacle->bindParam(':capacite', $capacite);
-            $stmtSpectacle->bindParam(':duree', $duree);
-            $stmtSpectacle->bindParam(':titre', $titre);
+            $spectacleController = new SpectacleController();
+            $id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $capacite);
 
-            if ($stmtSpectacle->execute()) {
-                echo "Spectacle insérée avec succès.";
-                header('location: /pro');
-            } else {
-                echo "Erreur lors de l insertion : " . implode(", ", $stmtSpectacle->errorInfo());
+            if ($id_offre < 0) {
+                echo "Erreur lors de l'insertion : " . $id_offre;
+                BDD::rollbackTransaction();
             }
-
             break;
 
         case 'parc_attraction':
 
-            $stmtAttraction = $dbh->prepare("INSERT INTO sae_db._parc_attraction(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, nb_attractions, age_requis) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :nb_attraction, :age)");
-            $stmtAttraction->bindParam(':id_offre', $id_offre);
-            $stmtAttraction->bindParam(':description', $description);
-            $stmtAttraction->bindParam(':resume', $resume);
-            $stmtAttraction->bindParam(':prix', $prixMin);
-            $stmtAttraction->bindParam(':date_creation', $dateCreation);
-            $stmtAttraction->bindParam(':id_adresse', $id_adresse);
-            $stmtAttraction->bindParam(':nb_attraction', $nb_attractions);
-            $stmtAttraction->bindParam(':age', $age);
-            $stmtAttraction->bindParam(':titre', $titre);
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/parc_attraction_controller.php';
 
-            if ($stmtAttraction->execute()) {
-                echo "Parc d'attraction insérée avec succès.";
-                header('location: /pro');
-            } else {
-                echo "Erreur lors de l'insertion : " . implode(", ", $stmtAttraction->errorInfo());
+            $parcAttractionController = new ParcAttractionController();
+            $id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
+
+            if ($id_offre < 0) {
+                echo "Erreur lors de l'insertion : " . $id_offre;
+                BDD::rollbackTransaction();
             }
-
             break;
 
         case 'restauration':
 
-            $stmtRestauration = $dbh->prepare("INSERT INTO sae_db._restauration(id_offre, est_en_ligne, description_offre, resume_offre, prix_mini, titre, date_creation, date_mise_a_jour, date_suppression, id_pro, id_adresse, gamme_prix) VALUES (:id_offre, true, :description, :resume, :prix, :titre, :date_creation, null, null, null, :id_adresse, :gamme_prix)");
-            $stmtRestauration->bindParam(':id_offre', $id_offre);
-            $stmtRestauration->bindParam(':description', $description);
-            $stmtRestauration->bindParam(':resume', $resume);
-            $stmtRestauration->bindParam(':prix', $prixMin);
-            $stmtRestauration->bindParam(':date_creation', $dateCreation);
-            $stmtRestauration->bindParam(':id_adresse', $id_adresse);
-            $stmtRestauration->bindParam(':gamme_prix', $gamme_prix);
-            $stmtRestauration->bindParam(':titre', $titre);
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/restauration_controller.php';
 
-            if ($stmtRestauration->execute()) {
-                echo "Restauration insérée avec succès.";
-                header('location: /pro');
-            } else {
-                echo "Erreur lors de l'insertion : " . implode(", ", $stmtRestauration->errorInfo());
+            $restaurationController = new RestaurationController();
+            $id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas);
+
+            if ($id_offre < 0) {
+                echo "Erreur lors de l'insertion : " . $id_offre;
+                BDD::rollbackTransaction();
             }
-
             break;
 
         default:
-            echo "Veuillez sélectionner une activité.";
+            echo "Aucune activité sélectionnée";
+            BDD::rollbackTransaction();
             exit;
+    }
+
+    // Insérer les liens avec les tags dans la base de données
+    $tagController;
+    if ($activityType) {
+        require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_controller.php';
+        $tagController = new 
+    }
+
+    // Insérer les image dans la base de données
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/image_controller.php';
+    $uploadDir = dirname($_SERVER['DOCUMENT_ROOT']) . '/../public/images/';
+
+    $imageController = new ImageController();
+    $imageIds = [];
+
+    // CARTE
+    $uploadName = $uploadDir . "carte/" . $id_offre . '0.' . explode('/', $_FILES['photo-upload-carte']['type'])[1];
+    if (!move_uploaded_file($_FILES['photo-upload-carte']['tmp_name'], $uploadName)) {
+        echo "Erreur lors de l'upload de l'image de la carte.";
+        BDD::rollbackTransaction();
+        exit;
+    }
+    $imagesIds['carte'] = $imageController->createImage($uploadName);
+
+    // DETAIL
+    for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
+        $uploadName = $uploadDir . "detail/" . $id_offre . '-' . ($i + 1) . '.' . explode('/', $_FILES['photo-detail']['type'][$i])[1];
+
+        if (!move_uploaded_file($_FILES['photo-detail']['tmp_name'][$i], $uploadName)) {
+            echo "Erreur lors de l'upload de l'image de détail.";
+            BDD::rollbackTransaction();
+            exit;
+        }
+
+        $imageIds['detail'][] = $imageController->createImage($uploadName);
+    }
+
+    if ($activity === 'parc_attraction') {
+        $uploadName = $uploadDir . "plan/" . $id_offre . implode('/', $_FILES['photo-plan']['type'])[1];
+        if (!move_uploaded_file($_FILES['photo-plan']['tmp_name'], $uploadName)) {
+            echo "Erreur lors de l'upload de l'image du plan.";
+            BDD::rollbackTransaction();
+            exit;
+        }
+        $imagesIds["plan"][] = $imageController->createImage($uploadName);
     }
 
     // Insérer les prix dans la base de données
@@ -249,6 +240,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "Erreur lors de l'insertion dans la table Adresse : " . implode(", ", $stmtAdresseOffre->errorInfo());
     }
+
+    BDD::commitTransaction();
+    header('location: /pro');
 } else {
     echo json_encode(['success' => false, 'error' => 'Aucune soumission de formulaire détectée.']);
 }

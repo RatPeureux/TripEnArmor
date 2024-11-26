@@ -84,15 +84,14 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 					</div>
 				</a>
 				<!-- Section de sélection de l'offre -->
-				<form id="formulaire" action="/pro/offre/creer" method="POST" class="block w-full space-y-8"
-					enctype="multipart/form-data">
+				<form id="formulaire" action="/pro/offre/creer" method="POST" class="block w-full space-y-8" enctype="multipart/form-data">
 					<div
 						class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
 						<!-- Carte de l'offre gratuite -->
 						<div
 							class="border border-secondary rounded-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full hidden">
-							<input type="radio" name="offre" id="offre1" value="1" class="hidden">
-							<label for="offre1"
+							<input type="radio" name="type_offre" id="type_offre_1" value="1" class="hidden">
+							<label for="type_offre_1"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
 								<div class="h-full divide-y divide-current">
 									<div>
@@ -117,8 +116,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 						<!-- Carte de l'offre standard -->
 						<div
 							class="border border-primary rounded-lg flex-col justify-center w-fit text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full">
-							<input type="radio" name="offre" id="offre2" value="2" class="hidden">
-							<label for="offre2"
+							<input type="radio" name="type_offre" id="type_offre_2" value="2" class="hidden">
+							<label for="type_offre_2"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
 								<div class="h-full divide-y divide-current">
 									<div>
@@ -143,8 +142,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 						<!-- Carte de l'offre premium -->
 						<div
 							class="border border-secondary rounded-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-max">
-							<input type="radio" name="offre" id="offre3" value="3" class="hidden">
-							<label for="offre3"
+							<input type="radio" name="type_offre" id="type_offre_3" value="3" class="hidden">
+							<label for="type_offre_3"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
 								<div class="h-full divide-y divide-current">
 									<div>
@@ -224,16 +223,16 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 									<!-- Photos détaillée -->
 									<div class="flex flex-col justify-between w-full">
-										<label for="photo-detail" class="text-nowrap w-full">Photos de l'offre détaillée:
+										<label for="photo-detail[]" class="text-nowrap w-full">Photos de l'offre détaillée:
 										</label>
-										<input type="file" name="photo-detail" id="photo-detail" class="text-center text-secondary block w-full
-							  border-dashed border-2 border-secondary rounded-lg p-2
-							  file:mr-5 file:py-3 file:px-10
-							  file:rounded-lg
-							  file:text-small file:font-bold  file:text-secondary
-							  file:border file:border-secondary
-							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-											accept=".svg,.png,.jpg,.jpeg,.webp" multiple="true"/>
+										<input type="file" name="photo-detail[]" id="photo-detail[]" class="text-center text-secondary block w-full
+											border-dashed border-2 border-secondary rounded-lg p-2
+											file:mr-5 file:py-3 file:px-10
+											file:rounded-lg
+											file:text-small file:font-bold  file:text-secondary
+											file:border file:border-secondary
+											hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
+											accept=".svg,.png,.jpg,.jpeg,.webp" multiple/>
 									</div>
 								</div>
 
@@ -284,7 +283,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 								<div
 									class="flex flex-col w-full optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
 									<label for="tag-input" class="block text-nowrap">Tags :</label>
-									<select type="text" id="tag-input" name="tag-input"
+									<select type="text" id="tag-input"
 										class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full"
 										placeholder="Ajouter un tag...">
 										<option value="" class="hidden" selected>Rechercher un tag</option>
@@ -309,9 +308,9 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 								<!-- Visite -->
 								<div class="flex justify-between items-center w-full space-x-2 optionVisite hidden">
 									<div class="inline-flex items-center cursor-pointer space-x-4"
-										onclick="toggleCheckbox('visiteGuidee')">
+										onclick="toggleCheckbox('guide')">
 										<p>Visite guidée :</p>
-										<input type="checkbox" id="visiteGuidee" value="" class="sr-only peer">
+										<input type="checkbox" name="guide" id="guide" value="" class="sr-only peer">
 										<div
 											class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
 										</div>
@@ -364,8 +363,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 								<!-- Capacité d'accueil -->
 								<!-- Spectacle -->
 								<div class="flex justify-start items-center w-full space-x-2 optionSpectacle hidden">
-									<label for="place" class="text-nowrap">Capacité d'accueil :</label>
-									<input type="number" id="place" pattern="/d+/" onchange="" min="0" name="place"
+									<label for="capacite" class="text-nowrap">Capacité d'accueil :</label>
+									<input type="number" name="capacite" id="capacite" pattern="/d+/" onchange="" min="0"
 										class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 									<p>personnes</p>
 								</div>
@@ -373,8 +372,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 								<!-- Nombre d'attractions -->
 								<!-- Parc d'attractions -->
 								<div class="flex justify-start items-center w-full space-x-2 optionParcAttraction hidden">
-									<label for="parc-numb" class="text-nowrap">Nombre d'attraction :</label>
-									<input type="number" id="parc-numb" pattern="/d+/" onchange="" min="0"
+									<label for="nb_attractions" class="text-nowrap">Nombre d'attraction :</label>
+									<input type="number" name="nb_attractions" id="nb_attractions" pattern="/d+/" onchange="" min="0"
 										class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 									<p>attractions</p>
 								</div>
@@ -477,11 +476,11 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 											</tbody>
 											<tr>
 												<td class="w-full">
-													<input type="text" name="newPrestationName" id="newPrestationName"
+													<input type="text" id="newPrestationName"
 														class="border border-secondary rounded-lg p-2 bg-white w-full">
 												</td>
 												<td class="w-fit group">
-													<input type="checkbox" name="newPrestationInclude"
+													<input type="checkbox"
 														id="newPrestationInclude" class="hidden peer">
 													<label for="newPrestationInclude"
 														class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
@@ -540,11 +539,11 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 											</tbody>
 											<tr>
 												<td class="w-full">
-													<input type="text" name="newPrixName" id="newPrixName"
+													<input type="text" id="newPrixName"
 														class="border border-secondary rounded-lg p-2 bg-white w-full">
 												</td>
 												<td class="w-fit">
-													<input type="number" name="newPrixValeur" id="newPrixValeur" min="0"
+													<input type="number" id="newPrixValeur" min="0"
 														class="border border-secondary rounded-lg p-2 bg-white">
 												</td>
 												<td class="w-fit">
@@ -904,7 +903,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 			}
 
 			function checkPart1Validity() {
-				const offreRadios = document.querySelectorAll('input[name="offre"]');
+				const offreRadios = document.querySelectorAll('input[name="type_offre"]');
 				let isValid = false;
 
 				offreRadios.forEach((radio) => {
@@ -991,7 +990,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 			checkPart3Validity();
 
-			document.querySelectorAll('input[name="offre"]').forEach((radio) => {
+			document.querySelectorAll('input[name="type_offre"]').forEach((radio) => {
 				radio.addEventListener("change", () => {
 					console.log("Checking part 1 validity");
 					checkPart1Validity();
