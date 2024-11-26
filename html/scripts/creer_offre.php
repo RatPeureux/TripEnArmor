@@ -60,11 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "Allemand" => $_POST["langueDE"] ?? "on"
     ]; // VISITE
     $typesRepas = [
-        "Petit déjeuner"=> $_POST["repasPetitDejeuner"] ?? "on",
-        "Brunch"=> $_POST["repasBrunch"] ?? "on",
-        "Déjeuner"=> $_POST["repasDejeuner"] ?? "on",
-        "Dîner"=> $_POST["repasDiner"] ?? "on",
-        "Boissons"=> $_POST["repasBoissons"] ?? "on",
+        "Petit déjeuner" => $_POST["repasPetitDejeuner"] ?? "on",
+        "Brunch" => $_POST["repasBrunch"] ?? "on",
+        "Déjeuner" => $_POST["repasDejeuner"] ?? "on",
+        "Dîner" => $_POST["repasDiner"] ?? "on",
+        "Boissons" => $_POST["repasBoissons"] ?? "on",
     ];
     $nb_attractions = (int) $_POST['nb_attractions'] ?? 0; // PARC_ATTRACTION
     $prices = $_POST['prices'] ?? [];
@@ -83,11 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     6. [x] Offre_Tag / Restauration_Tag
     7. [x] Offre_Image
     8. [x] Offre_Langue
-    9. TypeRepas 
-    10. Offre_Prestation
+    9. [x] TypeRepas 
+    10. [x] Offre_Prestation
     11. Horaires
     12. [x] Tarif_Public
-    13. Facture
     */
     BDD::startTransaction();
 
@@ -185,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_offre_controller.php';
         $tagOffreController = new TagOffreController();
-        
+
         foreach ($tags as $tag) {
             $tag_id = $tagController->getTagsByName($tag, 0);
             $tagOffreController->linkOffreAndTag($id_offre, $tagId);
@@ -231,6 +230,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagesIds["plan"][] = $imageController->createImage($uploadName);
     }
 
+    if ($activityType === 'visite') {
+        // Insérer les langues dans la base de données
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/langue_controller.php';
+        $langueController = new LangueController();
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/visite_langue_controller.php';
+        $visiteLangueController = new VisiteLangueController();
+
+        foreach ($langues as $langue => $isIncluded) {
+            if ($isIncluded) {
+                $id_langue = $langueController->getInfosLangueByName($langue);
+                $visiteLangueController->linkVisiteAndLangue($id_offre, $id_langue);
+            }
+        }
+    } elseif ($activityType === 'restauration') {
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/type_repas_controller.php';
+        $typeRepasController = new TypeRepasController();
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/restauration_type_repas_controller.php';
+        $restaurationTypeRepasController = new RestaurationTypeRepasController();
+
+        foreach ($typesRepas as $typeRepas => $isIncluded) {
+            if ($isIncluded) {
+                $id_type_repas = $typeRepasController->getTypeRepasByName($typeRepas);
+                $restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
+            }
+        }
+    } elseif ($activityType === 'activite') {
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/prestation_manager.php';
+        $prestationController = new PrestationController();
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/activite_prestation_controller.php';
+        $activitePrestationController = new ActivitePrestationController();
+
+        foreach ($prestations as $prestation => $isIncluded) {
+            if ($isIncluded) {
+                $id_prestation = $prestationController->getPrestationByName($prestation);
+                if ($id_prestation < 0) {
+                    $id_prestation = $prestationController->createPrestation($prestation);
+                }
+
+                $activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
+            }
+        }
+    }
+
     // Insérer les prix dans la base de données
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tarif_public_controller.php';
     $tarifController = new TarifPublicController();
@@ -243,34 +285,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
     }
 
-    if ($activityType === 'visite') {
-        // Insérer les langues dans la base de données
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/langue_controller.php';
-        $langueController = new LangueController();
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/visite_langue_controller.php';
-        $visiteLangueController = new VisiteLangueController();
 
-        foreach ($langues as $langue => $isIncluded) {
-            if ($isIncluded) {
-                $id_langue = $langueController->getInfosLangueByName($langue);
-                $visiteLangueController->linkVisiteAndLangue( $id_offre, $id_langue);
-            }
-        }
-    } elseif($activityType === 'restauration') {
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/type_repas_controller.php';
-        $typeRepasController = new TypeRepasController();
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/restauration_type_repas_controller.php';
-        $restaurationTypeRepasController = new restaurationTypeRepasController();
-
-        foreach($typesRepas as $typeRepas => $isIncluded) {
-            if ($isIncluded) {
-                $id_type_repas = $typeRepasController->getTypeRepasByName($typeRepas);
-                $restaurationTypeRepasController->linkRestaurationAndTypeRepas($id_offre, $id_type_repas);
-            }
-        }
-    }
-    
-    
     // // Insérer les prestations dans la base de données
     // require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/offre_prestation_controller.php';
     // $offrePrestationController = new OffrePrestationController();
