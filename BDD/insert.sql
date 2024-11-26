@@ -1,18 +1,17 @@
 -- Note : pour insérer dans les tables, en raison de l'héritage
---        [!!!][!!!][!!!][!!!][!!!][!!!][!!!]
---        il faut UNIQUEMENT insérer dans les tables enfants qui ont des contraintes bien définies
---        si une insertion se fait sur une table abstrate (_compte, _offre...),
---        il y aura des problèmes de cohérence, de contraintes, de doublons... etc.
---        [!!!][!!!][!!!][!!!][!!!][!!!][!!!]
+--        [!!!]
+--        Il faut UNIQUEMENT insérer dans les tables enfants qui ont des contraintes bien définies
+--        si une insertion se fait sur une table abstraite (_compte, _professionnel ou _offre),
+--        il y pourra y avoir des problèmes de cohérence, de contraintes, de doublons, etc...
+--        [!!!]
 
--- Listing des tables abstraites
+-- Tables abstraites
 --  _compte
 --  _professionnel
 --  _offre
 
 SET SCHEMA 'sae_db';
 
--- insertion d'adresses
 INSERT INTO
     _adresse (
         code_postal,
@@ -21,78 +20,119 @@ INSERT INTO
         odonyme,
         complement
     )
-VALUES (
-        '29200',
-        'Brest',
-        '123',
-        'Rue',
-        'des Fleurs'
+VALUES ( -- Léo
+        '29670',
+        'Henvic',
+        '3',
+        'Maison',
+        'Place de l''École'
     ),
-    (
+    ( -- Antoine et Baptiste
         '29600',
         'Morlaix',
         '45',
         'Avenue',
         'de la Paix'
     ),
-    (
-        '22000',
-        'Saint-Brieuc',
-        '',
-        'Hôtel de Ville',
-        ''
-    ),
-    (
+    ( -- Eliott
         '22300',
         'Lannion',
-        '78',
-        'Boulevard',
-        'de Marie'
+        '5',
+        '',
+        'Rue des Augustins'
     ),
-    (
-        '22200',
-        'Guimgamp',
-        '23',
-        'Rue',
-        'du Tourisme'
-    ),
-    (
-        '22100',
-        'Dinan',
-        '12',
-        'Rue',
-        'de Jean-Macé'
-    ),
-    (
-        '35400',
-        'Saint-Malo',
-        '89',
-        'Rue',
-        'des Gourmets'
-    ),
-    (
+    ( -- Jean Dupont
         '29000',
         'Quimper',
         '22',
         'Rue',
         'des Athlètes'
     ),
-    (
+    ( -- Richard
         '35000',
         'Rennes',
         '78',
         'Boulevard',
         'de la Culture'
     ),
-    (
+    ( -- Maxime
         '56100',
         'Lannion',
         '2',
         'Pl.',
         'du Général Leclerc'
+    ),
+    ( -- Le Gourmet
+        '22000',
+        'Saint-Brieuc',
+        '10',
+        'Rue du Général de Gaulle',
+        'Proche du centre-ville'
+    ),
+    ( -- Le Bateau Ivre 
+        '22300',
+        'Lannion',
+        '5',
+        'Avenue de la Mer',
+        'En bord de mer'
+    ),
+    ( -- Randonnée en forêt
+        '22300',
+        'Lannion',
+        '15',
+        'Route de la Forêt',
+        'Entrée principale de la forêt'
+    ),
+    ( -- Kayak sur la rivière
+        '22300',
+        'Lannion',
+        '30',
+        'Rivière du Trégor',
+        'Proche du port de plaisance'
+    ),
+    ( -- Spectacle de magie
+        '22300',
+        'Lannion',
+        '20',
+        'Place du Château',
+        'À proximité du château historique'
+    ),
+    ( -- Concert acoustique en plein air
+        '22300',
+        'Lannion',
+        '20',
+        'Place du Château',
+        'Concert en plein air à proximité du château historique'
+    ),
+    ( -- Visite du centre historique de Lannion
+        '22300',
+        'Lannion',
+        '30',
+        'Rivière du Trégor',
+        'Proche du port de plaisance'
+    ),
+    ( -- Excursion au château
+        '22300',
+        'Lannion',
+        '20',
+        'Place du Château',
+        'À proximité du château historique'
+    ),
+    ( -- Parc Astérix
+        '22950',
+        'Plounéour-Brignogan',
+        '8',
+        'Route de la Plage',
+        'Proche des attractions familiales'
+    ),
+    ( -- La Récré des Trois Curés
+        '22750',
+        'Ploufragan',
+        '12',
+        'Boulevard de la Mer',
+        'Accès facile à la plage'
     );
 
--- insertion des comptes et pros
 INSERT INTO
     _membre (
         email,
@@ -103,26 +143,23 @@ INSERT INTO
         nom,
         prenom
     )
-VALUES
-    -- hash_mdp_1
-    -- ... etc
-    (
-        'jdupont@example.com',
-        '$2y$10$AWRYO2FfYz77O0FcIPfssuidZTyw9T3Y7kDn5WAwk77AJQ1clSmlm',
-        '0600000001',
-        1,
-        'jdupont',
+VALUES ( -- Quifaitca13
+        'eliott.janot@hotmail.com',
+        '$2y$10$oxar/t75Fg8yWjKluYG6PO8RQWODQsTMmoKDGYmH1tWW2OjeYz6oS',
+        '06 01 02 03 04',
+        4,
+        'LotiPACT',
         'Dupont',
         'Jean'
     ),
-    (
-        'mlavigne@example.com',
-        '$2y$10$lVNjBftVCaAAPt35NeQFRewdK0aRM9BfwAMNmTQ4HV4YmvBY47SSy',
-        '0600000002',
-        2,
-        'mlavigne',
-        'Lavigne',
-        'Marie'
+    ( -- Abcd1234
+        'jdupont@yahoo.fr',
+        '$2y$10$WxJFrlgRsqBkjs16zoO44umqDmugUNOuTi38XXwTJsGINK9Nlp.CW',
+        '06 59 64 11 08',
+        5,
+        'jjdup',
+        'Dupont',
+        'Jean'
     );
 
 INSERT INTO
@@ -134,24 +171,21 @@ INSERT INTO
         num_siren,
         nom_pro
     )
-VALUES
-    -- LeMeilleurChateau/5
-    (
-        4,
-        'chateau2kergrist@kergrist.fr',
-        '$2y$10$GXXQOLrRyCjKrO2SLmTm2.kLs1HIWugRuelUynpBATOu9mhORFA1a',
-        '0296463271',
-        '948058375',
-        'Château de Kergrist'
+VALUES ( -- Caca123-
+        1,
+        'leobleas@gmail.com',
+        '$2y$10$SKmv1CW9n.OBcF.N.lx/3.iCpIIx7Z4ov5AqM246/21dUlp7flzm2',
+        '07 69 24 73 22',
+        '438 107 845',
+        'Henvic&Associates'
     ),
-    -- nonnonnon
-    (
-        5,
-        'leo.blas@gmail.com',
-        '$2y$10$DZNXjLZgFIX1B7TDkPtz9O1IP3frVdkgAoySH4V8EkPVfg7vpSOIS',
-        '0658457412',
-        '123456789',
-        'Amazon'
+    ( -- MaGalie2511
+        6,
+        'zenpoxa@gmail.com',
+        '$2y$10$OmocaPOye7BG1feUJfQACeEFublSKfrcRi7r58JiYp0k6.pLuMc9W',
+        '01 23 45 67 89',
+        '591 321 423',
+        'PlusUnCanvaRaté'
     );
 
 INSERT INTO
@@ -163,47 +197,37 @@ INSERT INTO
         type_orga,
         nom_pro
     )
-VALUES (
-        6,
-        'gouvernement.macron@gmail.com',
-        'onFeraPas493',
-        '0254152245',
-        'Associatif',
-        'France'
-    ),
-    (
+VALUES ( -- Phenixis_05
         7,
-        'gouvernement.trump@gmail.com',
-        'camalaLaBest',
-        '0256965584',
-        'Organisation Publique',
-        'USA'
-    ),
-    (
-        8,
-        'test.okok@outlook.com',
-        'lalaland',
-        '0256521245',
+        'max.duh22@gmail.com',
+        '$2y$10$7JTlezr2H6kVw5F0nuqHPuhe2X8AVbgenBADfX/sr0XEHCNyZ3OT6',
+        '02 54  815 22 45',
         'Associatif',
-        'Dev Unirfou'
+        'Wisecart'
     ),
-    (
-        9,
-        'adresse.mail@hotmail.fr',
-        'appleEstSupASamsung',
-        '0256988884',
-        'Organisation Publique',
-        'PluDI D'
+    ( -- Freez_05
+        2,
+        'antoinetoullec9@gmail.com',
+        '$2y$10$XQtoQcmJjcW1b/JWo7QFrOrH2OXbp3Ye9.CR0uIwM6j6fnJqg5i6u',
+        '02 56 96 55 84',
+        'Associatif',
+        'RBRS'
+    ),
+    ( -- azertyuiop1A
+        3,
+        'frollabaptiste@gmail.com',
+        '$2y$10$4BhlQ4XtwVhJ/3.FtndS/O2zHHetFinIsAawXQicbbwsaqKLrAEau',
+        '02 56 52 12 45',
+        'Organisation publique',
+        'Jigobu'
     );
 
--- insertion des types d'offres (Standard, Premium, Gratuite)
 INSERT INTO
     _type_offre (nom, prix_ht, prix_ttc)
 VALUES ('Premium', 3.34, 4),
     ('Standard', 1.67, 2),
     ('Gratuit');
 
--- Insertion dans les différents types d'offres, 2 chacunes -----------------------------------------------------------------------------------------------
 INSERT INTO
     _restauration (
         est_en_ligne,
@@ -220,30 +244,30 @@ INSERT INTO
     )
 VALUES (
         true,
-        'Fougères',
-        'Restaurant gastronomique offrant une expérience culinaire haut de gamme avec des plats raffinés à base de produits locaux et de saison. Notre chef vous propose un menu dégustation inoubliable.',
-        'Restaurant gastronomique avec menu dégustation.',
-        50.00,
-        '2024-10-01',
-        '2024-10-15',
-        1,
+        'Le Gourmet',
+        'Le Gourmet est un restaurant gastronomique situé à Saint-Brieuc, offrant une expérience culinaire raffinée où la cuisine traditionnelle française rencontre des touches modernes. Chaque plat est une œuvre d''art, préparée avec des produits locaux et de saison, soigneusement sélectionnés pour leur qualité et leur saveur. L''ambiance du restaurant est élégante et chaleureuse, idéale pour un dîner romantique ou un repas d''affaires. Le chef met un point d''honneur à revisiter les classiques de la gastronomie française avec créativité et finesse.',
+        'Restaurant français haut de gamme, offrant une expérience gastronomique à base de produits locaux.',
+        30,
+        '2024-05-10',
+        '2024-11-25',
+        7,
         '€€€',
-        5,
-        1
+        7,
+        3
     ),
 
 (
     true,
-    'Le Bartab',
-    'Bistro convivial offrant des plats traditionnels français dans un cadre chaleureux. Le menu change chaque jour, basé sur les produits frais du marché.',
-    'Bistro avec cuisine française traditionnelle.',
-    25.00,
-    '2024-09-20',
-    '2024-10-01',
-    2,
+    'Le Bateau Ivre',
+    'Le Bateau Ivre est un restaurant réputé de Lannion, situé en bord de mer, où vous pourrez savourer une cuisine bretonne traditionnelle, axée sur des produits locaux et frais. Spécialisé dans les fruits de mer, le restaurant propose une carte variée mettant en avant les spécialités régionales, accompagnées de vins soigneusement sélectionnés. Le cadre maritime et chaleureux, avec vue sur la mer, ajoute à l''expérience culinaire, créant une atmosphère agréable pour un repas en famille, en couple ou entre amis.',
+    'Spécialisé dans les fruits de mer et la cuisine bretonne, avec une vue magnifique sur la mer.',
+    25,
+    '2024-06-20',
+    '2024-11-25',
+    8,
     '€€',
-    5,
-    1
+    7,
+    3
 );
 
 INSERT INTO
@@ -264,33 +288,33 @@ INSERT INTO
     )
 VALUES (
         true,
-        'Lannion Parcours',
-        'Parcours de randonnée guidé à travers les montagnes avec des vues imprenables et des explications sur la faune et la flore locale. Idéal pour les amateurs de nature et de marche.',
-        'Randonnée guidée en montagne avec paysages spectaculaires.',
-        30.00,
-        '2024-10-10',
-        '2024-10-20',
-        2,
-        '02:00:00',
-        12,
-        'Guide expérimenté, équipement fourni.',
-        4,
-        2
+        'Randonnée en forêt',
+        'Partez à la découverte de la forêt de Lannion lors d''une randonnée guidée qui vous permettra de vous reconnecter à la nature. Votre guide vous fera découvrir les secrets de cette forêt, en vous expliquant la diversité de sa faune et de sa flore. Vous traverserez des sentiers ombragés, découvrirez des points de vue panoramiques et profiterez de la sérénité des lieux. Cette excursion est idéale pour les amateurs de randonnée et ceux qui souhaitent passer une journée en pleine nature tout en apprenant davantage sur l''écosystème local.',
+        'Randonnée guidée d''une journée dans la forêt de Lannion, idéale pour les amoureux de la nature.',
+        15,
+        '2024-07-15',
+        '2024-11-25',
+        9,
+        '05:00:00',
+        10,
+        'Prévoir des chaussures de marche et de l''eau. Service de guide inclus.',
+        5,
+        3
     ),
 
 (
     true,
-    'Surfing Sports',
-    'Cours de surf pour débutants sur la côte Atlantique. Apprenez les bases du surf avec un instructeur certifié dans un environnement sécurisé.',
-    'Cours de surf pour débutants.',
-    40.00,
-    '2024-07-15',
-    '2024-07-30',
-    6,
-    '01:30:00',
+    'Kayak sur la rivière',
+    'Embarquez pour une aventure en kayak sur la rivière de Lannion et découvrez des paysages époustouflants au fil de l''eau. Vous serez guidé à travers les méandres de la rivière, un environnement naturel où faune et flore se mêlent harmonieusement. Cette activité est idéale pour les amoureux de la nature et les amateurs de sports nautiques, qu''ils soient débutants ou expérimentés. Le guide vous fournira tout le matériel nécessaire, y compris le kayak et le gilet de sauvetage, tout en vous offrant des conseils pour une expérience agréable et sécurisée.',
+    'Excursion en kayak sur la rivière de Lannion, offrant une vue imprenable sur la nature environnante.',
+    20,
+    '2024-06-01',
+    '2024-11-25',
     10,
-    'Planche de surf fournie, instructeur qualifié.',
-    4,
+    '02:00:00',
+    8,
+    'Kayak, gilet de sauvetage, et guide fourni. Prévoir des vêtements adaptés.',
+    5,
     3
 );
 
@@ -311,14 +335,14 @@ INSERT INTO
     )
 VALUES (
         true,
-        'Carpediem',
-        'Concert de musique symphonique avec orchestre philharmonique de la ville, jouant des oeuvres classiques de Mozart et Beethoven. Une soirée inoubliable pour les amateurs de musique.',
-        'Concert symphonique avec orchestre.',
-        45.00,
-        '2024-10-05',
-        '2024-10-15',
-        3,
-        300,
+        'Spectacle de magie',
+        'Venez assister à un spectacle de magie incroyable qui mélange illusions, prestidigitation et humour. Ce show interactif, adapté à tous les âges, vous plonge dans un univers fascinant où les limites de la réalité sont constamment repoussées. Le magicien, avec son charisme et ses talents, émerveillera petits et grands avec des tours étonnants. Ce spectacle est idéal pour passer un moment inoubliable en famille, en particulier pour les enfants, qui participeront activement aux tours de magie, rendant l''expérience encore plus magique.',
+        'Magicien local présente un show interactif avec des tours de magie et des illusions impressionnantes.',
+        10,
+        '2024-09-01',
+        '2024-11-25',
+        11,
+        200,
         '01:30:00',
         4,
         1
@@ -326,17 +350,17 @@ VALUES (
 
 (
     true,
-    'Circus',
-    'Spectacle de cirque moderne avec des acrobates, jongleurs, et numéros de trapèze impressionnants. Un divertissement pour toute la famille.',
-    'Spectacle de cirque moderne avec acrobates.',
-    30.00,
-    '2024-11-01',
-    '2024-11-10',
-    7,
+    'Concert acoustique en plein air',
+    'Le concert acoustique en plein air est une expérience musicale unique qui vous permet de découvrir des artistes locaux dans un cadre naturel exceptionnel. Profitez de la musique bretonne traditionnelle et folk, jouée par des musiciens talentueux, tout en admirant les paysages environnants. Que ce soit sur une place publique, dans un parc ou près d''un monument historique, ce concert en plein air offre une atmosphère détendue et conviviale, idéale pour passer un agréable moment en famille ou entre amis. L''événement est accessible à tous et promet de belles découvertes musicales.',
+    'Concert en plein air avec des artistes locaux pour découvrir la musique bretonne traditionnelle et contemporaine.',
+    12,
+    '2024-06-10',
+    '2024-11-25',
+    12,
     500,
     '02:00:00',
     5,
-    1
+    3
 );
 
 INSERT INTO
@@ -356,31 +380,31 @@ INSERT INTO
     )
 VALUES (
         true,
-        'Remontez dans le temps',
-        'Visite guidée du château médiéval avec explication de son histoire et des événements marquants. Une plongée dans le passé pour découvrir la vie au Moyen Âge.',
-        'Visite guidée du château médiéval.',
-        20.00,
-        '2024-09-15',
-        '2024-09-30',
-        4,
-        '01:00:00',
+        'Visite du centre historique de Lannion',
+        'La visite guidée du centre historique de Lannion vous plonge au cœur de l''histoire de cette belle cité bretonne. Lors de cette excursion, vous découvrirez ses rues pavées, ses maisons à colombages typiques et ses monuments emblématiques, tels que l''église Saint-Jean et la tour de l''Horloge. Votre guide partagera avec vous des anecdotes sur le passé de la ville et ses habitants. Cette visite est l''occasion idéale de comprendre l''évolution de Lannion, de son époque médiévale à aujourd''hui, tout en explorant ses joyaux architecturaux.',
+        'Visite guidée du centre historique de Lannion, avec un guide expert sur l''histoire locale.',
+        12,
+        '2024-03-01',
+        '2024-11-25',
+        13,
+        '02:00:00',
         true,
         6,
-        2
+        3
     ),
 
 (
     true,
-    'Raisains frais',
-    'Visite guidée des caves à vin de la région avec dégustation de vins locaux. Une immersion dans l histoire viticole et un parcours à travers les vignes.',
-    'Visite des caves à vin avec dégustation.',
-    50.00,
-    '2024-06-10',
-    '2024-06-20',
-    8,
-    '01:30:00',
+    'Excursion au château',
+    'L''excursion au château de Lannion vous invite à découvrir l''histoire fascinante de ce monument historique, qui a joué un rôle important dans la défense et le développement de la ville. Accompagné d''un guide passionné, vous parcourrez les salles majestueuses, les remparts et les jardins, tout en apprenant les secrets de la forteresse. De là, vous profiterez également d''une vue imprenable sur la ville et la campagne environnante. C''est une expérience inoubliable pour les amateurs d''histoire et de patrimoine.',
+    'Excursion au château de Lannion avec un guide passionné pour explorer l''histoire du site et son rôle dans la région.',
+    15,
+    '2024-06-15',
+    '2024-11-25',
+    14,
+    '03:00:00',
     true,
-    7,
+    6,
     3
 );
 
@@ -401,62 +425,42 @@ INSERT INTO
     )
 VALUES (
         true,
-        'Pour les gaullois',
-        'Parc d attractions pour toute la famille, avec plus de 20 manèges et attractions adaptés à tous les âges. Un lieu de divertissement incontournable pour petits et grands.',
-        'Parc d attractions familial avec plus de 20 manèges.',
-        35.00,
-        '2024-08-01',
-        '2024-08-15',
-        5,
-        20,
-        11,
-        7,
+        'Parc Astérix',
+        'Le Parc Astérix, inspiré des célèbres bandes dessinées d''Astérix le Gaulois, offre une expérience unique à travers des attractions à thèmes gaulois, romains, et égyptiens. Vous y découvrirez des montagnes russes effrayantes, des spectacles historiques, ainsi que des zones interactives pour les enfants. Le parc, qui fait la part belle à l''humour et à l''aventure, accueille les visiteurs dans un univers magique où se mêlent rires et sensations fortes. Idéal pour les familles, le parc propose également des espaces de restauration et de détente.',
+        'Parc à thème basé sur l''univers d''Astérix, avec des attractions pour tous les âges.',
+        30,
+        '1989-04-30',
+        '2024-11-25',
+        15,
+        40,
+        3,
+        3,
         2
     ),
+    (
+        true,
+        'La Récré des Trois Curés',
+        'La Récré des Trois Curés est un parc d''attractions familial situé en Bretagne, parfait pour une journée de divertissement en famille. Ce parc propose des manèges adaptés à tous les âges, des montagnes russes palpitantes aux attractions douces pour les plus jeunes. Vous pourrez aussi profiter d''espaces de détente en plein air, d''aires de pique-nique, et d''animations tout au long de la journée. En plus des manèges, le parc met en valeur la nature environnante, offrant ainsi un cadre agréable pour toute la famille.',
+        'Parc familial avec des attractions adaptées à toute la famille, situé en Bretagne.',
+        18,
+        '1989-07-01',
+        '2024-11-25',
+        16,
+        30,
+        8,
+        3,
+        1
+    );
 
-(
-    true,
-    'Vive les baleines',
-    'Parc aquatique avec toboggans géants, piscines à vagues, et espaces détente. Parfait pour se rafraîchir en été et s amuser en famille ou entre amis.',
-    'Parc aquatique avec attractions et piscines.',
-    45.00,
-    '2024-05-01',
-    '2024-05-10',
-    9,
-    15,
-    8,
-    8,
-    1
-);
-
------- insertion types repas
 INSERT INTO
     _type_repas (nom)
-VALUES ('Petit dej'),
+VALUES ('Petit déj'),
     ('Déjeuner'),
     ('Dîner'),
     ('Boissons'),
     ('Brunch');
 
 INSERT INTO
-    _tarif_public (
-        titre,
-        age_min,
-        age_max,
-        prix,
-        id_offre
-    )
-VALUES (
-        'pour les petits',
-        3,
-        10,
-        45,
-        5
-    ),
-    (
-        'pour les grands',
-        11,
-        99,
-        50,
-        5
-    );
+    _tarif_public (titre, prix, id_offre)
+VALUES ('Enfant', 12, 5),
+    ('Adulte', 30, 5);
