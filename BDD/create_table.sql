@@ -206,7 +206,6 @@ create table _type_repas (
 
 CREATE TABLE _restauration (
     gamme_prix VARCHAR(3) NOT NULL,
-    id_type_repas INTEGER REFERENCES _type_repas (id_type_repas)
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _restauration à cause de l'héritage
