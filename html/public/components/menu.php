@@ -40,7 +40,7 @@
   </div>
   <div class="all-items flex flex-col items-stretch">
     <a class="pl-5 py-3 border-t-2 border-black" href="/">Accueil</a>
-    <a class="pl-5 py-3 border-t-2 border-black flex justify-between pr-2" href="/offre">
+    <a class="pl-5 py-3 border-t-2 border-black flex justify-between pr-2" href="/">
       <p>Toutes les offres</p>
       <p>></p>
     </a>

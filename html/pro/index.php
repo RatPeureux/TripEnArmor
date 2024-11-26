@@ -1,7 +1,20 @@
 <?php
 session_start();
+
+// Enlever les informations gardées lors de l'étape de connexion quand on reveint à la page (retour en arrière)
+unset($_SESSION['data_en_cours_connexion']);
+
+// Vérifier si le pro est bien connecté
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 verifyPro();
+
+// Fonction utilitaires
+if (!function_exists('chaineVersMot')) {
+    function chaineVersMot($str): string
+    {
+        return str_replace('_', " d'", ucfirst($str));
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -10,12 +23,14 @@ verifyPro();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js"></script>
     <script type="module" src="/scripts/loadComponentsPro.js"></script>
+
     <title>PACT - Accueil</title>
 </head>
 
@@ -66,23 +81,12 @@ verifyPro();
                     <div class="card <?php if ($option)
                         echo 'active' ?> relative min-w-[1280px] bg-base300 rounded-lg flex">
 
-                            <!-- PARTIE DE GAUCHE -->
+                            <!-- PARTIE DE GAUCHE, image-->
                             <div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
-                                <!-- En tête -->
-                                <div class="en-tete flex justify-center absolute top-0 w-full">
-                                    <div class="bg-bgBlur/75 backdrop-blur rounded-b-lg w-3/5">
-                                        <h3 class="text-center text-h2 font-bold"><?php echo $titre_offre ?></h3>
-                                    <div class="flex w-full justify-between px-2">
-                                        <p class="text"><?php echo $pro_nom ?></p>
-                                        <p class="text"><?php echo $categorie_offre ?></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Image de fond -->
-                            <a href="/pages/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>">
+                                <a href="/pages/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>">
                                 <img class="rounded-l-lg w-full h-full object-cover object-center"
-                                    src="/public/images/image-test.png" alt="Image promotionnelle de l'offre"
-                                    title="consulter les détails">
+                                    src='/public/images/<?php echo $categorie_offre ?>.jpg'
+                                    alt="Image promotionnelle de l'offre" title="consulter les détails">
                             </a>
                         </div>
 
@@ -92,46 +96,57 @@ verifyPro();
 
                             <div class="w-full">
                                 <!-- A droite, en haut -->
-                                <div class="flex w-full items-center justify-between">
-                                    <!-- OFFRE EN LIGNE ? -->
-                                    <?php
-                                    if ($est_en_ligne) {
-                                        ?>
-                                        <a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
-                                            onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?');"
-                                            title=" [!!!] mettre hors-ligne">
-                                            <svg class="toggle-wifi-offline p-1 rounded-lg border-rouge-logo hover:border-y-2 border-solid duration-100 hover:fill-[#EA4335]"
-                                                width="55" height="40" viewBox="0 0 40 32" fill="#00350D">
-                                                <path
-                                                    d="M3.3876 12.6812C7.7001 8.54375 13.5501 6 20.0001 6C26.4501 6 32.3001 8.54375 36.6126 12.6812C37.4126 13.4437 38.6751 13.4187 39.4376 12.625C40.2001 11.8313 40.1751 10.5625 39.3814 9.8C34.3563 4.96875 27.5251 2 20.0001 2C12.4751 2 5.64385 4.96875 0.612605 9.79375C-0.181145 10.5625 -0.206145 11.825 0.556355 12.625C1.31885 13.425 2.5876 13.45 3.38135 12.6812H3.3876ZM20.0001 16C23.5501 16 26.7876 17.3188 29.2626 19.5C30.0939 20.2313 31.3564 20.15 32.0876 19.325C32.8189 18.5 32.7376 17.2312 31.9126 16.5C28.7376 13.7 24.5626 12 20.0001 12C15.4376 12 11.2626 13.7 8.09385 16.5C7.2626 17.2312 7.1876 18.4938 7.91885 19.325C8.6501 20.1562 9.9126 20.2313 10.7439 19.5C13.2126 17.3188 16.4501 16 20.0064 16H20.0001ZM24.0001 26C24.0001 24.9391 23.5787 23.9217 22.8285 23.1716C22.0784 22.4214 21.061 22 20.0001 22C18.9392 22 17.9218 22.4214 17.1717 23.1716C16.4215 23.9217 16.0001 24.9391 16.0001 26C16.0001 27.0609 16.4215 28.0783 17.1717 28.8284C17.9218 29.5786 18.9392 30 20.0001 30C21.061 30 22.0784 29.5786 22.8285 28.8284C23.5787 28.0783 24.0001 27.0609 24.0001 26Z" />
-                                                <path class="invisible" d="M31 26.751L6 2.75098" stroke-width="3" stroke="#EA4335"
-                                                    stroke-linecap="round" />
-                                            </svg>
-                                        </a>
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
-                                            onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> en ligne ?');"
-                                            title="[!!!] mettre en ligne">
-                                            <svg class="toggle-wifi-online p-1 rounded-lg hover:fill-[#00350D] border-secondary hover:border-y-2 border-solid duration-100"
-                                                width="55" height="40" viewBox="0 0 40 32" fill="#EA4335">
-                                                <path
-                                                    d="M3.3876 12.6812C7.7001 8.54375 13.5501 6 20.0001 6C26.4501 6 32.3001 8.54375 36.6126 12.6812C37.4126 13.4437 38.6751 13.4187 39.4376 12.625C40.2001 11.8313 40.1751 10.5625 39.3814 9.8C34.3563 4.96875 27.5251 2 20.0001 2C12.4751 2 5.64385 4.96875 0.612605 9.79375C-0.181145 10.5625 -0.206145 11.825 0.556355 12.625C1.31885 13.425 2.5876 13.45 3.38135 12.6812H3.3876ZM20.0001 16C23.5501 16 26.7876 17.3188 29.2626 19.5C30.0939 20.2313 31.3564 20.15 32.0876 19.325C32.8189 18.5 32.7376 17.2312 31.9126 16.5C28.7376 13.7 24.5626 12 20.0001 12C15.4376 12 11.2626 13.7 8.09385 16.5C7.2626 17.2312 7.1876 18.4938 7.91885 19.325C8.6501 20.1562 9.9126 20.2313 10.7439 19.5C13.2126 17.3188 16.4501 16 20.0064 16H20.0001ZM24.0001 26C24.0001 24.9391 23.5787 23.9217 22.8285 23.1716C22.0784 22.4214 21.061 22 20.0001 22C18.9392 22 17.9218 22.4214 17.1717 23.1716C16.4215 23.9217 16.0001 24.9391 16.0001 26C16.0001 27.0609 16.4215 28.0783 17.1717 28.8284C17.9218 29.5786 18.9392 30 20.0001 30C21.061 30 22.0784 29.5786 22.8285 28.8284C23.5787 28.0783 24.0001 27.0609 24.0001 26Z" />
-                                                <path class="visible" d="M31 26.751L6 2.75098" stroke-width="3" stroke="#EA4335"
-                                                    stroke-linecap="round" />
-                                            </svg>
-                                        </a>
-                                        <?php
-                                    }
-                                    ?>
+                                <div class="flex w-full justify-between">
 
-                                    <!-- Voir l'offre & modifier -->
-                                    <div class="flex gap-10 items-center">
+                                    <!-- Titre de l'offre -->
+                                    <div>
+                                        <h3 class="text-h2 font-bold"><?php echo $titre_offre ?></h3>
+                                        <div class="flex">
+                                            <p class="text"><?php echo $pro_nom ?></p>
+                                            <p class="text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Manipulations sur l'offre -->
+                                    <div class="flex gap-10 self-start items-center">
+                                        <!-- en ligne ? -->
+                                        <?php
+                                        if ($est_en_ligne) {
+                                            ?>
+                                            <a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
+                                                onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?');"
+                                                title=" [!!!] mettre hors-ligne">
+                                                <svg class="toggle-wifi-offline p-1 rounded-lg border-rouge-logo hover:border-y-2 border-solid duration-100 hover:fill-[#EA4335]"
+                                                    width="55" height="40" viewBox="0 0 40 32" fill="#00350D">
+                                                    <path
+                                                        d="M3.3876 12.6812C7.7001 8.54375 13.5501 6 20.0001 6C26.4501 6 32.3001 8.54375 36.6126 12.6812C37.4126 13.4437 38.6751 13.4187 39.4376 12.625C40.2001 11.8313 40.1751 10.5625 39.3814 9.8C34.3563 4.96875 27.5251 2 20.0001 2C12.4751 2 5.64385 4.96875 0.612605 9.79375C-0.181145 10.5625 -0.206145 11.825 0.556355 12.625C1.31885 13.425 2.5876 13.45 3.38135 12.6812H3.3876ZM20.0001 16C23.5501 16 26.7876 17.3188 29.2626 19.5C30.0939 20.2313 31.3564 20.15 32.0876 19.325C32.8189 18.5 32.7376 17.2312 31.9126 16.5C28.7376 13.7 24.5626 12 20.0001 12C15.4376 12 11.2626 13.7 8.09385 16.5C7.2626 17.2312 7.1876 18.4938 7.91885 19.325C8.6501 20.1562 9.9126 20.2313 10.7439 19.5C13.2126 17.3188 16.4501 16 20.0064 16H20.0001ZM24.0001 26C24.0001 24.9391 23.5787 23.9217 22.8285 23.1716C22.0784 22.4214 21.061 22 20.0001 22C18.9392 22 17.9218 22.4214 17.1717 23.1716C16.4215 23.9217 16.0001 24.9391 16.0001 26C16.0001 27.0609 16.4215 28.0783 17.1717 28.8284C17.9218 29.5786 18.9392 30 20.0001 30C21.061 30 22.0784 29.5786 22.8285 28.8284C23.5787 28.0783 24.0001 27.0609 24.0001 26Z" />
+                                                    <path class="invisible" d="M31 26.751L6 2.75098" stroke-width="3"
+                                                        stroke="#EA4335" stroke-linecap="round" />
+                                                </svg>
+                                            </a>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
+                                                onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> en ligne ?');"
+                                                title="[!!!] mettre en ligne">
+                                                <svg class="toggle-wifi-online p-1 rounded-lg hover:fill-[#00350D] border-secondary hover:border-y-2 border-solid duration-100"
+                                                    width="55" height="40" viewBox="0 0 40 32" fill="#EA4335">
+                                                    <path
+                                                        d="M3.3876 12.6812C7.7001 8.54375 13.5501 6 20.0001 6C26.4501 6 32.3001 8.54375 36.6126 12.6812C37.4126 13.4437 38.6751 13.4187 39.4376 12.625C40.2001 11.8313 40.1751 10.5625 39.3814 9.8C34.3563 4.96875 27.5251 2 20.0001 2C12.4751 2 5.64385 4.96875 0.612605 9.79375C-0.181145 10.5625 -0.206145 11.825 0.556355 12.625C1.31885 13.425 2.5876 13.45 3.38135 12.6812H3.3876ZM20.0001 16C23.5501 16 26.7876 17.3188 29.2626 19.5C30.0939 20.2313 31.3564 20.15 32.0876 19.325C32.8189 18.5 32.7376 17.2312 31.9126 16.5C28.7376 13.7 24.5626 12 20.0001 12C15.4376 12 11.2626 13.7 8.09385 16.5C7.2626 17.2312 7.1876 18.4938 7.91885 19.325C8.6501 20.1562 9.9126 20.2313 10.7439 19.5C13.2126 17.3188 16.4501 16 20.0064 16H20.0001ZM24.0001 26C24.0001 24.9391 23.5787 23.9217 22.8285 23.1716C22.0784 22.4214 21.061 22 20.0001 22C18.9392 22 17.9218 22.4214 17.1717 23.1716C16.4215 23.9217 16.0001 24.9391 16.0001 26C16.0001 27.0609 16.4215 28.0783 17.1717 28.8284C17.9218 29.5786 18.9392 30 20.0001 30C21.061 30 22.0784 29.5786 22.8285 28.8284C23.5787 28.0783 24.0001 27.0609 24.0001 26Z" />
+                                                    <path class="visible" d="M31 26.751L6 2.75098" stroke-width="3" stroke="#EA4335"
+                                                        stroke-linecap="round" />
+                                                </svg>
+                                            </a>
+                                            <?php
+                                        }
+                                        ?>
+                                        <!-- modifier l'offre -->
                                         <a href="" title="modifier l'offre">
                                             <i
                                                 class="fa-solid fa-gear text-secondary text-h1 hover:text-primary duration-100"></i>
                                         </a>
+                                        <!-- détails de l'offre -->
                                         <a href="/pages/go_to_details.php?id_offre=<?php echo $id_offre ?>"
                                             title="voir l'offre">
                                             <i
@@ -143,8 +158,8 @@ verifyPro();
                                 <!-- A droite, au milieu : description avec éventuels tags -->
                                 <div class=" description py-2 flex flex-col gap-2 w-full">
                                     <div class="flex justify-center relative">
-                                        <div class="p-2 rounded-lg bg-secondary self-center">
-                                            <p class="text-white text-center font-bold">
+                                        <div class="p-2 rounded-lg bg-secondary self-center w-full">
+                                            <p class="text-white text-center">
                                                 <?php
                                                 // Afficher les tags de l'offre (ou plats si c'est un resto), sinon indiquer qu'il n'y a aucun tag
                                                 if ($tags) {
@@ -156,7 +171,7 @@ verifyPro();
                                             </p>
                                         </div>
                                     </div>
-                                    <p class="line-clamp-3 text-center">
+                                    <p class="line-clamp-3">
                                         <?php echo $resume ?>
                                     </p>
                                 </div>
@@ -169,7 +184,7 @@ verifyPro();
                                 <div class="flex justify-around self-stretch">
                                     <!-- Localisation -->
                                     <div title="localisation de l'offre"
-                                        class="localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center">
+                                        class="localisation flex gap-2 flex-shrink-0 justify-center items-center">
                                         <i class="fa-solid fa-location-dot"></i>
                                         <p class="text-small"><?php echo $ville ?></p>
                                         <p class="text-small"><?php echo $code_postal ?></p>
@@ -235,7 +250,7 @@ verifyPro();
             ?>
 
             <!-- Bouton de création d'offre -->
-            <a href="/pro/offre/creer" class="font-bold p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
+            <a href="/pro/offre/creer" class="p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
             focus:scale-[0.97] duration-100">
                 + Nouvelle offre
             </a>

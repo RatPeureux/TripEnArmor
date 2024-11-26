@@ -10,6 +10,7 @@ verifyPro();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <title>Détails d'une offre | Professionnel | PACT</title>
 
@@ -18,10 +19,10 @@ verifyPro();
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
-    
-    <link href="https:/ /cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
+    
+    <title>Détails d'une offre | Professionnel | PACT</title>
 </head>
 
 <body class="flex flex-col">
