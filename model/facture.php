@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+
 class Facture extends BDD {
     // Nom de la table utilisée pour les opérations sur les factures
     private $nom_table = "sae_db._facture";

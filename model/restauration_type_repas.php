@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+
 class RestaurationTypeRepas extends BDD {
 
     private $nom_table = "sae_db._restaurant_type_repas";
