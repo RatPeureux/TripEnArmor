@@ -20,7 +20,7 @@ class Adresse extends BDD {
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR : Impossible d'obtenir cette adresse";
             return -1;
@@ -51,7 +51,7 @@ class Adresse extends BDD {
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_adresse'];
         } else {
             echo "ERREUR : Impossible de créer l'adresse";
             return -1;
@@ -83,7 +83,7 @@ class Adresse extends BDD {
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_adresse'];
         } else {
             echo "ERREUR : Impossible de mettre à jour l'adresse";
             return -1;

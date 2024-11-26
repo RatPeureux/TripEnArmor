@@ -15,7 +15,7 @@ class ProPublic extends BDD {
         $statement->bindParam(6, $type_orga);
         
         if($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
         } else {
             echo "ERREUR: Impossible de créer le compte pro public";
             return -1;
@@ -29,7 +29,7 @@ class ProPublic extends BDD {
         $statement->bindParam(1, $id);
 
         if ($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR";
             return false;
@@ -49,7 +49,7 @@ class ProPublic extends BDD {
         $statement->bindParam(7, $id);
 
         if($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
         } else {
             echo "ERREUR: Impossible de mettre à jour le compte pro public";
             return -1;

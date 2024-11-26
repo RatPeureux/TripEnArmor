@@ -12,7 +12,7 @@ class ParcAttraction extends BDD {
         $statement->bindValue(2, $online);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR : Impossible d'obtenir l'offre du parc d'attraction";
             return -1;
@@ -36,7 +36,7 @@ class ParcAttraction extends BDD {
         $statement->bindParam(10, $age_requis);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
         } else {
             echo "ERREUR : Impossible de créer l'offre du parc d'attraction";
             return -1;
@@ -60,7 +60,7 @@ class ParcAttraction extends BDD {
         $statement->bindParam(10, $age_requis);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
         } else {
             echo "ERREUR : Impossible de mettre à jour l'offre du parc d'attraction";
             return -1;

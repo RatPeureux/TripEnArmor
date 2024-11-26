@@ -11,7 +11,7 @@ class TypeOffre extends BDD {
         $statement->bindParam(1, $id_type_offre);
 
         if ($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR";
             return false;

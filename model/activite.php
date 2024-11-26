@@ -14,7 +14,7 @@ class Activite extends BDD {
         $statement->bindValue(2, $online);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR : Impossible d'obtenir cette activitée";
             return -1;
@@ -39,7 +39,7 @@ class Activite extends BDD {
         $statement->bindParam(11, $prestations);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
         } else {
             echo "ERREUR : Impossible de créer l'activitée";
             return -1;
@@ -64,7 +64,7 @@ class Activite extends BDD {
         $statement->bindParam(11, $prestations);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
         } else {
             echo "ERREUR : Impossible de mettre à jour l'activitée";
             return -1;

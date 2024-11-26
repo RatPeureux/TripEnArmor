@@ -12,7 +12,7 @@ class Spectacle extends BDD {
         $statement->bindValue(2, $online);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR : Impossible d'obtenir ce spectacle";
             return -1;
@@ -36,7 +36,7 @@ class Spectacle extends BDD {
         $statement->bindParam(10, $duree);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
         } else {
             echo "ERREUR : Impossible de créer le spectacle";
             return -1;
@@ -60,7 +60,7 @@ class Spectacle extends BDD {
         $statement->bindParam(10, $duree);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
         } else {
             echo "ERREUR : Impossible de mettre à jour le spectacle";
             return -1;

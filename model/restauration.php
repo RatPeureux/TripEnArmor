@@ -12,7 +12,7 @@ class Restauration extends BDD {
         $statement->bindValue(2, $online);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR : Impossible d'obtenir cette offre de restauration";
             return -1;
@@ -36,7 +36,7 @@ class Restauration extends BDD {
         $statement->bindParam(10, $id_type_repas);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
         } else {
             echo "ERREUR : Impossible de mettre à jour l'offre de restauration";
             return -1;
@@ -60,7 +60,7 @@ class Restauration extends BDD {
         $statement->bindParam(10, $id_type_repas);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
         } else {
             echo "ERREUR : Impossible de créer l'offre de restauration";
             return -1;

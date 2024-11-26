@@ -17,7 +17,7 @@ class Membre extends BDD {
         $statement->bindParam(7, $nom);
         
         if($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
         } else {
             echo "ERREUR: Impossible de créer le compte membre";
             return -1;
@@ -31,7 +31,7 @@ class Membre extends BDD {
         $statement->bindParam(1, $id);
 
         if ($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR";
             return false;
@@ -40,7 +40,7 @@ class Membre extends BDD {
 
     static function updateMembre($id, $email, $mdp, $tel, $adresseId, $pseudo, $prenom, $nom) {
         self::initBDD();
-        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, pseudo = ?, prenom = ?, nom = ? WHERE id_compte = ?";
+        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, pseudo = ?, prenom = ?, nom = ? WHERE id_compte = ? RETURNING id_compte";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);
@@ -52,7 +52,7 @@ class Membre extends BDD {
         $statement->bindParam(8, $id);
 
         if($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
         } else {
             echo "ERREUR: Impossible de mettre à jour le compte membre";
             return -1;

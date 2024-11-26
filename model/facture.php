@@ -20,7 +20,7 @@ class Facture extends BDD {
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR : Impossible d'obtenir cette facture";
             return -1;
@@ -44,7 +44,7 @@ class Facture extends BDD {
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_facture'];
         } else {
             echo "ERREUR : Impossible de créer la facture";
             return -1;
@@ -69,7 +69,7 @@ class Facture extends BDD {
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]["id_facture"];
         } else {
             echo "ERREUR : Impossible de mettre à jour la facture";
             return -1;
