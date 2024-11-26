@@ -1,12 +1,14 @@
 <?php
 
-class TypeRepas extends BDD {
+class TypeRepas extends BDD
+{
 
     private $nom_table = "sae_db._type_repas";
 
-    static function getTypeRepasById($id){
+    function getTypeRepasById($id)
+    {
 
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE type_repas_id = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE type_repas_id = ?";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $id);
@@ -17,10 +19,26 @@ class TypeRepas extends BDD {
             echo "ERREUR : Impossible d'obtenir ce type repas";
             return -1;
         }
-
     }
 
-    static function createTypeRepas($nom_type_repas){
+    function getTypeRepasByName($name)
+    {
+
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE nom_type_repas = ?";
+
+        $stmt = self::$db->prepare($query);
+        $stmt->bindParam(1, $name);
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+        } else {
+            echo "ERREUR : Impossible d'obtenir ce type repas";
+            return -1;
+        }
+    }
+
+    function createTypeRepas($nom_type_repas)
+    {
 
         $query = "INSERT INTO " . self::$nom_table . "(nom_type_repas) VALUES (?) RETURNING type_repas_id";
 
@@ -36,9 +54,10 @@ class TypeRepas extends BDD {
 
     }
 
-    static function updateTypeRepas($nom_type_repas) {
-        $query = "UPDATE " . self::$nom_table ." SET nom_type_repas = ? RETURNING type_repas_id";
-        
+    function updateTypeRepas($nom_type_repas)
+    {
+        $query = "UPDATE " . self::$nom_table . " SET nom_type_repas = ? RETURNING type_repas_id";
+
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $nom_type_repas);
 
@@ -50,9 +69,10 @@ class TypeRepas extends BDD {
         }
     }
 
-    static function deleteTag($id) {
-        $query = "DELETE FROM " . self::$nom_table ." WHERE type_repas_id = ?";
-        
+    function deleteTag($id)
+    {
+        $query = "DELETE FROM " . self::$nom_table . " WHERE type_repas_id = ?";
+
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $id);
 
