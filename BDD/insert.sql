@@ -199,9 +199,9 @@ VALUES (
 -- insertion des types d'offres (Standard, Premium, Gratuite)
 INSERT INTO
     _type_offre (nom)
-VALUES ('Premium'),
-    ('Standard'),
-    ('Gratuit');
+VALUES ('Premium', 3.34, 4),
+    ('Standard', 1.67, 2),
+    ('Gratuit', 0, 0);
 
 -- Insertion dans les différents types d'offres, 2 chacunes -----------------------------------------------------------------------------------------------
 INSERT INTO
