@@ -42,6 +42,12 @@ class PrestationManager {
                 this.updatePrestations();
             }
         })
+
+        // Capture l'événement de soumission du formulaire pour ajouter les prix
+        const form = document.getElementById('formulaire');
+        form.addEventListener('submit', (e) => {
+            this.addPrestationsToForm();
+        });
     }
 
     updatePrestations() {
@@ -97,7 +103,31 @@ class PrestationManager {
                 this.prestationInput.appendChild(elementDiv);
             });
         }
+    }
 
+    addPrestationsToForm() {
+        // Supprime les anciens champs cachés pour éviter les duplications
+        const oldFields = document.querySelectorAll('.prestations-input');
+        oldFields.forEach(field => field.remove());
+
+        const form = document.getElementById('formulaire');
+
+        // Ajoute les prix comme champs cachés dans le formulaire
+        this.prestationsContainer["prestations"].forEach((prestation, index) => {
+            const hiddenName = document.createElement('input');
+            hiddenName.type = 'hidden';
+            hiddenName.name = `prestations[${index}][name]`;
+            hiddenName.value = prestation.name;
+            hiddenName.classList.add('prestations-input');
+            form.appendChild(hiddenName);
+
+            const hiddenValue = document.createElement('input');
+            hiddenValue.type = 'hidden';
+            hiddenValue.name = `prestations[${index}][value]`;
+            hiddenValue.value = prestation.isIncluded;
+            hiddenValue.classList.add('prestations-input');
+            form.appendChild(hiddenValue);
+        });
     }
 }
 
