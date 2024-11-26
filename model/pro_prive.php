@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+
 class ProPrive extends BDD {
 
     private $nom_table = "sae_db._pro_prive";
@@ -15,7 +17,7 @@ class ProPrive extends BDD {
         $statement->bindParam(6, $num_siren);
         
         if($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
         } else {
             echo "ERREUR: Impossible de créer le compte pro privé";
             return -1;
@@ -29,7 +31,7 @@ class ProPrive extends BDD {
         $statement->bindParam(1, $id);
 
         if ($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR";
             return false;
@@ -49,7 +51,7 @@ class ProPrive extends BDD {
         $statement->bindParam(7, $id);
 
         if($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
         } else {
             echo "ERREUR: Impossible de mettre à jour le compte pro privé";
             return -1;

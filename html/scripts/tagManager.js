@@ -55,7 +55,7 @@ class TagManager {
             }
         };
 
-        this.tagInput.addEventListener('change', (event) => {
+        this.tagInput.addEventListener('change', () => {
             const tag = this.tagInput.value;
             const activityType = document.getElementById('activityType').value;
             this.addTag(tag, activityType);

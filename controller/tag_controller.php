@@ -2,15 +2,18 @@
 
 require_once "../model/tag.php";
 
-class TagController {
+class TagController
+{
 
     private $model;
 
-    function __construct() {
+    function __construct()
+    {
         $this->model = 'Tag';
     }
 
-    public function getInfosTag($id){
+    public function getInfosTag($id)
+    {
         $tag = $this->model::getTagById($id);
 
         $result = [
@@ -19,5 +22,21 @@ class TagController {
         ];
 
         return $result;
+    }
+
+    public function getTagsByName($nom, $index = -1)
+    {
+        $tag = $this->model::getTagByName($nom);
+        
+        if ($index == -1) {
+            return $tag;
+        } else {
+            return $tag[$index];
+        }
+    }
+
+    public function createTag($nom)
+    {
+        return $this->model::createTag($nom)["id_tag"];
     }
 }

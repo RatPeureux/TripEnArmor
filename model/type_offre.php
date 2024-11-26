@@ -1,5 +1,7 @@
 <?php 
 
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+
 class TypeOffre extends BDD {
 
     private $nom_table = "sae_db._type_offre";
@@ -11,7 +13,7 @@ class TypeOffre extends BDD {
         $statement->bindParam(1, $id_type_offre);
 
         if ($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR";
             return false;
