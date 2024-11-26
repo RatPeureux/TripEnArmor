@@ -3,7 +3,7 @@
 require_once "../model/adresse.php";
 
 class AdresseController {
-    static private $model;  
+    private $model;  
 
     function __construct() {
         $this->model = 'Adresse';

@@ -3,7 +3,7 @@
 require_once "../model/spectacle.php";
 
 class SpectacleController {
-    static private $model;  
+    private $model;  
 
     function __construct() {
         $this->model = 'Spectacle';
