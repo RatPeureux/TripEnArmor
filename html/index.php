@@ -98,27 +98,27 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                         <div class="hidden flex flex-wrap gap-4" id="developped-f1-tab">
                             <div class="flex gap-2">
                                 <input type="checkbox" id="restauration" name="restauration" />
-                                <label for="restauration">Restauration (x)</label>
+                                <label for="restauration">Restauration</label>
                             </div>
 
                             <div class="flex gap-2">
                                 <input type="checkbox" id="activite" name="activite" />
-                                <label for="activite">Activité (x)</label>
+                                <label for="activite">Activité</label>
                             </div>
 
                             <div class="flex gap-2">
                                 <input type="checkbox" id="spectacle" name="spectacle" />
-                                <label for="spectacle">Spectacle (x)</label>
+                                <label for="spectacle">Spectacle</label>
                             </div>
 
                             <div class="flex gap-2">
                                 <input type="checkbox" id="visite" name="visite" />
-                                <label for="visite">Visite (x)</label>
+                                <label for="visite">Visite</label>
                             </div>
 
                             <div class="flex gap-2">
                                 <input type="checkbox" id="parc_attraction" name="parc_attraction" />
-                                <label for="parc_attraction">Parc d'attraction (x)</label>
+                                <label for="parc_attraction">Parc d'attraction</label>
                             </div>
                         </div>
                     </div>
@@ -130,12 +130,12 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                         <div class="hidden flex flex-wrap gap-4" id="developped-f2-tab">
                             <div class="flex gap-2">
                                 <input type="checkbox" id="open" name="open" />
-                                <label for="open">Ouvert (x)</label>
+                                <label for="open">Ouvert</label>
                             </div>
 
                             <div class="flex gap-2">
                                 <input type="checkbox" id="closes" name="closes" />
-                                <label for="closes">Fermé (x)</label>
+                                <label for="closes">Fermé</label>
                             </div>
                         </div>
                     </div>
@@ -211,6 +211,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                 </div>
 
                 <div class="flex flex-col gap-4">
+                    <div id="selected-categories"></div>
                     <?php
                     // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
                     if (!$toutesLesOffres) {
@@ -218,7 +219,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     } else {
                         $i = 0;
                         foreach ($toutesLesOffres as $offre) {
-                            if ($i < 3) {
+                            if ($i < 1) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';
                                 include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
@@ -282,27 +283,27 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     <div class="developped hidden flex flex-wrap gap-4" id="developped-f1-tel">
                         <div class="flex gap-2">
                             <input type="checkbox" id="restauration" name="restauration" />
-                            <label for="restauration">Restauration (x)</label>
+                            <label for="restauration">Restauration</label>
                         </div>
 
                         <div class="flex gap-2">
                             <input type="checkbox" id="activite" name="activite" />
-                            <label for="activite">Activité (x)</label>
+                            <label for="activite">Activité</label>
                         </div>
 
                         <div class="flex gap-2">
                             <input type="checkbox" id="spectacle" name="spectacle" />
-                            <label for="spectacle">Spectacle (x)</label>
+                            <label for="spectacle">Spectacle</label>
                         </div>
 
                         <div class="flex gap-2">
                             <input type="checkbox" id="visite" name="visite" />
-                            <label for="visite">Visite (x)</label>
+                            <label for="visite">Visite</label>
                         </div>
 
                         <div class="flex gap-2">
                             <input type="checkbox" id="parc_attraction" name="parc_attraction" />
-                            <label for="parc_attraction">Parc d'attraction (x)</label>
+                            <label for="parc_attraction">Parc d'attraction</label>
                         </div>
                     </div>
                 </div>
@@ -314,12 +315,12 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     <div class="developped hidden flex flex-wrap gap-4" id="developped-f2-tel">
                         <div class="flex gap-2">
                             <input type="checkbox" id="open" name="open" />
-                            <label for="open">Ouvert (x)</label>
+                            <label for="open">Ouvert</label>
                         </div>
 
                         <div class="flex gap-2">
                             <input type="checkbox" id="closes" name="closes" />
-                            <label for="closes">Fermé (x)</label>
+                            <label for="closes">Fermé</label>
                         </div>
                     </div>
                 </div>
@@ -405,6 +406,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 </html>
 
 <script>
+    // !!! TOGGLE AFFICHANT/DÉPLIANT LES INTERFACES DE FILTRES/TRIS
     // Fonction pour configurer un bouton qui affiche ou masque une section
     function setupToggleTab(buttonId, sectionId) {
         const button = document.getElementById(buttonId); // Récupère le bouton par son ID
@@ -446,6 +448,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     setupToggleTel('filter-button-tel', 'filter-section-tel');
     setupToggleTel('sort-button-tel', 'sort-section-tel');
 
+
+    // !!! PERMET LE DÉVELOPPEMENT AU CLIC D'UNE BOÎTE DE FILTRE
     // Fonction pour gérer les filtres avec flèches et contenus développables
     function developpedFilter(buttonId, arrowId, developpedId) {
         const button = document.getElementById(buttonId); // Récupère le bouton
@@ -508,6 +512,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     developpedFilterAutoClose('button-f4-tel', 'arrow-f4-tel', 'developped-f4-tel');
     developpedFilterAutoClose('button-f5-tel', 'arrow-f5-tel', 'developped-f5-tel');
 
+
+    // !!! GESTION DES DOUBLE SLIDERS
     // Fonction pour mettre à jour la valeur affichée par un slider
     function updateSliderValue(value) {
         document.getElementById('slider-value').textContent = parseFloat(value).toFixed(1); // Affiche la valeur formatée
@@ -639,4 +645,60 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             filtres.classList.toggle('active'); // Alterne la classe 'active'
         }
     }
+
+
+    // !!! FILTRAGES DE DONNÉES
+    function getCheckedCategories() {
+        const checkboxes = document.querySelectorAll('#developped-f1-tab input[type="checkbox"]');
+        const checkedCategories = Array.from(checkboxes)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.id);
+
+        // Mettre à jour l'affichage
+        const display = document.getElementById('selected-categories');
+        display.innerHTML = checkedCategories.length 
+            ? `Catégories cochées : ${checkedCategories.join(', ')}` 
+            : "";
+
+        return checkedCategories;
+    }
+
+    document.querySelectorAll('#developped-f1-tab input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            getCheckedCategories(); // Mise à jour automatique
+        });
+    });
+
+    // Fonction qui gère le filtrage des offres
+    function filterOffers() {
+        // Récupérer toutes les cases à cocher de catégorie
+        const checkboxes = document.querySelectorAll('#developped-f1-tab input[type="checkbox"]');
+        
+        // Récupérer toutes les offres
+        const offres = document.querySelectorAll('.infos');
+
+        // Pour chaque case à cocher
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                // Pour chaque offre, vérifier si elle appartient à une catégorie sélectionnée
+                offres.forEach((offre) => {
+                    // Vérifier si l'offre a une des classes de catégories cochées
+                    const categories = offre.querySelectorAll('.type-offre'); // Obtenir les classes de l'offre (les catégories)
+                    const isChecked = checkbox.checked;
+                    const categorie = checkbox.value;
+
+                    if (isChecked && categories.contains(categorie)) {
+                        // Si la catégorie est cochée et l'offre appartient à cette catégorie, l'afficher
+                        offre.classList.remove('hidden');
+                    } else if (!isChecked || !categories.contains(categorie)) {
+                        // Si la catégorie n'est pas cochée ou l'offre ne correspond pas à cette catégorie, la masquer
+                        offre.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    }
+
+    // Initialiser le filtrage
+    filterOffers();
 </script>
