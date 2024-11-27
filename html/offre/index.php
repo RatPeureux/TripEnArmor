@@ -28,6 +28,7 @@ session_start();
 
     <?php
     $id_offre = $_SESSION['id_offre'];
+    $id_membre = $_SESSION['id_membre'];
 
     // Connexion avec la bdd
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
@@ -421,9 +422,7 @@ session_start();
 
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </main>
