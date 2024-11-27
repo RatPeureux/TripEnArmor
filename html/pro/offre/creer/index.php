@@ -18,10 +18,11 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 	<script src="/styles/config.js"></script>
 	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
 	<script type="module" src="/scripts/main.js" defer></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
-	
+
 	<title>Création d'offre | Professionnel | PACT</title>
 </head>
 
@@ -61,13 +62,13 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 			}
 		}
 		echo "<br>Files: <br>";
-		foreach($_FILES as $key => $value) {
+		foreach ($_FILES as $key => $value) {
 			if (is_array($value)) {
 				echo $key . " : ";
 				print_r($value);
 				echo "<br>";
 			} else {
-				echo $key . " : ". $value . "<br>";
+				echo $key . " : " . $value . "<br>";
 			}
 		}
 	} else { ?>
@@ -83,7 +84,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 					</div>
 				</a>
 				<!-- Section de sélection de l'offre -->
-				<form id="formulaire" action="/pro/offre/creer" method="POST" class="block w-full space-y-8" enctype="multipart/form-data">
+				<form id="formulaire" action="/pro/offre/creer" method="POST" class="block w-full space-y-8"
+					enctype="multipart/form-data">
 					<div
 						class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
 						<!-- Carte de l'offre gratuite -->
@@ -230,8 +232,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 											file:rounded-lg
 											file:text-small file:font-bold  file:text-secondary
 											file:border file:border-secondary
-											hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-											accept=".svg,.png,.jpg,.jpeg,.webp" multiple/>
+											hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp"
+											multiple />
 									</div>
 								</div>
 
@@ -372,7 +374,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 								<!-- Parc d'attractions -->
 								<div class="flex justify-start items-center w-full space-x-2 optionParcAttraction hidden">
 									<label for="nb_attractions" class="text-nowrap">Nombre d'attraction :</label>
-									<input type="number" name="nb_attractions" id="nb_attractions" pattern="/d+/" onchange="" min="0"
+									<input type="number" name="nb_attractions" id="nb_attractions" pattern="/d+/"
+										onchange="" min="0"
 										class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 									<p>attractions</p>
 								</div>
@@ -479,8 +482,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 														class="border border-secondary rounded-lg p-2 bg-white w-full">
 												</td>
 												<td class="w-fit group">
-													<input type="checkbox"
-														id="newPrestationInclude" class="hidden peer">
+													<input type="checkbox" id="newPrestationInclude" class="hidden peer">
 													<label for="newPrestationInclude"
 														class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
 														<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -514,6 +516,178 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 													</div>
 												</td>
 											</tr>
+										</table>
+									</div>
+
+									<!-- HORAIRES -->
+									<div class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
+										<h2 class="text-h2 text-secondary">Horaires</h2>
+										<table class="w-full table-auto">
+											<thead>
+												<th>
+												</th>
+												<th>
+													Lundi
+												</th>
+												<th>
+													Mardi
+												</th>
+												<th>
+													Mercredi
+												</th>
+												<th>
+													Jeudi
+												</th>
+												<th>
+													Vendredi
+												</th>
+												<th>
+													Samedi
+												</th>
+												<th>
+													Dimanche
+												</th>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														Ouverture
+													</td>
+													<td class="relative">
+														<input type="time" name="lundi[ouverture]" id="lundi[ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="mardi[ouverture]" id="mardi[ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="mercredi[ouverture]"
+															id="mercredi[ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="jeudi[ouverture]" id="jeudi[ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="vendredi[ouverture]"
+															id="vendredi[ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="samedi[ouverture]" id="samedi[ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="dimanche[ouverture]"
+															id="dimanche[ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														Pause
+													</td>
+													<td class="relative">
+														<input type="time" name="lundi[pause]" id="lundi[pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="mardi[pause]" id="mardi[pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="mercredi[pause]" id="mercredi[pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="jeudi[pause]" id="jeudi[pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="vendredi[pause]" id="vendredi[pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="samedi[pause]" id="samedi[pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="dimanche[pause]" id="dimanche[pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														Reprise
+													</td>
+													<td class="relative">
+														<input type="time" name="lundi[reprise]" id="lundi[reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="mardi[reprise]" id="mardi[reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="mercredi[reprise]" id="mercredi[reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="jeudi[reprise]" id="jeudi[reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="vendredi[reprise]" id="vendredi[reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="samedi[reprise]" id="samedi[reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="dimanche[reprise]" id="dimanche[reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														Fermeture
+													</td>
+													<td class="relative">
+														<input type="time" name="lundi[fermeture]" id="lundi[fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="mardi[fermeture]" id="mardi[fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="mercredi[fermeture]"
+															id="mercredi[fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="jeudi[fermeture]" id="jeudi[fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="vendredi[fermeture]"
+															id="vendredi[fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="samedi[fermeture]" id="samedi[fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="dimanche[fermeture]"
+															id="dimanche[fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+												</tr>
+											</tbody>
 										</table>
 									</div>
 
