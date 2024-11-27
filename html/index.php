@@ -63,7 +63,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                 } else {
                     $i = 0;
                     foreach ($toutesLesOffres as $offre) {
-                        if ($i < 5) {
+                        if ($i < 10) {
                             // Obtenir les différentes variables avec les infos nécessaires via des requêtes SQL sécurisées (bindParams)
                             include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
                             include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
