@@ -51,6 +51,84 @@ session_start();
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
+    switch ($categorie_offre) {
+            case 'restauration':                                                
+                // appel controlller restauration
+                // $restaurtion egal Ctrl->getRestaurationById($id_offre)
+                // echo $restauration['id_repas']
+                include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+                $controllerRestauration = new RestaurationController();
+                $parc_attraction = $controllerRestauration->getInfosRestauration($id_offre);
+            break;
+            
+            case 'activite':
+                include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
+                $controllerActivite = new ActiviteController();
+                $activite = $controllerActivite->getInfosActivite($id_offre);
+                $duree_act = $activite['duree'];
+                $duree_act = substr($duree_act, 0, -3);
+                $duree_act = str_replace(':', 'h', $duree_act);
+
+                $prestation = $activite['prestations'];
+
+                $age_requis_act = $activite['age_requis'];
+            break;
+            
+            case 'parc_attraction':
+                include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
+                $controllerParcAttraction = new ParcAttractionController();
+                $parc_attraction = $controllerParcAttraction->getInfosParcAttraction($id_offre);
+                
+                $age_requis_pa = $parc_attraction['age_requis'];
+
+                $nb_attractions = $parc_attraction['nb_attractions'];
+
+
+            break;
+            
+            case 'visite':
+                include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
+                $controllerVisite = new VisiteController();
+                $visite = $controllerVisite->getInfosVisite($id_offre);
+
+                $duree_vis = $visite['duree'];
+                $duree_vis = substr($duree_vis, 0, -3);
+                $duree_vis = str_replace(':', 'h', $duree_vis);
+
+                $guideBool = $visite['avec_guide'];
+                if ($guideBool==true) {
+                    $guide = 'oui';
+                    include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
+                    $controllerLangue = new VisiteLangueController();
+                    $tabLangues = $controllerLangue->getLanguesByIdVisite($id_offre);
+                    $langues = '';
+                    foreach ($tabLangues as $langue) {
+                        $langues .= $langue['nom'] . ', ';
+                    }
+                    $langues = rtrim($langues, ', ');
+                }
+                else{
+                    $guide = 'non';
+                }
+
+            break;
+            
+            case 'spectacle':
+                include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
+                $controllerSpectacle = new SpectacleController();
+                $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
+
+                $duree_spec = $spectacle['duree'];
+                $duree_spec = substr($duree_spec, 0, -3);
+                $duree_spec = str_replace(':', 'h', $duree_spec);
+
+                $capacite = $spectacle['capacite'];
+
+            break;
+            
+            default:
+            break;
+        }  
     ?>
 
     <!-- VERSION TELEPHONE -->
@@ -85,11 +163,13 @@ session_start();
         <!-- Reste des informations sur l'offre -->
         <div class="px-3 flex flex-col gap-5">
             <!-- Titre de l'offre -->
-            <h1 class="text-h1"><?php echo $offre['titre'] ?></h1>
+            <p class="text-h1 font-bold"><?php echo $offre['titre'] ?></p>
             <!-- Afficher les tags de l'offre -->
             <?php
-            if ($tags) {
+            if (!$tags=='') {
                 echo ("<h3 class='text-h3'>$tags</h3>");
+            }else{
+                echo ("<p class='text-h3'> Aucun tag à afficher</p>");
             }
             ?>
 
@@ -161,19 +241,33 @@ session_start();
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="flex flex-col gap-2">
                     <div class="flex flex-row items-center">
-                        <h1 class="text-h1 text-bold"><?php echo $offre['titre'] ?></h1>
-                        <p class="professionnel text-h1">&nbsp;- <?php echo $pro_nom ?></p>
+                        <p class="text-h1 font-bold"><?php echo $offre['titre']?></p>
+                        <p class="text-h1 pt-2">&nbsp-&nbsp<?php echo $pro_nom?></p>
                     </div> 
                     <!-- Afficher les tags de l'offre -->
-                    <p>
+                    <p class="text-small">
                         <?php echo $resume ?>
                     </p>
-
+                    
                     <?php
-                    if ($tags) {
-                        echo ("<h3 class='text-h3'>$tags</h3>");
-                    }
-                    ?>
+                            if ($tags) {
+                                ?>
+                                <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                                <?php
+                                echo ("<p class='text-white text-center'>$tags</p>");
+                                ?>
+                                </div>
+                                <?php
+                            }else{
+                                ?>
+                                <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                                <?php
+                                echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
+                                ?>
+                                </div>
+                                <?php
+                            }
+                        ?>
                     <!-- Description + avis -->
                     <div class="description-et-avis flex flex-row">
                         <!-- Partie description -->
@@ -181,30 +275,149 @@ session_start();
 
                             <!-- Prix + localisation -->
                             <div class="localisation-et-prix flex flex-col gap-4">
-                                <h3 class="text-bold">À propos</h3>
+                                <p class="text-h4 font-bold">À propos</p>
                                 <div class="flex items-center gap-4 px-2">
-                                    <i class="fa-solid fa-location-dot"></i>
+                                    <i class="w-6 text-center fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement']  ?>
-                                        </p>
+                                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme']?></p>
+                                        <?php echo $adresse['complement']?>
                                     </div>
                                 </div>
-                                <p class="prix px-2"><?php echo $prix_a_afficher ?></p>
+                                <div class="flex items-center px-2 gap-4">
+                                    <i class="w-6 text-center fa-solid fa-money-bill"></i>
+                                    <p class="prix text-small"><?php echo $prix_a_afficher ?></p>
+                                </div>
                             </div>
                             
                             <!-- Description détaillée -->
-                            <div class="description flex flex-col gap-2">
+                            <div class="description flex flex-col my-4">
                                 <p class="text-justify text-small px-2">
                                     <?php echo $description ?>
                                 </p>
                             </div>
                         </div>
 
-                        <!-- Partie avis -->
-                        <div class="avis w-7/12 px-2">
-                            <h3 class="text-bold">Avis</h3>
-                            <p></p>
+                        <!-- Partie avis & Infos en fonction du type offre -->
+                        <div class="avis w-7/12 px-2 py-3">
+                            <!-- Horaire -->
+                            <a href="" class="">
+                                <div class="flex flex-row justify-between" id="horaire-button">
+                                    <p class="text-h4 font-bold">Horaire</p>
+                                    <p id="horaire-arrow">></p>
+                                </div>
+                                <div class="hidden text-small py-3" id="horaire-info">
+                                        <p>Voici les supers horaires gaming</p>
+                                </div>
+                            </a>
+                            <a href="" class="">
+                                <div class="flex flex-row justify-between pt-3" id="compl-button">
+                                    <p class="text-h4 font-bold">Informations complémentaires</p>
+                                    <p id="compl-arrow">></p>
+                                </div>
+                                <div class="flex flex-col py-3 hidden" id="compl-info">
+                                    <?php 
+                                        switch ($categorie_offre) {
+                                            case 'restauration':                                                
+                                                            $tags_type_repas = 'Petit-dej, Brunch, Déjeuner, Dîner, Goûter';
+                                                            ?>
+                                                            <div class="text-small flex flex-row">
+                                                                <p class="text-small">Repas servis&nbsp:&nbsp</p>
+                                                                <p><?php echo $tags_type_repas?></p>
+                                                            </div>
+                                                            <?php                                
+                                                break;
+                                                
+                                                case 'activite':
+                                                    ?>
+                                                    <div class="text-small flex flex-row">
+                                                        <p>Durée&nbsp:&nbsp</p>
+                                                        <p><?php echo $duree_act ?></p>
+                                                    </div>
+                                                    <div class="text-small flex flex-row">
+                                                        <p>Âge requis&nbsp:&nbsp</p>
+                                                        <p><?php echo $age_requis_act ?></p>
+                                                        <p>&nbspans</p>
+                                                    </div>
+                                                    <div class="text-small">
+                                                        <?php echo $prestation ?>
+                                                    </div>
+                                                    
+                                                    <?php
+                                                break;
+                                                
+                                                case 'parc_attraction':
+                                                    ?>
+                                                    <div class="text-small flex flex-row">
+                                                        <p>Âge requis&nbsp:&nbsp</p>
+                                                        <p><?php echo $age_requis_pa ?></p>
+                                                        <p>&nbspans</p>
+                                                    </div>
+                                                    <div class="text-small flex flex-row">
+                                                        <p>Nombre d'attraction&nbsp:&nbsp</p>
+                                                        <p><?php echo $nb_attractions ?></p>
+                                                    </div>
+                                                    <?php
+                                                break;
+                                                
+                                                case 'visite':
+                                                    ?>
+                                                    <div class="text-small flex flex-row">
+                                                        <p>Durée&nbsp:&nbsp</p>
+                                                        <p><?php echo $duree_vis ?></p>
+                                                    </div>
+                                                    <div class="text-small flex flex-row">
+                                                        <p>Visite guidée :&nbsp</p>
+                                                        <p><?php echo $guide ?></p>                                                      
+                                                    </div>
+                                                    <div class="text-small flex flex-row">
+                                                        <p>Langue(s) parlée(s) lors de la visite guidée :&nbsp</p>
+                                                        <p><?php echo $langues ?></p>                                               
+                                                    </div>
+                                                    <?php
+                                                break;
+                                                
+                                                case 'spectacle':
+                                                    ?>
+                                                    <div class="text-small flex flex-row">
+                                                        <p>Durée&nbsp:&nbsp</p>
+                                                        <p><?php echo $duree_spec ?></p>
+                                                    </div>
+                                                    <div class="text-small flex flex-row">
+                                                        <p>Capacité :&nbsp</p>
+                                                        <p><?php echo $capacite ?></p>
+                                                        <p>&nbsppersonnes</p>
+                                                    </div>                                                    
+                                                    <?php
+                                                break;
+                                                
+                                                default:
+                                                    ?>
+                                                    <p class="text-small">Aucune informations complémentaires à afficher.</p>
+                                                    <?php
+                                                break;
+                                            }        
+                                    ?>
+                                    </div>
+                            </a>
+                            <?php
+                            if($categorie_offre != 'restauration'){
+                                ?>
+                                <a href="" class="">
+                                    <div class="flex flex-row justify-between pt-3" id="grille-button">
+                                        <p class="text-h4 font-bold">Grille tarifaire</p>
+                                        <p id="grille-arrow">></p>
+                                    </div>
+                                    <div class="hidden text-small py-3" id="grille-info">
+                                            <p>Voici les prix super bien</p>
+                                    </div>
+                                </a>
+                                <?php
+                            }
+                            ?>
+                            <div class="pt-3">
+                            <p class="text-h4 font-bold">Avis</p>
+                            </div>
 
                         </div>
                     </div>
@@ -218,5 +431,23 @@ session_start();
     <div id="footer"></div>
 
 </body>
+<script>
+    function setupToggle(arrowID, buttonID, infoID) {
+        const button = document.getElementById(buttonID);
+        const arrow = document.getElementById(arrowID);
+        const info = document.getElementById(infoID);
 
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            arrow.classList.toggle('rotate-90');
+            info.classList.toggle('hidden');
+        });
+    }
+
+    setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
+    setupToggle('compl-arrow', 'compl-button', 'compl-info');
+    setupToggle('grille-arrow', 'grille-button', 'grille-info');
+
+
+</script>
 </html>
