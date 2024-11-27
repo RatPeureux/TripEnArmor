@@ -317,6 +317,7 @@ ADD CONSTRAINT fk_parc_attraction_type_offre FOREIGN KEY (id_type_offre) REFEREN
 -- Table Horaire
 CREATE TABLE _horaire (
     id_horaire SERIAL PRIMARY KEY,
+    jour VARCHAR(8) NOT NULL,
     ouverture TIME NOT NULL,
     fermeture TIME NOT NULL,
     pause_debut TIME,

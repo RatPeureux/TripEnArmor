@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/horaire.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/horaire.php";
 
 class HoraireController {
 
@@ -14,6 +14,23 @@ class HoraireController {
         $horaireID = $this->model::createCompte($ouverture, $fermeture, $pause_debut, $pause_fin, $id_offre);
         return $horaireID;
     }
+
+    public function getHorairesOfOffre($id_offre) {
+        $horaires = $this->model::getHorairesOfOffre($id_offre);
+        $result = [];
+
+        foreach ($horaires as $horaire) {
+            $result[$horaire["jour"]] = [
+                "id_horaire" => $horaire["id_horaire"],
+                "ouverture" => $horaire["ouverture"],
+                "fermeture" => $horaire["fermeture"],
+                "pause_debut" => $horaire["pause_debut"],
+                "pause_fin" => $horaire["pause_fin"]
+            ];
+        }
+        return $result;
+    }
+
     public function getInfosHoraire($id_horaire){
         $horaire = $this->model::getHoraireById($id_horaire);
 

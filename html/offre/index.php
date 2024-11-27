@@ -129,6 +129,65 @@ session_start();
         default:
             break;
     }
+
+    if ($categorie_offre !== 'restauration') {
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+        $controllerHoraire = new HoraireController();
+
+        $horairesV1 = [
+            "lundi" => [
+                "ouverture" => "08:00",
+                "pause_debut" => "12:00",
+                "pause_fin" => "14:00",
+                "fermeture" => "18:00",
+            ],
+            "mardi" => [
+                "ouverture" => "08:00",
+                "pause_debut" => "12:00",
+                "pause_fin" => "14:00",
+                "fermeture" => "18:00",
+            ],
+            "mercredi" => [
+                "ouverture" => "08:00",
+                "pause_debut" => "12:00",
+                "pause_fin" => "14:00",
+                "fermeture" => "18:00",
+            ],
+            "jeudi" => [
+                "ouverture" => "08:00",
+                "pause_debut" => "12:00",
+                "pause_fin" => "14:00",
+                "fermeture" => "18:00",
+            ],
+            "vendredi" => [
+                "ouverture" => "08:00",
+                "pause_debut" => "12:00",
+                "pause_fin" => "14:00",
+                "fermeture" => "18:00",
+            ],
+            "samedi" => [
+                "ouverture" => "08:00",
+                "pause_debut" => "12:00",
+                "pause_fin" => "14:00",
+                "fermeture" => "18:00",
+            ],
+            "dimanche" => [
+                "ouverture" => "08:00",
+                "pause_debut" => "12:00",
+                "pause_fin" => "14:00",
+                "fermeture" => "18:00",
+            ]
+        ]; # $controllerHoraire->getHorairesOfOffre($id_offre);
+    
+        $horaires = [];
+
+        foreach ($horairesV1 as $jour => $horaire) {
+            $horaires['ouverture'][$jour] = $horaire['ouverture'];
+            $horaires['pause_debut'][$jour] = $horaire['pause_debut'];
+            $horaires['pause_fin'][$jour] = $horaire['pause_fin'];
+            $horaires['fermeture'][$jour] = $horaire['fermeture'];
+        }
+    }
     ?>
 
     <!-- VERSION TELEPHONE -->
@@ -308,7 +367,52 @@ session_start();
                                     <p id="horaire-arrow">></p>
                                 </div>
                                 <div class="hidden text-small py-3" id="horaire-info">
-                                    <p>Voici les supers horaires gaming</p>
+                                    <table class="w-full table-auto">
+                                        <thead>
+                                            <th>
+                                                Lundi
+                                            </th>
+                                            <th>
+                                                Mardi
+                                            </th>
+                                            <th>
+                                                Mercredi
+                                            </th>
+                                            <th>
+                                                Jeudi
+                                            </th>
+                                            <th>
+                                                Vendredi
+                                            </th>
+                                            <th>
+                                                Samedi
+                                            </th>
+                                            <th>
+                                                Dimanche
+                                            </th>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            foreach ($horaires as $etat => $jours) {
+                                                ?>
+                                                <tr><?php
+                                                foreach ($jours as $jour => $value) {
+                                                    ?>
+                                                        <td class="relative">
+                                                            <p class="text-center">
+                                                                <?php
+                                                                    echo $value;
+                                                                ?>
+                                                            </p>
+                                                        </td>
+                                                    <?php
+                                                }
+                                                ?>
+                                                </tr><?php
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </a>
                             <a href="" class="">
