@@ -1,6 +1,5 @@
 <?php
 
-
 // Détails globaux de l'offre
 $id_offre = $offre['id_offre'];
 $description = $offre['description'];
@@ -61,7 +60,7 @@ if ($allTarifs) {
         }
     }
 } else {
-    $tarif_min = '';
+    $tarif_min = $offre['prix_mini'];
     $tarif_max = '';
 }
 $prix_a_afficher;
@@ -71,7 +70,7 @@ if ($categorie_offre == 'restauration') {
     $stmt->execute();
     $prix_a_afficher = $stmt->fetch(PDO::FETCH_ASSOC)['gamme_prix'];
 } else {
-    $prix_a_afficher = $tarif_min . '-' . $tarif_max . '€';
+    $prix_a_afficher = $tarif_min . '€';
 }
 $title_prix = $categorie_offre == 'restauration' ? '€ = X euros, €€ = XX euros, €€€ = XX euros' : 'fourchette des prix';
 
