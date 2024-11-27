@@ -3,7 +3,21 @@
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
 
 class Activite extends BDD {
-    static private $nom_table = "_activite";
+    static private $nom_table = "sae_db._activite";
+
+    static function getAllActivite() {
+        self::initBDD();
+        $query = "SELECT * FROM " . self::$nom_table;
+        
+        $statement = self::$db->prepare($query);
+
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR : Impossible d'obtenir les activitées";
+            return -1;
+        }
+    }
 
     static function getActiviteById($id, $online = true) { 
         self::initBDD();

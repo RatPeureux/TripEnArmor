@@ -58,7 +58,7 @@ $ville = $adresse['ville'];
 // Afficher les prix ou la gamme de prix si c'est un restaurant
 // 1. Obtenir prix minimal & maximal (sert pour détails de l'offre)
 $stmt = $dbh->prepare("SELECT * FROM sae_db._tarif_public WHERE id_offre = :id_offre");
-$stmt->bindParam(':id_offre', $id_offre);
+$stmt->bindParam(':id_offre', var: $id_offre);
 $stmt->execute();
 $allTarifs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $tarif_min = 99999;
@@ -73,7 +73,7 @@ if ($allTarifs) {
         }
     }
 } else {
-    $tarif_min = '';
+    $tarif_min = $offre['prix_mini'];
     $tarif_max = '';
 }
 $prix_a_afficher;
