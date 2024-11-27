@@ -53,83 +53,82 @@ session_start();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     switch ($categorie_offre) {
-            case 'restauration':                                                
-                // appel controlller restauration
-                // $restaurtion egal Ctrl->getRestaurationById($id_offre)
-                // echo $restauration['id_repas']
-                include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
-                $controllerRestauration = new RestaurationController();
-                $parc_attraction = $controllerRestauration->getInfosRestauration($id_offre);
+        case 'restauration':
+            // appel controlller restauration
+            // $restaurtion egal Ctrl->getRestaurationById($id_offre)
+            // echo $restauration['id_repas']
+            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+            $controllerRestauration = new RestaurationController();
+            $parc_attraction = $controllerRestauration->getInfosRestauration($id_offre);
             break;
-            
-            case 'activite':
-                include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
-                $controllerActivite = new ActiviteController();
-                $activite = $controllerActivite->getInfosActivite($id_offre);
-                $duree_act = $activite['duree'];
-                $duree_act = substr($duree_act, 0, -3);
-                $duree_act = str_replace(':', 'h', $duree_act);
 
-                $prestation = $activite['prestations'];
+        case 'activite':
+            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
+            $controllerActivite = new ActiviteController();
+            $activite = $controllerActivite->getInfosActivite($id_offre);
+            $duree_act = $activite['duree'];
+            $duree_act = substr($duree_act, 0, -3);
+            $duree_act = str_replace(':', 'h', $duree_act);
 
-                $age_requis_act = $activite['age_requis'];
+            $prestation = $activite['prestations'];
+
+            $age_requis_act = $activite['age_requis'];
             break;
-            
-            case 'parc_attraction':
-                include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
-                $controllerParcAttraction = new ParcAttractionController();
-                $parc_attraction = $controllerParcAttraction->getInfosParcAttraction($id_offre);
-                
-                $age_requis_pa = $parc_attraction['age_requis'];
 
-                $nb_attractions = $parc_attraction['nb_attractions'];
+        case 'parc_attraction':
+            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
+            $controllerParcAttraction = new ParcAttractionController();
+            $parc_attraction = $controllerParcAttraction->getInfosParcAttraction($id_offre);
+
+            $age_requis_pa = $parc_attraction['age_requis'];
+
+            $nb_attractions = $parc_attraction['nb_attractions'];
 
 
             break;
-            
-            case 'visite':
-                include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
-                $controllerVisite = new VisiteController();
-                $visite = $controllerVisite->getInfosVisite($id_offre);
 
-                $duree_vis = $visite['duree'];
-                $duree_vis = substr($duree_vis, 0, -3);
-                $duree_vis = str_replace(':', 'h', $duree_vis);
+        case 'visite':
+            include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
+            $controllerVisite = new VisiteController();
+            $visite = $controllerVisite->getInfosVisite($id_offre);
 
-                $guideBool = $visite['avec_guide'];
-                if ($guideBool==true) {
-                    $guide = 'oui';
-                    include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
-                    $controllerLangue = new VisiteLangueController();
-                    $tabLangues = $controllerLangue->getLanguesByIdVisite($id_offre);
-                    $langues = '';
-                    foreach ($tabLangues as $langue) {
-                        $langues .= $langue['nom'] . ', ';
-                    }
-                    $langues = rtrim($langues, ', ');
+            $duree_vis = $visite['duree'];
+            $duree_vis = substr($duree_vis, 0, -3);
+            $duree_vis = str_replace(':', 'h', $duree_vis);
+
+            $guideBool = $visite['avec_guide'];
+            if ($guideBool == true) {
+                $guide = 'oui';
+                include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
+                $controllerLangue = new VisiteLangueController();
+                $tabLangues = $controllerLangue->getLanguesByIdVisite($id_offre);
+                $langues = '';
+                foreach ($tabLangues as $langue) {
+                    $langues .= $langue['nom'] . ', ';
                 }
-                else{
-                    $guide = 'non';
-                }
+                $langues = rtrim($langues, ', ');
+            } else {
+                $guide = 'non';
+            }
 
             break;
-            
-            case 'spectacle':
-                include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
-                $controllerSpectacle = new SpectacleController();
-                $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
 
-                $duree_spec = $spectacle['duree'];
-                $duree_spec = substr($duree_spec, 0, -3);
-                $duree_spec = str_replace(':', 'h', $duree_spec);
+        case 'spectacle':
+            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
+            $controllerSpectacle = new SpectacleController();
+            $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
 
-                $capacite = $spectacle['capacite'];
+            $duree_spec = $spectacle['duree'];
+            $duree_spec = substr($duree_spec, 0, -3);
+            $duree_spec = str_replace(':', 'h', $duree_spec);
+
+            $capacite = $spectacle['capacite'];
 
             break;
-            
-            default:
+
+        default:
             break;
-        }  
+    }
     ?>
 
     <!-- VERSION TELEPHONE -->
@@ -167,9 +166,9 @@ session_start();
             <p class="text-h1 font-bold"><?php echo $offre['titre'] ?></p>
             <!-- Afficher les tags de l'offre -->
             <?php
-            if (!$tags=='') {
+            if (!$tags == '') {
                 echo ("<h3 class='text-h3'>$tags</h3>");
-            }else{
+            } else {
                 echo ("<p class='text-h3'> Aucun tag à afficher</p>");
             }
             ?>
@@ -184,7 +183,8 @@ session_start();
                         <i class="fa-solid fa-location-dot"></i>
                         <div class="text-small">
                             <p><?php echo $ville . ', ' . $code_postal ?></p>
-                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?></p>
+                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?>
+                        </p>
                     </div>
                 </div>
                 <p class="prix font-bold"><?php echo $prix_a_afficher ?></p>
@@ -242,33 +242,33 @@ session_start();
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="flex flex-col gap-2">
                     <div class="flex flex-row items-center">
-                        <p class="text-h1 font-bold"><?php echo $offre['titre']?></p>
-                        <p class="text-h1 pt-2">&nbsp-&nbsp<?php echo $pro_nom?></p>
-                    </div> 
+                        <p class="text-h1 font-bold"><?php echo $offre['titre'] ?></p>
+                        <p class="text-h1 pt-2">&nbsp-&nbsp<?php echo $pro_nom ?></p>
+                    </div>
                     <!-- Afficher les tags de l'offre -->
                     <p class="text-small">
                         <?php echo $resume ?>
                     </p>
-                    
+
                     <?php
-                            if ($tags) {
-                                ?>
-                                <div class="p-1 rounded-lg bg-secondary self-center w-full">
-                                <?php
-                                echo ("<p class='text-white text-center'>$tags</p>");
-                                ?>
-                                </div>
-                                <?php
-                            }else{
-                                ?>
-                                <div class="p-1 rounded-lg bg-secondary self-center w-full">
-                                <?php
-                                echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
-                                ?>
-                                </div>
-                                <?php
-                            }
+                    if ($tags) {
                         ?>
+                        <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                            <?php
+                            echo ("<p class='text-white text-center'>$tags</p>");
+                            ?>
+                        </div>
+                        <?php
+                    } else {
+                        ?>
+                        <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                            <?php
+                            echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
+                            ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
                     <!-- Description + avis -->
                     <div class="description-et-avis flex flex-row">
                         <!-- Partie description -->
@@ -281,8 +281,8 @@ session_start();
                                     <i class="w-6 text-center fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme']?></p>
-                                        <?php echo $adresse['complement']?>
+                                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] ?></p>
+                                        <?php echo $adresse['complement'] ?>
                                     </div>
                                 </div>
                                 <div class="flex items-center px-2 gap-4">
@@ -290,7 +290,7 @@ session_start();
                                     <p class="prix text-small"><?php echo $prix_a_afficher ?></p>
                                 </div>
                             </div>
-                            
+
                             <!-- Description détaillée -->
                             <div class="description flex flex-col my-4">
                                 <p class="text-justify text-small px-2">
@@ -308,7 +308,7 @@ session_start();
                                     <p id="horaire-arrow">></p>
                                 </div>
                                 <div class="hidden text-small py-3" id="horaire-info">
-                                        <p>Voici les supers horaires gaming</p>
+                                    <p>Voici les supers horaires gaming</p>
                                 </div>
                             </a>
                             <a href="" class="">
@@ -317,92 +317,92 @@ session_start();
                                     <p id="compl-arrow">></p>
                                 </div>
                                 <div class="flex flex-col py-3 hidden" id="compl-info">
-                                    <?php 
-                                        switch ($categorie_offre) {
-                                            case 'restauration':                                                
-                                                            $tags_type_repas = 'Petit-dej, Brunch, Déjeuner, Dîner, Goûter';
-                                                            ?>
-                                                            <div class="text-small flex flex-row">
-                                                                <p class="text-small">Repas servis&nbsp:&nbsp</p>
-                                                                <p><?php echo $tags_type_repas?></p>
-                                                            </div>
-                                                            <?php                                
-                                                break;
-                                                
-                                                case 'activite':
-                                                    ?>
-                                                    <div class="text-small flex flex-row">
-                                                        <p>Durée&nbsp:&nbsp</p>
-                                                        <p><?php echo $duree_act ?></p>
-                                                    </div>
-                                                    <div class="text-small flex flex-row">
-                                                        <p>Âge requis&nbsp:&nbsp</p>
-                                                        <p><?php echo $age_requis_act ?></p>
-                                                        <p>&nbspans</p>
-                                                    </div>
-                                                    <div class="text-small">
-                                                        <?php echo $prestation ?>
-                                                    </div>
-                                                    
-                                                    <?php
-                                                break;
-                                                
-                                                case 'parc_attraction':
-                                                    ?>
-                                                    <div class="text-small flex flex-row">
-                                                        <p>Âge requis&nbsp:&nbsp</p>
-                                                        <p><?php echo $age_requis_pa ?></p>
-                                                        <p>&nbspans</p>
-                                                    </div>
-                                                    <div class="text-small flex flex-row">
-                                                        <p>Nombre d'attraction&nbsp:&nbsp</p>
-                                                        <p><?php echo $nb_attractions ?></p>
-                                                    </div>
-                                                    <?php
-                                                break;
-                                                
-                                                case 'visite':
-                                                    ?>
-                                                    <div class="text-small flex flex-row">
-                                                        <p>Durée&nbsp:&nbsp</p>
-                                                        <p><?php echo $duree_vis ?></p>
-                                                    </div>
-                                                    <div class="text-small flex flex-row">
-                                                        <p>Visite guidée :&nbsp</p>
-                                                        <p><?php echo $guide ?></p>                                                      
-                                                    </div>
-                                                    <div class="text-small flex flex-row">
-                                                        <p>Langue(s) parlée(s) lors de la visite guidée :&nbsp</p>
-                                                        <p><?php echo $langues ?></p>                                               
-                                                    </div>
-                                                    <?php
-                                                break;
-                                                
-                                                case 'spectacle':
-                                                    ?>
-                                                    <div class="text-small flex flex-row">
-                                                        <p>Durée&nbsp:&nbsp</p>
-                                                        <p><?php echo $duree_spec ?></p>
-                                                    </div>
-                                                    <div class="text-small flex flex-row">
-                                                        <p>Capacité :&nbsp</p>
-                                                        <p><?php echo $capacite ?></p>
-                                                        <p>&nbsppersonnes</p>
-                                                    </div>                                                    
-                                                    <?php
-                                                break;
-                                                
-                                                default:
-                                                    ?>
-                                                    <p class="text-small">Aucune informations complémentaires à afficher.</p>
-                                                    <?php
-                                                break;
-                                            }        
+                                    <?php
+                                    switch ($categorie_offre) {
+                                        case 'restauration':
+                                            $tags_type_repas = 'Petit-dej, Brunch, Déjeuner, Dîner, Goûter';
+                                            ?>
+                                            <div class="text-small flex flex-row">
+                                                <p class="text-small">Repas servis&nbsp:&nbsp</p>
+                                                <p><?php echo $tags_type_repas ?></p>
+                                            </div>
+                                            <?php
+                                            break;
+
+                                        case 'activite':
+                                            ?>
+                                            <div class="text-small flex flex-row">
+                                                <p>Durée&nbsp:&nbsp</p>
+                                                <p><?php echo $duree_act ?></p>
+                                            </div>
+                                            <div class="text-small flex flex-row">
+                                                <p>Âge requis&nbsp:&nbsp</p>
+                                                <p><?php echo $age_requis_act ?></p>
+                                                <p>&nbspans</p>
+                                            </div>
+                                            <div class="text-small">
+                                                <?php echo $prestation ?>
+                                            </div>
+
+                                            <?php
+                                            break;
+
+                                        case 'parc_attraction':
+                                            ?>
+                                            <div class="text-small flex flex-row">
+                                                <p>Âge requis&nbsp:&nbsp</p>
+                                                <p><?php echo $age_requis_pa ?></p>
+                                                <p>&nbspans</p>
+                                            </div>
+                                            <div class="text-small flex flex-row">
+                                                <p>Nombre d'attraction&nbsp:&nbsp</p>
+                                                <p><?php echo $nb_attractions ?></p>
+                                            </div>
+                                            <?php
+                                            break;
+
+                                        case 'visite':
+                                            ?>
+                                            <div class="text-small flex flex-row">
+                                                <p>Durée&nbsp:&nbsp</p>
+                                                <p><?php echo $duree_vis ?></p>
+                                            </div>
+                                            <div class="text-small flex flex-row">
+                                                <p>Visite guidée :&nbsp</p>
+                                                <p><?php echo $guide ?></p>
+                                            </div>
+                                            <div class="text-small flex flex-row">
+                                                <p>Langue(s) parlée(s) lors de la visite guidée :&nbsp</p>
+                                                <p><?php echo $langues ?></p>
+                                            </div>
+                                            <?php
+                                            break;
+
+                                        case 'spectacle':
+                                            ?>
+                                            <div class="text-small flex flex-row">
+                                                <p>Durée&nbsp:&nbsp</p>
+                                                <p><?php echo $duree_spec ?></p>
+                                            </div>
+                                            <div class="text-small flex flex-row">
+                                                <p>Capacité :&nbsp</p>
+                                                <p><?php echo $capacite ?></p>
+                                                <p>&nbsppersonnes</p>
+                                            </div>
+                                            <?php
+                                            break;
+
+                                        default:
+                                            ?>
+                                            <p class="text-small">Aucune informations complémentaires à afficher.</p>
+                                            <?php
+                                            break;
+                                    }
                                     ?>
-                                    </div>
+                                </div>
                             </a>
                             <?php
-                            if($categorie_offre != 'restauration'){
+                            if ($categorie_offre != 'restauration') {
                                 ?>
                                 <a href="" class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
@@ -410,21 +410,90 @@ session_start();
                                         <p id="grille-arrow">></p>
                                     </div>
                                     <div class="hidden text-small py-3" id="grille-info">
-                                            <p>Voici les prix super bien</p>
+                                        <p>Voici les prix super bien</p>
                                     </div>
                                 </a>
                                 <?php
                             }
                             ?>
                             <div class="pt-3">
-                            <p class="text-h4 font-bold">Avis</p>
-                            </div>
+                                <!-- Partie avis -->
+                                <div class="avis w-7/12 px-2">
+                                    <h3 class="text-bold">Avis</h3>
+                                    <!--  verifier si le membre est bon  -->
+                                    <?php
+                                    if (isset($_SESSION['id_membre'])) {
+                                        ?>
+                                        <div class="flex flex-col gap-2">
+                                            <button class="bg-primary   text-white rounded-lg p-2">Rédiger un avis</button>
 
+                                            <form id="avis" action=" /scripts/creation_avis.php " method="post"
+                                                class="flex flex-col gap-2">
+                                                <input type="text" name="titre" placeholder="Titre de l'avis" class="input"
+                                                    required>
+                                                <textarea name="description" placeholder="Description de l'avis"
+                                                    class="input" required></textarea>
+                                                <select name="note" id="note" class="input" required>
+
+                                                    <option value="note1">1</option>
+                                                    <option value="note2">2</option>
+                                                    <option value="note3">3</option>
+                                                    <option value="note4">4</option>
+                                                    <option value="note5">5</option>
+
+                                                    <p>/5</p>
+
+                                                </select>
+
+                                                <input type="date" name="date_experience" id="date_experience" class="input"
+                                                    required>
+
+
+
+                                                <input type="submit" value="Envoyer"
+                                                    class="bg-primary text-white rounded-lg p-2">
+                                            </form>
+                                        </div>
+                                        <?php
+                                    } else { ?>
+                                        <p>Connectez-vous pour rédiger un avis</p>
+                                        <?php
+                                    }
+                                    ?>
+
+                                    <script>
+
+                                        // js pour faire apparaitre le formulaire d'avis
+
+                                        document.getElementById('avis').style.display = 'none';
+
+                                        document.querySelector('button').addEventListener('click', () => {
+                                            document.getElementById('avis').style.display = 'flex';
+                                        });
+
+                                    </script>
+
+
+                                    <!-- faire un bouton pour rédiger un avis  -->
+
+                                    <!-- faire un formulaire pour pouvoir remplir les données d'un avis -->
+
+                                    <!-- le titre -->
+
+                                    <!-- la description -->
+
+                                    <!-- la note -->
+                                    <p></p>
+
+                                </div>
+
+                            </div>
                         </div>
+
                     </div>
+
                 </div>
             </div>
-        </div>
     </main>
 
     <div id="footer"></div>
@@ -436,7 +505,7 @@ session_start();
         const arrow = document.getElementById(arrowID);
         const info = document.getElementById(infoID);
 
-        button.addEventListener('click', function(event) {
+        button.addEventListener('click', function (event) {
             event.preventDefault();
             arrow.classList.toggle('rotate-90');
             info.classList.toggle('hidden');
@@ -449,4 +518,5 @@ session_start();
 
 
 </script>
+
 </html>
