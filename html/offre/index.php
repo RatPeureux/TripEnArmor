@@ -28,6 +28,7 @@ session_start();
 
     <?php
     $id_offre = $_SESSION['id_offre'];
+    $id_membre = $_SESSION['id_membre'];
 
     // Connexion avec la bdd
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
@@ -103,7 +104,7 @@ session_start();
                         <i class="fa-solid fa-location-dot"></i>
                         <div class="text-small">
                             <p><?php echo $ville . ', ' . $code_postal ?></p>
-                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement ?></p>
+                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?></p>
                     </div>
                 </div>
                 <p class="prix font-bold"><?php echo $prix_a_afficher ?></p>
@@ -160,46 +161,111 @@ session_start();
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="flex flex-col gap-2">
-                    <h1 class="text-h1"><?php echo $offre['titre'] ?></h1>
-
+                    <div class="flex flex-row items-center">
+                        <h1 class="text-h1 text-bold"><?php echo $offre['titre'] ?></h1>
+                        <p class="professionnel text-h1">&nbsp;- <?php echo $pro_nom ?></p>
+                    </div> 
                     <!-- Afficher les tags de l'offre -->
+                    <p>
+                        <?php echo $resume ?>
+                    </p>
+
                     <?php
                     if ($tags) {
                         echo ("<h3 class='text-h3'>$tags</h3>");
                     }
                     ?>
-
                     <!-- Description + avis -->
-                    <div class="description-et-avis">
-
+                    <div class="description-et-avis flex flex-row">
                         <!-- Partie description -->
-                        <div class="partie-description flex flex-col gap-4">
-                            <p class="professionnel"><?php echo $pro_nom ?></p>
+                        <div class="partie-description flex flex-col w-5/12">
 
                             <!-- Prix + localisation -->
                             <div class="localisation-et-prix flex flex-col gap-4">
-                                <div class="flex items-center gap-4">
+                                <h3 class="text-bold">À propos</h3>
+                                <div class="flex items-center gap-4 px-2">
                                     <i class="fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement ?>
+                                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement']  ?>
                                         </p>
                                     </div>
                                 </div>
-                                <p class="prix font-bold"><?php echo $prix_a_afficher ?></p>
+                                <p class="prix px-2"><?php echo $prix_a_afficher ?></p>
                             </div>
-
+                            
                             <!-- Description détaillée -->
                             <div class="description flex flex-col gap-2">
-                                <h3>À propos</h3>
                                 <p class="text-justify text-small px-2">
-                                    <?php echo $description ?>;
+                                    <?php echo $description ?>
                                 </p>
                             </div>
                         </div>
 
                         <!-- Partie avis -->
-                        <div class="avis"></div>
+                        <div class="avis w-7/12 px-2">
+                            <h3 class="text-bold">Avis</h3>
+                <!--  verifier si le membre est bon  -->
+                  <?php
+                    if (isset($_SESSION['id_membre'])) { 
+                        ?>
+                        <div class="flex flex-col gap-2">
+                            <button class="bg-primary   text-white rounded-lg p-2">Rédiger un avis</button>
+
+                            <form id="avis" action=" /scripts/creation_avis.php " method="post" class="flex flex-col gap-2">
+                                <input type="text" name="titre" placeholder="Titre de l'avis" class="input" required>
+                                <textarea name="description" placeholder="Description de l'avis" class="input" required></textarea>
+                                <select name="note" id="note" class="input" required>
+
+                                    <option value="note1">1</option>
+                                    <option value="note2">2</option>
+                                    <option value="note3">3</option>
+                                    <option value="note4">4</option>
+                                    <option value="note5">5</option>
+
+                                    <p>/5</p>
+
+                                </select>
+                                
+                                <input type="date" name="date_experience" id="date_experience" class="input" required>
+
+
+
+                                <input type="submit" value="Envoyer" class="bg-primary text-white rounded-lg p-2">
+                            </form>
+                        </div>
+                        <?php
+                    } else { ?>
+                        <p>Connectez-vous pour rédiger un avis</p>
+                    <?php
+                    }
+                ?>
+
+                <script>
+
+                        // js pour faire apparaitre le formulaire d'avis
+
+                        document.getElementById('avis').style.display = 'none';
+
+                        document.querySelector('button').addEventListener('click', () => {
+                            document.getElementById('avis').style.display = 'flex';
+                        });
+
+                </script>
+
+
+                <!-- faire un bouton pour rédiger un avis  -->
+
+                <!-- faire un formulaire pour pouvoir remplir les données d'un avis -->
+
+                <!-- le titre -->
+
+                <!-- la description -->
+
+                <!-- la note -->
+                            <p></p>
+
+                        </div>
                     </div>
 
                 </div>
