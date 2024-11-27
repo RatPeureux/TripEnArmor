@@ -218,9 +218,9 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     } else {
                         $i = 0;
                         foreach ($toutesLesOffres as $offre) {
-                            if ($i < 1) {
-                                // Obtenir les différentes variables avec les infos nécessaires via des requêtes SQL sécurisées (bindParams)
-                                include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
+                            if ($i < 3) {
+                                // Afficher la carte (!!! défnir la variable $mode_carte !!!)
+                                $mode_carte = 'membre';
                                 include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
                                 $i++;
                             }
