@@ -276,6 +276,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/horaire_controller.php';
     $horaireController = new HoraireController();
 
+    foreach($horaires as $jour) {
+        $horaireController->createHoraire($jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
+    }
 
     // Insérer les prix dans la base de données
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tarif_public_controller.php';

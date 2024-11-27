@@ -1,6 +1,6 @@
 <?php
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-// verifyPro();
+$pro = verifyPro();
 ?>
 
 <!DOCTYPE html>
@@ -184,7 +184,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 									<label for="auteur" class="text-nowrap">Auteur :</label>
 									<p id="auteur"
 										class="border border-secondary rounded-lg p-2 bg-gray-200 w-full text-gray-600">
-										Nom du compte
+										<?php  if($pro) {echo $pro['nom_pro'];} else {echo "Nom du compte";} ?>
 									</p>
 								</div>
 
@@ -263,7 +263,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 										placeholder="Une description de l'accessibilité pour les personnes en situation de handicap, visible dans les détails de l'offre."></textarea>
 								</div>
 							</div>
-							<div class="w-full flex flex-col justify-center items-center space-y-4 part2 hidden">
+							<div class="w-full flex flex-col justify-center items-center space-y-4 part2">
 								<h2 class="w-full text-h2 text-secondary">Informations supplémentaires</h2>
 
 								<!-- Sélection du type d'activité -->
@@ -457,7 +457,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 								<!-- Services -->
 								<!-- Formulaire pour entrer les informations -->
-								<div class="flex flex-col justify-center items-center w-full">
+								<div class="flex flex-col justify-center items-center w-full space-y-4">
 									<!-- PRESTATIONS -->
 									<div class="w-full optionActivite hidden">
 										<h2 class="text-h2 text-secondary">Prestation</h2>
@@ -521,7 +521,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 									<!-- HORAIRES -->
 									<div
-										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
+										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction">
 										<h2 class="text-h2 text-secondary">Horaires</h2>
 										<table class="w-full table-auto">
 											<thead>
@@ -712,6 +712,9 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 												</tr>
 											</tbody>
 										</table>
+										<p>
+											<span class="font-bold">Pro Tip :</span> Lorsque vous remplissez les horaires du lundi, elles mettent à jour les horaires des autres jours de la semaine.
+										</p>
 									</div>
 
 									<!-- GRILLE TARIFAIRE -->
@@ -1208,14 +1211,15 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 			// TODO: gérer les horaires
 			// TODO: lorsque les informations sont remplies pour lundi, elles sont répétées pour les autres jours
 			// TODO: Vérifier que l'horaire d'ouverture soit plus tôt que l'horaire de pause, puis de reprise, puis de fermeture.
-			foreach(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] as jour) {
-				foreach(['ouverture', 'pause', 'reprise', 'fermeture'] as field) {
-					const element = document.getElementById(`horaires[${jour}][${field}]`);
-					element.addEventListener('input', () => {
-						const value = element.value;
-						console.log(value);
-					})
-				}
+			
+			for(const field of ['ouverture', 'pause', 'reprise', 'fermeture']) {
+				const lundi = document.getElementById(`horaires[lundi][${field}]`);
+				lundi.addEventListener('change', () => {
+					for (const jour of ['mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']) {
+						const element = document.getElementById(`horaires[${jour}][${field}]`);
+						element.value = lundi.value;
+					}
+				});
 			}
 		</script>
 
