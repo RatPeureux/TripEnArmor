@@ -19,7 +19,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
 	<script type="module" src="/scripts/main.js" defer></script>
 	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr" ></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
 
@@ -251,7 +251,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 									<label for="description" class="text-nowrap w-full">Description :</label>
 									<textarea id="description" name="description"
 										class="border border-secondary rounded-lg p-2 bg-white w-full" rows="11"
-										placeholder="La description visible dans les d��tails de l'offre."
+										placeholder="La description visible dans les détails de l'offre."
 										required></textarea>
 								</div>
 
@@ -520,7 +520,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 									</div>
 
 									<!-- HORAIRES -->
-									<div class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
+									<div
+										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
 										<h2 class="text-h2 text-secondary">Horaires</h2>
 										<table class="w-full table-auto">
 											<thead>
@@ -554,31 +555,38 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 														Ouverture
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[lundi][ouverture]" id="horaires[lundi][ouverture]"
+														<input type="time" name="horaires[lundi][ouverture]"
+															id="horaires[lundi][ouverture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[mardi][ouverture]" id="horaires[mardi][ouverture]"
+														<input type="time" name="horaires[mardi][ouverture]"
+															id="horaires[mardi][ouverture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[mercredi][ouverture]" id="horaires[mercredi][ouverture]"
+														<input type="time" name="horaires[mercredi][ouverture]"
+															id="horaires[mercredi][ouverture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[jeudi][ouverture]" id="horaires[jeudi][ouverture]"
+														<input type="time" name="horaires[jeudi][ouverture]"
+															id="horaires[jeudi][ouverture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[vendredi][ouverture]" id="horaires[vendredi][ouverture]"
+														<input type="time" name="horaires[vendredi][ouverture]"
+															id="horaires[vendredi][ouverture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[samedi][ouverture]" id="horaires[samedi][ouverture]"
+														<input type="time" name="horaires[samedi][ouverture]"
+															id="horaires[samedi][ouverture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[dimanche][ouverture]" id="horaires[dimanche][ouverture]"
+														<input type="time" name="horaires[dimanche][ouverture]"
+															id="horaires[dimanche][ouverture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 												</tr>
@@ -587,31 +595,38 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 														Pause
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[lundi][pause]" id="horaires[lundi][pause]"
+														<input type="time" name="horaires[lundi][pause]"
+															id="horaires[lundi][pause]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[mardi][pause]" id="horaires[mardi][pause]"
+														<input type="time" name="horaires[mardi][pause]"
+															id="horaires[mardi][pause]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[mercredi][pause]" id="horaires[mercredi][pause]"
+														<input type="time" name="horaires[mercredi][pause]"
+															id="horaires[mercredi][pause]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[jeudi][pause]" id="horaires[jeudi][pause]"
+														<input type="time" name="horaires[jeudi][pause]"
+															id="horaires[jeudi][pause]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[vendredi][pause]" id="horaires[vendredi][pause]"
+														<input type="time" name="horaires[vendredi][pause]"
+															id="horaires[vendredi][pause]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[samedi][pause]" id="horaires[samedi][pause]"
+														<input type="time" name="horaires[samedi][pause]"
+															id="horaires[samedi][pause]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[dimanche][pause]" id="horaires[dimanche][pause]"
+														<input type="time" name="horaires[dimanche][pause]"
+															id="horaires[dimanche][pause]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 												</tr>
@@ -620,31 +635,38 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 														Reprise
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[lundi][reprise]" id="horaires[lundi][reprise]"
+														<input type="time" name="horaires[lundi][reprise]"
+															id="horaires[lundi][reprise]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[mardi][reprise]" id="horaires[mardi][reprise]"
+														<input type="time" name="horaires[mardi][reprise]"
+															id="horaires[mardi][reprise]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[mercredi][reprise]" id="horaires[mercredi][reprise]"
+														<input type="time" name="horaires[mercredi][reprise]"
+															id="horaires[mercredi][reprise]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[jeudi][reprise]" id="horaires[jeudi][reprise]"
+														<input type="time" name="horaires[jeudi][reprise]"
+															id="horaires[jeudi][reprise]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[vendredi][reprise]" id="horaires[vendredi][reprise]"
+														<input type="time" name="horaires[vendredi][reprise]"
+															id="horaires[vendredi][reprise]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[samedi][reprise]" id="horaires[samedi][reprise]"
+														<input type="time" name="horaires[samedi][reprise]"
+															id="horaires[samedi][reprise]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[dimanche][reprise]" id="horaires[dimanche][reprise]"
+														<input type="time" name="horaires[dimanche][reprise]"
+															id="horaires[dimanche][reprise]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 												</tr>
@@ -653,31 +675,38 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 														Fermeture
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[lundi][fermeture]" id="horaires[lundi][fermeture]"
+														<input type="time" name="horaires[lundi][fermeture]"
+															id="horaires[lundi][fermeture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[mardi][fermeture]" id="horaires[mardi][fermeture]"
+														<input type="time" name="horaires[mardi][fermeture]"
+															id="horaires[mardi][fermeture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[mercredi][fermeture]" id="horaires[mercredi][fermeture]"
+														<input type="time" name="horaires[mercredi][fermeture]"
+															id="horaires[mercredi][fermeture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[jeudi][fermeture]" id="horaires[jeudi][fermeture]"
+														<input type="time" name="horaires[jeudi][fermeture]"
+															id="horaires[jeudi][fermeture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[vendredi][fermeture]" id="horaires[vendredi][fermeture]"
+														<input type="time" name="horaires[vendredi][fermeture]"
+															id="horaires[vendredi][fermeture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[samedi][fermeture]" id="horaires[samedi][fermeture]"
+														<input type="time" name="horaires[samedi][fermeture]"
+															id="horaires[samedi][fermeture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
-														<input type="time" name="horaires[dimanche][fermeture]" id="horaires[dimanche][fermeture]"
+														<input type="time" name="horaires[dimanche][fermeture]"
+															id="horaires[dimanche][fermeture]"
 															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
 													</td>
 												</tr>
@@ -969,7 +998,6 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 														const tagContainers = document.querySelectorAll('.tag-container');
 														tagContainers.forEach(container => {
 															if (!container.classList.contains('hidden')) {
-																Array.from(container.children).map(tag => console.log(tag.childNodes[0].nodeValue));
 																const tags = Array.from(container.children).map(tag => tag.childNodes[0].nodeValue).join(', ');
 																tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags) : "Ajouter un tag...";
 															}
@@ -1086,30 +1114,32 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 				}
 			}
 
-			function checkPart2Validity() {
+			function checkPart2Validity(fieldChanged) {
 				checkPart1Validity();
 
 				const requiredFields = document.querySelectorAll('.part1 input[required], .part1 textarea[required]');
 				let isValid = true;
 
 				requiredFields.forEach((field) => {
-					if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') { // Locality
-						if (field.value === '' || RegExp('^((22)|(29)|(35)|(56))[0-9]{3}$').test(field.value) === false) {
-							field.classList.remove("border-secondary")
-							field.classList.add('border-red-500');
-							isValid = false;
+					if (fieldChanged.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_PRECEDING || fieldChanged.compareDocumentPosition(field) === 0) {
+						if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') { // Locality
+							if (field.value === '' || RegExp('^((22)|(29)|(35)|(56))[0-9]{3}$').test(field.value) === false) {
+								field.classList.remove("border-secondary")
+								field.classList.add('border-red-500');
+								isValid = false;
+							} else {
+								field.classList.remove("border-red-500");
+								field.classList.add('border-secondary');
+							}
 						} else {
-							field.classList.remove("border-red-500");
-							field.classList.add('border-secondary');
-						}
-					} else {
-						if (field.value.trim() === '') {
-							field.classList.remove("border-secondary")
-							field.classList.add('border-red-500');
-							isValid = false;
-						} else {
-							field.classList.remove("border-red-500");
-							field.classList.add('border-secondary');
+							if (field.value.trim() === '') {
+								field.classList.remove("border-secondary")
+								field.classList.add('border-red-500');
+								isValid = false;
+							} else {
+								field.classList.remove("border-red-500");
+								field.classList.add('border-secondary');
+							}
 						}
 					}
 				});
@@ -1119,23 +1149,23 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 				}
 			}
 
-			function checkPart3Validity() {
-				checkPart2Validity();
-				console.log("Checking part 3 validity");
+			function checkPart3Validity(fieldChanged) {
+				checkPart2Validity(fieldChanged);
 
 				const requiredFields = document.querySelectorAll('.part2 [required]');
 				let isValid = true;
 
 				requiredFields.forEach((field) => {
 					if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') {
-						if (field.value.trim() === '' || field.value < 0 || RegExp('^[0-9]+$').test(field.value) === false) {
-							console.log(field)
-							field.classList.remove("border-secondary")
-							field.classList.add('border-red-500');
-							isValid = false;
-						} else {
-							field.classList.remove("border-red-500");
-							field.classList.add('border-secondary');
+						if (fieldChanged.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_PRECEDING || fieldChanged.compareDocumentPosition(field) === 0) {
+							if (field.value.trim() === '' || field.value < 0 || RegExp('^[0-9]+$').test(field.value) === false) {
+								field.classList.remove("border-secondary")
+								field.classList.add('border-red-500');
+								isValid = false;
+							} else {
+								field.classList.remove("border-red-500");
+								field.classList.add('border-secondary');
+							}
 						}
 					}
 				});
@@ -1157,11 +1187,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 				radio.checked = true;
 			}
 
-			checkPart3Validity();
-
 			document.querySelectorAll('input[name="type_offre"]').forEach((radio) => {
 				radio.addEventListener("change", () => {
-					console.log("Checking part 1 validity");
 					checkPart1Validity();
 				});
 			});
@@ -1170,7 +1197,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 			fields.forEach((field) => {
 				field.addEventListener('input', (e) => {
-					checkPart3Validity();
+					checkPart3Validity(field);
 					if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') {
 						field.value = field.value.replace(/[^0-9]/g, '');
 					}
@@ -1181,6 +1208,15 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 			// TODO: gérer les horaires
 			// TODO: lorsque les informations sont remplies pour lundi, elles sont répétées pour les autres jours
 			// TODO: Vérifier que l'horaire d'ouverture soit plus tôt que l'horaire de pause, puis de reprise, puis de fermeture.
+			foreach(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] as jour) {
+				foreach(['ouverture', 'pause', 'reprise', 'fermeture'] as field) {
+					const element = document.getElementById(`horaires[${jour}][${field}]`);
+					element.addEventListener('input', () => {
+						const value = element.value;
+						console.log(value);
+					})
+				}
+			}
 		</script>
 
 	<?php } ?>
