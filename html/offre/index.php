@@ -130,64 +130,78 @@ session_start();
             break;
     }
 
-    if ($categorie_offre !== 'restauration') {
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
-        $controllerHoraire = new HoraireController();
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+    $controllerHoraire = new HoraireController();
 
-        $horairesV1 = [
-            "lundi" => [
-                "ouverture" => "08:00",
-                "pause_debut" => "12:00",
-                "pause_fin" => "14:00",
-                "fermeture" => "18:00",
-            ],
-            "mardi" => [
-                "ouverture" => "08:00",
-                "pause_debut" => "12:00",
-                "pause_fin" => "14:00",
-                "fermeture" => "18:00",
-            ],
-            "mercredi" => [
-                "ouverture" => "08:00",
-                "pause_debut" => "12:00",
-                "pause_fin" => "14:00",
-                "fermeture" => "18:00",
-            ],
-            "jeudi" => [
-                "ouverture" => "08:00",
-                "pause_debut" => "12:00",
-                "pause_fin" => "14:00",
-                "fermeture" => "18:00",
-            ],
-            "vendredi" => [
-                "ouverture" => "08:00",
-                "pause_debut" => "12:00",
-                "pause_fin" => "14:00",
-                "fermeture" => "18:00",
-            ],
-            "samedi" => [
-                "ouverture" => "08:00",
-                "pause_debut" => "12:00",
-                "pause_fin" => "14:00",
-                "fermeture" => "18:00",
-            ],
-            "dimanche" => [
-                "ouverture" => "08:00",
-                "pause_debut" => "12:00",
-                "pause_fin" => "14:00",
-                "fermeture" => "18:00",
-            ]
-        ]; # $controllerHoraire->getHorairesOfOffre($id_offre);
-    
-        $horaires = [];
+    $horairesV1 = [
+        "lundi" => [
+            "ouverture" => "08:00",
+            "pause_debut" => "12:00",
+            "pause_fin" => "14:00",
+            "fermeture" => "18:00",
+        ],
+        "mardi" => [
+            "ouverture" => "08:00",
+            "pause_debut" => "12:00",
+            "pause_fin" => "14:00",
+            "fermeture" => "18:00",
+        ],
+        "mercredi" => [
+            "ouverture" => "08:00",
+            "pause_debut" => "12:00",
+            "pause_fin" => "14:00",
+            "fermeture" => "18:00",
+        ],
+        "jeudi" => [
+            "ouverture" => "08:00",
+            "pause_debut" => "12:00",
+            "pause_fin" => "14:00",
+            "fermeture" => "18:00",
+        ],
+        "vendredi" => [
+            "ouverture" => "08:00",
+            "pause_debut" => "12:00",
+            "pause_fin" => "14:00",
+            "fermeture" => "18:00",
+        ],
+        "samedi" => [
+            "ouverture" => "08:00",
+            "pause_debut" => "12:00",
+            "pause_fin" => "14:00",
+            "fermeture" => "18:00",
+        ],
+        "dimanche" => [
+            "ouverture" => "08:00",
+            "pause_debut" => "12:00",
+            "pause_fin" => "14:00",
+            "fermeture" => "18:00",
+        ]
+    ]; # $controllerHoraire->getHorairesOfOffre($id_offre);
 
-        foreach ($horairesV1 as $jour => $horaire) {
-            $horaires['ouverture'][$jour] = $horaire['ouverture'];
-            $horaires['pause_debut'][$jour] = $horaire['pause_debut'];
-            $horaires['pause_fin'][$jour] = $horaire['pause_fin'];
-            $horaires['fermeture'][$jour] = $horaire['fermeture'];
-        }
+    $horaires = [];
+
+    foreach ($horairesV1 as $jour => $horaire) {
+        $horaires['ouverture'][$jour] = $horaire['ouverture'];
+        $horaires['pause_debut'][$jour] = $horaire['pause_debut'];
+        $horaires['pause_fin'][$jour] = $horaire['pause_fin'];
+        $horaires['fermeture'][$jour] = $horaire['fermeture'];
     }
+    if ($categorie_offre !== 'restauration') {
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
+        $controllerGrilleTarifaire = new TarifPublicController();
+        $tarifs = [
+            [
+                "titre_tarif" => "Tarif adulte",
+                "prix" => 10
+            ],
+            [
+                "titre_tarif" => "Tarif enfant",
+                "prix" => 5
+            ]
+            ]; # $controllerGrilleTarifaire->getTarifsByIdOffre($id_offre);
+    }
+
+
     ?>
 
     <!-- VERSION TELEPHONE -->
@@ -401,11 +415,11 @@ session_start();
                                                         <td class="relative">
                                                             <p class="text-center">
                                                                 <?php
-                                                                    echo $value;
+                                                                echo $value;
                                                                 ?>
                                                             </p>
                                                         </td>
-                                                    <?php
+                                                        <?php
                                                 }
                                                 ?>
                                                 </tr><?php
@@ -514,7 +528,24 @@ session_start();
                                         <p id="grille-arrow">></p>
                                     </div>
                                     <div class="hidden text-small py-3" id="grille-info">
-                                        <p>Voici les prix super bien</p>
+                                        <table class="">
+                                            <tbody>
+                                                <?php
+                                                    foreach($tarifs as $tarif){
+                                                        ?>
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                <?php echo $tarif['titre_tarif'] ?> : 
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <?php echo $tarif['prix'] ?> €
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                    }
+                                                ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </a>
                                 <?php

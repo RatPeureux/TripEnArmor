@@ -1,10 +1,24 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class TarifPublic extends BDD {
 
     private $nom_table = "sae_db._tarif_public";
+
+    static function getTarifsByIdOffre($id_offre) {
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ?";
+
+        $stmt = self::$db->prepare($query);
+        $stmt->bindParam(1, $id_offre);
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR : Impossible d'obtenir les tarifs publics";
+            return -1;
+        }
+    }
 
     static function getTarifPublicById($id){
 
