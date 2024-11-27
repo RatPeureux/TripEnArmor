@@ -1,6 +1,6 @@
 tailwind.config = {
     content: [
-        "./html/**/*",
+        "./**/*.php",
     ],
     theme: {
         extend: {

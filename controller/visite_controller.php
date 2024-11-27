@@ -3,7 +3,7 @@
 require_once "../model/visite.php";
 
 class VisiteController {
-    static private $model;  
+    private $model;  
 
     function __construct() {
         $this->model = 'Visite';

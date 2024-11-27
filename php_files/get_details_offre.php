@@ -1,5 +1,14 @@
 <?php
 
+
+// Obtenir le nom du pro
+$id_pro = $offre['id_pro'];
+$stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
+$stmt->bindParam(':id_pro', $id_pro);
+$stmt->execute();
+$pro = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
 // Détails globaux de l'offre
 $id_offre = $offre['id_offre'];
 $description = $offre['description'];
@@ -23,11 +32,13 @@ $date_mise_a_jour = $offre['date_mise_a_jour'];
 $date_mise_a_jour = new DateTime($date_mise_a_jour);
 $date_mise_a_jour = $date_mise_a_jour->format('d/m/Y');
 
+
 // Obtenir le type de l'offre (gratuit, standard, premium)
 $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE id_offre = :id_offre");
 $stmt->bindParam(':id_offre', $id_offre);
 $stmt->execute();
 $type_offre = $stmt->fetch(PDO::FETCH_ASSOC)['nom'];
+
 
 // Détails de l'adresse
 $id_adresse = $offre['id_adresse'];
@@ -38,9 +49,11 @@ $adresse = $stmt->fetch(PDO::FETCH_ASSOC);
 $code_postal = $adresse['code_postal'];
 $ville = $adresse['ville'];
 
+
 // #################################################################################
 // ######### CAS DES AFFICHAGES QUI DIFFÈRENT SELON LA CATÉGORIE DE L'OFFRE ########
 // #################################################################################
+
 
 // Afficher les prix ou la gamme de prix si c'est un restaurant
 // 1. Obtenir prix minimal & maximal (sert pour détails de l'offre)
@@ -69,10 +82,14 @@ if ($categorie_offre == 'restauration') {
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $prix_a_afficher = $stmt->fetch(PDO::FETCH_ASSOC)['gamme_prix'];
+} else if ($tarif_min && $tarif_max) {
+    $prix_a_afficher = $tarif_min . '-' . $tarif_max . '€';
 } else {
-    $prix_a_afficher = $tarif_min . '€';
+    // Edge case: offre sans aucun tarif
+    $prix_a_afficher = "Gratuit";
 }
 $title_prix = $categorie_offre == 'restauration' ? '€ = X euros, €€ = XX euros, €€€ = XX euros' : 'fourchette des prix';
+
 
 // Tags pour le restaurant (pour la carte, on prend les types de repas) ou autres si ce n'est pas un restaurant
 if ($categorie_offre == 'restauration') {
