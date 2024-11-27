@@ -214,12 +214,75 @@ session_start();
                         <!-- Partie avis -->
                         <div class="basis-1/2 flex flex-col gap-3">
                             <h3 class="font-bold">Avis</h3>
+                            <!--  verifier si le membre est bon  -->
+                            <?php
+                            if (isset($_SESSION['id_membre'])) {
+                                ?>
+                                <div class="flex flex-col gap-2">
+                                    <button class="bg-primary   text-white rounded-lg p-2">Rédiger un avis</button>
 
+                                    <form id="avis" action=" /scripts/creation_avis.php " method="post"
+                                        class="flex flex-col gap-2">
+                                        <input type="text" name="titre" placeholder="Titre de l'avis" class="input"
+                                            required>
+                                        <textarea name="description" placeholder="Description de l'avis" class="input"
+                                            required></textarea>
+                                        <select name="note" id="note" class="input" required>
+
+                                            <option value="note1">1</option>
+                                            <option value="note2">2</option>
+                                            <option value="note3">3</option>
+                                            <option value="note4">4</option>
+                                            <option value="note5">5</option>
+
+                                            <p>/5</p>
+
+                                        </select>
+
+                                        <input type="date" name="date_experience" id="date_experience" class="input"
+                                            required>
+
+
+
+                                        <input type="submit" value="Envoyer" class="bg-primary text-white rounded-lg p-2">
+                                    </form>
+                                </div>
+                                <?php
+                            } else { ?>
+                                <p>Connectez-vous pour rédiger un avis</p>
+                                <?php
+                            }
+                            ?>
+
+                            <script>
+
+                                // js pour faire apparaitre le formulaire d'avis
+
+                                document.getElementById('avis').style.display = 'none';
+
+                                document.querySelector('button').addEventListener('click', () => {
+                                    document.getElementById('avis').style.display = 'flex';
+                                });
+
+                            </script>
+
+
+                            <!-- faire un bouton pour rédiger un avis  -->
+
+                            <!-- faire un formulaire pour pouvoir remplir les données d'un avis -->
+
+                            <!-- le titre -->
+
+                            <!-- la description -->
+
+                            <!-- la note -->
+                            <p></p>
                             <!-- Conteneur pour tous les avis -->
                             <div id="avis-container flex flex-col gap-2 items-center"></div>
 
                             <!-- Bouton pour charger plus d'avis -->
                             <button class="text-small text-end font-bold" id="load-more-btn">Afficher plus...</button>
+
                         </div>
 
                         <!-- A garder ici car il y a du PHP -->
@@ -269,7 +332,9 @@ session_start();
 
 
                     </div>
+
                 </div>
+
             </div>
         </div>
     </main>

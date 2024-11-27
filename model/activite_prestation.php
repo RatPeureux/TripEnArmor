@@ -19,7 +19,7 @@ class ActivitePrestation extends BDD {
     }
 
     static function getPrestationsByIdActivite($id_activite) {
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_activite = ?";
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ?";
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $id_activite);
 
@@ -32,7 +32,7 @@ class ActivitePrestation extends BDD {
     }
 
     static function checkIfLinkExists($id_prestation, $id_activite) {
-        $query = "SELECT * FROM ". self::$nom_table ." WHERE id_prestation = ? AND id_activite = ?";
+        $query = "SELECT * FROM ". self::$nom_table ." WHERE id_prestation = ? AND id_offre = ?";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $id_prestation);
@@ -46,7 +46,7 @@ class ActivitePrestation extends BDD {
     }
 
     static function createActivitePrestation($id_prestation, $id_activite) {
-        $query = "INSERT INTO ". self::$nom_table ." (id_prestation, id_activite) VALUES (?, ?) RETURNING *";
+        $query = "INSERT INTO ". self::$nom_table ." (id_prestation, id_offre) VALUES (?, ?) RETURNING *";
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $id_prestation);
         $stmt->bindParam(2, $id_activite);
@@ -60,7 +60,7 @@ class ActivitePrestation extends BDD {
     }
 
     static function deleteActivitePrestation($id_activite, $id_prestation) {
-        $query = "DELETE FROM ". self::$nom_table ." WHERE id_activite = ? AND id_prestation = ?";
+        $query = "DELETE FROM ". self::$nom_table ." WHERE id_offre = ? AND id_prestation = ?";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $id_activite);

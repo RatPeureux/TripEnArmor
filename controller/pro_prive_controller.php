@@ -1,6 +1,8 @@
 <?php
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/pro_prive.php';
 
+require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/model/pro_prive.php";
+
 class ProPriveController
 {
 
@@ -21,14 +23,18 @@ class ProPriveController
     {
         $proPrive = $this->model::getProPriveById($id);
 
-        $result = [
-            "id_compte" => $proPrive["id_compte"],
-            "email" => $proPrive["email"],
-            "tel" => $proPrive["num_tel"],
-            "adresse" => $proPrive["id_adresse"],
-            "nom_pro" => $proPrive["nom_pro"],
-            "num_siren" => $proPrive["num_siren"],
-        ];
+        if ($proPrive) {
+            $result = [
+                "id_compte" => $proPrive["id_compte"],
+                "email" => $proPrive["email"],
+                "tel" => $proPrive["num_tel"],
+                "adresse" => $proPrive["id_adresse"],
+                "nom_pro" => $proPrive["nom_pro"],
+                "num_siren" => $proPrive["num_siren"],
+            ];
+        } else {
+            return false;
+        }
 
         return $result;
     }

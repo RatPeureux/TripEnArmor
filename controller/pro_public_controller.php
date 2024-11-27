@@ -3,7 +3,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/pro_public.php';
 
 class ProPublicController
 {
-
     private $model;
 
     function __construct()

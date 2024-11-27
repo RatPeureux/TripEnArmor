@@ -15,6 +15,9 @@ sleep 5
 # Récupérez l'ID du conteneur en cours d'exécution à partir de docker-compose
 CONTAINER_NAME=$(docker-compose ps -q)
 
+# Stream the logs of the container
+docker logs -f "$CONTAINER_NAME"
+
 # Affichez un message à l'utilisateur pour lui indiquer comment accéder au conteneur
 echo "Pour vous connecter au conteneur, exécutez la commande suivante dans un terminal :"
 echo "docker exec -it $CONTAINER_NAME /bin/bash"
