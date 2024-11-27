@@ -1,9 +1,9 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class Visite extends BDD {
-    private $nom_table = "sae_db._visite";
+    static private $nom_table = "sae_db._visite";
 
     static function getVisiteById($id, $online = true) { 
         self::initBDD();
