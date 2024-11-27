@@ -1,5 +1,5 @@
 <?php
-include(dirname($_SERVER['DOCUMENT_ROOT']) . '/../php_files/connect_params.php'); // Inclusion des paramètres de connexion à la base de données
+include(dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php'); // Inclusion des paramètres de connexion à la base de données
 
 // Définition d'une classe abstraite BDD qui sert de modèle pour les classes qui interagiront avec la base de données.
 abstract class BDD {
@@ -22,8 +22,6 @@ abstract class BDD {
             // Configuration de l'instance PDO pour lancer des exceptions en cas d'erreur SQL
             self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$isInit = true;
-        } else {
-            echo "erreur";
         }
     }
 
