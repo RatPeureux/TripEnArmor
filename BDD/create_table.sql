@@ -7,7 +7,7 @@
 
 -- Listing des tables abstraites
 --  _compte
---  _professionnel
+--  _professionnel     
 --  _offre
 
 -- Initialisation du schéma
