@@ -1,15 +1,13 @@
 <?php
-
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/avis.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/avis.php';
 
 class AvisController
 {
-
     private $model = "Avis";
 
-    static public function getAvisByIdOffre($idOffre)
+    public function getAvisByIdOffre($idOffre)
     {
-        $resultatSQL = self::$model::getAvisByIdOffre($idOffre);
+        $resultatSQL = $this->model::getAvisByIdOffre($idOffre);
 
         if ($resultatSQL) {
             $result = array_map(function ($row) {
@@ -30,8 +28,9 @@ class AvisController
         return $result;
     }
 
-    static public function getAvisByIdMembre( $idMembre ) {
-        $resultatSQL = self::$model::getAvisByIdMembre($idMembre);
+    public function getAvisByIdMembre($idMembre)
+    {
+        $resultatSQL = $this->model::getAvisByIdMembre($idMembre);
 
         if ($resultatSQL) {
             $result = array_map(function ($row) {
@@ -50,8 +49,9 @@ class AvisController
         }
     }
 
-    static public function createAvis($titre, $commentaire, $date_experience, $id_pro, $id_offre) {
-        $resultatSQL = self::$model::createAvis($titre, $commentaire, $date_experience, $id_pro, $id_offre, -1);
+    public function createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse = null)
+    {
+        $resultatSQL = $this->model::createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse = null);
 
         if ($resultatSQL) {
             return $resultatSQL;
@@ -60,15 +60,16 @@ class AvisController
             return -1;
         }
     }
-    
-    static public function createReponsePro($id_avis, $commentaire, $id_pro) {
-        $avisInitial = self::$model::getAvisById($id_avis);
+
+    public function createReponsePro($id_avis, $commentaire, $id_pro)
+    {
+        $avisInitial = $this->model::getAvisById($id_avis);
         if (!$avisInitial) {
             echo "ERREUR: Avis inexistant";
             return -1;
         }
 
-        $resultatSQL = self::$model::createAvis(
+        $resultatSQL = $this->model::createAvis(
             $avisInitial["titre"],
             $commentaire,
             $avisInitial["date_experience"],
@@ -85,20 +86,21 @@ class AvisController
         }
     }
 
-    static public function updateAvis($id, $titre=false, $commentaire=false, $date_experience=false, $id_pro=false, $id_offre=false, $id_avis_reponse=false) {
+    public function updateAvis($id, $titre = false, $commentaire = false, $date_experience = false, $id_pro = false, $id_offre = false, $id_avis_reponse = false)
+    {
         if ($titre === false && $commentaire === false && $date_experience === false && $id_pro === false && $id_offre === false && $id_avis_reponse === false) {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {
-            $avis = self::$model::getAvisById($id);
-            
-            $updated_id_avis = self::$model::updateAvis(
-                $id, 
-                $titre !== false ? $titre : $avis["titre"], 
-                $commentaire !== false ? $commentaire : $avis["commentaire"], 
-                $date_experience !== false ? $date_experience : $avis["date_experience"], 
-                $id_pro !== false ? $id_pro : $avis["id_pro"], 
-                $id_offre !== false ? $id_offre : $avis["id_offre"], 
+            $avis = $this->model::getAvisById($id);
+
+            $updated_id_avis = $this->model::updateAvis(
+                $id,
+                $titre !== false ? $titre : $avis["titre"],
+                $commentaire !== false ? $commentaire : $avis["commentaire"],
+                $date_experience !== false ? $date_experience : $avis["date_experience"],
+                $id_pro !== false ? $id_pro : $avis["id_pro"],
+                $id_offre !== false ? $id_offre : $avis["id_offre"],
                 $id_avis_reponse !== false ? $id_avis_reponse : $avis["id_avis_reponse"]
             );
 
@@ -111,8 +113,9 @@ class AvisController
         }
     }
 
-    static public function deleteAvis($id) {
-        if (self::$model::deleteAvis($id)) {
+    public function deleteAvis($id)
+    {
+        if ($this->model::deleteAvis($id)) {
             echo "Avis supprimé";
             return 0;
         } else {

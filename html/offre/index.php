@@ -28,6 +28,7 @@ session_start();
 
     <?php
     $id_offre = $_SESSION['id_offre'];
+    $id_membre = $_SESSION['id_membre'];
 
     // Connexion avec la bdd
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
@@ -204,6 +205,64 @@ session_start();
                         <!-- Partie avis -->
                         <div class="avis w-7/12 px-2">
                             <h3 class="text-bold">Avis</h3>
+                <!--  verifier si le membre est bon  -->
+                  <?php
+                    if (isset($_SESSION['id_membre'])) { 
+                        ?>
+                        <div class="flex flex-col gap-2">
+                            <button class="bg-primary   text-white rounded-lg p-2">Rédiger un avis</button>
+
+                            <form id="avis" action=" /scripts/creation_avis.php " method="post" class="flex flex-col gap-2">
+                                <input type="text" name="titre" placeholder="Titre de l'avis" class="input" required>
+                                <textarea name="description" placeholder="Description de l'avis" class="input" required></textarea>
+                                <select name="note" id="note" class="input" required>
+
+                                    <option value="note1">1</option>
+                                    <option value="note2">2</option>
+                                    <option value="note3">3</option>
+                                    <option value="note4">4</option>
+                                    <option value="note5">5</option>
+
+                                    <p>/5</p>
+
+                                </select>
+                                
+                                <input type="date" name="date_experience" id="date_experience" class="input" required>
+
+
+
+                                <input type="submit" value="Envoyer" class="bg-primary text-white rounded-lg p-2">
+                            </form>
+                        </div>
+                        <?php
+                    } else { ?>
+                        <p>Connectez-vous pour rédiger un avis</p>
+                    <?php
+                    }
+                ?>
+
+                <script>
+
+                        // js pour faire apparaitre le formulaire d'avis
+
+                        document.getElementById('avis').style.display = 'none';
+
+                        document.querySelector('button').addEventListener('click', () => {
+                            document.getElementById('avis').style.display = 'flex';
+                        });
+
+                </script>
+
+
+                <!-- faire un bouton pour rédiger un avis  -->
+
+                <!-- faire un formulaire pour pouvoir remplir les données d'un avis -->
+
+                <!-- le titre -->
+
+                <!-- la description -->
+
+                <!-- la note -->
                             <p></p>
 
                         </div>
