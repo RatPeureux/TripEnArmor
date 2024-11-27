@@ -10,33 +10,41 @@ class VisiteLangueController {
         $this->model = 'VisiteLangue';
     }
     
-    public function createVisiteLangue($id_offre, $id_langue) {
-        $visiteLangueID = $this->model::createCompte($id_offre, $id_langue);
-        return $visiteLangueID;
-    }
-    public function getInfosVisiteLangue($id){
-        $visiteLangue = $this->model::getVisiteLangueById($id);
+    public function getLanguesByIdVisite($id_offre){
+        $langues = $this->model::getLanguesBydIdVisite($id_offre);
 
         $result = [
-            "id_compte" => $visiteLangue["id_compte"],
-            "id_langue" => $visiteLangue["id_langue"],
+            "id_langue" => $langues["id_langue"],
         ];
 
         return $result;
     }
 
-    public function updateVisiteLangue($id_offre, $id_langue = false) {  
-        if ($id_langue === false) {
-            echo "ERREUR: Aucun champ à modifier";
-            return -1;
+    public function getVisitesByIdLangue($id_langue) {
+        $visites = $this->model::getVisitesByIdLangue($id_langue);
+
+        $result = [
+            "id_offre" => $visites["id_offre"],
+        ];
+
+        return $result;
+    }
+
+    public function linkVisiteAndLangue($id_offre, $id_langue) {
+        if ($this->model::checkIfLinkExists($id_offre, $id_langue)) {
+            return $this->model::createVisiteLangue($id_offre, $id_langue);
         } else {
-            $visiteLangue = $this->model::getVisiteLangueById($id_offre);
-            
-            $updatedVisiteLangueId = $this->model::updateVisiteLangue(
-                $id_offre, 
-                $id_langue !== false ? $id_langue : $visiteLangue["id_langue"] 
-            );
-            return $updatedVisiteLangueId;
+            echo "The link already exists";
+            return -1;
+        }
+    }
+
+    public function unlinkVisiteAndLangue($id_offre, $id_langue) {
+        if ($this->model::checkIfLinkExists($id_offre, $id_langue)) {
+            return $this->model::deleteVisiteAndLangue($id_offre, $id_langue);
+        } else {
+            echo "The link does not exist";
+            return false;
         }
     }
 }

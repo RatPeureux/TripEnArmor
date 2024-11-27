@@ -2,11 +2,11 @@
 
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
 
-class VisiteLangue extends BDD {
+class RestaurationTypeRepas extends BDD {
 
-    private $nom_table = "sae_db._visite_langue";
+    private $nom_table = "sae_db._restaurant_type_repas";
 
-    static function getLanguesBydIdVisite($id_offre){
+    static function getTypesRepasBydIdRestaurant($id_offre){
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ?";
         $statement = self::$db->prepare($query);
@@ -20,11 +20,11 @@ class VisiteLangue extends BDD {
         }
     }
 
-    static function getVisitesByIdLangue($id_langue){
+    static function getRestaurantsByIdTypesRepas($id_type_repas){
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_langue = ?";
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_type_repas = ?";
         $statement = self::$db->prepare($query);
-        $statement->bindParam(1, $id_langue);
+        $statement->bindParam(1, $id_type_repas);
 
         if ($statement->execute()){
             return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -34,13 +34,13 @@ class VisiteLangue extends BDD {
         }
     }
 
-    static function checkIfLinkExists($id_offre, $id_langue) {
+    static function checkIfLinkExists($id_offre, $id_type_repas) {
         self::initBDD();
-        $query = "SELECT * FROM ". self::$nom_table ." WHERE id_offre = ? AND id_langue = ?";
+        $query = "SELECT * FROM ". self::$nom_table ." WHERE id_offre = ? AND id_type_repas = ?";
 
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id_offre);
-        $statement->bindParam(2, $id_langue);
+        $statement->bindParam(2, $id_type_repas);
 
         if ($statement->execute()){
             return !empty($statement->fetchAll(PDO::FETCH_ASSOC)[0]);
@@ -49,11 +49,11 @@ class VisiteLangue extends BDD {
         }
     }
 
-    static function createVisiteLangue($id_offre,$id_langue) {
-        $query = "INSERT INTO (id_offre, id_langue". self::$nom_table ."VALUES (?, ?) RETURNING *";
+    static function createRestaurantTypeRepas($id_offre,$id_type_repas) {
+        $query = "INSERT INTO (id_offre, id_type_repas". self::$nom_table ."VALUES (?, ?) RETURNING *";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id_offre);
-        $statement->bindParam(2, $id_langue);
+        $statement->bindParam(2, $id_type_repas);
         
         if($statement->execute()){
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
@@ -62,13 +62,13 @@ class VisiteLangue extends BDD {
         }
     }
 
-    static function deleteVisiteLangue($id_offre, $id_langue) {
+    static function deleteRestaurantTypeRepas($id_offre, $id_type_repas) {
         self::initBDD();
         $query = "DELETE FROM". self::$nom_table ."WHERE id_offre = ?";
 
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id_offre);
-        $statement->bindParam(2, $id_langue);
+        $statement->bindParam(2, $id_type_repas);
 
         return $statement->execute();
     }

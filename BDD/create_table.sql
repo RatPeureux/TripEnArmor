@@ -168,14 +168,14 @@ CREATE TABLE _tag_offre (
 
 -- Création de la table _avis
 CREATE TABLE _avis (
-    id_avis SERIAL PRIMARY KEY,
-    date_publication DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_experience DATETIME NOT NULL,
-    titre VARCHAR(50),
-    commentaire VARCHAR(1024),
-    id_compte INT NOT NULL,
-    id_offre INT NOT NULL,
-    id_avis_reponse INT REFERENCES _avis (id_avis),
+    id_avis SERIAL PRIMARY KEY, -- id unique
+    date_publication DATE NOT NULL,
+    date_experience DATE NOT NULL, -- date où la personne a visité/mangé/...
+    titre VARCHAR(50), -- titre de l'avis
+    commentaire VARCHAR(1024), -- commentaire de l'avis
+    id_compte INT NOT NULL, -- compte de l'utilisateur  |
+    id_offre INT NOT NULL, -- Offre à laquelle est lié l'avis
+    id_avis_reponse INT REFERENCES _avis (id_avis), -- id de l'avis de la réponse du pro
     -- Contrainte pour empêcher plusieurs avis initiaux d'un même membre sur une offre
     CONSTRAINT unique_avis_per_member UNIQUE (id_compte, id_offre)
 );
@@ -205,7 +205,6 @@ create table _type_repas (
 
 CREATE TABLE _restauration (
     gamme_prix VARCHAR(3) NOT NULL,
-    id_type_repas INTEGER REFERENCES _type_repas (id_type_repas)
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _restauration à cause de l'héritage
@@ -257,18 +256,11 @@ ADD CONSTRAINT fk_activite_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse 
 
 ALTER TABLE _activite
 ADD CONSTRAINT fk_activite_type_offre FOREIGN KEY (id_type_offre) REFERENCES _type_offre (id_type_offre);
-
--- ------------------------------------------------------------------------------------------------------- TAG Activité
-create table _tag_activite ( -- Maxime
-    id_offre SERIAL REFERENCES _activite (id_offre),
-    id_tag SERIAL REFERENCES _tag (id_tag),
-    PRIMARY KEY (id_offre, id_tag)
-);
 -- ------------------------------------------------------------------------------------------------------- Spectacles
 -- Table _spectacle (hérite de _offre)
 CREATE TABLE _spectacle (capacite INTEGER, duree TIME) INHERITS (_offre);
 
--- Rajout des contraintes perdues pour _spectacle à cause de l'héritage
+-- Rajout des contraintes perdues pour _spectacle à cause de l'héritage_activite
 ALTER TABLE _spectacle
 ADD CONSTRAINT pk_spectacle PRIMARY KEY (id_offre);
 
@@ -277,13 +269,6 @@ ADD CONSTRAINT fk_spectacle_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse
 
 ALTER TABLE _spectacle
 ADD CONSTRAINT fk_spectacle_type_offre FOREIGN KEY (id_type_offre) REFERENCES _type_offre (id_type_offre);
-
--- ------------------------------------------------------------------------------------------------------- TAG Spectacles
-create table _tag_spectacle ( -- Maxime
-    id_offre SERIAL REFERENCES _spectacle (id_offre),
-    id_tag SERIAL REFERENCES _tag (id_tag),
-    PRIMARY KEY (id_offre, id_tag)
-);
 -- ------------------------------------------------------------------------------------------------------- Visites
 -- Table _visite (hérite de _offre)
 
@@ -312,13 +297,6 @@ CREATE TABLE _visite_langue (
     id_offre SERIAL REFERENCES _visite (id_offre),
     id_langue SERIAL REFERENCES _langue (id_langue)
 );
-
--- ------------------------------------------------------------------------------------------------------- TAG Visites
-create table _tag_visite ( -- Maxime
-    id_offre SERIAL REFERENCES _visite (id_offre),
-    id_tag SERIAL REFERENCES _tag (id_tag),
-    PRIMARY KEY (id_offre, id_tag)
-);
 -- ------------------------------------------------------------------------------------------------------- Parcs d'attractions
 -- Table _parc_attraction (hérite de _offre)
 CREATE TABLE _parc_attraction (
@@ -335,13 +313,6 @@ ADD CONSTRAINT fk_parc_attraction_adresse FOREIGN KEY (id_adresse) REFERENCES _a
 
 ALTER TABLE _parc_attraction
 ADD CONSTRAINT fk_parc_attraction_type_offre FOREIGN KEY (id_type_offre) REFERENCES _type_offre (id_type_offre);
-
--- ------------------------------------------------------------------------------------------------------- TAG Parcs
-create table _tag_parc_attraction ( -- Maxime
-    id_offre SERIAL REFERENCES _parc_attraction (id_offre),
-    id_tag SERIAL REFERENCES _tag (id_tag),
-    PRIMARY KEY (id_offre, id_tag)
-);
 -- ------------------------------------------------------------------------------------------------------- Horaire
 -- Table Horaire
 CREATE TABLE _horaire (

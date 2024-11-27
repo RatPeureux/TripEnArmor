@@ -26,4 +26,16 @@ abstract class BDD
             self::$isInit = true;
         }
     }
+
+    static public function startTransaction() {
+        self::$db->beginTransaction();
+    }
+
+    static public function commitTransaction() {
+        self::$db->commit();
+    }
+
+    static public function rollbackTransaction() {
+        self::$db->rollBack();
+    }
 }

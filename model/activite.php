@@ -3,7 +3,21 @@
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
 
 class Activite extends BDD {
-    static private $nom_table = "_activite";
+    static private $nom_table = "sae_db._activite";
+
+    static function getAllActivite() {
+        self::initBDD();
+        $query = "SELECT * FROM " . self::$nom_table;
+        
+        $statement = self::$db->prepare($query);
+
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR : Impossible d'obtenir les activitées";
+            return -1;
+        }
+    }
 
     static function getActiviteById($id, $online = true) { 
         self::initBDD();
@@ -14,7 +28,7 @@ class Activite extends BDD {
         $statement->bindValue(2, $online);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR : Impossible d'obtenir cette activitée";
             return -1;
@@ -39,7 +53,7 @@ class Activite extends BDD {
         $statement->bindParam(11, $prestations);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
         } else {
             echo "ERREUR : Impossible de créer l'activitée";
             return -1;
@@ -64,7 +78,7 @@ class Activite extends BDD {
         $statement->bindParam(11, $prestations);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
         } else {
             echo "ERREUR : Impossible de mettre à jour l'activitée";
             return -1;

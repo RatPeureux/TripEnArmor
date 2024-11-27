@@ -3,7 +3,7 @@
 require_once "../model/rib.php";
 
 class RibController {
-    static private $model;  
+    private $model;  
 
     function __construct() {
         $this->model = 'Rib';

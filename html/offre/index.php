@@ -104,7 +104,7 @@ session_start();
                         <i class="fa-solid fa-location-dot"></i>
                         <div class="text-small">
                             <p><?php echo $ville . ', ' . $code_postal ?></p>
-                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement ?></p>
+                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?></p>
                     </div>
                 </div>
                 <p class="prix font-bold"><?php echo $prix_a_afficher ?></p>
@@ -161,40 +161,43 @@ session_start();
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="flex flex-col gap-2">
-                    <h1 class="text-h1"><?php echo $offre['titre'] ?></h1>
-
+                    <div class="flex flex-row items-center">
+                        <h1 class="text-h1 text-bold"><?php echo $offre['titre'] ?></h1>
+                        <p class="professionnel text-h1">&nbsp;- <?php echo $pro_nom ?></p>
+                    </div> 
                     <!-- Afficher les tags de l'offre -->
+                    <p>
+                        <?php echo $resume ?>
+                    </p>
+
                     <?php
                     if ($tags) {
                         echo ("<h3 class='text-h3'>$tags</h3>");
                     }
                     ?>
-
                     <!-- Description + avis -->
-                    <div class="description-et-avis">
-
+                    <div class="description-et-avis flex flex-row">
                         <!-- Partie description -->
-                        <div class="partie-description flex flex-col gap-4">
-                            <p class="professionnel"><?php echo $pro_nom ?></p>
+                        <div class="partie-description flex flex-col w-5/12">
 
                             <!-- Prix + localisation -->
                             <div class="localisation-et-prix flex flex-col gap-4">
-                                <div class="flex items-center gap-4">
+                                <h3 class="text-bold">À propos</h3>
+                                <div class="flex items-center gap-4 px-2">
                                     <i class="fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $numero_adresse . ' ' . $odonyme . ' ' . $complement ?>
+                                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement']  ?>
                                         </p>
                                     </div>
                                 </div>
-                                <p class="prix font-bold"><?php echo $prix_a_afficher ?></p>
+                                <p class="prix px-2"><?php echo $prix_a_afficher ?></p>
                             </div>
-
+                            
                             <!-- Description détaillée -->
                             <div class="description flex flex-col gap-2">
-                                <h3>À propos</h3>
                                 <p class="text-justify text-small px-2">
-                                    <?php echo $description ?>;
+                                    <?php echo $description ?>
                                 </p>
                             </div>
                         </div>
