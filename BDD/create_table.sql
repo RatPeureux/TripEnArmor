@@ -52,9 +52,7 @@ CREATE TABLE _membre (
 ) INHERITS (_compte);
 
 -- Héritage des types de _compte (abstr.)
-CREATE TABLE _professionnel (
-    nom_pro VARCHAR(255) NOT NULL
-) INHERITS (_compte);
+CREATE TABLE _professionnel (nom_pro VARCHAR(255) NOT NULL) INHERITS (_compte);
 
 CREATE TABLE _pro_public (
     type_orga VARCHAR(255) NOT NULL
@@ -149,9 +147,9 @@ CREATE TABLE _offre (
     description TEXT,
     resume TEXT,
     prix_mini FLOAT,
-    date_creation DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_mise_a_jour DATE,
-    date_suppression DATE,
+    date_creation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    date_mise_a_jour DATETIME,
+    date_suppression DATETIME,
     est_en_ligne BOOLEAN NOT NULL,
     id_type_offre INTEGER REFERENCES _type_offre (id_type_offre),
     id_pro INTEGER REFERENCES _professionnel (id_compte),
@@ -171,13 +169,13 @@ CREATE TABLE _tag_offre (
 -- Création de la table _avis
 CREATE TABLE _avis (
     id_avis SERIAL PRIMARY KEY, -- id unique
-    date_publication DATE NOT NULL, 
+    date_publication DATE NOT NULL,
     date_experience DATE NOT NULL, -- date où la personne a visité/mangé/...
     titre VARCHAR(50), -- titre de l'avis
     commentaire VARCHAR(1024), -- commentaire de l'avis
     id_compte INT NOT NULL, -- compte de l'utilisateur  |
     id_offre INT NOT NULL, -- Offre à laquelle est lié l'avis
-    id_avis_reponse INT REFERENCES _avis(id_avis), -- id de l'avis de la réponse du pro
+    id_avis_reponse INT REFERENCES _avis (id_avis), -- id de l'avis de la réponse du pro
     -- Contrainte pour empêcher plusieurs avis initiaux d'un même membre sur une offre
     CONSTRAINT unique_avis_per_member UNIQUE (id_compte, id_offre)
 );
@@ -338,9 +336,9 @@ CREATE TABLE _tarif_public (
 CREATE TABLE T_Image_Img (
     -- IMG = IMaGe
     img_path VARCHAR(255) PRIMARY KEY,
-    img_date_creation DATE NOT NULL,
+    img_date_creation DATETIME NOT NULL,
     img_description TEXT,
-    img_date_suppression DATE,
+    img_date_suppression DATETIME,
     id_offre INTEGER REFERENCES _offre (id_offre) ON DELETE CASCADE,
     id_parc INTEGER REFERENCES _parc_attraction (id_offre) ON DELETE CASCADE,
     -- Contrainte d'exclusivité : soit offre_id, soit id_parc doit être non nul, mais pas les deux
