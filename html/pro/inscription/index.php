@@ -39,8 +39,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription"
-                    method="POST" onsubmit="return validateForm()">
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST"
+                    onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Professionnel</p>
 
                     <!-- Choix du statut de l'utilisateur -->
@@ -189,7 +189,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que cette adresse mail est déjà utilisée ?
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
     $stmt->bindParam(":mail", $_POST['mail']);
     $stmt->execute();
@@ -424,7 +424,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que le numéro de téléphone renseigné a déjà été utilisé ?
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE num_tel = :num_tel");
     $stmt->bindParam(":num_tel", $_POST['num_tel']);
     $stmt->execute();

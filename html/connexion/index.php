@@ -35,7 +35,7 @@ if (empty($_POST)) { ?>
                     <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/connexion" method="POST">
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="" method="POST">
                     <p class="pb-3">J'ai un compte Membre</p>
 
                     <!-- Champ pour l'identifiant -->
@@ -110,7 +110,7 @@ if (empty($_POST)) { ?>
 <?php } else {
     try {
         // Connexion avec la bdd
-        include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
         // Vérifie si la requête est une soumission de formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

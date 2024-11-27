@@ -1,21 +1,24 @@
 <?php
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/pro_prive.php';
 
-require_once "../model/pro_prive.php";
-
-class ProPriveController {
+class ProPriveController
+{
 
     private $model;
 
-    function __construct() {
+    function __construct()
+    {
         $this->model = 'ProPrive';
     }
 
-    public function createProPrive($email, $mdp, $tel, $adresseId, $nom_pro, $num_siren) {
+    public function createProPrive($email, $mdp, $tel, $adresseId, $nom_pro, $num_siren)
+    {
         $proPriveID = $this->model::createProPublic($email, $mdp, $tel, $adresseId, $nom_pro, $num_siren);
         return $proPriveID;
     }
 
-    public function getInfosProPrive($id){
+    public function getInfosProPrive($id)
+    {
         $proPrive = $this->model::getProPriveById($id);
 
         $result = [
@@ -30,18 +33,19 @@ class ProPriveController {
         return $result;
     }
 
-    public function updateProPrive($id, $email = false, $mdp =false, $tel = false, $adresseId = false, $nom_pro = false, $num_siren = false) {  
+    public function updateProPrive($id, $email = false, $mdp = false, $tel = false, $adresseId = false, $nom_pro = false, $num_siren = false)
+    {
         if ($email === false && $mdp === false && $tel === false && $adresseId === false && $nom_pro === false && $num_siren === false) {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {
             $proPrive = $this->model::getProPriveById($id);
-            
+
             $updatedProPriveId = $this->model::updateProPrive(
-                $id, 
-                $email !== false ? $email : $proPrive["email"], 
-                $mdp !== false ? $mdp : $proPrive["mdp_hash"], 
-                $tel !== false ? $tel : $proPrive["num_tel"], 
+                $id,
+                $email !== false ? $email : $proPrive["email"],
+                $mdp !== false ? $mdp : $proPrive["mdp_hash"],
+                $tel !== false ? $tel : $proPrive["num_tel"],
                 $adresseId !== false ? $adresseId : $proPrive["id_adresse"]
             );
             return $updatedProPriveId;

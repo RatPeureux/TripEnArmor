@@ -1,13 +1,15 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-class ProPrive extends BDD {
+class ProPrive extends BDD
+{
 
     private $nom_table = "sae_db._pro_prive";
 
-    static function createProPrive($email, $mdp, $tel, $adresseId, $nom_pro, $num_siren) {
-        $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren". self::$nom_table ."VALUES (?, ?, ?, ?, ?, ?) RETURNING id_compte";
+    static function createProPrive($email, $mdp, $tel, $adresseId, $nom_pro, $num_siren)
+    {
+        $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren" . self::$nom_table . "VALUES (?, ?, ?, ?, ?, ?) RETURNING id_compte";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);
@@ -15,8 +17,8 @@ class ProPrive extends BDD {
         $statement->bindParam(4, $adresseId);
         $statement->bindParam(5, $nom_pro);
         $statement->bindParam(6, $num_siren);
-        
-        if($statement->execute()){
+
+        if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
         } else {
             echo "ERREUR: Impossible de créer le compte pro privé";
@@ -24,21 +26,23 @@ class ProPrive extends BDD {
         }
     }
 
-    static function getProPriveById($id){
+    static function getProPriveById($id)
+    {
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_compte = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
 
-        if ($statement->execute()){
+        if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR";
             return false;
         }
     }
-    
-    static function updateProPrive($id, $email, $mdp, $tel, $adresseId, $nom_pro, $num_siren) {
+
+    static function updateProPrive($id, $email, $mdp, $tel, $adresseId, $nom_pro, $num_siren)
+    {
         self::initBDD();
         $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, $nom_pro = ?, num_siren = ? WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
@@ -50,7 +54,7 @@ class ProPrive extends BDD {
         $statement->bindParam(6, $num_siren);
         $statement->bindParam(7, $id);
 
-        if($statement->execute()){
+        if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
         } else {
             echo "ERREUR: Impossible de mettre à jour le compte pro privé";
@@ -58,9 +62,10 @@ class ProPrive extends BDD {
         }
     }
 
-    static function deleteProPrive($id) {
+    static function deleteProPrive($id)
+    {
         self::initBDD();
-        $query = "DELETE FROM". self::$nom_table ."WHERE id_compte = ?";
+        $query = "DELETE FROM" . self::$nom_table . "WHERE id_compte = ?";
 
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);

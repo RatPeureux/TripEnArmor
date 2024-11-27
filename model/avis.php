@@ -4,10 +4,6 @@ require_once "bdd.php";
 
 class Avis extends BDD
 {
-    /*
-    Idée d'amélioration :
-    Ajouter des valeurs statiques pour représenter les erreurs
-    */
     static private $nom_table = "sae_db._avis";
 
     static function getAvisById($id)

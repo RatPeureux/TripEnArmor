@@ -2,20 +2,22 @@
 
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
 
-class Facture extends BDD {
+class Facture extends BDD
+{
     // Nom de la table utilisée pour les opérations sur les factures
-    private $nom_table = "sae_db._facture";
+    static private $nom_table = "sae_db._facture";
 
     /**
      * Récupère une facture par son ID.
      * @param int $id L'identifiant de la facture à récupérer.
      * @return array|int Retourne un tableau contenant les données de la facture ou -1 en cas d'erreur.
      */
-    static function getFactureById($id) {
+    static function getFactureById($id)
+    {
         self::initBDD();
         // Requête SQL pour sélectionner une facture par son ID
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_facture = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_facture = ?";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
@@ -34,11 +36,12 @@ class Facture extends BDD {
      * @param string $jour_en_ligne La date à laquelle la facture a été mise en ligne.
      * @return array|int Retourne un tableau contenant l'identifiant de la nouvelle facture ou -1 en cas d'erreur.
      */
-    static function createFacture($jour_en_ligne, $id_offre) {
+    static function createFacture($jour_en_ligne, $id_offre)
+    {
         self::initBDD();
         // Requête SQL pour insérer une nouvelle facture
-        $query = "INSERT INTO " . self::$nom_table ." (jour_en_ligne, id_offre) VALUES (?, ?) RETURNING id_facture";
-        
+        $query = "INSERT INTO " . self::$nom_table . " (jour_en_ligne, id_offre) VALUES (?, ?) RETURNING id_facture";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $jour_en_ligne);
@@ -58,11 +61,12 @@ class Facture extends BDD {
      * @param string $jour_en_ligne La nouvelle date à laquelle la facture est mise en ligne.
      * @return array|int Retourne un tableau contenant l'identifiant de la facture mise à jour ou -1 en cas d'erreur.
      */
-    static function updateFacture($id_facture, $jour_en_ligne, $id_offre) {
+    static function updateFacture($id_facture, $jour_en_ligne, $id_offre)
+    {
         self::initBDD();
         // Requête SQL pour mettre à jour une facture existante
-        $query = "UPDATE " . self::$nom_table ." SET jour_en_ligne = ?, id_offre = ? WHERE id_facture = ? RETURNING id_facture";
-        
+        $query = "UPDATE " . self::$nom_table . " SET jour_en_ligne = ?, id_offre = ? WHERE id_facture = ? RETURNING id_facture";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $jour_en_ligne);
@@ -83,11 +87,12 @@ class Facture extends BDD {
      * @param int $id L'identifiant de la facture à supprimer.
      * @return array|int Retourne un tableau vide si la suppression réussit ou -1 en cas d'erreur.
      */
-    static function deleteFacture($id) {
+    static function deleteFacture($id)
+    {
         self::initBDD();
         // Requête SQL pour supprimer une facture par son ID
-        $query = "DELETE FROM " . self::$nom_table ." WHERE id_facture = ?";
-        
+        $query = "DELETE FROM " . self::$nom_table . " WHERE id_facture = ?";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);

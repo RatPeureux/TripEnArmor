@@ -5,7 +5,7 @@ session_start();
 unset($_SESSION['data_en_cours_connexion']);
 
 // Vérifier si le pro est bien connecté
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 verifyPro();
 
 // Fonction utilitaires
@@ -41,7 +41,7 @@ if (!function_exists('chaineVersMot')) {
 
     <?php
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     $id_pro = $_SESSION['id_pro'];
 

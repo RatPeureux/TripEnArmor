@@ -2,19 +2,20 @@
 
 require_once "../model/tag_activite.php";
 
-class TagActiviteController {
+class TagActiviteController
+{
 
     private $model;
 
-    function __construct(){
+    function __construct()
+    {
 
         $this->model = 'tagActivite';
 
     }
 
-    public function getInfosTag($id){
-
-        $tagActivite = $this->model::get
+    public function getInfosTag($id)
+    {
 
     }
 

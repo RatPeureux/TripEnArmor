@@ -4,7 +4,7 @@ session_start();
 unset($_SESSION['data_en_cours_connexion']);
 unset($_SESSION['data_en_cours_inscription']);
 
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +29,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
     <?php
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     $sort_order = '';
     if (isset($_GET['sort'])) {
