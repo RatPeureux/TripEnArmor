@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+
 abstract class Compte extends BDD {
 
     private $nom_table = "sae_db._compte";
@@ -13,7 +15,7 @@ abstract class Compte extends BDD {
         $statement->bindParam(4, $adresseId);
         
         if($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
         } else {
             echo "ERREUR: Impossible de créer le compte";
             return -1;
@@ -27,7 +29,7 @@ abstract class Compte extends BDD {
         $statement->bindParam(1, $id);
 
         if ($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR";
             return false;
@@ -45,7 +47,7 @@ abstract class Compte extends BDD {
         $statement->bindParam(5, $id);
 
         if($statement->execute()){
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
         } else {
             echo "ERREUR: Impossible de mettre à jour le compte";
             return -1;

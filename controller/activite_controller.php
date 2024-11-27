@@ -9,6 +9,12 @@ class ActiviteController {
         $this->model = 'Activite';
     }
 
+    public function getAllActivite() {
+        $activite = $this->model::getAllActivite();
+
+        return $activite;
+    }
+
     public function getInfosActivite($id) {
         $activite = $this->model::getActiviteById($id);
 

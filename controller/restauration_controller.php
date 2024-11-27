@@ -3,7 +3,7 @@
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/restauration.php";
 
 class RestaurationController {
-    static private $model;  
+    private $model;  
 
     function __construct() {
         $this->model = 'Restauration';
