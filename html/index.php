@@ -211,7 +211,6 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                 </div>
 
                 <div class="flex flex-col gap-4">
-                    <div id="selected-categories"></div>
                     <?php
                     // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
                     if (!$toutesLesOffres) {
@@ -219,7 +218,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     } else {
                         $i = 0;
                         foreach ($toutesLesOffres as $offre) {
-                            if ($i < 1) {
+                            if ($i < 7) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';
                                 include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
@@ -648,50 +647,31 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 
     // !!! FILTRAGES DE DONNÉES
-    function getCheckedCategories() {
-        const checkboxes = document.querySelectorAll('#developped-f1-tab input[type="checkbox"]');
-        const checkedCategories = Array.from(checkboxes)
-            .filter(checkbox => checkbox.checked)
-            .map(checkbox => checkbox.id);
-
-        // Mettre à jour l'affichage
-        const display = document.getElementById('selected-categories');
-        display.innerHTML = checkedCategories.length 
-            ? `Catégories cochées : ${checkedCategories.join(', ')}` 
-            : "";
-
-        return checkedCategories;
-    }
-
-    document.querySelectorAll('#developped-f1-tab input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-            getCheckedCategories(); // Mise à jour automatique
-        });
-    });
-
-    // Fonction qui gère le filtrage des offres
-    function filterOffers() {
-        // Récupérer toutes les cases à cocher de catégorie
+    function filterOnCategories() {
         const checkboxes = document.querySelectorAll('#developped-f1-tab input[type="checkbox"]');
         
-        // Récupérer toutes les offres
-        const offres = document.querySelectorAll('.infos');
+        const offres = document.querySelectorAll('.gauche');
 
-        // Pour chaque case à cocher
         checkboxes.forEach((checkbox) => {
             checkbox.addEventListener('change', () => {
-                // Pour chaque offre, vérifier si elle appartient à une catégorie sélectionnée
-                offres.forEach((offre) => {
-                    // Vérifier si l'offre a une des classes de catégories cochées
-                    const categories = offre.querySelectorAll('.type-offre'); // Obtenir les classes de l'offre (les catégories)
-                    const isChecked = checkbox.checked;
-                    const categorie = checkbox.value;
+                // Créer un tableau pour stocker les types sélectionnés
+                const selectedTypes = [];
+                
+                // Parcours des cases à cocher et ajout des types sélectionnés dans un tableau
+                checkboxes.forEach((checkbox) => {
+                    if (checkbox.checked) {
+                        selectedTypes.push(checkbox.id);
+                    }
+                });
 
-                    if (isChecked && categories.contains(categorie)) {
-                        // Si la catégorie est cochée et l'offre appartient à cette catégorie, l'afficher
+                // Affichage ou masquage des offres en fonction des types sélectionnés
+                offres.forEach((offre) => {
+                    const type = offre.querySelector('img').src.split('/').pop().replace('.jpg', '');
+
+                    // Si l'offre correspond à un des types sélectionnés ou si aucune case n'est cochée
+                    if (selectedTypes.length === 0 || selectedTypes.includes(type)) {
                         offre.classList.remove('hidden');
-                    } else if (!isChecked || !categories.contains(categorie)) {
-                        // Si la catégorie n'est pas cochée ou l'offre ne correspond pas à cette catégorie, la masquer
+                    } else {
                         offre.classList.add('hidden');
                     }
                 });
@@ -699,6 +679,5 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
         });
     }
 
-    // Initialiser le filtrage
-    filterOffers();
+    filterOnCategories();
 </script>
