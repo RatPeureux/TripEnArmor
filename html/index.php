@@ -25,7 +25,10 @@ include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
 <body class="flex flex-col min-h-screen">
 
-    <div id="header"></div>
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    ?>
 
     <?php
     // Connexion avec la bdd
@@ -146,9 +149,6 @@ include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <div id="footer"></div>
 </body>
 
-</html>
-
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const toggleSortButtonTel = document.getElementById('sort-button-tel');
@@ -174,3 +174,5 @@ include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         }
     });
 </script>
+
+</html>
