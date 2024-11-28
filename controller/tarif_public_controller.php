@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/tarif_public.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "../model/tarif_public.php";
 
 class TarifPublicController {
 

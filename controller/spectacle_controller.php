@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/spectacle.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/spectacle.php";
 
 class SpectacleController {
     private $model;  

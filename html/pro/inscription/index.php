@@ -301,9 +301,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
                         <label class="text-small" for="postal_code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code" name="postal_code"
-                            pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Saisir un code postal" minlength="5"
-                            maxlength="5" oninput="number(this)"
+                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code"
+                            name="postal_code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$"
+                            title="Saisir un code postal" minlength="5" maxlength="5" oninput="number(this)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['code'] ?>" required>
                     </div>
                     <div class="w-full">

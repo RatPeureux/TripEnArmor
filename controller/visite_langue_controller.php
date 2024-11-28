@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/visite_langue.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/visite_langue.php";
 
 class VisiteLangueController {
 
