@@ -1,3 +1,5 @@
+console.log("In optionToggler.js");
+
 document.addEventListener('DOMContentLoaded', () => {
     const activityTypeHTMLElement = document.getElementById("activityType");
 
@@ -28,11 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const show = (classToShow) => {
         const options = document.getElementsByClassName(classToShow);
 
+        console.log("In show");
+
         for (const option of options) {
             option.classList.remove("hidden");
 
-            const childElements = option.querySelectorAll('input:not([id="newPrixName"]):not([id="newPrixValeur"]):not([id="newPrestationName"]):not([type="checkbox"]), textarea');
+            console.log("In for loop");
+
+            const childElements = option.querySelectorAll('input:not([id*="horaires"]):not([id="newPrixName"]):not([id="newPrixValeur"]):not([id="newPrestationName"]):not([type="checkbox"]), textarea');
             childElements.forEach(child => {
+                console.log(child);
                 child.required = true;
             });
         }
@@ -52,9 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    
+    console.log(activityType)
     activityType.addEventListener('change', () => {
         hide()
+        console.log("In change event");
         switch (activityTypeHTMLElement.value) {
             case 'activite':
                 show(activityTypes.activite);
