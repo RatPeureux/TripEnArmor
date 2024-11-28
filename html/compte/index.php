@@ -36,8 +36,6 @@ session_start();
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
     $controllerMembre = new MembreController();
     $membre = $controllerMembre->getInfosMembre($id_membre);
-
-    print_r($membre);
     ?>
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
         <div class="flex w-full items-center">
@@ -78,7 +76,7 @@ session_start();
                 </div>
             </a>
 
-            <a href="#"
+            <a href="/scripts/logout.php" onclick="return confirmLogout()"
                 class="w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent rounded-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
                 Se déconnecter
             </a>

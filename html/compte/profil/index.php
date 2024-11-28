@@ -27,11 +27,9 @@ session_start();
                 <i class="text-3xl fa-solid fa-bars"></i>
             </a>
             <p class="text-h2">
-                <a href="/compte" class="text-h2">Mon compte</a>
-
-            <p class="text-h2">&nbsp>&nbsp</p>
-
-            <p class="underline text-h2">Profil</p>
+                <a href="/compte">Mon compte</a>
+                >
+                <a href="/compte/profil" class="underline">Profil</a>
             </p>
         </div>
     </header>

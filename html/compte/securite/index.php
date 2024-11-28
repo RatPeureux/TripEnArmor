@@ -25,7 +25,7 @@
             <p class="text-h2">
                 <a href="/compte">Mon compte</a>
                 >
-                <p class="underline">Profil</p>
+                <a href="/compte/securite/" class="underline">Sécurité</a>
             </p>
         </div>
     </header>
@@ -43,7 +43,8 @@
 
             <div class="relative w-full">
                 <label class="text-h3" for="mdp">Mot de passe actuel</label>
-                <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password" id="mdp" name="mdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" minlength="8">
+                <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                    id="mdp" name="mdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" minlength="8">
 
                 <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                     id="togglePassword1"></i>
@@ -51,7 +52,8 @@
 
             <div class="relative w-full">
                 <label class="text-h3" for="newMdp">Nouveau mot de passe</label>
-                <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password" id="newMdp" name="newMdp">
+                <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                    id="newMdp" name="newMdp">
 
                 <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                     id="togglePassword2"></i>
@@ -59,7 +61,8 @@
 
             <div class="relative w-full">
                 <label class="text-h3" for="confNewMdp">Confirmation nouveau mot de passe</label>
-                <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password" id="confNewMdp" name="confNewMdp">
+                <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                    id="confNewMdp" name="confNewMdp">
 
                 <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                     id="togglePassword3"></i>
@@ -67,7 +70,9 @@
 
             <span id="error-message" class="error text-rouge-logo text-small"></span>
 
-            <button id="save" class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent" disabled>
+            <button id="save"
+                class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                disabled>
                 Modifier mon mot de passe
             </button>
         </div>
@@ -86,12 +91,12 @@
     const togglePassword3 = document.getElementById('togglePassword3');
 
     if (togglePassword1) {
-        togglePassword1.addEventListener('mousedown', function() {
+        togglePassword1.addEventListener('mousedown', function () {
             mdp.type = 'text';
             this.classList.remove('fa-eye');
             this.classList.add('fa-eye-slash');
         });
-        togglePassword1.addEventListener('mouseup', function() {
+        togglePassword1.addEventListener('mouseup', function () {
             mdp.type = 'password';
             this.classList.remove('fa-eye-slash');
             this.classList.add('fa-eye');
@@ -99,12 +104,12 @@
     }
 
     if (togglePassword2) {
-        togglePassword2.addEventListener('mousedown', function() {
+        togglePassword2.addEventListener('mousedown', function () {
             newMdp.type = 'text';
             this.classList.remove('fa-eye');
             this.classList.add('fa-eye-slash');
         });
-        togglePassword2.addEventListener('mouseup', function() {
+        togglePassword2.addEventListener('mouseup', function () {
             newMdp.type = 'password';
             this.classList.remove('fa-eye-slash');
             this.classList.add('fa-eye');
@@ -112,12 +117,12 @@
     }
 
     if (togglePassword3) {
-        togglePassword3.addEventListener('mousedown', function() {
+        togglePassword3.addEventListener('mousedown', function () {
             confNewMdp.type = 'text';
             this.classList.remove('fa-eye');
             this.classList.add('fa-eye-slash');
         });
-        togglePassword3.addEventListener('mouseup', function() {
+        togglePassword3.addEventListener('mouseup', function () {
             confNewMdp.type = 'password';
             this.classList.remove('fa-eye-slash');
             this.classList.add('fa-eye');
