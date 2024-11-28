@@ -35,7 +35,7 @@ if (empty($_POST)) { ?>
                     <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/connexion" method="POST">
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="" method="POST">
                     <p class="pb-3">J'ai un compte Membre</p>
 
                     <!-- Champ pour l'identifiant -->
@@ -64,7 +64,7 @@ if (empty($_POST)) { ?>
 
                     <!-- Bouton de connexion -->
                     <input type="submit" value="Me connecter"
-                        class="cursor-pointer mb-8 w-full h-12 my-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+                        class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
 
                     <!-- Liens pour mot de passe oublié et création de compte -->
                     <div class="flex items-center flex-nowrap h-12 space-x-1.5">

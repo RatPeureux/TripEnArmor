@@ -13,7 +13,6 @@ function showFormPart1() {
         const selectedForm = document.getElementById('part-1'); // Récupère le formulaire correspondant à la valeur de l'option sélectionnée
         if (selectedForm) {
             document.getElementById('part-1').style.display = 'block'; // Affiche le formulaire
-
         }
     }
 }

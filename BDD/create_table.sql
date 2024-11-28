@@ -384,6 +384,7 @@ create table _tag_parc_attraction ( -- Maxime
 -- Table Horaire
 CREATE TABLE _horaire ( -- Antoine
     id_horaire SERIAL PRIMARY KEY,
+    jour VARCHAR(8) NOT NULL,
     ouverture TIME NOT NULL,
     fermeture TIME NOT NULL,
     pause_debut TIME,

@@ -40,7 +40,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="POST"
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="" method="POST"
                     onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Membre</p>
 
@@ -269,15 +269,15 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
-                        <label class="text-small" for="code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code" name="code"
+                        <label class="text-small" for="postal_code">Code postal</label>
+                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code" name="postal_code"
                             pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal" minlength="5"
                             maxlength="5" oninput="number(this)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['code'] ?>" required>
                     </div>
                     <div class="w-full">
-                        <label class="text-small" for="ville">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="ville" name="ville"
+                        <label class="text-small" for="locality">Ville</label>
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" name="locality"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir ma ville"
                             maxlength="50" value="<?php echo $_SESSION['data_en_cours_inscription']['ville'] ?>" required>
                     </div>

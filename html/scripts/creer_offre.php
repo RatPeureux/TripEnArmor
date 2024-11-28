@@ -70,9 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prices = $_POST['prices'] ?? [];
     $tags = $_POST['tags'][$activityType] ?? [];
     $id_pro = $_SESSION['id_pro'];
+    $prestations = $_POST['newPrestationName'] ?? [];
+    $horaires = $_POST['horaires'] ?? [];
 
     // Récupérer d'autres valeurs
-    $prestations = $_POST['newPrestationName'] ?? [];
 
 
     // *********************************************************************************************************************** Insertion
@@ -271,6 +272,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // Insérer les horaires dans la base de données
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/horaire_controller.php';
+    $horaireController = new HoraireController();
+
+    foreach($horaires as $jour) {
+        $horaireController->createHoraire($jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
+    }
+
     // Insérer les prix dans la base de données
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tarif_public_controller.php';
     $tarifController = new TarifPublicController();
@@ -282,15 +291,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
     }
-
-
-    // // Insérer les prestations dans la base de données
-    // require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/offre_prestation_controller.php';
-    // $offrePrestationController = new OffrePrestationController();
-
-    // foreach ($prestations as $prestation) {
-    //     $offrePrestationController->createOffrePrestation($prestation, $id_offre);
-    // }
 
     BDD::commitTransaction();
     header('location: /pro');

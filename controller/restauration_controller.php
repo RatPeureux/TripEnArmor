@@ -1,15 +1,18 @@
 <?php
 
-require_once "../model/restauration.php";
+require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . "/model/restauration.php";
 
-class RestaurationController {
-    private $model;  
+class RestaurationController
+{
+    private $model;
 
-    function __construct() {
+    function __construct()
+    {
         $this->model = 'Restauration';
     }
 
-    public function getInfosRestauration($id) {
+    public function getInfosRestauration($id)
+    {
         $restauration = $this->model::getRestaurationById($id);
 
         $res = [
@@ -18,7 +21,7 @@ class RestaurationController {
             "resume" => $restauration["resume"],
             "prix_mini" => $restauration["prix_mini"],
             "titre" => $restauration["titre"],
-            'id_pro'=> $restauration['id_pro'],
+            'id_pro' => $restauration['id_pro'],
             "id_type_offre" => $restauration["id_type_offre"],
             "id_adresse" => $restauration["id_adresse"],
             "gamme_prix" => $restauration["gamme_prix"],
@@ -28,30 +31,32 @@ class RestaurationController {
         return $res;
     }
 
-    public function createRestauration($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas) {
+    public function createRestauration($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas)
+    {
         $restauration = $this->model::createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas);
 
         return $restauration;
     }
-    
-    public function updateRestauration($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $gamme_prix = false, $id_type_repas = false) {
+
+    public function updateRestauration($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $gamme_prix = false, $id_type_repas = false)
+    {
         if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $gamme_prix === false && $id_type_repas === false) {
             echo "ERREUR : Aucun champ à modifier";
             return -1;
         } else {
             $restauration = $this->model::getRestaurationById($id);
-            
+
             $res = $this->model::updateRestauration(
-                $id, 
+                $id,
                 $est_en_ligne,
-                $description !== false ? $description : $restauration["description"], 
-                $resume !== false ? $resume : $restauration["resume"], 
-                $prix_mini !== false ? $prix_mini : $restauration["prix_mini"], 
-                $titre !== false ? $titre : $restauration["titre"], 
-                $id_pro !== false ? $id_pro : $restauration['id_pro'], 
-                $id_type_offre !== false ? $id_type_offre : $restauration["id_type_offre"], 
+                $description !== false ? $description : $restauration["description"],
+                $resume !== false ? $resume : $restauration["resume"],
+                $prix_mini !== false ? $prix_mini : $restauration["prix_mini"],
+                $titre !== false ? $titre : $restauration["titre"],
+                $id_pro !== false ? $id_pro : $restauration['id_pro'],
+                $id_type_offre !== false ? $id_type_offre : $restauration["id_type_offre"],
                 $id_adresse !== false ? $id_adresse : $restauration["id_adresse"],
-                $gamme_prix !== false ? $gamme_prix : $restauration["gamme_prix"], 
+                $gamme_prix !== false ? $gamme_prix : $restauration["gamme_prix"],
                 $id_type_repas !== false ? $id_type_repas : $restauration["id_type_repas"]
             );
 
@@ -59,15 +64,17 @@ class RestaurationController {
         }
     }
 
-    public function deleteRestauration($id) {
+    public function deleteRestauration($id)
+    {
         $restauration = $this->model::deleteRestauration($id);
 
         return $restauration;
     }
 
-    public function toggleOnline($id) {
+    public function toggleOnline($id)
+    {
         $restauration = $this->model::getRestaurationById($id);
-        
+
         $res = $this->model::updateRestauration(
             $id,
             !$restauration["est_en_ligne"],

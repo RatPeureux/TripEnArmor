@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/tag.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/tag.php";
 
 class TagController
 {

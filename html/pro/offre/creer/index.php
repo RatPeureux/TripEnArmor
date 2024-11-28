@@ -1,6 +1,6 @@
 <?php
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-// verifyPro();
+// $pro = verifyPro();
 ?>
 
 <!DOCTYPE html>
@@ -18,11 +18,10 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 	<script src="/styles/config.js"></script>
 	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
 	<script type="module" src="/scripts/main.js" defer></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr" ></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
-	
-	<title>Création d'offre | Professionnel | PACT</title>
 </head>
 
 <!-- 
@@ -61,13 +60,13 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 			}
 		}
 		echo "<br>Files: <br>";
-		foreach($_FILES as $key => $value) {
+		foreach ($_FILES as $key => $value) {
 			if (is_array($value)) {
 				echo $key . " : ";
 				print_r($value);
 				echo "<br>";
 			} else {
-				echo $key . " : ". $value . "<br>";
+				echo $key . " : " . $value . "<br>";
 			}
 		}
 	} else { ?>
@@ -83,12 +82,13 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 					</div>
 				</a>
 				<!-- Section de sélection de l'offre -->
-				<form id="formulaire" action="/pro/offre/creer" method="POST" class="block w-full space-y-8" enctype="multipart/form-data">
+				<form id="formulaire" action="/pro/offre/creer" method="POST" class="block w-full space-y-8"
+					enctype="multipart/form-data">
 					<div
-						class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
+						class="grid grid-cols-2 justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<div
-							class="border border-secondary rounded-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full hidden">
+							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full hidden">
 							<input type="radio" name="type_offre" id="type_offre_1" value="1" class="hidden">
 							<label for="type_offre_1"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -114,7 +114,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 						</div>
 						<!-- Carte de l'offre standard -->
 						<div
-							class="border border-primary rounded-lg flex-col justify-center w-fit text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full">
+							class="border border-primary rounded-lg flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full">
 							<input type="radio" name="type_offre" id="type_offre_2" value="2" class="hidden">
 							<label for="type_offre_2"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -140,7 +140,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 						</div>
 						<!-- Carte de l'offre premium -->
 						<div
-							class="border border-secondary rounded-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-max">
+							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full">
 							<input type="radio" name="type_offre" id="type_offre_3" value="3" class="hidden">
 							<label for="type_offre_3"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -150,7 +150,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 										<h2 class="text-center font-bold">Pour les entreprises et organismes privés</h2>
 									</div>
 									<div class="h-full">
-										<p class="mt-2 text-small">Standard +</p>
+										<p class="mt-2 text-small font-bold">Standard +</p>
 										<div class="ml-8">
 											<ul class="list-disc text-left text-small">
 												<li>Mise sur liste noire de 3 commentaires</li>
@@ -182,7 +182,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 									<label for="auteur" class="text-nowrap">Auteur :</label>
 									<p id="auteur"
 										class="border border-secondary rounded-lg p-2 bg-gray-200 w-full text-gray-600">
-										Nom du compte
+										<?php  if($pro) {echo $pro['nom_pro'];} else {echo "Nom du compte";} ?>
 									</p>
 								</div>
 
@@ -230,8 +230,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 											file:rounded-lg
 											file:text-small file:font-bold  file:text-secondary
 											file:border file:border-secondary
-											hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-											accept=".svg,.png,.jpg,.jpeg,.webp" multiple/>
+											hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp"
+											multiple />
 									</div>
 								</div>
 
@@ -313,6 +313,31 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 										<div
 											class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
 										</div>
+										<div class="space-x-2 w-fit flex items-center invisible peer-checked:visible">
+									<p>
+										Langues parlées :
+									</p>
+									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+										onclick="toggleCheckbox('langueFR')">
+										<label for="langueFR">Français</label>
+										<input type="checkbox" name="langueFR" id="langueFR" class="hidden" checked="true">
+									</div>
+									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+										onclick="toggleCheckbox('langueEN')">
+										<label for="langueEN">Anglais</label>
+										<input type="checkbox" name="langueEN" id="langueEN" class="hidden">
+									</div>
+									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+										onclick="toggleCheckbox('langueES')">
+										<label for="langueES">Espagnol</label>
+										<input type="checkbox" name="langueES" id="langueES" class="hidden">
+									</div>
+									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+										onclick="toggleCheckbox('langueDE')">
+										<label for="langueDE">Allemand</label>
+										<input type="checkbox" name="langueDE" id="langueDE" class="hidden">
+									</div>
+								</div>
 									</div>
 								</div>
 
@@ -372,39 +397,11 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 								<!-- Parc d'attractions -->
 								<div class="flex justify-start items-center w-full space-x-2 optionParcAttraction hidden">
 									<label for="nb_attractions" class="text-nowrap">Nombre d'attraction :</label>
-									<input type="number" name="nb_attractions" id="nb_attractions" pattern="/d+/" onchange="" min="0"
+									<input type="number" name="nb_attractions" id="nb_attractions" pattern="/d+/"
+										onchange="" min="0"
 										class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 									<p>attractions</p>
 								</div>
-
-								<!-- LANGUES -->
-								<div class="space-x-2 w-full flex items-center optionVisite hidden">
-									<p>
-										Langues parlées :
-									</p>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-										onclick="toggleCheckbox('langueFR')">
-										<label for="langueFR">Français</label>
-										<input type="checkbox" name="langueFR" id="langueFR" class="hidden" checked="true">
-									</div>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-										onclick="toggleCheckbox('langueEN')">
-										<label for="langueEN">Anglais</label>
-										<input type="checkbox" name="langueEN" id="langueEN" class="hidden">
-									</div>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-										onclick="toggleCheckbox('langueES')">
-										<label for="langueES">Espagnol</label>
-										<input type="checkbox" name="langueES" id="langueES" class="hidden">
-									</div>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-										onclick="toggleCheckbox('langueDE')">
-										<label for="langueDE">Allemand</label>
-										<input type="checkbox" name="langueDE" id="langueDE" class="hidden">
-									</div>
-								</div>
-
-
 
 								<!-- Repas servis -->
 								<div class="space-x-2 w-full flex justify-start items-center optionRestauration hidden">
@@ -454,7 +451,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 								<!-- Services -->
 								<!-- Formulaire pour entrer les informations -->
-								<div class="flex flex-col justify-center items-center w-full">
+								<div class="flex flex-col justify-center items-center w-full space-y-4">
 									<!-- PRESTATIONS -->
 									<div class="w-full optionActivite hidden">
 										<h2 class="text-h2 text-secondary">Prestation</h2>
@@ -479,8 +476,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 														class="border border-secondary rounded-lg p-2 bg-white w-full">
 												</td>
 												<td class="w-fit group">
-													<input type="checkbox"
-														id="newPrestationInclude" class="hidden peer">
+													<input type="checkbox" id="newPrestationInclude" class="hidden peer">
 													<label for="newPrestationInclude"
 														class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
 														<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -515,6 +511,204 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 												</td>
 											</tr>
 										</table>
+									</div>
+
+									<!-- HORAIRES -->
+									<div
+										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
+										<h2 class="text-h2 text-secondary">Horaires</h2>
+										<table class="w-full table-auto">
+											<thead>
+												<th>
+												</th>
+												<th>
+													Lundi
+												</th>
+												<th>
+													Mardi
+												</th>
+												<th>
+													Mercredi
+												</th>
+												<th>
+													Jeudi
+												</th>
+												<th>
+													Vendredi
+												</th>
+												<th>
+													Samedi
+												</th>
+												<th>
+													Dimanche
+												</th>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														Ouverture
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[lundi][ouverture]"
+															id="horaires[lundi][ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[mardi][ouverture]"
+															id="horaires[mardi][ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[mercredi][ouverture]"
+															id="horaires[mercredi][ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[jeudi][ouverture]"
+															id="horaires[jeudi][ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[vendredi][ouverture]"
+															id="horaires[vendredi][ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[samedi][ouverture]"
+															id="horaires[samedi][ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[dimanche][ouverture]"
+															id="horaires[dimanche][ouverture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														Pause
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[lundi][pause]"
+															id="horaires[lundi][pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[mardi][pause]"
+															id="horaires[mardi][pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[mercredi][pause]"
+															id="horaires[mercredi][pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[jeudi][pause]"
+															id="horaires[jeudi][pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[vendredi][pause]"
+															id="horaires[vendredi][pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[samedi][pause]"
+															id="horaires[samedi][pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[dimanche][pause]"
+															id="horaires[dimanche][pause]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														Reprise
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[lundi][reprise]"
+															id="horaires[lundi][reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[mardi][reprise]"
+															id="horaires[mardi][reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[mercredi][reprise]"
+															id="horaires[mercredi][reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[jeudi][reprise]"
+															id="horaires[jeudi][reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[vendredi][reprise]"
+															id="horaires[vendredi][reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[samedi][reprise]"
+															id="horaires[samedi][reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[dimanche][reprise]"
+															id="horaires[dimanche][reprise]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														Fermeture
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[lundi][fermeture]"
+															id="horaires[lundi][fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[mardi][fermeture]"
+															id="horaires[mardi][fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[mercredi][fermeture]"
+															id="horaires[mercredi][fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[jeudi][fermeture]"
+															id="horaires[jeudi][fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[vendredi][fermeture]"
+															id="horaires[vendredi][fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[samedi][fermeture]"
+															id="horaires[samedi][fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+													<td class="relative">
+														<input type="time" name="horaires[dimanche][fermeture]"
+															id="horaires[dimanche][fermeture]"
+															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<p>
+											<span class="font-bold">Pro Tip :</span> Lorsque vous remplissez les horaires du lundi, elles mettent à jour les horaires des autres jours de la semaine.
+										</p>
 									</div>
 
 									<!-- GRILLE TARIFAIRE -->
@@ -801,7 +995,6 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 														const tagContainers = document.querySelectorAll('.tag-container');
 														tagContainers.forEach(container => {
 															if (!container.classList.contains('hidden')) {
-																Array.from(container.children).map(tag => console.log(tag.childNodes[0].nodeValue));
 																const tags = Array.from(container.children).map(tag => tag.childNodes[0].nodeValue).join(', ');
 																tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags) : "Ajouter un tag...";
 															}
@@ -875,7 +1068,13 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 		<script src="/scripts/tagManager.js"></script>
 		<script src="/scripts/priceManager.js"></script>
 		<script src="/scripts/prestationManager.js"></script>
+		<script>
+			console.log("Before optionToggler.js");
+		</script>
 		<script src="/scripts/optionToggler.js"></script>
+		<script>
+			console.log("After optionToggler.js");
+		</script>
 		<script>
 			// Fonction pour afficher la partie 1 du formulaire
 			function showPart1() {
@@ -918,30 +1117,32 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 				}
 			}
 
-			function checkPart2Validity() {
+			function checkPart2Validity(fieldChanged) {
 				checkPart1Validity();
 
 				const requiredFields = document.querySelectorAll('.part1 input[required], .part1 textarea[required]');
 				let isValid = true;
 
 				requiredFields.forEach((field) => {
-					if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') { // Locality
-						if (field.value === '' || RegExp('^((22)|(29)|(35)|(56))[0-9]{3}$').test(field.value) === false) {
-							field.classList.remove("border-secondary")
-							field.classList.add('border-red-500');
-							isValid = false;
+					if (fieldChanged.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_PRECEDING || fieldChanged.compareDocumentPosition(field) === 0) {
+						if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') { // Locality
+							if (field.value === '' || RegExp('^((22)|(29)|(35)|(56))[0-9]{3}$').test(field.value) === false) {
+								field.classList.remove("border-secondary")
+								field.classList.add('border-red-500');
+								isValid = false;
+							} else {
+								field.classList.remove("border-red-500");
+								field.classList.add('border-secondary');
+							}
 						} else {
-							field.classList.remove("border-red-500");
-							field.classList.add('border-secondary');
-						}
-					} else {
-						if (field.value.trim() === '') {
-							field.classList.remove("border-secondary")
-							field.classList.add('border-red-500');
-							isValid = false;
-						} else {
-							field.classList.remove("border-red-500");
-							field.classList.add('border-secondary');
+							if (field.value.trim() === '') {
+								field.classList.remove("border-secondary")
+								field.classList.add('border-red-500');
+								isValid = false;
+							} else {
+								field.classList.remove("border-red-500");
+								field.classList.add('border-secondary');
+							}
 						}
 					}
 				});
@@ -951,23 +1152,23 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 				}
 			}
 
-			function checkPart3Validity() {
-				checkPart2Validity();
-				console.log("Checking part 3 validity");
+			function checkPart3Validity(fieldChanged) {
+				checkPart2Validity(fieldChanged);
 
 				const requiredFields = document.querySelectorAll('.part2 [required]');
 				let isValid = true;
 
 				requiredFields.forEach((field) => {
 					if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') {
-						if (field.value.trim() === '' || field.value < 0 || RegExp('^[0-9]+$').test(field.value) === false) {
-							console.log(field)
-							field.classList.remove("border-secondary")
-							field.classList.add('border-red-500');
-							isValid = false;
-						} else {
-							field.classList.remove("border-red-500");
-							field.classList.add('border-secondary');
+						if (fieldChanged.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_PRECEDING || fieldChanged.compareDocumentPosition(field) === 0) {
+							if (field.value.trim() === '' || field.value < 0 || RegExp('^[0-9]+$').test(field.value) === false) {
+								field.classList.remove("border-secondary")
+								field.classList.add('border-red-500');
+								isValid = false;
+							} else {
+								field.classList.remove("border-red-500");
+								field.classList.add('border-secondary');
+							}
 						}
 					}
 				});
@@ -989,11 +1190,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 				radio.checked = true;
 			}
 
-			checkPart3Validity();
-
 			document.querySelectorAll('input[name="type_offre"]').forEach((radio) => {
 				radio.addEventListener("change", () => {
-					console.log("Checking part 1 validity");
 					checkPart1Validity();
 				});
 			});
@@ -1002,12 +1200,27 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 			fields.forEach((field) => {
 				field.addEventListener('input', (e) => {
-					checkPart3Validity();
+					checkPart3Validity(field);
 					if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') {
 						field.value = field.value.replace(/[^0-9]/g, '');
 					}
 				});
 			});
+		</script>
+		<script>
+			// TODO: gérer les horaires
+			// TODO: lorsque les informations sont remplies pour lundi, elles sont répétées pour les autres jours
+			// TODO: Vérifier que l'horaire d'ouverture soit plus tôt que l'horaire de pause, puis de reprise, puis de fermeture.
+			
+			for(const field of ['ouverture', 'pause', 'reprise', 'fermeture']) {
+				const lundi = document.getElementById(`horaires[lundi][${field}]`);
+				lundi.addEventListener('change', () => {
+					for (const jour of ['mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']) {
+						const element = document.getElementById(`horaires[${jour}][${field}]`);
+						element.value = lundi.value;
+					}
+				});
+			}
 		</script>
 
 	<?php } ?>
