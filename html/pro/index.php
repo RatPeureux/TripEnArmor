@@ -37,7 +37,11 @@ if (!function_exists('chaineVersMot')) {
 <body class="flex flex-col min-h-screen">
 
     <div id="menu-pro" class="1"></div>
-    <div id="header-pro" class="mb-20"></div>
+    
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    ?>
 
     <?php
     // Connexion avec la bdd
