@@ -1,11 +1,12 @@
 <?php
 session_start(); // Démarre la session au début du script
+
 // Vider les messages d'erreur si c'est la première fois qu'on vient sur la page de connexion
 if (!isset($_SESSION['data_en_cours_connexion'])) {
     unset($_SESSION['error']);
 }
 
-// 1ère étape : saisir les identifiants de connexion
+// Essayer de se connecter si quelque donnée a été envoyée
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Connexion avec la bdd
@@ -50,6 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+<!-- Contenu de la page (champs de saisie) -->
 <!DOCTYPE html>
 <html lang="fr">
 

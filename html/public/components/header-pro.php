@@ -20,7 +20,7 @@
             </a>
             <!-- Si connecté -->
             <?php
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+            include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsPro()) { ?>
                 <a href="/scripts/logout.php" class="flex flex-col items-center hover:text-primary duration-100"
                     onclick="return confirmLogout()">

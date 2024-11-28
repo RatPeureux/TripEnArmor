@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/activite.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/activite.php";
 
 class ActiviteController {
     private $model;  

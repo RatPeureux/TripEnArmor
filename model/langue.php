@@ -1,9 +1,9 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class Langue extends BDD {
-    private $nom_table = "sae_db._langue";
+    static private $nom_table = "sae_db._langue";
 
     static function getLangueById($id) {
         $query = "SELECT * FROM " . self::$nom_table ." WHERE id_langue = ?";

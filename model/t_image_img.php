@@ -1,9 +1,24 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class TImageImg extends BDD {
     static private $nom_table = "T_Image_Img";
+
+    static function getPathToPlan($id_parc) {
+        self::initBDD();
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_parc = ?";
+        
+        $statement = self::$db->prepare($query);
+        $statement->bindParam(1, $id_parc);
+
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR : Impossible d'obtenir le plan";
+            return -1;
+        }
+    }
 
     static function getImageByPath($path) { 
         self::initBDD();

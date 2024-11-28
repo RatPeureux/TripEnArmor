@@ -1,7 +1,7 @@
 <?php
 try {
     // Connexion à la base de données
-	include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Récupération des offres en ligne
     $stmt = $dbh->prepare("
@@ -11,7 +11,7 @@ try {
     ");
     $stmt->execute();
     $offres = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
     // Debug: voir le contenu des offres récupérées
     if (empty($offres)) {
         error_log('Aucune offre trouvée dans la base de données.', 0);

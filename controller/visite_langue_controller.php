@@ -1,6 +1,8 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/visite_langue.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/visite_langue.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/controller/langue_controller.php";
+
 
 class VisiteLangueController {
 
@@ -12,12 +14,12 @@ class VisiteLangueController {
     
     public function getLanguesByIdVisite($id_offre){
         $langues = $this->model::getLanguesBydIdVisite($id_offre);
+        $langue_controller = new LangueController();
+        $langues = array_map(function($langue) use ($langue_controller) {
+            return $langue_controller->getInfosLangue($langue["id_langue"]);
+        }, $langues);
 
-        $result = [
-            "id_langue" => $langues["id_langue"],
-        ];
-
-        return $result;
+        return $langues;
     }
 
     public function getVisitesByIdLangue($id_langue) {

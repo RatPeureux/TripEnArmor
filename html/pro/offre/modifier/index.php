@@ -1,93 +1,93 @@
 <?php
 try {
-    // Connexion à la base de données
-	include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+	// Connexion à la base de données
+	include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-    // Vérifier si l'ID de l'offre est passé et est un entier
-    if (isset($_GET['offre-id']) && is_numeric($_GET['offre-id'])) {
-        $id_offre = (int) $_GET['offre-id'];
-    } else {
-        die("ID d'offre invalide.");
-    }
+	// Vérifier si l'ID de l'offre est passé et est un entier
+	if (isset($_GET['offre-id']) && is_numeric($_GET['offre-id'])) {
+		$id_offre = (int) $_GET['offre-id'];
+	} else {
+		die("ID d'offre invalide.");
+	}
 
-    $sql = "SELECT o.*, a.code_postal, a.ville, a.numero, a.odonyme 
+	$sql = "SELECT o.*, a.code_postal, a.ville, a.numero, a.odonyme 
             FROM sae_db._offre o 
             JOIN sae_db._adresse a ON o.id_adresse = a.id_adresse 
             WHERE o.id_offre = :id_offre";
 
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(':id_offre', $id_offre, PDO::PARAM_INT); // Spécifiez le type pour être sûr
-    $stmt->execute();
+	$stmt = $dbh->prepare($sql);
+	$stmt->bindParam(':id_offre', $id_offre, PDO::PARAM_INT); // Spécifiez le type pour être sûr
+	$stmt->execute();
 
-    $offre = $stmt->fetch(PDO::FETCH_ASSOC);
+	$offre = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Vérifiez que l'offre existe
-    if (!$offre) {
-        die("Offre non trouvée.");
-    }
+	// Vérifiez que l'offre existe
+	if (!$offre) {
+		die("Offre non trouvée.");
+	}
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $titre = isset($_POST['titre']);
-        $code = isset($_POST['code']);
-        $ville = isset($_POST['ville']);
-        $description = isset($_POST['description']);
-        $resume = isset($_POST['resume']);
-        $age = isset($_POST['age']);
-        $prix = isset($_POST['prix']);
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		$titre = isset($_POST['titre']);
+		$code = isset($_POST['code']);
+		$ville = isset($_POST['ville']);
+		$description = isset($_POST['description']);
+		$resume = isset($_POST['resume']);
+		$age = isset($_POST['age']);
+		$prix = isset($_POST['prix']);
 
-        if ($code && $ville && $description && $resume && $titre && $age) {
-            // Mettre à jour l'adresse
-            $stmtAdresseOffre = $dbh->prepare("UPDATE sae_db._adresse 
+		if ($code && $ville && $description && $resume && $titre && $age) {
+			// Mettre à jour l'adresse
+			$stmtAdresseOffre = $dbh->prepare("UPDATE sae_db._adresse 
                 SET adresse_postale = :adresse, code_postal = :code, ville = :ville 
                 WHERE id_adresse = (SELECT id_adresse FROM sae_db.Offre WHERE id_offre = :id_offre)
             ");
-            $stmtAdresseOffre->bindParam(':ville', $ville);
-            $stmtAdresseOffre->bindParam(':adresse', $adresse);
-            $stmtAdresseOffre->bindParam(':code', $code);
-            $stmtAdresseOffre->bindParam(':id_offre', $id_offre);
+			$stmtAdresseOffre->bindParam(':ville', $ville);
+			$stmtAdresseOffre->bindParam(':adresse', $adresse);
+			$stmtAdresseOffre->bindParam(':code', $code);
+			$stmtAdresseOffre->bindParam(':id_offre', $id_offre);
 
-            if ($stmtAdresseOffre->execute()) {
-                $dateMiseAJour = date('Y-m-d H:i:s');
+			if ($stmtAdresseOffre->execute()) {
+				$dateMiseAJour = date('Y-m-d H:i:s');
 
-                // Mettre à jour l'offre
-                $stmtOffre = $dbh->prepare("UPDATE sae_db._offre 
+				// Mettre à jour l'offre
+				$stmtOffre = $dbh->prepare("UPDATE sae_db._offre 
                     SET description_offre = :description, resume_offre = :resume, prix_mini = :prix, date_mise_a_jour = :date_mise_a_jour 
                     WHERE id_offre = :id_offre
                 ");
-                $stmtOffre->bindParam(':description', $description);
-                $stmtOffre->bindParam(':resume', $resume);
-                $stmtOffre->bindParam(':id_offre', $id_offre);
-                $stmtOffre->bindParam(':date_mise_a_jour', $dateMiseAJour);
-                $stmtOffre->bindParam(':prix', $prix);
+				$stmtOffre->bindParam(':description', $description);
+				$stmtOffre->bindParam(':resume', $resume);
+				$stmtOffre->bindParam(':id_offre', $id_offre);
+				$stmtOffre->bindParam(':date_mise_a_jour', $dateMiseAJour);
+				$stmtOffre->bindParam(':prix', $prix);
 
-                if ($stmtOffre->execute()) {
-                    $stmtTarifPublic = $dbh->prepare("UPDATE sae_db._tarif_Public 
+				if ($stmtOffre->execute()) {
+					$stmtTarifPublic = $dbh->prepare("UPDATE sae_db._tarif_Public 
                         SET titre = :titre, age_min = :age_min, age_max = :age_max 
                         WHERE id_offre = :id_offre
                     ");
-                    $stmtTarifPublic->bindParam(':titre', $titre);
-                    $stmtTarifPublic->bindParam(':age_min', $age);
-                    $stmtTarifPublic->bindParam(':age_max', $age);
-                    $stmtTarifPublic->bindParam(':id_offre', $id_offre);
+					$stmtTarifPublic->bindParam(':titre', $titre);
+					$stmtTarifPublic->bindParam(':age_min', $age);
+					$stmtTarifPublic->bindParam(':age_max', $age);
+					$stmtTarifPublic->bindParam(':id_offre', $id_offre);
 
-                    if ($stmtTarifPublic->execute()) {
-                        header("Location: /pro");
-                        exit;
-                    } else {
-                        echo "Erreur lors de la mise à jour dans la table Tarif_Public : " . implode(", ", $stmtTarifPublic->errorInfo());
-                    }
-                } else {
-                    echo "Erreur lors de la mise à jour de l'offre : " . implode(", ", $stmtOffre->errorInfo());
-                }
-            } else {
-                echo "Erreur lors de la mise à jour de l'adresse : " . implode(", ", $stmtAdresseOffre->errorInfo());
-            }
-        } else {
-            echo "Tous les champs obligatoires doivent être remplis.";
-        }
-    }
+					if ($stmtTarifPublic->execute()) {
+						header("Location: /pro");
+						exit;
+					} else {
+						echo "Erreur lors de la mise à jour dans la table Tarif_Public : " . implode(", ", $stmtTarifPublic->errorInfo());
+					}
+				} else {
+					echo "Erreur lors de la mise à jour de l'offre : " . implode(", ", $stmtOffre->errorInfo());
+				}
+			} else {
+				echo "Erreur lors de la mise à jour de l'adresse : " . implode(", ", $stmtAdresseOffre->errorInfo());
+			}
+		} else {
+			echo "Tous les champs obligatoires doivent être remplis.";
+		}
+	}
 } catch (PDOException $e) {
-    echo "Erreur de connexion ou de requête : " . $e->getMessage();
+	echo "Erreur de connexion ou de requête : " . $e->getMessage();
 }
 ?>
 
@@ -98,28 +98,29 @@ try {
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="/styles/input.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/styles/config.js"></script>
-    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
-    <script type="module" src="/scripts/main.js" defer></script>
+	<link rel="stylesheet" href="/styles/input.css">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="/styles/config.js"></script>
+	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
+	<script type="module" src="/scripts/main.js" defer></script>
 	<script src="//unpkg.com/alpinejs" defer></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
-	
+
 	<title>Modifier une offre | Professionnel | PACT</title>
 </head>
 
 <!-- 
-    À FAIRE :
-    X lier les champs, VILLE, CODE POSTAL, ADRESSE à l'aide de l'API GOOGLE.
-    - Faire les champs de recherches avec TAG, qui sera aussi utilisé pour VISITE : LANGUE, RESTAURATION : REPAS SERVIS (Petit-dej, Brunch, Dej, Diner, Boissons)
-    - Appliquer les scripts à tous les champs pour s'assurer de leur conformité
-    - Faire le PHP
-    - Faire du JS  
+	À FAIRE :
+	X lier les champs, VILLE, CODE POSTAL, ADRESSE à l'aide de l'API GOOGLE.
+	- Faire les champs de recherches avec TAG, qui sera aussi utilisé pour VISITE : LANGUE, RESTAURATION : REPAS SERVIS (Petit-dej, Brunch, Dej, Diner, Boissons)
+	- Appliquer les scripts à tous les champs pour s'assurer de leur conformité
+	- Faire le PHP
+	- Faire du JS  
 
-    TODO : Ajouter des 'i' d'informations pour expliquer les champs
-    TODO : Enlever la grille tarifaire pour les restaurants
+	TODO : Ajouter des 'i' d'informations pour expliquer les champs
+	TODO : Enlever la grille tarifaire pour les restaurants
 -->
 
 <body>
@@ -139,7 +140,8 @@ try {
 				</a>
 			</div>
 			<!-- Section de sélection de l'offre -->
-			<div class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
+			<div
+				class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
 				<!-- Carte de l'offre gratuite -->
 				<div
 					class="border border-secondary rounded-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white 	md:h-full hidden">
@@ -248,14 +250,14 @@ try {
 
 						<div class="justify-between items-center w-full">
 							<label for="locality" class="text-nowrap">Ville :</label>
-							<input type="text" id="locality" 
-								name="locality" placeholder="Rennes"
+							<input type="text" id="locality" name="locality" placeholder="Rennes"
 								class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 
 							<label for="postal_code" class="text-nowrap">Code postal :</label>
-							<input type="number" min="0" step="10" max="57000" id="postal_code"
-								name="postal_code" placeholder="35000"
-								class="border border-secondary rounded-lg p-2 bg-white w-24 w-full" value="<?php echo htmlspecialchars($offre['code_postal'] ?? '', ENT_QUOTES); ?>" required>
+							<input type="number" min="0" step="10" max="57000" id="postal_code" name="postal_code"
+								placeholder="35000" class="border border-secondary rounded-lg p-2 bg-white w-24 w-full"
+								value="<?php echo htmlspecialchars($offre['code_postal'] ?? '', ENT_QUOTES); ?>"
+								required>
 						</div>
 
 						<div class="w-full justify-between">
@@ -263,12 +265,12 @@ try {
 							<div class="flex flex-col justify-between w-full">
 								<label for="photo-upload-carte" class="text-nowrap w-full">Photo de la carte :</label>
 								<input type="file" name="photo-upload-carte" id="photo-upload-carte" class="text-center text-secondary block w-full
-                              border-dashed border-2 border-secondary rounded-lg p-2
-                              file:mr-5 file:py-3 file:px-10
-                              file:rounded-lg
-                              file:text-small file:font-bold  file:text-secondary
-                              file:border file:border-secondary
-                              hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
+							  border-dashed border-2 border-secondary rounded-lg p-2
+							  file:mr-5 file:py-3 file:px-10
+							  file:rounded-lg
+							  file:text-small file:font-bold  file:text-secondary
+							  file:border file:border-secondary
+							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
 									accept=".svg,.png,.jpg" required />
 							</div>
 
@@ -277,12 +279,12 @@ try {
 								<label for="photo-detail" class="text-nowrap w-full">Photos de l'offre détaillée:
 								</label>
 								<input type="file" name="photo-detail" id="photo-detail" class="text-center text-secondary block w-full
-                              border-dashed border-2 border-secondary rounded-lg p-2
-                              file:mr-5 file:py-3 file:px-10
-                              file:rounded-lg
-                              file:text-small file:font-bold  file:text-secondary
-                              file:border file:border-secondary
-                              hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
+							  border-dashed border-2 border-secondary rounded-lg p-2
+							  file:mr-5 file:py-3 file:px-10
+							  file:rounded-lg
+							  file:text-small file:font-bold  file:text-secondary
+							  file:border file:border-secondary
+							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
 									accept=".svg,.png,.jpg" />
 							</div>
 						</div>
@@ -357,7 +359,8 @@ try {
 						<!-- Visite guidée -->
 						<!-- Visite -->
 						<div class="flex justify-between items-center w-full space-x-2 optionVisite hidden">
-							<div class="inline-flex items-center cursor-pointer space-x-4" onclick="toggleCheckbox('visiteGuidee')">
+							<div class="inline-flex items-center cursor-pointer space-x-4"
+								onclick="toggleCheckbox('visiteGuidee')">
 								<p>Visite guidée :</p>
 								<input type="checkbox" id="visiteGuidee" value="" class="sr-only peer">
 								<div
@@ -371,8 +374,8 @@ try {
 						<div
 							class="flex justify-start items-center w-full space-x-2 optionActivite optionParcAttraction hidden">
 							<label for="age" class="text-nowrap">Âge requis :</label>
-							<input type="number" id="age" pattern="/d+/" min="0" max="125"
-								name="age" class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+							<input type="number" id="age" pattern="/d+/" min="0" max="125" name="age"
+								class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 							<p>an(s)</p>
 						</div>
 
@@ -413,8 +416,8 @@ try {
 						<!-- Spectacle -->
 						<div class="flex justify-start items-center w-full space-x-2 optionSpectacle hidden">
 							<label for="place" class="text-nowrap">Capacité d'accueil :</label>
-							<input type="number" id="place" pattern="/d+/" onchange="" min="0"
-								name="place" class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+							<input type="number" id="place" pattern="/d+/" onchange="" min="0" name="place"
+								class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 							<p>personnes</p>
 						</div>
 
@@ -621,19 +624,22 @@ try {
 							<div
 								class="flex flex-row mb-4 content-center justify-between items-center text-secondary w-full">
 								<!-- Sans option -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" id="option-rien-div">
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									id="option-rien-div">
 									<input type="radio" id="option-rien" name="option" value="option-rien"
 										class="hidden" />
 									<label for="option-rien">Sans option</label>
 								</div>
 								<!-- Option en relief -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" id="option-relief-div">
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									id="option-relief-div">
 									<input type="radio" id="option-relief" name="option" value="option-relief"
 										class="hidden" checked="true" />
 									<label for="option-relief">En Relief (3.99€)</label>
 								</div>
 								<!-- À la une -->
-								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" id="option-a-la-une-div">
+								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									id="option-a-la-une-div">
 									<input type="radio" id="option-a-la-une" name="option" class="hidden"
 										value="option-a-la-une" />
 									<label for="option-a-la-une">À la une (5.99€)</label>
@@ -824,8 +830,8 @@ try {
 								<div class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
 									<div class="p-1 w-full flex justify-center items-center">
 										<!-- <p
-                                class="text-white text-center text-small w-full font-bold"
-                              ></p> -->
+								class="text-white text-center text-small w-full font-bold"
+							  ></p> -->
 										<!-- Mise à jour du tag en temps réel -->
 										<p class="text-white text-center rounded-lg bg-secondary font-bold w-fit p-2"
 											id="preview-tag-input">
@@ -989,7 +995,7 @@ try {
 		function checkPart3Validity() {
 			checkPart2Validity();
 			console.log("Checking part 3 validity");
-			
+
 			const requiredFields = document.querySelectorAll('.part2 [required]');
 			let isValid = true;
 
@@ -1006,7 +1012,7 @@ try {
 					}
 				}
 			});
-			
+
 			if (isValid) {
 				showPart3();
 			} else {
@@ -1048,4 +1054,3 @@ try {
 </body>
 
 </html>
-
