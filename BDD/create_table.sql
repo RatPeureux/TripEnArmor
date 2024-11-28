@@ -204,7 +204,7 @@ create table _type_repas (
 -- Table _restauration (hérite _offre)
 
 CREATE TABLE _restauration (
-    gamme_prix VARCHAR(3) NOT NULL,
+    gamme_prix VARCHAR(3) NOT NULL
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _restauration à cause de l'héritage
