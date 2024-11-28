@@ -1068,7 +1068,13 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 		<script src="/scripts/tagManager.js"></script>
 		<script src="/scripts/priceManager.js"></script>
 		<script src="/scripts/prestationManager.js"></script>
+		<script>
+			console.log("Before optionToggler.js");
+		</script>
 		<script src="/scripts/optionToggler.js"></script>
+		<script>
+			console.log("After optionToggler.js");
+		</script>
 		<script>
 			// Fonction pour afficher la partie 1 du formulaire
 			function showPart1() {
