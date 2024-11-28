@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
     developpedFilter('button-f4-tab', 'arrow-f4-tab', 'developped-f4-tab');
     developpedFilter('button-f5-tab', 'arrow-f5-tab', 'developped-f5-tab');
     developpedFilter('button-f6-tab', 'arrow-f6-tab', 'developped-f6-tab');
+    developpedFilter('button-f7-tab', 'arrow-f7-tab', 'developped-f7-tab');
 
     // Initialisation des filtres pour téléphone
     developpedFilterAutoClose('button-f1-tel', 'arrow-f1-tel', 'developped-f1-tel');
@@ -106,6 +107,7 @@ document.addEventListener("DOMContentLoaded", function() {
     developpedFilterAutoClose('button-f4-tel', 'arrow-f4-tel', 'developped-f4-tel');
     developpedFilterAutoClose('button-f5-tel', 'arrow-f5-tel', 'developped-f5-tel');
     developpedFilterAutoClose('button-f6-tel', 'arrow-f6-tel', 'developped-f6-tel');
+    developpedFilterAutoClose('button-f7-tel', 'arrow-f7-tel', 'developped-f7-tel');
 
 
     // !!!
@@ -181,7 +183,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const filterState = {
         categories: [], // Catégories sélectionnées
-        localisation: '' // Texte de localisation
+        localisation: '', // Texte de localisation
+        types: [] // Types sélectionnés
     };
 
     function filterOnCategories(device) {
@@ -212,24 +215,40 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    function filterOnOfferTypes(device) {
+        const checkboxes = document.querySelectorAll('#developped-f7-'+device+' input[type="checkbox"]');
+    
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                // Mettre à jour les catégories sélectionnées
+                filterState.types = Array.from(checkboxes)
+                    .filter(checkbox => checkbox.checked)
+                    .map(checkbox => checkbox.id.replace(/-tel|-tab/, ''));
+    
+                // Appliquer les filtres croisés
+                applyFilters();
+            });
+        });
+    }
+
     function applyFilters() {
         const offres = document.querySelectorAll('.card');
         let anyVisible = false; // Variable pour suivre si une offre est visible
     
         offres.forEach((offre) => {
-            const type = offre.querySelector('.type-offre').src.split('/').pop().replace('.jpg', '');
+            const category = offre.querySelector('.categorie').src.split('/').pop().replace('.jpg', '');
             const localisationElement = offre.querySelector('.localisation');
             const city = localisationElement.querySelector('p:nth-of-type(1)').textContent.trim();
             const code = localisationElement.querySelector('p:nth-of-type(2)').textContent.trim();
+            const type = offre.querySelector('.type-offre').textContent;
     
             // Vérifie les filtres actifs
-            const matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(type);
+            const matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(category);
             const matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
-    
-            console.log(filterState);
+            const matchesType = filterState.types.length === 0 || filterState.types.includes(type.toLowerCase());
 
             // Appliquer les filtres croisés
-            if (matchesCategory && matchesLocalisation) {
+            if (matchesCategory && matchesLocalisation && matchesType) {
                 offre.classList.remove('!hidden');
                 anyVisible = true; // Au moins une offre est visible
             } else {
@@ -264,6 +283,8 @@ document.addEventListener("DOMContentLoaded", function() {
     filterOnCategories('tel');
     filterOnLocalisations('tab');
     filterOnLocalisations('tel');
+    filterOnOfferTypes('tab');
+    filterOnOfferTypes('tel');
 
     applyFilters();
 });

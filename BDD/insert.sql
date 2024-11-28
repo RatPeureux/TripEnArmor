@@ -185,7 +185,7 @@ VALUES ( -- Caca123-
         '$2y$10$OmocaPOye7BG1feUJfQACeEFublSKfrcRi7r58JiYp0k6.pLuMc9W',
         '01 23 45 67 89',
         '591 321 423',
-        'PlusUnCanvaRaté'
+        'Canva2Wish'
     );
 
 INSERT INTO
@@ -201,7 +201,7 @@ VALUES ( -- Phenixis_05
         7,
         'max.duh22@gmail.com',
         '$2y$10$7JTlezr2H6kVw5F0nuqHPuhe2X8AVbgenBADfX/sr0XEHCNyZ3OT6',
-        '02 54  815 22 45',
+        '02 54 15 22 45',
         'Associatif',
         'Wisecart'
     ),

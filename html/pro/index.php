@@ -6,7 +6,7 @@ unset($_SESSION['data_en_cours_connexion']);
 
 // Vérifier si le pro est bien connecté
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-verifyPro();
+// verifyPro();
 
 // Fonction utilitaires
 if (!function_exists('chaineVersMot')) {
@@ -65,38 +65,78 @@ if (!function_exists('chaineVersMot')) {
 
     <main class="mx-10 self-center grow rounded-lg p-2 max-w-[1280px]">
         <!-- TOUTES LES OFFRES (offre & détails) -->
-        <div class="tablette p-4 flex flex-col gap-8">
-            <h1 class="text-4xl text-center">Mes offres</h1>
+        <div class="tablette p-4 flex flex-col">
 
-            <!--
-            ### CARD COMPONENT POUR LES PROS ! ###
-            Composant dynamique (généré avec les données en php)
-            Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
-            -->
+            <div class="w-full flex justify-between items-end mt-20 mb-2">
+                <h1 class="text-4xl">Mes offres</h1>
+
+                <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
+                <div class="hidden md:flex gap-4">
+                    <a href="#" class="flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
+                        <i class="text xl fa-solid fa-filter"></i>
+                        <p>Filtrer</p>
+                    </a>
+                    |
+                    <a href="#" class="self-end flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
+                        <i class="text xl fa-solid fa-sort"></i>
+                        <p>Trier par</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Inclusion des interfaces de filtres/tris (tablette et +) -->
             <?php
-            if (!$toutesMesOffres) {
-                echo "<p clas='font-bold'>Vous n'avez aucune offre...</p>";
-            } else {
-                foreach ($toutesMesOffres as $offre) {
-                    // Afficher la carte (!!! défnir la variable $mode_carte !!!)
-                    $mode_carte = 'pro';
-                    include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
-                    ?>
-
-                    <?php
-                }
-            }
+            include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tab_pro.php';
             ?>
 
+            <?php
+            // Obtenir les informations des offres du pro
+            if (!$toutesMesOffres) { ?>
+                <div class="md:min-w-full flex flex-col gap-4"> 
+                    <?php echo "<p class='mt-4 font-bold text-h2'>Vous n'avez aucune offre...</p>"; ?>
+                </div>
+            <?php } else { ?>
+                <div class="md:min-w-full flex flex-col gap-4" id="no-matches"> 
+                    <?php foreach ($toutesMesOffres as $offre) {
+                        // Afficher la carte (!!! défnir la variable $mode_carte !!!)
+                        $mode_carte = 'pro';
+                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
+                    } ?>
+                </div>
+            <?php } ?>
+
             <!-- Bouton de création d'offre -->
-            <a href="/pro/offre/creer" class="p-4 self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
+            <a href="/pro/offre/creer" class="self-center bg-transparent text-primary mt-4 py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
             focus:scale-[0.97] duration-100">
                 + Nouvelle offre
             </a>
         </div>
+
+        <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
+        <?php
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel.php';
+        ?>
     </main>
 
     <div id="footer-pro"></div>
+
+    <!-- Inclusion du menu de filtres (téléphone) -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_menu_pro.php';
+    ?>
 </body>
 
 </html>
+
+<script>
+    // Fonction pour afficher ou masquer un conteneur de filtres
+    function toggleFiltres() {
+        let filtres = document.querySelector('#filtres');
+
+        if (filtres) {
+            filtres.classList.toggle('active'); // Alterne la classe 'active'
+        }
+    }
+</script>
+
+<script src="/scripts/filtersAndSorts.js"></script>
