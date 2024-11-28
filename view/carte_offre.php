@@ -66,7 +66,7 @@ if ($mode_carte == 'membre') {
                 </div>
                 <hr class='h-20 border-black border'>
                 <!-- Notation et Prix -->
-                <div class='localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
+                <div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
                     <p class='text-small' title='<?php echo $title_prix ?>'><?php echo $prix_a_afficher ?></p>
                 </div>
             </div>

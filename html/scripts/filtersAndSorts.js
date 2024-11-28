@@ -97,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
     developpedFilter('button-f3-tab', 'arrow-f3-tab', 'developped-f3-tab');
     developpedFilter('button-f4-tab', 'arrow-f4-tab', 'developped-f4-tab');
     developpedFilter('button-f5-tab', 'arrow-f5-tab', 'developped-f5-tab');
+    developpedFilter('button-f6-tab', 'arrow-f6-tab', 'developped-f6-tab');
 
     // Initialisation des filtres pour téléphone
     developpedFilterAutoClose('button-f1-tel', 'arrow-f1-tel', 'developped-f1-tel');
@@ -104,195 +105,165 @@ document.addEventListener("DOMContentLoaded", function() {
     developpedFilterAutoClose('button-f3-tel', 'arrow-f3-tel', 'developped-f3-tel');
     developpedFilterAutoClose('button-f4-tel', 'arrow-f4-tel', 'developped-f4-tel');
     developpedFilterAutoClose('button-f5-tel', 'arrow-f5-tel', 'developped-f5-tel');
+    developpedFilterAutoClose('button-f6-tel', 'arrow-f6-tel', 'developped-f6-tel');
 
 
-    // !!! GESTION DES DOUBLE SLIDERS
-    // Contrôle de la position du curseur "from" en fonction de la valeur
-    function controlFromInput(fromSlider, fromInput, toInput, controlSlider) {
-        const [from, to] = getParsed(fromInput, toInput); // Récupère les valeurs numériques
-        fillSlider(fromInput, toInput, '#cccccc', '#0a77ec', controlSlider); // Met à jour l'apparence du slider
-
-        if (from > to) { // Empêche que "from" dépasse "to"
-            fromSlider.value = to;
-            fromInput.value = to;
-        } else {
-            fromSlider.value = from;
+    // !!!
+    function enforceDynamicBounds(leftInputId, rightInputId) {
+        const leftInput = document.getElementById(leftInputId);
+        const rightInput = document.getElementById(rightInputId);
+    
+        // Vérifie si les éléments existent
+        if (!leftInput || !rightInput) {
+            console.warn(`Inputs with IDs "${leftInputId}" or "${rightInputId}" not found.`);
+            return;
         }
-    }
-
-    // Contrôle de la position du curseur "to"
-    function controlToInput(toSlider, fromInput, toInput, controlSlider) {
-        const [from, to] = getParsed(fromInput, toInput);
-        fillSlider(fromInput, toInput, '#cccccc', '#0a77ec', controlSlider);
-        setToggleAccessible(toInput); // Met à jour l'accessibilité visuelle
-
-        if (from <= to) {
-            toSlider.value = to;
-            toInput.value = to;
-        } else {
-            toInput.value = from;
+    
+        // Mettre à jour les limites à chaque modification
+        function updateBounds() {
+            leftInput.max = rightInput.value; // Le max de gauche est la valeur de droite
+            rightInput.min = leftInput.value; // Le min de droite est la valeur de gauche
         }
-    }
+    
+        // Ajouter des écouteurs pour détecter les changements
+        leftInput.addEventListener('input', () => {
+            if (parseFloat(leftInput.value) > parseFloat(rightInput.value)) {
+                leftInput.value = rightInput.value; // Ajuste la valeur si nécessaire
+            }
+            updateBounds();
+        });
+    
+        rightInput.addEventListener('input', () => {
+            if (parseFloat(rightInput.value) < parseFloat(leftInput.value)) {
+                rightInput.value = leftInput.value; // Ajuste la valeur si nécessaire
+            }
+            updateBounds();
+        });
+    
+        // Initialiser les bornes lors du chargement
+        updateBounds();
+    }    
 
-    // Gère les changements du slider "from"
-    function controlFromSlider(fromSlider, toSlider, fromInput) {
-        const [from, to] = getParsed(fromSlider, toSlider);
-        fillSlider(fromSlider, toSlider, '#cccccc', '#0a77ec', toSlider);
+    // Appliquer la logique aux champs de note
+    enforceDynamicBounds('min-note-tab', 'max-note-tab');
+    enforceDynamicBounds('min-note-tel', 'max-note-tel');
 
-        if (from > to) {
-            fromSlider.value = to;
-            fromInput.value = to;
-        } else {
-            fromInput.value = from;
-        }
-    }
+    // Appliquer la logique aux champs de prix
+    enforceDynamicBounds('min-price-tab', 'max-price-tab');
+    enforceDynamicBounds('min-price-tel', 'max-price-tel');
 
-    // Gère les changements du slider "to"
-    function controlToSlider(fromSlider, toSlider, toInput) {
-        const [from, to] = getParsed(fromSlider, toSlider);
-        fillSlider(fromSlider, toSlider, '#cccccc', '#0a77ec', toSlider);
-        setToggleAccessible(toSlider);
-
-        if (from <= to) {
-            toSlider.value = to;
-            toInput.value = to;
-        } else {
-            toInput.value = from;
-            toSlider.value = from;
-        }
-    }
-
-    // Parse les valeurs des sliders pour les convertir en nombres
-    function getParsed(currentFrom, currentTo) {
-        const from = parseFloat(currentFrom.value);
-        const to = parseFloat(currentTo.value);
-
-        return [from, to];
-    }
-
-    // Met à jour l'apparence du slider avec un dégradé
-    function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
-        const rangeDistance = to.max - to.min;
-        const fromPosition = from.value - to.min;
-        const toPosition = to.value - to.min;
-
-        controlSlider.style.background = `linear-gradient(
-            to right,
-            ${sliderColor} 0%,
-            ${sliderColor} ${(fromPosition) / (rangeDistance) * 100}%,
-            ${rangeColor} ${(fromPosition) / (rangeDistance) * 100}%,
-            ${rangeColor} ${(toPosition) / (rangeDistance) * 100}%, 
-            ${sliderColor} ${(toPosition) / (rangeDistance) * 100}%, 
-            ${sliderColor} 100%)`;
-    }
-
-    // Met à jour l'accessibilité en fonction de la valeur du slider
-    function setToggleAccessible(currentTarget) {
-        if (!currentTarget) return;
-        const toSlider = currentTarget;
-        if (Number(currentTarget.value) <= 0) {
-            toSlider.classList.add('z-2'); // Ajoute une classe spécifique si nécessaire
-        } else {
-            toSlider.classList.remove('z-2');
-        }
-    }
-
-    // Initialise les sliders avec leurs entrées associées
-    function initializeSliderControls(sliderFromId, sliderToId, inputFromId, inputToId) {
-        const fromSlider = document.querySelector(sliderFromId);
-        const toSlider = document.querySelector(sliderToId);
-        const fromInput = document.querySelector(inputFromId);
-        const toInput = document.querySelector(inputToId);
-
-        if (fromSlider && toSlider && fromInput && toInput) {
-            fillSlider(fromSlider, toSlider, '#cccccc', '#0a77ec', toSlider);
-            setToggleAccessible(toSlider);
-
-            // Ajoute les événements pour synchroniser sliders et inputs
-            fromSlider.oninput = () => controlFromSlider(fromSlider, toSlider, fromInput);
-            toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
-            fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
-            toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
-        } else {
-            console.error(`Error initializing sliders: Check element IDs (${sliderFromId}, ${sliderToId}, ${inputFromId}, ${inputToId}).`);
-        }
-    }
-
-    // Initialisation des sliders pour les différents critères (note et prix, par onglet et téléphone)
-    initializeSliderControls('#from-slider-note-tab', '#to-slider-note-tab', '#from-input-note-tab', '#to-input-note-tab');
-    initializeSliderControls('#from-slider-price-tab', '#to-slider-price-tab', '#from-input-price-tab', '#to-input-price-tab');
-
-    initializeSliderControls('#from-slider-note-tel', '#to-slider-note-tel', '#from-input-note-tel', '#to-input-note-tel');
-    initializeSliderControls('#from-slider-price-tel', '#to-slider-price-tel', '#from-input-price-tel', '#to-input-price-tel');
 
     // !!! FILTRAGES DE DONNÉES
-    function filterOnCategories() {
-        const checkboxes = document.querySelectorAll('#developped-f1-tab input[type="checkbox"]');
-        
-        const offres = document.querySelectorAll('.card');
+    // Fonction pour synchroniser les inputs entre tablette et téléphone
+    function syncInputs() {
+        // Récupère tous les inputs (checkbox, text, range, number, etc.)
+        const inputs = Array.from(document.querySelectorAll('input'));
+    
+        inputs.forEach((input) => {
+            input.addEventListener('input', () => {
+                // Synchronise avec les autres inputs ayant un ID similaire
+                const baseId = input.id.replace(/-tel|-tab/, ''); // Supprime les suffixes spécifiques
+                
+                inputs.forEach((otherInput) => {
+                    const otherBaseId = otherInput.id.replace(/-tel|-tab/, ''); // Supprime les suffixes pour comparer
+                    
+                    if (baseId === otherBaseId && otherInput !== input) {
+                        if (input.type === 'checkbox') {
+                            otherInput.checked = input.checked;
+                        } else {
+                            otherInput.value = input.value;
+                        }
+                    }
+                });
+            });
+        });
+    }
 
+    const filterState = {
+        categories: [], // Catégories sélectionnées
+        localisation: '' // Texte de localisation
+    };
+
+    function filterOnCategories(device) {
+        const checkboxes = document.querySelectorAll('#developped-f1-'+device+' input[type="checkbox"]');
+    
         checkboxes.forEach((checkbox) => {
             checkbox.addEventListener('change', () => {
-                // Créer un tableau pour stocker les types sélectionnés
-                const selectedTypes = [];
-                
-                // Parcours des cases à cocher et ajout des types sélectionnés dans un tableau
-                checkboxes.forEach((checkbox) => {
-                    if (checkbox.checked) {
-                        selectedTypes.push(checkbox.id);
-                    }
-                });
-
-                console.log(selectedTypes);
-
-                // Affichage ou masquage des offres en fonction des types sélectionnés
-                offres.forEach((offre) => {
-                    const type = offre.querySelector('.type-offre').src.split('/').pop().replace('.jpg', '');
-                    console.log(type);
-
-                    // Si l'offre correspond à un des types sélectionnés ou si aucune case n'est cochée
-                    if (selectedTypes.length === 0 || selectedTypes.includes(type)) {
-                        offre.classList.remove('!hidden');
-                    } else {
-                        offre.classList.add('!hidden');
-                    }
-                });
+                // Mettre à jour les catégories sélectionnées
+                filterState.categories = Array.from(checkboxes)
+                    .filter(checkbox => checkbox.checked)
+                    .map(checkbox => checkbox.id.replace(/-tel|-tab/, ''));
+    
+                // Appliquer les filtres croisés
+                applyFilters();
             });
         });
     }
 
-    function filterOnLocalisations() {
-        const locInputElement = document.getElementById('loc');
-
-        const offres = document.querySelectorAll('.card');
+    function filterOnLocalisations(device) {
+        const locInputElement = document.getElementById('localisation-'+device);
     
         locInputElement.addEventListener('input', () => {
-            const locInput = locInputElement.value.trim();
+            // Mettre à jour la localisation dans l'état global
+            filterState.localisation = locInputElement.value.trim();
     
-            offres.forEach((offre) => {
-                const localisationElement = offre.querySelector('.localisation');
-                const code = localisationElement.querySelector('p:nth-of-type(2)').textContent.trim();
-                const city = localisationElement.querySelector('p:nth-of-type(1)').textContent.trim();
-    
-                if (locInput === '' || code.includes(locInput) || city.includes(locInput)) {
-                    offre.classList.remove('!hidden');
-                } else {
-                    offre.classList.add('!hidden');
-                }
-            });
+            // Appliquer les filtres croisés
+            applyFilters();
         });
     }
 
-    function filterOnGeneralRates() {
-        
+    function applyFilters() {
+        const offres = document.querySelectorAll('.card');
+        let anyVisible = false; // Variable pour suivre si une offre est visible
+    
+        offres.forEach((offre) => {
+            const type = offre.querySelector('.type-offre').src.split('/').pop().replace('.jpg', '');
+            const localisationElement = offre.querySelector('.localisation');
+            const city = localisationElement.querySelector('p:nth-of-type(1)').textContent.trim();
+            const code = localisationElement.querySelector('p:nth-of-type(2)').textContent.trim();
+    
+            // Vérifie les filtres actifs
+            const matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(type);
+            const matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
+    
+            console.log(filterState);
+
+            // Appliquer les filtres croisés
+            if (matchesCategory && matchesLocalisation) {
+                offre.classList.remove('!hidden');
+                anyVisible = true; // Au moins une offre est visible
+            } else {
+                offre.classList.add('!hidden');
+            }
+        });
+    
+        // Vérifie si aucune offre n'est visible
+        const noMacthesElement = document.getElementById('no-matches-message'); // Element pour afficher un message
+        if (!anyVisible) {
+            if (!noMacthesElement) {
+                // Crée et ajoute un élément de message si non présent
+                const message = document.createElement('div');
+                message.id = 'no-matches-message';
+                message.textContent = 'Aucune offre ne correspond à vos critères.';
+                message.classList.add('mt-4');
+                message.classList.add('font-bold');
+                message.classList.add('text-h2'); 
+                document.querySelector('#no-matches').appendChild(message); // Ajouter dans le conteneur des offres
+            }
+        } else {
+            // Supprime le message si des offres sont visibles
+            if (noMacthesElement) {
+                noMacthesElement.remove();
+            }
+        }
     }
 
-    function filterOnPrices() {
-        
-    }
+    syncInputs()
 
-    filterOnCategories();
-    filterOnLocalisations();
-    filterOnGeneralRates();
-    filterOnPrices();
+    filterOnCategories('tab');
+    filterOnCategories('tel');
+    filterOnLocalisations('tab');
+    filterOnLocalisations('tel');
+
+    applyFilters();
 });
