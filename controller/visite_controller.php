@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/visite.php";
+require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . "/model/visite.php";
 
 class VisiteController {
     private $model;  

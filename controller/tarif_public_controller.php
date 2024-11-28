@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "../model/tarif_public.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/tarif_public.php";
 
 class TarifPublicController {
 
@@ -10,11 +10,25 @@ class TarifPublicController {
         $this->model = 'TarifPublic';
     }
 
+    public function getTarifsByIdOffre($id_offre){
+        $tarifsPublic = $this->model::getTarifsByIdOffre($id_offre);
+
+        $result = [];
+        foreach ($tarifsPublic as $tarifPublic) {
+            $result[] = [
+                "id_tarif" => $tarifPublic["id_tarif"],
+                "titre_tarif" => $tarifPublic["titre_tarif"],
+                "prix" => $tarifPublic["prix"],
+            ];
+        }
+
+        return $result;
+    }
+
     public function getInfoTarifPublic($id){
         $tarifPublic = $this->model::getTarifPublicById($id);
 
         $result = [
-            "id_tarif" => $tarifPublic["id_tarif"],
             "titre_tarif" => $tarifPublic["titre_tarif"],
             "prix" => $tarifPublic["prix"],
             "id_offre" => $tarifPublic["id_offre"],
