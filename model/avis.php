@@ -55,9 +55,11 @@ class Avis extends BDD
         }
     }
 
+
     static function createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse = null)
     {
         self::initBDD();
+        
 
         $query = "INSERT INTO " . self::$nom_table . " (titre, commentaire, date_experience, id_compte, id_offre, id_avis_reponse) VALUES (?, ?, ?, ?, ?, ?) RETURNING id_avis";
 
@@ -75,6 +77,8 @@ class Avis extends BDD
             echo "ERREUR: Impossible de créer cet avis";
             return false;
         }
+
+        
     }
 
     static function updateAvis($id_avis, $titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse)

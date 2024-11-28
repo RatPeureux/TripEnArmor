@@ -1,5 +1,8 @@
 set schema 'sae_db';
 
+
+
+-- vue pour afficher les prestations disponibles pour un professionnel en particulier
 -- vue pour accéder à un compte pro mais sans voir son rib
 
 CREATE VIEW vue_pro_prive_sans_rib AS
@@ -81,7 +84,66 @@ FROM _offre
 INNER JOIN _type_offre
 ON _offre.id_type_offre = _type_offre.id_type_offre;
 
--- -------------------------------------------------------------------- Tri Offre
+-- -------------------------------------------------------------------- id compte affilié au compte
+
+CREATE OR REPLACE VIEW vue_comptes AS
+SELECT 
+    m.id_compte AS id_compte,
+    'Membre' AS type_compte,
+    m.email,
+    m.pseudo AS nom_ou_pseudo
+FROM 
+    _membre m
+
+UNION ALL
+
+SELECT 
+    ppr.id_compte AS id_compte,
+    'Professionnel Privé' AS type_compte,
+    ppr.email,
+    ppr.nom_pro AS nom_ou_pseudo
+FROM 
+    _pro_prive ppr
+
+UNION ALL
+
+SELECT 
+    ppu.id_compte AS id_compte,
+    'Professionnel Public' AS type_compte,
+    ppu.email,
+    ppu.nom_pro AS nom_ou_pseudo
+FROM 
+    _pro_public ppu;
+-- -------------------------------------------------------------------- offre lié au pro
+CREATE OR REPLACE VIEW vue_pro_offres AS
+SELECT 
+    ppr.id_compte AS id_pro,
+    'Professionnel Privé' AS type_pro,
+    ppr.nom_pro AS nom_pro,
+    ppr.email AS email_pro,
+    o.id_offre AS id_offre,
+    o.titre AS titre_offre,
+    o.description AS description_offre
+FROM 
+    _pro_prive ppr
+JOIN 
+    _offre o ON ppr.id_compte = o.id_pro
+
+UNION ALL
+
+SELECT 
+    ppu.id_compte AS id_pro,
+    'Professionnel Public' AS type_pro,
+    ppu.nom_pro AS nom_pro,
+    ppu.email AS email_pro,
+    o.id_offre AS id_offre,
+    o.titre AS titre_offre,
+    o.description AS description_offre
+FROM 
+    _pro_public ppu
+JOIN 
+    _offre o ON ppu.id_compte = o.id_pro;
+
 -- -------------------------------------------------------------------- Filtres multicritères Offre 
 -- -------------------------------------------------------------------- Mise à la une Offre
 -- -------------------------------------------------------------------- Mise en relief Offre
