@@ -176,7 +176,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que cette adresse mail est déjà utilisée ?
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
     $stmt->bindParam(":mail", $_POST['mail']);
     $stmt->execute();
@@ -344,7 +344,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que ce pseudo a déjà été utilisé ?
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :pseudo");
     $stmt->bindParam(":pseudo", $_POST['pseudo']);
     $stmt->execute();

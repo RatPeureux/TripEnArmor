@@ -4,10 +4,6 @@ require_once "bdd.php";
 
 class Avis extends BDD
 {
-    /*
-    Idée d'amélioration :
-    Ajouter des valeurs statiques pour représenter les erreurs
-    */
     static private $nom_table = "sae_db._avis";
 
     static function getAvisById($id)
@@ -55,9 +51,11 @@ class Avis extends BDD
         }
     }
 
+
     static function createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse = null)
     {
         self::initBDD();
+        
 
         $query = "INSERT INTO " . self::$nom_table . " (titre, commentaire, date_experience, id_compte, id_offre, id_avis_reponse) VALUES (?, ?, ?, ?, ?, ?) RETURNING id_avis";
 
@@ -75,6 +73,8 @@ class Avis extends BDD
             echo "ERREUR: Impossible de créer cet avis";
             return false;
         }
+
+        
     }
 
     static function updateAvis($id_avis, $titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse)

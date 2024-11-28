@@ -6,11 +6,7 @@ if (!function_exists('chaineVersMot')) {
         return str_replace('_', " d'", ucfirst($str));
     }
 }
-?>
 
-
-
-<?php
 // Obtenir les différentes variables avec les infos nécessaires via des requêtes SQL
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
 

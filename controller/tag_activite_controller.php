@@ -2,15 +2,18 @@
 
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/tag_activite.php";
 
-class TagActiviteController {
+class TagActiviteController
+{
 
     private $model;
 
-    function __construct(){
+    function __construct()
+    {
         $this->model = 'TagActivite';
     }
 
-    public function getInfosTag($id){
+    public function getInfosTag($id)
+    {
         $tag = $this->model::getTagActiviteById($id);
 
         $res = [

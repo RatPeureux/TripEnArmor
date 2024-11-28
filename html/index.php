@@ -4,7 +4,7 @@ session_start();
 unset($_SESSION['data_en_cours_connexion']);
 unset($_SESSION['data_en_cours_inscription']);
 
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 ?>
 
 <!DOCTYPE html>
@@ -25,11 +25,14 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 <body class="flex flex-col min-h-screen">
 
-    <div id="header"></div>
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    ?>
 
     <?php
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     $sort_order = '';
     if (isset($_GET['sort'])) {
@@ -58,12 +61,14 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     <h1 class="text-4xl">Toutes les offres</h1>
 
                     <div class="hidden md:flex gap-4">
-                        <a href="#" class="flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
+                        <a href="#" class="flex items-center gap-2 hover:text-primary duration-100"
+                            id="filter-button-tab">
                             <i class="text xl fa-solid fa-filter"></i>
                             <p>Filtrer</p>
                         </a>
                         |
-                        <a href="#" class="self-end flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
+                        <a href="#" class="self-end flex items-center gap-2 hover:text-primary duration-100"
+                            id="sort-button-tab">
                             <i class="text xl fa-solid fa-sort"></i>
                             <p>Trier par</p>
                         </a>
@@ -72,17 +77,22 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
                 <!-- DROPDOWN MENU TRIS TABLETTE-->
                 <div class="hidden md:hidden relative" id="sort-section-tab">
-                    <div class="absolute top-0 right-0 z-20 self-end bg-white border border-black p-2 max-w-48 flex flex-col gap-4">
-                        <a href="<?php echo ($_GET['sort'] === 'rating-ascending') ? '/' : '?sort=rating-ascending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'rating-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                    <div
+                        class="absolute top-0 right-0 z-20 self-end bg-white border border-black p-2 max-w-48 flex flex-col gap-4">
+                        <a href="<?php echo ($_GET['sort'] === 'rating-ascending') ? '/' : '?sort=rating-ascending'; ?>"
+                            class="flex items-center <?php echo ($_GET['sort'] == 'rating-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                             <p>Note croissante</p>
                         </a>
-                        <a href="<?php echo ($_GET['sort'] === 'rating-descending') ? '/' : '?sort=rating-descending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'rating-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                        <a href="<?php echo ($_GET['sort'] === 'rating-descending') ? '/' : '?sort=rating-descending'; ?>"
+                            class="flex items-center <?php echo ($_GET['sort'] == 'rating-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                             <p>Note décroissante</p>
                         </a>
-                        <a href="<?php echo ($_GET['sort'] === 'price-ascending') ? '/' : '?sort=price-ascending'; ?>" class="flex items-center <?php echo ($_GET['sort'] === 'price-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                        <a href="<?php echo ($_GET['sort'] === 'price-ascending') ? '/' : '?sort=price-ascending'; ?>"
+                            class="flex items-center <?php echo ($_GET['sort'] === 'price-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                             <p>Prix croissant</p>
                         </a>
-                        <a href="<?php echo ($_GET['sort'] === 'price-descending') ? '/' : '?sort=price-descending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'price-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                        <a href="<?php echo ($_GET['sort'] === 'price-descending') ? '/' : '?sort=price-descending'; ?>"
+                            class="flex items-center <?php echo ($_GET['sort'] == 'price-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                             <p>Prix décroissant</p>
                         </a>
                     </div>
@@ -149,7 +159,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                                 <label for="loc">Code postal</label>
                                 <label class="text-[#999999]" for="loc">ou</label>
                                 <label for="loc">Ville</label>
-                                <input id="loc" type="text" class="w-full border border-[#999999] rounded-lg p-1 focus:ring-0" />
+                                <input id="loc" type="text"
+                                    class="w-full border border-[#999999] rounded-lg p-1 focus:ring-0" />
                             </div>
                         </div>
                     </div>
@@ -160,19 +171,23 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                         </div>
                         <div class="hidden flex flex-col w-full" id="developped-f4-tab">
                             <div class="relative">
-                                <input id="from-slider-note-tab" type="range" value="0" min="0" max="5" step="0.5" class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-1" />
-                                <input id="to-slider-note-tab" type="range" value="5" min="0" max="5" step="0.5" class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-2" />
+                                <input id="from-slider-note-tab" type="range" value="0" min="0" max="5" step="0.5"
+                                    class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-1" />
+                                <input id="to-slider-note-tab" type="range" value="5" min="0" max="5" step="0.5"
+                                    class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-2" />
 
                                 <div id="range-background1" class="absolute top-0 left-0"></div>
                             </div>
 
                             <div class="relative flex justify-between mt-3">
                                 <div class="flex items-start">
-                                    <input id="from-input-note-tab" type="number" value="0" min="0" max="5" step="0.5" class="mt-1 w-[39px] text-small focus:ring-0" />
+                                    <input id="from-input-note-tab" type="number" value="0" min="0" max="5" step="0.5"
+                                        class="mt-1 w-[39px] text-small focus:ring-0" />
                                     <img src="/public/icones/egg-full.svg" width="11" class="mt-1">
                                 </div>
                                 <div class="flex items-start">
-                                    <input id="to-input-note-tab" type="number" value="5" min="0" max="5" step="0.5" class="mt-1 w-[39px] text-small focus:ring-0" />
+                                    <input id="to-input-note-tab" type="number" value="5" min="0" max="5" step="0.5"
+                                        class="mt-1 w-[39px] text-small focus:ring-0" />
                                     <img src="/public/icones/egg-full.svg" width="11" class="mt-1">
                                 </div>
                             </div>
@@ -186,19 +201,23 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                         <div class="hidden flex flex-wrap" id="developped-f5-tab">
                             <div class="flex flex-col w-full">
                                 <div class="relative">
-                                    <input id="from-slider-price-tab" type="range" value="0" min="0" max="99" class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-1" />
-                                    <input id="to-slider-price-tab" type="range" value="99" min="0" max="99" class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-2" />
+                                    <input id="from-slider-price-tab" type="range" value="0" min="0" max="99"
+                                        class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-1" />
+                                    <input id="to-slider-price-tab" type="range" value="99" min="0" max="99"
+                                        class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-2" />
 
                                     <div id="range-background-price-tab" class="absolute top-0 left-0"></div>
                                 </div>
 
                                 <div class="relative flex justify-between mt-3">
                                     <div class="flex items-center">
-                                        <input id="from-input-price-tab" type="number" value="0" min="0" max="99" class="mt-1 w-[34px] text-small focus:ring-0" />
+                                        <input id="from-input-price-tab" type="number" value="0" min="0" max="99"
+                                            class="mt-1 w-[34px] text-small focus:ring-0" />
                                         €
                                     </div>
                                     <div class="flex items-center">
-                                        <input id="to-input-price-tab" type="number" value="99" min="0" max="99" class="mt-1 w-[34px] text-small focus:ring-0" />
+                                        <input id="to-input-price-tab" type="number" value="99" min="0" max="99"
+                                            class="mt-1 w-[34px] text-small focus:ring-0" />
                                         €
                                     </div>
                                 </div>
@@ -229,7 +248,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
         </div>
 
         <!-- BOUTONS DE FILTRES ET DE TRIS TÉLÉPHONE -->
-        <div class="block md:hidden p-4 h-16 w-full bg-bgBlur/75 backdrop-blur border-t-2 border-black fixed bottom-0 flex items-center justify-between">
+        <div
+            class="block md:hidden p-4 h-16 w-full bg-bgBlur/75 backdrop-blur border-t-2 border-black fixed bottom-0 flex items-center justify-between">
             <a href="#" class="p-2 flex items-center gap-2 hover:text-primary duration-100" onclick="toggleFiltres()">
                 <i class="text xl fa-solid fa-filter"></i>
                 <p>Filtrer</p>
@@ -241,17 +261,22 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     <p>Trier par</p>
                 </a>
                 <!-- DROPDOWN MENU TRIS TÉLÉPHONE -->
-                <div class="hidden md:hidden absolute bottom-[72px] right-2 z-20 bg-white border border-black p-2 max-w-48 flex flex-col gap-4" id="sort-section-tel">
-                    <a href="<?php echo ($_GET['sort'] === 'rating-ascending') ? '/' : '?sort=rating-ascending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'rating-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                <div class="hidden md:hidden absolute bottom-[72px] right-2 z-20 bg-white border border-black p-2 max-w-48 flex flex-col gap-4"
+                    id="sort-section-tel">
+                    <a href="<?php echo ($_GET['sort'] === 'rating-ascending') ? '/' : '?sort=rating-ascending'; ?>"
+                        class="flex items-center <?php echo ($_GET['sort'] == 'rating-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                         <p>Note croissante</p>
                     </a>
-                    <a href="<?php echo ($_GET['sort'] === 'rating-descending') ? '/' : '?sort=rating-descending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'rating-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                    <a href="<?php echo ($_GET['sort'] === 'rating-descending') ? '/' : '?sort=rating-descending'; ?>"
+                        class="flex items-center <?php echo ($_GET['sort'] == 'rating-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                         <p>Note décroissante</p>
                     </a>
-                    <a href="<?php echo ($_GET['sort'] === 'price-ascending') ? '/' : '?sort=price-ascending'; ?>" class="flex items-center <?php echo ($_GET['sort'] === 'price-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                    <a href="<?php echo ($_GET['sort'] === 'price-ascending') ? '/' : '?sort=price-ascending'; ?>"
+                        class="flex items-center <?php echo ($_GET['sort'] === 'price-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                         <p>Prix croissant</p>
                     </a>
-                    <a href="<?php echo ($_GET['sort'] === 'price-descending') ? '/' : '?sort=price-descending'; ?>" class="flex items-center <?php echo ($_GET['sort'] == 'price-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                    <a href="<?php echo ($_GET['sort'] === 'price-descending') ? '/' : '?sort=price-descending'; ?>"
+                        class="flex items-center <?php echo ($_GET['sort'] == 'price-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                         <p>Prix décroissant</p>
                     </a>
                 </div>
@@ -263,7 +288,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     <div id="footer"></div>
 
     <!-- MENU FILTRE TÉLÉPHONE -->
-    <div class="block md:hidden flex flex-col justify-between absolute w-full h-full bg-base100 -translate-x-full duration-200 z-50" id="filtres">
+    <div class="block md:hidden flex flex-col justify-between absolute w-full h-full bg-base100 -translate-x-full duration-200 z-50"
+        id="filtres">
         <div>
             <div class="p-4 gap-4 flex justify-start items-center h-20 border-b-2 border-black">
                 <i class="text-3xl fa-solid fa-circle-xmark hover:cursor-pointer" onclick="toggleFiltres()"></i>
@@ -325,12 +351,13 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                         <p>Localisation</p>
                         <p id="arrow-f3-tel">></p>
                     </div>
-                    <div class="developped hidden flex flex-nowrap w-full items-center gap-4" id="developped-f3-tel">    
+                    <div class="developped hidden flex flex-nowrap w-full items-center gap-4" id="developped-f3-tel">
                         <div class="text-nowrap text-small flex items-center gap-2 w-full">
                             <label for="loc">Code postal</label>
                             <label class="text-[#999999]" for="loc">ou</label>
                             <label for="loc">Ville</label>
-                            <input id="loc" type="text" class="w-full bg-base100 border border-[#999999] rounded-lg p-1 focus:ring-0" />
+                            <input id="loc" type="text"
+                                class="w-full bg-base100 border border-[#999999] rounded-lg p-1 focus:ring-0" />
                         </div>
                     </div>
                 </div>
@@ -341,19 +368,23 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     </div>
                     <div class="developped hidden flex flex-col w-full" id="developped-f4-tel">
                         <div class="relative">
-                            <input id="from-slider-note-tel" type="range" value="0" min="0" max="5" step="0.5" class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-1" />
-                            <input id="to-slider-note-tel" type="range" value="5" min="0" max="5" step="0.5" class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-2" />
+                            <input id="from-slider-note-tel" type="range" value="0" min="0" max="5" step="0.5"
+                                class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-1" />
+                            <input id="to-slider-note-tel" type="range" value="5" min="0" max="5" step="0.5"
+                                class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-2" />
 
                             <div id="range-background-note-tel" class="absolute top-0 left-0"></div>
                         </div>
 
                         <div class="relative flex justify-between mt-3">
                             <div class="flex items-start">
-                                <input id="from-input-note-tel" type="number" value="0" min="0" max="5" step="0.5" class="bg-base100 text-small mt-1 w-[39px] focus:ring-0" />
+                                <input id="from-input-note-tel" type="number" value="0" min="0" max="5" step="0.5"
+                                    class="bg-base100 text-small mt-1 w-[39px] focus:ring-0" />
                                 <img src="/public/icones/egg-full.svg" width="11" class="mt-1">
                             </div>
                             <div class="flex items-start">
-                                <input id="to-input-note-tel" type="number" value="5" min="0" max="5" step="0.5" class="bg-base100 text-small mt-1 w-[39px] focus:ring-0" />
+                                <input id="to-input-note-tel" type="number" value="5" min="0" max="5" step="0.5"
+                                    class="bg-base100 text-small mt-1 w-[39px] focus:ring-0" />
                                 <img src="/public/icones/egg-full.svg" width="11" class="mt-1">
                             </div>
                         </div>
@@ -367,19 +398,23 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     <div class="developped hidden flex flex-wrap" id="developped-f5-tel">
                         <div class="flex flex-col w-full">
                             <div class="relative">
-                                <input id="from-slider-price-tel" type="range" value="0" min="0" max="99" class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-1" />
-                                <input id="to-slider-price-tel" type="range" value="99" min="0" max="99" class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-2" />
+                                <input id="from-slider-price-tel" type="range" value="0" min="0" max="99"
+                                    class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-1" />
+                                <input id="to-slider-price-tel" type="range" value="99" min="0" max="99"
+                                    class="absolute w-full h-2 rounded-lg appearance-none pointer-events-auto z-2" />
 
                                 <div id="range-background-price-tel" class="absolute top-0 left-0"></div>
                             </div>
 
                             <div class="relative flex justify-between mt-3">
                                 <div class="flex items-center">
-                                    <input id="from-input-price-tel" type="number" value="0" min="0" max="99" class="bg-base100 text-small mt-1 w-[34px] focus:ring-0" />
+                                    <input id="from-input-price-tel" type="number" value="0" min="0" max="99"
+                                        class="bg-base100 text-small mt-1 w-[34px] focus:ring-0" />
                                     €
                                 </div>
                                 <div class="flex items-center">
-                                    <input id="to-input-price-tel" type="number" value="99" min="0" max="99" class="bg-base100 text-small mt-1 w-[34px] focus:ring-0" />
+                                    <input id="to-input-price-tel" type="number" value="99" min="0" max="99"
+                                        class="bg-base100 text-small mt-1 w-[34px] focus:ring-0" />
                                     €
                                 </div>
                             </div>
