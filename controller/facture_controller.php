@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/facture.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/facture.php";
 
 class TypeRepasController {
 
@@ -28,7 +28,7 @@ class TypeRepasController {
     }
 
     public function updateFacture($id, $jour_en_ligne) {
-        if ($jour_en_ligne === false && $id_offre === false) {
+        if ($jour_en_ligne === false && $id === false) {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {

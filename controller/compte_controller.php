@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/compte.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/compte.php";
 
 class CompteController {
 
