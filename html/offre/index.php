@@ -16,8 +16,12 @@ session_start();
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
-    <script src="/scripts/loadCaroussel.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="/scripts/loadCaroussel.js" type="module"></script>
+
+    <!-- Pour les requêtes AJAX -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Détails d'une offre | PACT</title>
 </head>
@@ -28,10 +32,12 @@ session_start();
 
     <?php
     $id_offre = $_SESSION['id_offre'];
-    $id_membre = $_SESSION['id_membre'];
+    if (isset($_SESSION['id_membre'])) {
+        $id_membre = $_SESSION['id_membre'];
+    }
 
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
@@ -43,7 +49,7 @@ session_start();
     $stmt->execute();
     $pro = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($pro) {
-        $pro_nom = $pro['nom_pro'];
+        $nom_pro = $pro['nom_pro'];
     }
 
     // Obtenir l'ensemble des informations de l'offre
@@ -220,14 +226,13 @@ session_start();
             <div class="swiper-wrapper">
                 <!-- Image n°1 -->
                 <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="/public/images/image-test.png" alt="">
+                    <img class="object-cover w-full h-full" src='/public/images/<?php echo $categorie_offre ?>.jpg'
+                        alt="image de slider">
                 </div>
                 <!-- Image n°2... etc -->
                 <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="/public/images/image-test2.jpg" alt="">
-                </div>
-                <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src="/public/images/image-test3.jpg" alt="">
+                    <img class="object-cover w-full h-full" src='/public/images/<?php echo $categorie_offre ?>.jpg'
+                        alt="image de slider">
                 </div>
             </div>
             <!-- Boutons de navigation sur la slider -->
@@ -251,8 +256,8 @@ session_start();
             ?>
 
             <!-- Nom du professionnel -->
-            <p class="text-small"><?php if ($pro_nom)
-                echo $pro_nom ?></p>
+            <p class="text-small"><?php if ($nom_pro)
+                echo $nom_pro ?></p>
 
                 <!-- Prix + localisation -->
                 <div class="localisation-et-prix flex items-center justify-between">
@@ -260,6 +265,8 @@ session_start();
                         <i class="fa-solid fa-location-dot"></i>
                         <div class="text-small">
                             <p><?php echo $ville . ', ' . $code_postal ?></p>
+                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?>
+                        </p>
                         <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?>
                         </p>
                     </div>
@@ -292,13 +299,16 @@ session_start();
                     <!-- Wrapper -->
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src="/public/images/image-test.png" alt="">
+                            <img class="object-cover w-full h-full"
+                                src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="image de slider">
                         </div>
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src="/public/images/image-test2.jpg" alt="">
+                            <img class="object-cover w-full h-full"
+                                src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="image de slider">
                         </div>
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src="/public/images/image-test3.jpg" alt="">
+                            <img class="object-cover w-full h-full"
+                                src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="image de slider">
                         </div>
                     </div>
                     <!-- Boutons de navigation sur la slider -->
@@ -319,8 +329,8 @@ session_start();
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="flex flex-col gap-2">
                     <div class="flex flex-row items-center">
-                        <p class="text-h1 font-bold"><?php echo $offre['titre'] ?></p>
-                        <p class="text-h1 pt-2">&nbsp-&nbsp<?php echo $pro_nom ?></p>
+                        <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
+                        <p class="professionnel text-h1">&nbsp;- <?php echo $nom_pro ?></p>
                     </div>
                     <!-- Afficher les tags de l'offre -->
                     <p class="text-small">
@@ -347,19 +357,19 @@ session_start();
                     }
                     ?>
                     <!-- Description + avis -->
-                    <div class="description-et-avis flex flex-row">
-                        <!-- Partie description -->
-                        <div class="partie-description flex flex-col w-5/12">
+                    <div class="flex flex-row">
 
+                        <!-- Partie description -->
+                        <div class="partie-description flex flex-col w-5/12 basis-1/2">
                             <!-- Prix + localisation -->
                             <div class="localisation-et-prix flex flex-col gap-4">
-                                <p class="text-h4 font-bold">À propos</p>
+                                <h3 class="font-bold">À propos</h3>
                                 <div class="flex items-center gap-4 px-2">
                                     <i class="w-6 text-center fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] ?></p>
-                                        <?php echo $adresse['complement'] ?>
+                                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="flex items-center px-2 gap-4">
@@ -628,14 +638,12 @@ session_start();
                                     <p></p>
 
                                 </div>
-
                             </div>
+
                         </div>
 
                     </div>
-
                 </div>
-            </div>
     </main>
 
     <div id="footer"></div>

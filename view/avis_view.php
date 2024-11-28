@@ -1,8 +1,29 @@
-<?php
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
-$avisController = new AvisController;
+<!-- 
+    POUR APPELER LA VUE AVIS, DÉFINIR LES VARIABLES SUIVANTES EN AMONT :
+    - $id_avis
+    - $date_publication
+    - $date_experience
+    - $commentaire
+    - $id_avis_reponse
+    - $id_compte
+    - $titre
+-->
 
-// Test d'insertion d'un avis (OK)
-// $maDate = date('2024-11-02 10:10:10');
-// $avisController->createAvis("monTitre", "c nul", $maDate, $id_membre, $id_offre);
-// print_r($avisController->getAvisByIdOffre($id_offre));
+<?php
+
+// Import d'outils (controllers)
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
+$membreController = new MembreController();
+$proPublicController = new ProPublicController();
+$proPriveController = new ProPriveController();
+
+?>
+
+<!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (PRO / MEMBRE) -->
+<div class="avis">
+    <?php
+    $result = $proPublicController->getInfosProPublic($id_compte);
+    ?>
+</div>

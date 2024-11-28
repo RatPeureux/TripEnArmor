@@ -1,10 +1,8 @@
 <?php
-
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/pro_public.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/pro_public.php';
 
 class ProPublicController
 {
-
     private $model;
 
     function __construct()
@@ -19,21 +17,7 @@ class ProPublicController
     }
     public function getInfosProPublic($id)
     {
-        $proPublic = $this->model::getProPublicById($id);
-
-        if ($proPublic) {
-            $result = [
-                "id_compte" => $proPublic["id_compte"],
-                "email" => $proPublic["email"],
-                "tel" => $proPublic["num_tel"],
-                "adresse" => $proPublic["id_adresse"],
-                "nom_pro" => $proPublic["nom_pro"],
-                "type_orga" => $proPublic["type_orga"],
-            ];
-        } else {
-            return false;
-        }
-
+        $result = $this->model::getProPublicById($id);
         return $result;
     }
 

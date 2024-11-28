@@ -1,6 +1,6 @@
 <?php
 session_start();
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 verifyPro();
 ?>
 
@@ -10,7 +10,7 @@ verifyPro();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <title>Détails d'une offre | Professionnel | PACT</title>
 
@@ -21,7 +21,7 @@ verifyPro();
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
-    
+
     <title>Détails d'une offre | Professionnel | PACT</title>
 </head>
 
@@ -34,7 +34,7 @@ verifyPro();
     $id_pro = $_SESSION['id_pro'];
 
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare('SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro');
@@ -102,8 +102,7 @@ verifyPro();
                     ?>
 
                     <!-- Description + avis -->
-                    <div class="description-et-avis">
-
+                    <div>
                         <!-- Partie description -->
                         <div class="partie-description flex flex-col gap-4">
                             <p class="professionnel"><?php echo $nom_pro ?></p>
