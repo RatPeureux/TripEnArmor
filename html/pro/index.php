@@ -139,4 +139,4 @@ if (!function_exists('chaineVersMot')) {
     }
 </script>
 
-<script src="/scripts/filtersAndSorts.js"></script>
+<script src="/scripts/filtersAndSortsPro.js"></script>

@@ -31,11 +31,11 @@ if ($mode_carte == 'membre') {
                 </h3>
                 <div class='flex w-full justify-between px-2'>
                     <p class='text-small'><?php echo $pro['nom_pro'] ?></p>
-                    <p class='text-small'><?php echo chaineVersMot($categorie_offre) ?></p>
+                    <p class='categorie text-small'><?php echo chaineVersMot($categorie_offre) ?></p>
                 </div>
             </div>
             <!-- Image de fond -->
-            <img class="categorie h-48 w-full rounded-t-lg object-cover" src='/public/images/<?php echo $categorie_offre ?>.jpg'
+            <img class="h-48 w-full rounded-t-lg object-cover" src='/public/images/<?php echo $categorie_offre ?>.jpg'
                 alt="Image promotionnelle de l'offre">
             <!-- Infos principales -->
             <div class='infos flex items-center justify-around gap-2 px-2 grow'>
@@ -80,7 +80,7 @@ if ($mode_carte == 'membre') {
                 <!-- Partie gauche -->
                 <div class='gauche grow relative shrink-0 basis-1/2 h-[280px] overflow-hidden'>
                     <!-- Image de fond -->
-                    <img class='categorie rounded-l-lg w-full h-full object-cover object-center'
+                    <img class='rounded-l-lg w-full h-full object-cover object-center'
                         src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="Image promotionnelle de l'offre">
                 </div>
                 <!-- Partie droite (infos principales) -->
@@ -92,7 +92,7 @@ if ($mode_carte == 'membre') {
                         </h3>
                         <div class='flex'>
                             <p class='text-small'><?php echo $pro['nom_pro']; ?></p>
-                            <p class='text-small'><?php echo ', ' . chaineVersMot($categorie_offre); ?></p>
+                            <p class='categorie text-small'><?php echo ', ' . chaineVersMot($categorie_offre); ?></p>
                         </div>
                     </div>
 
@@ -152,7 +152,7 @@ if ($mode_carte == 'membre') {
             <!-- PARTIE DE GAUCHE, image-->
             <div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
                 <a href="/pages/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>">
-                <img class="categorie rounded-l-lg w-full h-full object-cover object-center"
+                <img class="rounded-l-lg w-full h-full object-cover object-center"
                     src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="Image promotionnelle de l'offre"
                     title="consulter les détails">
             </a>
@@ -170,7 +170,7 @@ if ($mode_carte == 'membre') {
                         <h3 class="text-h2 font-bold"><?php echo $titre_offre ?></h3>
                         <div class="flex">
                             <p class="text"><?php echo $pro_nom ?></p>
-                            <p class="text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
+                            <p class="categorie text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
                         </div>
                     </div>
 
