@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/adresse.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/adresse.php";
 
 class AdresseController {
     private $model;  

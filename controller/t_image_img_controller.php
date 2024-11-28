@@ -41,7 +41,7 @@ class TImageImgController {
         }
     }
 
-    public function deleteImage($id) {
+    public function deleteImage($path) {
         $t_image_img = $this->model::deleteImage($path);
 
         return $t_image_img;
