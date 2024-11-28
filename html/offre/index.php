@@ -225,7 +225,7 @@ session_start();
     }
     ?>
 
-    <main class="flex flex-col md:block md:mx-10 self-center rounded-lg md:p-2 max-w-[1280px]">
+    <main class="flex flex-col md:block md:mx-10 self-center rounded-lg md:p-2 max-w-[1280px] overflow-auto">
         <div class="flex md:gap-3">
             <!-- PARTIE GAUCHE (menu) -->
             <div id="menu"></div>
@@ -235,21 +235,33 @@ session_start();
 
                 <!-- CAROUSSEL -->
                 <div
-                    class="w-full h-80 md:h-[500px] overflow-hidden relative swiper default-carousel swiper-container md:border md:border-black md:rounded-lg">
+                    class="w-full h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container md:border md:border-black md:rounded-lg">
                     <!-- Wrapper -->
+                    <?php
+                    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+                    $controllerImage = new ImageController();
+                    $images = $controllerImage->getImagesOfOffre($id_offre);
+                    ?>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full"
-                                src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="image de slider">
+                            <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
+                                echo $images['carte'];
+                            } else {
+                                echo $categorie_offre . '.jpg';
+                            } ?>' alt="image de slider">
                         </div>
-                        <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full"
-                                src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="image de slider">
-                        </div>
-                        <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full"
-                                src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="image de slider">
-                        </div>
+                        <?php
+                        if ($images['details']) {
+                            foreach ($images['details'] as $image) {
+                                ?>
+                                <div class="swiper-slide !w-full">
+                                    <img class="object-cover w-full h-full" src='/public/images/<?php echo $image; ?>'
+                                        alt="image de slider">
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
                     </div>
                     <!-- Boutons de navigation sur la slider -->
                     <div class="flex items-center gap-8 justify-center">
@@ -271,7 +283,7 @@ session_start();
                     <div class="flex flex-col md:flex-row md:items-center">
                         <p class="text-h1 font-bold"><?php echo $offre['titre'] ?></p>
                         <p class="text-h1 pt-2 hidden md:flex">&nbsp-&nbsp</p>
-                        <p class="text-h1 pt-2"><?php echo $pro_nom ?></p>
+                        <p class="text-h1 pt-2"><?php echo $pro['nom_pro'] ?></p>
                     </div>
                     <!-- Afficher les tags de l'offre -->
                     <p class="text-small">
@@ -332,7 +344,7 @@ session_start();
                             <!-- Horaire -->
                             <a href="" class="">
                                 <div class="flex flex-row justify-between" id="horaire-button">
-                                    <p class="text-h4 font-bold">Horaire</p>
+                                    <p class="text-h4 font-bold">Horaires</p>
                                     <p id="horaire-arrow">></p>
                                 </div>
                                 <div class="hidden text-small py-3" id="horaire-info">
@@ -429,12 +441,15 @@ session_start();
                                                 <p><?php echo $nb_attractions ?></p>
                                             </div>
                                             <?php
-                                            if ($path_plan) {
+                                            if ($images) {
                                                 ?>
-                                                <img src="<?php echo $path_plan ?>" alt="Plan du parc">
+                                                <img src="/public/images/<?php echo $images['plan']; ?>" alt="">
                                                 <?php
-                                            }
-                                            ?>
+                                            } else {
+                                                ?>
+                                                <p class="text-small">Aucun plan</p>
+                                                <?php
+                                            } ?>
                                             <?php
                                             break;
 
@@ -529,41 +544,41 @@ session_start();
                                                     class="input" required></textarea>
                                                 <select name="note_service" id="note" class="input" required>
 
-                                    <option value="note_service">Service</option>
-                                    <option value="note1">1</option>
-                                    <option value="note2">2</option>
-                                    <option value="note3">3</option>
-                                    <option value="note4">4</option>
-                                    <option value="note5">5</option>
+                                                    <option value="note_service">Service</option>
+                                                    <option value="note1">1</option>
+                                                    <option value="note2">2</option>
+                                                    <option value="note3">3</option>
+                                                    <option value="note4">4</option>
+                                                    <option value="note5">5</option>
 
-                                </select>
+                                                </select>
 
-                                <select name="note_qualite_prix" id="note" class="input" required>
+                                                <select name="note_qualite_prix" id="note" class="input" required>
 
-                                    <option value="note_qualite_prix">Qualité/Prix</option>
-                                    <option value="note1">1</option>
-                                    <option value="note2">2</option>
-                                    <option value="note3">3</option>
-                                    <option value="note4">4</option>
-                                    <option value="note5">5</option>
+                                                    <option value="note_qualite_prix">Qualité/Prix</option>
+                                                    <option value="note1">1</option>
+                                                    <option value="note2">2</option>
+                                                    <option value="note3">3</option>
+                                                    <option value="note4">4</option>
+                                                    <option value="note5">5</option>
 
-                                    <p>/5</p>
+                                                    <p>/5</p>
 
-                                </select>
+                                                </select>
 
-                                <select name="note" id="note" class="input" required>
+                                                <select name="note" id="note" class="input" required>
 
-                                    <option value="note1">1</option>
-                                    <option value="note2">2</option>
-                                    <option value="note3">3</option>
-                                    <option value="note4">4</option>
-                                    <option value="note5">5</option>
+                                                    <option value="note1">1</option>
+                                                    <option value="note2">2</option>
+                                                    <option value="note3">3</option>
+                                                    <option value="note4">4</option>
+                                                    <option value="note5">5</option>
 
-                                    <p>/5</p>
+                                                    <p>/5</p>
 
-                                </select>
+                                                </select>
 
-                                <select name="note" id="note" class="input" required>
+                                                <select name="note" id="note" class="input" required>
 
                                                     <option value="note1">1</option>
                                                     <option value="note2">2</option>
