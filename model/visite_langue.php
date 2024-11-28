@@ -1,10 +1,10 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class VisiteLangue extends BDD {
 
-    private $nom_table = "sae_db._visite_langue";
+    static private $nom_table = "sae_db._visite_langue";
 
     static function getLanguesBydIdVisite($id_offre){
         self::initBDD();
