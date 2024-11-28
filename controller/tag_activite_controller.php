@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/tag_activite.php";
+require dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/tag_activite.php";
 
 class TagActiviteController
 {

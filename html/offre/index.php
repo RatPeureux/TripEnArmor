@@ -136,7 +136,7 @@ session_start();
             break;
     }
 
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
     $controllerHoraire = new HoraireController();
 
     $horairesV1 = [
@@ -193,7 +193,7 @@ session_start();
         $horaires['fermeture'][$jour] = $horaire['fermeture'];
     }
     if ($categorie_offre !== 'restauration') {
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
+        require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
         $controllerGrilleTarifaire = new TarifPublicController();
         $tarifs = [
             [
@@ -208,7 +208,7 @@ session_start();
     }
 
     if ($categorie_offre == 'parc_attraction') {
-        // require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
+        // require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
         // $controllerImage = new TImageImgController();
         // $path_plan = $controllerImage->getPathToPlan($id_offre);
     }

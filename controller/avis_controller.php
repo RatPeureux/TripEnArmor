@@ -1,5 +1,5 @@
 <?php
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/avis.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/model/avis.php';
 
 class AvisController
 {

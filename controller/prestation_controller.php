@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/prestation.php";
+require "../model/prestation.php";
 
 class PrestationController {
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once "bdd.php";
+require "bdd.php";
 
 class Avis extends BDD
 {

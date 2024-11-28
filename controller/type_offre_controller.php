@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/type_offre.php";
+require dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/type_offre.php";
 
 class TypeOffreController {
 

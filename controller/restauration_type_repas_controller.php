@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/restauration_type_repas.php";
+require "../model/restauration_type_repas.php";
 
 class RestaurationTypeRepasController {
 
