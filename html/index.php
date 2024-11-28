@@ -23,7 +23,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     <script type="module" src="/scripts/main.js" defer></script>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="min-h-screen flex flex-col justify-between">
 
     <div id="header"></div>
 
@@ -211,7 +211,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     <?php
                     // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
                     if (!$toutesLesOffres) {
-                        echo "<p class='font-bold'>Il n'existe aucune offre...</p>";
+                        echo "<div class=\"w-full\"><p class='font-bold'>Il n'existe aucune offre...</p></div>";
                     } else {
                         $i = 0;
                         foreach ($toutesLesOffres as $offre) {

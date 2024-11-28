@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function filterOnCategories() {
         const checkboxes = document.querySelectorAll('#developped-f1-tab input[type="checkbox"]');
         
-        const offres = document.querySelectorAll('.gauche');
+        const offres = document.querySelectorAll('.card');
 
         checkboxes.forEach((checkbox) => {
             checkbox.addEventListener('change', () => {
@@ -243,15 +243,18 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 });
 
+                console.log(selectedTypes);
+
                 // Affichage ou masquage des offres en fonction des types sélectionnés
                 offres.forEach((offre) => {
-                    const type = offre.querySelector('img').src.split('/').pop().replace('.jpg', '');
+                    const type = offre.querySelector('.type-offre').src.split('/').pop().replace('.jpg', '');
+                    console.log(type);
 
                     // Si l'offre correspond à un des types sélectionnés ou si aucune case n'est cochée
                     if (selectedTypes.length === 0 || selectedTypes.includes(type)) {
-                        offre.classList.remove('hidden');
+                        offre.classList.remove('!hidden');
                     } else {
-                        offre.classList.add('hidden');
+                        offre.classList.add('!hidden');
                     }
                 });
             });
@@ -261,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function filterOnLocalisations() {
         const locInputElement = document.getElementById('loc');
 
-        const offres = document.querySelectorAll('.infos');
+        const offres = document.querySelectorAll('.card');
     
         locInputElement.addEventListener('input', () => {
             const locInput = locInputElement.value.trim();
@@ -272,9 +275,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 const city = localisationElement.querySelector('p:nth-of-type(1)').textContent.trim();
     
                 if (locInput === '' || code.includes(locInput) || city.includes(locInput)) {
-                    offre.classList.remove('hidden');
+                    offre.classList.remove('!hidden');
                 } else {
-                    offre.classList.add('hidden');
+                    offre.classList.add('!hidden');
                 }
             });
         });
