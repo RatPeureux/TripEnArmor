@@ -63,7 +63,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                 } else {
                     $i = 0;
                     foreach ($toutesLesOffres as $offre) {
-                        if ($i < 3) {
+                        if ($i < 10) {
                             // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                             $mode_carte = 'membre';
                             include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';

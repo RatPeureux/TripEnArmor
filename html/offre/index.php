@@ -177,7 +177,7 @@ session_start();
             "fermeture" => "18:00",
         ]
     ]; # $controllerHoraire->getHorairesOfOffre($id_offre);
-
+    
     $horaires = [];
 
     foreach ($horairesV1 as $jour => $horaire) {
@@ -198,10 +198,14 @@ session_start();
                 "titre_tarif" => "Tarif enfant",
                 "prix" => 5
             ]
-            ]; # $controllerGrilleTarifaire->getTarifsByIdOffre($id_offre);
+        ]; # $controllerGrilleTarifaire->getTarifsByIdOffre($id_offre);
     }
 
-
+    if ($categorie_offre == 'parc_attraction') {
+        // require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
+        // $controllerImage = new TImageImgController();
+        // $path_plan = $controllerImage->getPathToPlan($id_offre);
+    }
     ?>
 
     <!-- VERSION TELEPHONE -->
@@ -436,7 +440,7 @@ session_start();
                                 </div>
                                 <div class="flex flex-col py-3 hidden" id="compl-info">
                                     <?php
-                                    switch ($categorie_offre) {
+                                    switch ($categorie_offre) { # TODO: faire plusieurs if plutot que des switch
                                         case 'restauration':
                                             $tags_type_repas = 'Petit-dej, Brunch, Déjeuner, Dîner, Goûter';
                                             ?>
@@ -453,11 +457,7 @@ session_start();
                                                 <p>Durée&nbsp:&nbsp</p>
                                                 <p><?php echo $duree_act ?></p>
                                             </div>
-                                            <div class="text-small flex flex-row">
-                                                <p>Âge requis&nbsp:&nbsp</p>
-                                                <p><?php echo $age_requis_act ?></p>
-                                                <p>&nbspans</p>
-                                            </div>
+                                            <p class="text-small">Âge requis <?php echo $age_requis_act ?> ans</p>
                                             <div class="text-small">
                                                 <?php echo $prestation ?>
                                             </div>
@@ -476,6 +476,13 @@ session_start();
                                                 <p>Nombre d'attraction&nbsp:&nbsp</p>
                                                 <p><?php echo $nb_attractions ?></p>
                                             </div>
+                                            <?php
+                                            if ($path_plan) {
+                                                ?>
+                                                <img src="<?php echo $path_plan ?>" alt="Plan du parc">
+                                                <?php
+                                            }
+                                            ?>
                                             <?php
                                             break;
 
@@ -531,18 +538,18 @@ session_start();
                                         <table class="">
                                             <tbody>
                                                 <?php
-                                                    foreach($tarifs as $tarif){
-                                                        ?>
-                                                        <tr>
-                                                            <td class="text-center">
-                                                                <?php echo $tarif['titre_tarif'] ?> : 
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <?php echo $tarif['prix'] ?> €
-                                                            </td>
-                                                        </tr>
-                                                        <?php
-                                                    }
+                                                foreach ($tarifs as $tarif) {
+                                                    ?>
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <?php echo $tarif['titre_tarif'] ?> :
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <?php echo $tarif['prix'] ?> €
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
                                                 ?>
                                             </tbody>
                                         </table>

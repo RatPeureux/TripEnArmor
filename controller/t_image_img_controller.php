@@ -1,12 +1,18 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/t_image_img.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/t_image_img.php";
 
 class TImageImgController {
     private $model;  
 
     function __construct() {
         $this->model = 'TImageImg';
+    }
+
+    public function getPathToPlan($id_parc) {
+        $t_image_img = $this->model::getPathToPlan($id_parc);
+
+        return $t_image_img["path"];
     }
 
     public function getInfosImage($id) {
@@ -41,7 +47,7 @@ class TImageImgController {
         }
     }
 
-    public function deleteImage($id) {
+    public function deleteImage($path) {
         $t_image_img = $this->model::deleteImage($path);
 
         return $t_image_img;
