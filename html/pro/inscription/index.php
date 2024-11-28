@@ -189,7 +189,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que cette adresse mail est déjà utilisée ?
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
     $stmt->bindParam(":mail", $_POST['mail']);
     $stmt->execute();
@@ -424,7 +424,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que le numéro de téléphone renseigné a déjà été utilisé ?
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE num_tel = :num_tel");
     $stmt->bindParam(":num_tel", $_POST['num_tel']);
     $stmt->execute();

@@ -12,9 +12,9 @@
 <?php
 
 // Import d'outils (controllers)
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
 $membreController = new MembreController();
 $proPublicController = new ProPublicController();
 $proPriveController = new ProPriveController();

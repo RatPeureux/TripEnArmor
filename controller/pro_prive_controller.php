@@ -1,8 +1,6 @@
 <?php
 require dirname($_SERVER['DOCUMENT_ROOT']) . '/model/pro_prive.php';
 
-require dirname($_SERVER["DOCUMENT_ROOT"]) . "/model/pro_prive.php";
-
 class ProPriveController
 {
 

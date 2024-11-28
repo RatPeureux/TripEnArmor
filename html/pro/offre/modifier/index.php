@@ -1,7 +1,7 @@
 <?php
 try {
 	// Connexion à la base de données
-	include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+	require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 	// Vérifier si l'ID de l'offre est passé et est un entier
 	if (isset($_GET['offre-id']) && is_numeric($_GET['offre-id'])) {

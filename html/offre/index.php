@@ -37,7 +37,7 @@ session_start();
     }
 
     // Connexion avec la bdd
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
@@ -57,19 +57,19 @@ session_start();
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     switch ($categorie_offre) {
         case 'restauration':
             // appel controlller restauration
             // $restaurtion egal Ctrl->getRestaurationById($id_offre)
             // echo $restauration['id_repas']
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
             $controllerRestauration = new RestaurationController();
             $parc_attraction = $controllerRestauration->getInfosRestauration($id_offre);
             break;
 
         case 'activite':
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
             $controllerActivite = new ActiviteController();
             $activite = $controllerActivite->getInfosActivite($id_offre);
             $duree_act = $activite['duree'];
@@ -82,7 +82,7 @@ session_start();
             break;
 
         case 'parc_attraction':
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
             $controllerParcAttraction = new ParcAttractionController();
             $parc_attraction = $controllerParcAttraction->getInfosParcAttraction($id_offre);
 
@@ -94,7 +94,7 @@ session_start();
             break;
 
         case 'visite':
-            include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
+            require dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
             $controllerVisite = new VisiteController();
             $visite = $controllerVisite->getInfosVisite($id_offre);
 
@@ -105,7 +105,7 @@ session_start();
             $guideBool = $visite['avec_guide'];
             if ($guideBool == true) {
                 $guide = 'oui';
-                include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
+                require dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
                 $controllerLangue = new VisiteLangueController();
                 $tabLangues = $controllerLangue->getLanguesByIdVisite($id_offre);
                 $langues = '';
@@ -120,7 +120,7 @@ session_start();
             break;
 
         case 'spectacle':
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
             $controllerSpectacle = new SpectacleController();
             $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
 

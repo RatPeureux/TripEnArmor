@@ -6,7 +6,7 @@ session_start();
 
 <?php
 
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
 
 $avisController = new AvisController;
 

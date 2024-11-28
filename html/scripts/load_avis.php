@@ -1,6 +1,6 @@
 <?php
 // Connexion avec la bdd
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 // Requêtes GET nécessaires pour pouvoir fonctioner avec AJAX
 if (isset($_GET['id_offre']) && isset($_GET['idx_avis'])) {
@@ -32,7 +32,7 @@ if (isset($_GET['id_offre']) && isset($_GET['idx_avis'])) {
 
             // Charger le contenu de la vue dans un variable $carte_content
             ob_start();
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
             $carte_content = ob_get_clean();
 
             // Retourner le contenu de la vue de l'avis

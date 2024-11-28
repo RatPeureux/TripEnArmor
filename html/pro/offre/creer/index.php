@@ -1,5 +1,5 @@
 <?php
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 // $pro = verifyPro();
 ?>
 
