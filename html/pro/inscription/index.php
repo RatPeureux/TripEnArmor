@@ -237,7 +237,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
             </a>
 
-            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription"
+            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action=""
                 method="POST">
                 <p class=" pb-3">Dites-nous en plus !</p>
 
@@ -470,8 +470,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         $adresse = $_POST['adresse'];
         $infosSupAdresse = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
-        $code = $_POST['code'];
-        $ville = $_POST['ville'];
+        $code = $_POST['postal_code'];
+        $ville = $_POST['locality'];
 
         // Exécuter la requête pour l'adresse
         $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement) VALUES (:code, :ville, :numero, :odonyme, :complement)");
