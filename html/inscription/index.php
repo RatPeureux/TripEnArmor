@@ -40,7 +40,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="POST"
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="" method="POST"
                     onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Membre</p>
 

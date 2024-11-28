@@ -5,8 +5,6 @@ if (!isset($_SESSION['data_en_cours_connexion'])) {
     unset($_SESSION['error']);
 }
 
-echo $_SERVER['REQUEST_METHOD'];
-
 // 1ère étape : saisir les identifiants de connexion
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {

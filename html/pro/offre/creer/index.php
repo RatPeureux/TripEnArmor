@@ -1,6 +1,6 @@
 <?php
 include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-$pro = verifyPro();
+// $pro = verifyPro();
 ?>
 
 <!DOCTYPE html>
@@ -22,8 +22,6 @@ $pro = verifyPro();
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr" ></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
-
-	<title>Création d'offre | Professionnel | PACT</title>
 </head>
 
 <!-- 
@@ -87,10 +85,10 @@ $pro = verifyPro();
 				<form id="formulaire" action="/pro/offre/creer" method="POST" class="block w-full space-y-8"
 					enctype="multipart/form-data">
 					<div
-						class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
+						class="grid grid-cols-2 justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<div
-							class="border border-secondary rounded-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full hidden">
+							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full hidden">
 							<input type="radio" name="type_offre" id="type_offre_1" value="1" class="hidden">
 							<label for="type_offre_1"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -116,7 +114,7 @@ $pro = verifyPro();
 						</div>
 						<!-- Carte de l'offre standard -->
 						<div
-							class="border border-primary rounded-lg flex-col justify-center w-fit text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full">
+							class="border border-primary rounded-lg flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full">
 							<input type="radio" name="type_offre" id="type_offre_2" value="2" class="hidden">
 							<label for="type_offre_2"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -142,7 +140,7 @@ $pro = verifyPro();
 						</div>
 						<!-- Carte de l'offre premium -->
 						<div
-							class="border border-secondary rounded-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-max">
+							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full">
 							<input type="radio" name="type_offre" id="type_offre_3" value="3" class="hidden">
 							<label for="type_offre_3"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -152,7 +150,7 @@ $pro = verifyPro();
 										<h2 class="text-center font-bold">Pour les entreprises et organismes privés</h2>
 									</div>
 									<div class="h-full">
-										<p class="mt-2 text-small">Standard +</p>
+										<p class="mt-2 text-small font-bold">Standard +</p>
 										<div class="ml-8">
 											<ul class="list-disc text-left text-small">
 												<li>Mise sur liste noire de 3 commentaires</li>
@@ -263,7 +261,7 @@ $pro = verifyPro();
 										placeholder="Une description de l'accessibilité pour les personnes en situation de handicap, visible dans les détails de l'offre."></textarea>
 								</div>
 							</div>
-							<div class="w-full flex flex-col justify-center items-center space-y-4 part2">
+							<div class="w-full flex flex-col justify-center items-center space-y-4 part2 hidden">
 								<h2 class="w-full text-h2 text-secondary">Informations supplémentaires</h2>
 
 								<!-- Sélection du type d'activité -->
@@ -315,6 +313,31 @@ $pro = verifyPro();
 										<div
 											class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
 										</div>
+										<div class="space-x-2 w-fit flex items-center invisible peer-checked:visible">
+									<p>
+										Langues parlées :
+									</p>
+									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+										onclick="toggleCheckbox('langueFR')">
+										<label for="langueFR">Français</label>
+										<input type="checkbox" name="langueFR" id="langueFR" class="hidden" checked="true">
+									</div>
+									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+										onclick="toggleCheckbox('langueEN')">
+										<label for="langueEN">Anglais</label>
+										<input type="checkbox" name="langueEN" id="langueEN" class="hidden">
+									</div>
+									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+										onclick="toggleCheckbox('langueES')">
+										<label for="langueES">Espagnol</label>
+										<input type="checkbox" name="langueES" id="langueES" class="hidden">
+									</div>
+									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+										onclick="toggleCheckbox('langueDE')">
+										<label for="langueDE">Allemand</label>
+										<input type="checkbox" name="langueDE" id="langueDE" class="hidden">
+									</div>
+								</div>
 									</div>
 								</div>
 
@@ -379,35 +402,6 @@ $pro = verifyPro();
 										class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
 									<p>attractions</p>
 								</div>
-
-								<!-- LANGUES -->
-								<div class="space-x-2 w-full flex items-center optionVisite hidden">
-									<p>
-										Langues parlées :
-									</p>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-										onclick="toggleCheckbox('langueFR')">
-										<label for="langueFR">Français</label>
-										<input type="checkbox" name="langueFR" id="langueFR" class="hidden" checked="true">
-									</div>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-										onclick="toggleCheckbox('langueEN')">
-										<label for="langueEN">Anglais</label>
-										<input type="checkbox" name="langueEN" id="langueEN" class="hidden">
-									</div>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-										onclick="toggleCheckbox('langueES')">
-										<label for="langueES">Espagnol</label>
-										<input type="checkbox" name="langueES" id="langueES" class="hidden">
-									</div>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-										onclick="toggleCheckbox('langueDE')">
-										<label for="langueDE">Allemand</label>
-										<input type="checkbox" name="langueDE" id="langueDE" class="hidden">
-									</div>
-								</div>
-
-
 
 								<!-- Repas servis -->
 								<div class="space-x-2 w-full flex justify-start items-center optionRestauration hidden">
@@ -521,7 +515,7 @@ $pro = verifyPro();
 
 									<!-- HORAIRES -->
 									<div
-										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction">
+										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
 										<h2 class="text-h2 text-secondary">Horaires</h2>
 										<table class="w-full table-auto">
 											<thead>
@@ -1074,7 +1068,13 @@ $pro = verifyPro();
 		<script src="/scripts/tagManager.js"></script>
 		<script src="/scripts/priceManager.js"></script>
 		<script src="/scripts/prestationManager.js"></script>
+		<script>
+			console.log("Before optionToggler.js");
+		</script>
 		<script src="/scripts/optionToggler.js"></script>
+		<script>
+			console.log("After optionToggler.js");
+		</script>
 		<script>
 			// Fonction pour afficher la partie 1 du formulaire
 			function showPart1() {
