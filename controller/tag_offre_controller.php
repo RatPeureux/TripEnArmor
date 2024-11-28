@@ -1,6 +1,6 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . '../model/tag_offre.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/model/tag_offre.php';
 
 class TagOffreController {
     private $model;

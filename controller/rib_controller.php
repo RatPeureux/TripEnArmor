@@ -1,6 +1,6 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/rib.php";
+require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/rib.php";
 
 class RibController {
     private $model;  

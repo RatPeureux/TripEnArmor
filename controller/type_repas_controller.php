@@ -1,6 +1,6 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/type_repas.php";
+require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/type_repas.php";
 
 class TypeRepasController {
 

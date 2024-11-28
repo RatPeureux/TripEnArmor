@@ -1,6 +1,6 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class ActivitePrestation extends BDD {
     private $nom_table = "sae_db._activite_prestation";

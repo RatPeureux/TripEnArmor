@@ -1,6 +1,6 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/facture.php";
+require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/facture.php";
 
 class TypeRepasController {
 

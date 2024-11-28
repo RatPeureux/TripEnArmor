@@ -28,12 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Vérifie si l'utilisateur existe et si le mot de passe est correct
             if ($user) {
-                echo password_verify($mdp, $user['mdp_hash']);
                 if (password_verify($mdp, $user['mdp_hash'])) {
                     // Connecte le pro, enlève toute éventuelle connexion à un membre
                     $_SESSION['id_pro'] = $user['id_compte'];
                     unset($_SESSION['id_membre']);
-                    header('location: /pro/'); // Redirige vers la page connectée
+                    header('location: /pro'); // Redirige vers la page connectée
                     exit();
                 } else {
                     $_SESSION['error'] = "Mot de passe incorrect"; // Stocke le message d'erreur dans la session
