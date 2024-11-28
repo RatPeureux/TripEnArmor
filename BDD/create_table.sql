@@ -25,7 +25,7 @@ CREATE TABLE _adresse ( -- Léo
     ville VARCHAR(255) NOT NULL,
     numero VARCHAR(255) NOT NULL,
     odonyme VARCHAR(255) NOT NULL,
-    complement_adresse VARCHAR(255)
+    complement VARCHAR(255)
 );
 -- ------------------------------------------------------------------------------------------------------- Comptes
 -- ARCHITECTURE DES TABLES CI-DESSOUS :
@@ -144,8 +144,8 @@ CREATE TABLE _souscription (
 create table _type_offre (
     id_type_offre SERIAL PRIMARY KEY NOT NULL,
     nom VARCHAR(255) NOT NULL,
-    prix_ht FLOAT NOT NULL,
-    prix_ttc FLOAT NOT NULL
+    prix_ht FLOAT,
+    prix_ttc FLOAT
 );
 
 -- ARCHITECTURE DES ENFANTS DE _offre :
@@ -231,7 +231,7 @@ CREATE TABLE _log_changement_status ( -- Maxime
 -- Type de repas 'petit dej' 'diner' etc...
 create table _type_repas ( -- Baptiste
     id_type_repas SERIAL PRIMARY KEY,
-    nom_type_repas VARCHAR(255) NOT NULL UNIQUE
+    nom VARCHAR(255) NOT NULL UNIQUE
 );
 
 -- Table _restauration (hérite _offre)
@@ -261,7 +261,7 @@ create table _restaurant_type_repas ( -- Baptiste
 create table _tag_restaurant (
     -- Maxime
     id_tag_restaurant SERIAL PRIMARY KEY,
-    nom_tag VARCHAR(255) NOT NULL
+    nom VARCHAR(255) NOT NULL
 );
 
 -- table 1 restaurant <-> 1..* tag
@@ -275,7 +275,7 @@ create table _tag_restaurant_restauration (
 -- Table _activite (hérite de _offre)
 -- (MVC) Léo
 CREATE TABLE _activite (
-    duree_activite TIME,
+    duree TIME,
     age_requis INTEGER,
     prestations VARCHAR(255)
 ) INHERITS (_offre);
@@ -299,8 +299,8 @@ create table _tag_activite ( -- Maxime
 -- ------------------------------------------------------------------------------------------------------- Spectacles
 -- Table _spectacle (hérite de _offre)
 CREATE TABLE _spectacle ( -- (MVC) Léo
-    capacite_spectacle INTEGER,
-    duree_spectacle TIME
+    capacite INTEGER,
+    duree TIME
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _spectacle à cause de l'héritage
@@ -323,8 +323,8 @@ create table _tag_spectacle ( -- Maxime
 -- Table _visite (hérite de _offre)
 -- (MVC) Léo
 CREATE TABLE _visite (
-    duree_visite TIME,
-    guide_visite BOOLEAN
+    duree TIME,
+    avec_guide BOOLEAN
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _visite à cause de l'héritage
@@ -339,7 +339,7 @@ ADD CONSTRAINT fk_visite_type_offre FOREIGN KEY (id_type_offre) REFERENCES _type
 -- langues parlées durant la visite
 CREATE TABLE _langue ( -- Antoine
     id_langue SERIAL PRIMARY KEY,
-    nom_langue VARCHAR(255)
+    nom VARCHAR(255)
 );
 
 -- Table de lien pour les langues parlées durant les visites
@@ -392,7 +392,7 @@ CREATE TABLE _horaire ( -- Antoine
 -- Table TARIF public
 CREATE TABLE _tarif_public ( -- Baptiste
     id_tarif SERIAL PRIMARY KEY,
-    titre_tarif VARCHAR(255) NOT NULL,
+    titre VARCHAR(255) NOT NULL,
     age_min INTEGER,
     age_max INTEGER,
     prix INTEGER,
