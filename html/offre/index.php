@@ -585,7 +585,43 @@ session_start();
                                                     required>
                                                 <textarea name="description" placeholder="Description de l'avis"
                                                     class="input" required></textarea>
-                                                <select name="note" id="note" class="input" required>
+                                                <select name="note_service" id="note" class="input" required>
+
+                                    <option value="note_service">Service</option>
+                                    <option value="note1">1</option>
+                                    <option value="note2">2</option>
+                                    <option value="note3">3</option>
+                                    <option value="note4">4</option>
+                                    <option value="note5">5</option>
+
+                                </select>
+
+                                <select name="note_qualite_prix" id="note" class="input" required>
+
+                                    <option value="note_qualite_prix">Qualité/Prix</option>
+                                    <option value="note1">1</option>
+                                    <option value="note2">2</option>
+                                    <option value="note3">3</option>
+                                    <option value="note4">4</option>
+                                    <option value="note5">5</option>
+
+                                    <p>/5</p>
+
+                                </select>
+
+                                <select name="note" id="note" class="input" required>
+
+                                    <option value="note1">1</option>
+                                    <option value="note2">2</option>
+                                    <option value="note3">3</option>
+                                    <option value="note4">4</option>
+                                    <option value="note5">5</option>
+
+                                    <p>/5</p>
+
+                                </select>
+
+                                <select name="note" id="note" class="input" required>
 
                                                     <option value="note1">1</option>
                                                     <option value="note2">2</option>
