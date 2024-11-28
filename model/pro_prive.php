@@ -9,6 +9,7 @@ class ProPrive extends BDD
 
     static function createProPrive($email, $mdp, $tel, $adresseId, $nom_pro, $num_siren)
     {
+        self::initBDD();
         $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren" . self::$nom_table . "VALUES (?, ?, ?, ?, ?, ?) RETURNING id_compte";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
