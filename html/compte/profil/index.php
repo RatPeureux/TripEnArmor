@@ -1,10 +1,13 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,32 +27,56 @@
                 <i class="text-3xl fa-solid fa-bars"></i>
             </a>
             <p class="text-h2">
-                <a href="/compte">Mon compte</a>
-                >
-                <p class="underline">Profil</p>
+                <a href="/compte" class="text-h2">Mon compte</a>
+
+            <p class="text-h2">&nbsp>&nbsp</p>
+
+            <p class="underline text-h2">Profil</p>
             </p>
         </div>
     </header>
+    <?php
+    $id_membre = $_SESSION['id_membre'];
+
+    // Connexion avec la bdd
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+    // Récupération des informations du compte
+    $stmt = $dbh->prepare('SELECT * FROM sae_db._membre WHERE id_compte = :id_membre');
+    $stmt->bindParam(':id_membre', $id_membre);
+    $stmt->execute();
+    $id_membre = $stmt->fetch(PDO::FETCH_ASSOC)['id_compte'];
+
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
+    $controllerMembre = new MembreController();
+    $membre = $controllerMembre->getInfosMembre($id_membre);
+    ?>
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
         <div id="menu" class="absolute md:block"></div>
         <div class="max-w-[44rem] m-auto flex flex-col">
             <p class="text-h1 mb-4">Informations publiques</p>
 
             <label class="text-h3" for="pseudo">Nom d'utilisateur</label>
-            <input value="Nom d'utilisateur" class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="pseudo" name="pseudo" maxlength="255">
+            <input value="<?php echo $membre['pseudo'] ?>"
+                class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="pseudo"
+                name="pseudo" maxlength="255">
 
-            <button id="save" class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent" disabled>
+            <button id="save"
+                class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                disabled>
                 Enregistrer les modifications
             </button>
 
             <hr class="mb-8">
 
             <div class="max-w-[23rem] mx-auto">
-                <a href="/compte/profil" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+                <a href="/compte/profil"
+                    class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                     <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
                     <div class="w-full">
                         <p class="text-h2">Avis</p>
-                        <p class="text-small">Consulter l’ensemble des avis que j’ai postés sur les différentes offres de la PACT.</p>
+                        <p class="text-small">Consulter l’ensemble des avis que j’ai postés sur les différentes offres
+                            de la PACT.</p>
                     </div>
                 </a>
             </div>
@@ -61,7 +88,7 @@
 </html>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const initialValues = {
             pseudo: document.getElementById("pseudo").value,
         };
