@@ -12,7 +12,6 @@ verifyPro();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <title>Détails d'une offre | Professionnel | PACT</title>
 
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,7 +21,7 @@ verifyPro();
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
 
-    <title>Détails d'une offre | Professionnel | PACT</title>
+    <title>Détails d'une offre - Professionnel - PACT</title>
 </head>
 
 <body class="flex flex-col">

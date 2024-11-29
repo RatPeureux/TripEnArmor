@@ -183,6 +183,12 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    const filterState = {
+        categories: [], // Catégories sélectionnées
+        localisation: '', // Texte de localisation
+        types: [], // Types d'offre séléctionnés
+    };
+
     function filterOnCategories(device) {
         const checkboxes = document.querySelectorAll('#developped-f1-'+device+' input[type="checkbox"]');
     
@@ -192,8 +198,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 filterState.categories = Array.from(checkboxes)
                     .filter(checkbox => checkbox.checked)
                     .map(checkbox => checkbox.id.replace(/-tel|-tab/, ''));
-
-                console.log('Catégories après mise à jour:', filterState.categories);
     
                 // Appliquer les filtres croisés
                 applyFiltersPro();
@@ -218,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
         checkboxes.forEach((checkbox) => {
             checkbox.addEventListener('change', () => {
-                // Mettre à jour les catégories sélectionnées
+                // Mettre à jour les types d'offres sélectionnées
                 filterState.types = Array.from(checkboxes)
                     .filter(checkbox => checkbox.checked)
                     .map(checkbox => checkbox.id.replace(/-tel|-tab/, ''));
@@ -232,13 +236,17 @@ document.addEventListener("DOMContentLoaded", function() {
     function applyFiltersPro() {
         const offres = document.querySelectorAll('.card');
         let anyVisible = false; // Variable pour suivre si une offre est visible
+
+        console.log(filterState);
     
         offres.forEach((offre) => {
-            const category = offre.querySelector('.categorie').textContent.trim().toLowerCase();
+            const category = offre.querySelector('.categorie').textContent.trim().replace(", ", "").replace(" d'", "_").toLowerCase();
             const localisation = offre.querySelector('.localisation');
             const city = localisation.querySelector('p:nth-of-type(1)').textContent.trim();
             const code = localisation.querySelector('p:nth-of-type(2)').textContent.trim();
             const type = offre.querySelector('.type-offre').textContent.trim().toLowerCase();
+
+            console.log(category);
     
             // Vérifie les filtres actifs
             const matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(category);

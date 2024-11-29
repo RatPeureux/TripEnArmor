@@ -24,6 +24,12 @@
             <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-descending') ? '/' : '?sort=price-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'price-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                 <p>Prix décroissant</p>
             </a>
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? '/' : '?sort=type-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                <p>Type d'offre de A à Z</p>
+            </a>
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-descending') ? '/' : '?sort=type-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'type-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                <p>Type d'offre de Z à A</p>
+            </a>
         </div>
     </div>
 </div>

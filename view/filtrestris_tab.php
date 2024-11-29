@@ -85,15 +85,15 @@
             <p id="arrow-f4-tab">></p>
         </div>
         <div class="hidden flex items-center" id="developped-f4-tab">
-            <label class="text-small">Intervale des notes entre&nbsp;</label>
+            <label class="text-small">Intervalle des notes entre&nbsp;</label>
             <div class="flex items-center">
-                <input id="min-note-tab" type="number" value="0" min="0" max="5" step="0.5" class="w-[39px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
+                <input id="min-note-tab" type="number" value="0" min="0" max="5" step="0.5" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
                 &nbsp;
                 <img src="/public/icones/egg-full.svg" class="mb-1" width="11">
             </div>
             <label class="text-small">&nbsp;et&nbsp;</label>
             <div class="flex items-center">
-                <input id="max-note-tab" type="number" value="5" min="0" max="5" step="0.5" class="w-[39px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
+                <input id="max-note-tab" type="number" value="5" min="0" max="5" step="0.5" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
                 &nbsp;
                 <img src="/public/icones/egg-full.svg" class="mb-1" width="11">
             </div>
@@ -117,10 +117,10 @@
             <p id="arrow-f6-tab">></p>
         </div>
         <div class="hidden flex items-center" id="developped-f6-tab">
-            <label class="text-small">Intervale des prix entre&nbsp;</label>
-            <input id="min-price-tab" type="number" value="0" min="0" max="99" class="w-[34px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
+            <label class="text-small">Intervalle des prix entre&nbsp;</label>
+            <input id="min-price-tab" type="number" value="0" min="0" max="99" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
             <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
-            <input id="max-price-tab" type="number" value="99" min="0" max="99" class="w-[34px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
+            <input id="max-price-tab" type="number" value="99" min="0" max="99" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
             <label class="text-small">&nbsp;€</label>
         </div>
     </div>

@@ -1,7 +1,7 @@
 
 
 <!-- MENU FILTRE TÉLÉPHONE -->
-<div class="block md:hidden flex flex-col justify-between absolute w-full h-full bg-base100 -translate-x-full duration-200 z-50" id="filtres">
+<div class="top-0 block md:hidden flex flex-col justify-between absolute w-full h-full bg-base100 -translate-x-full duration-200 z-50" id="filtres">
     <div>
         <div class="p-4 gap-4 flex justify-start items-center h-20 border-b-2 border-black">
             <i class="text-3xl fa-solid fa-circle-xmark hover:cursor-pointer" onclick="toggleFiltres()"></i>
@@ -76,7 +76,7 @@
                     <p class="arrow" id="arrow-f4-tel">></p>
                 </div>
                 <div class="developped hidden flex items-center" id="developped-f4-tel">
-                    <label class="text-small">Intervale des prix entre&nbsp;</label>
+                    <label class="text-small">Intervalle des prix entre&nbsp;</label>
                     <div class="flex items-center">
                         <input id="min-note-tel" type="number" value="0" min="0" max="5" step="0.5" class="border border-base300 rounded-lg p-1 text-small text-right w-[39px] focus:ring-0" />
                         &nbsp;
@@ -112,7 +112,7 @@
                     <p class="arrow" id="arrow-f6-tel">></p>
                 </div>
                 <div class="developped hidden flex items-center" id="developped-f6-tel">
-                    <label class="text-small">Intervale des prix entre&nbsp;</label>
+                    <label class="text-small">Intervalle des prix entre&nbsp;</label>
                     <input id="min-price-tel" type="number" value="0" min="0" max="99" class="border border-base300 rounded-lg p-1 text-small text-right w-[34px] focus:ring-0" />
                     <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
                     <input id="max-price-tel" type="number" value="99" min="0" max="99" class="border border-base300 rounded-lg p-1 text-small text-right w-[34px] focus:ring-0" />

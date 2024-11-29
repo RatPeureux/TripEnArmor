@@ -25,8 +25,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <link rel="stylesheet" href="/styles/input.css">
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="/styles/config.js"></script>
-        <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+
+        <title>Création de compte- PACT</title>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
@@ -206,7 +207,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
-        <title>Création de compte</title>
+
+        <title>Création de compte - PACT</title>
     </head>
 
     <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">

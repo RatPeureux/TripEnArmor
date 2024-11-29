@@ -14,7 +14,7 @@
     <script type="module" src="/scripts/loadComponentsPro.js" defer=""></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
 
-    <title>Page non trouvée</title>
+    <title>404 Page non trouvée - Professionnel - PACT</title>
 </head>
 
 <body class="min-h-screen flex flex-col">

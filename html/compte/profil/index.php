@@ -12,12 +12,11 @@ session_start();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    <title>Profil</title>
     <script type="module" src="/scripts/main.js" defer></script>
     <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
-    <title>Profil</title>
+    <title>Profil du compte - PACT</title>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
