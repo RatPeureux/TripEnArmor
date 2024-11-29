@@ -29,6 +29,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <?php
     echo "Avant l'inclusion du header";
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    echo "Après l'inclusion du header";
     ?>
 
     <?php
