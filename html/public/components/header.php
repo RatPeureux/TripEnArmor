@@ -15,7 +15,7 @@
         <div class="flex gap-4 items-center">
             <!-- Si connecté -->
             <?php
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsMember()) { ?>
                 <a href="/scripts/logout.php" class="flex flex-col items-center" onclick="return confirmLogout()">
                     <i class="text-3xl fa-regular fa-user"></i>

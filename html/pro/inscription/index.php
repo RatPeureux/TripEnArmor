@@ -25,7 +25,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="/styles/config.js"></script>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-        <title>Création de compte</title>
+        
+        <title>Création de compte - Professionnel - PACT</title>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">

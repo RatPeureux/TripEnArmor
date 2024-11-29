@@ -33,7 +33,7 @@ if (!function_exists('chaineVersMot')) {
     <script type="module" src="/scripts/main.js"></script>
     <script type="module" src="/scripts/loadComponentsPro.js"></script>
 
-    <title>PACT - Accueil</title>
+    <title>Mes offres - Professionnel - PACT</title>
 </head>
 
 <body class="flex flex-col min-h-screen">

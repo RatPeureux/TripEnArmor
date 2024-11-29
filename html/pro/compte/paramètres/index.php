@@ -9,12 +9,11 @@
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    <title>Paramètres</title>
     <script type="module" src="/scripts/main.js" defer></script>
     <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
-    <title>Paramètres</title>
+    <title>Paramètres du compte - Professionnel - PACT</title>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">

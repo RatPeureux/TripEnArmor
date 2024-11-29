@@ -20,7 +20,7 @@
             </a>
             <!-- Si connecté -->
             <?php
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsPro()) { ?>
                 <div href="" class="flex gap-4 items-center">
                     <a href="/pro/compte" class="hover:text-primary duration-100">
