@@ -41,7 +41,7 @@ session_start();
     }
 
     // Connexion avec la bdd
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
@@ -61,19 +61,19 @@ session_start();
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     switch ($categorie_offre) {
         case 'restauration':
             // appel controlller restauration
             // $restaurtion egal Ctrl->getRestaurationById($id_offre)
             // echo $restauration['id_repas']
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
             $controllerRestauration = new RestaurationController();
             $parc_attraction = $controllerRestauration->getInfosRestauration($id_offre);
             break;
 
         case 'activite':
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
             $controllerActivite = new ActiviteController();
             $activite = $controllerActivite->getInfosActivite($id_offre);
 
@@ -90,7 +90,7 @@ session_start();
             break;
 
         case 'parc_attraction':
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
             $controllerParcAttraction = new ParcAttractionController();
             $parc_attraction = $controllerParcAttraction->getInfosParcAttraction($id_offre);
 
@@ -102,7 +102,7 @@ session_start();
             break;
 
         case 'visite':
-            require dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
+            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
             $controllerVisite = new VisiteController();
             $visite = $controllerVisite->getInfosVisite($id_offre);
 
@@ -115,7 +115,7 @@ session_start();
             $guideBool = $visite['avec_guide'];
             if ($guideBool == true) {
                 $guide = 'oui';
-                require dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
+                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
                 $controllerLangue = new VisiteLangueController();
                 $tabLangues = $controllerLangue->getLanguesByIdVisite($id_offre);
                 $langues = '';
@@ -131,7 +131,7 @@ session_start();
             break;
 
         case 'spectacle':
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
             $controllerSpectacle = new SpectacleController();
             $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
 
@@ -149,7 +149,7 @@ session_start();
             break;
     }
 
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
     $controllerHoraire = new HoraireController();
 
     // VALEUR TEST CAR PAS DANS LA BDD
@@ -207,7 +207,7 @@ session_start();
         $horaires['fermeture'][$jour] = $horaire['fermeture'];
     }
     if ($categorie_offre !== 'restauration') {
-        require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
         $controllerGrilleTarifaire = new TarifPublicController();
         // VALEUR TEST CAR PAS DANS LA BDD
         $tarifs = [
