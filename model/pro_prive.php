@@ -45,7 +45,7 @@ class ProPrive extends BDD
     static function updateProPrive($id, $email, $mdp, $tel, $adresseId, $nom_pro, $num_siren)
     {
         self::initBDD();
-        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, $nom_pro = ?, num_siren = ? WHERE id_compte = ?";
+        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, nom_pro = ?, num_siren = ? WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);

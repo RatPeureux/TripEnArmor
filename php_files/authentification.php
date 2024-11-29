@@ -20,7 +20,7 @@ function verifyPro()
         header('location: /pro/connexion');
         exit();
     } else {
-        require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
+        require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
         $result = [
             "id_compte" => "",
             "nom_pro" => "",
@@ -39,10 +39,10 @@ function verifyPro()
 
             $pro = $proController->getInfosProPublic($_SESSION["id_pro"]);
             $result["id_compte"] = $pro["id_compte"];
-            $result["nom_pro"] = $pro["denomination"];
+            $result["nom_pro"] = $pro["nom_pro"];
             $result["email"] = $pro["email"];
-            $result["tel"] = $pro["tel"];
-            $result["id_adresse"] = $pro["adresse"];
+            $result["tel"] = $pro["num_tel"];
+            $result["id_adresse"] = $pro["id_adresse"];
             $result["data"]["type_orga"] = $pro["type_orga"];
             $result["data"]["type"] = "public";
 

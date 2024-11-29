@@ -43,7 +43,7 @@ class ProPublic extends BDD
     static function updateProPublic($id, $email, $mdp, $tel, $adresseId, $nom_pro, $type_orga)
     {
         self::initBDD();
-        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, $nom_pro = ?, type_orga = ? WHERE id_compte = ?";
+        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, nom_pro = ?, type_orga = ? WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);

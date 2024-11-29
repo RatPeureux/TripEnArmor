@@ -35,6 +35,8 @@ class ProPublicController
                 $mdp !== false ? $mdp : $proPublic["mdp_hash"],
                 $tel !== false ? $tel : $proPublic["num_tel"],
                 $adresseId !== false ? $adresseId : $proPublic["id_adresse"],
+                $nom_pro !== false ? $nom_pro : $proPublic["nom_pro"],
+                $type_orga !== false ? $type_orga : $proPublic["type_orga"]
             );
             return $updatedProPublicId;
         }
