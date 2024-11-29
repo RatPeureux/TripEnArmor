@@ -2,6 +2,7 @@
 session_start();
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 $pro = verifyPro();
+print_r($pro);
 ?>
 
 <!DOCTYPE html>
