@@ -118,7 +118,8 @@
                     <input id="max-price-tel" type="number" value="99" min="0" max="99" class="border border-base300 rounded-lg p-1 text-small text-right w-[34px] focus:ring-0" />
                     <label class="text-small">&nbsp;€</label>
                 </div>
-            </div>
+            </div>        
+        <?php if ($pro['data']['type'] === 'prive') { ?>
             <div class="flex flex-col w-full border-b-2 border-black p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f7-tel">
                     <p>Type d'offre</p>
@@ -136,6 +137,7 @@
                     </div>
                 </div>
             </div>
+        <?php } ?>
         </div>
     </div>
 

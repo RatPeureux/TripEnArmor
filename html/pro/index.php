@@ -8,7 +8,7 @@ unset($_SESSION['data_en_cours_connexion']);
 
 // Vérifier si le pro est bien connecté
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-verifyPro();
+$pro = verifyPro();
 
 // Fonction utilitaires
 if (!function_exists('chaineVersMot')) {
@@ -41,13 +41,13 @@ if (!function_exists('chaineVersMot')) {
     <div id="menu-pro" class="1"></div>
     
     <!-- Inclusion du header -->
-    <?php
+    <?php 
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
     ?>
 
     <?php
     // Connexion avec la bdd
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     $sort_order = '';
     if (isset($_GET['sort'])) {
@@ -62,18 +62,9 @@ if (!function_exists('chaineVersMot')) {
         }
     }
 
-    $id_pro = $_SESSION['id_pro'];
-
-    // Avoir une variable $pro qui contient les informations du pro actuel.
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
-    $stmt->bindParam(':id_pro', $id_pro);
-    $stmt->execute();
-    $pro = $stmt->fetch(PDO::FETCH_ASSOC);
-    $pro_nom = $pro['nom_pro'];
-
     // Obtenir l'ensembre des offres du professionnel identifié
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro $sort_order");
-    $stmt->bindParam(':id_pro', $id_pro);
+    $stmt->bindParam(':id_pro', $pro['id_compte']);
     $stmt->execute();
     $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>

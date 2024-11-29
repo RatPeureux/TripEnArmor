@@ -32,10 +32,9 @@ class ProPublic extends BDD
         $query = "SELECT * FROM " . self::$nom_table . " WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
-        $result = $statement->execute();
 
-        if ($result) {
-            return $result;
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             return -1;
         }
