@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let anyVisible = false; // Variable pour suivre si une offre est visible
     
         offres.forEach((offre) => {
-            const category = offre.querySelector('.categorie').textContent.trim().toLowerCase();
+            const category = offre.querySelector('.categorie').textContent.trim().replace(", ", "").replace(" d'", "_").toLowerCase();
             const localisation = offre.querySelector('.localisation');
             const city = localisation.querySelector('p:nth-of-type(1)').textContent.trim();
             const code = localisation.querySelector('p:nth-of-type(2)').textContent.trim();
