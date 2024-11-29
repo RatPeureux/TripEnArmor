@@ -19,23 +19,22 @@ class RibController
             "code_banque" => $rib["code_banque"],
             "code_guichet" => $rib["code_guichet"],
             "numero_compte" => $rib["numero_compte"],
-            "cle" => $rib["cle"],
-            "id_compte" => $rib["id_compte"]
+            "cle" => $rib["cle"]
         ];
 
         return $res;
     }
 
-    public function createRib($code_banque, $code_guichet, $numero_compte, $cle, $id_compte)
+    public function createRib($code_banque, $code_guichet, $numero_compte, $cle)
     {
-        $rib = $this->model::createActivite($code_banque, $code_guichet, $numero_compte, $cle, $id_compte);
+        $rib = $this->model::createActivite($code_banque, $code_guichet, $numero_compte, $cle);
 
         return $rib;
     }
 
-    public function updateRib($id, $code_banque = false, $code_guichet = false, $numero_compte = false, $cle = false, $id_compte = false)
+    public function updateRib($id, $code_banque = false, $code_guichet = false, $numero_compte = false, $cle = false)
     {
-        if ($code_guichet === false && $numero_compte === false && $cle === false && $id_compte === false) {
+        if ($code_guichet === false && $numero_compte === false && $cle === false) {
             echo "ERREUR : Aucun champ à modifier";
             return -1;
         } else {
@@ -46,8 +45,7 @@ class RibController
                 $code_banque !== false ? $code_banque : $rib["code_banque"],
                 $code_guichet !== false ? $code_guichet : $rib["code_guichet"],
                 $numero_compte !== false ? $numero_compte : $rib["numero_compte"],
-                $cle !== false ? $cle : $rib["cle"],
-                $id_compte !== false ? $id_compte : $rib["id_compte"]
+                $cle !== false ? $cle : $rib["cle"]
             );
 
             return $res;

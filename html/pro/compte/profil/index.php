@@ -6,7 +6,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php
 $pro = verifyPro();
 
 if (isset($_POST['nom'])) {
-    if ($pro['type'] == 'prive') {
+    if ($pro['data']['type'] == 'prive') {
         include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
         $controllerProPrive = new ProPriveController();
         $controllerProPrive->updateProPrive($pro['id_compte'], false, false, false, false, $_POST['nom'], false);
@@ -104,7 +104,8 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
             <p class="text-h1 mb-4">Informations publiques</p>
 
             <form action="" class="flex flex-col" method="post">
-                <label class="text-h3" for="nom"><?php if ($pro['type'] == 'prive') { ?>Dénomination<?php } else { ?>Nom
+                <label class="text-h3"
+                    for="nom"><?php if ($pro['data']['type'] == 'prive') { ?>Dénomination<?php } else { ?>Nom
                         de l'organisation<?php } ?></label>
                 <input value="<?php echo $pro['nom_pro'] ?>"
                     class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="nom"
