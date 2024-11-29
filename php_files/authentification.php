@@ -34,6 +34,7 @@ function verifyPro()
 
         $pro = $proController->getInfosProPrive($_SESSION['id_pro']);
         if (!$pro) {
+            echo "Pro Prive not found";
             require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_public_controller.php";
             $proController = new ProPublicController();
 
@@ -48,6 +49,7 @@ function verifyPro()
             $result["data"]["type"] = "public";
 
             if (!$pro) {
+                echo "Pro Public not found";
                 header('location: /pro/connexion');
                 exit();
             }
