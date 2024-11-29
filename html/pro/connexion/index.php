@@ -24,8 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute(); // Exécute la requête
         $user = $stmt->fetch(PDO::FETCH_ASSOC); // Récupère les données de l'utilisateur
 
-        print_r($user);
-
         // Vérifie si l'utilisateur existe et si le mot de passe est correct
         if ($user) {
             if (password_verify($mdp, $user['mdp_hash'])) {
