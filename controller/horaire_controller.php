@@ -1,6 +1,7 @@
 <?php
-
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/horaire.php";
+echo "avant require du model";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/horaire.php";
+echo "après require du model";
 
 class HoraireController {
 
