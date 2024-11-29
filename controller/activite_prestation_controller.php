@@ -1,15 +1,17 @@
 <?php
-
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/bdd.php';
 
-class ActivitePrestationController {
+class ActivitePrestationController
+{
     private $model;
 
-    function __construct() {
+    function __construct()
+    {
         $this->model = "ActivitePrestation";
     }
 
-    public function getActivitesByIdPrestation($id_prestation) {
+    public function getActivitesByIdPrestation($id_prestation)
+    {
         $activites = $this->model::getActivitesByIdPrestation($id_prestation);
 
         $result = [
@@ -19,7 +21,8 @@ class ActivitePrestationController {
         return $result;
     }
 
-    public function getPrestationsByIdActivite($id_activite) {
+    public function getPrestationsByIdActivite($id_activite)
+    {
         $prestations = $this->model::getPrestationsByIdActivite($id_activite);
 
         $result = [
@@ -29,7 +32,8 @@ class ActivitePrestationController {
         return $result;
     }
 
-    public function linkActiviteAndPrestation($id_prestation, $id_activite) {
+    public function linkActiviteAndPrestation($id_prestation, $id_activite)
+    {
         if ($this->model::checkIfLinkExists($id_prestation, $id_activite)) {
             return $this->model::createActivitePrestation($id_prestation, $id_activite);
         } else {
@@ -38,7 +42,8 @@ class ActivitePrestationController {
         }
     }
 
-    public function unlinkActiviteAndPrestation($id_prestation, $id_activite) {
+    public function unlinkActiviteAndPrestation($id_prestation, $id_activite)
+    {
         if ($this->model::checkIfLinkExists($id_prestation, $id_activite)) {
             return $this->model::deleteActivitePrestation($id_prestation, $id_activite);
         } else {

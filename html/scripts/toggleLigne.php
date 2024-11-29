@@ -5,7 +5,7 @@ if (isset($_GET['id_offre'])) {
     $id_offre = $_GET['id_offre'];
 
     // Connexion avec la bdd
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Alterner entre 'true' et 'false' pour la mise en ligne de l'offre.
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");

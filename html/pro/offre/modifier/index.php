@@ -1,7 +1,7 @@
 <?php
 try {
 	// Connexion à la base de données
-	require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+	require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 	// Vérifier si l'ID de l'offre est passé et est un entier
 	if (isset($_GET['offre-id']) && is_numeric($_GET['offre-id'])) {
@@ -101,7 +101,6 @@ try {
 	<link rel="stylesheet" href="/styles/input.css">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="/styles/config.js"></script>
-	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
 	<script type="module" src="/scripts/main.js" defer></script>
 	<script src="//unpkg.com/alpinejs" defer></script>
 	<script type="text/javascript"
@@ -270,8 +269,7 @@ try {
 							  file:rounded-lg
 							  file:text-small file:font-bold  file:text-secondary
 							  file:border file:border-secondary
-							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-									accept=".svg,.png,.jpg" required />
+							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" required />
 							</div>
 
 							<!-- Photos détaillée -->
@@ -284,8 +282,7 @@ try {
 							  file:rounded-lg
 							  file:text-small file:font-bold  file:text-secondary
 							  file:border file:border-secondary
-							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-									accept=".svg,.png,.jpg" />
+							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
 							</div>
 						</div>
 
@@ -912,9 +909,14 @@ try {
 				</div>
 			</div>
 		</div>
-		<div id="footer-pro" class="w-full"></div>
+
+		<!-- FOOTER -->
+		<?php
+		include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+		?>
 	</div>
-	<script src="/scripts/loadcomponents.js"></script>
+
+	<script src="/scripts/.js"></script>
 	<script src="/scripts/tagManager.js"></script>
 	<script src="/scripts/priceManager.js"></script>
 	<script src="/scripts/prestationManager.js"></script>

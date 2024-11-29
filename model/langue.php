@@ -1,13 +1,14 @@
 <?php
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
-
-class Langue extends BDD {
+class Langue extends BDD
+{
     static private $nom_table = "sae_db._langue";
 
-    static function getLangueById($id) {
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_langue = ?";
-        
+    static function getLangueById($id)
+    {
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_langue = ?";
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
 
@@ -19,9 +20,10 @@ class Langue extends BDD {
         }
     }
 
-    static function getLanguesByName($name) {
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE nom = ?";
-        
+    static function getLanguesByName($name)
+    {
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE nom = ?";
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $name);
 

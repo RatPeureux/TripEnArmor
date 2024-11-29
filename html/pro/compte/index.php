@@ -1,7 +1,7 @@
 <?php
 session_start();
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 $pro = verifyPro();
 ?>
@@ -17,7 +17,6 @@ $pro = verifyPro();
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
-    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Mon compte - Professionnel - PACT</title>
@@ -26,7 +25,7 @@ $pro = verifyPro();
 <body class="min-h-screen flex flex-col justify-between">
     <?php
     // Connexion avec la bdd
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     print_r($pro);
     ?>
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
@@ -37,7 +36,11 @@ $pro = verifyPro();
             <p class="text-h2"><?php echo $pro['nom_pro'] ?></p>
         </div>
     </header>
-    <div id="menu-pro"></div>
+    <div id="menu-pro">
+        <?php
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        ?>
+    </div>
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
         <div class="max-w-[23rem] my-8 mx-auto space-y-12 flex flex-col items-center">
             <a href="/pro/compte/profil"
@@ -74,7 +77,11 @@ $pro = verifyPro();
             </a>
         </div>
     </main>
-    <div id="footer-pro"></div>
+
+    <!-- FOOTER -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+    ?>
 </body>
 
 </html>

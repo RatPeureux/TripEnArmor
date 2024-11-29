@@ -18,7 +18,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
 
     <title>Toutes les offres - PACT</title>
@@ -53,10 +52,16 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <!-- MAIN (TABLETTE et TÉLÉPHONE -->
     <div class="w-full grow flex items-start justify-center p-2">
         <div class="flex justify-center w-full md:max-w-[1280px]">
-            <div id="menu" class="2"></div>
+
+            <!-- Inclusion du menu -->
+            <div id="menu">
+                <?php
+                $pagination = 2;
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+                ?>
+            </div>
 
             <main class="grow p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
-
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
                     <h1 class="text-4xl">Toutes les offres</h1>
@@ -111,7 +116,9 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     </div>
 
     <!-- FOOTER -->
-    <div id="footer"></div>
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
+    ?>
 
     <!-- Inclusion du menu de filtres (téléphone) -->
     <?php

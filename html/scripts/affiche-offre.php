@@ -1,7 +1,7 @@
 <?php
 try {
     // Connexion à la base de données
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Récupération des offres en ligne
     $stmt = $dbh->prepare("
