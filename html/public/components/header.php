@@ -24,7 +24,12 @@
             <?php } else { ?>
                 <!-- Sinon si pas connecté -->
                 <a href="/connexion">
-                    <i class="text-3xl fa-regular fa-user"></i>
+                    <!-- <i class="text-3xl fa-regular fa-user"></i> -->
+                     <div>
+                        <p>
+                            Se connecter
+                        </p>
+                     </div>
                 </a>
             <?php } ?>
         </div>
