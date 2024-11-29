@@ -12,7 +12,7 @@ if (isset($_GET['id_offre']) && isset($_GET['idx_avis']) && isset($_GET['id_memb
 
     // Requête SQL retournant les informations des prochains avis (selon $idx_avis)
     if ($id_membre != '-1') {
-        $stmt = $dbh->prepare("SELECT * FROM sae_db._avis WHERE id_offre = :id_offre AND id_compte != :id_membre LIMIT 3 OFFSET :idx_avis");
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._avis WHERE id_offre = :id_offre AND id_membre != :id_membre LIMIT 3 OFFSET :idx_avis");
         $stmt->bindParam(':id_membre', $id_membre);
     } else {
         $stmt = $dbh->prepare("SELECT * FROM sae_db._avis WHERE id_offre = :id_offre LIMIT 3 OFFSET :idx_avis");
@@ -27,7 +27,7 @@ if (isset($_GET['id_offre']) && isset($_GET['idx_avis']) && isset($_GET['id_memb
         foreach ($avis_loaded as $idx => $avis) {
             // Charger les informations de l'avis pour les utiliser dans la vue
             $id_avis = $avis['id_avis'];
-            $id_membre = $avis['id_compte'];
+            $id_membre = $avis['id_membre'];
 
             // Charger le contenu de la vue dans un variable $carte_content
             ob_start();

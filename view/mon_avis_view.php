@@ -17,7 +17,7 @@ $avisController = new avisController();
 ?>
 
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
-<div class="avis w-full bg-primary rounded-lg border border-black p-2">
+<div class="avis w-full rounded-lg border border-primary border-4 p-2">
     <?php
     // Obtenir la variables regroupant les infos du membre
     $membre = $membreController->getInfosMembre($id_membre);
@@ -34,7 +34,6 @@ $avisController = new avisController();
             <?php
             // Note s'il y en a une
             $note = floatval($avis['note']);
-            $note = floatval('3.5');
             for ($i = 0; $i < 5; $i++) {
                 if ($note > 1) {
                     ?>
@@ -62,8 +61,12 @@ $avisController = new avisController();
         }
         ?>
 
-        <!-- Drapeau de signalement -->
-        <a href="#" onclick="confirm('Signaler l\'avis ?')"><i class="fa-regular text-h2 fa-flag"></i></a>
+        <!-- Drapeau + poubelle -->
+        <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $id_offre ?>"
+            onclick="confirm('Supprimer votre avis ?')">
+            <i class="fa-solid text-h2 fa-trash"></i>
+        </a>
+        <a href="" onclick="confirm('Signaler l\'avis ?')"><i class="fa-regular text-h2 fa-flag"></i></a>
     </div>
 
     <!-- Date d'expérience + contexte de passage -->
@@ -71,8 +74,8 @@ $avisController = new avisController();
     if ($avis['date_experience']) { ?>
         <div class="flex justify-start gap-3">
             <p class="italic">Vécu le
-                <?php echo $avis['date_experience'];
-                echo (isset($avis['contexte'])) ? $avis['contexte'] : '' ?>
+                <?php echo $avis['date_experience'] ?>,
+                <?php echo (isset($avis['contexte_passage'])) ? $avis['contexte_passage'] : '' ?>
             </p>
         </div>
         <?php

@@ -91,11 +91,9 @@ CREATE OR REPLACE FUNCTION fk_avis()
 RETURNS TRIGGER AS $$
 BEGIN
     -- Vérification de l'existence de l'utilisateur (id_compte)
-    IF NOT EXISTS (SELECT 1 FROM  sae_db._pro_prive WHERE id_compte = NEW.id_compte)
-    AND NOT EXISTS (SELECT 1 FROM sae_db._pro_public WHERE id_compte = NEW.id_compte)
-    AND NOT EXISTS (SELECT 1 FROM sae_db._membre WHERE id_compte = NEW.id_compte)
+    IF NOT EXISTS (SELECT 1 FROM sae_db._membre WHERE id_compte = NEW.id_membre)
     THEN
-        RAISE EXCEPTION 'L''id_compte % ne correspond à aucun utilisateur valide.', NEW.id_compte;
+        RAISE EXCEPTION 'L''id_compte % ne correspond à aucun utilisateur valide.', NEW.id_membre;
     END IF;
     
     -- Vérification de l'existence de l'offre (id_offre)
@@ -143,13 +141,13 @@ BEGIN
         END IF;
 
         -- Vérifier que l'auteur est un professionnel (auteur de l'offre)
-        IF NEW.id_compte != auteur_offre THEN
+        IF NEW.id_membre != auteur_offre THEN
             RAISE EXCEPTION 'Seul le professionnel peut répondre à un avis.';
         END IF;
     ELSE
         -- Sinon, c'est un avis initial
         -- Vérifier que l'auteur de l'avis n'est pas l'auteur de l'offre
-        IF NEW.id_compte = auteur_offre THEN
+        IF NEW.id_membre = auteur_offre THEN
             RAISE EXCEPTION 'Le professionnel ne peut pas laisser un avis sur sa propre offre.';
         END IF;
     END IF;

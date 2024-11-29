@@ -45,7 +45,7 @@ if (!function_exists('chaineVersMot')) {
     </div>
 
     <!-- Inclusion du header -->
-    <?php
+    <?php 
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
     ?>
 
@@ -66,18 +66,9 @@ if (!function_exists('chaineVersMot')) {
         }
     }
 
-    $id_pro = $_SESSION['id_pro'];
-
-    // Avoir une variable $pro qui contient les informations du pro actuel.
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
-    $stmt->bindParam(':id_pro', $id_pro);
-    $stmt->execute();
-    $pro = $stmt->fetch(PDO::FETCH_ASSOC);
-    $pro_nom = $pro['nom_pro'];
-
     // Obtenir l'ensembre des offres du professionnel identifié
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro $sort_order");
-    $stmt->bindParam(':id_pro', $id_pro);
+    $stmt->bindParam(':id_pro', $pro['id_compte']);
     $stmt->execute();
     $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
