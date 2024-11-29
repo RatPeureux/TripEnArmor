@@ -1,21 +1,23 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-class Rib extends BDD {
+class Rib extends BDD
+{
     // Nom de la table utilisée dans les requêtes
-    private $nom_table = "sae_db._rib";
+    static private $nom_table = "sae_db._rib";
 
     /**
      * Récupère un RIB par son ID.
      * @param int $id L'identifiant du RIB à récupérer.
      * @return array|int Retourne un tableau contenant les données du RIB ou -1 en cas d'erreur.
      */
-    static function getRibById($id) {
+    static function getRibById($id)
+    {
         self::initBDD();
         // Requête SQL pour sélectionner un RIB par son ID
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_rib = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_rib = ?";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
@@ -38,11 +40,12 @@ class Rib extends BDD {
      * @param int $id_compte L'identifiant du compte associé.
      * @return array|int Retourne un tableau contenant l'identifiant du nouveau RIB ou -1 en cas d'erreur.
      */
-    static function createRib($code_banque, $code_guichet, $numero_compte, $cle, $id_compte) {
+    static function createRib($code_banque, $code_guichet, $numero_compte, $cle, $id_compte)
+    {
         self::initBDD();
         // Requête SQL pour insérer un nouveau RIB
-        $query = "INSERT INTO " . self::$nom_table ." (code_banque, code_guichet, numero_compte, cle, id_compte) VALUES (?, ?, ?, ?, ?) RETURNING id_rib";
-        
+        $query = "INSERT INTO " . self::$nom_table . " (code_banque, code_guichet, numero_compte, cle, id_compte) VALUES (?, ?, ?, ?, ?) RETURNING id_rib";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $code_banque);
@@ -69,11 +72,12 @@ class Rib extends BDD {
      * @param int $id_compte Le nouvel identifiant du compte associé.
      * @return array|int Retourne un tableau contenant l'identifiant du RIB mis à jour ou -1 en cas d'erreur.
      */
-    static function updateRib($id_rib, $code_banque, $code_guichet, $numero_compte, $cle, $id_compte) {
+    static function updateRib($id_rib, $code_banque, $code_guichet, $numero_compte, $cle, $id_compte)
+    {
         self::initBDD();
         // Requête SQL pour mettre à jour un RIB existant
-        $query = "UPDATE " . self::$nom_table ." SET code_banque = ?, code_guichet = ?, numero_compte = ?, cle = ?, id_compte = ? WHERE id_rib = ? RETURNING id_rib";
-        
+        $query = "UPDATE " . self::$nom_table . " SET code_banque = ?, code_guichet = ?, numero_compte = ?, cle = ?, id_compte = ? WHERE id_rib = ? RETURNING id_rib";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $code_banque);
@@ -97,11 +101,12 @@ class Rib extends BDD {
      * @param int $id L'identifiant du RIB à supprimer.
      * @return array|int Retourne un tableau vide si la suppression réussit ou -1 en cas d'erreur.
      */
-    static function deleteRib($id) {
+    static function deleteRib($id)
+    {
         self::initBDD();
         // Requête SQL pour supprimer un RIB par son ID
-        $query = "DELETE FROM " . self::$nom_table ." WHERE id_rib = ?";
-        
+        $query = "DELETE FROM " . self::$nom_table . " WHERE id_rib = ?";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);

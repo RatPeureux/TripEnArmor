@@ -1,10 +1,17 @@
+<?php
+session_start();
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+
+$pro = verifyPro();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,9 +20,15 @@
     <script type="module" src="/scripts/main.js" defer></script>
     <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-
-    <title>Paramètres</title>
 </head>
+<?php
+// Connexion avec la bdd
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/rib_controller.php';
+$controllerRib = new RibController();
+$rib = $controllerRib->getInfosRib($rib[$pro['id_compte']]);
+?>
 
 <body class="min-h-screen flex flex-col justify-between">
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
@@ -26,7 +39,7 @@
             <p class="text-h2">
                 <a href="/pro/compte">Mon compte</a>
                 >
-                <p class="underline">Paramètres</p>
+                <a href="/pro/compte/paramètres" class="underline">Paramètres</a>
             </p>
         </div>
     </header>
@@ -36,32 +49,67 @@
             <p class="text-h1 mb-4">Informations privées</p>
 
             <label class="text-h3" for="email">Adresse mail</label>
-            <input value="Adresse mail" class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="email" id="email" name="email" maxlength="255">
+            <input value="<?php echo $pro['email'] ?>"
+                class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="email" id="email"
+                name="email" maxlength="255">
 
             <label class="text-h3" for="num_tel">Numéro de téléphone</label>
-            <input value="Téléphone" class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel" minlength="14" maxlength="14">
+            <input value="<?php echo $pro['tel'] ?>"
+                class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel"
+                name="num_tel" minlength="14" maxlength="14">
 
-            <button id="save1" class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent" disabled>
+            <button id="save1"
+                class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                disabled>
                 Enregistrer les modifications
             </button>
 
-            <hr class="mb-8">
 
-            <label class="text-h3" for="iban">IBAN</label>
-            <input value="IBAN" class="border-2 border-secondary p-2 bg-white max-w-72 h-12 mb-3 rounded-lg" type="text" id="iban" name="iban" minlength="33" maxlength="33">
+            <?php
+            if ($pro['data']['type'] == 'prive') { ?>
+                <hr class="mb-8">
 
-            <button id="save2" class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent" disabled>
-                Enregistrer les modifications
-            </button>
+                <label class="text-h3" for="iban">IBAN</label>
+                <input value="<?php echo $rib['code_banque'] . $rib['code_guichet'] . $rib['numero'] . $rib['cle'] ?>"
+                    class="border-2 border-secondary p-2 bg-white max-w-72 h-12 mb-3 rounded-lg" type="text" id="iban"
+                    name="iban" minlength="33" maxlength="33">
 
-            <hr class="mb-8">
+                <button id="save2"
+                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                    disabled>
+                    Enregistrer les modifications
+                </button>
 
-            <label class="text-h3" for="siret">Numéro SIRET</label>
-            <input value="Numéro SIRET" class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="text" id="siret" name="siret" minlength="19" maxlength="19">
 
-            <button id="save3" class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent" disabled>
-                Enregistrer les modifications
-            </button>
+                <hr class="mb-8">
+                <label class="text-h3" for="siret">Numéro SIRET</label>
+                <input value="<?php echo $pro['data']['numero_siren'] ?>"
+                    class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="text" id="siret"
+                    name="siret" minlength="19" maxlength="19">
+
+                <button id="save3"
+                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                    disabled>
+                    Enregistrer les modifications
+                </button>
+                <?php
+            } else {
+                ?>
+                <hr class="mb-8">
+                <label class="text-h3" for="siret">Type d'organisation</label>
+                <input value="<?php echo $pro['data']['type_orga'] ?>"
+                    class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="text" id="siret"
+                    name="siret" minlength="19" maxlength="19">
+
+                <button id="save3"
+                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                    disabled>
+                    Enregistrer les modifications
+                </button>
+
+                <?php
+            }
+            ?>
         </div>
     </main>
     <div id="footer-pro"></div>
@@ -70,7 +118,7 @@
 </html>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const initialValues = {
             email: document.getElementById("email").value,
             num_tel: document.getElementById("num_tel").value,

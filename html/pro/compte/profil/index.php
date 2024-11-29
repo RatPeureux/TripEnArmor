@@ -1,10 +1,17 @@
+<?php
+session_start();
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+
+$pro = verifyPro();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,6 +23,14 @@
 
     <title>Profil</title>
 </head>
+<?php
+// Connexion avec la bdd
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
+$controllerAdresse = new AdresseController();
+$adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
+?>
 
 <body class="min-h-screen flex flex-col justify-between">
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
@@ -26,8 +41,8 @@
             <p class="text-h2">
                 <a href="/pro/compte">Mon compte</a>
                 >
-                <p class="underline">Profil</>
-            </p>
+                <a href="/pro/compte/profil" class="underline">Profil</a>
+                </>
         </div>
     </header>
     <div id="menu-pro"></div>
@@ -35,40 +50,56 @@
         <div class="max-w-[44rem] m-auto flex flex-col">
             <p class="text-h1 mb-4">Informations publiques</p>
 
-            <label class="text-h3" for="nom">Dénomination/Nom de l'organisation</label>
-            <input value="Dénomination/Nom de l'organisation" class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="nom" name="nom" maxlength="255">
+            <label class="text-h3" for="nom"><?php if ($pro['type'] == 'prive') { ?>Dénomination<?php } else { ?>Nom
+                    de l'organisation<?php } ?></label>
+            <input value="<?php echo $pro['nom_pro'] ?>"
+                class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="nom"
+                name="nom" maxlength="255">
 
-            <button id="save1" class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent" disabled>
+            <button id="save1"
+                class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                disabled>
                 Enregistrer les modifications
             </button>
 
             <hr class="mb-8">
 
             <label class="text-h3" for="adresse">Adresse postale</label>
-            <input value="Adresse postale" class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="adresse" name="adresse" maxlength="255"">
+            <input value="<?php echo $adresse['numero'] . " " . $adresse['odonyme'] ?>"
+                class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="adresse"
+                name="adresse" maxlength="255"">
 
             <label class=" text-h3" for="complement">Complément adresse postale</label>
-            <input value="Complément adresse postale" class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="complement" name="complement" maxlength="255"">
+            <input value="<?php echo $adresse['complement'] ?>"
+                class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="complement"
+                name="complement" maxlength="255"">
 
             <div class=" flex flex-nowrap space-x-3 mb-1.5">
             <div class="w-32">
                 <label class="text-h3" for="code">Code postal</label>
-                <input value="Code postal" class="border-2 border-secondary p-2 text-right bg-white max-w-32 h-12 mb-3 rounded-lg" type="text" id="code" name="code" minlength="5" maxlength="5">
+                <input value="<?php echo $adresse['code_postal'] ?>"
+                    class="border-2 border-secondary p-2 text-right bg-white max-w-32 h-12 mb-3 rounded-lg" type="text"
+                    id="code" name="code" minlength="5" maxlength="5">
             </div>
             <div class="w-full">
                 <label class="text-h3" for="ville">Ville</label>
-                <input value="Ville" class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="ville" name="ville" maxlength="50">
+                <input value="<?php echo $adresse['ville'] ?>"
+                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="ville"
+                    name="ville" maxlength="50">
             </div>
         </div>
 
-        <button id="save2" class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent" disabled>
+        <button id="save2"
+            class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+            disabled>
             Enregistrer les modifications
         </button>
 
         <hr class="mb-8">
 
         <div class="max-w-[23rem] mx-auto">
-            <a href="/pro/compte/profil" class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
+            <a href="/pro/compte/profil"
+                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
                 <div class="w-full">
                     <p class="text-h2">Avis</p>
@@ -84,7 +115,7 @@
 </html>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const initialValues = {
             nom: document.getElementById("nom").value,
             adresse: document.getElementById("adresse").value,
