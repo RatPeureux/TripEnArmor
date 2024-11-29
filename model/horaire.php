@@ -1,7 +1,5 @@
 <?php
-echo "avant require bdd";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
-echo "après require bdd";
 
 class Horaire extends BDD {
     // Nom de la table utilisée dans les requêtes

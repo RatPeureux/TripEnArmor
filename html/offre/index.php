@@ -32,7 +32,6 @@ session_start();
     <!-- Inclusion du header -->
     <?php
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
-    echo "Après inclusion du header";
     ?>
 
     <?php
@@ -42,9 +41,7 @@ session_start();
     }
 
     // Connexion avec la bdd
-    echo "Avant connexion à la BDD";
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-    echo 'Après connexion à la BDD';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
@@ -59,7 +56,6 @@ session_start();
     if ($pro) {
         $nom_pro = $pro['nom_pro'];
     }
-    echo 'Après récupération du professionnel';
 
     // Obtenir l'ensemble des informations de l'offre
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
@@ -153,7 +149,6 @@ session_start();
         default:
             break;
     }
-    echo "Après switch";
 
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
     $controllerHoraire = new HoraireController();
@@ -212,7 +207,6 @@ session_start();
         $horaires['pause_fin'][$jour] = $horaire['pause_fin'];
         $horaires['fermeture'][$jour] = $horaire['fermeture'];
     }
-    echo "Après récupération des horaires";
     if ($categorie_offre !== 'restauration') {
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
         $controllerGrilleTarifaire = new TarifPublicController();
@@ -228,7 +222,6 @@ session_start();
             ]
         ];
     }
-    echo "Après récupération des tarifs";
 
     if ($categorie_offre == 'parc_attraction') {
         // require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
