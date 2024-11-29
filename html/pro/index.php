@@ -40,7 +40,7 @@ if (!function_exists('chaineVersMot')) {
     <div id="menu-pro" class="1">
         <?php
         $pagination = 1;
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
         ?>
     </div>
 
