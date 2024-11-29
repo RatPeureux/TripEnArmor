@@ -16,7 +16,6 @@ verifyPro();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
@@ -53,8 +52,13 @@ verifyPro();
     <!-- VERSION TABLETTE -->
     <main class="hidden md:block mx-10 self-center rounded-lg p-2 max-w-[1280px]">
         <div class="flex gap-3">
+
             <!-- PARTIE GAUCHE (menu) -->
-            <div id="menu-pro"></div>
+            <div id="menu-pro">
+                <?php
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+                ?>
+            </div>
 
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="tablette grow p-4 flex flex-col items-center gap-4">
@@ -138,8 +142,10 @@ verifyPro();
         </div>
     </main>
 
-    <div id="footer-pro"></div>
-
+    <!-- FOOTER -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+    ?>
 </body>
 
 </html>

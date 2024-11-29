@@ -31,14 +31,18 @@ if (!function_exists('chaineVersMot')) {
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js"></script>
-    <script type="module" src="/scripts/loadComponentsPro.js"></script>
 
     <title>Mes offres - Professionnel - PACT</title>
 </head>
 
 <body class="flex flex-col min-h-screen">
 
-    <div id="menu-pro" class="1"></div>
+    <div id="menu-pro" class="1">
+        <?php
+        $pagination = 1;
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+        ?>
+    </div>
 
     <!-- Inclusion du header -->
     <?php
@@ -134,7 +138,10 @@ if (!function_exists('chaineVersMot')) {
         ?>
     </main>
 
-    <div id="footer-pro"></div>
+    <!-- FOOTER -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+    ?>
 
     <!-- Inclusion du menu de filtres (téléphone) -->
     <?php

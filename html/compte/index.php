@@ -13,7 +13,6 @@ session_start();
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
-    <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Mon compte - PACT</title>
@@ -45,7 +44,11 @@ session_start();
         </div>
     </header>
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div id="menu" class="absolute md:block"></div>
+        <div id="menu" class="absolute md:block">
+            <?php
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+            ?>
+        </div>
         <div class="max-w-[23rem] my-8 mx-auto space-y-12 flex flex-col items-center">
             <a href="/compte/profil"
                 class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
@@ -81,7 +84,11 @@ session_start();
             </a>
         </div>
     </main>
-    <div id="footer"></div>
+
+    <!-- FOOTER -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
+    ?>
 </body>
 
 </html>

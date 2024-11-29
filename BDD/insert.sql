@@ -158,8 +158,8 @@ VALUES ( -- Quifaitca13
         '06 59 64 11 08',
         5,
         'jjdup',
-        'Dupont',
-        'Jean'
+        'Ducrop',
+        'Jacques'
     );
 
 INSERT INTO
@@ -224,8 +224,7 @@ VALUES ( -- Phenixis_05
 
 INSERT INTO
     _type_offre (nom, prix_ht, prix_ttc)
-VALUES 
-    ('Gratuit', NULL, NULL),
+VALUES ('Gratuit', NULL, NULL),
     ('Premium', 3.34, 4),
     ('Standard', 1.67, 2);
 

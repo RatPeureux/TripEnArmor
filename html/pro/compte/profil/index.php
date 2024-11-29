@@ -17,7 +17,6 @@ $pro = verifyPro();
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
-    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Profil du compte - Professionnel - PACT</title>
@@ -44,7 +43,11 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
                 </>
         </div>
     </header>
-    <div id="menu-pro"></div>
+    <div id="menu-pro">
+        <?php
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        ?>
+    </div>
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
         <div class="max-w-[44rem] m-auto flex flex-col">
             <p class="text-h1 mb-4">Informations publiques</p>
@@ -108,7 +111,12 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
         </div>
         </div>
     </main>
-    <div id="footer-pro"></div>
+
+
+    <!-- FOOTER -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+    ?>
 </body>
 
 </html>

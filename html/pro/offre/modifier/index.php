@@ -101,7 +101,6 @@ try {
 	<link rel="stylesheet" href="/styles/input.css">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="/styles/config.js"></script>
-	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
 	<script type="module" src="/scripts/main.js" defer></script>
 	<script src="//unpkg.com/alpinejs" defer></script>
 	<script type="text/javascript"
@@ -910,9 +909,14 @@ try {
 				</div>
 			</div>
 		</div>
-		<div id="footer-pro" class="w-full"></div>
+
+		<!-- FOOTER -->
+		<?php
+		include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+		?>
 	</div>
-	<script src="/scripts/loadcomponents.js"></script>
+
+	<script src="/scripts/.js"></script>
 	<script src="/scripts/tagManager.js"></script>
 	<script src="/scripts/priceManager.js"></script>
 	<script src="/scripts/prestationManager.js"></script>
