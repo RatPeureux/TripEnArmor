@@ -12,6 +12,7 @@ session_start();
     <title>Détails d'une offre | PACT</title>
 
     <link rel="stylesheet" href="/styles/input.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/loadComponents.js" defer></script>
@@ -57,27 +58,30 @@ session_start();
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Ancienne méthode pour obtenir les informations de l'offre
     include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
+
+    // Utilisation du MVC en fonction de la catégorie de l'offre
     switch ($categorie_offre) {
         case 'restauration':
-            // appel controlller restauration
-            // $restaurtion egal Ctrl->getRestaurationById($id_offre)
-            // echo $restauration['id_repas']
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
-            $controllerRestauration = new RestaurationController();
-            $parc_attraction = $controllerRestauration->getInfosRestauration($id_offre);
+
             break;
 
         case 'activite':
             include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
             $controllerActivite = new ActiviteController();
             $activite = $controllerActivite->getInfosActivite($id_offre);
+
+            // Durée de l'activité
             $duree_act = $activite['duree'];
             $duree_act = substr($duree_act, 0, -3);
             $duree_act = str_replace(':', 'h', $duree_act);
 
+            // Prestations de l'activité
             $prestation = $activite['prestations'];
 
+            // Âge requis pour l'activité
             $age_requis_act = $activite['age_requis'];
             break;
 
@@ -86,11 +90,11 @@ session_start();
             $controllerParcAttraction = new ParcAttractionController();
             $parc_attraction = $controllerParcAttraction->getInfosParcAttraction($id_offre);
 
+            // Âge requis pour le parc d'attraction
             $age_requis_pa = $parc_attraction['age_requis'];
 
+            // Nombre d'attractions du parc d'attraction
             $nb_attractions = $parc_attraction['nb_attractions'];
-
-
             break;
 
         case 'visite':
@@ -98,10 +102,12 @@ session_start();
             $controllerVisite = new VisiteController();
             $visite = $controllerVisite->getInfosVisite($id_offre);
 
+            // Durée de la visite
             $duree_vis = $visite['duree'];
             $duree_vis = substr($duree_vis, 0, -3);
             $duree_vis = str_replace(':', 'h', $duree_vis);
 
+            // Visite guidée ou non
             $guideBool = $visite['avec_guide'];
             if ($guideBool == true) {
                 $guide = 'oui';
@@ -110,6 +116,7 @@ session_start();
                 $tabLangues = $controllerLangue->getLanguesByIdVisite($id_offre);
                 $langues = '';
                 foreach ($tabLangues as $langue) {
+                    // Ajout des langues parlées lors de la visite
                     $langues .= $langue['nom'] . ', ';
                 }
                 $langues = rtrim($langues, ', ');
@@ -124,10 +131,12 @@ session_start();
             $controllerSpectacle = new SpectacleController();
             $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
 
+            // Durée du spectacle
             $duree_spec = $spectacle['duree'];
             $duree_spec = substr($duree_spec, 0, -3);
             $duree_spec = str_replace(':', 'h', $duree_spec);
 
+            // Capacité du spectacle
             $capacite = $spectacle['capacite'];
 
             break;
@@ -139,6 +148,7 @@ session_start();
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
     $controllerHoraire = new HoraireController();
 
+    // VALEUR TEST CAR PAS DANS LA BDD
     $horairesV1 = [
         "lundi" => [
             "ouverture" => "08:00",
@@ -195,6 +205,7 @@ session_start();
     if ($categorie_offre !== 'restauration') {
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
         $controllerGrilleTarifaire = new TarifPublicController();
+        // VALEUR TEST CAR PAS DANS LA BDD
         $tarifs = [
             [
                 "titre_tarif" => "Tarif adulte",
@@ -214,102 +225,43 @@ session_start();
     }
     ?>
 
-    <!-- VERSION TELEPHONE -->
-    <main class="phone md:hidden flex flex-col">
-
-        <div id="menu"></div>
-
-        <!-- Slider des images de présentation -->
-        <div
-            class="w-full h-80 overflow-hidden relative swiper default-carousel swiper-container  border border-black rounded-lg">
-            <!-- Wrapper -->
-            <div class="swiper-wrapper">
-                <!-- Image n°1 -->
-                <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src='/public/images/<?php echo $categorie_offre ?>.jpg'
-                        alt="image de slider">
-                </div>
-                <!-- Image n°2... etc -->
-                <div class="swiper-slide">
-                    <img class="object-cover w-full h-full" src='/public/images/<?php echo $categorie_offre ?>.jpg'
-                        alt="image de slider">
-                </div>
-            </div>
-            <!-- Boutons de navigation sur la slider -->
-            <a onclick="history.back()"
-                class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center my-6"><i
-                    class="fa-solid fa-arrow-left"></i></a>
-            <div class="swiper-pagination"></div>
-        </div>
-
-        <!-- Reste des informations sur l'offre -->
-        <div class="px-3 flex flex-col gap-5">
-            <!-- Titre de l'offre -->
-            <p class="text-h1 font-bold"><?php echo $offre['titre'] ?></p>
-            <!-- Afficher les tags de l'offre -->
-            <?php
-            if (!$tags == '') {
-                echo ("<h3 class='text-h3'>$tags</h3>");
-            } else {
-                echo ("<p class='text-h3'> Aucun tag à afficher</p>");
-            }
-            ?>
-
-            <!-- Nom du professionnel -->
-            <p class="text-small"><?php if ($nom_pro)
-                echo $nom_pro ?></p>
-
-                <!-- Prix + localisation -->
-                <div class="localisation-et-prix flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <div class="text-small">
-                            <p><?php echo $ville . ', ' . $code_postal ?></p>
-                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?>
-                        </p>
-                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?>
-                        </p>
-                    </div>
-                </div>
-                <p class="prix font-bold"><?php echo $prix_a_afficher ?></p>
-            </div>
-
-            <!-- Description détaillée -->
-            <div class="description flex flex-col gap-2">
-                <h3>À propos</h3>
-                <p class="text-justify text-small px-2">
-                    <?php echo $description ?>
-                </p>
-            </div>
-        </div>
-    </main>
-
-    <!-- VERSION TABLETTE -->
-    <main class="hidden md:block mx-10 self-center rounded-lg p-2 max-w-[1280px]">
-        <div class="flex gap-3">
+    <main class="flex flex-col md:block md:mx-10 self-center rounded-lg md:p-2 max-w-[1280px] overflow-auto">
+        <div class="flex md:gap-3">
             <!-- PARTIE GAUCHE (menu) -->
             <div id="menu"></div>
 
             <!-- PARTIE DROITE (offre & détails) -->
-            <div class="tablette grow p-4 flex flex-col items-center gap-4">
+            <div class="grow md:p-4 flex flex-col items-center md:gap-4">
 
                 <!-- CAROUSSEL -->
                 <div
-                    class="w-full h-[500px] overflow-hidden relative swiper default-carousel swiper-container border border-black rounded-lg">
+                    class="w-full h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container md:border md:border-black md:rounded-lg">
                     <!-- Wrapper -->
+                    <?php
+                    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+                    $controllerImage = new ImageController();
+                    $images = $controllerImage->getImagesOfOffre($id_offre);
+                    ?>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full"
-                                src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="image de slider">
+                            <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
+                                echo $images['carte'];
+                            } else {
+                                echo $categorie_offre . '.jpg';
+                            } ?>' alt="image de slider">
                         </div>
-                        <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full"
-                                src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="image de slider">
-                        </div>
-                        <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full"
-                                src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="image de slider">
-                        </div>
+                        <?php
+                        if ($images['details']) {
+                            foreach ($images['details'] as $image) {
+                                ?>
+                                <div class="swiper-slide !w-full">
+                                    <img class="object-cover w-full h-full" src='/public/images/<?php echo $image; ?>'
+                                        alt="image de slider">
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
                     </div>
                     <!-- Boutons de navigation sur la slider -->
                     <div class="flex items-center gap-8 justify-center">
@@ -327,10 +279,11 @@ session_start();
                 </div>
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
-                <div class="flex flex-col gap-2">
-                    <div class="flex flex-row items-center">
-                        <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
-                        <p class="professionnel text-h1">&nbsp;- <?php echo $nom_pro ?></p>
+                <div class="flex flex-col p-2 pt-4 gap-2">
+                    <div class="flex flex-col md:flex-row md:items-center">
+                        <p class="text-h1 font-bold"><?php echo $offre['titre'] ?></p>
+                        <p class="text-h1 pt-2 hidden md:flex">&nbsp-&nbsp</p>
+                        <p class="text-h1 pt-2"><?php echo $pro['nom_pro'] ?></p>
                     </div>
                     <!-- Afficher les tags de l'offre -->
                     <p class="text-small">
@@ -357,13 +310,13 @@ session_start();
                     }
                     ?>
                     <!-- Description + avis -->
-                    <div class="flex flex-row">
-
+                    <div class="description-et-avis flex flex-col md:flex-row">
                         <!-- Partie description -->
-                        <div class="partie-description flex flex-col w-5/12 basis-1/2">
+                        <div class="partie-description flex flex-col w-full md:w-5/12">
+
                             <!-- Prix + localisation -->
-                            <div class="localisation-et-prix flex flex-col gap-4">
-                                <h3 class="font-bold">À propos</h3>
+                            <div class="flex flex-col space-y-2 md:gap-4">
+                                <p class="text-h4 font-bold">À propos</p>
                                 <div class="flex items-center gap-4 px-2">
                                     <i class="w-6 text-center fa-solid fa-location-dot"></i>
                                     <div class="text-small">
@@ -374,7 +327,7 @@ session_start();
                                 </div>
                                 <div class="flex items-center px-2 gap-4">
                                     <i class="w-6 text-center fa-solid fa-money-bill"></i>
-                                    <p class="prix text-small"><?php echo $prix_a_afficher ?></p>
+                                    <p class="prix text-small mt-1"><?php echo $prix_a_afficher ?></p>
                                 </div>
                             </div>
 
@@ -387,11 +340,11 @@ session_start();
                         </div>
 
                         <!-- Partie avis & Infos en fonction du type offre -->
-                        <div class="avis w-7/12 px-2 py-3">
+                        <div class="avis w-full md:w-7/12 px-2 py-3">
                             <!-- Horaire -->
                             <a href="" class="">
                                 <div class="flex flex-row justify-between" id="horaire-button">
-                                    <p class="text-h4 font-bold">Horaire</p>
+                                    <p class="text-h4 font-bold">Horaires</p>
                                     <p id="horaire-arrow">></p>
                                 </div>
                                 <div class="hidden text-small py-3" id="horaire-info">
@@ -452,6 +405,7 @@ session_start();
                                     <?php
                                     switch ($categorie_offre) { # TODO: faire plusieurs if plutot que des switch
                                         case 'restauration':
+                                            // VALEUR TEST CAR PAS DANS LA BDD
                                             $tags_type_repas = 'Petit-dej, Brunch, Déjeuner, Dîner, Goûter';
                                             ?>
                                             <div class="text-small flex flex-row">
@@ -487,12 +441,15 @@ session_start();
                                                 <p><?php echo $nb_attractions ?></p>
                                             </div>
                                             <?php
-                                            if ($path_plan) {
+                                            if ($images) {
                                                 ?>
-                                                <img src="<?php echo $path_plan ?>" alt="Plan du parc">
+                                                <img src="/public/images/<?php echo $images['plan']; ?>" alt="">
                                                 <?php
-                                            }
-                                            ?>
+                                            } else {
+                                                ?>
+                                                <p class="text-small">Aucun plan</p>
+                                                <?php
+                                            } ?>
                                             <?php
                                             break;
 
@@ -506,9 +463,9 @@ session_start();
                                                 <p>Visite guidée :&nbsp</p>
                                                 <p><?php echo $guide ?></p>
                                             </div>
-                                            <div class="text-small flex flex-row">
-                                                <p>Langue(s) parlée(s) lors de la visite guidée :&nbsp</p>
-                                                <p><?php echo $langues ?></p>
+                                            <div class="text-small">
+                                                <p>Langue(s) parlée(s) lors de la visite guidée :&nbsp <?php echo $langues ?>
+                                                </p>
                                             </div>
                                             <?php
                                             break;
@@ -570,8 +527,8 @@ session_start();
                             ?>
                             <div class="pt-3">
                                 <!-- Partie avis -->
-                                <div class="avis w-7/12 px-2">
-                                    <h3 class="text-bold">Avis</h3>
+                                <div class="avis w-7/12">
+                                    <h3 class="text-h4 font-bold">Avis</h3>
                                     <!--  verifier si le membre est bon  -->
                                     <?php
                                     if (isset($_SESSION['id_membre'])) {
@@ -587,41 +544,41 @@ session_start();
                                                     class="input" required></textarea>
                                                 <select name="note_service" id="note" class="input" required>
 
-                                    <option value="note_service">Service</option>
-                                    <option value="note1">1</option>
-                                    <option value="note2">2</option>
-                                    <option value="note3">3</option>
-                                    <option value="note4">4</option>
-                                    <option value="note5">5</option>
+                                                    <option value="note_service">Service</option>
+                                                    <option value="note1">1</option>
+                                                    <option value="note2">2</option>
+                                                    <option value="note3">3</option>
+                                                    <option value="note4">4</option>
+                                                    <option value="note5">5</option>
 
-                                </select>
+                                                </select>
 
-                                <select name="note_qualite_prix" id="note" class="input" required>
+                                                <select name="note_qualite_prix" id="note" class="input" required>
 
-                                    <option value="note_qualite_prix">Qualité/Prix</option>
-                                    <option value="note1">1</option>
-                                    <option value="note2">2</option>
-                                    <option value="note3">3</option>
-                                    <option value="note4">4</option>
-                                    <option value="note5">5</option>
+                                                    <option value="note_qualite_prix">Qualité/Prix</option>
+                                                    <option value="note1">1</option>
+                                                    <option value="note2">2</option>
+                                                    <option value="note3">3</option>
+                                                    <option value="note4">4</option>
+                                                    <option value="note5">5</option>
 
-                                    <p>/5</p>
+                                                    <p>/5</p>
 
-                                </select>
+                                                </select>
 
-                                <select name="note" id="note" class="input" required>
+                                                <select name="note" id="note" class="input" required>
 
-                                    <option value="note1">1</option>
-                                    <option value="note2">2</option>
-                                    <option value="note3">3</option>
-                                    <option value="note4">4</option>
-                                    <option value="note5">5</option>
+                                                    <option value="note1">1</option>
+                                                    <option value="note2">2</option>
+                                                    <option value="note3">3</option>
+                                                    <option value="note4">4</option>
+                                                    <option value="note5">5</option>
 
-                                    <p>/5</p>
+                                                    <p>/5</p>
 
-                                </select>
+                                                </select>
 
-                                <select name="note" id="note" class="input" required>
+                                                <select name="note" id="note" class="input" required>
 
                                                     <option value="note1">1</option>
                                                     <option value="note2">2</option>
