@@ -33,7 +33,7 @@ class ProPublic extends BDD
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
         
-        if ( $statement->execute() ) {
+        if ($statement->execute()) {
             return $statement->fetch(PDO::FETCH_ASSOC)[0];
         } else {
             return -1;

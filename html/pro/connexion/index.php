@@ -12,38 +12,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Connexion avec la bdd
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-        // Vérifie si la requête est une soumission de formulaire
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            //  Pour garder les informations dans le formulaire si erreur
-            $_SESSION['data_en_cours_connexion'] = $_POST;
+        //  Pour garder les informations dans le formulaire si erreur
+        $_SESSION['data_en_cours_connexion'] = $_POST;
 
-            $id = $_POST['id']; // Récupère l'id soumise
-            $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
+        $id = $_POST['id']; // Récupère l'id soumise
+        $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
 
-            // Prépare une requête SQL pour trouver l'utilisateur par nom, email ou numéro de téléphone
-            $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE nom_pro = :id OR email = :id OR num_tel = :id");
-            $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
-            $stmt->execute(); // Exécute la requête
-            $user = $stmt->fetch(PDO::FETCH_ASSOC); // Récupère les données de l'utilisateur
+        // Prépare une requête SQL pour trouver l'utilisateur par nom, email ou numéro de téléphone
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE nom_pro = :id OR email = :id OR num_tel = :id");
+        $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
+        $stmt->execute(); // Exécute la requête
+        $user = $stmt->fetch(PDO::FETCH_ASSOC); // Récupère les données de l'utilisateur
 
-            // Vérifie si l'utilisateur existe et si le mot de passe est correct
-            if ($user) {
-                if (password_verify($mdp, $user['mdp_hash'])) {
-                    // Connecte le pro, enlève toute éventuelle connexion à un membre
-                    $_SESSION['id_pro'] = $user['id_compte'];
-                    unset($_SESSION['id_membre']);
-                    header('location: /pro'); // Redirige vers la page connectée
-                    exit();
-                } else {
-                    $_SESSION['error'] = "Mot de passe incorrect"; // Stocke le message d'erreur dans la session
-                    header('location: /pro/connexion'); // Retourne à la page de connexion
-                    exit();
-                }
+        print_r($user);
+
+        // Vérifie si l'utilisateur existe et si le mot de passe est correct
+        if ($user) {
+            if (password_verify($mdp, $user['mdp_hash'])) {
+                // Connecte le pro, enlève toute éventuelle connexion à un membre
+                $_SESSION['id_pro'] = $user['id_compte'];
+                unset($_SESSION['id_membre']);
+                header('location: /pro'); // Redirige vers la page connectée
+                exit();
             } else {
-                $_SESSION['error'] = "Nous ne trouvons pas de compte avec cet identifiant"; // Stocke le message d'erreur dans la session
+                $_SESSION['error'] = "Mot de passe incorrect"; // Stocke le message d'erreur dans la session
                 header('location: /pro/connexion'); // Retourne à la page de connexion
                 exit();
             }
+        } else {
+            $_SESSION['error'] = "Nous ne trouvons pas de compte avec cet identifiant"; // Stocke le message d'erreur dans la session
+            header('location: /pro/connexion'); // Retourne à la page de connexion
+            exit();
         }
     } catch (PDOException $e) {
         echo "Erreur !: " . $e->getMessage(); // Affiche une erreur si la connexion échoue
