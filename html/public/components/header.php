@@ -5,14 +5,23 @@
 -->
 <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
     <div class="flex w-full justify-between items-center">
-        <a onclick="toggleMenu()" class="md:hidden">
+        <a onclick="toggleMenu()" class="flex gap-4 md:hidden">
             <i class="text-3xl fa-solid fa-bars"></i>
+            <img src="/public/images/logo.svg" alt="Logo" width="44">
         </a>
         <a href="/" class="flex gap-3 items-center">
-            <img src="/public/images/logo.svg" alt="Logo" width="50">
-            <h1 class="font-cormorant uppercase text-PACT">PACT</h1>
+            <img class="hidden md:block" src="/public/images/logo.svg" alt="Logo" width="50">
+            <h1 class="font-cormorant uppercase text-PACT hidden md:block">PACT</h1>
         </a>
-        <div class="flex gap-4 items-center">
+        <div class="flex gap-10 items-center">
+            <div class="relative flex items-center">
+                <div class="relative flex items-center" id="open-search">
+                    <input type="text" placeholder="Rechercher..." class="border border-primary p-2 rounded-full pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200" aria-label="Recherche">
+                    <div class="absolute bg-white w-12 right-4 flex items-center justify-center">
+                        <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+                    </div>
+                </div>
+            </div>
             <!-- Si connecté -->
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
