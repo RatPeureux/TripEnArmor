@@ -39,7 +39,6 @@ $pro = verifyPro();
 
 <body>
 	<?php
-	echo "Avant le if";
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/bdd.php';
 		// *********************************************************************************************************************** Définition de fonctions
@@ -112,17 +111,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-																																										  1. [x] Adresse
-																																										  3. [x] Image
-																																										  5. [x] Offre
-																																										  6. [x] Offre_Tag / Restauration_Tag
-																																										  7. [x] Offre_Image
-																																										  8. [x] Offre_Langue
-																																										  9. [x] TypeRepas 
-																																										  10. [x] Offre_Prestation
-																																										  11. Horaires
-																																										  12. [x] Tarif_Public
-																																										  */
+		1. [x] Adresse
+		3. [x] Image
+		5. [x] Offre
+		6. [x] Offre_Tag / Restauration_Tag
+		7. [x] Offre_Image
+		8. [x] Offre_Langue
+		9. [x] TypeRepas 
+		10. [x] Offre_Prestation
+		11. Horaires
+		12. [x] Tarif_Public
+		*/
 		BDD::startTransaction();
 
 		// Insérer l'adresse dans la base de données
@@ -339,7 +338,7 @@ $pro = verifyPro();
 			<div class="w-full mb-20">
 				<!-- Inclusion du header -->
 				<?php
-				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
 				?>
 			</div>
 
