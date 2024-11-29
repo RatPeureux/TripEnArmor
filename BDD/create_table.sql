@@ -110,7 +110,7 @@ CREATE TABLE _RIB ( -- Léo
     code_banque VARCHAR(255) NOT NULL,
     code_guichet VARCHAR(255) NOT NULL,
     numero_compte VARCHAR(255) NOT NULL,
-    cle_rib VARCHAR(255) NOT NULL,
+    cle VARCHAR(255) NOT NULL,
     id_compte SERIAL REFERENCES _pro_prive (id_compte) UNIQUE
 );
 
@@ -205,14 +205,13 @@ CREATE TABLE _avis (
     date_experience DATE NOT NULL,
     titre VARCHAR(50),
     commentaire VARCHAR(1024),
-    id_compte INT NOT NULL,
+    id_membre INT NOT NULL,
     id_offre INT NOT NULL,
     contexte_passage VARCHAR(255) NOT NULL,
     id_avis_reponse INT REFERENCES _avis (id_avis),
-    note INT NOT NULL,
-    contexte VARCHAR(255),
+    note FLOAT NOT NULL,
     -- Contrainte pour empêcher plusieurs avis initiaux d'un même membre sur une offre
-    CONSTRAINT unique_avis_per_member UNIQUE (id_compte, id_offre)
+    CONSTRAINT unique_avis_per_member UNIQUE (id_membre, id_offre)
 );
 
 -- ------------------------------------------------------------------------------------------------------- Facture

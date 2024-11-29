@@ -558,60 +558,97 @@ session_start();
                                         ?>
                                         <!-- FORMULAIRE DE CRÉATION D'AVIS -->
                                         <div class="flex flex-col gap-2">
-                                            <button class="bg-primary   text-white rounded-lg p-2">Rédiger un avis</button>
-                                            <form id="avis_formulaire" action=" /scripts/creation_avis.php " method="post"
-                                                class="flex flex-col gap-2">
-                                                <input type="text" name="titre" placeholder="Titre de l'avis" class="input"
-                                                    required>
-                                                <textarea name="description" placeholder="Description de l'avis" class="input"
-                                                    required></textarea>
-                                                <select name="note_service" id="note" class="input" required>
-                                                    <option value="note_service">Service</option>
-                                                    <option value="note1">1</option>
-                                                    <option value="note2">2</option>
-                                                    <option value="note3">3</option>
-                                                    <option value="note4">4</option>
-                                                    <option value="note5">5</option>
-                                                </select>
-                                                <select name="note_qualite_prix" id="note" class="input" required>
-                                                    <option value="note_qualite_prix">Qualité/Prix</option>
-                                                    <option value="note1">1</option>
-                                                    <option value="note2">2</option>
-                                                    <option value="note3">3</option>
-                                                    <option value="note4">4</option>
-                                                    <option value="note5">5</option>
-                                                    <p>/5</p>
-                                                </select>
-                                                <select name="note" id="note" class="input" required>
-                                                    <option value="note1">1</option>
-                                                    <option value="note2">2</option>
-                                                    <option value="note3">3</option>
-                                                    <option value="note4">4</option>
-                                                    <option value="note5">5</option>
-                                                    <p>/5</p>
-                                                </select>
-                                                <select name="note" id="note" class="input" required>
-                                                    <option value="note1">1</option>
-                                                    <option value="note2">2</option>
-                                                    <option value="note3">3</option>
-                                                    <option value="note4">4</option>
-                                                    <option value="note5">5</option>
-                                                    <p>/5</p>
-                                                </select>
-                                                <input type="date" name="date_experience" id="date_experience" class="input"
-                                                    required>
-                                                <input type="submit" value="Envoyer"
-                                                    class="bg-primary text-white rounded-lg p-2">
+                                            <button
+                                                onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
+                                                class="bg-secondary font-bold text-white rounded-lg p-2 self-end flex items-center gap-2">
+                                                <i class="fa-solid fa-pen"></i>
+                                                <p>Rédiger un avis</p>
+                                            </button>
+
+                                            <form id="avis_formulaire" action="/scripts/creation_avis.php" method="POST"
+                                                class="hidden flex flex-col gap-4">
+
+                                                <!-- Titre de l'avis -->
+                                                <div>
+                                                    <label for="titre">Titre</label>
+                                                    <input type="text" name="titre" placeholder="Titre de l'avis"
+                                                        class="w-full border border-black rounded-lg p-1" required>
+                                                </div>
+
+                                                <!-- Commentaire de l'avis -->
+                                                <textarea type="commentaire" name="commentaire" placeholder="Votre commentaire"
+                                                    class="w-full border border-black rounded-lg p-1"></textarea>
+
+                                                <!-- Note globale donnée (pour toutes les offres) -->
+                                                <div>
+                                                    <label for="note_globale">Note globale</label>
+                                                    <select name="note_globale" id="note_globale" class="p-1 rounded-lg"
+                                                        required>
+                                                        <option selected disabled>...</option>
+                                                        <option value="0">0</option>
+                                                        <option value="0.5">0,5</option>
+                                                        <option value="1">1</option>
+                                                        <option value="1.5">1,5</option>
+                                                        <option value="2">2</option>
+                                                        <option value="2.5">2,5</option>
+                                                        <option value="3">3</option>
+                                                        <option value="3.5">3,5</option>
+                                                        <option value="4">4</option>
+                                                        <option value="4.5">4,5</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Date de l'expérience -->
+                                                <div>
+                                                    <label for="date_experience">Date de l'expérience</label>
+                                                    <input type="date" name="date_experience" id="date_experience"
+                                                        value="Date de votre expérience" required>
+                                                </div>
+
+                                                <!-- Contexte de passage -->
+                                                <div>
+                                                    <label for="contexte_passage">Contexte de passage</label>
+                                                    <select name="contexte_passage" id="contexte_passage" class="p-1 rounded-lg"
+                                                        required>
+                                                        <option selected disabled>...</option>
+                                                        <option value="en solo">en solo</option>
+                                                        <option value="en couple">en couple</option>
+                                                        <option value="entre amis">entre amis</option>
+                                                        <option value="pour le travail">pour le travail</option>
+                                                        <option value="en famille">en famille</option>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Publier l'avis -->
+                                                <input type="submit" value="+ Publier"
+                                                    class="bg-secondary text-white font-bold rounded-lg p-2 self-end">
+
+                                                <hr class="w-1/2 border border-black self-end my-2 rounded-lg bg-black">
+
+                                                <!-- Champs cachés pour transmettre des donées à la création de l'offre -->
+                                                <input type="text" id='id_offre' name='id_offre' hidden
+                                                    value="<?php echo $_SESSION['id_offre'] ?>">
+                                                <input type="text" id='id_membre' name='id_membre' hidden
+                                                    value="<?php echo $_SESSION['id_membre'] ?>">
                                             </form>
 
                                             <script>
-                                                // Js pour faire apparaitre le formulaire d'avis
-                                                document.getElementById('avis_formulaire').style.display = 'none';
+                                                // Eviter de pouvoir sélectionner un date ultérieure au jour actuel
+                                                function setMaxDate() {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = String(today.getMonth() + 1).padStart(2, '0');
+                                                    const day = String(today.getDate()).padStart(2, '0');
+                                                    const maxDate = `${year}-${month}-${day}`;
 
-                                                document.querySelector('button').addEventListener('click', () => {
-                                                    document.getElementById('avis').style.display = 'flex';
-                                                });
+                                                    document.getElementById("date_experience").setAttribute("max", maxDate);
+                                                }
+
+                                                // Call the function when the page loads
+                                                window.onload = setMaxDate;
                                             </script>
+
                                         </div>
                                         <?php
                                     }

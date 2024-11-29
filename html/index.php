@@ -102,7 +102,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                                 require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
                                 $i++;
                             }
-                            $i++;
                         } ?>
                     </div>
                 <?php } ?>
