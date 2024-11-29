@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 // Enlever les informations gardées lors de l'étape de connexion quand on reveint à la page (retour en arrière)
 unset($_SESSION['data_en_cours_connexion']);
@@ -39,7 +39,7 @@ if (!function_exists('chaineVersMot')) {
 <body class="flex flex-col min-h-screen">
 
     <div id="menu-pro" class="1"></div>
-    
+
     <!-- Inclusion du header -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
@@ -47,7 +47,7 @@ if (!function_exists('chaineVersMot')) {
 
     <?php
     // Connexion avec la bdd
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     $sort_order = '';
     if (isset($_GET['sort'])) {
@@ -92,7 +92,8 @@ if (!function_exists('chaineVersMot')) {
                         <p>Filtrer</p>
                     </a>
                     |
-                    <a href="#" class="self-end flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
+                    <a href="#" class="self-end flex items-center gap-2 hover:text-primary duration-100"
+                        id="sort-button-tab">
                         <i class="text xl fa-solid fa-sort"></i>
                         <p>Trier par</p>
                     </a>
@@ -107,11 +108,11 @@ if (!function_exists('chaineVersMot')) {
             <?php
             // Obtenir les informations des offres du pro
             if (!$toutesMesOffres) { ?>
-                <div class="md:min-w-full flex flex-col gap-4"> 
+                <div class="md:min-w-full flex flex-col gap-4">
                     <?php echo "<p class='mt-4 font-bold text-h2'>Vous n'avez aucune offre...</p>"; ?>
                 </div>
             <?php } else { ?>
-                <div class="md:min-w-full flex flex-col gap-4" id="no-matches"> 
+                <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
                     <?php foreach ($toutesMesOffres as $offre) {
                         // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                         $mode_carte = 'pro';

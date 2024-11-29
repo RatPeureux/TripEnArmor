@@ -1,7 +1,7 @@
 <?php
 session_start();
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 $pro = verifyPro();
 ?>
@@ -24,7 +24,7 @@ $pro = verifyPro();
 </head>
 <?php
 // Connexion avec la bdd
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
 $controllerAdresse = new AdresseController();

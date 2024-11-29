@@ -1,7 +1,7 @@
 <?php
 try {
 	// Connexion à la base de données
-	require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+	require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 	// Vérifier si l'ID de l'offre est passé et est un entier
 	if (isset($_GET['offre-id']) && is_numeric($_GET['offre-id'])) {
@@ -270,8 +270,7 @@ try {
 							  file:rounded-lg
 							  file:text-small file:font-bold  file:text-secondary
 							  file:border file:border-secondary
-							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-									accept=".svg,.png,.jpg" required />
+							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" required />
 							</div>
 
 							<!-- Photos détaillée -->
@@ -284,8 +283,7 @@ try {
 							  file:rounded-lg
 							  file:text-small file:font-bold  file:text-secondary
 							  file:border file:border-secondary
-							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white"
-									accept=".svg,.png,.jpg" />
+							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
 							</div>
 						</div>
 

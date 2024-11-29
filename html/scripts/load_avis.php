@@ -1,6 +1,6 @@
 <?php
 // Connexion avec la bdd
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 // Requêtes GET nécessaires pour pouvoir fonctioner avec AJAX
 if (isset($_GET['id_offre']) && isset($_GET['idx_avis']) && isset($_GET['id_membre'])) {

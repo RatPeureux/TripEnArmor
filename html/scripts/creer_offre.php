@@ -1,5 +1,5 @@
 <?php
-require dirname($_SERVER['DOCUMENT_ROOT']) . '../model/bdd.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/bdd.php';
 
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insérer l'adresse dans la base de données
     $realAdresse = extraireInfoAdresse($adresse);
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/adresse_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
     $adresseController = new AdresseController();
     $id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
     if (!$id_adresse) {
@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($activity) {
         case 'activite':
             // Insertion spécifique à l'activité
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/activite_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
 
             $activiteController = new ActiviteController();
             $id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'visite':
 
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/visite_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
 
             $visiteController = new VisiteController();
             $id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'spectacle':
 
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/spectacle_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
 
             $spectacleController = new SpectacleController();
             $id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $capacite);
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'parc_attraction':
 
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/parc_attraction_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
 
             $parcAttractionController = new ParcAttractionController();
             $id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'restauration':
 
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/restauration_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
 
             $restaurationController = new RestaurationController();
             $id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas);
@@ -173,12 +173,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insérer les liens entre les offres et les tags dans la base de données
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
     $tagController = new TagController();
     if ($activityType === 'restauration') {
         // Insérer les tags de restauration
     } else {
-        require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_offre_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
         $tagOffreController = new TagOffreController();
 
         foreach ($tags as $tag) {
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insérer les images dans la base de données
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/image_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
     $imageController = new ImageController();
 
     // *** CARTE
@@ -218,9 +218,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($activityType === 'visite') {
         // Insérer les langues dans la base de données
-        require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/langue_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/langue_controller.php';
         $langueController = new LangueController();
-        require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/visite_langue_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
         $visiteLangueController = new VisiteLangueController();
 
         foreach ($langues as $langue => $isIncluded) {
@@ -230,9 +230,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } elseif ($activityType === 'restauration') {
-        require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/type_repas_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
         $typeRepasController = new TypeRepasController();
-        require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/restauration_type_repas_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_type_repas_controller.php';
         $restaurationTypeRepasController = new RestaurationTypeRepasController();
 
         foreach ($typesRepas as $typeRepas => $isIncluded) {
@@ -242,9 +242,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } elseif ($activityType === 'activite') {
-        require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/prestation_manager.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_manager.php';
         $prestationController = new PrestationController();
-        require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/activite_prestation_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
         $activitePrestationController = new ActivitePrestationController();
 
         foreach ($prestations as $prestation => $isIncluded) {
@@ -258,15 +258,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insérer les horaires dans la base de données
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/horaire_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
     $horaireController = new HoraireController();
 
-    foreach($horaires as $jour) {
+    foreach ($horaires as $jour) {
         $horaireController->createHoraire($jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
     }
 
     // Insérer les prix dans la base de données
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tarif_public_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
     $tarifController = new TarifPublicController();
     foreach ($prices as $price) {
         if (!isset($price['name']) || !isset($price['value'])) {

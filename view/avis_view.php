@@ -1,4 +1,3 @@
-
 console.log("La partie 1 est valide");<!-- 
     POUR APPELER LA VUE AVIS, DÉFINIR LES VARIABLES SUIVANTES EN AMONT :
     - $id_avis
@@ -28,7 +27,7 @@ $avisController = new avisController();
     <!-- Première ligne du haut -->
     <div class="flex gap-3 items-center">
         <!-- Prénom, nom -->
-        <p><?php echo $membre['prenom'] . ' ' . $membre['nom'] ?></p>
+        <p class="text-small md:text-normal"><?php echo $membre['prenom'] . ' ' . $membre['nom'] ?></p>
 
         <!-- Note sur 5 -->
         <div class="flex gap-1">

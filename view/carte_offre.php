@@ -8,7 +8,7 @@ if (!function_exists('chaineVersMot')) {
 }
 
 // Obtenir les différentes variables avec les infos nécessaires via des requêtes SQL
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
 
 if ($mode_carte == 'membre') {
     ?>
