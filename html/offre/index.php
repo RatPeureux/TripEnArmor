@@ -153,6 +153,7 @@ session_start();
         default:
             break;
     }
+    echo "Après switch";
 
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
     $controllerHoraire = new HoraireController();
