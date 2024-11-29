@@ -212,6 +212,7 @@ session_start();
         $horaires['pause_fin'][$jour] = $horaire['pause_fin'];
         $horaires['fermeture'][$jour] = $horaire['fermeture'];
     }
+    echo "Après récupération des horaires";
     if ($categorie_offre !== 'restauration') {
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
         $controllerGrilleTarifaire = new TarifPublicController();
@@ -227,6 +228,7 @@ session_start();
             ]
         ];
     }
+    echo "Après récupération des tarifs";
 
     if ($categorie_offre == 'parc_attraction') {
         // require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
