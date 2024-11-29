@@ -31,7 +31,8 @@ session_start();
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    echo "Après inclusion du header";
     ?>
 
     <?php
@@ -41,7 +42,9 @@ session_start();
     }
 
     // Connexion avec la bdd
+    echo "Avant connexion à la BDD";
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    echo 'Après connexion à la BDD';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
