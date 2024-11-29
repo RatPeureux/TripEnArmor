@@ -5,10 +5,11 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 class ProPrive extends BDD
 {
 
-    private $nom_table = "sae_db._pro_prive";
+    static private $nom_table = "sae_db._pro_prive";
 
     static function createProPrive($email, $mdp, $tel, $adresseId, $nom_pro, $num_siren)
     {
+        self::initBDD();
         $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren" . self::$nom_table . "VALUES (?, ?, ?, ?, ?, ?) RETURNING id_compte";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);

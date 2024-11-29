@@ -1,11 +1,6 @@
 <?php
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../model/bdd.php';
 
-// Activer l'affichage des erreurs pour le débogage
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // *********************************************************************************************************************** Définition de fonctions
@@ -192,43 +187,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Insérer les image dans la base de données
+    // Insérer les images dans la base de données
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/image_controller.php';
-    $uploadDir = dirname($_SERVER['DOCUMENT_ROOT']) . '/../public/images/';
-
     $imageController = new ImageController();
-    $imageIds = [];
 
     // *** CARTE
-    $uploadName = $uploadDir . "carte/" . $id_offre . '0.' . explode('/', $_FILES['photo-upload-carte']['type'])[1];
-    if (!move_uploaded_file($_FILES['photo-upload-carte']['tmp_name'], $uploadName)) {
+    if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
         echo "Erreur lors de l'upload de l'image de la carte.";
         BDD::rollbackTransaction();
         exit;
+
     }
-    $imagesIds['carte'] = $imageController->createImage($uploadName);
 
     // *** DETAIL
     for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
-        $uploadName = $uploadDir . "detail/" . $id_offre . '-' . ($i + 1) . '.' . explode('/', $_FILES['photo-detail']['type'][$i])[1];
-
-        if (!move_uploaded_file($_FILES['photo-detail']['tmp_name'][$i], $uploadName)) {
+        if ($imageController->uploadImage($id_offre, 'detail', $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
             echo "Erreur lors de l'upload de l'image de détail.";
             BDD::rollbackTransaction();
             exit;
         }
-
-        $imageIds['detail'][] = $imageController->createImage($uploadName);
     }
 
     if ($activity === 'parc_attraction') {
-        $uploadName = $uploadDir . "plan/" . $id_offre . implode('/', $_FILES['photo-plan']['type'])[1];
-        if (!move_uploaded_file($_FILES['photo-plan']['tmp_name'], $uploadName)) {
+        if ($imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
             echo "Erreur lors de l'upload de l'image du plan.";
             BDD::rollbackTransaction();
             exit;
         }
-        $imagesIds["plan"][] = $imageController->createImage($uploadName);
     }
 
     if ($activityType === 'visite') {
