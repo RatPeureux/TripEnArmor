@@ -17,7 +17,9 @@ class ProPublicController
     }
     public function getInfosProPublic($id)
     {
+        echo "In controller function<br>";
         $result = $this->model::getProPublicById($id);
+        echo "result : '" . $result . "'<br>";
         return $result;
     }
 

@@ -34,7 +34,9 @@ class ProPublic extends BDD
         $statement->bindParam(1, $id);
         
         if ($statement->execute()) {
-            return $statement->fetch(PDO::FETCH_ASSOC)[0];
+            $resultatSQL = $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+            echo "ResultatSQL : '" . $resultatSQL ."'<br>";
+            return $resultatSQL;
         } else {
             return -1;
         }
