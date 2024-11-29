@@ -132,6 +132,7 @@
             <label class="text-small">&nbsp;€</label>
         </div>
     </div>
+<?php if ($pro['data']['type'] === 'prive') { ?>
     <div class="flex flex-col w-full bg-base100 border border-base200  p-3 gap-4">
         <div class="flex justify-between cursor-pointer" id="button-f7-tab">
             <p>Type d'offre</p>
@@ -149,4 +150,5 @@
             </div>
         </div>
     </div>
+<?php } ?>
 </div>
