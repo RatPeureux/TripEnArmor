@@ -1,8 +1,5 @@
 <?php
-echo "Première ligne de authentification.php<br>";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
-echo "Après require de connect_params<br>";
-
 session_start();
 function isConnectedAsMember(): bool
 {
@@ -17,15 +14,10 @@ function isConnectedAsPro(): bool
 function verifyPro()
 {
     // Vérifie si l'utilisateur est connecté en tant que pro, sinon le renvoie à la page de connexion
-    echo "Dans verifyPro<br>";
-    echo "Session: ";
-    print_r($_SESSION);
     if (!isConnectedAsPro()) {
-        echo "Pas connecté en tant que pro<br>";
         header('location: /pro/connexion');
         exit();
     } else {
-        echo "Connecté en tant que pro<br>";
         require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
         $result = [
             "id_compte" => "",
