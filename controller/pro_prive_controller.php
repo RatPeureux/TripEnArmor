@@ -50,7 +50,9 @@ class ProPriveController
                 $email !== false ? $email : $proPrive["email"],
                 $mdp !== false ? $mdp : $proPrive["mdp_hash"],
                 $tel !== false ? $tel : $proPrive["num_tel"],
-                $adresseId !== false ? $adresseId : $proPrive["id_adresse"]
+                $adresseId !== false ? $adresseId : $proPrive["id_adresse"],
+                $nom_pro !== false ? $nom_pro : $proPrive["nom_pro"],
+                $num_siren !== false ? $num_siren : $proPrive["num_siren"]
             );
             return $updatedProPriveId;
         }
