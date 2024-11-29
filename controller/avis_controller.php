@@ -34,10 +34,9 @@ class AvisController
         return $result;
     }
 
-    public function createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse = null)
+    public function createAvis($titre, $date_experience, $id_membre, $id_offre, $note, $contexte_passage, $commentaire = null, $id_avis_reponse = null)
     {
-        $resultatSQL = $this->model::createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse = null);
-
+        $resultatSQL = $this->model::createAvis($titre, $date_experience, $id_membre, $id_offre, $note, $contexte_passage, $commentaire, $id_avis_reponse);
 
         if ($resultatSQL) {
             return $resultatSQL;

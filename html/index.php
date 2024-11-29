@@ -96,13 +96,12 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
                         <?php $i = 0;
                         foreach ($toutesLesOffres as $offre) {
-                            if ($i < 3) {
+                            if ($i < 5) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';
                                 require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
                                 $i++;
                             }
-                            $i++;
                         } ?>
                     </div>
                 <?php } ?>

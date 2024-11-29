@@ -38,7 +38,6 @@ $avisController = new avisController();
             <?php
             // Note s'il y en a une
             $note = floatval($avis['note']);
-            $note = floatval('3.5');
             for ($i = 0; $i < 5; $i++) {
                 if ($note > 1) {
                     ?>
@@ -75,8 +74,8 @@ $avisController = new avisController();
     if ($avis['date_experience']) { ?>
         <div class="flex justify-start gap-3">
             <p class="italic">Vécu le
-                <?php echo $avis['date_experience'];
-                echo (isset($avis['contexte'])) ? $avis['contexte'] : '' ?>
+                <?php echo $avis['date_experience'] ?>,
+                <?php echo (isset($avis['contexte_passage'])) ? $avis['contexte_passage'] : '' ?>
             </p>
         </div>
         <?php
