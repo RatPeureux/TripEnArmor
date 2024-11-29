@@ -1,6 +1,7 @@
 <?php
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-// $pro = verifyPro();
+echo "Première ligne";
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+$pro = verifyPro();
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +12,6 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<link rel="icon" type="image" href="/public/images/favicon.png">
-	<title>Création d'offre | Professionnel | PACT</title>
 
 	<link rel="stylesheet" href="/styles/input.css">
 	<script src="https://cdn.tailwindcss.com"></script>
@@ -22,6 +22,8 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
+
+	<title>Création d'offre - Professionnel - PACT</title>
 </head>
 
 <!-- 
@@ -38,37 +40,299 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 <body>
 	<?php
+	echo "Avant le if";
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		echo "SESSION: <br>";
-		foreach ($_SESSION as $key => $value) {
-			if (is_array($value)) {
-				echo $key . " : ";
-				print_r($value);
-				echo "<br>";
-			} else {
-				echo $key . " : " . $value . "<br>";
+		require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/bdd.php';
+		// *********************************************************************************************************************** Définition de fonctions
+		// Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
+		function calculerPrixMin($prices)
+		{
+			$minPrice = null;
+
+			foreach ($prices as $price) {
+				if (isset($price['value']) && (is_null($minPrice) || $price['value'] < $minPrice)) {
+					$minPrice = $price['value'];
+				}
+			}
+
+			return $minPrice;
+		}
+
+		// Fonction pour extraire des informations depuis une adresse complète
+		function extraireInfoAdresse($adresse)
+		{
+			$numero = substr($adresse, 0, 1);  // À adapter selon le format de l'adresse
+			$odonyme = substr($adresse, 2);
+
+			return [
+				'numero' => $numero,
+				'odonyme' => $odonyme,
+			];
+		}
+		// *********************************************************************************************************************** Récupération des données du POST
+		// Récupération des données du formulaire
+		// *** Données standard
+		$type_offre = $_POST["offre"];
+		$titre = $_POST['titre'];
+		$adresse = $_POST['user_input_autocomplete_address'];
+		$code = $_POST['postal_code'];
+		$ville = $_POST['locality'];
+		$resume = $_POST['resume'];
+		$description = $_POST['description'];
+		$accessibilite = $_POST['accessibilite'];
+		$activityType = $_POST['activityType'];
+
+		// *** Données spécifiques
+		$avec_guide = $_POST["guide"] ?? "on"; // VISITE
+		$age = $_POST["age"];
+		$dureeFormatted = sprintf('%02d:%02d:00', $_POST["hours"], $_POST["minutes"]); // ACTIVITE, VISITE, SPECTACLE
+		$gamme_prix = $_POST['gamme_prix'];
+		$capacite = $_POST['capacite'] ?? '';
+		$langues = [
+			"Français" => $_POST["langueFR"] ?? "on",
+			"Anglais" => $_POST["langueEN"] ?? "on",
+			"Espagnol" => $_POST["langueES"] ?? "on",
+			"Allemand" => $_POST["langueDE"] ?? "on"
+		]; // VISITE
+		$typesRepas = [
+			"Petit déjeuner" => $_POST["repasPetitDejeuner"] ?? "on",
+			"Brunch" => $_POST["repasBrunch"] ?? "on",
+			"Déjeuner" => $_POST["repasDejeuner"] ?? "on",
+			"Dîner" => $_POST["repasDiner"] ?? "on",
+			"Boissons" => $_POST["repasBoissons"] ?? "on",
+		];
+		$nb_attractions = (int) $_POST['nb_attractions'] ?? 0; // PARC_ATTRACTION
+		$prices = $_POST['prices'] ?? [];
+		$tags = $_POST['tags'][$activityType] ?? [];
+		$id_pro = $_SESSION['id_pro'];
+		$prestations = $_POST['newPrestationName'] ?? [];
+		$horaires = $_POST['horaires'] ?? [];
+
+		// Récupérer d'autres valeurs
+	
+
+		// *********************************************************************************************************************** Insertion
+		/* Ordre de l'insertion :
+			  1. [x] Adresse
+			  3. [x] Image
+			  5. [x] Offre
+			  6. [x] Offre_Tag / Restauration_Tag
+			  7. [x] Offre_Image
+			  8. [x] Offre_Langue
+			  9. [x] TypeRepas 
+			  10. [x] Offre_Prestation
+			  11. Horaires
+			  12. [x] Tarif_Public
+			  */
+		BDD::startTransaction();
+
+		// Insérer l'adresse dans la base de données
+		$realAdresse = extraireInfoAdresse($adresse);
+		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
+		$adresseController = new AdresseController();
+		$id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
+		if (!$id_adresse) {
+			echo "Erreur lors de la création de l'adresse.";
+			BDD::rollbackTransaction();
+			exit;
+		}
+		echo "Adresse insérée<br>";
+
+		// Insérer l'offre dans la base de données
+		$prixMin = calculerPrixMin($prices);
+		$id_offre;
+		switch ($activity) {
+			case 'activite':
+				// Insertion spécifique à l'activité
+				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
+
+				$activiteController = new ActiviteController();
+				$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
+
+				if ($id_offre < 0) { // Cas d'erreur
+					echo "Erreur lors de l'insertion : " . $id_offre;
+					BDD::rollbackTransaction();
+				}
+				echo "Activité insérée<br>";
+				break;
+
+			case 'visite':
+
+				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
+
+				$visiteController = new VisiteController();
+				$id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
+
+				if ($id_offre < 0) {
+					echo "Erreur lors de l'insertion : " . $id_offre;
+					BDD::rollbackTransaction();
+				}
+				echo "Visite insérée<br>";
+				break;
+
+			case 'spectacle':
+
+				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
+
+				$spectacleController = new SpectacleController();
+				$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $capacite);
+
+				if ($id_offre < 0) {
+					echo "Erreur lors de l'insertion : " . $id_offre;
+					BDD::rollbackTransaction();
+				}
+				echo "Spectacle inséré<br>";
+				break;
+
+			case 'parc_attraction':
+
+				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
+
+				$parcAttractionController = new ParcAttractionController();
+				$id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
+
+				if ($id_offre < 0) {
+					echo "Erreur lors de l'insertion : " . $id_offre;
+					BDD::rollbackTransaction();
+				}
+				echo "Parc d'attraction inséré<br>";
+				break;
+
+			case 'restauration':
+
+				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+
+				$restaurationController = new RestaurationController();
+				$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas);
+
+				if ($id_offre < 0) {
+					echo "Erreur lors de l'insertion : " . $id_offre;
+					BDD::rollbackTransaction();
+				}
+				echo "Restauration insérée<br>";
+				break;
+
+			default:
+				echo "Aucune activité sélectionnée";
+				BDD::rollbackTransaction();
+				exit;
+		}
+
+		// Insérer les liens entre les offres et les tags dans la base de données
+		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+		$tagController = new TagController();
+		if ($activityType === 'restauration') {
+			// Insérer les tags de restauration
+		} else {
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+			$tagOffreController = new TagOffreController();
+
+			foreach ($tags as $tag) {
+				$tag_id = $tagController->getTagsByName($tag, 0);
+				$tagOffreController->linkOffreAndTag($id_offre, $tagId);
+				echo "tag " . $tag . " inséré<br>";
 			}
 		}
-		echo "<br>POST: <br>";
-		foreach ($_POST as $key => $value) {
-			if (is_array($value)) {
-				echo $key . " : ";
-				print_r($value);
-				echo "<br>";
-			} else {
-				echo $key . " : " . $value . "<br>";
+
+		// Insérer les images dans la base de données
+		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+		$imageController = new ImageController();
+
+		// *** CARTE
+		if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
+			echo "Erreur lors de l'upload de l'image de la carte.";
+			BDD::rollbackTransaction();
+			exit;
+		}
+		echo "Image de la carte insérée<br>";
+
+		// *** DETAIL
+		for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
+			if ($imageController->uploadImage($id_offre, 'detail', $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
+				echo "Erreur lors de l'upload de l'image de détail.";
+				BDD::rollbackTransaction();
+				exit;
 			}
 		}
-		echo "<br>Files: <br>";
-		foreach ($_FILES as $key => $value) {
-			if (is_array($value)) {
-				echo $key . " : ";
-				print_r($value);
-				echo "<br>";
-			} else {
-				echo $key . " : " . $value . "<br>";
+		echo "Images de détails insérées<br>";
+
+		if ($activity === 'parc_attraction') {
+			if ($imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
+				echo "Erreur lors de l'upload de l'image du plan.";
+				BDD::rollbackTransaction();
+				exit;
 			}
 		}
+		echo "Image du plan insérée<br>";
+
+		if ($activityType === 'visite') {
+			// Insérer les langues dans la base de données
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/langue_controller.php';
+			$langueController = new LangueController();
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
+			$visiteLangueController = new VisiteLangueController();
+
+			foreach ($langues as $langue => $isIncluded) {
+				if ($isIncluded) {
+					$id_langue = $langueController->getInfosLangueByName($langue);
+					$visiteLangueController->linkVisiteAndLangue($id_offre, $id_langue);
+				}
+			}
+			echo "Langues liées<br>";
+		} elseif ($activityType === 'restauration') {
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
+			$typeRepasController = new TypeRepasController();
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_type_repas_controller.php';
+			$restaurationTypeRepasController = new RestaurationTypeRepasController();
+
+			foreach ($typesRepas as $typeRepas => $isIncluded) {
+				if ($isIncluded) {
+					$id_type_repas = $typeRepasController->getTypeRepasByName($typeRepas);
+					$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
+				}
+			}
+			echo "Types de repas liés<br>";
+		} elseif ($activityType === 'activite') {
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_manager.php';
+			$prestationController = new PrestationController();
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
+			$activitePrestationController = new ActivitePrestationController();
+
+			foreach ($prestations as $prestation => $isIncluded) {
+				$id_prestation = $prestationController->getPrestationByName($prestation);
+				if ($id_prestation < 0) {
+					$id_prestation = $prestationController->createPrestation($prestation, $isIncluded);
+				}
+
+				$activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
+			}
+			echo "Prestations liées<br>";
+		}
+
+		// Insérer les horaires dans la base de données
+		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+		$horaireController = new HoraireController();
+
+		foreach ($horaires as $jour) {
+			$horaireController->createHoraire($jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
+		}
+		echo "Horaires insérés<br>";
+
+		// Insérer les prix dans la base de données
+		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
+		$tarifController = new TarifPublicController();
+		foreach ($prices as $price) {
+			if (!isset($price['name']) || !isset($price['value'])) {
+				echo "Erreur : données de prix invalides.";
+				continue;
+			}
+
+			$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
+		}
+		echo "Tarifs insérés<br>";
+
+		BDD::commitTransaction();
+		// header('location: /pro');
 	} else { ?>
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
@@ -89,8 +353,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 					</div>
 				</a>
 				<!-- Section de sélection de l'offre -->
-				<form id="formulaire" action="/pro/offre/creer" method="POST" class="block w-full space-y-8"
-					enctype="multipart/form-data">
+				<form id="formulaire" action="" method="POST" class="block w-full space-y-8" enctype="multipart/form-data">
 					<div class="grid grid-cols-2 justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<div
@@ -1128,34 +1391,40 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 				if (isValid) {
 					showPart1();
 				}
+
+				return isValid;
 			}
 
 			function checkPart2Validity(fieldChanged) {
-				checkPart1Validity();
+				if (!checkPart1Validity()) {
+					return false;
+				}
 
 				const requiredFields = document.querySelectorAll('.part1 input[required], .part1 textarea[required]');
 				let isValid = true;
 
 				requiredFields.forEach((field) => {
-					if (fieldChanged.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_PRECEDING || fieldChanged.compareDocumentPosition(field) === 0) {
-						if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') { // Locality
-							if (field.value === '' || RegExp('^((22)|(29)|(35)|(56))[0-9]{3}$').test(field.value) === false) {
+					if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') { // Locality
+						if (field.value === '' || RegExp('^((22)|(29)|(35)|(56))[0-9]{3}$').test(field.value) === false) {
+							if (fieldChanged.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_PRECEDING || fieldChanged.compareDocumentPosition(field) === 0) {
 								field.classList.remove("border-secondary")
 								field.classList.add('border-red-500');
-								isValid = false;
-							} else {
-								field.classList.remove("border-red-500");
-								field.classList.add('border-secondary');
 							}
+							isValid = false;
 						} else {
-							if (field.value.trim() === '') {
+							field.classList.remove("border-red-500");
+							field.classList.add('border-secondary');
+						}
+					} else {
+						if (field.value.trim() === '') {
+							if (fieldChanged.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_PRECEDING || fieldChanged.compareDocumentPosition(field) === 0) {
 								field.classList.remove("border-secondary")
 								field.classList.add('border-red-500');
-								isValid = false;
-							} else {
-								field.classList.remove("border-red-500");
-								field.classList.add('border-secondary');
 							}
+							isValid = false;
+						} else {
+							field.classList.remove("border-red-500");
+							field.classList.add('border-secondary');
 						}
 					}
 				});
@@ -1163,10 +1432,14 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 				if (isValid) {
 					showPart2();
 				}
+
+				return isValid;
 			}
 
 			function checkPart3Validity(fieldChanged) {
-				checkPart2Validity(fieldChanged);
+				if (!checkPart2Validity(fieldChanged)) {
+					return false;
+				}
 
 				const requiredFields = document.querySelectorAll('.part2 [required]');
 				let isValid = true;

@@ -19,9 +19,10 @@ if (empty($_POST)) { ?>
         <link rel="stylesheet" href="/styles/input.css">
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="/styles/config.js"></script>
-        <title>Connexion au compte</title>
         <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+
+        <title>Connexion au compte - PACT</title>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
@@ -110,7 +111,7 @@ if (empty($_POST)) { ?>
 <?php } else {
     try {
         // Connexion avec la bdd
-        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+        require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
         // Vérifie si la requête est une soumission de formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

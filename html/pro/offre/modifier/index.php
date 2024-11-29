@@ -1,7 +1,7 @@
 <?php
 try {
 	// Connexion à la base de données
-	include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+	require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 	// Vérifier si l'ID de l'offre est passé et est un entier
 	if (isset($_GET['offre-id']) && is_numeric($_GET['offre-id'])) {
@@ -108,7 +108,7 @@ try {
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 
-	<title>Modifier une offre | Professionnel | PACT</title>
+	<title>Modifier mon offre - Professionnel - PACT</title>
 </head>
 
 <!-- 

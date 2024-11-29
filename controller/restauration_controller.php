@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . "/model/restauration.php";
+require dirname(path: $_SERVER['DOCUMENT_ROOT']) . "/model/restauration.php";
 
 class RestaurationController
 {

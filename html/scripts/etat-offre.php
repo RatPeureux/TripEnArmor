@@ -1,7 +1,7 @@
 <?php
     session_start(); // Démarre la session pour accéder aux variables de session
 
-include("/php/connect_params.php"); // Inclut le fichier de configuration pour la connexion à la base de données
+require("/php/connect_params.php"); // Inclut le fichier de configuration pour la connexion à la base de données
 
 try {
     // Établit la connexion à la base de données avec PDO

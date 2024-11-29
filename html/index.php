@@ -4,7 +4,7 @@ session_start();
 unset($_SESSION['data_en_cours_connexion']);
 unset($_SESSION['data_en_cours_inscription']);
 
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,13 +14,14 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <title>Accueil | PACT</title>
 
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
+
+    <title>Toutes les offres - PACT</title>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
@@ -32,7 +33,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
     <?php
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     $sort_order = '';
     if (isset($_GET['sort'])) {
@@ -93,9 +94,10 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                             if ($i < 3) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';
-                                include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
+                                require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
                                 $i++;
                             }
+                            $i++;
                         } ?>
                     </div>
                 <?php } ?>

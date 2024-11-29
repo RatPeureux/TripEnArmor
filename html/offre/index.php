@@ -9,7 +9,6 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <title>Détails d'une offre | PACT</title>
 
     <link rel="stylesheet" href="/styles/input.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -24,14 +23,14 @@ session_start();
     <!-- Pour les requêtes AJAX -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <title>Détails d'une offre | PACT</title>
+    <title>Détails d'une offre - PACT</title>
 </head>
 
 <body class="flex flex-col">
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
     ?>
 
     <?php
@@ -41,13 +40,14 @@ session_start();
     }
 
     // Connexion avec la bdd
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $id_pro = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
+
     $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
     $stmt->bindParam(':id_pro', $id_pro);
     $stmt->execute();
@@ -61,20 +61,19 @@ session_start();
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Ancienne méthode pour obtenir les informations de l'offre
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
-
-    // Utilisation du MVC en fonction de la catégorie de l'offre
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     switch ($categorie_offre) {
         case 'restauration':
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+            // appel controlller restauration
+            // $restaurtion egal Ctrl->getRestaurationById($id_offre)
+            // echo $restauration['id_repas']
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
             $controllerRestauration = new RestaurationController();
             $parc_attraction = $controllerRestauration->getInfosRestauration($id_offre);
             break;
 
         case 'activite':
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
             $controllerActivite = new ActiviteController();
             $activite = $controllerActivite->getInfosActivite($id_offre);
 
@@ -91,7 +90,7 @@ session_start();
             break;
 
         case 'parc_attraction':
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
             $controllerParcAttraction = new ParcAttractionController();
             $parc_attraction = $controllerParcAttraction->getInfosParcAttraction($id_offre);
 
@@ -103,7 +102,7 @@ session_start();
             break;
 
         case 'visite':
-            include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
+            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
             $controllerVisite = new VisiteController();
             $visite = $controllerVisite->getInfosVisite($id_offre);
 
@@ -116,7 +115,7 @@ session_start();
             $guideBool = $visite['avec_guide'];
             if ($guideBool == true) {
                 $guide = 'oui';
-                include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
+                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
                 $controllerLangue = new VisiteLangueController();
                 $tabLangues = $controllerLangue->getLanguesByIdVisite($id_offre);
                 $langues = '';
@@ -132,7 +131,7 @@ session_start();
             break;
 
         case 'spectacle':
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
             $controllerSpectacle = new SpectacleController();
             $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
 
@@ -224,7 +223,7 @@ session_start();
     }
 
     if ($categorie_offre == 'parc_attraction') {
-        // require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
+        // require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
         // $controllerImage = new TImageImgController();
         // $path_plan = $controllerImage->getPathToPlan($id_offre);
     }

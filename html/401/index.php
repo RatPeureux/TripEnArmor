@@ -13,7 +13,7 @@
     <script type="module" src="/scripts/loadComponents.js" defer=""></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
     
-    <title>Accès refusé</title>
+    <title>401 Accès refusé - PACT</title>
 </head>
 
 <body class="min-h-screen flex flex-col">

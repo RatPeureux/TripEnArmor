@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 verifyPro();
 ?>
 
@@ -12,7 +12,6 @@ verifyPro();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <title>Détails d'une offre | Professionnel | PACT</title>
 
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,7 +21,7 @@ verifyPro();
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
 
-    <title>Détails d'une offre | Professionnel | PACT</title>
+    <title>Détails d'une offre - Professionnel - PACT</title>
 </head>
 
 <body class="flex flex-col">
@@ -34,7 +33,7 @@ verifyPro();
     $id_pro = $_SESSION['id_pro'];
 
     // Connexion avec la bdd
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare('SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro');
@@ -48,7 +47,7 @@ verifyPro();
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     ?>
 
     <!-- VERSION TABLETTE -->

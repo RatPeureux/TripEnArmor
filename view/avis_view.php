@@ -1,4 +1,5 @@
-<!-- 
+
+console.log("La partie 1 est valide");<!-- 
     POUR APPELER LA VUE AVIS, DÉFINIR LES VARIABLES SUIVANTES EN AMONT :
     - $id_avis
     - $id_membre

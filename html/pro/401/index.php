@@ -14,7 +14,7 @@
     <script type="module" src="/scripts/loadComponentsPro.js" defer=""></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
     
-    <title>Accès refusé</title>
+    <title>401 Accès refusé - Professionnel - PACT</title>
 </head>
 
 <body class="min-h-screen flex flex-col">
