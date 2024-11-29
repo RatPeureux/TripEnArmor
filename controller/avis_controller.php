@@ -18,23 +18,20 @@ class AvisController
 
     public function getAvisByIdMembre($idMembre)
     {
-        $resultatSQL = $this->model::getAvisByIdMembre($idMembre);
+        $result = $this->model::getAvisByIdMembre($idMembre);
+        return $result;
+    }
 
-        if ($resultatSQL) {
-            $result = array_map(function ($row) {
-                return [
-                    "id_avis" => $row["id_avis"],
-                    "titre" => $row["titre"],
-                    "commentaire" => $row["commentaire"],
-                    "date_experience" => $row["date_experience"],
-                    "date_publication" => $row["date_publication"],
-                    "id_avis_reponse" => $row["id_avis_reponse"],
-                ];
-            }, $resultatSQL);
-        } else {
-            echo "ERREUR: Aucun avis trouvé";
-            return -1;
-        }
+    public function getAvisById($idAvis)
+    {
+        $result = $this->model::getAvisById($idAvis);
+        return $result;
+    }
+
+    public function getAvisByIdMembreEtOffre($idMembre, $idOffre)
+    {
+        $result = $this->model::getAvisByIdMembreEtOffre($idMembre, $idOffre);
+        return $result;
     }
 
     public function createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse = null)

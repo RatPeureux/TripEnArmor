@@ -20,7 +20,7 @@ BEGIN
     -- Vérifier si la prestation existe déjà dans la base (même nom)
     SELECT id_prestation
     INTO prestation_existante_id
-    FROM _prestation
+    FROM sae_db._prestation
     WHERE nom = p_nom;
 
     -- Si la prestation existe, on réutilise son ID
@@ -91,19 +91,19 @@ CREATE OR REPLACE FUNCTION fk_avis()
 RETURNS TRIGGER AS $$
 BEGIN
     -- Vérification de l'existence de l'utilisateur (id_compte)
-    IF NOT EXISTS (SELECT 1 FROM _pro_prive WHERE id_compte = NEW.id_compte)
-    AND NOT EXISTS (SELECT 1 FROM _pro_public WHERE id_compte = NEW.id_compte)
-    AND NOT EXISTS (SELECT 1 FROM _membre WHERE id_compte = NEW.id_compte)
+    IF NOT EXISTS (SELECT 1 FROM  sae_db._pro_prive WHERE id_compte = NEW.id_compte)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._pro_public WHERE id_compte = NEW.id_compte)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._membre WHERE id_compte = NEW.id_compte)
     THEN
         RAISE EXCEPTION 'L''id_compte % ne correspond à aucun utilisateur valide.', NEW.id_compte;
     END IF;
     
     -- Vérification de l'existence de l'offre (id_offre)
-    IF NOT EXISTS (SELECT 1 FROM _restauration WHERE id_offre = NEW.id_offre)
-    AND NOT EXISTS (SELECT 1 FROM _activite WHERE id_offre = NEW.id_offre)
-    AND NOT EXISTS (SELECT 1 FROM _parc_attraction WHERE id_offre = NEW.id_offre)
-    AND NOT EXISTS (SELECT 1 FROM _visite WHERE id_offre = NEW.id_offre)
-    AND NOT EXISTS (SELECT 1 FROM _spectacle WHERE id_offre = NEW.id_offre)
+    IF NOT EXISTS (SELECT 1 FROM sae_db._restauration WHERE id_offre = NEW.id_offre)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._activite WHERE id_offre = NEW.id_offre)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._parc_attraction WHERE id_offre = NEW.id_offre)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._visite WHERE id_offre = NEW.id_offre)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._spectacle WHERE id_offre = NEW.id_offre)
     THEN
         RAISE EXCEPTION 'L''id_offre % ne correspond à aucune offre valide.', NEW.id_offre;
     END IF;
@@ -122,14 +122,14 @@ DECLARE
 BEGIN
     -- Récupérer l'auteur de l'offre
     SELECT id_pro INTO auteur_offre
-    FROM _offre
+    FROM sae_db._offre
     WHERE id_offre = NEW.id_offre;
 
     -- Si l'avis est une réponse
     IF is_response THEN
         -- Vérifier que l'avis parent existe et récupérer son id_offre
         SELECT id_offre INTO avis_reponse_offre
-        FROM _avis
+        FROM sae_db._avis
         WHERE id_avis = NEW.id_avis_reponse;
 
         -- Vérifier que l'avis parent appartient à la même offre
@@ -196,13 +196,13 @@ Triggers
 CREATE TRIGGER tg_check_contraintes_avis BEFORE
 INSERT
     OR
-UPDATE ON _avis FOR EACH ROW
+UPDATE ON sae_db._avis FOR EACH ROW
 EXECUTE FUNCTION check_contraintes_avis ();
 
 -- Trigger pour valider les clés étrangères
 CREATE TRIGGER tg_fk_avis BEFORE
 INSERT
-    ON _avis FOR EACH ROW
+    ON sae_db._avis FOR EACH ROW
 EXECUTE FUNCTION fk_avis ();
 
 -- trigger pour vérifier les id de la table activite
