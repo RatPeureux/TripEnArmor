@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class Rib extends BDD {
     // Nom de la table utilisée dans les requêtes

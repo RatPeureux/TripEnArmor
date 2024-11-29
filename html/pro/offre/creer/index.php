@@ -1,6 +1,7 @@
 <?php
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-// $pro = verifyPro();
+echo "Première ligne";
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+$pro = verifyPro();
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +21,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 	<script type="module" src="/scripts/main.js" defer></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
-				<script type="text/javascript" src="/scripts/autocomplete.js"></script>
+	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 	<script src="/scripts/utils.js"></script>
 </head>
 
@@ -38,41 +39,310 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 <body>
 	<?php
+	echo "Avant le if";
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		echo "SESSION: <br>";
-		foreach ($_SESSION as $key => $value) {
-			if (is_array($value)) {
-				echo $key . " : ";
-				print_r($value);
-				echo "<br>";
-			} else {
-				echo $key . " : " . $value . "<br>";
+		require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/bdd.php';
+		// *********************************************************************************************************************** Définition de fonctions
+		// Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
+		function calculerPrixMin($prices)
+		{
+			$minPrice = null;
+
+			foreach ($prices as $price) {
+				if (isset($price['value']) && (is_null($minPrice) || $price['value'] < $minPrice)) {
+					$minPrice = $price['value'];
+				}
+			}
+
+			return $minPrice;
+		}
+
+		// Fonction pour extraire des informations depuis une adresse complète
+		function extraireInfoAdresse($adresse)
+		{
+			$numero = substr($adresse, 0, 1);  // À adapter selon le format de l'adresse
+			$odonyme = substr($adresse, 2);
+
+			return [
+				'numero' => $numero,
+				'odonyme' => $odonyme,
+			];
+		}
+		// *********************************************************************************************************************** Récupération des données du POST
+		// Récupération des données du formulaire
+		// *** Données standard
+		$type_offre = $_POST["offre"];
+		$titre = $_POST['titre'];
+		$adresse = $_POST['user_input_autocomplete_address'];
+		$code = $_POST['postal_code'];
+		$ville = $_POST['locality'];
+		$resume = $_POST['resume'];
+		$description = $_POST['description'];
+		$accessibilite = $_POST['accessibilite'];
+		$activityType = $_POST['activityType'];
+
+		// *** Données spécifiques
+		$avec_guide = $_POST["guide"] ?? "on"; // VISITE
+		$age = $_POST["age"];
+		$dureeFormatted = sprintf('%02d:%02d:00', $_POST["hours"], $_POST["minutes"]); // ACTIVITE, VISITE, SPECTACLE
+		$gamme_prix = $_POST['gamme_prix'];
+		$capacite = $_POST['capacite'] ?? '';
+		$langues = [
+			"Français" => $_POST["langueFR"] ?? "on",
+			"Anglais" => $_POST["langueEN"] ?? "on",
+			"Espagnol" => $_POST["langueES"] ?? "on",
+			"Allemand" => $_POST["langueDE"] ?? "on"
+		]; // VISITE
+		$typesRepas = [
+			"Petit déjeuner" => $_POST["repasPetitDejeuner"] ?? "on",
+			"Brunch" => $_POST["repasBrunch"] ?? "on",
+			"Déjeuner" => $_POST["repasDejeuner"] ?? "on",
+			"Dîner" => $_POST["repasDiner"] ?? "on",
+			"Boissons" => $_POST["repasBoissons"] ?? "on",
+		];
+		$nb_attractions = (int) $_POST['nb_attractions'] ?? 0; // PARC_ATTRACTION
+		$prices = $_POST['prices'] ?? [];
+		$tags = $_POST['tags'][$activityType] ?? [];
+		$id_pro = $_SESSION['id_pro'];
+		$prestations = $_POST['newPrestationName'] ?? [];
+		$horaires = $_POST['horaires'] ?? [];
+
+		// Récupérer d'autres valeurs
+	
+
+		// *********************************************************************************************************************** Insertion
+		/* Ordre de l'insertion :
+			  1. [x] Adresse
+			  3. [x] Image
+			  5. [x] Offre
+			  6. [x] Offre_Tag / Restauration_Tag
+			  7. [x] Offre_Image
+			  8. [x] Offre_Langue
+			  9. [x] TypeRepas 
+			  10. [x] Offre_Prestation
+			  11. Horaires
+			  12. [x] Tarif_Public
+			  */
+		BDD::startTransaction();
+
+		// Insérer l'adresse dans la base de données
+		$realAdresse = extraireInfoAdresse($adresse);
+		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
+		$adresseController = new AdresseController();
+		$id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
+		if (!$id_adresse) {
+			echo "Erreur lors de la création de l'adresse.";
+			BDD::rollbackTransaction();
+			exit;
+		}
+		echo "Adresse insérée<br>";
+
+		// Insérer l'offre dans la base de données
+		$prixMin = calculerPrixMin($prices);
+		$id_offre;
+		switch ($activity) {
+			case 'activite':
+				// Insertion spécifique à l'activité
+				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
+
+				$activiteController = new ActiviteController();
+				$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
+
+				if ($id_offre < 0) { // Cas d'erreur
+					echo "Erreur lors de l'insertion : " . $id_offre;
+					BDD::rollbackTransaction();
+				}
+				echo "Activité insérée<br>";
+				break;
+
+			case 'visite':
+
+				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
+
+				$visiteController = new VisiteController();
+				$id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
+
+				if ($id_offre < 0) {
+					echo "Erreur lors de l'insertion : " . $id_offre;
+					BDD::rollbackTransaction();
+				}
+				echo "Visite insérée<br>";
+				break;
+
+			case 'spectacle':
+
+				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
+
+				$spectacleController = new SpectacleController();
+				$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $capacite);
+
+				if ($id_offre < 0) {
+					echo "Erreur lors de l'insertion : " . $id_offre;
+					BDD::rollbackTransaction();
+				}
+				echo "Spectacle inséré<br>";
+				break;
+
+			case 'parc_attraction':
+
+				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
+
+				$parcAttractionController = new ParcAttractionController();
+				$id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
+
+				if ($id_offre < 0) {
+					echo "Erreur lors de l'insertion : " . $id_offre;
+					BDD::rollbackTransaction();
+				}
+				echo "Parc d'attraction inséré<br>";
+				break;
+
+			case 'restauration':
+
+				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+
+				$restaurationController = new RestaurationController();
+				$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas);
+
+				if ($id_offre < 0) {
+					echo "Erreur lors de l'insertion : " . $id_offre;
+					BDD::rollbackTransaction();
+				}
+				echo "Restauration insérée<br>";
+				break;
+
+			default:
+				echo "Aucune activité sélectionnée";
+				BDD::rollbackTransaction();
+				exit;
+		}
+
+		// Insérer les liens entre les offres et les tags dans la base de données
+		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+		$tagController = new TagController();
+		if ($activityType === 'restauration') {
+			// Insérer les tags de restauration
+		} else {
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+			$tagOffreController = new TagOffreController();
+
+			foreach ($tags as $tag) {
+				$tag_id = $tagController->getTagsByName($tag, 0);
+				$tagOffreController->linkOffreAndTag($id_offre, $tagId);
+				echo "tag " . $tag . " inséré<br>";
 			}
 		}
-		echo "<br>POST: <br>";
-		foreach ($_POST as $key => $value) {
-			if (is_array($value)) {
-				echo $key . " : ";
-				print_r($value);
-				echo "<br>";
-			} else {
-				echo $key . " : " . $value . "<br>";
+
+		// Insérer les images dans la base de données
+		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+		$imageController = new ImageController();
+
+		// *** CARTE
+		if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
+			echo "Erreur lors de l'upload de l'image de la carte.";
+			BDD::rollbackTransaction();
+			exit;
+		}
+		echo "Image de la carte insérée<br>";
+
+		// *** DETAIL
+		for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
+			if ($imageController->uploadImage($id_offre, 'detail', $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
+				echo "Erreur lors de l'upload de l'image de détail.";
+				BDD::rollbackTransaction();
+				exit;
 			}
 		}
-		echo "<br>Files: <br>";
-		foreach ($_FILES as $key => $value) {
-			if (is_array($value)) {
-				echo $key . " : ";
-				print_r($value);
-				echo "<br>";
-			} else {
-				echo $key . " : " . $value . "<br>";
+		echo "Images de détails insérées<br>";
+
+		if ($activity === 'parc_attraction') {
+			if ($imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
+				echo "Erreur lors de l'upload de l'image du plan.";
+				BDD::rollbackTransaction();
+				exit;
 			}
 		}
+		echo "Image du plan insérée<br>";
+
+		if ($activityType === 'visite') {
+			// Insérer les langues dans la base de données
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/langue_controller.php';
+			$langueController = new LangueController();
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
+			$visiteLangueController = new VisiteLangueController();
+
+			foreach ($langues as $langue => $isIncluded) {
+				if ($isIncluded) {
+					$id_langue = $langueController->getInfosLangueByName($langue);
+					$visiteLangueController->linkVisiteAndLangue($id_offre, $id_langue);
+				}
+			}
+			echo "Langues liées<br>";
+		} elseif ($activityType === 'restauration') {
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
+			$typeRepasController = new TypeRepasController();
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_type_repas_controller.php';
+			$restaurationTypeRepasController = new RestaurationTypeRepasController();
+
+			foreach ($typesRepas as $typeRepas => $isIncluded) {
+				if ($isIncluded) {
+					$id_type_repas = $typeRepasController->getTypeRepasByName($typeRepas);
+					$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
+				}
+			}
+			echo "Types de repas liés<br>";
+		} elseif ($activityType === 'activite') {
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_manager.php';
+			$prestationController = new PrestationController();
+			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
+			$activitePrestationController = new ActivitePrestationController();
+
+			foreach ($prestations as $prestation => $isIncluded) {
+				$id_prestation = $prestationController->getPrestationByName($prestation);
+				if ($id_prestation < 0) {
+					$id_prestation = $prestationController->createPrestation($prestation, $isIncluded);
+				}
+
+				$activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
+			}
+			echo "Prestations liées<br>";
+		}
+
+		// Insérer les horaires dans la base de données
+		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+		$horaireController = new HoraireController();
+
+		foreach ($horaires as $jour) {
+			$horaireController->createHoraire($jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
+		}
+		echo "Horaires insérés<br>";
+
+		// Insérer les prix dans la base de données
+		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
+		$tarifController = new TarifPublicController();
+		foreach ($prices as $price) {
+			if (!isset($price['name']) || !isset($price['value'])) {
+				echo "Erreur : données de prix invalides.";
+				continue;
+			}
+
+			$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
+		}
+		echo "Tarifs insérés<br>";
+
+		BDD::commitTransaction();
+		// header('location: /pro');
 	} else { ?>
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
-			<div id="header-pro" class="w-full mb-20"></div>
+
+			<div class="w-full mb-20">
+				<!-- Inclusion du header -->
+				<?php
+				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+				?>
+			</div>
+
 			<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 				<!-- Lien de retour avec une icône et un titre -->
 				<a href="" onclick="history.back()" class="flex w-full gap-4 items-center content-center space-x-">
@@ -82,8 +352,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 					</div>
 				</a>
 				<!-- Section de sélection de l'offre -->
-				<form id="formulaire" action="/pro/offre/creer" method="POST" class="block w-full space-y-8"
-					enctype="multipart/form-data">
+				<form id="formulaire" action="" method="POST" class="block w-full space-y-8" enctype="multipart/form-data">
 					<div class="grid grid-cols-2 justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<div
@@ -520,7 +789,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 									<!-- HORAIRES -->
 									<div
 										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
-									
+
 										<h2 class="text-h2 text-secondary">Horaires</h2>
 										<table class="w-full table-auto">
 											<thead>
@@ -815,30 +1084,30 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 								<div class="card active relative bg-base300 rounded-xl flex flex-col w-full"
 									id="card-preview">
 									<script>
-											// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
-																																		 function toggleCardPreview(option) {
-												// Récupérer l'élément de la carte
-												const cardPreview = document.getElementById("card-preview");
-																																		 // Ajouter ou retirer la classe active en fonction de l'option choisie
-																																		 if (option === "option-rien") {
-																																			 cardPreview.classList.remove("active");
-												} else {
-																																			 cardPreview.classList.add("active");
-												}
+										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
+										function toggleCardPreview(option) {
+											// Récupérer l'élément de la carte
+											const cardPreview = document.getElementById("card-preview");
+											// Ajouter ou retirer la classe active en fonction de l'option choisie
+											if (option === "option-rien") {
+												cardPreview.classList.remove("active");
+											} else {
+												cardPreview.classList.add("active");
 											}
-																																		 // Ajouter un EventListener pour détecter les changements dans les options
-																																		 document.getElementById("option-rien-div").addEventListener("click", function () {
-																																			 toggleRadio("option-rien");
-																																		 toggleCardPreview("option-rien");
-											});
-																																		 document.getElementById("option-relief-div").addEventListener("click", function () {
-																																			 toggleRadio("option-relief");
-																																		 toggleCardPreview("option-relief");
-											});
-																																		 document.getElementById("option-a-la-une-div").addEventListener("click", function () {
-																																			 toggleRadio("option-a-la-une");
-																																		 toggleCardPreview("option-a-la-une");
-											});
+										}
+										// Ajouter un EventListener pour détecter les changements dans les options
+										document.getElementById("option-rien-div").addEventListener("click", function () {
+											toggleRadio("option-rien");
+											toggleCardPreview("option-rien");
+										});
+										document.getElementById("option-relief-div").addEventListener("click", function () {
+											toggleRadio("option-relief");
+											toggleCardPreview("option-relief");
+										});
+										document.getElementById("option-a-la-une-div").addEventListener("click", function () {
+											toggleRadio("option-a-la-une");
+											toggleCardPreview("option-a-la-une");
+										});
 									</script>
 									<!-- En tête -->
 									<div
@@ -846,75 +1115,75 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 										<!-- Mise à jour du titre en temps réel -->
 										<h3 class="text-center font-bold" id="preview-titre"></h3>
 										<script>
-																																		 document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
-																																		 document.getElementById("titre").value
-																																		 :
-																																		 // Si le titre est vide, afficher le placeholder du titre
-																																		 document.getElementById("titre").placeholder;
-																																		 document
-																																		 .getElementById("titre")
-																																		 .addEventListener("input", function () {
-																																			 document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
-																																				 document.getElementById("titre").value
-																																				 :
-																																				 // Si le titre est vide, afficher le placeholder du titre
-																																				 document.getElementById("titre").placeholder;
-													});
+											document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
+												document.getElementById("titre").value
+												:
+												// Si le titre est vide, afficher le placeholder du titre
+												document.getElementById("titre").placeholder;
+											document
+												.getElementById("titre")
+												.addEventListener("input", function () {
+													document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
+														document.getElementById("titre").value
+														:
+														// Si le titre est vide, afficher le placeholder du titre
+														document.getElementById("titre").placeholder;
+												});
 										</script>
 										<div class="flex w-full justify-between px-2">
 											<!-- Mise à jour de l'auteur en temps réel -->
 											<p class="text-small" id="preview-auteur"></p>
 											<script>
-																																		 document.getElementById("preview-auteur").textContent =
-																																		 document.getElementById("auteur").innerText;
+												document.getElementById("preview-auteur").textContent =
+													document.getElementById("auteur").innerText;
 											</script>
 											<p class="text-small" id="preview-activite"></p>
 											<!-- Mise à jour de l'activité en fonction de la sélection -->
 											<script>
-																																		 // Fonction pour mettre à jour la sélection d'activité
-																																		 function updateActivite() {
-														// Récupérer la valeur sélectionnée dans le sélecteur
-														const selectedActivite =
-																																		 document.getElementById("activityType").value;
-																																		 // Transforme la value en texte propre
-																																		 switch (selectedActivite) {
-															case "activite":
-																																		 document.getElementById(
-																																		 "preview-activite"
-																																		 ).textContent = "Activité";
-																																		 break;
-																																		 case "visite":
-																																		 document.getElementById(
-																																		 "preview-activite"
-																																		 ).textContent = "Visite";
-																																		 break;
-																																		 case "spectacle":
-																																		 document.getElementById(
-																																		 "preview-activite"
-																																		 ).textContent = "Spectacle";
-																																		 break;
-																																		 case "parc_attraction":
-																																		 document.getElementById(
-																																		 "preview-activite"
-																																		 ).textContent = "Parc d'attraction";
-																																		 break;
-																																		 case "restauration":
-																																		 document.getElementById(
-																																		 "preview-activite"
-																																		 ).textContent = "Restauration";
-																																		 break;
-																																		 default:
-																																		 document.getElementById(
-																																		 "preview-activite"
-																																		 ).textContent = "Type d'activité";
-														}
+												// Fonction pour mettre à jour la sélection d'activité
+												function updateActivite() {
+													// Récupérer la valeur sélectionnée dans le sélecteur
+													const selectedActivite =
+														document.getElementById("activityType").value;
+													// Transforme la value en texte propre
+													switch (selectedActivite) {
+														case "activite":
+															document.getElementById(
+																"preview-activite"
+															).textContent = "Activité";
+															break;
+														case "visite":
+															document.getElementById(
+																"preview-activite"
+															).textContent = "Visite";
+															break;
+														case "spectacle":
+															document.getElementById(
+																"preview-activite"
+															).textContent = "Spectacle";
+															break;
+														case "parc_attraction":
+															document.getElementById(
+																"preview-activite"
+															).textContent = "Parc d'attraction";
+															break;
+														case "restauration":
+															document.getElementById(
+																"preview-activite"
+															).textContent = "Restauration";
+															break;
+														default:
+															document.getElementById(
+																"preview-activite"
+															).textContent = "Type d'activité";
 													}
-																																		 // Ajouter un EventListener pour détecter les changements dans le sélecteur
-																																		 document
-																																		 .getElementById("activityType")
-																																		 .addEventListener("change", updateActivite);
-																																		 // Appeler la fonction une première fois pour l'initialisation avec la valeur par défaut
-																																		 updateActivite();
+												}
+												// Ajouter un EventListener pour détecter les changements dans le sélecteur
+												document
+													.getElementById("activityType")
+													.addEventListener("change", updateActivite);
+												// Appeler la fonction une première fois pour l'initialisation avec la valeur par défaut
+												updateActivite();
 											</script>
 										</div>
 									</div>
@@ -922,23 +1191,23 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 									<img class="h-48 w-full rounded-t-lg object-cover" src="/public/images/image-test.png"
 										alt="Image promotionnelle de l'offre" id="preview-image" />
 									<script>
-																																		 document
-																																		 .getElementById("photo-upload-carte")
-																																		 .addEventListener("change", function (event) {
-													const file = event.target.files[0]; // Récupérer le fichier sélectionné
-																																		 const previewImage =
-																																		 document.getElementById("preview-image"); // Élément d'image à mettre à jour
+										document
+											.getElementById("photo-upload-carte")
+											.addEventListener("change", function (event) {
+												const file = event.target.files[0]; // Récupérer le fichier sélectionné
+												const previewImage =
+													document.getElementById("preview-image"); // Élément d'image à mettre à jour
 
-																																		 if (file) {
-														const reader = new FileReader(); // Créer un nouvel objet FileReader
-																																		 reader.onload = function (e) {
-																																			 previewImage.src = e.target.result; // Mettre à jour la source de l'image avec le fichier
-														};
-																																		 reader.readAsDataURL(file); // Lire le fichier comme une URL de données
-													} else {
-																																			 previewImage.src = "#"; // Image par défaut ou vide si aucun fichier
-													}
-												});
+												if (file) {
+													const reader = new FileReader(); // Créer un nouvel objet FileReader
+													reader.onload = function (e) {
+														previewImage.src = e.target.result; // Mettre à jour la source de l'image avec le fichier
+													};
+													reader.readAsDataURL(file); // Lire le fichier comme une URL de données
+												} else {
+													previewImage.src = "#"; // Image par défaut ou vide si aucun fichier
+												}
+											});
 									</script>
 									<!-- Infos principales -->
 									<div class="infos flex items-center justify-around gap-2 px-2 w-full max-w-full">
@@ -949,34 +1218,34 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 											<!-- Mise à jour de la ville en temps réel -->
 											<p class="text-small" id="preview-locality"></p>
 											<script>
-																																		 document.getElementById(
-																																		 "preview-locality"
-																																		 ).textContent =
-																																		 document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
-																																		 document
-																																		 .getElementById("locality")
-																																		 .addEventListener("input", function () {
-																																			 document.getElementById(
-																																				 "preview-locality"
-																																			 ).textContent =
-																																			 document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder;
-														});
+												document.getElementById(
+													"preview-locality"
+												).textContent =
+													document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
+												document
+													.getElementById("locality")
+													.addEventListener("input", function () {
+														document.getElementById(
+															"preview-locality"
+														).textContent =
+															document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder;
+													});
 											</script>
 											<!-- Mise à jour du code postal en temps réel -->
 											<p class="text-small" id="preview-postal_code"></p>
 											<script>
-																																		 document.getElementById(
-																																		 "preview-postal_code"
-																																		 ).textContent =
-																																		 document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder
-																																		 document
-																																		 .getElementById("postal_code")
-																																		 .addEventListener("input", function () {
-																																			 document.getElementById(
-																																				 "preview-postal_code"
-																																			 ).textContent =
-																																			 document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder;
-														});
+												document.getElementById(
+													"preview-postal_code"
+												).textContent =
+													document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder
+												document
+													.getElementById("postal_code")
+													.addEventListener("input", function () {
+														document.getElementById(
+															"preview-postal_code"
+														).textContent =
+															document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder;
+													});
 											</script>
 										</div>
 										<hr class="h-20 border-black border" />
@@ -993,42 +1262,42 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 													Ajouter un tag...
 												</p>
 												<script>
-																																		 function refreshTagPreview() {
-															const tagPreview = document.getElementById(
-																																		 "preview-tag-input"
-																																		 )
+													function refreshTagPreview() {
+														const tagPreview = document.getElementById(
+															"preview-tag-input"
+														)
 
-																																		 const tagContainers = document.querySelectorAll('.tag-container');
-															tagContainers.forEach(container => {
-																if (!container.classList.contains('hidden')) {
-																	const tags = Array.from(container.children).map(tag => tag.childNodes[0].nodeValue).join(', ');
-																	tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags) : "Ajouter un tag...";
-																}
-															});
-														}
-																																		 refreshTagPreview();
+														const tagContainers = document.querySelectorAll('.tag-container');
+														tagContainers.forEach(container => {
+															if (!container.classList.contains('hidden')) {
+																const tags = Array.from(container.children).map(tag => tag.childNodes[0].nodeValue).join(', ');
+																tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags) : "Ajouter un tag...";
+															}
+														});
+													}
+													refreshTagPreview();
 
-																																		 Array.from(document
-																																		 .getElementsByClassName("tag-container")).forEach(
-																(container) => {
-																	const observer = new MutationObserver(refreshTagPreview);
-																																		 observer.observe(container, {childList: true });
-																}
-																																		 )
+													Array.from(document
+														.getElementsByClassName("tag-container")).forEach(
+															(container) => {
+																const observer = new MutationObserver(refreshTagPreview);
+																observer.observe(container, { childList: true });
+															}
+														)
 												</script>
 											</div>
 											<!-- Mise à jour du résumé en temps réel -->
 											<p class="line-clamp-2 text-small text-center break-words max-w-full"
 												id="preview-resume"></p>
 											<script>
-																																		 document.getElementById("preview-resume").textContent =
-																																		 document.getElementById("resume").value ? document.getElementById("resume").value : document.getElementById("resume").placeholder
-																																		 document
-																																		 .getElementById("resume")
-																																		 .addEventListener("input", function () {
-																																			 document.getElementById("preview-resume").textContent =
-																																			 document.getElementById("resume").value ? document.getElementById("resume").value : document.getElementById("resume").placeholder;
-														});
+												document.getElementById("preview-resume").textContent =
+													document.getElementById("resume").value ? document.getElementById("resume").value : document.getElementById("resume").placeholder
+												document
+													.getElementById("resume")
+													.addEventListener("input", function () {
+														document.getElementById("preview-resume").textContent =
+															document.getElementById("resume").value ? document.getElementById("resume").value : document.getElementById("resume").placeholder;
+													});
 											</script>
 										</div>
 										<hr class="h-20 border-black border" />
@@ -1040,26 +1309,26 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 										</div>
 										<!-- Mise à jour de la gamme de prix -->
 										<script>
-																																		 // Fonction pour mettre à jour la gamme de prix
-																																		 function updatePrixDiff() {
-													// Récupérer la valeur du bouton radio sélectionné
-													const selectedPrix = document.querySelector(
-																																		 'input[name="gamme2prix"]:checked'
-																																		 ).value;
-																																		 // Mettre à jour le texte dans la prévisualisation
-																																		 document.getElementById("preview-prix-diff").textContent =
-																																		 selectedPrix;
-												}
+											// Fonction pour mettre à jour la gamme de prix
+											function updatePrixDiff() {
+												// Récupérer la valeur du bouton radio sélectionné
+												const selectedPrix = document.querySelector(
+													'input[name="gamme2prix"]:checked'
+												).value;
+												// Mettre à jour le texte dans la prévisualisation
+												document.getElementById("preview-prix-diff").textContent =
+													selectedPrix;
+											}
 
-																																		 // Ajouter un EventListener pour détecter les changements dans le groupe de boutons radio
-																																		 document
-																																		 .querySelectorAll('input[name="gamme2prix"]')
-													.forEach((radio) => {
-																																			 radio.addEventListener("change", updatePrixDiff);
-													});
+											// Ajouter un EventListener pour détecter les changements dans le groupe de boutons radio
+											document
+												.querySelectorAll('input[name="gamme2prix"]')
+												.forEach((radio) => {
+													radio.addEventListener("change", updatePrixDiff);
+												});
 
-																																		 // Appeler la fonction une première fois pour l'initialisation avec la valeur par défaut
-																																		 updatePrixDiff();
+											// Appeler la fonction une première fois pour l'initialisation avec la valeur par défaut
+											updatePrixDiff();
 										</script>
 									</div>
 								</div>
@@ -1075,158 +1344,168 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 		<script src="/scripts/priceManager.js"></script>
 		<script src="/scripts/prestationManager.js"></script>
 		<script>
-																																		 console.log("Before optionToggler.js");
+			console.log("Before optionToggler.js");
 		</script>
 		<script src="/scripts/optionToggler.js"></script>
 		<script>
-																																		 console.log("After optionToggler.js");
+			console.log("After optionToggler.js");
 		</script>
 		<script>
-																																		 // Fonction pour afficher la partie 1 du formulaire
-																																		 function showPart1() {
-					// Récupérer les éléments à afficher
-					const elements = document.getElementsByClassName("part1");
-																																		 // Afficher les éléments
-																																		 for (let i = 0; i < elements.length; i++) {
-																																			 elements[i].classList.remove("hidden");
+			// Fonction pour afficher la partie 1 du formulaire
+			function showPart1() {
+				// Récupérer les éléments à afficher
+				const elements = document.getElementsByClassName("part1");
+				// Afficher les éléments
+				for (let i = 0; i < elements.length; i++) {
+					elements[i].classList.remove("hidden");
+				}
+			}
+
+			// Fonction pour afficher la partie 2 du formulaire
+			function showPart2() {
+				// Récupérer les éléments à afficher
+				const part2 = document.querySelector(".part2");
+				// Afficher les éléments
+				part2.classList.remove("hidden");
+			}
+
+			function showPart3() {
+				document.getElementById("submitPart3").removeAttribute("disabled");
+			}
+
+			function hidePart3() {
+				document.getElementById("submitPart3").setAttribute("disabled", "true");
+			}
+
+			function checkPart1Validity() {
+				const offreRadios = document.querySelectorAll('input[name="type_offre"]');
+				let isValid = false;
+
+				offreRadios.forEach((radio) => {
+					if (radio.checked) {
+						isValid = true;
 					}
+				});
+
+				if (isValid) {
+					showPart1();
 				}
 
-																																		 // Fonction pour afficher la partie 2 du formulaire
-																																		 function showPart2() {
-					// Récupérer les éléments à afficher
-					const part2 = document.querySelector(".part2");
-																																		 // Afficher les éléments
-																																		 part2.classList.remove("hidden");
+				return isValid;
+			}
+
+			function checkPart2Validity(fieldChanged) {
+				if (!checkPart1Validity()) {
+					return false;
 				}
 
-																																		 function showPart3() {
-																																			 document.getElementById("submitPart3").removeAttribute("disabled");
-				}
+				const requiredFields = document.querySelectorAll('.part1 input[required], .part1 textarea[required]');
+				let isValid = true;
 
-																																		 function hidePart3() {
-																																			 document.getElementById("submitPart3").setAttribute("disabled", "true");
-				}
-
-																																		 function checkPart1Validity() {
-					const offreRadios = document.querySelectorAll('input[name="type_offre"]');
-																																		 let isValid = false;
-
-					offreRadios.forEach((radio) => {
-						if (radio.checked) {
-																																			 isValid = true;
-						}
-					});
-
-																																		 if (isValid) {
-																																			 showPart1();
-					}
-				}
-
-																																		 function checkPart2Validity(fieldChanged) {
-																																			 checkPart1Validity();
-
-																																		 const requiredFields = document.querySelectorAll('.part1 input[required], .part1 textarea[required]');
-																																		 let isValid = true;
-
-					requiredFields.forEach((field) => {
-						if (fieldChanged.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_PRECEDING || fieldChanged.compareDocumentPosition(field) === 0) {
-							if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') { // Locality
-								if (field.value === '' || RegExp('^((22)|(29)|(35)|(56))[0-9]{3}$').test(field.value) === false) {
-																																			 field.classList.remove("border-secondary")
-									field.classList.add('border-red-500');
-																																		 isValid = false;
-								} else {
-																																			 field.classList.remove("border-red-500");
-																																		 field.classList.add('border-secondary');
-								}
-							} else {
-								if (field.value.trim() === '') {
-																																			 field.classList.remove("border-secondary")
-									field.classList.add('border-red-500');
-																																		 isValid = false;
-								} else {
-																																			 field.classList.remove("border-red-500");
-																																		 field.classList.add('border-secondary');
-								}
-							}
-						}
-					});
-
-																																		 if (isValid) {
-																																			 showPart2();
-					}
-				}
-
-																																		 function checkPart3Validity(fieldChanged) {
-																																			 checkPart2Validity(fieldChanged);
-
-																																		 const requiredFields = document.querySelectorAll('.part2 [required]');
-																																		 let isValid = true;
-
-					requiredFields.forEach((field) => {
-						if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') {
+				requiredFields.forEach((field) => {
+					if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') { // Locality
+						if (field.value === '' || RegExp('^((22)|(29)|(35)|(56))[0-9]{3}$').test(field.value) === false) {
 							if (fieldChanged.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_PRECEDING || fieldChanged.compareDocumentPosition(field) === 0) {
-								if (field.value.trim() === '' || field.value < 0 || RegExp('^[0-9]+$').test(field.value) === false) {
-																																			 field.classList.remove("border-secondary")
-									field.classList.add('border-red-500');
-																																		 isValid = false;
-								} else {
-																																			 field.classList.remove("border-red-500");
-																																		 field.classList.add('border-secondary');
-								}
+								field.classList.remove("border-secondary")
+								field.classList.add('border-red-500');
+							}
+							isValid = false;
+						} else {
+							field.classList.remove("border-red-500");
+							field.classList.add('border-secondary');
+						}
+					} else {
+						if (field.value.trim() === '') {
+							if (fieldChanged.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_PRECEDING || fieldChanged.compareDocumentPosition(field) === 0) {
+								field.classList.remove("border-secondary")
+								field.classList.add('border-red-500');
+							}
+							isValid = false;
+						} else {
+							field.classList.remove("border-red-500");
+							field.classList.add('border-secondary');
+						}
+					}
+				});
+
+				if (isValid) {
+					showPart2();
+				}
+
+				return isValid;
+			}
+
+			function checkPart3Validity(fieldChanged) {
+				if (!checkPart2Validity(fieldChanged)) {
+					return false;
+				}
+
+				const requiredFields = document.querySelectorAll('.part2 [required]');
+				let isValid = true;
+
+				requiredFields.forEach((field) => {
+					if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') {
+						if (fieldChanged.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_PRECEDING || fieldChanged.compareDocumentPosition(field) === 0) {
+							if (field.value.trim() === '' || field.value < 0 || RegExp('^[0-9]+$').test(field.value) === false) {
+								field.classList.remove("border-secondary")
+								field.classList.add('border-red-500');
+								isValid = false;
+							} else {
+								field.classList.remove("border-red-500");
+								field.classList.add('border-secondary');
 							}
 						}
-					});
-
-																																		 if (isValid) {
-																																			 showPart3();
-					} else {
-																																			 hidePart3();
 					}
-				}
-
-																																		 function toggleCheckbox(id) {
-					const checkbox = document.getElementById(id);
-																																		 checkbox.checked = !checkbox.checked;
-				}
-
-																																		 function toggleRadio(id) {
-					const radio = document.getElementById(id);
-																																		 radio.checked = true;
-				}
-
-				document.querySelectorAll('input[name="type_offre"]').forEach((radio) => {
-																																			 radio.addEventListener("change", () => {
-																																				 checkPart1Validity();
-																																			 });
 				});
 
-																																		 const fields = document.querySelectorAll('input, textarea, select');
+				if (isValid) {
+					showPart3();
+				} else {
+					hidePart3();
+				}
+			}
 
-				fields.forEach((field) => {
-																																			 field.addEventListener('input', (e) => {
-																																				 checkPart3Validity(field);
-																																				 if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') {
-																																					 field.value = field.value.replace(/[^0-9]/g, '');
-																																				 }
-																																			 });
+			function toggleCheckbox(id) {
+				const checkbox = document.getElementById(id);
+				checkbox.checked = !checkbox.checked;
+			}
+
+			function toggleRadio(id) {
+				const radio = document.getElementById(id);
+				radio.checked = true;
+			}
+
+			document.querySelectorAll('input[name="type_offre"]').forEach((radio) => {
+				radio.addEventListener("change", () => {
+					checkPart1Validity();
 				});
+			});
+
+			const fields = document.querySelectorAll('input, textarea, select');
+
+			fields.forEach((field) => {
+				field.addEventListener('input', (e) => {
+					checkPart3Validity(field);
+					if (field.nodeName === 'INPUT' && field.attributes['type'].value === 'number') {
+						field.value = field.value.replace(/[^0-9]/g, '');
+					}
+				});
+			});
 		</script>
 		<script>
-																																		 // TODO: gérer les horaires
-																																		 // TODO: lorsque les informations sont remplies pour lundi, elles sont répétées pour les autres jours
-																																		 // TODO: Vérifier que l'horaire d'ouverture soit plus tôt que l'horaire de pause, puis de reprise, puis de fermeture.
+			// TODO: gérer les horaires
+			// TODO: lorsque les informations sont remplies pour lundi, elles sont répétées pour les autres jours
+			// TODO: Vérifier que l'horaire d'ouverture soit plus tôt que l'horaire de pause, puis de reprise, puis de fermeture.
 
-																																		 for (const field of ['ouverture', 'pause', 'reprise', 'fermeture']) {
-					const lundi = document.getElementById(`horaires[lundi][${field}]`);
-					lundi.addEventListener('change', () => {
-						for (const jour of ['mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']) {
-							const element = document.getElementById(`horaires[${jour}][${field}]`);
-																																		 element.value = lundi.value;
-						}
-					});
-				}
+			for (const field of ['ouverture', 'pause', 'reprise', 'fermeture']) {
+				const lundi = document.getElementById(`horaires[lundi][${field}]`);
+				lundi.addEventListener('change', () => {
+					for (const jour of ['mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']) {
+						const element = document.getElementById(`horaires[${jour}][${field}]`);
+						element.value = lundi.value;
+					}
+				});
+			}
 		</script>
 
 	<?php } ?>

@@ -54,10 +54,10 @@
     $date_experience = '2024-11-26';
     $commentaire = 'C nul ! A revoir !';
     $id_avis_reponse = 2;
-    $id_compte = 1;
+    $id_membre = 1;
     $titre = 'monAvis';
 
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
     ?>
 </body>
 
