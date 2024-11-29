@@ -112,17 +112,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-		1. [x] Adresse
-		3. [x] Image
-		5. [x] Offre
-		6. [x] Offre_Tag / Restauration_Tag
-		7. [x] Offre_Image
-		8. [x] Offre_Langue
-		9. [x] TypeRepas 
-		10. [x] Offre_Prestation
-		11. Horaires
-		12. [x] Tarif_Public
-		*/
+			  1. [x] Adresse
+			  3. [x] Image
+			  5. [x] Offre
+			  6. [x] Offre_Tag / Restauration_Tag
+			  7. [x] Offre_Image
+			  8. [x] Offre_Langue
+			  9. [x] TypeRepas 
+			  10. [x] Offre_Prestation
+			  11. Horaires
+			  12. [x] Tarif_Public
+			  */
 		BDD::startTransaction();
 
 		// Insérer l'adresse dans la base de données
@@ -335,7 +335,14 @@ $pro = verifyPro();
 	} else { ?>
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
-			<div id="header-pro" class="w-full mb-20"></div>
+
+			<div class="w-full mb-20">
+				<!-- Inclusion du header -->
+				<?php
+				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+				?>
+			</div>
+
 			<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 				<!-- Lien de retour avec une icône et un titre -->
 				<a href="" onclick="history.back()" class="flex w-full gap-4 items-center content-center space-x-">
@@ -345,8 +352,7 @@ $pro = verifyPro();
 					</div>
 				</a>
 				<!-- Section de sélection de l'offre -->
-				<form id="formulaire" action="" method="POST" class="block w-full space-y-8"
-					enctype="multipart/form-data">
+				<form id="formulaire" action="" method="POST" class="block w-full space-y-8" enctype="multipart/form-data">
 					<div class="grid grid-cols-2 justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<div
@@ -1423,7 +1429,6 @@ $pro = verifyPro();
 				});
 
 				if (isValid) {
-					console.log("La partie 1 est valide");
 					showPart2();
 				}
 

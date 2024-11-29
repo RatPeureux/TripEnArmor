@@ -1,6 +1,6 @@
 <?php
 
-require "../model/restauration_type_repas.php";
+require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . "/model/restauration_type_repas.php";
 
 class RestaurationTypeRepasController {
 

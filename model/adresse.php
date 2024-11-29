@@ -1,21 +1,23 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-class Adresse extends BDD {
+class Adresse extends BDD
+{
     // Nom de la table utilisée dans les requêtes
-    private $nom_table = "sae_db._adresse";
+    static private $nom_table = "sae_db._adresse";
 
     /**
      * Récupère une adresse par son ID.
      * @param int $id L'identifiant de l'adresse à récupérer.
      * @return array|int Retourne un tableau contenant les données de l'adresse ou -1 en cas d'erreur.
      */
-    static function getAdresseById($id) {
+    static function getAdresseById($id)
+    {
         self::initBDD();
         // Requête SQL pour sélectionner une adresse par son ID
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_adresse = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_adresse = ?";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
@@ -38,11 +40,12 @@ class Adresse extends BDD {
      * @param string|null $complement Le complément d'adresse (facultatif).
      * @return array|int Retourne un tableau contenant l'identifiant de la nouvelle adresse ou -1 en cas d'erreur.
      */
-    static function createAdresse($code_postal, $ville, $numero, $odonyme, $complement) {
+    static function createAdresse($code_postal, $ville, $numero, $odonyme, $complement)
+    {
         self::initBDD();
         // Requête SQL pour insérer une nouvelle adresse
-        $query = "INSERT INTO " . self::$nom_table ." (code_postal, ville, odonyme, complement) VALUES (?, ?, ?, ?, ?) RETURNING id_adresse";
-        
+        $query = "INSERT INTO " . self::$nom_table . " (code_postal, ville, odonyme, complement) VALUES (?, ?, ?, ?, ?) RETURNING id_adresse";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $code_postal);
@@ -69,11 +72,12 @@ class Adresse extends BDD {
      * @param string|null $complement Le nouveau complément d'adresse.
      * @return array|int Retourne un tableau contenant l'identifiant de l'adresse mise à jour ou -1 en cas d'erreur.
      */
-    static function updateAdresse($id_adresse, $code_postal, $ville, $numero, $odonyme, $complement) {
+    static function updateAdresse($id_adresse, $code_postal, $ville, $numero, $odonyme, $complement)
+    {
         self::initBDD();
         // Requête SQL pour mettre à jour une adresse existante
-        $query = "UPDATE " . self::$nom_table ." SET code_postal = ?, ville = ?, numero = ?, odonyme = ?, complement = ? WHERE id_adresse = ? RETURNING id_adresse";
-        
+        $query = "UPDATE " . self::$nom_table . " SET code_postal = ?, ville = ?, numero = ?, odonyme = ?, complement = ? WHERE id_adresse = ? RETURNING id_adresse";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $code_postal);
@@ -97,11 +101,12 @@ class Adresse extends BDD {
      * @param int $id L'identifiant de l'adresse à supprimer.
      * @return array|int Retourne un tableau vide si la suppression réussit ou -1 en cas d'erreur.
      */
-    static function deleteAdresse($id) {
+    static function deleteAdresse($id)
+    {
         self::initBDD();
         // Requête SQL pour supprimer une adresse par son ID
-        $query = "DELETE FROM " . self::$nom_table ." WHERE id_adresse = ?";
-        
+        $query = "DELETE FROM " . self::$nom_table . " WHERE id_adresse = ?";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);

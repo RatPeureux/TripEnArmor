@@ -39,7 +39,7 @@ class Avis extends BDD
     static function getAvisByIdMembre($idMembre)
     {
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_membre = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $idMembre);
 
@@ -51,11 +51,26 @@ class Avis extends BDD
         }
     }
 
+    static function getAvisByIdMembreEtOffre($idMembre, $idOffre)
+    {
+        self::initBDD();
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_compte = ? AND id_offre = ?";
+        $statement = self::$db->prepare($query);
+        $statement->bindParam(1, $idMembre);
+        $statement->bindParam(2, $idOffre);
+
+        if ($statement->execute()) {
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR: Impossible d'obtenir cet avis";
+            return false;
+        }
+    }
 
     static function createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse = null)
     {
         self::initBDD();
-        
+
 
         $query = "INSERT INTO " . self::$nom_table . " (titre, commentaire, date_experience, id_compte, id_offre, id_avis_reponse) VALUES (?, ?, ?, ?, ?, ?) RETURNING id_avis";
 
@@ -74,7 +89,7 @@ class Avis extends BDD
             return false;
         }
 
-        
+
     }
 
     static function updateAvis($id_avis, $titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse)

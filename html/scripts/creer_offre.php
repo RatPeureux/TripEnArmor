@@ -1,11 +1,6 @@
 <?php
 require dirname($_SERVER['DOCUMENT_ROOT']) . '../model/bdd.php';
 
-// Activer l'affichage des erreurs pour le débogage
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // *********************************************************************************************************************** Définition de fonctions

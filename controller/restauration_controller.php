@@ -13,22 +13,8 @@ class RestaurationController
 
     public function getInfosRestauration($id)
     {
-        $restauration = $this->model::getRestaurationById($id);
-
-        $res = [
-            "est_en_ligne" => $restauration["est_en_ligne"],
-            "description" => $restauration["description"],
-            "resume" => $restauration["resume"],
-            "prix_mini" => $restauration["prix_mini"],
-            "titre" => $restauration["titre"],
-            'id_pro' => $restauration['id_pro'],
-            "id_type_offre" => $restauration["id_type_offre"],
-            "id_adresse" => $restauration["id_adresse"],
-            "gamme_prix" => $restauration["gamme_prix"],
-            "id_type_repas" => $restauration["id_type_repas"]
-        ];
-
-        return $res;
+        $result = $this->model::getRestaurationById($id);
+        return $result;
     }
 
     public function createRestauration($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas)

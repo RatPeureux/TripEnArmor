@@ -185,7 +185,7 @@ VALUES ( -- Caca123-
         '$2y$10$OmocaPOye7BG1feUJfQACeEFublSKfrcRi7r58JiYp0k6.pLuMc9W',
         '01 23 45 67 89',
         '591 321 423',
-        'PlusUnCanvaRaté'
+        'Canva2Wish'
     );
 
 INSERT INTO
@@ -201,7 +201,7 @@ VALUES ( -- Phenixis_05
         7,
         'max.duh22@gmail.com',
         '$2y$10$7JTlezr2H6kVw5F0nuqHPuhe2X8AVbgenBADfX/sr0XEHCNyZ3OT6',
-        '02 54  815 22 45',
+        '02 54 15 22 45',
         'Associatif',
         'Wisecart'
     ),
@@ -454,8 +454,7 @@ VALUES (
 
 INSERT INTO
     _type_repas (nom)
-VALUES 
-    ('Petit déj'),
+VALUES ('Petit déj'),
     ('Déjeuner'),
     ('Dîner'),
     ('Boissons'),
@@ -463,21 +462,18 @@ VALUES
 
 INSERT INTO
     _tarif_public (titre, prix, id_offre)
-VALUES 
-    ('Enfant', 12, 5),
+VALUES ('Enfant', 12, 5),
     ('Adulte', 30, 5);
 
 INSERT INTO
     _langue (nom)
-VALUES 
-    ('Français'),
+VALUES ('Français'),
     ('Breton'),
     ('Anglais');
 
 INSERT INTO
-    _visite_langue (nom)
-VALUES 
-    (7, 1),
+    _visite_langue (id_offre, id_langue)
+VALUES (7, 1),
     (7, 2),
     (8, 1),
     (8, 3);
