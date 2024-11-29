@@ -17,10 +17,13 @@ function isConnectedAsPro(): bool
 function verifyPro()
 {
     // Vérifie si l'utilisateur est connecté en tant que pro, sinon le renvoie à la page de connexion
+    echo "Dans verifyPro<br>";
     if (!isConnectedAsPro()) {
+        echo "Pas connecté en tant que pro<br>";
         header('location: /pro/connexion');
         exit();
     } else {
+        echo "Connecté en tant que pro<br>";
         require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
         $result = [
             "id_compte" => "",
