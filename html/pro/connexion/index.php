@@ -10,7 +10,7 @@ if (!isset($_SESSION['data_en_cours_connexion'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Connexion avec la bdd
-        require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
         // Vérifie si la requête est une soumission de formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

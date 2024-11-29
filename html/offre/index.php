@@ -14,7 +14,6 @@ session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -232,7 +231,11 @@ session_start();
     <main class="flex flex-col md:block md:mx-10 self-center rounded-lg md:p-2 max-w-[1280px] overflow-auto">
         <div class="flex md:gap-3">
             <!-- PARTIE GAUCHE (menu) -->
-            <div id="menu"></div>
+            <div>
+                <?php
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+                ?>
+            </div>
 
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
@@ -628,8 +631,8 @@ session_start();
                                 <!-- Bouton pour charger plus d'avis -->
                                 <div class="flex gap-2 items-center justify-center self-end">
                                     <!-- Symbole de chargement quand les avis chargent -->
-                                    <img id=" loading-indicator" class="w-8 h-6" style="display: none;"
-                                        src=" /public/images/loading.gif" alt="Loading...">
+                                    <img id="loading-indicator" class="w-8 h-6" style="display: none;"
+                                        src="/public/images/loading.gif" alt="Loading...">
                                     <button class="text-small font-bold" id="load-more-btn">
                                         Afficher plus...
                                     </button>
@@ -643,7 +646,11 @@ session_start();
                                     // Paramètres à passer au fichier PHP de chargement des avis
                                     let idx_avis = 0;
                                     const id_offre = <?php echo $_SESSION['id_offre'] ?>;
-                                    const id_membre = <?php echo $_SESSION['id_membre'] ?>;
+                                    const id_membre = <?php if (isset($_SESSION['id_membre'])) {
+                                        echo $_SESSION['id_membre'];
+                                    } else {
+                                        echo '-1';
+                                    } ?>;
 
                                     // Charger les X premiers avis
                                     loadAvis();
@@ -712,7 +719,10 @@ session_start();
                 </div>
     </main>
 
-    <div id="footer"></div>
+    <!-- FOOTER -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
+    ?>
 
     <script>
         // Configurer les flèches pour faire des dropdown menu stylés

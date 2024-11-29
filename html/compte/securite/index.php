@@ -9,7 +9,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
-    <script type="module" src="/scripts/loadComponents.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Sécurité du compte - PACT</title>
@@ -29,7 +28,11 @@
         </div>
     </header>
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div id="menu" class="absolute md:block"></div>
+        <div id="menu" class="absolute md:block">
+            <?php
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+            ?>
+        </div>
         <div class="max-w-[44rem] m-auto flex flex-col">
             <p class="text-h1 mb-4">Informations sensibles</p>
             <p class="text-small">Définissez un nouveau mot de passe fiable, respectant les conditions
@@ -76,7 +79,11 @@
             </button>
         </div>
     </main>
-    <div id="footer"></div>
+
+    <!-- FOOTER -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
+    ?>
 </body>
 
 </html>

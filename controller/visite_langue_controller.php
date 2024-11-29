@@ -1,28 +1,32 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/visite_langue.php";
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/controller/langue_controller.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/visite_langue.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/controller/langue_controller.php";
 
 
-class VisiteLangueController {
+class VisiteLangueController
+{
 
     private $model;
 
-    function __construct() {
+    function __construct()
+    {
         $this->model = 'VisiteLangue';
     }
-    
-    public function getLanguesByIdVisite($id_offre){
+
+    public function getLanguesByIdVisite($id_offre)
+    {
         $langues = $this->model::getLanguesBydIdVisite($id_offre);
         $langue_controller = new LangueController();
-        $langues = array_map(function($langue) use ($langue_controller) {
+        $langues = array_map(function ($langue) use ($langue_controller) {
             return $langue_controller->getInfosLangue($langue["id_langue"]);
         }, $langues);
 
         return $langues;
     }
 
-    public function getVisitesByIdLangue($id_langue) {
+    public function getVisitesByIdLangue($id_langue)
+    {
         $visites = $this->model::getVisitesByIdLangue($id_langue);
 
         $result = [
@@ -32,7 +36,8 @@ class VisiteLangueController {
         return $result;
     }
 
-    public function linkVisiteAndLangue($id_offre, $id_langue) {
+    public function linkVisiteAndLangue($id_offre, $id_langue)
+    {
         if ($this->model::checkIfLinkExists($id_offre, $id_langue)) {
             return $this->model::createVisiteLangue($id_offre, $id_langue);
         } else {
@@ -41,7 +46,8 @@ class VisiteLangueController {
         }
     }
 
-    public function unlinkVisiteAndLangue($id_offre, $id_langue) {
+    public function unlinkVisiteAndLangue($id_offre, $id_langue)
+    {
         if ($this->model::checkIfLinkExists($id_offre, $id_langue)) {
             return $this->model::deleteVisiteAndLangue($id_offre, $id_langue);
         } else {

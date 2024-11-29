@@ -6,7 +6,7 @@ session_start();
 
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
 
 $avisController = new AvisController;
 
@@ -27,7 +27,7 @@ print_r("La note globale : " . $note);
 print_r("L'id du membre : " . $id_membre);
 
 
-if($avisController->createAvis($titre, $description, $date_experience, $id_membre, $id_offre)){
+if ($avisController->createAvis($titre, $description, $date_experience, $id_membre, $id_offre)) {
     echo "Test d'insertion d'un avis (OK)";
     // header('Location: /offre/index.php');
 } else {

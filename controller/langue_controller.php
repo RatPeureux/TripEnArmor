@@ -1,16 +1,19 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/langue.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/langue.php";
 
-class LangueController {
+class LangueController
+{
 
     private $model;
 
-    function __construct() {
+    function __construct()
+    {
         $this->model = 'Langue';
     }
 
-    public function getInfosLangue($id){
+    public function getInfosLangue($id)
+    {
         $langue = $this->model::getLangueById($id);
 
         $result = [
@@ -21,7 +24,8 @@ class LangueController {
         return $result;
     }
 
-    public function getInfosLangueByName($name){
+    public function getInfosLangueByName($name)
+    {
         $langue = $this->model::getLangueByName($name);
 
         $result = [
@@ -30,6 +34,6 @@ class LangueController {
         ];
 
         return $result;
-   
+
     }
 }

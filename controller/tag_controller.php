@@ -1,6 +1,6 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/tag.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/tag.php";
 
 class TagController
 {
@@ -27,7 +27,7 @@ class TagController
     public function getTagsByName($nom, $index = -1)
     {
         $tag = $this->model::getTagByName($nom);
-        
+
         if ($index == -1) {
             return $tag;
         } else {
