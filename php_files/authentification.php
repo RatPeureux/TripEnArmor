@@ -36,10 +36,11 @@ function verifyPro()
             $proController = new ProPublicController();
 
             $pro = $proController->getInfosProPublic($_SESSION["id_pro"]);
+            print_r($pro);
             $result["id_compte"] = $pro["id_compte"];
             $result["nom_pro"] = $pro["denomination"];
             $result["email"] = $pro["email"];
-            $result["tel"] = $pro["tel"];
+            $result["tel"] = $pro["num_tel"];
             $result["id_adresse"] = $pro["adresse"];
             $result["data"]["type_orga"] = $pro["type_orga"];
             $result["data"]["type"] = "public";
