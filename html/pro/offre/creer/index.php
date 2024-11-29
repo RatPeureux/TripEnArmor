@@ -449,7 +449,9 @@ $pro = verifyPro();
 									<label for="auteur" class="text-nowrap">Auteur :</label>
 									<p id="auteur"
 										class="border border-secondary rounded-lg p-2 bg-gray-200 w-full text-gray-600">
-										<?php if ($pro) {
+										<?php 
+										print_r($pro);
+										if ($pro) {
 											echo $pro['nom_pro'];
 										} else {
 											echo "Nom du compte";
