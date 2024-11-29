@@ -1,6 +1,6 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 session_start();
 function isConnectedAsMember(): bool
@@ -34,7 +34,7 @@ function verifyPro()
 
         $pro = $proController->getInfosProPrive($_SESSION['id_pro']);
         if (!$pro) {
-            require dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_public_controller.php";
+            require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_public_controller.php";
             $proController = new ProPublicController();
 
             $pro = $proController->getInfosProPublic($_SESSION["id_pro"]);
