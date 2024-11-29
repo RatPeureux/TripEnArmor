@@ -26,9 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Vérifie si l'utilisateur existe et si le mot de passe est correct
         if ($user) {
-            print_r($user);
             $isPasswordValid = password_verify($mdp, $user['mdp_hash']);
-            echo $isPasswordValid === true ? "true" : "false";
             if ($isPasswordValid) {
                 // Connecte le pro, enlève toute éventuelle connexion à un membre
                 $_SESSION['id_pro'] = $user['id_compte'];
