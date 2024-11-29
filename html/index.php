@@ -27,12 +27,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- Inclusion du header -->
     <?php
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    echo "Avant l'inclusion du header";
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
     ?>
 
     <?php
     // Connexion avec la bdd
-    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    echo "Avant la connexion avec la bdd";
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     $sort_order = '';
     if (isset($_GET['sort'])) {
