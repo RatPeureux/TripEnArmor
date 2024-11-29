@@ -41,7 +41,7 @@ $pro = verifyPro();
 	<?php
 	echo "Avant le if";
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		require dirname($_SERVER['DOCUMENT_ROOT']) . '/model/bdd.php';
+		require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/bdd.php';
 		// *********************************************************************************************************************** Définition de fonctions
 		// Fonction pour calculer le prix minimum à partir des prix envoyés dans le formulaire
 		function calculerPrixMin($prices)
