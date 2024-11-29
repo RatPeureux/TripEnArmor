@@ -1,6 +1,7 @@
 <?php
-
+echo "Première ligne de authentification.php<br>";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+echo "Après require de connect_params<br>";
 
 session_start();
 function isConnectedAsMember(): bool
