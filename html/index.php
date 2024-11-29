@@ -27,14 +27,11 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- Inclusion du header -->
     <?php
-    echo "Avant l'inclusion du header";
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
-    echo "Après l'inclusion du header";
     ?>
 
     <?php
     // Connexion avec la bdd
-    echo "Avant la connexion avec la bdd";
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     $sort_order = '';
@@ -51,7 +48,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
-
+    
     <!-- MAIN (TABLETTE et TÉLÉPHONE -->
     <div class="w-full grow flex items-start justify-center p-2">
         <div class="flex justify-center w-full md:max-w-[1280px]">
