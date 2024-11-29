@@ -4,7 +4,9 @@ session_start();
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 // Enlever les informations gardées lors de l'étape de connexion quand on reveint à la page (retour en arrière)
+print_r($_SESSION);
 unset($_SESSION['data_en_cours_connexion']);
+print_r($_SESSION);
 
 // Vérifier si le pro est bien connecté
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
