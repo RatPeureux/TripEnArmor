@@ -13,14 +13,14 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
 if ($mode_carte == 'membre') {
     ?>
     <!--
-    ### CARD COMPONENT MEMBER ! ###
+    !!! CARD COMPONENT MEMBER !!!
     Composant dynamique (généré avec les données en php)
     Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 -->
-    <a href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>'>
+    <a class="card" href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>'>
 
         <!-- CARTE VERSION TÉLÉPHONE -->
-        <div class='card md:hidden <?php if ($option) {
+        <div class='md:hidden <?php if ($option) {
             echo "active";
         } ?> relative bg-base100 rounded-xl flex flex-col'>
             <!-- En-tête -->
@@ -31,7 +31,7 @@ if ($mode_carte == 'membre') {
                 </h3>
                 <div class='flex w-full justify-between px-2'>
                     <p class='text-small'><?php echo $pro['nom_pro'] ?></p>
-                    <p class='text-small'><?php echo chaineVersMot($categorie_offre) ?></p>
+                    <p class='categorie text-small'><?php echo chaineVersMot($categorie_offre) ?></p>
                 </div>
             </div>
             <!-- Image de fond -->
@@ -66,14 +66,14 @@ if ($mode_carte == 'membre') {
                 </div>
                 <hr class='h-20 border-black border'>
                 <!-- Notation et Prix -->
-                <div class='localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
+                <div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
                     <p class='text-small' title='<?php echo $title_prix ?>'><?php echo $prix_a_afficher ?></p>
                 </div>
             </div>
         </div>
 
         <!-- CARTE VERSION TABLETTE -->
-        <div class='card md:block hidden <?php if ($option) {
+        <div class='md:block hidden <?php if ($option) {
             echo "active";
         } ?> relative bg-base100 rounded-lg'>
             <div class="flex flex-row">
@@ -92,7 +92,7 @@ if ($mode_carte == 'membre') {
                         </h3>
                         <div class='flex'>
                             <p class='text-small'><?php echo $pro['nom_pro']; ?></p>
-                            <p class='text-small'><?php echo ', ' . chaineVersMot($categorie_offre); ?></p>
+                            <p class='categorie text-small'><?php echo ', ' . chaineVersMot($categorie_offre); ?></p>
                         </div>
                     </div>
 
@@ -125,7 +125,7 @@ if ($mode_carte == 'membre') {
                                 <p class='text-small'><?php echo $code_postal ?></p>
                             </div>
                             <!-- Notation et Prix -->
-                            <div class='localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
+                            <div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
                                 <p class='text-small' title='<?php echo $title_prix ?>'><?php echo $prix_a_afficher ?></p>
                             </div>
                         </div>
@@ -142,12 +142,12 @@ if ($mode_carte == 'membre') {
 } else {
     ?>
     <!--
-    ### CARD COMPONENT PRO ! ###
+    !!! CARD COMPONENT PRO !!!
     Composant dynamique (généré avec les données en php)
     Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
--->
+    -->
     <div class="card <?php if ($option)
-        echo 'active' ?> relative min-w-[1280px] bg-base300 rounded-lg flex">
+        echo 'active' ?> relative max-w-[1280px] bg-base100 rounded-lg flex">
 
             <!-- PARTIE DE GAUCHE, image-->
             <div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
@@ -157,7 +157,6 @@ if ($mode_carte == 'membre') {
                     title="consulter les détails">
             </a>
         </div>
-
 
         <!-- PARTIE DE DROITE (infos principales) -->
         <div class="infos relative flex flex-col items-center basis-1/2 self-stretch px-5 py-3 justify-between">
@@ -171,7 +170,7 @@ if ($mode_carte == 'membre') {
                         <h3 class="text-h2 font-bold"><?php echo $titre_offre ?></h3>
                         <div class="flex">
                             <p class="text"><?php echo $pro_nom ?></p>
-                            <p class="text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
+                            <p class="categorie text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
                         </div>
                     </div>
 
@@ -242,7 +241,6 @@ if ($mode_carte == 'membre') {
                 </div>
             </div>
 
-
             <!-- A droite, en bas -->
             <div class="self-stretch flex flex-col shrink-0 gap-2">
                 <hr class="border-black w-full">
@@ -255,7 +253,7 @@ if ($mode_carte == 'membre') {
                         <p class="text-small"><?php echo $code_postal ?></p>
                     </div>
                     <!-- Notation et Prix -->
-                    <div class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
+                    <div class="flex flex-col flex-shrink-0 gap-2 justify-center items-center">
                         <p class="text-small" title="<?php echo $title_prix ?>">
                             <?php echo $prix_a_afficher ?>
                         </p>
@@ -263,7 +261,7 @@ if ($mode_carte == 'membre') {
                 </div>
 
                 <!-- Infos supplémentaires pour le pro -->
-                <div class="bg-veryGris p-3 rounded-lg flex flex-col gap-1">
+                <div class="bg-base200 p-3 rounded-lg flex flex-col gap-1">
 
                     <!-- Avis et type d'offre -->
                     <div class="flex justify-between">
@@ -284,7 +282,7 @@ if ($mode_carte == 'membre') {
                                 (0)
                             </a>
                         </div>
-                        <p class="text-center grow" title="type de l'offre"><?php echo $type_offre ?></p>
+                        <p class="type-offre text-center grow" title="type de l'offre"><?php echo $type_offre ?></p>
                     </div>
 
                     <!-- Dates de mise à jour -->
@@ -295,12 +293,12 @@ if ($mode_carte == 'membre') {
                         </div>
                         <!-- Cacher les options tant que ce n'est pas à développer -->
                         <!-- <div class="flex items-center gap-2">
-                                            <i class="fa-solid fa-gears text-xl"></i>
-                                            <div>
-                                                <p>‘A la Une’ 10/09/24-17/09/24</p>
-                                                <p>‘En relief' 10/09/24-17/09/24</p>
-                                            </div>
-                                        </div> -->
+                            <i class="fa-solid fa-gears text-xl"></i>
+                            <div>
+                                <p>‘A la Une’ 10/09/24-17/09/24</p>
+                                <p>‘En relief' 10/09/24-17/09/24</p>
+                            </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -308,6 +306,4 @@ if ($mode_carte == 'membre') {
         </div>
     </div>
 
-    <?php
-}
-?>
+<?php } ?>
