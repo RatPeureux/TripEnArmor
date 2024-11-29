@@ -13,12 +13,14 @@
         <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-descending') ? '/' : '?sort=price-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'price-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
             <p>Prix décroissant</p>
         </a>
+    <?php if ($pro['data']['type'] === 'prive') { ?>
         <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? '/' : '?sort=type-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
             <p>Type d'offre de A à Z</p>
         </a>
         <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-descending') ? '/' : '?sort=type-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'type-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
             <p>Type d'offre de Z à A</p>
         </a>
+    <?php } ?>
     </div>
 </div>
 
@@ -130,6 +132,7 @@
             <label class="text-small">&nbsp;€</label>
         </div>
     </div>
+<?php if ($pro['data']['type'] === 'prive') { ?>
     <div class="flex flex-col w-full bg-base100 border border-base200  p-3 gap-4">
         <div class="flex justify-between cursor-pointer" id="button-f7-tab">
             <p>Type d'offre</p>
@@ -147,4 +150,5 @@
             </div>
         </div>
     </div>
+<?php } ?>
 </div>
