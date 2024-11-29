@@ -47,6 +47,19 @@ if (!function_exists('chaineVersMot')) {
     // Connexion avec la bdd
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
+    $sort_order = '';
+    if (isset($_GET['sort'])) {
+        if ($_GET['sort'] == 'price-ascending') {
+            $sort_order = 'ORDER BY prix_mini ASC';
+        } elseif ($_GET['sort'] == 'price-descending') {
+            $sort_order = 'ORDER BY prix_mini DESC';
+        } else if ($_GET['sort'] == 'type-ascending') {
+            $sort_order = 'ORDER BY id_type_offre ASC';
+        } elseif ($_GET['sort'] == 'type-descending') {
+            $sort_order = 'ORDER BY id_type_offre DESC';
+        }
+    }
+
     $id_pro = $_SESSION['id_pro'];
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
@@ -57,15 +70,15 @@ if (!function_exists('chaineVersMot')) {
     $pro_nom = $pro['nom_pro'];
 
     // Obtenir l'ensembre des offres du professionnel identifié
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro");
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro $sort_order");
     $stmt->bindParam(':id_pro', $id_pro);
     $stmt->execute();
     $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
 
-    <main class="mx-10 self-center grow rounded-lg p-2 max-w-[1280px]">
+    <main class="mx-10 self-center w-full grow rounded-lg p-2 max-w-[1280px]">
         <!-- TOUTES LES OFFRES (offre & détails) -->
-        <div class="tablette p-4 flex flex-col">
+        <div class="w-full grow tablette p-4 flex flex-col">
 
             <div class="w-full flex justify-between items-end mt-20 mb-2">
                 <h1 class="text-4xl">Mes offres</h1>
@@ -114,7 +127,7 @@ if (!function_exists('chaineVersMot')) {
 
         <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
         <?php
-        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel.php';
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel_pro.php';
         ?>
     </main>
 

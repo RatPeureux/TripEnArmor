@@ -2,11 +2,11 @@
     Composant du header pour le pro
     Pour l'ajouter, écrier la balise <div id='header-pro'></div> dans votre code html
 -->
-<header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black fixed top-0">
+<header class="z-30 w-full bg-bgBlur/75 backdrop-blur flex justify-center p-4 h-20 border-b-2 border-black fixed top-0">
     <div class="flex w-full justify-between items-center">
         <a href="#" onclick="toggleMenu()" class="flex gap-4 items-center hover:text-primary duration-100">
             <i class="text-3xl fa-solid fa-bars"></i>
-            <p class="hidden sm:block">Menu</p>
+            <p class="hidden sm:block sm:mr-36">Menu</p>
         </a>
         <a href="/" class="flex gap-3 items-center">
             <img src="/public/images/logo.svg" alt="Logo" width="50">
@@ -26,7 +26,7 @@
                     <a href="/pro/compte" class="hover:text-primary duration-100">
                         <i class="text-3xl fa-regular fa-user"></i>
                     </a>
-                    <a href="/scripts/logout.php" class="hover:text-primary duration-100" onclick="return confirmLogout()">Se déconnecter</a>
+                    <a href="/scripts/logout.php" class="hidden sm:block hover:text-primary duration-100" onclick="return confirmLogout()">Se déconnecter</a>
                 </div>
             <?php } else { ?>
                 <!-- Sinon si pas connecté -->

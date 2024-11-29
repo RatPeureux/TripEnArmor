@@ -224,9 +224,10 @@ VALUES ( -- Phenixis_05
 
 INSERT INTO
     _type_offre (nom, prix_ht, prix_ttc)
-VALUES ('Premium', 3.34, 4),
-    ('Standard', 1.67, 2),
-    ('Gratuit', NULL, NULL);
+VALUES 
+    ('Gratuit', NULL, NULL),
+    ('Premium', 3.34, 4),
+    ('Standard', 1.67, 2);
 
 INSERT INTO
     _restauration (
