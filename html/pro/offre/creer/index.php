@@ -3,6 +3,7 @@ echo "Première ligne<br>";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 echo "après require<br>";
 $pro = verifyPro();
+echo "après verifyPro<br>";
 ?>
 
 <!DOCTYPE html>
