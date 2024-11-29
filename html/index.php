@@ -25,7 +25,10 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 <body class="min-h-screen flex flex-col justify-between">
 
-    <div id="header"></div>
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    ?>
 
     <?php
     // Connexion avec la bdd
@@ -58,12 +61,14 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                     <h1 class="text-4xl">Toutes les offres</h1>
 
                     <div class="hidden md:flex gap-4">
-                        <a href="#" class="flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
+                        <a href="#" class="flex items-center gap-2 hover:text-primary duration-100"
+                            id="filter-button-tab">
                             <i class="text xl fa-solid fa-filter"></i>
                             <p>Filtrer</p>
                         </a>
                         |
-                        <a href="#" class="self-end flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
+                        <a href="#" class="self-end flex items-center gap-2 hover:text-primary duration-100"
+                            id="sort-button-tab">
                             <i class="text xl fa-solid fa-sort"></i>
                             <p>Trier par</p>
                         </a>
@@ -78,14 +83,14 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                 <?php
                 // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
                 if (!$toutesLesOffres) { ?>
-                    <div class="md:min-w-full flex flex-col gap-4"> 
+                    <div class="md:min-w-full flex flex-col gap-4">
                         <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
                     </div>
                 <?php } else { ?>
-                    <div class="md:min-w-full flex flex-col gap-4" id="no-matches"> 
+                    <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
                         <?php $i = 0;
                         foreach ($toutesLesOffres as $offre) {
-                            if ($i < 10) {
+                            if ($i < 3) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';
                                 include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
@@ -94,14 +99,14 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                         } ?>
                     </div>
                 <?php } ?>
-                </div>
-            </main>
         </div>
+        </main>
+    </div>
 
-        <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
-        <?php
-        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel.php';
-        ?>
+    <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel.php';
+    ?>
     </div>
 
     <!-- FOOTER -->

@@ -209,7 +209,8 @@ CREATE TABLE _avis (
     id_offre INT NOT NULL,
     contexte_passage VARCHAR(255) NOT NULL,
     id_avis_reponse INT REFERENCES _avis (id_avis),
-    note INT,
+    note INT NOT NULL,
+    contexte VARCHAR(255),
     -- Contrainte pour empêcher plusieurs avis initiaux d'un même membre sur une offre
     CONSTRAINT unique_avis_per_member UNIQUE (id_compte, id_offre)
 );

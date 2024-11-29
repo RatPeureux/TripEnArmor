@@ -1,5 +1,5 @@
 <!-- 
-    POUR APPELER LA VUE AVIS, DÉFINIR LES VARIABLES SUIVANTES EN AMONT :
+    POUR APPELER LA VUE MON_AVIS, DÉFINIR LES VARIABLES SUIVANTES EN AMONT :
     - $id_avis
     - $id_membre
 -->
@@ -17,7 +17,7 @@ $avisController = new avisController();
 ?>
 
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
-<div class="avis w-full rounded-lg border border-black p-2">
+<div class="avis w-full bg-primary rounded-lg border border-black p-2">
     <?php
     // Obtenir la variables regroupant les infos du membre
     $membre = $membreController->getInfosMembre($id_membre);

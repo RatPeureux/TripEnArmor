@@ -36,7 +36,7 @@ class Membre extends BDD
         $statement->bindParam(1, $id);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+            return $statement->fetch(PDO::FETCH_ASSOC);
         } else {
             echo "ERREUR";
             return false;
