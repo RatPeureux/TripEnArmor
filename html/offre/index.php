@@ -51,6 +51,7 @@ session_start();
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $id_pro = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
+
     $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
     $stmt->bindParam(':id_pro', $id_pro);
     $stmt->execute();
@@ -58,6 +59,7 @@ session_start();
     if ($pro) {
         $nom_pro = $pro['nom_pro'];
     }
+    echo 'Après récupération du professionnel';
 
     // Obtenir l'ensemble des informations de l'offre
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
