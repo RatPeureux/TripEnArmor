@@ -1,8 +1,7 @@
 set schema 'sae_db';
 
 /*             
-
-                  Fonctions            
+Fonctions            
 */
 
 -- la prestation est créée par un pro et insérée dans la bdd, si un pro différent créé la mêm eprestation alors la prestation est réutilisée et non créée.
@@ -21,7 +20,7 @@ BEGIN
     -- Vérifier si la prestation existe déjà dans la base (même nom)
     SELECT id_prestation
     INTO prestation_existante_id
-    FROM _prestation
+    FROM sae_db._prestation
     WHERE nom = p_nom;
 
     -- Si la prestation existe, on réutilise son ID
@@ -46,8 +45,6 @@ BEGIN
     RETURN new_prestation_id; -- Retourner l'ID de la nouvelle prestation
 END;
 $$ LANGUAGE plpgsql;
-
-
 
 -- vérifie que l'email est valide
 CREATE OR REPLACE FUNCTION verifier_email_connexion(email_input VARCHAR)
@@ -94,19 +91,19 @@ CREATE OR REPLACE FUNCTION fk_avis()
 RETURNS TRIGGER AS $$
 BEGIN
     -- Vérification de l'existence de l'utilisateur (id_compte)
-    IF NOT EXISTS (SELECT 1 FROM _pro_prive WHERE id_compte = NEW.id_compte)
-    AND NOT EXISTS (SELECT 1 FROM _pro_public WHERE id_compte = NEW.id_compte)
-    AND NOT EXISTS (SELECT 1 FROM _membre WHERE id_compte = NEW.id_compte)
+    IF NOT EXISTS (SELECT 1 FROM  sae_db._pro_prive WHERE id_compte = NEW.id_compte)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._pro_public WHERE id_compte = NEW.id_compte)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._membre WHERE id_compte = NEW.id_compte)
     THEN
         RAISE EXCEPTION 'L''id_compte % ne correspond à aucun utilisateur valide.', NEW.id_compte;
     END IF;
     
     -- Vérification de l'existence de l'offre (id_offre)
-    IF NOT EXISTS (SELECT 1 FROM _restauration WHERE id_offre = NEW.id_offre)
-    AND NOT EXISTS (SELECT 1 FROM _activite WHERE id_offre = NEW.id_offre)
-    AND NOT EXISTS (SELECT 1 FROM _parc_attraction WHERE id_offre = NEW.id_offre)
-    AND NOT EXISTS (SELECT 1 FROM _visite WHERE id_offre = NEW.id_offre)
-    AND NOT EXISTS (SELECT 1 FROM _spectacle WHERE id_offre = NEW.id_offre)
+    IF NOT EXISTS (SELECT 1 FROM sae_db._restauration WHERE id_offre = NEW.id_offre)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._activite WHERE id_offre = NEW.id_offre)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._parc_attraction WHERE id_offre = NEW.id_offre)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._visite WHERE id_offre = NEW.id_offre)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._spectacle WHERE id_offre = NEW.id_offre)
     THEN
         RAISE EXCEPTION 'L''id_offre % ne correspond à aucune offre valide.', NEW.id_offre;
     END IF;
@@ -125,14 +122,14 @@ DECLARE
 BEGIN
     -- Récupérer l'auteur de l'offre
     SELECT id_pro INTO auteur_offre
-    FROM _offre
+    FROM sae_db._offre
     WHERE id_offre = NEW.id_offre;
 
     -- Si l'avis est une réponse
     IF is_response THEN
         -- Vérifier que l'avis parent existe et récupérer son id_offre
         SELECT id_offre INTO avis_reponse_offre
-        FROM _avis
+        FROM sae_db._avis
         WHERE id_avis = NEW.id_avis_reponse;
 
         -- Vérifier que l'avis parent appartient à la même offre
@@ -191,103 +188,80 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-
- -- vue qui vérifie la validité de l'adresse mail
- 
-CREATE OR REPLACE FUNCTION verifier_email_connexion(email_input VARCHAR)
-RETURNS TEXT AS $$
-DECLARE
-    email_count INT;
-BEGIN
-        -- Vérifier si l'email existe dans la table _compte
-    SELECT COUNT(*) INTO email_count
-    FROM _compte
-    WHERE _compte.email = email_input;
-
-    -- Si l'email existe
-    IF email_count > 0 THEN
-        RETURN 'Email valide et existant';
-    ELSE
-        RETURN 'Email non trouvé dans la base';
-    END IF;
-END;
-$$ LANGUAGE plpgsql;
-
-
 /*             
-
-                  Triggers           
+Triggers           
 */
 
 -- Trigger pour valider les règles métier
-CREATE TRIGGER tg_check_contraintes_avis
-BEFORE INSERT OR UPDATE ON _avis
-FOR EACH ROW
-EXECUTE FUNCTION check_contraintes_avis();
+CREATE TRIGGER tg_check_contraintes_avis BEFORE
+INSERT
+    OR
+UPDATE ON sae_db._avis FOR EACH ROW
+EXECUTE FUNCTION check_contraintes_avis ();
 
 -- Trigger pour valider les clés étrangères
-CREATE TRIGGER tg_fk_avis
-BEFORE INSERT ON _avis
-FOR EACH ROW
-EXECUTE FUNCTION fk_avis();
+CREATE TRIGGER tg_fk_avis BEFORE
+INSERT
+    ON sae_db._avis FOR EACH ROW
+EXECUTE FUNCTION fk_avis ();
 
 -- trigger pour vérifier les id de la table activite
-CREATE TRIGGER fk_restauration_professionnel
-BEFORE INSERT ON _activite
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE TRIGGER fk_restauration_professionnel BEFORE
+INSERT
+    ON _activite FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table spectacle
-CREATE TRIGGER fk_restauration_professionnel
-BEFORE INSERT ON _spectacle
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE TRIGGER fk_restauration_professionnel BEFORE
+INSERT
+    ON _spectacle FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table visite
-CREATE TRIGGER fk_restauration_professionnel
-BEFORE INSERT ON _visite
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE TRIGGER fk_restauration_professionnel BEFORE
+INSERT
+    ON _visite FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
--- trigger pour vérifier les id de la table parc d'attraction 
-CREATE TRIGGER fk_restauration_professionnel
-BEFORE INSERT ON _parc_attraction
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+-- trigger pour vérifier les id de la table parc d'attraction
+CREATE TRIGGER fk_restauration_professionnel BEFORE
+INSERT
+    ON _parc_attraction FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table restauration
-CREATE TRIGGER fk_restauration_professionnel
-BEFORE INSERT ON _restauration
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE TRIGGER fk_restauration_professionnel BEFORE
+INSERT
+    ON _restauration FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger changement de statut
-CREATE TRIGGER log_changement_statut
-AFTER UPDATE ON _offre
-FOR EACH ROW
-WHEN (OLD.est_en_ligne IS DISTINCT FROM NEW.est_en_ligne)
-EXECUTE FUNCTION trigger_log_changement_statut();
+CREATE TRIGGER log_changement_statut AFTER
+UPDATE ON _offre FOR EACH ROW WHEN (
+    OLD.est_en_ligne IS DISTINCT
+    FROM NEW.est_en_ligne
+)
+EXECUTE FUNCTION trigger_log_changement_statut ();
 
 -- trigger pour la mise à jour de la date de mise à jour d'une offre
-CREATE TRIGGER offer_update_timestamp
-BEFORE UPDATE ON _offre
-FOR EACH ROW
-EXECUTE FUNCTION update_offer_timestamp();
+CREATE TRIGGER offer_update_timestamp BEFORE
+UPDATE ON _offre FOR EACH ROW
+EXECUTE FUNCTION update_offer_timestamp ();
 
 -- trigers de vérification d'un unique compte professionnel privé puisse rentrer des valeurs (pas très explicit ça)
-CREATE TRIGGER tg_unique_vals_compte
-BEFORE INSERT ON _pro_prive
-FOR EACH ROW
-EXECUTE FUNCTION unique_vals_compte();
+CREATE TRIGGER tg_unique_vals_compte BEFORE
+INSERT
+    ON _pro_prive FOR EACH ROW
+EXECUTE FUNCTION unique_vals_compte ();
 
 -- trigers de vérification d'un unique compte professionnel publique puisse rentrer des valeurs (pas très explicit ça)
-CREATE TRIGGER tg_unique_vals_compte
-BEFORE INSERT ON _pro_public
-FOR EACH ROW
-EXECUTE FUNCTION unique_vals_compte();
+CREATE TRIGGER tg_unique_vals_compte BEFORE
+INSERT
+    ON _pro_public FOR EACH ROW
+EXECUTE FUNCTION unique_vals_compte ();
 
 -- trigers de vérification d'un unique compte membre puisse rentrer des valeurs (pas très explicit ça)
-CREATE TRIGGER tg_unique_vals_compte
-BEFORE INSERT ON _membre
-FOR EACH ROW
-EXECUTE FUNCTION unique_vals_compte();
+CREATE TRIGGER tg_unique_vals_compte BEFORE
+INSERT
+    ON _membre FOR EACH ROW
+EXECUTE FUNCTION unique_vals_compte ();

@@ -15,19 +15,15 @@ if (isset($_GET['id_offre']) && isset($_GET['idx_avis'])) {
     $avis_loaded = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Renvoyer les avis (sous format de carte grâce à la vue avis_view)
-    // !!! IN WORK !!! : reste à renvoyer sous forme de carte et non sous format json
     if ($avis_loaded) {
-        // Afficher les [] manuellement autour des avis pour parse en JSON
-        echo '[';
         foreach ($avis_loaded as $idx => $avis) {
-
             // Charger les informations de l'avis pour les utiliser dans la vue
             $id_avis = $avis['id_avis'];
             $date_publication = $avis['date_publication'];
             $date_experience = $avis['date_experience'];
             $commentaire = $avis['commentaire'];
             $id_avis_reponse = $avis['id_avis_reponse'];
-            $id_compte = $avis['id_compte'];
+            $id_membre = $avis['id_compte'];
             $titre = $avis['titre'];
 
             // Charger le contenu de la vue dans un variable $carte_content
@@ -36,15 +32,7 @@ if (isset($_GET['id_offre']) && isset($_GET['idx_avis'])) {
             $carte_content = ob_get_clean();
 
             // Retourner le contenu de la vue de l'avis
-            // echo json_encode($carte_content);
-
-            echo json_encode($avis);
-            if ($idx < 2) {
-                echo ',';
-            }
+            echo $carte_content;
         }
-        echo ']';
-    } else {
-        echo json_encode([]);
     }
 }
