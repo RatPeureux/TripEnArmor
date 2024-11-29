@@ -1,16 +1,19 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/tarif_public.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/tarif_public.php";
 
-class TarifPublicController {
+class TarifPublicController
+{
 
     private $model;
 
-    function __construct() {
+    function __construct()
+    {
         $this->model = 'TarifPublic';
     }
 
-    public function getTarifsByIdOffre($id_offre){
+    public function getTarifsByIdOffre($id_offre)
+    {
         $tarifsPublic = $this->model::getTarifsByIdOffre($id_offre);
 
         $result = [];
@@ -25,7 +28,8 @@ class TarifPublicController {
         return $result;
     }
 
-    public function getInfoTarifPublic($id){
+    public function getInfoTarifPublic($id)
+    {
         $tarifPublic = $this->model::getTarifPublicById($id);
 
         $result = [
@@ -37,20 +41,22 @@ class TarifPublicController {
         return $result;
     }
 
-    public function createTarifPublic($titre_tarif, $prix, $id_offre) {
+    public function createTarifPublic($titre_tarif, $prix, $id_offre)
+    {
         $tarifPublicID = $this->model::createTarifPublic($titre_tarif, $prix, $id_offre);
         return $tarifPublicID;
     }
 
-    public function updateTarifPublic($id, $titre_tarif = false, $prix = false, $id_offre = false) {
+    public function updateTarifPublic($id, $titre_tarif = false, $prix = false, $id_offre = false)
+    {
         if ($titre_tarif === false && $prix === false && $id_offre === false) {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {
             $tarifPublic = $this->model::getTarifPublicById($id);
-            
+
             $updatedTarifPublicId = $this->model::createTarifPublic(
-                $id, 
+                $id,
                 $titre_tarif !== false ? $titre_tarif : $tarifPublic["titre_tarif"],
                 $prix !== false ? $prix : $tarifPublic["prix"],
                 $id_offre !== false ? $id_offre : $tarifPublic["id_offre"]

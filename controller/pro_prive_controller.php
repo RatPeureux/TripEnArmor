@@ -1,5 +1,5 @@
 <?php
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/model/pro_prive.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/pro_prive.php';
 
 class ProPriveController
 {

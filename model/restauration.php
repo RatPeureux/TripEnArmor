@@ -1,14 +1,16 @@
 <?php
 
-require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-class Restauration extends BDD {
+class Restauration extends BDD
+{
     static private $nom_table = "sae_db._restauration";
 
-    static function getRestaurationById($id, $online = true) { 
+    static function getRestaurationById($id, $online = true)
+    {
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ? AND est_en_ligne = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ? AND est_en_ligne = ?";
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
         $statement->bindValue(2, $online);
@@ -21,10 +23,11 @@ class Restauration extends BDD {
         }
     }
 
-    static function createRestauration($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas) {
+    static function createRestauration($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas)
+    {
         self::initBDD();
         $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, gamme_prix, id_type_repas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
-        
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $est_en_ligne);
         $statement->bindParam(2, $description);
@@ -45,10 +48,11 @@ class Restauration extends BDD {
         }
     }
 
-    static function updateRestauration($est_en_ligne, $description, $resume, $prix_mini, $titre, $date, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas) {
+    static function updateRestauration($est_en_ligne, $description, $resume, $prix_mini, $titre, $date, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas)
+    {
         self::initBDD();
-        $query = "UPDATE " . self::$nom_table ." SET est_en_ligne = ?, description = ?, resume = ?, prix_mini = ?, titre = ?, date_mise_a_jour = CURRENT_TIMESTAMP, id_pro = ?, id_type_offre = ?, id_adresse = ?, gamme_prix = ?, id_type_repas = ? WHERE id_offre = ? RETURNING id_offre";
-        
+        $query = "UPDATE " . self::$nom_table . " SET est_en_ligne = ?, description = ?, resume = ?, prix_mini = ?, titre = ?, date_mise_a_jour = CURRENT_TIMESTAMP, id_pro = ?, id_type_offre = ?, id_adresse = ?, gamme_prix = ?, id_type_repas = ? WHERE id_offre = ? RETURNING id_offre";
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $est_en_ligne);
         $statement->bindParam(2, $description);
@@ -69,10 +73,11 @@ class Restauration extends BDD {
         }
     }
 
-    static function deleteRestauration($id) {
+    static function deleteRestauration($id)
+    {
         self::initBDD();
-        $query = "DELETE FROM " . self::$nom_table ." WHERE id_offre = ?";
-        
+        $query = "DELETE FROM " . self::$nom_table . " WHERE id_offre = ?";
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
 

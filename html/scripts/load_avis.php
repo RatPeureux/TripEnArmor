@@ -1,6 +1,6 @@
 <?php
 // Connexion avec la bdd
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 // Requêtes GET nécessaires pour pouvoir fonctioner avec AJAX
 if (isset($_GET['id_offre']) && isset($_GET['idx_avis']) && isset($_GET['id_membre'])) {
@@ -11,10 +11,14 @@ if (isset($_GET['id_offre']) && isset($_GET['idx_avis']) && isset($_GET['id_memb
     $id_membre = $_GET['id_membre'];
 
     // Requête SQL retournant les informations des prochains avis (selon $idx_avis)
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._avis WHERE id_offre = :id_offre AND id_compte != :id_membre LIMIT 3 OFFSET :idx_avis");
+    if ($id_membre != '-1') {
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._avis WHERE id_offre = :id_offre AND id_compte != :id_membre LIMIT 3 OFFSET :idx_avis");
+        $stmt->bindParam(':id_membre', $id_membre);
+    } else {
+        $stmt = $dbh->prepare("SELECT * FROM sae_db._avis WHERE id_offre = :id_offre LIMIT 3 OFFSET :idx_avis");
+    }
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->bindParam(':idx_avis', $idx_avis);
-    $stmt->bindParam(':id_membre', $id_membre);
     $stmt->execute();
     $avis_loaded = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

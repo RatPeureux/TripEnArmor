@@ -1,6 +1,6 @@
 <?php
 echo "Première ligne";
-require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 $pro = verifyPro();
 ?>
 
@@ -16,7 +16,6 @@ $pro = verifyPro();
 	<link rel="stylesheet" href="/styles/input.css">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="/styles/config.js"></script>
-	<script type="module" src="/scripts/loadComponentsPro.js" defer></script>
 	<script type="module" src="/scripts/main.js" defer></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
@@ -32,7 +31,7 @@ $pro = verifyPro();
 	- Faire les champs de recherches avec TAG, qui sera aussi utilisé pour VISITE : LANGUE, RESTAURATION : REPAS SERVIS (Petit-dej, Brunch, Dej, Diner, Boissons)
 	- Appliquer les scripts à tous les champs pour s'assurer de leur conformité
 	- Faire le PHP
-	- Faire du JS  
+	- Faire du JS
 
 	TODO : Ajouter des 'i' d'informations pour expliquer les champs
 	TODO : Enlever la grille tarifaire pour les restaurants
@@ -113,22 +112,22 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-			  1. [x] Adresse
-			  3. [x] Image
-			  5. [x] Offre
-			  6. [x] Offre_Tag / Restauration_Tag
-			  7. [x] Offre_Image
-			  8. [x] Offre_Langue
-			  9. [x] TypeRepas 
-			  10. [x] Offre_Prestation
-			  11. Horaires
-			  12. [x] Tarif_Public
-			  */
+																																										  1. [x] Adresse
+																																										  3. [x] Image
+																																										  5. [x] Offre
+																																										  6. [x] Offre_Tag / Restauration_Tag
+																																										  7. [x] Offre_Image
+																																										  8. [x] Offre_Langue
+																																										  9. [x] TypeRepas 
+																																										  10. [x] Offre_Prestation
+																																										  11. Horaires
+																																										  12. [x] Tarif_Public
+																																										  */
 		BDD::startTransaction();
 
 		// Insérer l'adresse dans la base de données
 		$realAdresse = extraireInfoAdresse($adresse);
-		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
+		require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
 		$adresseController = new AdresseController();
 		$id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
 		if (!$id_adresse) {
@@ -144,7 +143,7 @@ $pro = verifyPro();
 		switch ($activity) {
 			case 'activite':
 				// Insertion spécifique à l'activité
-				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
 
 				$activiteController = new ActiviteController();
 				$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
@@ -158,7 +157,7 @@ $pro = verifyPro();
 
 			case 'visite':
 
-				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
 
 				$visiteController = new VisiteController();
 				$id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
@@ -172,7 +171,7 @@ $pro = verifyPro();
 
 			case 'spectacle':
 
-				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
 
 				$spectacleController = new SpectacleController();
 				$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $capacite);
@@ -186,7 +185,7 @@ $pro = verifyPro();
 
 			case 'parc_attraction':
 
-				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
 
 				$parcAttractionController = new ParcAttractionController();
 				$id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
@@ -200,7 +199,7 @@ $pro = verifyPro();
 
 			case 'restauration':
 
-				require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
 
 				$restaurationController = new RestaurationController();
 				$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas);
@@ -219,12 +218,12 @@ $pro = verifyPro();
 		}
 
 		// Insérer les liens entre les offres et les tags dans la base de données
-		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+		require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
 		$tagController = new TagController();
 		if ($activityType === 'restauration') {
 			// Insérer les tags de restauration
 		} else {
-			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
 			$tagOffreController = new TagOffreController();
 
 			foreach ($tags as $tag) {
@@ -235,7 +234,7 @@ $pro = verifyPro();
 		}
 
 		// Insérer les images dans la base de données
-		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+		require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
 		$imageController = new ImageController();
 
 		// *** CARTE
@@ -267,9 +266,9 @@ $pro = verifyPro();
 
 		if ($activityType === 'visite') {
 			// Insérer les langues dans la base de données
-			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/langue_controller.php';
+			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/langue_controller.php';
 			$langueController = new LangueController();
-			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
+			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
 			$visiteLangueController = new VisiteLangueController();
 
 			foreach ($langues as $langue => $isIncluded) {
@@ -280,9 +279,9 @@ $pro = verifyPro();
 			}
 			echo "Langues liées<br>";
 		} elseif ($activityType === 'restauration') {
-			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
+			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
 			$typeRepasController = new TypeRepasController();
-			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_type_repas_controller.php';
+			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_type_repas_controller.php';
 			$restaurationTypeRepasController = new RestaurationTypeRepasController();
 
 			foreach ($typesRepas as $typeRepas => $isIncluded) {
@@ -293,9 +292,9 @@ $pro = verifyPro();
 			}
 			echo "Types de repas liés<br>";
 		} elseif ($activityType === 'activite') {
-			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_manager.php';
+			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_manager.php';
 			$prestationController = new PrestationController();
-			require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
+			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
 			$activitePrestationController = new ActivitePrestationController();
 
 			foreach ($prestations as $prestation => $isIncluded) {
@@ -310,7 +309,7 @@ $pro = verifyPro();
 		}
 
 		// Insérer les horaires dans la base de données
-		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+		require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
 		$horaireController = new HoraireController();
 
 		foreach ($horaires as $jour) {
@@ -319,7 +318,7 @@ $pro = verifyPro();
 		echo "Horaires insérés<br>";
 
 		// Insérer les prix dans la base de données
-		require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
+		require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
 		$tarifController = new TarifPublicController();
 		foreach ($prices as $price) {
 			if (!isset($price['name']) || !isset($price['value'])) {
@@ -1338,9 +1337,15 @@ $pro = verifyPro();
 					</div>
 				</form>
 			</div>
-			<div id="footer-pro" class="w-full"></div>
+
+			<!-- FOOTER -->
+			<div class="w-full">
+				<?php
+				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+				?>
+			</div>
 		</div>
-		<script src="/scripts/loadcomponents.js"></script>
+
 		<script src="/scripts/tagManager.js"></script>
 		<script src="/scripts/priceManager.js"></script>
 		<script src="/scripts/prestationManager.js"></script>
