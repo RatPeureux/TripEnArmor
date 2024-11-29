@@ -18,6 +18,7 @@ function verifyPro()
 {
     // Vérifie si l'utilisateur est connecté en tant que pro, sinon le renvoie à la page de connexion
     echo "Dans verifyPro<br>";
+    echo "Session: ";
     print_r($_SESSION);
     if (!isConnectedAsPro()) {
         echo "Pas connecté en tant que pro<br>";
