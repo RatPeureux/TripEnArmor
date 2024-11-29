@@ -18,14 +18,17 @@
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsMember()) { ?>
                 <a href="/scripts/logout.php" class="flex flex-col items-center" onclick="return confirmLogout()">
-                    <i class="text-3xl fa-regular fa-user"></i>
-                    <p class="italic">(Auth.)</p>
+                     <div class="border border-primary rounded-lg">
+                        <p>
+                            Se déconnecter
+                        </p>
+                     </div>
                 </a>
             <?php } else { ?>
                 <!-- Sinon si pas connecté -->
                 <a href="/connexion">
                     <!-- <i class="text-3xl fa-regular fa-user"></i> -->
-                     <div>
+                     <div class="border border-primary rounded-lg">
                         <p>
                             Se connecter
                         </p>
