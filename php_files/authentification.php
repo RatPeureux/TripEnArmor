@@ -29,7 +29,11 @@ function verifyPro()
             if (!$pro) {
                 header('location: /pro/connexion');
                 exit();
+            } else {
+                $pro["type"] = "public";
             }
+        } else {
+            $pro["type"] = "prive";
         }
 
         return $pro;

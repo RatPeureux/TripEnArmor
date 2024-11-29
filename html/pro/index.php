@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+
 // Enlever les informations gardées lors de l'étape de connexion quand on reveint à la page (retour en arrière)
 unset($_SESSION['data_en_cours_connexion']);
 

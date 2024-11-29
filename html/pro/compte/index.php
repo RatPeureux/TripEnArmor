@@ -1,3 +1,10 @@
+<?php
+session_start();
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+
+$pro = verifyPro();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -18,12 +25,35 @@
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
+    <?php
+    // Connexion avec la bdd
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    print_r($pro);
+    $nom_pro;
+    if ($pro['type'] == 'prive') {
+        echo 'prive';
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
+        $controllerPro = new ProPriveController();
+        $pro = $controllerPro->getInfosProPrive($pro['id_pro']);
+        print_r($pro['nom_pro']);
+        $nom_pro = $pro['nom_pro'];
+    } else {
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
+        $controllerPro = new ProPublicController();
+        $pro = $controllerPro->getInfosProPublic($pro['id_pro']);
+        $nom_pro = $pro['denomination'];
+    }
+
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
+    $controllerAdresse = new AdresseController();
+    $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
+    ?>
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
         <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
             <i class="text-3xl fa-solid fa-bars"></i>
         </a>
         <div class="flex w-full items-center">
-            <p class="text-h2">Dénomination/Nom de l'organisation</p>
+            <p class="text-h2"><?php echo $nom_pro ?></p>
         </div>
     </header>
     <div id="menu-pro"></div>
