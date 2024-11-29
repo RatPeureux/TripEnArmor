@@ -1,7 +1,7 @@
 <?php
-echo "avant require du model";
+echo "avant require model";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/horaire.php";
-echo "après require du model";
+echo "après require model";
 
 class HoraireController {
 
