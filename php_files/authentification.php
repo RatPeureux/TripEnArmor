@@ -36,7 +36,6 @@ function verifyPro()
             $proController = new ProPublicController();
 
             $pro = $proController->getInfosProPublic($_SESSION["id_pro"]);
-            print_r($pro);
             $result["id_compte"] = $pro["id_compte"];
             $result["nom_pro"] = $pro["nom_pro"];
             $result["email"] = $pro["email"];
