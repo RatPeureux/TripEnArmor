@@ -22,16 +22,18 @@
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsPro()) { ?>
-                <a href="/scripts/logout.php" class="flex flex-col items-center" onclick="return confirmLogout()">
-                    <div class="border border-primary rounded-lg p-2">
-                        <p>
-                            Se déconnecter
-                        </p>
-                    </div>
-                </a>
-                <a href="/pro/compte">
-                    <i class="text-3xl fa-regular fa-user"></i>
-                </a>
+                <div class="flex items-center gap-4">
+                    <a href="/pro/compte">
+                        <i class="text-3xl fa-regular fa-user"></i>
+                    </a>
+                    <a href="/scripts/logout.php" class="flex flex-col items-center" onclick="return confirmLogout()">
+                        <div class="border border-primary rounded-lg p-2">
+                            <p>
+                                Se déconnecter
+                            </p>
+                        </div>
+                    </a>
+                </div>
             <?php } else { ?>
                 <!-- Sinon si pas connecté -->
                 <a href="/pro/connexion" class="hover:text-primary duration-100">
