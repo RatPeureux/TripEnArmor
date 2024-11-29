@@ -28,31 +28,13 @@ $pro = verifyPro();
     // Connexion avec la bdd
     require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     print_r($pro);
-    $nom_pro;
-    if ($pro['type'] == 'prive') {
-        echo 'prive';
-        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
-        $controllerPro = new ProPriveController();
-        $pro = $controllerPro->getInfosProPrive($pro['id_pro']);
-        print_r($pro['nom_pro']);
-        $nom_pro = $pro['nom_pro'];
-    } else {
-        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
-        $controllerPro = new ProPublicController();
-        $pro = $controllerPro->getInfosProPublic($pro['id_pro']);
-        $nom_pro = $pro['denomination'];
-    }
-
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
-    $controllerAdresse = new AdresseController();
-    $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
     ?>
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
         <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
             <i class="text-3xl fa-solid fa-bars"></i>
         </a>
         <div class="flex w-full items-center">
-            <p class="text-h2"><?php echo $nom_pro ?></p>
+            <p class="text-h2"><?php echo $pro['nom_pro'] ?></p>
         </div>
     </header>
     <div id="menu-pro"></div>
@@ -67,7 +49,7 @@ $pro = verifyPro();
                     <p class="text-small">Voir mes activités récentes.</p>
                 </div>
             </a>
-            <a href="/pro/compte/parametres"
+            <a href="/pro/compte/paramètres"
                 class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-gear"></i>
                 <div class="w-full">
@@ -76,7 +58,7 @@ $pro = verifyPro();
                     <p class="text-small">Supprimer mon compte.</p>
                 </div>
             </a>
-            <a href="/pro/compte/securite"
+            <a href="/pro/compte/sécurité"
                 class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-shield"></i>
                 <div class="w-full">
