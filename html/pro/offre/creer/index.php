@@ -1,5 +1,8 @@
 <?php
-echo "Première ligne<br>";
+session_start();
+echo "Session :";
+print_r($_SESSION);
+echo "<br>Première ligne<br>";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 echo "après require<br>";
 $pro = verifyPro();
