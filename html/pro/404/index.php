@@ -18,7 +18,10 @@
 </head>
 
 <body class="min-h-screen flex flex-col">
-    <div id="header-pro"></div>
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    ?>
     <div id="menu-pro"></div>
     <main class="w-full mt-20 m-auto max-w-[1280px] p-2">
         <div class="text-center">
