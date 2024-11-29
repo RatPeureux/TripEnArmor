@@ -28,7 +28,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- Inclusion du header -->
     <?php
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
     ?>
 
     <?php
@@ -49,7 +49,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
-    
+
     <!-- MAIN (TABLETTE et TÉLÉPHONE -->
     <div class="w-full grow flex items-start justify-center p-2">
         <div class="flex justify-center w-full md:max-w-[1280px]">
@@ -62,12 +62,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     <h1 class="text-4xl">Toutes les offres</h1>
 
                     <div class="hidden md:flex gap-4">
-                        <a href="#" class="flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
+                        <a href="#" class="flex items-center gap-2 hover:text-primary duration-100"
+                            id="filter-button-tab">
                             <i class="text xl fa-solid fa-filter"></i>
                             <p>Filtrer</p>
                         </a>
                         |
-                        <a href="#" class="self-end flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
+                        <a href="#" class="self-end flex items-center gap-2 hover:text-primary duration-100"
+                            id="sort-button-tab">
                             <i class="text xl fa-solid fa-sort"></i>
                             <p>Trier par</p>
                         </a>
@@ -82,14 +84,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 <?php
                 // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
                 if (!$toutesLesOffres) { ?>
-                    <div class="md:min-w-full flex flex-col gap-4"> 
+                    <div class="md:min-w-full flex flex-col gap-4">
                         <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
                     </div>
                 <?php } else { ?>
-                    <div class="md:min-w-full flex flex-col gap-4" id="no-matches"> 
+                    <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
                         <?php $i = 0;
                         foreach ($toutesLesOffres as $offre) {
-                            if ($i < 10) {
+                            if ($i < 3) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';
                                 require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
@@ -99,14 +101,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                         } ?>
                     </div>
                 <?php } ?>
-                </div>
-            </main>
         </div>
+        </main>
+    </div>
 
-        <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
-        <?php
-        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel.php';
-        ?>
+    <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel.php';
+    ?>
     </div>
 
     <!-- FOOTER -->

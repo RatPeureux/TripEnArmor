@@ -316,7 +316,6 @@ session_start();
 
                     <!-- Partie du bas de la page (toutes les infos pratiques) -->
                     <div class="flex flex-row gap-4">
-
                         <!-- Partie description -->
                         <div class="partie-description flex flex-col basis-1/2">
                             <!-- Prix + localisation -->
@@ -335,7 +334,6 @@ session_start();
                                     <p class="prix text-small mt-1"><?php echo $prix_a_afficher ?></p>
                                 </div>
                             </div>
-
                             <!-- Description détaillée -->
                             <div class="description flex flex-col my-4">
                                 <p class="text-justify text-small px-2">
@@ -532,113 +530,111 @@ session_start();
                             ?>
 
                             <!-- Partie avis -->
-                            <div class="mt-5">
+                            <div class="mt-5 flex flex-col gap-2">
+
                                 <h3 class="text-h4 font-bold">Avis</h3>
-                                <!-- FORMULAIRE DES AVIS -->
+
                                 <?php
                                 if (isset($_SESSION['id_membre'])) {
+                                    // UTILISATEUR CONNECTÉ, 2 cas :
+                                    // - a déjà écrit un avis, auquel cas on le voit en premier et on peut le modifier
+                                    // - n'a pas déjà écrit d'avis, auquel cas un formulaire de création d'avis apparaît
+                                
+                                    // vérifier si l'utilisateur a écrit un avis
+                                    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+                                    $avisController = new AvisController;
+                                    $mon_avis = $avisController->getAvisByIdMembreEtOffre($_SESSION['id_membre'], $id_offre);
+                                    if ($mon_avis) { ?>
+                                        <!-- AFFICHER SON AVIS ET POUVOIR LE MODIFIER -->
+                                        <?php
+                                        $id_avis = $mon_avis['id_avis'];
+                                        $id_membre = $_SESSION['id_membre'];
+                                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/mon_avis_view.php';
+                                        ?>
+                                    <?php } else {
+                                        ?>
+                                        <!-- FORMULAIRE DE CRÉATION D'AVIS -->
+                                        <div class="flex flex-col gap-2">
+                                            <button class="bg-primary   text-white rounded-lg p-2">Rédiger un avis</button>
+                                            <form id="avis_formulaire" action=" /scripts/creation_avis.php " method="post"
+                                                class="flex flex-col gap-2">
+                                                <input type="text" name="titre" placeholder="Titre de l'avis" class="input"
+                                                    required>
+                                                <textarea name="description" placeholder="Description de l'avis" class="input"
+                                                    required></textarea>
+                                                <select name="note_service" id="note" class="input" required>
+                                                    <option value="note_service">Service</option>
+                                                    <option value="note1">1</option>
+                                                    <option value="note2">2</option>
+                                                    <option value="note3">3</option>
+                                                    <option value="note4">4</option>
+                                                    <option value="note5">5</option>
+                                                </select>
+                                                <select name="note_qualite_prix" id="note" class="input" required>
+                                                    <option value="note_qualite_prix">Qualité/Prix</option>
+                                                    <option value="note1">1</option>
+                                                    <option value="note2">2</option>
+                                                    <option value="note3">3</option>
+                                                    <option value="note4">4</option>
+                                                    <option value="note5">5</option>
+                                                    <p>/5</p>
+                                                </select>
+                                                <select name="note" id="note" class="input" required>
+                                                    <option value="note1">1</option>
+                                                    <option value="note2">2</option>
+                                                    <option value="note3">3</option>
+                                                    <option value="note4">4</option>
+                                                    <option value="note5">5</option>
+                                                    <p>/5</p>
+                                                </select>
+                                                <select name="note" id="note" class="input" required>
+                                                    <option value="note1">1</option>
+                                                    <option value="note2">2</option>
+                                                    <option value="note3">3</option>
+                                                    <option value="note4">4</option>
+                                                    <option value="note5">5</option>
+                                                    <p>/5</p>
+                                                </select>
+                                                <input type="date" name="date_experience" id="date_experience" class="input"
+                                                    required>
+                                                <input type="submit" value="Envoyer"
+                                                    class="bg-primary text-white rounded-lg p-2">
+                                            </form>
+
+                                            <script>
+                                                // Js pour faire apparaitre le formulaire d'avis
+                                                document.getElementById('avis_formulaire').style.display = 'none';
+
+                                                document.querySelector('button').addEventListener('click', () => {
+                                                    document.getElementById('avis').style.display = 'flex';
+                                                });
+                                            </script>
+                                        </div>
+                                        <?php
+                                    }
                                     ?>
-                                    <div class="flex flex-col gap-2">
-                                        <button class="bg-primary   text-white rounded-lg p-2">Rédiger un avis</button>
 
-                                        <form id="avis_formulaire" action=" /scripts/creation_avis.php " method="post"
-                                            class="flex flex-col gap-2">
-                                            <input type="text" name="titre" placeholder="Titre de l'avis" class="input"
-                                                required>
-                                            <textarea name="description" placeholder="Description de l'avis" class="input"
-                                                required></textarea>
-                                            <select name="note_service" id="note" class="input" required>
-
-                                                <option value="note_service">Service</option>
-                                                <option value="note1">1</option>
-                                                <option value="note2">2</option>
-                                                <option value="note3">3</option>
-                                                <option value="note4">4</option>
-                                                <option value="note5">5</option>
-
-                                            </select>
-
-                                            <select name="note_qualite_prix" id="note" class="input" required>
-
-                                                <option value="note_qualite_prix">Qualité/Prix</option>
-                                                <option value="note1">1</option>
-                                                <option value="note2">2</option>
-                                                <option value="note3">3</option>
-                                                <option value="note4">4</option>
-                                                <option value="note5">5</option>
-
-                                                <p>/5</p>
-
-                                            </select>
-
-                                            <select name="note" id="note" class="input" required>
-
-                                                <option value="note1">1</option>
-                                                <option value="note2">2</option>
-                                                <option value="note3">3</option>
-                                                <option value="note4">4</option>
-                                                <option value="note5">5</option>
-
-                                                <p>/5</p>
-
-                                            </select>
-
-                                            <select name="note" id="note" class="input" required>
-
-                                                <option value="note1">1</option>
-                                                <option value="note2">2</option>
-                                                <option value="note3">3</option>
-                                                <option value="note4">4</option>
-                                                <option value="note5">5</option>
-
-                                                <p>/5</p>
-
-                                            </select>
-
-                                            <input type="date" name="date_experience" id="date_experience" class="input"
-                                                required>
-
-                                            <input type="submit" value="Envoyer"
-                                                class="bg-primary text-white rounded-lg p-2">
-                                        </form>
-
-                                        <script>
-                                            // Js pour faire apparaitre le formulaire d'avis
-                                            document.getElementById('avis_formulaire').style.display = 'none';
-
-                                            document.querySelector('button').addEventListener('click', () => {
-                                                document.getElementById('avis').style.display = 'flex';
-                                            });
-
-                                        </script>
-
-                                    </div>
-
-                                    <!-- Message d'incitation à créer un compte -->
                                     <?php
+                                    // UTILISATEUR PAS CONNECTÉ
                                 } else { ?>
                                     <p class="text-small italic">Connectez-vous pour rédiger un avis</p>
                                     <?php
                                 }
                                 ?>
 
-                                <!-- faire un bouton pour rédiger un avis  -->
-
-                                <!-- faire un formulaire pour pouvoir remplir les données d'un avis -->
-
-                                <!-- le titre -->
-
-                                <!-- la description -->
-
-                                <!-- la note -->
-                                <p></p>
-
                                 <!-- Conteneur pour tous les avis -->
                                 <div id="avis-container" class="flex flex-col gap-2 items-center"></div>
 
                                 <!-- Bouton pour charger plus d'avis -->
-                                <button class="text-small text-end font-bold" id="load-more-btn">Afficher
-                                    plus...</button>
+                                <div class="flex gap-2 items-center justify-center self-end">
+                                    <!-- Symbole de chargement quand les avis chargent -->
+                                    <img id=" loading-indicator" class="w-8 h-6" style="display: none;"
+                                        src=" /public/images/loading.gif" alt="Loading...">
+                                    <button class="text-small font-bold" id="load-more-btn">
+                                        Afficher plus...
+                                    </button>
+                                </div>
+
                             </div>
 
                             <!-- A garder ici car il y a du PHP -->
@@ -647,6 +643,7 @@ session_start();
                                     // Paramètres à passer au fichier PHP de chargement des avis
                                     let idx_avis = 0;
                                     const id_offre = <?php echo $_SESSION['id_offre'] ?>;
+                                    const id_membre = <?php echo $_SESSION['id_membre'] ?>;
 
                                     // Charger les X premiers avis
                                     loadAvis();
@@ -658,14 +655,22 @@ session_start();
 
                                     // Fonction pour charger X avis (en PHP), puis les ajouter à la page via AJAX JS
                                     function loadAvis() {
+                                        // Afficher le loader pendant le chargement
+                                        $('#loading-indicator').show();
+
+                                        // Désactiver le bouton pendant le chargement
+                                        $('#load-more-btn').prop('disabled', true);
 
                                         $.ajax({
                                             url: '/scripts/load_avis.php',
                                             type: 'GET',
                                             data: {
                                                 id_offre: id_offre,
-                                                idx_avis: idx_avis
+                                                idx_avis: idx_avis,
+                                                id_membre: id_membre
                                             },
+
+                                            // Durant l'exécution de la requête
                                             success: function (response) {
                                                 const lesAvisCharges = response;
                                                 if (lesAvisCharges.length > 0) {
@@ -676,8 +681,16 @@ session_start();
                                                     idx_avis += 3;
                                                 } else {
                                                     // Ne plus pouvoir cliquer sur le bouton quand il n'y a plus d'avis
-                                                    $('#load-more-btn').prop('disabled', true).text('Pas d\'autre avis...');
+                                                    $('#load-more-btn').prop('disabled', true).text('');
                                                 }
+                                            },
+
+                                            // A la fin, chacher le logo de chargement
+                                            complete: function () {
+                                                // Masquer le loader après la requête
+                                                $('#loading-indicator').hide();
+                                                // Réactiver le bouton après la requête (que ce soit réussi ou non)
+                                                $('#load-more-btn').prop('disabled', false);
                                             }
                                         });
                                     }

@@ -3,14 +3,18 @@
 require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 // Requêtes GET nécessaires pour pouvoir fonctioner avec AJAX
-if (isset($_GET['id_offre']) && isset($_GET['idx_avis'])) {
+if (isset($_GET['id_offre']) && isset($_GET['idx_avis']) && isset($_GET['id_membre'])) {
     $id_offre = $_GET['id_offre'];
     $idx_avis = $_GET['idx_avis'];
 
+    // Id du membre qui charge les avis (pour afficher son avis de manière spéciale)
+    $id_membre = $_GET['id_membre'];
+
     // Requête SQL retournant les informations des prochains avis (selon $idx_avis)
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._avis WHERE id_offre = :id_offre LIMIT 3 OFFSET :idx_avis");
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._avis WHERE id_offre = :id_offre AND id_compte != :id_membre LIMIT 3 OFFSET :idx_avis");
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->bindParam(':idx_avis', $idx_avis);
+    $stmt->bindParam(':id_membre', $id_membre);
     $stmt->execute();
     $avis_loaded = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -19,12 +23,7 @@ if (isset($_GET['id_offre']) && isset($_GET['idx_avis'])) {
         foreach ($avis_loaded as $idx => $avis) {
             // Charger les informations de l'avis pour les utiliser dans la vue
             $id_avis = $avis['id_avis'];
-            $date_publication = $avis['date_publication'];
-            $date_experience = $avis['date_experience'];
-            $commentaire = $avis['commentaire'];
-            $id_avis_reponse = $avis['id_avis_reponse'];
             $id_membre = $avis['id_compte'];
-            $titre = $avis['titre'];
 
             // Charger le contenu de la vue dans un variable $carte_content
             ob_start();
