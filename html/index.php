@@ -4,7 +4,7 @@ session_start();
 unset($_SESSION['data_en_cours_connexion']);
 unset($_SESSION['data_en_cours_inscription']);
 
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 ?>
 
 <!DOCTYPE html>
@@ -25,11 +25,14 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 <body class="min-h-screen flex flex-col justify-between">
 
-    <div id="header"></div>
+    <!-- Inclusion du header -->
+    <?php
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    ?>
 
     <?php
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     $sort_order = '';
     if (isset($_GET['sort'])) {
@@ -45,7 +48,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
-
+    
     <!-- MAIN (TABLETTE et TÉLÉPHONE -->
     <div class="w-full grow flex items-start justify-center p-2">
         <div class="flex justify-center w-full md:max-w-[1280px]">
@@ -88,7 +91,7 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                             if ($i < 10) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';
-                                include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
+                                require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
                                 $i++;
                             }
                         } ?>

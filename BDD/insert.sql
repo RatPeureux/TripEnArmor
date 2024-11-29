@@ -454,8 +454,7 @@ VALUES (
 
 INSERT INTO
     _type_repas (nom)
-VALUES 
-    ('Petit déj'),
+VALUES ('Petit déj'),
     ('Déjeuner'),
     ('Dîner'),
     ('Boissons'),
@@ -463,21 +462,18 @@ VALUES
 
 INSERT INTO
     _tarif_public (titre, prix, id_offre)
-VALUES 
-    ('Enfant', 12, 5),
+VALUES ('Enfant', 12, 5),
     ('Adulte', 30, 5);
 
 INSERT INTO
     _langue (nom)
-VALUES 
-    ('Français'),
+VALUES ('Français'),
     ('Breton'),
     ('Anglais');
 
 INSERT INTO
-    _visite_langue (nom)
-VALUES 
-    (7, 1),
+    _visite_langue (id_offre, id_langue)
+VALUES (7, 1),
     (7, 2),
     (8, 1),
     (8, 3);

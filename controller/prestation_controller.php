@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/prestation.php";
+require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/prestation.php";
 
 class PrestationController {
 

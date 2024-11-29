@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
+require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class Langue extends BDD {
     static private $nom_table = "sae_db._langue";

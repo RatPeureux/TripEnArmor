@@ -10,7 +10,7 @@ if (!isset($_SESSION['data_en_cours_connexion'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Connexion avec la bdd
-        include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+        require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
         // Vérifie si la requête est une soumission de formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -28,12 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Vérifie si l'utilisateur existe et si le mot de passe est correct
             if ($user) {
-                echo password_verify($mdp, $user['mdp_hash']);
                 if (password_verify($mdp, $user['mdp_hash'])) {
                     // Connecte le pro, enlève toute éventuelle connexion à un membre
                     $_SESSION['id_pro'] = $user['id_compte'];
                     unset($_SESSION['id_membre']);
-                    header('location: /pro/'); // Redirige vers la page connectée
+                    header('location: /pro'); // Redirige vers la page connectée
                     exit();
                 } else {
                     $_SESSION['error'] = "Mot de passe incorrect"; // Stocke le message d'erreur dans la session

@@ -1,5 +1,5 @@
 <?php
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
+require dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 abstract class Compte extends BDD
 {

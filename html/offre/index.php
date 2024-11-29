@@ -29,7 +29,10 @@ session_start();
 
 <body class="flex flex-col">
 
-    <div id="header" class="sticky top-0 z-30 md:relative"></div>
+    <!-- Inclusion du header -->
+    <?php
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    ?>
 
     <?php
     $id_offre = $_SESSION['id_offre'];
@@ -38,13 +41,14 @@ session_start();
     }
 
     // Connexion avec la bdd
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $id_pro = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
+
     $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
     $stmt->bindParam(':id_pro', $id_pro);
     $stmt->execute();
@@ -58,18 +62,19 @@ session_start();
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Ancienne méthode pour obtenir les informations de l'offre
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
-
-    // Utilisation du MVC en fonction de la catégorie de l'offre
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     switch ($categorie_offre) {
         case 'restauration':
-
+            // appel controlller restauration
+            // $restaurtion egal Ctrl->getRestaurationById($id_offre)
+            // echo $restauration['id_repas']
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+            $controllerRestauration = new RestaurationController();
+            $parc_attraction = $controllerRestauration->getInfosRestauration($id_offre);
             break;
 
         case 'activite':
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
             $controllerActivite = new ActiviteController();
             $activite = $controllerActivite->getInfosActivite($id_offre);
 
@@ -86,7 +91,7 @@ session_start();
             break;
 
         case 'parc_attraction':
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
             $controllerParcAttraction = new ParcAttractionController();
             $parc_attraction = $controllerParcAttraction->getInfosParcAttraction($id_offre);
 
@@ -98,7 +103,7 @@ session_start();
             break;
 
         case 'visite':
-            include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
+            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
             $controllerVisite = new VisiteController();
             $visite = $controllerVisite->getInfosVisite($id_offre);
 
@@ -111,7 +116,7 @@ session_start();
             $guideBool = $visite['avec_guide'];
             if ($guideBool == true) {
                 $guide = 'oui';
-                include dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
+                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
                 $controllerLangue = new VisiteLangueController();
                 $tabLangues = $controllerLangue->getLanguesByIdVisite($id_offre);
                 $langues = '';
@@ -127,7 +132,7 @@ session_start();
             break;
 
         case 'spectacle':
-            include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
             $controllerSpectacle = new SpectacleController();
             $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
 
@@ -215,11 +220,11 @@ session_start();
                 "titre_tarif" => "Tarif enfant",
                 "prix" => 5
             ]
-        ]; # $controllerGrilleTarifaire->getTarifsByIdOffre($id_offre);
+        ];
     }
 
     if ($categorie_offre == 'parc_attraction') {
-        // require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
+        // require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
         // $controllerImage = new TImageImgController();
         // $path_plan = $controllerImage->getPathToPlan($id_offre);
     }
@@ -279,11 +284,10 @@ session_start();
                 </div>
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
-                <div class="flex flex-col p-2 pt-4 gap-2">
-                    <div class="flex flex-col md:flex-row md:items-center">
-                        <p class="text-h1 font-bold"><?php echo $offre['titre'] ?></p>
-                        <p class="text-h1 pt-2 hidden md:flex">&nbsp-&nbsp</p>
-                        <p class="text-h1 pt-2"><?php echo $pro['nom_pro'] ?></p>
+                <div class="flex flex-col gap-5">
+                    <div class="flex flex-row items-center">
+                        <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
+                        <p class="professionnel text-h1">&nbsp;- <?php echo $nom_pro ?></p>
                     </div>
                     <!-- Afficher les tags de l'offre -->
                     <p class="text-small">
@@ -309,11 +313,13 @@ session_start();
                         <?php
                     }
                     ?>
-                    <!-- Description + avis -->
-                    <div class="description-et-avis flex flex-col md:flex-row">
-                        <!-- Partie description -->
-                        <div class="partie-description flex flex-col w-full md:w-5/12">
 
+
+                    <!-- Partie du bas de la page (toutes les infos pratiques) -->
+                    <div class="flex flex-row gap-4">
+
+                        <!-- Partie description -->
+                        <div class="partie-description flex flex-col basis-1/2">
                             <!-- Prix + localisation -->
                             <div class="flex flex-col space-y-2 md:gap-4">
                                 <p class="text-h4 font-bold">À propos</p>
@@ -340,8 +346,8 @@ session_start();
                         </div>
 
                         <!-- Partie avis & Infos en fonction du type offre -->
-                        <div class="avis w-full md:w-7/12 px-2 py-3">
-                            <!-- Horaire -->
+                        <div class="basis-1/2">
+                            <!-- Infos en fonction du type de l'offre -->
                             <a href="" class="">
                                 <div class="flex flex-row justify-between" id="horaire-button">
                                     <p class="text-h4 font-bold">Horaires</p>
@@ -525,141 +531,196 @@ session_start();
                                 <?php
                             }
                             ?>
-                            <div class="pt-3">
-                                <!-- Partie avis -->
-                                <div class="avis w-7/12">
-                                    <h3 class="text-h4 font-bold">Avis</h3>
-                                    <!--  verifier si le membre est bon  -->
-                                    <?php
-                                    if (isset($_SESSION['id_membre'])) {
-                                        ?>
-                                        <div class="flex flex-col gap-2">
-                                            <button class="bg-primary   text-white rounded-lg p-2">Rédiger un avis</button>
 
-                                            <form id="avis" action=" /scripts/creation_avis.php " method="post"
-                                                class="flex flex-col gap-2">
-                                                <input type="text" name="titre" placeholder="Titre de l'avis" class="input"
-                                                    required>
-                                                <textarea name="description" placeholder="Description de l'avis"
-                                                    class="input" required></textarea>
-                                                <select name="note_service" id="note" class="input" required>
-
-                                                    <option value="note_service">Service</option>
-                                                    <option value="note1">1</option>
-                                                    <option value="note2">2</option>
-                                                    <option value="note3">3</option>
-                                                    <option value="note4">4</option>
-                                                    <option value="note5">5</option>
-
-                                                </select>
-
-                                                <select name="note_qualite_prix" id="note" class="input" required>
-
-                                                    <option value="note_qualite_prix">Qualité/Prix</option>
-                                                    <option value="note1">1</option>
-                                                    <option value="note2">2</option>
-                                                    <option value="note3">3</option>
-                                                    <option value="note4">4</option>
-                                                    <option value="note5">5</option>
-
-                                                    <p>/5</p>
-
-                                                </select>
-
-                                                <select name="note" id="note" class="input" required>
-
-                                                    <option value="note1">1</option>
-                                                    <option value="note2">2</option>
-                                                    <option value="note3">3</option>
-                                                    <option value="note4">4</option>
-                                                    <option value="note5">5</option>
-
-                                                    <p>/5</p>
-
-                                                </select>
-
-                                                <select name="note" id="note" class="input" required>
-
-                                                    <option value="note1">1</option>
-                                                    <option value="note2">2</option>
-                                                    <option value="note3">3</option>
-                                                    <option value="note4">4</option>
-                                                    <option value="note5">5</option>
-
-                                                    <p>/5</p>
-
-                                                </select>
-
-                                                <input type="date" name="date_experience" id="date_experience" class="input"
-                                                    required>
-
-
-
-                                                <input type="submit" value="Envoyer"
-                                                    class="bg-primary text-white rounded-lg p-2">
-                                            </form>
-                                        </div>
-                                        <?php
-                                    } else { ?>
-                                        <p>Connectez-vous pour rédiger un avis</p>
-                                        <?php
-                                    }
+                            <!-- Partie avis -->
+                            <div class="mt-5">
+                                <h3 class="text-h4 font-bold">Avis</h3>
+                                <!-- FORMULAIRE DES AVIS -->
+                                <?php
+                                if (isset($_SESSION['id_membre'])) {
                                     ?>
+                                    <div class="flex flex-col gap-2">
+                                        <button class="bg-primary   text-white rounded-lg p-2">Rédiger un avis</button>
 
-                                    <script>
+                                        <form id="avis_formulaire" action=" /scripts/creation_avis.php " method="post"
+                                            class="flex flex-col gap-2">
+                                            <input type="text" name="titre" placeholder="Titre de l'avis" class="input"
+                                                required>
+                                            <textarea name="description" placeholder="Description de l'avis" class="input"
+                                                required></textarea>
+                                            <select name="note_service" id="note" class="input" required>
 
-                                        // js pour faire apparaitre le formulaire d'avis
+                                                <option value="note_service">Service</option>
+                                                <option value="note1">1</option>
+                                                <option value="note2">2</option>
+                                                <option value="note3">3</option>
+                                                <option value="note4">4</option>
+                                                <option value="note5">5</option>
 
-                                        document.getElementById('avis').style.display = 'none';
+                                            </select>
 
-                                        document.querySelector('button').addEventListener('click', () => {
-                                            document.getElementById('avis').style.display = 'flex';
-                                        });
+                                            <select name="note_qualite_prix" id="note" class="input" required>
 
-                                    </script>
+                                                <option value="note_qualite_prix">Qualité/Prix</option>
+                                                <option value="note1">1</option>
+                                                <option value="note2">2</option>
+                                                <option value="note3">3</option>
+                                                <option value="note4">4</option>
+                                                <option value="note5">5</option>
 
+                                                <p>/5</p>
 
-                                    <!-- faire un bouton pour rédiger un avis  -->
+                                            </select>
 
-                                    <!-- faire un formulaire pour pouvoir remplir les données d'un avis -->
+                                            <select name="note" id="note" class="input" required>
 
-                                    <!-- le titre -->
+                                                <option value="note1">1</option>
+                                                <option value="note2">2</option>
+                                                <option value="note3">3</option>
+                                                <option value="note4">4</option>
+                                                <option value="note5">5</option>
 
-                                    <!-- la description -->
+                                                <p>/5</p>
 
-                                    <!-- la note -->
-                                    <p></p>
+                                            </select>
 
-                                </div>
+                                            <select name="note" id="note" class="input" required>
+
+                                                <option value="note1">1</option>
+                                                <option value="note2">2</option>
+                                                <option value="note3">3</option>
+                                                <option value="note4">4</option>
+                                                <option value="note5">5</option>
+
+                                                <p>/5</p>
+
+                                            </select>
+
+                                            <input type="date" name="date_experience" id="date_experience" class="input"
+                                                required>
+
+                                            <input type="submit" value="Envoyer"
+                                                class="bg-primary text-white rounded-lg p-2">
+                                        </form>
+
+                                        <script>
+                                            // Js pour faire apparaitre le formulaire d'avis
+                                            document.getElementById('avis_formulaire').style.display = 'none';
+
+                                            document.querySelector('button').addEventListener('click', () => {
+                                                document.getElementById('avis').style.display = 'flex';
+                                            });
+
+                                        </script>
+
+                                    </div>
+
+                                    <!-- Message d'incitation à créer un compte -->
+                                    <?php
+                                } else { ?>
+                                    <p class="text-small italic">Connectez-vous pour rédiger un avis</p>
+                                    <?php
+                                }
+                                ?>
+
+                                <!-- faire un bouton pour rédiger un avis  -->
+
+                                <!-- faire un formulaire pour pouvoir remplir les données d'un avis -->
+
+                                <!-- le titre -->
+
+                                <!-- la description -->
+
+                                <!-- la note -->
+                                <p></p>
+
+                                <!-- Conteneur pour tous les avis -->
+                                <div id="avis-container" class="flex flex-col gap-2 items-center"></div>
+
+                                <!-- Bouton pour charger plus d'avis -->
+                                <button class="text-small text-end font-bold" id="load-more-btn">Afficher
+                                    plus...</button>
                             </div>
 
-                        </div>
+                            <!-- A garder ici car il y a du PHP -->
+                            <script>
+                                $(document).ready(function () {
+                                    // Paramètres à passer au fichier PHP de chargement des avis
+                                    let idx_avis = 0;
+                                    const id_offre = <?php echo $_SESSION['id_offre'] ?>;
 
+                                    // Charger les X premiers avis
+                                    loadAvis();
+
+                                    // Ajouter des avis quand le bouton est cliqué
+                                    $('#load-more-btn').click(function () {
+                                        loadAvis();
+                                    });
+
+                                    // Fonction pour charger X avis (en PHP), puis les ajouter à la page via AJAX JS
+                                    function loadAvis() {
+
+                                        $.ajax({
+                                            url: '/scripts/load_avis.php',
+                                            type: 'GET',
+                                            data: {
+                                                id_offre: id_offre,
+                                                idx_avis: idx_avis
+                                            },
+                                            success: function (response) {
+                                                const lesAvisCharges = response;
+                                                if (lesAvisCharges.length > 0) {
+                                                    // Ajouter le contenu HTML généré par loaded avis.
+                                                    $('#avis-container').append(lesAvisCharges);
+
+                                                    // Pour l'éventuel prochain chargement, incrémenter le curseur
+                                                    idx_avis += 3;
+                                                } else {
+                                                    // Ne plus pouvoir cliquer sur le bouton quand il n'y a plus d'avis
+                                                    $('#load-more-btn').prop('disabled', true).text('Pas d\'autre avis...');
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
+
+                            <?php
+                            // include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+                            // $avisController = new AvisController;
+                            
+                            // // Test d'insertion d'un avis (OK)
+                            // $maDate = date('2024-11-02 10:10:10');
+                            // $avisController->createAvis("monTitre", "c nul", $maDate, $id_membre, $id_offre);
+                            // print_r($avisController->getAvisByIdOffre($id_offre));
+                            ?>
+
+                        </div>
                     </div>
                 </div>
     </main>
 
     <div id="footer"></div>
 
+    <script>
+        // Configurer les flèches pour faire des dropdown menu stylés
+        function setupToggle(arrowID, buttonID, infoID) {
+            const button = document.getElementById(buttonID);
+            const arrow = document.getElementById(arrowID);
+            const info = document.getElementById(infoID);
+
+            if (button) {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    arrow.classList.toggle('rotate-90');
+                    info.classList.toggle('hidden');
+                });
+            }
+        }
+        setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
+        setupToggle('compl-arrow', 'compl-button', 'compl-info');
+        setupToggle('grille-arrow', 'grille-button', 'grille-info');
+    </script>
 </body>
-<script>
-    function setupToggle(arrowID, buttonID, infoID) {
-        const button = document.getElementById(buttonID);
-        const arrow = document.getElementById(arrowID);
-        const info = document.getElementById(infoID);
-
-        button.addEventListener('click', function (event) {
-            event.preventDefault();
-            arrow.classList.toggle('rotate-90');
-            info.classList.toggle('hidden');
-        });
-    }
-
-    setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
-    setupToggle('compl-arrow', 'compl-button', 'compl-info');
-    setupToggle('grille-arrow', 'grille-button', 'grille-info');
-
-
-</script>
 
 </html>

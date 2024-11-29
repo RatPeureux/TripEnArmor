@@ -7,8 +7,8 @@ require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 unset($_SESSION['data_en_cours_connexion']);
 
 // Vérifier si le pro est bien connecté
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-// verifyPro();
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+verifyPro();
 
 // Fonction utilitaires
 if (!function_exists('chaineVersMot')) {
@@ -47,7 +47,7 @@ if (!function_exists('chaineVersMot')) {
 
     <?php
     // Connexion avec la bdd
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     $id_pro = $_SESSION['id_pro'];
 
@@ -102,7 +102,7 @@ if (!function_exists('chaineVersMot')) {
                     <?php foreach ($toutesMesOffres as $offre) {
                         // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                         $mode_carte = 'pro';
-                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
+                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
                     } ?>
                 </div>
             <?php } ?>
