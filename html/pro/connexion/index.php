@@ -28,8 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user) {
             $isPasswordValid = password_verify($mdp, $user['mdp_hash']);
             if ($isPasswordValid) {
+                echo "Password is valid";
                 // Connecte le pro, enlève toute éventuelle connexion à un membre
                 $_SESSION['id_pro'] = $user['id_compte'];
+                print_r($_SESSION);
                 unset($_SESSION['id_membre']);
                 header('location: /pro'); // Redirige vers la page connectée
                 exit();
