@@ -8,7 +8,7 @@ unset($_SESSION['data_en_cours_connexion']);
 
 // Vérifier si le pro est bien connecté
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-verifyPro();
+$pro = verifyPro();
 
 // Fonction utilitaires
 if (!function_exists('chaineVersMot')) {
