@@ -25,6 +25,10 @@
                 <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">
                     <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
                 </div>
+                <!-- Bouton de suppression -->
+                <button class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white border border-rouge-logo rounded-full px-2 py-1" id="clear-tags-btn">
+                    <i class="text-xl fa-solid fa-times cursor-pointer"></i>
+                </button>
             </div>
             <div class="absolute top-full left-0 right-0 bg-white border border-base200 rounded-lg shadow-md mt-2 hidden z-10" id="search-menu"></div>
         </div>

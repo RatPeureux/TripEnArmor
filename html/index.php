@@ -38,7 +38,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     $sort_order = '';
     if (isset($_GET['sort'])) {
-        if ($_GET['sort'] == 'price-ascending') {
+        if ($_smGET['sort'] == 'price-ascending') {
             $sort_order = 'ORDER BY prix_mini ASC';
         } elseif ($_GET['sort'] == 'price-descending') {
             $sort_order = 'ORDER BY prix_mini DESC';
@@ -65,16 +65,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
             <main class="grow p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
 
-                <!-- Conteneur des tags et bouton de suppression (!!! RECHERCHE) -->
-                <div class="w-full flex justify-between items-start">
-                    <!-- Conteneur des tags -->
-                    <div class="flex flex-wrap gap-4" id="tags-container"></div>
-                    
-                    <!-- Bouton de suppression -->
-                    <button class="hidden min-w-max border border-rouge-logo rounded-lg p-2" id="clear-tags-btn">
-                        Supprimer les tags
-                    </button>
-                </div>
+                <!-- Conteneur des tags (!!! RECHERCHE) -->
+                <div class="flex flex-wrap gap-4 mb-4" id="tags-container"></div>
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
