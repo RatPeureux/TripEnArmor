@@ -40,11 +40,11 @@ class Rib extends BDD
      * @param int $id_compte L'identifiant du compte associé.
      * @return array|int Retourne un tableau contenant l'identifiant du nouveau RIB ou -1 en cas d'erreur.
      */
-    static function createRib($code_banque, $code_guichet, $numero_compte, $cle, $id_compte)
+    static function createRib($code_banque, $code_guichet, $numero_compte, $cle)
     {
         self::initBDD();
         // Requête SQL pour insérer un nouveau RIB
-        $query = "INSERT INTO " . self::$nom_table . " (code_banque, code_guichet, numero_compte, cle, id_compte) VALUES (?, ?, ?, ?, ?) RETURNING id_rib";
+        $query = "INSERT INTO " . self::$nom_table . " (code_banque, code_guichet, numero_compte, cle) VALUES (?, ?, ?, ?) RETURNING id_rib";
 
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -52,7 +52,6 @@ class Rib extends BDD
         $statement->bindParam(2, $code_guichet);
         $statement->bindParam(3, $numero_compte);
         $statement->bindParam(4, $cle);
-        $statement->bindParam(5, $id_compte);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
@@ -72,11 +71,11 @@ class Rib extends BDD
      * @param int $id_compte Le nouvel identifiant du compte associé.
      * @return array|int Retourne un tableau contenant l'identifiant du RIB mis à jour ou -1 en cas d'erreur.
      */
-    static function updateRib($id_rib, $code_banque, $code_guichet, $numero_compte, $cle, $id_compte)
+    static function updateRib($id_rib, $code_banque, $code_guichet, $numero_compte, $cle)
     {
         self::initBDD();
         // Requête SQL pour mettre à jour un RIB existant
-        $query = "UPDATE " . self::$nom_table . " SET code_banque = ?, code_guichet = ?, numero_compte = ?, cle = ?, id_compte = ? WHERE id_rib = ? RETURNING id_rib";
+        $query = "UPDATE " . self::$nom_table . " SET code_banque = ?, code_guichet = ?, numero_compte = ?, cle = ? WHERE id_rib = ? RETURNING id_rib";
 
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -84,7 +83,6 @@ class Rib extends BDD
         $statement->bindParam(2, $code_guichet);
         $statement->bindParam(3, $numero_compte);
         $statement->bindParam(4, $cle);
-        $statement->bindParam(5, $id_compte);
         $statement->bindParam(6, $id_rib);
 
         // Exécute la requête et retourne les résultats ou une erreur

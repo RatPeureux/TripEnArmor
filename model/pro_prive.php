@@ -7,7 +7,7 @@ class ProPrive extends BDD
 
     static private $nom_table = "sae_db._pro_prive";
 
-    static function createProPrive($email, $mdp, $tel, $adresseId, $nom_pro, $num_siren)
+    static function createProPrive($email, $mdp, $tel, $adresseId, $nom_pro, $num_siren, $id_rib)
     {
         self::initBDD();
         $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren" . self::$nom_table . "VALUES (?, ?, ?, ?, ?, ?) RETURNING id_compte";
@@ -18,6 +18,7 @@ class ProPrive extends BDD
         $statement->bindParam(4, $adresseId);
         $statement->bindParam(5, $nom_pro);
         $statement->bindParam(6, $num_siren);
+        $statement->bindParam(7, $id_rib);
 
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
@@ -45,7 +46,7 @@ class ProPrive extends BDD
     static function updateProPrive($id, $email, $mdp, $tel, $adresseId, $nom_pro, $num_siren)
     {
         self::initBDD();
-        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, nom_pro = ?, num_siren = ? WHERE id_compte = ?";
+        $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, nom_pro = ?, num_siren = ?, id_rib = ? WHERE id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);
@@ -54,6 +55,7 @@ class ProPrive extends BDD
         $statement->bindParam(5, $nom_pro);
         $statement->bindParam(6, $num_siren);
         $statement->bindParam(7, $id);
+        $statement->bindParam(8, $id);
 
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];

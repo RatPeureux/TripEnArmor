@@ -59,7 +59,8 @@ CREATE TABLE _pro_public ( -- Antoine
 ) INHERITS (_professionnel);
 
 CREATE TABLE _pro_prive ( -- Antoine
-    num_siren VARCHAR(255) UNIQUE NOT NULL
+    num_siren VARCHAR(255) UNIQUE NOT NULL,
+    id_rib INTEGER REFERENCES _RIB (id_rib)
 ) INHERITS (_professionnel);
 
 -- Rajouter les contraintes principales perdues à cause de l'héritage (clés primaires & étrangères & UNIQUE);
@@ -110,8 +111,7 @@ CREATE TABLE _RIB ( -- Léo
     code_banque VARCHAR(255) NOT NULL,
     code_guichet VARCHAR(255) NOT NULL,
     numero_compte VARCHAR(255) NOT NULL,
-    cle VARCHAR(255) NOT NULL,
-    id_compte SERIAL REFERENCES _pro_prive (id_compte) UNIQUE
+    cle VARCHAR(255) NOT NULL
 );
 
 -- ------------------------------------------------------------------------------------------------------- TAG
