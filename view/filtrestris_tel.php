@@ -11,7 +11,7 @@
             <p>Trier par</p>
         </a>
         <!-- DROPDOWN MENU TRIS TÉLÉPHONE -->
-        <div class="hidden md:hidden absolute bottom-[72px] right-2 z-20 bg-base100 border-2 border-black p-2 max-w-48 flex flex-col gap-4" id="sort-section-tel">
+        <div class="hidden md:hidden absolute bottom-[72px] right-2 z-20 bg-white border border-base200 rounded-lg shadow-md max-w-48 p-2 flex flex-col gap-4" id="sort-section-tel">
             <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'rating-ascending') ? '/' : '?sort=rating-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'rating-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                 <p>Note croissante</p>
             </a>
