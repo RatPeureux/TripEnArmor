@@ -19,7 +19,7 @@
         </a>
 
         <!-- Barre de recherche -->
-        <div id="open-search" class="relative flex-1 max-w-lg mx-4">
+        <div class="relative flex-1 max-w-lg mx-4">
             <div class="relative flex items-center">
                 <input type="text" id="search-field" placeholder="Rechercher par tags..." class="w-full border border-primary p-2 rounded-full pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200" aria-label="Recherche">
                 <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">

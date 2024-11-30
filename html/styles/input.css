@@ -60,6 +60,9 @@ label:has(+ select[required])::after {
     display: none;
 }
 
+/* SCORLLBAR  */
+
+
 @layer base {
     @font-face {
         font-family: 'Cormorant-Bold';
