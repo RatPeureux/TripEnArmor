@@ -112,17 +112,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-		1. [x] Adresse
-		3. [x] Image
-		5. [x] Offre
-		6. [x] Offre_Tag / Restauration_Tag
-		7. [x] Offre_Image
-		8. [x] Offre_Langue
-		9. [x] TypeRepas 
-		10. [x] Offre_Prestation
-		11. Horaires
-		12. [x] Tarif_Public
-		*/
+			  1. [x] Adresse
+			  3. [x] Image
+			  5. [x] Offre
+			  6. [x] Offre_Tag / Restauration_Tag
+			  7. [x] Offre_Image
+			  8. [x] Offre_Langue
+			  9. [x] TypeRepas 
+			  10. [x] Offre_Prestation
+			  11. Horaires
+			  12. [x] Tarif_Public
+			  */
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -1341,14 +1341,15 @@ $pro = verifyPro();
 		<script src="/scripts/tagManager.js"></script>
 		<script src="/scripts/priceManager.js"></script>
 		<script src="/scripts/prestationManager.js"></script>
-		<script>
-			console.log("Before optionToggler.js");
-		</script>
 		<script src="/scripts/optionToggler.js"></script>
 		<script>
-			console.log("After optionToggler.js");
-		</script>
-		<script>
+			// Lors de l'appui sur entrer, ne pas soumettre le formulaire
+			document.getElementById('formulaire').addEventListener('keydown', function (event) {
+				if (event.key === 'Enter') {
+					event.preventDefault();
+				}
+			});
+
 			// Fonction pour afficher la partie 1 du formulaire
 			function showPart1() {
 				// Récupérer les éléments à afficher
