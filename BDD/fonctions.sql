@@ -204,25 +204,25 @@ INSERT
 EXECUTE FUNCTION fk_avis ();
 
 -- trigger pour vérifier les id de la table activite
-CREATE TRIGGER fk_restauration_professionnel BEFORE
+CREATE TRIGGER fk_activite_professionnel BEFORE
 INSERT
     ON _activite FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table spectacle
-CREATE TRIGGER fk_restauration_professionnel BEFORE
+CREATE TRIGGER fk_spectacle_professionnel BEFORE
 INSERT
     ON _spectacle FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table visite
-CREATE TRIGGER fk_restauration_professionnel BEFORE
+CREATE TRIGGER fk_visite_professionnel BEFORE
 INSERT
     ON _visite FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table parc d'attraction
-CREATE TRIGGER fk_restauration_professionnel BEFORE
+CREATE TRIGGER fk_parc_attraction_professionnel BEFORE
 INSERT
     ON _parc_attraction FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel ();
