@@ -160,8 +160,8 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION fk_vers_professionnel() RETURNS TRIGGER AS $$
 BEGIN
     -- Alerter quand la clé étrangère n'est pas respecté
-    IF NOT EXISTS (SELECT 1 FROM _pro_prive WHERE id_compte = NEW.id_pro)
-    AND NOT EXISTS (SELECT 1 FROM _pro_public WHERE id_compte = NEW.id_pro) THEN
+    IF NOT EXISTS (SELECT 1 FROM sae_db._pro_prive WHERE id_compte = NEW.id_pro)
+    AND NOT EXISTS (SELECT 1 FROM sae_db._pro_public WHERE id_compte = NEW.id_pro) THEN
         RAISE EXCEPTION 'Foreign key violation: id_pro does not exist in _pro_prive or _pro_public';
     END IF;
     RETURN NEW;
