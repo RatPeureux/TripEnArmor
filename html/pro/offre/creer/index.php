@@ -135,6 +135,7 @@ $pro = verifyPro();
 				BDD::rollbackTransaction();
 				exit;
 			}
+			echo "Adresse insérée.<br>";
 
 			// Insérer l'offre dans la base de données
 			$prixMin = calculerPrixMin($prices);
@@ -150,7 +151,9 @@ $pro = verifyPro();
 					if ($id_offre < 0) { // Cas d'erreur
 						echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
+						exit;
 					}
+					echo "Activité insérée.<br>";
 					break;
 
 				case 'visite':
@@ -163,7 +166,9 @@ $pro = verifyPro();
 					if ($id_offre < 0) {
 						echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
+						exit;
 					}
+					echo "Visite insérée<br>";
 					break;
 
 				case 'spectacle':
@@ -176,7 +181,9 @@ $pro = verifyPro();
 					if ($id_offre < 0) {
 						echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
+						exit;
 					}
+					echo "Spectacle inséré<br>";
 					break;
 
 				case 'parc_attraction':
@@ -189,7 +196,9 @@ $pro = verifyPro();
 					if ($id_offre < 0) {
 						echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
+						exit;
 					}
+					echo "Parc d'attraction inséré<br>";
 					break;
 
 				case 'restauration':
@@ -202,7 +211,9 @@ $pro = verifyPro();
 					if ($id_offre < 0) {
 						echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
+						exit;
 					}
+					echo "Restauration insérée<br>";
 					break;
 
 				default:
@@ -224,6 +235,7 @@ $pro = verifyPro();
 					$tag_id = $tagController->getTagsByName($tag, 0);
 					$tagOffreController->linkOffreAndTag($id_offre, $tagId);
 				}
+				echo "Tags insérés.<br>";
 			}
 
 			// Insérer les images dans la base de données
@@ -235,8 +247,8 @@ $pro = verifyPro();
 				echo "Erreur lors de l'upload de l'image de la carte.";
 				BDD::rollbackTransaction();
 				exit;
-
 			}
+			echo "Image de la carte insérée.<br>";
 
 			// *** DETAIL
 			for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
@@ -246,6 +258,7 @@ $pro = verifyPro();
 					exit;
 				}
 			}
+			echo "Images de détail insérées.<br>";
 
 			if ($activityType === 'parc_attraction') {
 				if ($imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
@@ -253,9 +266,10 @@ $pro = verifyPro();
 					BDD::rollbackTransaction();
 					exit;
 				}
+				echo "Image du plan insérée.<br>";
 			}
 
-			if ($activityType === 'visite') {
+			if ($activityType === 'visite' && $avec_guide) {
 				// Insérer les langues dans la base de données
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/langue_controller.php';
 				$langueController = new LangueController();
@@ -268,6 +282,7 @@ $pro = verifyPro();
 						$visiteLangueController->linkVisiteAndLangue($id_offre, $id_langue);
 					}
 				}
+				echo "Langues insérées.<br>";
 			} elseif ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
 				$typeRepasController = new TypeRepasController();
@@ -280,6 +295,7 @@ $pro = verifyPro();
 						$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
 					}
 				}
+				echo "Types de repas insérés.<br>";
 			} elseif ($activityType === 'activite') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_manager.php';
 				$prestationController = new PrestationController();
@@ -294,6 +310,7 @@ $pro = verifyPro();
 
 					$activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
 				}
+				echo "Prestations insérées.<br>";
 			}
 
 			// Insérer les horaires dans la base de données
@@ -303,6 +320,7 @@ $pro = verifyPro();
 			foreach ($horaires as $jour) {
 				$horaireController->createHoraire($jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 			}
+			echo "Horaires insérés.<br>";
 
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
@@ -315,6 +333,7 @@ $pro = verifyPro();
 
 				$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
 			}
+			echo "Prix insérés.<br>";
 
 			BDD::commitTransaction();
 			header('location: /pro');
