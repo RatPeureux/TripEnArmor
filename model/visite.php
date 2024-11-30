@@ -24,7 +24,7 @@ class Visite extends BDD
 
     static function createVisite($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $avec_guide)
     {
-        echo "Est en ligne : " . $est_en_ligne . "<br>";
+        echo "Est en ligne : " . $est_en_ligne == false ? "false" : "true" . "<br>";
         echo "Description : " . $description . "<br>";
         echo "Résumé : " . $resume . "<br>";
         echo "Prix mini : " . $prix_mini . "<br>";
@@ -34,7 +34,7 @@ class Visite extends BDD
         echo "ID Adresse : " . $id_adresse . "<br>";
         echo "Durée : " . $duree . "<br>";
         echo "Avec guide : " . $avec_guide . "<br>";
-        
+
         self::initBDD();
         $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, duree, avec_guide) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
 
