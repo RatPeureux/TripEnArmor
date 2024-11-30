@@ -68,7 +68,7 @@ $pro = verifyPro();
 				'odonyme' => $odonyme,
 			];
 		}
-		// *********************************************************************************************************************** Récupération des données du POST
+		// ******************************************************************************************************************** Récupération des données du POST
 		// Récupération des données du formulaire
 		// *** Données standard
 		$type_offre = $_POST["offre"];
@@ -79,8 +79,8 @@ $pro = verifyPro();
 		$resume = $_POST['resume'];
 		$description = $_POST['description'];
 		$accessibilite = $_POST['accessibilite'];
-
 		$activityType = $_POST['activityType'];
+
 		// *** Données spécifiques
 		$avec_guide = $_POST["guide"] ?? "on"; // VISITE
 		$age = $_POST["age"];
@@ -139,7 +139,7 @@ $pro = verifyPro();
 			// Insérer l'offre dans la base de données
 			$prixMin = calculerPrixMin($prices);
 			$id_offre;
-			switch ($activity) {
+			switch ($activityType) {
 				case 'activite':
 					// Insertion spécifique à l'activité
 					require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
@@ -247,7 +247,7 @@ $pro = verifyPro();
 				}
 			}
 
-			if ($activity === 'parc_attraction') {
+			if ($activityType === 'parc_attraction') {
 				if ($imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
 					echo "Erreur lors de l'upload de l'image du plan.";
 					BDD::rollbackTransaction();
