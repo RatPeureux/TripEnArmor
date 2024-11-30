@@ -34,7 +34,7 @@ class VisiteController
     public function createVisite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $avec_guide)
     {
         echo "Dans le createVisite<br>";
-        $visite = $this->model::createVisite(false, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $avec_guide);
+        $visite = $this->model::createVisite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $avec_guide);
         echo "Visite créée<br>";
         return $visite;
     }

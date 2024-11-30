@@ -22,9 +22,8 @@ class Visite extends BDD
         }
     }
 
-    static function createVisite($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $avec_guide)
+    static function createVisite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $avec_guide)
     {
-        echo "Est en ligne : " . ($est_en_ligne == false ? "false" : "true") . "<br>";
         echo "Description : " . $description . "<br>";
         echo "Résumé : " . $resume . "<br>";
         echo "Prix mini : " . $prix_mini . "<br>";
@@ -36,19 +35,18 @@ class Visite extends BDD
         echo "Avec guide : " . $avec_guide . "<br>";
 
         self::initBDD();
-        $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, duree, avec_guide) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
+        $query = "INSERT INTO " . self::$nom_table . " (FALSE, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, duree, avec_guide) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
 
         $statement = self::$db->prepare($query);
-        $statement->bindParam(1, $est_en_ligne);
-        $statement->bindParam(2, $description);
-        $statement->bindParam(3, $resume);
-        $statement->bindParam(4, $prix_mini);
-        $statement->bindParam(5, $titre);
-        $statement->bindParam(6, $id_pro);
-        $statement->bindParam(7, $id_type_offre);
-        $statement->bindParam(8, $id_adresse);
-        $statement->bindParam(9, $duree);
-        $statement->bindParam(10, $avec_guide);
+        $statement->bindParam(1, $description);
+        $statement->bindParam(2, $resume);
+        $statement->bindParam(3, $prix_mini);
+        $statement->bindParam(4, $titre);
+        $statement->bindParam(5, $id_pro);
+        $statement->bindParam(6, $id_type_offre);
+        $statement->bindParam(7, $id_adresse);
+        $statement->bindParam(8, $duree);
+        $statement->bindParam(9, $avec_guide);
 
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];

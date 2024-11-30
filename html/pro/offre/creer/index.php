@@ -72,7 +72,6 @@ $pro = verifyPro();
 		// Récupération des données du formulaire
 		// *** Données standard
 		$id_type_offre = $_POST["type_offre"];
-		echo "ID Type Offre : " . $id_type_offre . "<br>";
 		$titre = $_POST['titre'];
 		$adresse = $_POST['user_input_autocomplete_address'];
 		$code = $_POST['postal_code'];
