@@ -26,7 +26,7 @@
                     <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
                 </div>
                 <!-- Bouton de suppression -->
-                <button class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white border border-rouge-logo rounded-full px-2 py-1" id="clear-tags-btn">
+                <button class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white rounded-lg px-2 py-1" id="clear-tags-btn">
                     <i class="text-xl fa-solid fa-times cursor-pointer"></i>
                 </button>
             </div>
