@@ -24,7 +24,7 @@ class Visite extends BDD
 
     static function createVisite($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $avec_guide)
     {
-        echo "Est en ligne : " . $est_en_ligne == false ? "false" : "true" . "<br>";
+        echo "Est en ligne : " . ($est_en_ligne == false ? "false" : "true") . "<br>";
         echo "Description : " . $description . "<br>";
         echo "Résumé : " . $resume . "<br>";
         echo "Prix mini : " . $prix_mini . "<br>";
