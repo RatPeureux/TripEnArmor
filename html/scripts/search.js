@@ -188,6 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Supprimer tous les tags
     function clearTags() {
         tagsContainer.innerHTML = ''; // Supprime tous les tags
+        searchInput.value = ''; // Vide le champ de recherche
         updateClearButtonVisibility(); // Vérifie la visibilité du bouton
     }
 
