@@ -30,6 +30,7 @@
                     <i class="text-xl fa-solid fa-times cursor-pointer"></i>
                 </button>
             </div>
+            <!-- Dropdown de recherche -->
             <div class="absolute top-full left-0 right-0 bg-white border border-base200 rounded-lg shadow-md mt-2 hidden z-10" id="search-menu"></div>
         </div>
 

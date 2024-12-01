@@ -7,7 +7,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const clearTagsBtn = document.getElementById('clear-tags-btn');
 
     // Liste des séparateurs
-    const separators = [",", ", "];
+    const separators = [","];
+
+    // Liste des tags récents
+    let recentTags = [];
 
     // Vérifie si le bouton "Supprimer tout" doit être affiché
     function updateClearButtonVisibility() {
@@ -40,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         tagsContainer.appendChild(tag);
         updateClearButtonVisibility(); // Affiche le bouton si un tag est ajouté
+
+        // Ajouter aux tags récents
+        updateRecentTags(text.trim());
     }
 
     // Ajouter plusieurs tags en fonction des séparateurs
@@ -48,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Diviser la chaîne en fonction des séparateurs
         separators.forEach(separator => {
-            tags = tags.flatMap(tag => tag.split(separator));
+            tags = tags.flatMap(tag => tag.split(separator).map(t => t.trim())); // Trim après séparation
         });
 
         // Ajouter chaque tag individuellement
@@ -59,27 +65,115 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Mettre à jour l'historique des tags récents
+    function updateRecentTags(tag) {
+        // Supprimer l'ancien emplacement si le tag est déjà dans la liste
+        recentTags = recentTags.filter(t => t !== tag);
+
+        // Ajouter le tag en tête
+        recentTags.unshift(tag);
+
+        // Garder uniquement les 3 derniers
+        if (recentTags.length > 3) {
+            recentTags.pop();
+        }
+    }
+
     // Mettre à jour le menu déroulant
     function updateDropdown(value) {
         dropdownMenu.innerHTML = ''; // Effacez le contenu précédent
-        if (value.trim() === '') {
-            dropdownMenu.classList.add('hidden');
-            return;
+        
+        // Ajouter l'élément de suggestion basé sur l'entrée (en premier)
+        if (value.trim() !== '') {
+            const item = document.createElement('div');
+            item.className = 'p-3 cursor-pointer hover:bg-base100';
+            item.textContent = value;
+            item.setAttribute('tabindex', '0'); // Rendre l'élément focalisable
+            item.addEventListener('click', () => {
+                addMultipleTags(value.trim());
+                searchInput.value = '';
+                dropdownMenu.classList.add('hidden');
+            });
+        
+            dropdownMenu.appendChild(item);
         }
-        dropdownMenu.classList.remove('hidden');
-
-        // Créez l'élément du menu
-        const item = document.createElement('div');
-        item.className = 'p-3 cursor-pointer hover:bg-base100';
-        item.textContent = `${value}`;
-        item.setAttribute('tabindex', '0'); // Rendre l'élément focalisable
-        item.addEventListener('click', () => {
-            addMultipleTags(item.textContent);
-            searchInput.value = '';
-            dropdownMenu.classList.add('hidden');
+    
+        // Ajouter les tags récents
+        recentTags.forEach(tag => {
+            const item = document.createElement('div');
+            item.className = 'p-3 cursor-pointer flex justify-between items-center hover:bg-base100';
+            
+            // Conteneur du texte du tag
+            const textContainer = document.createElement('span');
+            textContainer.textContent = tag;
+            textContainer.className = 'cursor-pointer flex-grow'; // Pour que le clic fonctionne sur le texte
+    
+            // Icône de suppression
+            const deleteIcon = document.createElement('i');
+            deleteIcon.className = 'fa-solid fa-times text-gray-400 hover:text-black ml-3 cursor-pointer';
+            deleteIcon.addEventListener('click', (e) => {
+                e.stopPropagation(); // Empêche l'événement de clic sur l'élément parent
+                removeRecentTag(tag); // Supprime le tag de la liste
+                updateDropdown(searchInput.value); // Met à jour le menu déroulant
+            });
+    
+            item.appendChild(textContainer);
+            item.appendChild(deleteIcon);
+    
+            // Gestion du clic sur l'élément pour ajouter le tag
+            item.addEventListener('click', () => {
+                addTag(tag);
+                searchInput.value = '';
+                dropdownMenu.classList.add('hidden');
+            });
+    
+            item.setAttribute('tabindex', '0'); // Rendre focalisable pour navigation au clavier
+            dropdownMenu.appendChild(item);
         });
+    
+        // Ajouter le texte explicatif pour les suggestions (à la fin)
+        const suggestionsText = document.createElement('div');
+        suggestionsText.className = 'p-3 text-gray-500 text-sm bg-base100 border-t border-base200 cursor-default select-none';
+        suggestionsText.textContent = "À savoir : Utiliser des virgules permet d'ajouter plusieurs tags d'un coup.";
+        suggestionsText.setAttribute('tabindex', '-1'); // Rendre non focalisable
+        dropdownMenu.appendChild(suggestionsText);
+    
+        // Afficher ou masquer le menu en fonction du contenu
+        if (dropdownMenu.children.length === 1) { // Seul le texte explicatif est présent
+            dropdownMenu.classList.add('hidden');
+        } else {
+            dropdownMenu.classList.remove('hidden');
+        }
+    }
+    
+    // Navigation avec les flèches
+    dropdownMenu.addEventListener('keydown', (e) => {
+        const focusableItems = Array.from(dropdownMenu.querySelectorAll('[tabindex="0"]'));
+        const activeElement = document.activeElement;
+        const currentIndex = focusableItems.indexOf(activeElement);
 
-        dropdownMenu.appendChild(item);
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const nextIndex = (currentIndex + 1) % focusableItems.length; // Navigation circulaire
+            focusableItems[nextIndex].focus();
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (currentIndex === 0) {
+                // Si le premier élément est actif, revenir au champ de recherche
+                searchInput.focus();
+            } else {
+                const prevIndex = (currentIndex - 1 + focusableItems.length) % focusableItems.length; // Navigation circulaire
+                focusableItems[prevIndex].focus();
+            }
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            activeElement.click(); // Sélectionne l'élément actif
+        }
+    });
+
+    // Supprimer un tag de la liste des tags récents
+    function removeRecentTag(tag) {
+        recentTags = recentTags.filter(t => t !== tag); // Supprime le tag
     }
 
     // Valider l'entrée et ajouter des tags
@@ -117,30 +211,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if (dropdownMenu.children.length > 0) {
                 dropdownMenu.children[0].focus(); // Met le focus sur le premier élément
             }
-        }
-    });
-
-    // Navigation dans le menu
-    dropdownMenu.addEventListener('keydown', (e) => {
-        const activeElement = document.activeElement;
-
-        if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            const nextSibling = activeElement.nextElementSibling;
-            if (nextSibling) {
-                nextSibling.focus(); // Passe au prochain élément
-            }
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            const previousSibling = activeElement.previousElementSibling;
-            if (previousSibling) {
-                previousSibling.focus(); // Passe à l'élément précédent
-            } else {
-                searchInput.focus(); // Met le focus sur le champ de recherche
-            }
-        } else if (e.key === 'Enter') {
-            e.preventDefault();
-            activeElement.click(); // Sélectionne l'élément actif
         }
     });
 
