@@ -23,11 +23,31 @@ abstract class BDD
 
             // Configuration de l'instance PDO pour lancer des exceptions en cas d'erreur SQL
             self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::makeConstraintsDeferrable();
             self::$isInit = true;
         }
     }
 
-    static public function startTransaction() {
+    static private function makeConstraintsDeferrable()
+    {
+        $sql = "DO $$ 
+            DECLARE 
+                r RECORD;
+            BEGIN
+                FOR r IN (
+                    SELECT conname, conrelid::regclass
+                    FROM pg_constraint
+                    WHERE contype IN ('f', 'u', 'p') AND condeferrable = false
+                ) LOOP
+                    EXECUTE 'ALTER TABLE ' || r.conrelid || ' ALTER CONSTRAINT ' || r.conname || ' DEFERRABLE INITIALLY IMMEDIATE';
+                END LOOP;
+            END $$;
+            ";
+        self::$db->exec($sql);
+    }
+
+    static public function startTransaction()
+    {
         self::$db->beginTransaction();
         $result = self::$db->exec('SET CONSTRAINTS ALL DEFERRED');
         echo "*** BEGIN SET CONSTRAINTS ALL DEFERRED ***<br>";
@@ -35,11 +55,13 @@ abstract class BDD
         echo "*** END SET CONSTRAINTS ALL DEFERRED ***<br>";
     }
 
-    static public function commitTransaction() {
+    static public function commitTransaction()
+    {
         self::$db->commit();
     }
 
-    static public function rollbackTransaction() {
+    static public function rollbackTransaction()
+    {
         self::$db->rollBack();
     }
 }
