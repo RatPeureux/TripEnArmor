@@ -1,11 +1,15 @@
 <?php
 session_start();
-// Enlever les informations gardées lors des étapes de connexion / inscription quand on reveint à la page d'accueil (seul point de sortie de la connexion / inscription)
+
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+
+// Enlever les informations gardées lors de l'étape de connexion quand on reveint à la page (retour en arrière)
 unset($_SESSION['data_en_cours_connexion']);
 unset($_SESSION['data_en_cours_inscription']);
 
+// Vérifier si le pro est bien connecté
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-?>
+$pro = verifyPro();?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -21,22 +25,22 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
 
-    <title>CGU - PACT</title>
+    <title>CGU - Professionnel - PACT</title>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
+
+    <div id="menu-pro">
+        <?php
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        ?>
+    </div>
+
     <!-- Inclusion du header -->
-    <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    <?php 
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
     ?>
 
-    <div class="self-center flex justify-center w-full md:max-w-[1280px] p-2">
-        <!-- Inclusion du menu -->
-        <div id="menu">
-            <?php
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
-            ?>
-        </div>
-
+    <div class="self-center mt-20 flex justify-center w-full md:max-w-[1280px] p-2">
         <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
             <p class="text-h1">Conditions Générales d'Utilisation (CGU)</p>
 
@@ -109,14 +113,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
             <p class="text-h2">12. Mentions Légales</p>
             <p>
-                Voir les <a href="/mentions" class="underline">mentions légales</a> du site.
+                Voir les <a href="/pro/mentions" class="underline">mentions légales</a> du site.
             </p>
         </main>
     </div>
 
     <!-- Inclusion du footer -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
     ?>
     
 </body>

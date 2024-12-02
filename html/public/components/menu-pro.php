@@ -12,8 +12,8 @@
         <h1 class="text-h1">Menu</h1>
     </div>
     <div class="all-items flex flex-col items-stretch">
-        <a class="pl-5 py-3 border-t-2 border-black" href="/pro">Accueil</a>
-        <a class="pl-5 py-3 border-t-2 border-black" href="/pro">...</a>
+        <a class="pl-5 py-3 border-t-2 border-black" href="/pro">Mes offres</a>
+        <a class="pl-5 py-3 border-t-2 border-black" href="/pro/offre/creer">Créer une offre</a>
     </div>
 </div>
 <div id="layer-background" onclick="toggleMenu()" class="hidden fixed w-full h-full top-0 left-0 z-40"></div>

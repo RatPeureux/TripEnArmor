@@ -8,7 +8,7 @@
     <!-- Format ordinateur -->
     <div class="text-center hidden md:block">
             <div>
-                <a href="/legal" class="hover:text-primary">Mentions légales</a>
+                <a href="/mentions" class="hover:text-primary">Mentions légales</a>
                 -
                 <a href="/cgu" class="hover:text-primary">CGU</a>
                 -
@@ -21,7 +21,7 @@
         <!-- Format téléphone et tablette -->
         <div class="text-center block md:hidden">
             <div>
-                <a href="/legal" class="hover:text-primary">Mentions légales</a>
+                <a href="/mentions" class="hover:text-primary">Mentions légales</a>
                 -
                 <a href="/cgu" class="hover:text-primary">CGU</a>
                 -
