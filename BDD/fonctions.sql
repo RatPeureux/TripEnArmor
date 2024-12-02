@@ -1,8 +1,7 @@
 set schema 'sae_db';
 
 /*             
-
-                  Fonctions            
+Fonctions            
 */
 
 -- fonction qui permet uniquement à un membre de créer un avis.
@@ -72,12 +71,6 @@ BEGIN
     END IF;
 END;
 $$ LANGUAGE plpgsql;
-
--- Créer une prestation si elle n'existe pas déjà
-SELECT creer_prestation('Prestation ABC', TRUE, 3);
-
--- Réutiliser une prestation existante si elle a le même nom
-SELECT creer_prestation('zizi', TRUE, 4);
 
 
 
@@ -151,8 +144,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
- -- vue qui vérifie la validité de l'adresse mail
+
+
+CREATE OR REPLACE FUNCTION check_fk_offre() RETURNS TRIGGER AS $$
+BEGIN
+    PERFORM * FROM sae_db._offre WHERE id_offre = NEW.id_offre;
+    IF NOT FOUND THEN 
+        RAISE EXCEPTION 'Foreign key violation: id_offre does not exist in _offre';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
  
+ -- vue qui vérifie la validité de l'adresse mail
 CREATE OR REPLACE FUNCTION verifier_email_connexion(email_input VARCHAR)
 RETURNS TEXT AS $$
 DECLARE
@@ -174,22 +179,53 @@ $$ LANGUAGE plpgsql;
 
 
 /*             
-
-                  Triggers           
+Triggers           
 */
 
 -- Trigger pour valider les règles métier
-CREATE OR REPLACE TRIGGER tg_check_contraintes_avis BEFORE
-INSERT
-    OR
-UPDATE ON sae_db._avis FOR EACH ROW
-EXECUTE FUNCTION check_contraintes_avis ();
+-- CREATE OR REPLACE TRIGGER tg_check_contraintes_avis BEFORE
+-- INSERT
+--     OR
+-- UPDATE ON sae_db._avis FOR EACH ROW
+-- EXECUTE FUNCTION check_contraintes_avis ();
 
 -- Trigger pour valider les clés étrangères
-CREATE OR REPLACE TRIGGER tg_fk_avis BEFORE
+-- CREATE OR REPLACE TRIGGER tg_fk_avis BEFORE
+-- INSERT
+--     ON sae_db._avis FOR EACH ROW
+-- EXECUTE FUNCTION fk_avis ();
+
+-- trigger pour vérifier les id de la table offre pour tarif_public
+CREATE OR REPLACE TRIGGER fk_offre_tarif_public BEFORE
 INSERT
-    ON sae_db._avis FOR EACH ROW
-EXECUTE FUNCTION fk_avis ();
+    ON sae_db._tarif_public FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
+
+-- trigger pour vérifier les id de la table offre pour horaires
+CREATE OR REPLACE TRIGGER fk_offre_horaires BEFORE
+INSERT
+    ON sae_db._horaire FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
+
+CREATE OR REPLACE TRIGGER fk_offre_souscription_option BEFORE
+INSERT
+    ON sae_db._offre_souscription_option FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
+
+CREATE OR REPLACE TRIGGER fk_offre_tag BEFORE
+INSERT
+    ON sae_db._tag_offre FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
+
+CREATE OR REPLACE TRIGGER fk_offre_facture BEFORE
+INSERT
+    ON sae_db._facture FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
+
+CREATE OR REPLACE TRIGGER fk_offre_log_changement_status BEFORE
+INSERT
+    ON sae_db._log_changement_status FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
 
 -- trigger pour vérifier les id de la table activite
 CREATE OR REPLACE TRIGGER fk_activite_professionnel BEFORE

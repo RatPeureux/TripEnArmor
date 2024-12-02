@@ -52,7 +52,10 @@ CREATE TABLE _membre (
 ) INHERITS (_compte);
 
 -- Héritage des types de _compte (abstr.)
-CREATE TABLE _professionnel (nom_pro VARCHAR(255) NOT NULL) INHERITS (_compte);
+CREATE TABLE _professionnel (
+    nom_pro VARCHAR(255) NOT NULL,
+    CONSTRAINT unique_nom_pro UNIQUE (nom_pro)
+) INHERITS (_compte);
 
 CREATE TABLE _pro_public ( -- Antoine -- Antoine
     type_orga VARCHAR(255) NOT NULL
@@ -60,7 +63,7 @@ CREATE TABLE _pro_public ( -- Antoine -- Antoine
 
 -- ------------------------------------------------------------------------------------------------------- RIB
 -- Table RIB
-CREATE TABLE _rib ( -- Léo
+CREATE TABLE _RIB (
     id_rib SERIAL PRIMARY KEY,
     code_banque VARCHAR(255) NOT NULL,
     code_guichet VARCHAR(255) NOT NULL,
@@ -76,61 +79,48 @@ CREATE TABLE _pro_prive ( -- Antoine
 
 -- Rajouter les contraintes principales perdues à cause de l'héritage (clés primaires & étrangères & UNIQUE);
 ALTER TABLE _professionnel
-ADD CONSTRAINT pk_professionnel PRIMARY KEY (id_compte) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT pk_professionnel PRIMARY KEY (id_compte);
 
 ALTER TABLE _professionnel
-ADD CONSTRAINT unique_mail_professionnel UNIQUE (email) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT unique_mail_professionnel UNIQUE (email);
 
-ALTER TABLE _membre ADD CONSTRAINT pk_membre PRIMARY KEY (id_compte) DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE _membre ADD CONSTRAINT pk_membre PRIMARY KEY (id_compte);
 
-ALTER TABLE _membre ADD CONSTRAINT unique_mail_membre UNIQUE (email) DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE _membre ADD CONSTRAINT unique_mail_membre UNIQUE (email);
 
 ALTER TABLE _membre
-ADD CONSTRAINT unique_tel_membre UNIQUE (num_tel) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT unique_tel_membre UNIQUE (num_tel);
 
 ALTER TABLE _membre
 ADD CONSTRAINT fk_membre FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;
 
 ALTER TABLE _pro_public
-ADD CONSTRAINT pk_pro_public PRIMARY KEY (id_compte) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT pk_pro_public PRIMARY KEY (id_compte);
 
 ALTER TABLE _pro_public
-ADD CONSTRAINT unique_mail_pro_public UNIQUE (email) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT unique_mail_pro_public UNIQUE (email);
 
 ALTER TABLE _pro_public
-ADD CONSTRAINT unique_tel_pro_public UNIQUE (num_tel) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT unique_tel_pro_public UNIQUE (num_tel);
 
 ALTER TABLE _pro_public
 ADD CONSTRAINT fk_pro_public FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;
 
 ALTER TABLE _pro_prive
-ADD CONSTRAINT pk_pro_prive PRIMARY KEY (id_compte) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT pk_pro_prive PRIMARY KEY (id_compte);
 
 ALTER TABLE _pro_prive
-ADD CONSTRAINT unique_mail_pro_prive UNIQUE (email) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT unique_mail_pro_prive UNIQUE (email);
 
 ALTER TABLE _pro_prive
-ADD CONSTRAINT unique_tel_pro_prive UNIQUE (num_tel) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT unique_tel_pro_prive UNIQUE (num_tel);
 
 ALTER TABLE _pro_prive
-ADD CONSTRAINT fk_pro_prive FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT fk_pro_prive_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;
 
 ALTER TABLE _pro_prive
-ADD CONSTRAINT fk_pro_prive FOREIGN KEY (id_rib) REFERENCES _rib (id_rib) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT fk_pro_prive_rib FOREIGN KEY (id_rib) REFERENCES _rib (id_rib) DEFERRABLE INITIALLY IMMEDIATE;
 
-
-
-
--- ------------------------------------------------------------------------------------------------------- RIB
--- Table RIB
-CREATE TABLE _RIB (
-    id_rib SERIAL PRIMARY KEY,
-    code_banque VARCHAR(255) NOT NULL,
-    code_guichet VARCHAR(255) NOT NULL,
-    numero_compte VARCHAR(255) NOT NULL,
-    cle VARCHAR(255) NOT NULL,
-    id_compte SERIAL REFERENCES _pro_prive (id_compte) UNIQUE
-);
 
 -- ------------------------------------------------------------------------------------------------------- TAG
 -- Table TAG
@@ -149,7 +139,7 @@ CREATE TABLE _option (
 );
 -- ------------------------------------------------------------------------------------------------------- Souscription
 CREATE TABLE _souscription (
-    id_souscription INTEGER PRIMARY KEY,
+    id_souscription SERIAL PRIMARY KEY,
     nb_semaines INTEGER NOT NULL,
     date_lancement DATE NOT NULL
 );
@@ -205,7 +195,6 @@ CREATE TABLE _offre_souscription_option (
     nom_option VARCHAR(50) NOT NULL,
     date_association DATE NOT NULL DEFAULT CURRENT_DATE,
     PRIMARY KEY (id_offre, id_souscription, nom_option),
-    FOREIGN KEY (id_offre) REFERENCES _offre (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
     FOREIGN KEY (id_souscription) REFERENCES _souscription (id_souscription) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
     FOREIGN KEY (nom_option) REFERENCES _option (nom) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
@@ -213,13 +202,10 @@ CREATE TABLE _offre_souscription_option (
 --  ------------------------------------------------------------------------------------------------------ TAGs Offre
 -- Maxime
 CREATE TABLE _tag_offre (
-    id_offre SERIAL REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE,
+    id_offre INTEGER,
     id_tag SERIAL REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE,
     PRIMARY KEY (id_offre, id_tag)
 );
-
-ALTER TABLE _tag_offre
-ADD CONSTRAINT fk_tag_offre FOREIGN KEY (id_offre) REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
 
 ALTER TABLE _tag_offre
 ADD CONSTRAINT fk_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE;
@@ -233,16 +219,19 @@ CREATE TABLE _avis (
     date_experience DATE NOT NULL, -- date où la personne a visité/mangé/...
     titre VARCHAR(50), -- titre de l'avis
     commentaire VARCHAR(1024), -- commentaire de l'avis
-    id_compte INT NOT NULL, -- compte de l'utilisateur  |
+    note FLOAT,
+    contexte_passage VARCHAR(255) NOT NULL,
+    id_membre INT NOT NULL, -- compte de l'utilisateur  |
     id_offre INT NOT NULL, -- Offre à laquelle est lié l'avis
     id_avis_reponse INT REFERENCES _avis (id_avis), -- id de l'avis de la réponse du pro
     -- Contrainte pour empêcher plusieurs avis initiaux d'un même membre sur une offre
-    CONSTRAINT unique_avis_per_member UNIQUE (id_compte, id_offre)
+    CONSTRAINT unique_avis_per_member UNIQUE (id_membre, id_offre)
 );
 
 -- ------------------------------------------------------------------------------------------------------- Facture
 -- Maxime
 CREATE TABLE _facture (
+    id_offre INTEGER NOT NULL,
     numero VARCHAR(255),
     designation VARCHAR(255) NOT NULL,
     date_emission DATE NOT NULL,
@@ -256,18 +245,12 @@ CREATE TABLE _facture (
     PRIMARY KEY (numero, designation) -- Clé primaire composite
 );
 
-ALTER TABLE _facture
-ADD CONSTRAINT fk_facture_offre FOREIGN KEY (id_offre) REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
-
 -- ------------------------------------------------------------------------------------------------------- Logs 
 CREATE TABLE _log_changement_status ( -- Maxime
     id SERIAL PRIMARY KEY,
-    id_offre SERIAL REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE,
+    id_offre INTEGER NOT NULL,
     date_changement DATE NOT NULL
 );
-
-ALTER TABLE _log_changement_status
-ADD CONSTRAINT fk_log_offre FOREIGN KEY (id_offre) REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
 
 -- ------------------------------------------------------------------------------------------------------- Restaurants
 -- Type de repas 'petit dej' 'diner' etc...
@@ -279,12 +262,12 @@ create table _type_repas ( -- Baptiste
 -- Table _restauration (hérite _offre)
 -- (MVC) Léo
 CREATE TABLE _restauration (
-    gamme_prix VARCHAR(3) NOT NULL,
+    gamme_prix VARCHAR(3) NOT NULL
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _restauration à cause de l'héritage
 ALTER TABLE _restauration
-ADD CONSTRAINT pk_restauration PRIMARY KEY (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT pk_restauration PRIMARY KEY (id_offre);
 
 ALTER TABLE _restauration
 ADD CONSTRAINT fk_restauration_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;
@@ -337,7 +320,7 @@ CREATE TABLE _activite (
 
 -- Rajout des contraintes perdues pour _activite à cause de l'héritage
 ALTER TABLE _activite
-ADD CONSTRAINT pk_activite PRIMARY KEY (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT pk_activite PRIMARY KEY (id_offre);
 
 ALTER TABLE _activite
 ADD CONSTRAINT fk_activite_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;
@@ -363,7 +346,7 @@ ADD CONSTRAINT fk_tag_activite_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag)
 CREATE TABLE _spectacle (capacite INTEGER, duree TIME) INHERITS (_offre);
 -- Rajout des contraintes perdues pour _spectacle à cause de l'héritage
 ALTER TABLE _spectacle
-ADD CONSTRAINT pk_spectacle PRIMARY KEY (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT pk_spectacle PRIMARY KEY (id_offre);
 
 ALTER TABLE _spectacle
 ADD CONSTRAINT fk_spectacle_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;
@@ -393,7 +376,7 @@ CREATE TABLE _visite (
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _visite à cause de l'héritage
-ALTER TABLE _visite ADD CONSTRAINT pk_visite PRIMARY KEY (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE _visite ADD CONSTRAINT pk_visite PRIMARY KEY (id_offre);
 
 ALTER TABLE _visite
 ADD CONSTRAINT fk_visite_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;
@@ -441,7 +424,7 @@ CREATE TABLE _parc_attraction ( -- (MVC) Léo
 
 -- Rajout des contraintes perdues pour _parc_attraction à cause de l'héritage
 ALTER TABLE _parc_attraction
-ADD CONSTRAINT pk_parc_attraction PRIMARY KEY (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT pk_parc_attraction PRIMARY KEY (id_offre);
 
 ALTER TABLE _parc_attraction
 ADD CONSTRAINT fk_parc_attraction_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;
@@ -462,7 +445,7 @@ ADD CONSTRAINT fk_tag_parc_attraction_offre FOREIGN KEY (id_offre) REFERENCES _p
 ALTER TABLE _tag_parc_attraction
 ADD CONSTRAINT fk_tag_parc_attraction_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- Horaire
+-- ------------------------------------------------------------------------------------------------------- ²
 -- Table Horaire
 CREATE TABLE _horaire ( -- Antoine
     id_horaire SERIAL PRIMARY KEY,
@@ -471,30 +454,22 @@ CREATE TABLE _horaire ( -- Antoine
     fermeture TIME NOT NULL,
     pause_debut TIME,
     pause_fin TIME,
-    id_offre SERIAL REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE
+    id_offre INTEGER NOT NULL
 );
-
-ALTER TABLE _horaire
-ADD CONSTRAINT fk_horaire_offre FOREIGN KEY (id_offre) REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
 
 -- ------------------------------------------------------------------------------------------------------- Tarif Publique
 -- Table TARIF public
 CREATE TABLE _tarif_public ( -- Baptiste
     id_tarif SERIAL PRIMARY KEY,
     titre VARCHAR(255) NOT NULL,
-    age_min INTEGER,
-    age_max INTEGER,
     prix INTEGER,
-    id_offre INTEGER NOT NULL REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE
+    id_offre INTEGER NOT NULL
 );
-
-ALTER TABLE _tarif_public
-ADD CONSTRAINT fk_tarif_public_offre FOREIGN KEY (id_offre) REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
 
 -- ------------------------------------------------------------------------------------------------------- Tarif Facture
 
 -- ------------------------------------------------------------------------------------------------------- Table ternaire restauration avis et note détaillée
-CREATE TABLE avis_restauration_note (
+CREATE TABLE _avis_restauration_note (
     id_avis INT REFERENCES _avis (id_avis) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
     id_restauration INT REFERENCES _restauration (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
     note_ambiance INT CHECK (note_ambiance BETWEEN 1 AND 5),
@@ -506,22 +481,22 @@ CREATE TABLE avis_restauration_note (
     PRIMARY KEY (id_avis, id_restauration)
 );
 
-ALTER TABLE avis_restauration_note
+ALTER TABLE _avis_restauration_note
 ADD CONSTRAINT fk_avis_restauration_note_avis FOREIGN KEY (id_avis) REFERENCES _avis (id_avis) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
-ALTER TABLE avis_restauration_note
+ALTER TABLE _avis_restauration_note
 ADD CONSTRAINT fk_avis_restauration_note_restauration FOREIGN KEY (id_restauration) REFERENCES _restauration (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
 -- ------------------------------------------------------------------------------------------------------- Prestations
-CREATE TABLE _prestation (
+CREATE TABLE _prestation ( -- Prestations des activités
     id_prestation SERIAL PRIMARY KEY,
+    id_offre INT,
     nom VARCHAR(50) NOT NULL,
-    inclus BOOLEAN,
-    id_pro INTEGER NOT NULL REFERENCES _professionnel (id_compte) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE -- Propriétaire
+    inclus BOOLEAN
 );
 
 ALTER TABLE _prestation
-ADD CONSTRAINT fk_prestation_pro FOREIGN KEY (id_pro) REFERENCES _professionnel (id_compte) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+ADD CONSTRAINT fk_prestation_activite FOREIGN KEY (id_offre) REFERENCES _activite (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
 -- ------------------------------------------------------------------------------------------------------- Liaison prestation et activité     **** Prestation à revoir, ça ne marche pas ****
 CREATE TABLE _activite_prestation (
