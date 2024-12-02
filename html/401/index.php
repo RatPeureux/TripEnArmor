@@ -45,7 +45,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         <div class="m-auto text-center">
             <h1 class="font-cormorant text-[10rem]">401</h1>
             <p>Vous ne pouvez pas accéder à cette page.</p>
-            <img src="https://i.pinimg.com/originals/e0/5a/70/e05a70b23f36987ff395063a1e193db7.gif"
+            <img src="https://i.gifer.com/tdL.gif"
                 class="mt-10 mb-28 rounded-lg m-auto" alt="tottereau" width="250">
         </div>
     </main>
