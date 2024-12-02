@@ -16,7 +16,7 @@ class Restauration extends BDD
         $statement->bindValue(2, $online);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+            return $statement->fetch(PDO::FETCH_ASSOC);
         } else {
             echo "ERREUR : Impossible d'obtenir cette offre de restauration";
             return -1;

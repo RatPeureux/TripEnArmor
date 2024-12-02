@@ -197,7 +197,7 @@ VALUES ( -- Caca123-
         'leobleas@gmail.com',
         '$2y$10$SKmv1CW9n.OBcF.N.lx/3.iCpIIx7Z4ov5AqM246/21dUlp7flzm2',
         '07 69 24 73 22',
-        '438 107 845',
+        '43810784575842',
         'Henvic&Associates',
         1
     ),
@@ -206,7 +206,7 @@ VALUES ( -- Caca123-
         'zenpoxa@gmail.com',
         '$2y$10$OmocaPOye7BG1feUJfQACeEFublSKfrcRi7r58JiYp0k6.pLuMc9W',
         '01 23 45 67 89',
-        '591 321 423',
+        '59132142374583',
         'Canva2Wish',
         2
     );
