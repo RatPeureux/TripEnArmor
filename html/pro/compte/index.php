@@ -27,6 +27,13 @@ $pro = verifyPro();
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     ?>
+
+    <div id="menu-pro">
+        <?php
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        ?>
+    </div>
+
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
         <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
             <i class="text-3xl fa-solid fa-bars"></i>
@@ -35,11 +42,7 @@ $pro = verifyPro();
             <p class="text-h2"><?php echo $pro['nom_pro'] ?></p>
         </div>
     </header>
-    <div id="menu-pro">
-        <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
-        ?>
-    </div>
+
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
         <div class="max-w-[23rem] my-8 mx-auto space-y-12 flex flex-col items-center">
             <a href="/pro/compte/profil"

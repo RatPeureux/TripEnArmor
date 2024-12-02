@@ -58,9 +58,20 @@ CREATE TABLE _pro_public ( -- Antoine
     type_orga VARCHAR(255) NOT NULL
 ) INHERITS (_professionnel);
 
+-- ------------------------------------------------------------------------------------------------------- RIB
+-- Table RIB
+CREATE TABLE _rib ( -- Léo
+    id_rib SERIAL PRIMARY KEY,
+    code_banque VARCHAR(255) NOT NULL,
+    code_guichet VARCHAR(255) NOT NULL,
+    numero_compte VARCHAR(255) NOT NULL,
+    cle VARCHAR(255) NOT NULL
+);
+-- ------------------------------------------------------------------------------------------------------- TAG
+
 CREATE TABLE _pro_prive ( -- Antoine
     num_siren VARCHAR(255) UNIQUE NOT NULL,
-    id_rib INTEGER REFERENCES _RIB (id_rib)
+    id_rib INTEGER REFERENCES _rib (id_rib)
 ) INHERITS (_professionnel);
 
 -- Rajouter les contraintes principales perdues à cause de l'héritage (clés primaires & étrangères & UNIQUE);
@@ -104,17 +115,6 @@ ADD CONSTRAINT unique_tel_pro_prive UNIQUE (num_tel);
 ALTER TABLE _pro_prive
 ADD CONSTRAINT fk_pro_prive FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse);
 
--- ------------------------------------------------------------------------------------------------------- RIB
--- Table RIB
-CREATE TABLE _RIB ( -- Léo
-    id_rib SERIAL PRIMARY KEY,
-    code_banque VARCHAR(255) NOT NULL,
-    code_guichet VARCHAR(255) NOT NULL,
-    numero_compte VARCHAR(255) NOT NULL,
-    cle VARCHAR(255) NOT NULL
-);
-
--- ------------------------------------------------------------------------------------------------------- TAG
 -- Table TAG
 
 CREATE TABLE _tag ( -- Antoine
