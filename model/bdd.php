@@ -29,8 +29,10 @@ abstract class BDD
 
     static public function startTransaction() {
         self::$db->beginTransaction();
-        $statement = self::$db->prepare("SET CONSTRAINTS ALL DEFERRED;");
-        $statement->execute();
+        $result = self::$db->exec('SET CONSTRAINTS ALL DEFERRED');
+        echo "*** BEGIN SET CONSTRAINTS ALL DEFERRED ***<br>";
+        echo "Result : $result<br>";
+        echo "*** END SET CONSTRAINTS ALL DEFERRED ***<br>";
     }
 
     static public function commitTransaction() {
