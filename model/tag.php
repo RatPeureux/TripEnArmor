@@ -4,7 +4,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class Tag extends BDD
 {
-    private $nom_table = "sae_db._tag";
+    static private $nom_table = "sae_db._tag";
 
     /**
      * Récupère un tag par son ID.
