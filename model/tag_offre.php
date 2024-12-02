@@ -43,8 +43,6 @@ class TagOffre extends BDD
         $statement->bindValue(2, $id_tag);
 
         if ($statement->execute()) {
-            echo "Does link exists ?" . count($statement->fetchAll(PDO::FETCH_ASSOC)) != 0;
-
             return count($statement->fetchAll(PDO::FETCH_ASSOC)) != 0;
         } else {
             return -1;
@@ -53,7 +51,7 @@ class TagOffre extends BDD
 
     static function linkOffreAndTag($id_offre, $id_tag)
     {
-        $query = "INSERT INTO " . self::$nom_table . "VALUES (?, ?) RETURNING *";
+        $query = "INSERT INTO " . self::$nom_table . " VALUES (?, ?) RETURNING *";
 
         $statement = self::$db->prepare($query);
         $statement->bindValue(1, $id_offre);
