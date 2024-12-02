@@ -225,7 +225,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
 
-        <title>Création de compte</title>
+        <title>Création de compte - Professionnel - PACT</title>
     </head>
 
     <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
@@ -235,7 +235,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <a href="/" class="w-full">
-                <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
+                <img class="relative ml-auto -top-5" src="/public/images/logo.svg" alt="moine" width="50">
             </a>
 
             <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST">
@@ -289,13 +289,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <!-- Champs pour l'adresse -->
                 <label class="text-small" for="adresse">Adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
-                    name="user_input_autocomplete_address" placeholder="(2) rue Saint-Jean" maxlength="255"
+                    name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs" maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
-                    title="Complément d'adresse" maxlength="255"
+                    title="Complément d'adresse" maxlength="255" placeholder="Bâtiment A, Appartement 5"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">

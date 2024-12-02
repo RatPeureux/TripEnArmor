@@ -30,6 +30,8 @@ if (!function_exists('chaineVersMot')) {
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
+    <script src="/scripts/search.js"></script>
+    <script src="/scripts/filtersAndSortsPro.js"></script>
     <script type="module" src="/scripts/main.js"></script>
 
     <title>Mes offres - Professionnel - PACT</title>
@@ -77,7 +79,10 @@ if (!function_exists('chaineVersMot')) {
         <!-- TOUTES LES OFFRES (offre & détails) -->
         <div class="w-full grow tablette p-4 flex flex-col">
 
-            <div class="w-full flex justify-between items-end mt-20 mb-2">
+            <!-- Conteneur des tags (!!! RECHERCHE) -->
+            <div class="flex flex-wrap gap-4 mt-20 mb-4" id="tags-container"></div>
+
+            <div class="w-full flex justify-between items-end mb-2">
                 <h1 class="text-4xl">Mes offres</h1>
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
@@ -140,8 +145,6 @@ if (!function_exists('chaineVersMot')) {
     ?>
 </body>
 
-</html>
-
 <script>
     // Fonction pour afficher ou masquer un conteneur de filtres
     function toggleFiltres() {
@@ -153,4 +156,4 @@ if (!function_exists('chaineVersMot')) {
     }
 </script>
 
-<script src="/scripts/filtersAndSortsPro.js"></script>
+</html>
