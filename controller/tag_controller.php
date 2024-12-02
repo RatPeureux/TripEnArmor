@@ -39,11 +39,6 @@ class TagController
 
     public function createTag($nom)
     {
-        echo "Creating tag of name $nom<br>";
-        $tag = $this->model::createTag($nom);
-
-        echo $tag;
-
-        return $tag;
+        return $this->model::createTag($nom);
     }
 }
