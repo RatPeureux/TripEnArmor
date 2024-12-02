@@ -265,9 +265,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse postale</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" 
-                name="complement" placeholder="Bâtiment A, Appartement 5"
-                    title="Complément d'adresse" maxlength="255"
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
+                    placeholder="Bâtiment A, Appartement 5" title="Complément d'adresse" maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
@@ -280,8 +279,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="locality">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" 
-                            name="locality"
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" name="locality"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir ma ville"
                             maxlength="50" value="<?php echo $_SESSION['data_en_cours_inscription']['ville'] ?>" required>
                     </div>

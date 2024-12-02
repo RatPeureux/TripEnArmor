@@ -184,9 +184,9 @@ CREATE TABLE _offre_souscription_option (
         id_souscription,
         nom_option
     ),
-    FOREIGN KEY (id_offre) REFERENCES _offre (id_offre) ON DELETE CASCADE,
-    FOREIGN KEY (id_souscription) REFERENCES _souscription (id_souscription) ON DELETE CASCADE,
-    FOREIGN KEY (nom_option) REFERENCES _option (nom) ON DELETE CASCADE
+    FOREIGN KEY (id_offre) REFERENCES _offre (id_offre),
+    FOREIGN KEY (id_souscription) REFERENCES _souscription (id_souscription),
+    FOREIGN KEY (nom_option) REFERENCES _option (nom)
 );
 
 --  ------------------------------------------------------------------------------------------------------ TAGs Offre
@@ -253,8 +253,8 @@ ADD CONSTRAINT fk_restauration_type_offre FOREIGN KEY (id_type_offre) REFERENCES
 
 -- Lien entre restauration et type_repas
 create table _restaurant_type_repas ( -- Baptiste
-    id_offre SERIAL REFERENCES _restauration (id_offre) ON DELETE CASCADE,
-    id_type_repas SERIAL REFERENCES _type_repas (id_type_repas) ON DELETE CASCADE,
+    id_offre SERIAL REFERENCES _restauration (id_offre),
+    id_type_repas SERIAL REFERENCES _type_repas (id_type_repas),
     PRIMARY KEY (id_offre, id_type_repas)
 );
 
@@ -399,34 +399,32 @@ CREATE TABLE _tarif_public ( -- Baptiste
     prix INTEGER,
     id_offre INTEGER NOT NULL
 );
-
 -- ------------------------------------------------------------------------------------------------------- Tarif Facture
 
 -- ------------------------------------------------------------------------------------------------------- Table ternaire restauration avis et note détaillée
-CREATE TABLE avis_restauration_note (
-    id_avis INT REFERENCES _avis (id_avis) ON DELETE CASCADE,
-    id_restauration INT REFERENCES _restauration (id_offre) ON DELETE CASCADE,
-    note_ambiance INT CHECK (note_ambiance BETWEEN 1 AND 5),
-    note_service INT CHECK (note_service BETWEEN 1 AND 5),
-    note_cuisine INT CHECK (note_cuisine BETWEEN 1 AND 5),
-    rapport_qualite_prix INT CHECK (
-        rapport_qualite_prix BETWEEN 1 AND 5
-    ),
+CREATE TABLE _avis_restauration_note (
+    id_avis INT REFERENCES _avis (id_avis),
+    id_restauration INT REFERENCES _restauration (id_offre),
+    note_ambiance FLOAT,
+    note_service FLOAT,
+    note_cuisine FLOAT,
+    rapport_qualite_prix FLOAT,
     PRIMARY KEY (id_avis, id_restauration)
 );
+-- ------------------------------------------------------------------------------------------------------- Fin avis_restauration_note
 
 -- ------------------------------------------------------------------------------------------------------- Prestations
 CREATE TABLE _prestation (
     id_prestation SERIAL PRIMARY KEY,
     nom VARCHAR(50) NOT NULL,
     inclus BOOLEAN,
-    id_pro INTEGER NOT NULL REFERENCES _professionnel (id_compte) ON DELETE CASCADE -- Propriétaire
+    id_pro INTEGER NOT NULL REFERENCES _professionnel (id_compte) -- Propriétaire
 );
 
 -- ------------------------------------------------------------------------------------------------------- Liaison prestation et activité     **** Prestation à revoir, ça ne marche pas ****
 /*CREATE TABLE _activite_prestation (
-id_activite INTEGER NOT NULL REFERENCES _activite(id_offre) ON DELETE CASCADE,
-id_prestation INTEGER NOT NULL REFERENCES _prestation(id_prestation) ON DELETE CASCADE,
+id_activite INTEGER NOT NULL REFERENCES _activite(id_offre) ,
+id_prestation INTEGER NOT NULL REFERENCES _prestation(id_prestation) ,
 PRIMARY KEY (id_activite, id_prestation)
 );
 */
@@ -439,8 +437,8 @@ CREATE TABLE T_Image_Img (
     img_date_creation DATE NOT NULL,
     img_description TEXT,
     img_date_suppression DATE,
-    id_offre INTEGER REFERENCES _offre (id_offre) ON DELETE CASCADE,
-    id_parc INTEGER REFERENCES _parc_attraction (id_offre) ON DELETE CASCADE,
+    id_offre INTEGER REFERENCES _offre (id_offre),
+    id_parc INTEGER REFERENCES _parc_attraction (id_offre),
     -- Contrainte d'exclusivité : soit offre_id, soit id_parc doit être non nul, mais pas les deux
     CONSTRAINT chk_offre_parc_exclusif CHECK (
         (
