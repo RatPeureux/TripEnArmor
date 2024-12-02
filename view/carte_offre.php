@@ -169,7 +169,7 @@ if ($mode_carte == 'membre') {
                     <div>
                         <h3 class="text-h2 font-bold"><?php echo $titre_offre ?></h3>
                         <div class="flex">
-                            <p class="text"><?php echo $pro_nom ?></p>
+                            <p class="text"><?php echo $pro['nom_pro'] ?></p>
                             <p class="categorie text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
                         </div>
                     </div>

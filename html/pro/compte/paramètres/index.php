@@ -52,9 +52,7 @@ if (isset($_POST['iban'])) {
     $controllerRib = new RibController();
 
     $rib = extraireRibDepuisIban($iban);
-    $iban = $rib['code_banque'] . ' ' . $rib['code_guichet'] . ' ' . $rib['numero_compte'] . ' ' . $rib['cle'];
-
-    $controllerRib->updateRib($pro['id_compte'], $rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
+    $controllerRib->updateRib($pro['data']['id_rib'], $rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
 }
 
 if (isset($_POST['siren'])) {
@@ -96,7 +94,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/rib_controller.php';
 $controllerRib = new RibController();
-$rib = $controllerRib->getInfosRib($rib[$pro['id_compte']]);
+$rib = $controllerRib->getInfosRib($pro['data']['id_rib']);
 ?>
 
 <body class="min-h-screen flex flex-col justify-between">
@@ -145,9 +143,10 @@ $rib = $controllerRib->getInfosRib($rib[$pro['id_compte']]);
                 <form action="" class="flex flex-col" method="post">
 
                     <label class="text-h3" for="iban">IBAN</label>
-                    <input value="<?php echo $iban ?>"
+                    <input
+                        value="<?php echo $rib['code_banque'] . ' ' . $rib['code_guichet'] . ' ' . $rib['numero_compte'] . ' ' . $rib['cle']; ?>"
                         class="border-2 border-secondary p-2 bg-white max-w-72 h-12 mb-3 rounded-lg" type="text" id="iban"
-                        name="iban" minlength="33" maxlength="33">
+                        name="iban" minlength="26" maxlength="26">
 
                     <input type="submit" id="save2" href="" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"

@@ -1,5 +1,24 @@
 <?php
 session_start();
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+
+$membre = verifyMember();
+$id_membre = $_SESSION['id_membre'];
+
+// Connexion avec la bdd
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
+$controllerMembre = new MembreController();
+$membre = $controllerMembre->getInfosMembre($id_membre);
+
+if (isset($_POST['pseudo'])) {
+    $controllerMembre->updateMembre($membre['id_compte'], false, false, false, false, $_POST['pseudo'], false);
+    unset($_POST['pseudo']);
+}
+
+$membre = verifyMember();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -32,20 +51,6 @@ session_start();
         </div>
     </header>
     <?php
-    $id_membre = $_SESSION['id_membre'];
-
-    // Connexion avec la bdd
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-    // Récupération des informations du compte
-    $stmt = $dbh->prepare('SELECT * FROM sae_db._membre WHERE id_compte = :id_membre');
-    $stmt->bindParam(':id_membre', $id_membre);
-    $stmt->execute();
-    $id_membre = $stmt->fetch(PDO::FETCH_ASSOC)['id_compte'];
-
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
-    $controllerMembre = new MembreController();
-    $membre = $controllerMembre->getInfosMembre($id_membre);
     ?>
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
         <div id="menu" class="absolute md:block">
@@ -56,16 +61,19 @@ session_start();
         <div class="max-w-[44rem] m-auto flex flex-col">
             <p class="text-h1 mb-4">Informations publiques</p>
 
-            <label class="text-h3" for="pseudo">Nom d'utilisateur</label>
-            <input value="<?php echo $membre['pseudo'] ?>"
-                class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="pseudo"
-                name="pseudo" maxlength="255">
+            <form action="" class="flex flex-col" method="post">
 
-            <button id="save"
-                class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
-                disabled>
-                Enregistrer les modifications
-            </button>
+                <label class="text-h3" for="pseudo">Nom d'utilisateur</label>
+                <input value="<?php echo $membre['pseudo'] ?>"
+                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="pseudo"
+                    name="pseudo" maxlength="255">
+
+                <input type="submit" id="save" href="" value="Enregistrer les modifications"
+                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                    disabled>
+                </input>
+            </form>
+
 
             <hr class="mb-8">
 

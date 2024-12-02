@@ -36,7 +36,10 @@ class MembreController
                 $email !== false ? $email : $membre["email"],
                 $mdp !== false ? $mdp : $membre["mdp_hash"],
                 $tel !== false ? $tel : $membre["num_tel"],
-                $adresseId !== false ? $adresseId : $membre["id_adresse"]
+                $adresseId !== false ? $adresseId : $membre["id_adresse"],
+                $pseudo !== false ? $pseudo : $membre["pseudo"],
+                $prenom !== false ? $prenom : $membre["prenom"],
+                $nom !== false ? $nom : $membre["nom"]
             );
             return $updatedMembreId;
         }

@@ -5,6 +5,10 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php
 
 $pro = verifyPro();
 
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
+$controllerAdresse = new AdresseController();
+$adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
+
 if (isset($_POST['nom'])) {
     if ($pro['data']['type'] == 'prive') {
         include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
@@ -20,10 +24,6 @@ if (isset($_POST['nom'])) {
 }
 
 if (isset($_POST['adresse']) || isset($_POST['complement']) || isset($_POST['code_postal']) || isset($_POST['ville'])) {
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
-    $controllerAdresse = new AdresseController();
-    $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
-
     $numero = false;
     $odonyme = false;
     $complement = false;
@@ -54,7 +54,10 @@ if (isset($_POST['adresse']) || isset($_POST['complement']) || isset($_POST['cod
 }
 
 $pro = verifyPro();
+$adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
 
+// Connexion avec la bdd
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -72,14 +75,6 @@ $pro = verifyPro();
 
     <title>Profil du compte - Professionnel - PACT</title>
 </head>
-<?php
-// Connexion avec la bdd
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
-$controllerAdresse = new AdresseController();
-$adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
-?>
 
 <body class="min-h-screen flex flex-col justify-between">
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
