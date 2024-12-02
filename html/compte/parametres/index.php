@@ -17,7 +17,7 @@ include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controlle
 $controllerAdresse = new AdresseController();
 $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
 
-if (isset($_POST['nom']) || isset($_POST['prenom'])) {
+if (isset($_POST['nom']) || isset($_POST['prenom']) && !empty($_POST['nom']) && !empty($_POST['prenom'])) {
     $prenom = false;
     $nom = false;
     if (isset($_POST['nom'])) {
@@ -31,20 +31,20 @@ if (isset($_POST['nom']) || isset($_POST['prenom'])) {
     $controllerMembre->updateMembre($membre['id_compte'], false, false, false, false, false, $nom, $prenom);
 }
 
-if (isset($_POST['email']) || isset($_POST['num_tel'])) {
+if ((isset($_POST['email']) && !empty($_POST['email'])) || (isset($_POST['num_tel']) && !empty($_POST['num_tel']) && strlen($_POST['num_tel']) > 14)) {
     $email = false;
     $num_tel = false;
     if (isset($_POST['email'])) {
         $email = $_POST['email'];
         unset($_POST['email']);
     }
-    if (isset($_POST['num_tel'])) {
+    if (isset($_POST['num_tel']) && strlen($_POST['num_tel']) > 14) {
         $num_tel = $_POST['num_tel'];
         unset($_POST['num_tel']);
     }
     $controllerMembre->updateMembre($membre['id_compte'], $email, false, $num_tel, false, false, false, false);
 }
-if (isset($_POST['adresse']) || isset($_POST['complement']) || isset($_POST['code']) || isset($_POST['ville'])) {
+if ((isset($_POST['adresse']) && !empty($_POST['adresse'])) || isset($_POST['complement']) || (isset($_POST['code']) && !empty($_POST['code'])) || (isset($_POST['ville']) && !empty($_POST['ville']))) {
     $numero = false;
     $odonyme = false;
     $complement = false;

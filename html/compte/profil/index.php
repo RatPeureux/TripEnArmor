@@ -13,7 +13,7 @@ include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller
 $controllerMembre = new MembreController();
 $membre = $controllerMembre->getInfosMembre($id_membre);
 
-if (isset($_POST['pseudo'])) {
+if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
     $controllerMembre->updateMembre($membre['id_compte'], false, false, false, false, $_POST['pseudo'], false);
     unset($_POST['pseudo']);
 }
