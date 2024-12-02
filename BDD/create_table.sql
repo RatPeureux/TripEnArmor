@@ -25,7 +25,7 @@ CREATE TABLE _adresse ( -- Léo -- Léo
     ville VARCHAR(255) NOT NULL,
     numero VARCHAR(255) NOT NULL,
     odonyme VARCHAR(255) NOT NULL,
-    complement_adresse VARCHAR(255)
+    complement VARCHAR(255)
 );
 -- ------------------------------------------------------------------------------------------------------- Comptes
 -- ARCHITECTURE DES TABLES CI-DESSOUS :
