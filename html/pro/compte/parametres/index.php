@@ -35,7 +35,7 @@ if (isset($_POST['email']) || isset($_POST['num_tel'])) {
         $num_tel = $_POST['num_tel'];
         unset($_POST['num_tel']);
     }
-    if ($pro['type'] == 'prive') {
+    if ($pro['data']['type'] == 'prive') {
         include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
         $controllerProPrive = new ProPriveController();
         $controllerProPrive->updateProPrive($pro['id_compte'], $email, false, $num_tel);
@@ -50,10 +50,14 @@ if (isset($_POST['iban'])) {
     $iban = $_POST['iban'];
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/rib_controller.php';
     $controllerRib = new RibController();
-
     $rib = extraireRibDepuisIban($iban);
-    $controllerRib->updateRib($pro['data']['id_rib'], $rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
+    if ($pro['data']['id_rib'] == '') {
+        $controllerRib->createRib($rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
+    } else {
+        $controllerRib->updateRib($pro['data']['id_rib'], $rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
+    }
 }
+
 
 if (isset($_POST['siren'])) {
     $siren = $_POST['siren'];
@@ -106,7 +110,7 @@ $rib = $controllerRib->getInfosRib($pro['data']['id_rib']);
             <p class="text-h2">
                 <a href="/pro/compte">Mon compte</a>
                 >
-                <a href="/pro/compte/paramètres" class="underline">Paramètres</a>
+                <a href="/pro/compte/parametres" class="underline">Paramètres</a>
             </p>
         </div>
     </header>
@@ -143,10 +147,10 @@ $rib = $controllerRib->getInfosRib($pro['data']['id_rib']);
                 <form action="" class="flex flex-col" method="post">
 
                     <label class="text-h3" for="iban">IBAN</label>
-                    <input
-                        value="<?php echo $rib['code_banque'] . ' ' . $rib['code_guichet'] . ' ' . $rib['numero_compte'] . ' ' . $rib['cle']; ?>"
+                    <input value="<?php echo $iban; ?>"
                         class="border-2 border-secondary p-2 bg-white max-w-72 h-12 mb-3 rounded-lg" type="text" id="iban"
-                        name="iban" minlength="26" maxlength="26">
+                        name="iban" pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" oninput="formatIBAN(this)" minlength="27"
+                        maxlength="33">
 
                     <input type="submit" id="save2" href="" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
@@ -292,5 +296,12 @@ $rib = $controllerRib->getInfosRib($pro['data']['id_rib']);
         if (type_orga) {
             document.getElementById("type_orga").addEventListener("input", activeSave4);
         }
+
     });
+    function formatIBAN(input) {
+        let value = input.value.replace(/[^0-9]/g, '');
+        const prefix = "FR"; // Préfixe de l'IBAN
+        const formattedValue = value.length > 0 ? (prefix + value).match(/.{1, 4}/g)?.join(' ') : prefix; // Formatage de l'IBAN
+        input.value = formattedValue;
+    }
 </script>

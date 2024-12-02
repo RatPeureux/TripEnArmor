@@ -43,7 +43,7 @@ class ProPrive extends BDD
         }
     }
 
-    static function updateProPrive($id, $email, $mdp, $tel, $adresseId, $nom_pro, $num_siren)
+    static function updateProPrive($id, $email, $mdp, $tel, $adresseId, $nom_pro, $num_siren, $id_rib)
     {
         self::initBDD();
         $query = "UPDATE " . self::$nom_table . " SET email = ?, mdp_hash = ?, num_tel = ?, id_adresse = ?, nom_pro = ?, num_siren = ?, id_rib = ? WHERE id_compte = ?";
@@ -54,11 +54,11 @@ class ProPrive extends BDD
         $statement->bindParam(4, $adresseId);
         $statement->bindParam(5, $nom_pro);
         $statement->bindParam(6, $num_siren);
-        $statement->bindParam(7, $id);
+        $statement->bindParam(7, $id_rib);
         $statement->bindParam(8, $id);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
         } else {
             echo "ERREUR: Impossible de mettre à jour le compte pro privé";
             return -1;
