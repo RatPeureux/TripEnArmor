@@ -128,8 +128,6 @@ CREATE TABLE _option (
     tva FLOAT NOT NULL,
     prix_ttc FLOAT NOT NULL,
     prix_unitaire FLOAT NOT NULL
-
-
 );
 
 -- ------------------------------------------------------------------------------------------------------- Souscription
