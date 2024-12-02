@@ -237,7 +237,7 @@ $pro = verifyPro();
 					echo ' / Tag id : ';
 					echo $tag_id;
 					echo '<br>';
-					$tagOffreController->linkOffreAndTag($id_offre, $tagId);
+					$tagOffreController->linkOffreAndTag($id_offre, $tag_id);
 				}
 				echo "Tags insérés.<br>";
 			}
