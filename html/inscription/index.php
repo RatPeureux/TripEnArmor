@@ -218,7 +218,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <a href="/" class="w-full">
-                <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
+                <img class="relative ml-auto -top-5" src="/public/images/logo.svg" alt="moine" width="50">
             </a>
 
             <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="POST">
@@ -259,13 +259,14 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <!-- Champs pour l'adresse -->
                 <label class="text-small" for="user_input_autocomplete_address">Adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
-                    name="user_input_autocomplete_address" placeholder="ex : (2) rue Saint-Jean"
+                    name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs"
                     title="ex: 2 rue Saint-Jean OU rue Edouard Branly" maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse postale</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" 
+                name="complement" placeholder="Bâtiment A, Appartement 5"
                     title="Complément d'adresse" maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?>">
 
@@ -279,7 +280,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="locality">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" name="locality"
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" 
+                            name="locality"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir ma ville"
                             maxlength="50" value="<?php echo $_SESSION['data_en_cours_inscription']['ville'] ?>" required>
                     </div>
@@ -305,9 +307,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="mb-1.5 flex items-start">
                     <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
                         required>
-                    <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions
-                            d'utilisation</u> et vous confirmez que vous avez lu notre <u class="cursor-pointer">Politique
-                            de confidentialité et d'utilisation des cookies</u>.</label>
+                    <label class="text-small" for="termes">J’accepte les <a href="/cgu" class="underline">conditions d'utilisation</a> et je confirme avoir lu la <a href="#" class="underline">Politique de confidentialité et d'utilisation des cookies</a>.</label>
                 </div>
 
                 <!-- Bouton pour créer le compte -->
@@ -386,8 +386,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         $adresse = $_POST['adresse'];
         $infosSupAdresse = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
-        $code = $_POST['code'];
-        $ville = $_POST['ville'];
+        $code = $_POST['postal_code'];
+        $ville = $_POST['locality'];
 
         // Exécuter la requête pour l'adresse
         $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement) VALUES (:code, :ville, :numero, :odonyme, :complement)");

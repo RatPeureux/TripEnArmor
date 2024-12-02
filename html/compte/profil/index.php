@@ -48,7 +48,7 @@ session_start();
     $membre = $controllerMembre->getInfosMembre($id_membre);
     ?>
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div id="menu" class="absolute md:block">
+        <div id="menu">
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
             ?>
@@ -70,7 +70,7 @@ session_start();
             <hr class="mb-8">
 
             <div class="max-w-[23rem] mx-auto">
-                <a href="/compte/profil"
+                <a href="/compte/profil/avis"
                     class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                     <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
                     <div class="w-full">

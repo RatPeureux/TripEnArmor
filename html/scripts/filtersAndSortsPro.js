@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    
     // !!! TOGGLE AFFICHANT/DÉPLIANT LES INTERFACES DE FILTRES/TRIS
     // Fonction pour configurer un bouton qui affiche ou masque une section
     function setupToggleTab(buttonId, sectionId) {

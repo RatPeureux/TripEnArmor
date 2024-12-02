@@ -347,9 +347,10 @@ $pro = verifyPro();
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
 
-			<div class="w-full mb-20">
+			<div id="menu-pro" class="w-full mb-20">
 				<!-- Inclusion du header -->
 				<?php
+				$pagination = 2;
 				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
 				?>
 			</div>

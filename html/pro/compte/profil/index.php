@@ -82,6 +82,13 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
 ?>
 
 <body class="min-h-screen flex flex-col justify-between">
+
+    <div id="menu-pro">
+        <?php
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        ?>
+    </div>
+
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
         <div class="flex w-full items-center">
             <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
@@ -91,14 +98,10 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
                 <a href="/pro/compte">Mon compte</a>
                 >
                 <a href="/pro/compte/profil" class="underline">Profil</a>
-                </>
+            </p>
         </div>
     </header>
-    <div id="menu-pro">
-        <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
-        ?>
-    </div>
+
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
         <div class="max-w-[44rem] m-auto flex flex-col">
             <p class="text-h1 mb-4">Informations publiques</p>
@@ -154,7 +157,7 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
         <hr class="mb-8">
 
         <div class="max-w-[23rem] mx-auto">
-            <a href="/pro/compte/profil"
+            <a href="/pro/compte/profil/avis"
                 class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
                 <div class="w-full">
