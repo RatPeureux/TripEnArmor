@@ -63,9 +63,6 @@ session_start();
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     switch ($categorie_offre) {
         case 'restauration':
-            // appel controlller restauration
-            // $restaurtion egal Ctrl->getRestaurationById($id_offre)
-            // echo $restauration['id_repas']
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
             $controllerRestauration = new RestaurationController();
             $parc_attraction = $controllerRestauration->getInfosRestauration($id_offre);
@@ -231,7 +228,7 @@ session_start();
     <main class="flex flex-col md:block md:mx-10 self-center rounded-lg md:p-2 max-w-[1280px] overflow-auto">
         <div class="flex md:gap-3">
             <!-- PARTIE GAUCHE (menu) -->
-            <div>
+            <div id="menu">
                 <?php
                 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
                 ?>
@@ -599,6 +596,89 @@ session_start();
                                                     </select>
                                                 </div>
 
+                                                <?php
+                                                // Notes additionnelles pour les restaurants
+                                                if ($categorie_offre == 'restauration') { ?>
+                                                    <div>
+                                                        <label for="note_ambiance">Ambiance</label>
+                                                        <select name="note_ambiance" id="note_ambiance" class="p-1 rounded-lg"
+                                                            required>
+                                                            <option selected disabled>...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="0.5">0,5</option>
+                                                            <option value="1">1</option>
+                                                            <option value="1.5">1,5</option>
+                                                            <option value="2">2</option>
+                                                            <option value="2.5">2,5</option>
+                                                            <option value="3">3</option>
+                                                            <option value="3.5">3,5</option>
+                                                            <option value="4">4</option>
+                                                            <option value="4.5">4,5</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div>
+                                                        <label for="note_service">Service</label>
+                                                        <select name="note_service" id="note_service" class="p-1 rounded-lg"
+                                                            required>
+                                                            <option selected disabled>...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="0.5">0,5</option>
+                                                            <option value="1">1</option>
+                                                            <option value="1.5">1,5</option>
+                                                            <option value="2">2</option>
+                                                            <option value="2.5">2,5</option>
+                                                            <option value="3">3</option>
+                                                            <option value="3.5">3,5</option>
+                                                            <option value="4">4</option>
+                                                            <option value="4.5">4,5</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div>
+                                                        <label for="note_cuisine">Cuisine</label>
+                                                        <select name="note_cuisine" id="note_cuisine" class="p-1 rounded-lg"
+                                                            required>
+                                                            <option selected disabled>...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="0.5">0,5</option>
+                                                            <option value="1">1</option>
+                                                            <option value="1.5">1,5</option>
+                                                            <option value="2">2</option>
+                                                            <option value="2.5">2,5</option>
+                                                            <option value="3">3</option>
+                                                            <option value="3.5">3,5</option>
+                                                            <option value="4">4</option>
+                                                            <option value="4.5">4,5</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div>
+                                                        <label for="note_rapport">Rapport qualité / prix</label>
+                                                        <select name="note_rapport" id="note_rapport" class="p-1 rounded-lg"
+                                                            required>
+                                                            <option selected disabled>...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="0.5">0,5</option>
+                                                            <option value="1">1</option>
+                                                            <option value="1.5">1,5</option>
+                                                            <option value="2">2</option>
+                                                            <option value="2.5">2,5</option>
+                                                            <option value="3">3</option>
+                                                            <option value="3.5">3,5</option>
+                                                            <option value="4">4</option>
+                                                            <option value="4.5">4,5</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <?php
+                                                }
+                                                ?>
+
                                                 <!-- Date de l'expérience -->
                                                 <div>
                                                     <label for="date_experience">Date de l'expérience</label>
@@ -657,7 +737,9 @@ session_start();
                                     <?php
                                     // UTILISATEUR PAS CONNECTÉ
                                 } else { ?>
-                                    <p class="text-small italic">Connectez-vous pour rédiger un avis</p>
+                                    <p class="text-small italic"><a href='/connexion' class="underline">Connectez-vous</a>
+                                        pour rédiger un
+                                        avis</p>
                                     <?php
                                 }
                                 ?>

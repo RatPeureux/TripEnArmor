@@ -6,7 +6,7 @@
         <!-- Format ordinateur et tablette -->
         <div class="text-center hidden sm:block">
             <div>
-                <a href="/pro/legal" class="hover:text-primary">Mentions légales</a>
+                <a href="/pro/mentions" class="hover:text-primary">Mentions légales</a>
                 -
                 <a href="/pro/cgu" class="hover:text-primary">CGU</a>
                 -
@@ -14,12 +14,12 @@
                 -
                 <a href="/" class="hover:text-primary">Retour vers la PACT</a>
             </div>
-            @2024, <a href="#" class="hover:text-primary">TripEnArmor</a>
+            ©2024, <a href="#" class="hover:text-primary">TripEnArmor</a>
         </div>
         <!-- Format téléphone -->
         <div class="text-center block sm:hidden">
             <div>
-                <a href="/pro/legal" class="hover:text-primary">Mentions légales</a>
+                <a href="/pro/mentions" class="hover:text-primary">Mentions légales</a>
                 -
                 <a href="/pro/cgu" class="hover:text-primary">CGU</a>
                 -
@@ -27,7 +27,7 @@
                 -
                 <a href="/" class="hover:text-primary">Retour vers la PACT</a>
                 -
-                <a href="#">@2024, TripEnArmor</a>
+                <a href="#">©2024, TripEnArmor</a>
             </div>
         </div>
 </footer>

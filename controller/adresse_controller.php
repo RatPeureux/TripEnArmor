@@ -28,7 +28,7 @@ class AdresseController
 
     public function createAdresse($code_postal, $ville, $numero, $odonyme, $complement)
     {
-        $adresse = $this->model::createActivite($code_postal, $ville, $numero, $odonyme, $complement);
+        $adresse = $this->model::createAdresse($code_postal, $ville, $numero, $odonyme, $complement);
 
         return $adresse;
     }

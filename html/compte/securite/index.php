@@ -14,7 +14,8 @@
     <title>Sécurité du compte - PACT</title>
 </head>
 
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col">
+
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
         <div class="flex w-full items-center">
             <a href="" onclick="toggleMenu()" class="mr-4 md:hidden">
@@ -27,56 +28,60 @@
             </p>
         </div>
     </header>
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div id="menu" class="absolute md:block">
-            <?php
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
-            ?>
-        </div>
-        <div class="max-w-[44rem] m-auto flex flex-col">
-            <p class="text-h1 mb-4">Informations sensibles</p>
-            <p class="text-small">Définissez un nouveau mot de passe fiable, respectant les conditions
-                de sécurité minimum suivantes :</p>
-            <ul class="mb-3 text-small">
-                <li>- 8 caratères</li>
-                <li>- 1 majuscule</li>
-                <li>- 1 caractère numérique</li>
-            </ul>
 
-            <div class="relative w-full">
-                <label class="text-h3" for="mdp">Mot de passe actuel</label>
-                <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                    id="mdp" name="mdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" minlength="8">
-
-                <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                    id="togglePassword1"></i>
+    <main class="w-full flex justify-center grow">
+        <div class="max-w-[1280px] w-full p-2 flex justify-center">
+            <div id="menu">
+                <?php
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+                ?>
             </div>
 
-            <div class="relative w-full">
-                <label class="text-h3" for="newMdp">Nouveau mot de passe</label>
-                <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                    id="newMdp" name="newMdp">
+            <div class="flex flex-col md:mx-10 grow">
+                <p class="text-h1 mb-4">Informations sensibles</p>
+                <p class="text-small">Définissez un nouveau mot de passe fiable, respectant les conditions
+                    de sécurité minimum suivantes :</p>
+                <ul class="mb-3 text-small">
+                    <li>- 8 caratères</li>
+                    <li>- 1 majuscule</li>
+                    <li>- 1 caractère numérique</li>
+                </ul>
 
-                <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                    id="togglePassword2"></i>
+                <div class="relative w-full">
+                    <label class="text-h3" for="mdp">Mot de passe actuel</label>
+                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                        id="mdp" name="mdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" minlength="8">
+
+                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                        id="togglePassword1"></i>
+                </div>
+
+                <div class="relative w-full">
+                    <label class="text-h3" for="newMdp">Nouveau mot de passe</label>
+                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                        id="newMdp" name="newMdp">
+
+                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                        id="togglePassword2"></i>
+                </div>
+
+                <div class="relative w-full">
+                    <label class="text-h3" for="confNewMdp">Confirmation nouveau mot de passe</label>
+                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                        id="confNewMdp" name="confNewMdp">
+
+                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                        id="togglePassword3"></i>
+                </div>
+
+                <span id="error-message" class="error text-rouge-logo text-small"></span>
+
+                <button id="save"
+                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                    disabled>
+                    Modifier mon mot de passe
+                </button>
             </div>
-
-            <div class="relative w-full">
-                <label class="text-h3" for="confNewMdp">Confirmation nouveau mot de passe</label>
-                <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                    id="confNewMdp" name="confNewMdp">
-
-                <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                    id="togglePassword3"></i>
-            </div>
-
-            <span id="error-message" class="error text-rouge-logo text-small"></span>
-
-            <button id="save"
-                class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
-                disabled>
-                Modifier mon mot de passe
-            </button>
         </div>
     </main>
 

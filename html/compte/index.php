@@ -35,6 +35,7 @@ session_start();
     $controllerMembre = new MembreController();
     $membre = $controllerMembre->getInfosMembre($id_membre);
     ?>
+
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
         <div class="flex w-full items-center">
             <a href="" onclick="toggleMenu()" class="mr-4 md:hidden">
@@ -43,8 +44,9 @@ session_start();
             <p class="text-h2"><?php echo $membre['prenom'] . ' ' . $membre['nom'] ?></p>
         </div>
     </header>
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div id="menu" class="absolute md:block">
+
+    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2 flex">
+        <div id="menu">
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
             ?>

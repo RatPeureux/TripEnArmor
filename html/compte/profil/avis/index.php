@@ -1,6 +1,7 @@
 <?php
 session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -45,8 +46,51 @@ session_start();
     $stmt->execute();
     $id_membre = $stmt->fetch(PDO::FETCH_ASSOC)['id_compte']; ?>
 
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        
+    <main class="w-full flex justify-center grow">
+        <div class="max-w-[1280px] w-full p-2 flex justify-center">
+            <div id="menu">
+                <?php
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+                ?>
+            </div>
+
+            <div class="flex flex-col md:mx-10 gap-5 grow">
+                <!-- Afficher tous les avis du membre -->
+                <?php
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+                $avisController = new AvisController();
+
+                $tousMesAvis = $avisController->getAvisByIdMembre($id_membre);
+
+                if ($tousMesAvis) {
+                    foreach ($tousMesAvis as $avis) {
+                        $id_avis = $avis['id_avis'];
+                        ?>
+
+                        <div id="clickable_div_<?php echo $id_avis ?>" class="shadow-lg">
+                            <?php
+                            // Ensure the included file outputs within the <a> tag
+                            include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/mon_avis_view.php';
+                            ?>
+                        </div>
+
+                        <script>
+                            document.querySelector('#clickable_div_<?php echo $id_avis ?>').addEventListener('click', function () {
+                                window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
+                            });
+                        </script>
+
+                        <?php
+                    }
+                } else {
+                    ?>
+                    <h1 class="text-center text-xl font-bold">Vous n'avez aucun avis</h1>
+                    <?php
+                }
+                ?>
+
+            </div>
+        </div>
     </main>
 
     <!-- FOOTER -->

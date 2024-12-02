@@ -12,6 +12,35 @@ document.addEventListener("DOMContentLoaded", function() {
     // Liste des tags récents
     let recentTags = [];
 
+    // Vérifie si le conteneur des tags existe
+    function ensureTagsContainerExists() {
+        if (!tagsContainer) {
+            // Redirige vers la page d'accueil avec la recherche actuelle
+            const searchQuery = encodeURIComponent(searchInput.value.trim());
+            var redirectUrl = `/?search=${searchQuery}`;
+            if (window.location.href.includes("pro")) {
+                redirectUrl = `/pro?search=${searchQuery}`;
+            }
+            window.location.href = redirectUrl;
+        }
+    }
+
+    // Vérifie si des paramètres de recherche existent dans l'URL
+    function checkForSearchParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get('search');
+
+        if (searchQuery) {
+            // Séparer les tags par virgule et ajouter chaque tag
+            const tags = searchQuery.split(',').map(tag => tag.trim());
+            tags.forEach(tag => {
+                if (tag) {
+                    addTag(tag); // Ajouter le tag au conteneur
+                }
+            });
+        }
+    }
+
     // Vérifie si le bouton "Supprimer tout" doit être affiché
     function updateClearButtonVisibility() {
         if (tagsContainer.children.length === 0) {
@@ -178,6 +207,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Valider l'entrée et ajouter des tags
     function validateInput() {
+        ensureTagsContainerExists(); // Vérifie l'existence du conteneur
+
         if (searchInput.value.trim() !== '') {
             addMultipleTags(searchInput.value.trim());
             searchInput.value = '';
@@ -195,38 +226,31 @@ document.addEventListener("DOMContentLoaded", function() {
     // Événements
     searchInput.addEventListener('input', (e) => {
         updateDropdown(e.target.value);
-        // Restez sur le champ de recherche après chaque saisie
         searchInput.focus();
     });
 
-    // Valider via le clic sur l'icône de recherche
     searchBtn.addEventListener('click', () => validateInput());
 
-    // Valider via la touche Entrée
     searchInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
-            e.preventDefault(); // Empêche le comportement par défaut du formulaire si c'est un <form>
+            e.preventDefault(); // Empêche le comportement par défaut
             validateInput();
-        } else if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            if (dropdownMenu.children.length > 0) {
-                dropdownMenu.children[0].focus(); // Met le focus sur le premier élément
-            }
         }
     });
 
-    // Supprimer tous les tags au clic sur le bouton
     clearTagsBtn.addEventListener('click', clearTags);
 
-    // Cacher le menu déroulant quand on clique en dehors
     document.addEventListener('click', (e) => {
         if (!e.target.closest('#open-search')) {
             dropdownMenu.classList.add('hidden');
         }
     });
 
-    // Masquer le bouton au démarrage
+    // Cacher le bouton au démarrage
     updateClearButtonVisibility();
+
+    // Vérifie les paramètres de recherche au chargement
+    checkForSearchParams();
 
     // !!! SCRIPT POUR LE FONCTIONNEMENT DU FILTRE DE RECHERCHE
 });
