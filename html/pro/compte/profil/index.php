@@ -9,7 +9,7 @@ include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controlle
 $controllerAdresse = new AdresseController();
 $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
 
-if (isset($_POST['nom'])) {
+if (isset($_POST['nom']) && !empty($_POST['nom'])) {
     if ($pro['data']['type'] == 'prive') {
         include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
         $controllerProPrive = new ProPriveController();
@@ -30,22 +30,22 @@ if (isset($_POST['adresse']) || isset($_POST['complement']) || isset($_POST['cod
     $code_postal = false;
     $ville = false;
 
-    if (isset($_POST['adresse'])) {
+    if (isset($_POST['adresse']) && !empty($_POST['adresse'])) {
         $adresse = $_POST['adresse'];
         $adresse = explode(" ", $adresse);
         $numero = $adresse[0];
         $odonyme = implode(" ", array_slice($adresse, 1));
         unset($_POST['adresse']);
     }
-    if (isset($_POST['complement'])) {
+    if (isset($_POST['complement']) && !empty($_POST['complement'])) {
         $complement = $_POST['complement'];
         unset($_POST['ville']);
     }
-    if (isset($_POST['code_postal'])) {
+    if (isset($_POST['code_postal']) && !empty($_POST['code_postal'])) {
         $code_postal = $_POST['code_postal'];
         unset($_POST['code_postal']);
     }
-    if (isset($_POST['ville'])) {
+    if (isset($_POST['ville']) && !empty($_POST['ville'])) {
         $ville = $_POST['ville'];
         unset($_POST['ville']);
     }
@@ -54,7 +54,7 @@ if (isset($_POST['adresse']) || isset($_POST['complement']) || isset($_POST['cod
 }
 
 $pro = verifyPro();
-$adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
+$adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
 
 // Connexion avec la bdd
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';

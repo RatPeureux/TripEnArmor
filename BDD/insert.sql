@@ -163,7 +163,7 @@ VALUES ( -- Quifaitca13
     );
 
 INSERT INTO
-    _RIB (
+    _rib (
         code_banque,
         code_guichet,
         numero_compte,
