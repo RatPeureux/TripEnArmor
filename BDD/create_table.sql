@@ -266,8 +266,8 @@ ADD CONSTRAINT fk_restauration_type_offre FOREIGN KEY (id_type_offre) REFERENCES
 
 -- Lien entre restauration et type_repas
 create table _restaurant_type_repas ( -- Baptiste
-    id_offre SERIAL REFERENCES _restauration (id_offre) ON DELETE CASCADE,
-    id_type_repas SERIAL REFERENCES _type_repas (id_type_repas) ON DELETE CASCADE,
+    id_offre SERIAL REFERENCES _restauration (id_offre),
+    id_type_repas SERIAL REFERENCES _type_repas (id_type_repas),
     PRIMARY KEY (id_offre, id_type_repas)
 );
 
@@ -401,12 +401,33 @@ CREATE TABLE _tarif_public ( -- Baptiste
     prix INTEGER,
     id_offre INTEGER NOT NULL
 );
+
+-- ------------------------------------------------------------------------------------------------------- Tarif Facture
+
+-- ------------------------------------------------------------------------------------------------------- Table ternaire restauration avis et note détaillée
+CREATE TABLE _avis_restauration_note (
+    id_avis INT REFERENCES _avis (id_avis),
+    id_restauration INT REFERENCES _restauration (id_offre),
+    note_ambiance FLOAT,
+    note_service FLOAT,
+    note_cuisine FLOAT,
+    rapport_qualite_prix FLOAT,
+    PRIMARY KEY (id_avis, id_restauration)
+);
+-- ------------------------------------------------------------------------------------------------------- Fin avis_restauration_note
+
 -- ------------------------------------------------------------------------------------------------------- Prestations
 CREATE TABLE _prestation (
     id_prestation SERIAL PRIMARY KEY,
     nom VARCHAR(50) NOT NULL,
     inclus BOOLEAN,
     id_offre INTEGER NOT NULL REFERENCES _activite(id_offre) ON DELETE CASCADE -- Propriétaire
+
+-- ------------------------------------------------------------------------------------------------------- Liaison prestation et activité     **** Prestation à revoir, ça ne marche pas ****
+CREATE TABLE _activite_prestation (
+    id_activite INTEGER NOT NULL REFERENCES _activite(id_offre) ,
+    id_prestation INTEGER NOT NULL REFERENCES _prestation(id_prestation) ,
+    PRIMARY KEY (id_activite, id_prestation)
 );
 -- ------------------------------------------------------------------------------------------------------- Images
 -- Table T_IMAGE_IMG
@@ -416,8 +437,8 @@ CREATE TABLE T_Image_Img (
     img_date_creation DATE NOT NULL,
     img_description TEXT,
     img_date_suppression DATE,
-    id_offre INTEGER REFERENCES _offre (id_offre) ON DELETE CASCADE,
-    id_parc INTEGER REFERENCES _parc_attraction (id_offre) ON DELETE CASCADE,
+    id_offre INTEGER REFERENCES _offre (id_offre),
+    id_parc INTEGER REFERENCES _parc_attraction (id_offre),
     -- Contrainte d'exclusivité : soit offre_id, soit id_parc doit être non nul, mais pas les deux
     CONSTRAINT chk_offre_parc_exclusif CHECK (
         (

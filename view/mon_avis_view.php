@@ -10,18 +10,29 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
 $membreController = new MembreController();
 $proPublicController = new ProPublicController();
 $proPriveController = new ProPriveController();
 $avisController = new avisController();
+$restaurationController = new RestaurationController();
+
+
+if (!function_exists('to_nom_note')) {
+    function to_nom_note($nom_attribut_note): string
+    {
+        return str_replace('_', ' ', explode('_', $nom_attribut_note, 2)[1]);
+    }
+}
 ?>
 
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
-<div class="avis w-full rounded-lg border border-primary border-4 p-2">
+<div class="avis w-full rounded-lg border border-primary border-4 p-2 flex flex-col gap-3">
     <?php
     // Obtenir la variables regroupant les infos du membre
     $membre = $membreController->getInfosMembre($id_membre);
     $avis = $avisController->getAvisById($id_avis);
+    $restauration = $restaurationController->getInfosRestauration($avis['id_offre']);
     ?>
 
     <!-- Première ligne du haut -->
@@ -56,18 +67,65 @@ $avisController = new avisController();
         <!-- Date de publication -->
         <?php
         if ($avis['date_publication']) { ?>
-            <p class="italic grow">Posté le <?php echo $avis['date_publication'] ?></p>
+            <p class="italic grow"><?php echo $avis['date_publication'] ?></p>
             <?php
         }
         ?>
 
-        <!-- Drapeau + poubelle -->
-        <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $id_offre ?>"
+        <!-- Poubelle de suppression -->
+        <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $avis['id_offre'] ?>"
             onclick="confirm('Supprimer votre avis ?')">
-            <i class="fa-solid text-h2 fa-trash"></i>
+            <i class="fa-solid fa-trash text-h2"></i>
         </a>
-        <a href="" onclick="confirm('Signaler l\'avis ?')"><i class="fa-regular text-h2 fa-flag"></i></a>
     </div>
+
+    <!-- Deuxième ligne (notes complémentaire d'un restaurant) -->
+    <?php
+    // Notes pour les restaurants
+    if ($restauration) { ?>
+        <div class='flex justify-around'>
+            <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+            $stmt = $dbh->prepare("SELECT * FROM sae_db._avis_restauration_note WHERE id_avis = :id_avis AND id_restauration = :id_restauration");
+            $stmt->bindParam(":id_avis", $id_avis);
+            $stmt->bindParam(":id_restauration", $restauration['id_offre']);
+            $stmt->execute();
+            $notes_restauration = $stmt->fetch();
+
+            foreach (['note_ambiance', 'note_service', 'note_cuisine', 'rapport_qualite_prix'] as $nom_note) {
+                ?>
+
+                <div class='flex flex-col items-center'>
+                    <div class="flex gap-1">
+                        <?php
+                        $note = floatval($notes_restauration[$nom_note]);
+                        for ($i = 0; $i < 5; $i++) {
+                            if ($note > 1) {
+                                ?>
+                                <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
+                                <?php
+                            } else if ($note > 0) {
+                                ?>
+                                    <img class="w-3" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
+                                <?php
+                            } else {
+                                ?>
+                                    <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                                <?php
+                            }
+                            $note--;
+                        }
+                        ?>
+                    </div>
+
+                    <p class='italic'><?php print_r(to_nom_note($nom_note)) ?></p>
+                </div>
+
+                <?php
+            } ?>
+        </div>
+        <?php
+    }
+    ?>
 
     <!-- Date d'expérience + contexte de passage -->
     <?php

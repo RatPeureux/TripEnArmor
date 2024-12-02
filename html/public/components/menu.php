@@ -37,7 +37,7 @@
 
 <!-- VERSION TABLETTE OU PLUS (+768px) -->
 <div class="hidden w-52 sticky top-2 md:block bg-white z-20 border-black border rounded-b-lg rounded-tr-lg">
-  <div class="p-4 flex flex-row gap-3 justify-start items-center <?php if (!isset($pagination)) {
+  <div class="p-4 flex flex-row gap-3 justify-start items-center rounded-tr-lg <?php if (!isset($pagination)) {
     echo 'bg-primary text-white';
   } ?>">
     <i class="text-3xl fa-solid fa-bars"></i>
