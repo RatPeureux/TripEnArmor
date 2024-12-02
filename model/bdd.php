@@ -29,6 +29,8 @@ abstract class BDD
 
     static public function startTransaction() {
         self::$db->beginTransaction();
+        $statement = self::$db->prepare("SET CONSTRAINTS ALL DEFERRED;");
+        $statement->execute();
     }
 
     static public function commitTransaction() {
