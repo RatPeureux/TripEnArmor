@@ -33,7 +33,7 @@ class ParcAttractionController
 
     public function createParcAttraction($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age_requis)
     {
-        $parc_attraction = $this->model::createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age_requis);
+        $parc_attraction = $this->model::createParcAttraction($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age_requis);
 
         return $parc_attraction;
     }

@@ -33,7 +33,7 @@ class SpectacleController
 
     public function createSpectacle($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree)
     {
-        $spectacle = $this->model::createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree);
+        $spectacle = $this->model::createSpectacle($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree);
 
         return $spectacle;
     }

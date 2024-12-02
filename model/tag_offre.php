@@ -4,7 +4,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class TagOffre extends BDD
 {
-    private $nom_table = "sae_db._tag_offre";
+    static private $nom_table = "sae_db._tag_offre";
 
     static function getTagsByIdOffre($id_offre)
     {
@@ -43,7 +43,7 @@ class TagOffre extends BDD
         $statement->bindValue(2, $id_tag);
 
         if ($statement->execute()) {
-            return !empty($statement->fetchAll(PDO::FETCH_ASSOC));
+            return count($statement->fetchAll(PDO::FETCH_ASSOC)) != 0;
         } else {
             return -1;
         }
@@ -51,7 +51,7 @@ class TagOffre extends BDD
 
     static function linkOffreAndTag($id_offre, $id_tag)
     {
-        $query = "INSERT INTO " . self::$nom_table . "VALUES (?, ?) RETURNING *";
+        $query = "INSERT INTO " . self::$nom_table . " VALUES (?, ?) RETURNING *";
 
         $statement = self::$db->prepare($query);
         $statement->bindValue(1, $id_offre);
