@@ -24,19 +24,21 @@ class TagController
         return $result;
     }
 
-    public function getTagsByName($nom, $index = -1)
+    public function getTagsByName($nom)
     {
-        $tag = $this->model::getTagByName($nom);
+        $tags = $this->model::getTagsByName($nom);
 
-        if ($index == -1) {
-            return $tag;
-        } else {
-            return $tag[$index];
+        print_r($tags);
+        
+        if (count($tags) == 0) {
+            return false;
         }
+
+        return $tags;
     }
 
     public function createTag($nom)
     {
-        return $this->model::createTag($nom)["id_tag"];
+        return $this->model::createTag($nom);
     }
 }

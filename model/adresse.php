@@ -44,7 +44,7 @@ class Adresse extends BDD
     {
         self::initBDD();
         // Requête SQL pour insérer une nouvelle adresse
-        $query = "INSERT INTO " . self::$nom_table . " (code_postal, ville, odonyme, complement) VALUES (?, ?, ?, ?, ?) RETURNING id_adresse";
+        $query = "INSERT INTO " . self::$nom_table . " (code_postal, ville, numero, odonyme, complement) VALUES (?, ?, ?, ?, ?) RETURNING id_adresse";
 
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
