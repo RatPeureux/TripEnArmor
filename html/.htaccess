@@ -1,0 +1,5 @@
+# Redirection pour l'erreur 404
+ErrorDocument 404 /404/
+
+# Redirection pour l'erreur 401
+ErrorDocument 401 /401/

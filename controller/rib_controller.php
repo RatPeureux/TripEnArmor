@@ -27,7 +27,7 @@ class RibController
 
     public function createRib($code_banque, $code_guichet, $numero_compte, $cle)
     {
-        $rib = $this->model::createActivite($code_banque, $code_guichet, $numero_compte, $cle);
+        $rib = $this->model::createRib($code_banque, $code_guichet, $numero_compte, $cle);
 
         return $rib;
     }

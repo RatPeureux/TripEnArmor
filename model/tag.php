@@ -4,7 +4,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class Tag extends BDD
 {
-    private $nom_table = "sae_db._tag";
+    static private $nom_table = "sae_db._tag";
 
     /**
      * Récupère un tag par son ID.
@@ -34,7 +34,7 @@ class Tag extends BDD
     {
         self::initBDD();
 
-        $query = "SELECT * FROM " . self::$nom_table . " WHERE nom = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE nom_tag = ?";
 
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $nom);
@@ -50,7 +50,7 @@ class Tag extends BDD
     static function createTag($nom)
     {
         self::initBDD();
-        $query = "INSERT INTO " . self::$nom_table . " (nom) VALUES (?) RETURNING id_tag";
+        $query = "INSERT INTO " . self::$nom_table . " (nom_tag) VALUES (?) RETURNING id_tag";
 
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $nom);

@@ -1,8 +1,7 @@
 set schema 'sae_db';
 
 /*             
-
-                  Fonctions            
+Fonctions            
 */
 
 -- fonction qui permet uniquement à un membre de créer un avis.
@@ -73,12 +72,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Créer une prestation si elle n'existe pas déjà
-SELECT creer_prestation('Prestation ABC', TRUE, 3);
-
--- Réutiliser une prestation existante si elle a le même nom
-SELECT creer_prestation('zizi', TRUE, 4);
-
 
 
 -- vérifie que l'email est valide
@@ -126,7 +119,7 @@ BEGIN
     -- Alerter quand la clé étrangère n'est pas respecté
     IF NOT EXISTS (SELECT 1 FROM sae_db._pro_prive WHERE id_compte = NEW.id_pro)
     AND NOT EXISTS (SELECT 1 FROM sae_db._pro_public WHERE id_compte = NEW.id_pro) THEN
-        RAISE EXCEPTION 'Violation de la foreignn key: id_pro n existe pas dans _pro_prive ou _pro_public';
+        RAISE EXCEPTION 'Foreign key violation: id_pro does not exist in _pro_prive or _pro_public';
     END IF;
     RETURN NEW;
 END;
@@ -151,8 +144,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
- -- vue qui vérifie la validité de l'adresse mail
+
+
+CREATE OR REPLACE FUNCTION check_fk_offre() RETURNS TRIGGER AS $$
+BEGIN
+    PERFORM * FROM sae_db._offre WHERE id_offre = NEW.id_offre;
+    IF NOT FOUND THEN 
+        RAISE EXCEPTION 'Foreign key violation: id_offre does not exist in _offre';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
  
+ -- vue qui vérifie la validité de l'adresse mail
 CREATE OR REPLACE FUNCTION verifier_email_connexion(email_input VARCHAR)
 RETURNS TEXT AS $$
 DECLARE
@@ -174,82 +179,111 @@ $$ LANGUAGE plpgsql;
 
 
 /*             
-
-                  Triggers           
+Triggers           
 */
 
+-- Trigger pour valider les règles métier
+-- CREATE OR REPLACE TRIGGER tg_check_contraintes_avis BEFORE
+-- INSERT
+--     OR
+-- UPDATE ON sae_db._avis FOR EACH ROW
+-- EXECUTE FUNCTION check_contraintes_avis ();
+
+-- Trigger pour valider les clés étrangères
+-- CREATE OR REPLACE TRIGGER tg_fk_avis BEFORE
+-- INSERT
+--     ON sae_db._avis FOR EACH ROW
+-- EXECUTE FUNCTION fk_avis ();
+
+-- trigger pour vérifier les id de la table offre pour tarif_public
+CREATE OR REPLACE TRIGGER fk_offre_tarif_public BEFORE
+INSERT
+    ON sae_db._tarif_public FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
+
+-- trigger pour vérifier les id de la table offre pour horaires
+CREATE OR REPLACE TRIGGER fk_offre_horaires BEFORE
+INSERT
+    ON sae_db._horaire FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
+
+CREATE OR REPLACE TRIGGER fk_offre_souscription_option BEFORE
+INSERT
+    ON sae_db._offre_souscription_option FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
+
+CREATE OR REPLACE TRIGGER fk_offre_tag BEFORE
+INSERT
+    ON sae_db._tag_offre FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
+
+CREATE OR REPLACE TRIGGER fk_offre_facture BEFORE
+INSERT
+    ON sae_db._facture FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
+
+CREATE OR REPLACE TRIGGER fk_offre_log_changement_status BEFORE
+INSERT
+    ON sae_db._log_changement_status FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre ();
 
 -- trigger pour vérifier les id de la table activite
-CREATE TRIGGER fk_activite_professionnel
-BEFORE INSERT ON _activite
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE OR REPLACE TRIGGER fk_activite_professionnel BEFORE
+INSERT
+    ON _activite FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table spectacle
-CREATE TRIGGER fk_spectacle_professionnel
-BEFORE INSERT ON _spectacle
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE OR REPLACE TRIGGER fk_spectacle_professionnel BEFORE
+INSERT
+    ON _spectacle FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table visite
-CREATE TRIGGER fk_visite_professionnel
-BEFORE INSERT ON _visite
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE OR REPLACE TRIGGER fk_visite_professionnel BEFORE
+INSERT
+    ON _visite FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
--- trigger pour vérifier les id de la table parc d'attraction 
-CREATE TRIGGER fk_parc_professionnel
-BEFORE INSERT ON _parc_attraction
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+-- trigger pour vérifier les id de la table parc d'attraction
+CREATE OR REPLACE TRIGGER fk_parc_attraction_professionnel BEFORE
+INSERT
+    ON _parc_attraction FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table restauration
-CREATE TRIGGER fk_restauration_professionnel
-BEFORE INSERT ON _restauration
-FOR EACH ROW
-EXECUTE FUNCTION fk_vers_professionnel();
+CREATE OR REPLACE TRIGGER fk_restauration_professionnel BEFORE
+INSERT
+    ON _restauration FOR EACH ROW
+EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger changement de statut
-CREATE TRIGGER log_changement_statut
-AFTER UPDATE ON _offre
-FOR EACH ROW
-WHEN (OLD.est_en_ligne IS DISTINCT FROM NEW.est_en_ligne)
-EXECUTE FUNCTION trigger_log_changement_statut();
+CREATE OR REPLACE TRIGGER log_changement_statut AFTER
+UPDATE ON _offre FOR EACH ROW WHEN (
+    OLD.est_en_ligne IS DISTINCT
+    FROM NEW.est_en_ligne
+)
+EXECUTE FUNCTION trigger_log_changement_statut ();
 
 -- trigger pour la mise à jour de la date de mise à jour d'une offre
-CREATE TRIGGER offer_update_timestamp
-BEFORE UPDATE ON _offre
-FOR EACH ROW
-EXECUTE FUNCTION update_offer_timestamp();
+CREATE OR REPLACE TRIGGER offer_update_timestamp BEFORE
+UPDATE ON _offre FOR EACH ROW
+EXECUTE FUNCTION update_offer_timestamp ();
 
--- trigger de vérification d'un unique compte professionnel privé puisse rentrer des valeurs (pas très explicit ça)
-CREATE TRIGGER tg_unique_vals_compte_prive
-BEFORE INSERT ON _pro_prive
-FOR EACH ROW
-EXECUTE FUNCTION unique_vals_compte();
+-- trigers de vérification d'un unique compte professionnel privé puisse rentrer des valeurs (pas très explicit ça)
+CREATE OR REPLACE TRIGGER tg_unique_vals_compte BEFORE
+INSERT
+    ON _pro_prive FOR EACH ROW
+EXECUTE FUNCTION unique_vals_compte ();
 
--- trigger de vérification d'un unique compte professionnel publique puisse rentrer des valeurs (pas très explicit ça)
-CREATE TRIGGER tg_unique_vals_compte_pro
-BEFORE INSERT ON _pro_public
-FOR EACH ROW
-EXECUTE FUNCTION unique_vals_compte();
+-- trigers de vérification d'un unique compte professionnel publique puisse rentrer des valeurs (pas très explicit ça)
+CREATE OR REPLACE TRIGGER tg_unique_vals_compte BEFORE
+INSERT
+    ON _pro_public FOR EACH ROW
+EXECUTE FUNCTION unique_vals_compte ();
 
--- trigger de vérification d'un unique compte membre puisse rentrer des valeurs (pas très explicit ça)
-CREATE TRIGGER tg_unique_vals_compte_membre
-BEFORE INSERT ON _membre
-FOR EACH ROW
-EXECUTE FUNCTION unique_vals_compte();
-
--- trigger pour vérifier qu'un avis ne peut être écrit que par un membre
-CREATE TRIGGER trigger_check_avis
-BEFORE INSERT ON _avis
-FOR EACH ROW
-EXECUTE FUNCTION check_avis();
-
--- trigger pour vérifier qu'une réponse ne peut être écrite que par un pro détenteur de l'offre
-CREATE TRIGGER trigger_check_reponse
-BEFORE INSERT ON _reponses
-FOR EACH ROW
-EXECUTE FUNCTION check_reponse();
-
-
+-- trigers de vérification d'un unique compte membre puisse rentrer des valeurs (pas très explicit ça)
+CREATE OR REPLACE TRIGGER tg_unique_vals_compte BEFORE
+INSERT
+    ON _membre FOR EACH ROW
+EXECUTE FUNCTION unique_vals_compte ();
