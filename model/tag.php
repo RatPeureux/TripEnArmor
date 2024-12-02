@@ -1,8 +1,9 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-class Tag extends BDD {
+class Tag extends BDD
+{
     private $nom_table = "sae_db._tag";
 
     /**
@@ -10,11 +11,12 @@ class Tag extends BDD {
      * @param int $id L'identifiant du tag à récupérer.
      * @return array|int Retourne un tableau contenant les données du tag ou -1 en cas d'erreur.
      */
-    static function getTagById($id) {
+    static function getTagById($id)
+    {
         self::initBDD();
         // Requête SQL pour sélectionner un tag par son ID
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_tag = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_tag = ?";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
@@ -28,7 +30,8 @@ class Tag extends BDD {
         }
     }
 
-    static function getTagsByName($nom) {
+    static function getTagsByName($nom)
+    {
         self::initBDD();
 
         $query = "SELECT * FROM " . self::$nom_table . " WHERE nom = ?";
@@ -44,7 +47,8 @@ class Tag extends BDD {
         }
     }
 
-    static function createTag($nom) {
+    static function createTag($nom)
+    {
         self::initBDD();
         $query = "INSERT INTO " . self::$nom_table . " (nom) VALUES (?) RETURNING id_tag";
 

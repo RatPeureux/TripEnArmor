@@ -7,51 +7,36 @@ class AvisController
 
     public function getAvisByIdOffre($idOffre)
     {
-        $resultatSQL = $this->model::getAvisByIdOffre($idOffre);
+        $result = $this->model::getAvisByIdOffre($idOffre);
 
-        if ($resultatSQL) {
-            $result = array_map(function ($row) {
-                return [
-                    "id_avis" => $row["id_avis"],
-                    "titre" => $row["titre"],
-                    "commentaire" => $row["commentaire"],
-                    "date_experience" => $row["date_experience"],
-                    "date_publication" => $row["date_publication"],
-                    "id_avis_reponse" => $row["id_avis_reponse"],
-                ];
-            }, $resultatSQL);
+        if ($result) {
+            return $result;
         } else {
-            echo "ERREUR: Aucun avis trouvé";
             return -1;
         }
-
-        return $result;
     }
 
     public function getAvisByIdMembre($idMembre)
     {
-        $resultatSQL = $this->model::getAvisByIdMembre($idMembre);
-
-        if ($resultatSQL) {
-            $result = array_map(function ($row) {
-                return [
-                    "id_avis" => $row["id_avis"],
-                    "titre" => $row["titre"],
-                    "commentaire" => $row["commentaire"],
-                    "date_experience" => $row["date_experience"],
-                    "date_publication" => $row["date_publication"],
-                    "id_avis_reponse" => $row["id_avis_reponse"],
-                ];
-            }, $resultatSQL);
-        } else {
-            echo "ERREUR: Aucun avis trouvé";
-            return -1;
-        }
+        $result = $this->model::getAvisByIdMembre($idMembre);
+        return $result;
     }
 
-    public function createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse = null)
+    public function getAvisById($idAvis)
     {
-        $resultatSQL = $this->model::createAvis($titre, $commentaire, $date_experience, $id_compte, $id_offre, $id_avis_reponse = null);
+        $result = $this->model::getAvisById($idAvis);
+        return $result;
+    }
+
+    public function getAvisByIdMembreEtOffre($idMembre, $idOffre)
+    {
+        $result = $this->model::getAvisByIdMembreEtOffre($idMembre, $idOffre);
+        return $result;
+    }
+
+    public function createAvis($titre, $date_experience, $id_membre, $id_offre, $note, $contexte_passage, $commentaire = null, $id_avis_reponse = null)
+    {
+        $resultatSQL = $this->model::createAvis($titre, $date_experience, $id_membre, $id_offre, $note, $contexte_passage, $commentaire, $id_avis_reponse);
 
         if ($resultatSQL) {
             return $resultatSQL;

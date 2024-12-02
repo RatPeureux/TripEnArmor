@@ -177,8 +177,28 @@ VALUES ( -- Quifaitca13
         '06 59 64 11 08',
         5,
         'jjdup',
-        'Dupont',
-        'Jean'
+        'Ducrop',
+        'Jacques'
+    );
+
+INSERT INTO
+    _RIB (
+        code_banque,
+        code_guichet,
+        numero_compte,
+        cle
+    )
+VALUES (
+        '12345',
+        '67890',
+        '12345678901',
+        '97'
+    ),
+    (
+        '54321',
+        '09876',
+        '10987654321',
+        '45'
     );
 
 INSERT INTO
@@ -188,7 +208,8 @@ INSERT INTO
         mdp_hash,
         num_tel,
         num_siren,
-        nom_pro
+        nom_pro,
+        id_rib
     )
 VALUES ( -- Caca123-
         1,
@@ -196,7 +217,8 @@ VALUES ( -- Caca123-
         '$2y$10$SKmv1CW9n.OBcF.N.lx/3.iCpIIx7Z4ov5AqM246/21dUlp7flzm2',
         '07 69 24 73 22',
         '438 107 845',
-        'Henvic&Associates'
+        'Henvic&Associates',
+        1
     ),
     ( -- MaGalie2511
         6,
@@ -204,7 +226,8 @@ VALUES ( -- Caca123-
         '$2y$10$OmocaPOye7BG1feUJfQACeEFublSKfrcRi7r58JiYp0k6.pLuMc9W',
         '01 23 45 67 89',
         '591 321 423',
-        'PlusUnCanvaRaté'
+        'Canva2Wish',
+        2
     );
 
 INSERT INTO
@@ -220,7 +243,7 @@ VALUES ( -- Phenixis_05
         7,
         'max.duh22@gmail.com',
         '$2y$10$7JTlezr2H6kVw5F0nuqHPuhe2X8AVbgenBADfX/sr0XEHCNyZ3OT6',
-        '02 54  815 22 45',
+        '02 54 15 22 45',
         'Associatif',
         'Wisecart'
     ),
@@ -243,9 +266,9 @@ VALUES ( -- Phenixis_05
 
 INSERT INTO
     _type_offre (nom, prix_ht, prix_ttc)
-VALUES ('Premium', 3.34, 4),
-    ('Standard', 1.67, 2),
-    ('Gratuit', NULL, NULL);
+VALUES ('Gratuit', NULL, NULL),
+    ('Premium', 3.34, 4),
+    ('Standard', 1.67, 2);
 
 INSERT INTO
     _restauration (

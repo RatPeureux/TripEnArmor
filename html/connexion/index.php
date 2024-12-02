@@ -19,9 +19,10 @@ if (empty($_POST)) { ?>
         <link rel="stylesheet" href="/styles/input.css">
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="/styles/config.js"></script>
-        <title>Connexion au compte</title>
         <!-- Inclusion de Font Awesome pour les icônes -->
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+
+        <title>Connexion au compte - PACT</title>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
@@ -35,7 +36,7 @@ if (empty($_POST)) { ?>
                     <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/connexion" method="POST">
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="" method="POST">
                     <p class="pb-3">J'ai un compte Membre</p>
 
                     <!-- Champ pour l'identifiant -->
@@ -64,7 +65,7 @@ if (empty($_POST)) { ?>
 
                     <!-- Bouton de connexion -->
                     <input type="submit" value="Me connecter"
-                        class="cursor-pointer mb-8 w-full h-12 my-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+                        class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
 
                     <!-- Liens pour mot de passe oublié et création de compte -->
                     <div class="flex items-center flex-nowrap h-12 space-x-1.5">
@@ -110,7 +111,7 @@ if (empty($_POST)) { ?>
 <?php } else {
     try {
         // Connexion avec la bdd
-        include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
         // Vérifie si la requête est une soumission de formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

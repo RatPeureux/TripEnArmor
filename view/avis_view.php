@@ -1,8 +1,98 @@
-<?php
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
-$avisController = new AvisController;
+<!-- 
+    POUR APPELER LA VUE AVIS, DÉFINIR LES VARIABLES SUIVANTES EN AMONT :
+    - $id_avis
+    - $id_membre
+-->
 
-// Test d'insertion d'un avis (OK)
-// $maDate = date('2024-11-02 10:10:10');
-// $avisController->createAvis("monTitre", "c nul", $maDate, $id_membre, $id_offre);
-// print_r($avisController->getAvisByIdOffre($id_offre));
+<?php
+// Import des controllers
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+$membreController = new MembreController();
+$proPublicController = new ProPublicController();
+$proPriveController = new ProPriveController();
+$avisController = new avisController();
+?>
+
+<!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
+<div class="avis w-full rounded-lg border border-black p-2">
+    <?php
+    // Obtenir la variables regroupant les infos du membre
+    $membre = $membreController->getInfosMembre($id_membre);
+    $avis = $avisController->getAvisById($id_avis);
+    ?>
+
+    <!-- Première ligne du haut -->
+    <div class="flex gap-3 items-center">
+        <?php
+        if ($membre) { ?>
+            <!-- Prénom, nom -->
+            <p class="text-small md:text-normal"><?php echo $membre['prenom'] . ' ' . $membre['nom'] ?></p>
+        <?php }
+        ?>
+
+        <!-- Note sur 5 -->
+        <div class="flex gap-1">
+            <?php
+            // Note s'il y en a une
+            $note = floatval($avis['note']);
+            for ($i = 0; $i < 5; $i++) {
+                if ($note > 1) {
+                    ?>
+                    <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
+                    <?php
+                } else if ($note > 0) {
+                    ?>
+                        <img class="w-3" src="/public/images/oeuf_moitie.svg" alt="1 point de note">
+                    <?php
+                } else {
+                    ?>
+                        <img class="w-3" src="/public/images/oeuf_vide.svg" alt="1 point de note">
+                    <?php
+                }
+                $note--;
+            }
+            ?>
+        </div>
+
+        <!-- Date de publication -->
+        <?php
+        if ($avis['date_publication']) { ?>
+            <p class="italic grow">Posté le <?php echo $avis['date_publication'] ?></p>
+            <?php
+        }
+        ?>
+
+        <!-- Drapeau de signalement -->
+        <a href="#" onclick="confirm('Signaler l\'avis ?')"><i class="fa-regular text-h2 fa-flag"></i></a>
+    </div>
+
+    <!-- Date d'expérience + contexte de passage -->
+    <?php
+    if ($avis['date_experience']) { ?>
+        <div class="flex justify-start gap-3">
+            <p class="italic">Vécu le
+                <?php echo $avis['date_experience'] ?>,
+                <?php echo (isset($avis['contexte_passage'])) ? $avis['contexte_passage'] : '' ?>
+            </p>
+        </div>
+        <?php
+    }
+    ?>
+
+    <?php
+    // Titre de l'avis s'il y en a un
+    if ($avis['titre']) { ?>
+        <p class="text-h4 font-bold"><?php echo $avis['titre'] ?></p>
+    <?php }
+    ?>
+
+    <?php
+    // Commentaire de l'avis s'il y en a un
+    if ($avis['commentaire']) { ?>
+        <p><?php echo $avis['commentaire'] ?></p>
+    <?php }
+    ?>
+</div>

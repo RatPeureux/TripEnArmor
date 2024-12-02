@@ -1,6 +1,6 @@
 <?php
 session_start();
-include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 verifyPro();
 ?>
 
@@ -10,19 +10,17 @@ verifyPro();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <title>Détails d'une offre | Professionnel | PACT</title>
 
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    <script type="module" src="/scripts/loadComponentsPro.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
-    
-    <title>Détails d'une offre | Professionnel | PACT</title>
+
+    <title>Détails d'une offre - Professionnel - PACT</title>
 </head>
 
 <body class="flex flex-col">
@@ -34,7 +32,7 @@ verifyPro();
     $id_pro = $_SESSION['id_pro'];
 
     // Connexion avec la bdd
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Avoir une variable $pro qui contient les informations du pro actuel.
     $stmt = $dbh->prepare('SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro');
@@ -48,14 +46,19 @@ verifyPro();
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     ?>
 
     <!-- VERSION TABLETTE -->
     <main class="hidden md:block mx-10 self-center rounded-lg p-2 max-w-[1280px]">
         <div class="flex gap-3">
+
             <!-- PARTIE GAUCHE (menu) -->
-            <div id="menu-pro"></div>
+            <div id="menu-pro">
+                <?php
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+                ?>
+            </div>
 
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="tablette grow p-4 flex flex-col items-center gap-4">
@@ -102,8 +105,7 @@ verifyPro();
                     ?>
 
                     <!-- Description + avis -->
-                    <div class="description-et-avis">
-
+                    <div>
                         <!-- Partie description -->
                         <div class="partie-description flex flex-col gap-4">
                             <p class="professionnel"><?php echo $nom_pro ?></p>
@@ -140,8 +142,10 @@ verifyPro();
         </div>
     </main>
 
-    <div id="footer-pro"></div>
-
+    <!-- FOOTER -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+    ?>
 </body>
 
 </html>

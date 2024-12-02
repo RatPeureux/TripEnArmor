@@ -1,17 +1,20 @@
 <?php
 
-require_once "../model/type_offre.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/type_offre.php";
 
-class TypeOffreController {
+class TypeOffreController
+{
 
     private $model;
 
-    function __construct() {
+    function __construct()
+    {
         $this->model = 'TypeOffre';
     }
 
 
-    public function getInfosTypeOffre($id){
+    public function getInfosTypeOffre($id)
+    {
         $typeOffre = $this->model::getProPriveById($id);
 
         $result = [

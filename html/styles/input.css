@@ -17,7 +17,8 @@ label:has(+ select[required])::after {
 
 /* ACTIVATION DU MENU */
 #menu>.active,
-#menu-pro>.active {
+#menu-pro>.active,
+#filtres.active {
     --tw-translate-x: 0%;
 }
 
@@ -58,6 +59,9 @@ label:has(+ select[required])::after {
     visibility: hidden;
     display: none;
 }
+
+/* SCORLLBAR  */
+
 
 @layer base {
     @font-face {

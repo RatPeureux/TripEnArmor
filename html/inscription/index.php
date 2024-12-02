@@ -25,8 +25,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <link rel="stylesheet" href="/styles/input.css">
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="/styles/config.js"></script>
-        <title>Création de compte</title>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+
+        <title>Création de compte- PACT</title>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
@@ -40,7 +41,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="POST"
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="" method="POST"
                     onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Membre</p>
 
@@ -176,7 +177,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que cette adresse mail est déjà utilisée ?
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
     $stmt->bindParam(":mail", $_POST['mail']);
     $stmt->execute();
@@ -206,7 +207,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
-        <title>Création de compte</title>
+
+        <title>Création de compte - PACT</title>
     </head>
 
     <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
@@ -216,7 +218,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <a href="/" class="w-full">
-                <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
+                <img class="relative ml-auto -top-5" src="/public/images/logo.svg" alt="moine" width="50">
             </a>
 
             <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="POST">
@@ -257,27 +259,29 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <!-- Champs pour l'adresse -->
                 <label class="text-small" for="user_input_autocomplete_address">Adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
-                    name="user_input_autocomplete_address" placeholder="ex : (2) rue Saint-Jean"
+                    name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs"
                     title="ex: 2 rue Saint-Jean OU rue Edouard Branly" maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse postale</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" 
+                name="complement" placeholder="Bâtiment A, Appartement 5"
                     title="Complément d'adresse" maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
-                        <label class="text-small" for="code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code" name="code"
-                            pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal" minlength="5"
-                            maxlength="5" oninput="number(this)"
+                        <label class="text-small" for="postal_code">Code postal</label>
+                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code"
+                            name="postal_code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal"
+                            minlength="5" maxlength="5" oninput="number(this)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['code'] ?>" required>
                     </div>
                     <div class="w-full">
-                        <label class="text-small" for="ville">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="ville" name="ville"
+                        <label class="text-small" for="locality">Ville</label>
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" 
+                            name="locality"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir ma ville"
                             maxlength="50" value="<?php echo $_SESSION['data_en_cours_inscription']['ville'] ?>" required>
                     </div>
@@ -303,9 +307,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="mb-1.5 flex items-start">
                     <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
                         required>
-                    <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions
-                            d'utilisation</u> et vous confirmez que vous avez lu notre <u class="cursor-pointer">Politique
-                            de confidentialité et d'utilisation des cookies</u>.</label>
+                    <label class="text-small" for="termes">J’accepte les <a href="/cgu" class="underline">conditions d'utilisation</a> et je confirme avoir lu la <a href="#" class="underline">Politique de confidentialité et d'utilisation des cookies</a>.</label>
                 </div>
 
                 <!-- Bouton pour créer le compte -->
@@ -344,7 +346,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que ce pseudo a déjà été utilisé ?
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :pseudo");
     $stmt->bindParam(":pseudo", $_POST['pseudo']);
     $stmt->execute();
@@ -384,8 +386,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         $adresse = $_POST['adresse'];
         $infosSupAdresse = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
-        $code = $_POST['code'];
-        $ville = $_POST['ville'];
+        $code = $_POST['postal_code'];
+        $ville = $_POST['locality'];
 
         // Exécuter la requête pour l'adresse
         $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement) VALUES (:code, :ville, :numero, :odonyme, :complement)");

@@ -25,7 +25,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="/styles/config.js"></script>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-        <title>Création de compte</title>
+
+        <title>Création de compte - Professionnel - PACT</title>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
@@ -39,8 +40,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription"
-                    method="POST" onsubmit="return validateForm()">
+                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST"
+                    onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Professionnel</p>
 
                     <!-- Choix du statut de l'utilisateur -->
@@ -189,7 +190,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que cette adresse mail est déjà utilisée ?
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
     $stmt->bindParam(":mail", $_POST['mail']);
     $stmt->execute();
@@ -224,7 +225,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
 
-        <title>Création de compte</title>
+        <title>Création de compte - Professionnel - PACT</title>
     </head>
 
     <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
@@ -234,11 +235,10 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <a href="/" class="w-full">
-                <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
+                <img class="relative ml-auto -top-5" src="/public/images/logo.svg" alt="moine" width="50">
             </a>
 
-            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="/pro/inscription"
-                method="POST">
+            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST">
                 <p class=" pb-3">Dites-nous en plus !</p>
 
                 <div class="mb-3">
@@ -289,26 +289,26 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <!-- Champs pour l'adresse -->
                 <label class="text-small" for="adresse">Adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
-                    name="user_input_autocomplete_address" placeholder="(2) rue Saint-Jean" maxlength="255"
+                    name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs" maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse postale</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
-                    title="Complément d'adresse" maxlength="255"
+                    title="Complément d'adresse" maxlength="255" placeholder="Bâtiment A, Appartement 5"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
-                        <label class="text-small" for="code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="code" name="code"
-                            pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Saisir un code postal" minlength="5"
-                            maxlength="5" oninput="number(this)"
+                        <label class="text-small" for="postal_code">Code postal</label>
+                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code"
+                            name="postal_code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$"
+                            title="Saisir un code postal" minlength="5" maxlength="5" oninput="number(this)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['code'] ?>" required>
                     </div>
                     <div class="w-full">
-                        <label class="text-small" for="ville">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="ville" name="ville"
+                        <label class="text-small" for="locality">Ville</label>
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" name="locality"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir une ville"
                             maxlength="50" value="<?php echo $_SESSION['data_en_cours_inscription']['ville'] ?>" required>
                     </div>
@@ -355,9 +355,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="mb-1.5 flex items-start">
                     <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
                         required>
-                    <label class="text-small" for="termes">J’accepte les <u class="cursor-pointer">conditions
-                            d'utilisation</u> et vous confirmez que vous avez lu notre
-                        <u class="cursor-pointer">Politique de confidentialité et d'utilisation des cookies</u>.
+                        <label class="text-small" for="termes">J’accepte les <a href="/cgu" class="underline">conditions d'utilisation</a> et je confirme avoir lu la <a href="#" class="underline">Politique de confidentialité et d'utilisation des cookies</a>.</label>
                     </label>
                 </div>
 
@@ -407,9 +405,12 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
         // Fonction pour formater l'IBAN
         function formatIBAN(input) {
-            let value = input.value.replace(/[^0-9]/g, '');
+            let value = input.value.replace(/[^A-Z0-9]/g, ''); // Keep letters and numbers
             const prefix = "FR"; // Préfixe de l'IBAN
-            const formattedValue = value.length > 0 ? (prefix + value).match(/.{1, 4}/g)?.join(' ') : prefix; // Formatage de l'IBAN
+            if (value.startsWith(prefix)) {
+                value = value.substring(2); // Remove the prefix from the value
+            }
+            const formattedValue = value.length > 0 ? (prefix + value).match(/.{1,4}/g).join(' ') : prefix; // Formatage de l'IBAN
             input.value = formattedValue;
         }
     </script>
@@ -424,7 +425,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que le numéro de téléphone renseigné a déjà été utilisé ?
-    include dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE num_tel = :num_tel");
     $stmt->bindParam(":num_tel", $_POST['num_tel']);
     $stmt->execute();
@@ -435,16 +436,15 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         // Revenir sur sur l'inscription comme au début
         header("location: /pro/inscription?valid_mail=true&invalid_phone_number=true");
     }
-
     function extraireRibDepuisIban($iban)
     {
         // Supprimer les espaces
         $iban = str_replace(' ', '', $iban);
 
-        $code_banque = substr($iban, 5, 5);
-        $code_guichet = substr($iban, 10, 5);
-        $numero_compte = substr($iban, 15, 11);
-        $cle = substr($iban, 26, 2);
+        $code_banque = substr($iban, 4, 5);
+        $code_guichet = substr($iban, 9, 5);
+        $numero_compte = substr($iban, 14, 11);
+        $cle = substr($iban, 25, 2);
 
         return [
             'code_banque' => $code_banque,
@@ -470,8 +470,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         $adresse = $_POST['adresse'];
         $infosSupAdresse = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
-        $code = $_POST['code'];
-        $ville = $_POST['ville'];
+        $code = $_POST['postal_code'];
+        $ville = $_POST['locality'];
 
         // Exécuter la requête pour l'adresse
         $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement) VALUES (:code, :ville, :numero, :odonyme, :complement)");
@@ -502,38 +502,47 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :type_orga)");
                 $stmtProfessionnel->bindParam(':type_orga', $type_orga);
             } else {
-                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :num_siren)");
-                $stmtProfessionnel->bindParam(':num_siren', $num_siren);
-            }
 
-            // Lier les paramètres pour le professionnel
-            $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
-            $stmtProfessionnel->bindParam(':mail', $mail);
-            $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
-            $stmtProfessionnel->bindParam(':num_tel', $tel);
-            $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
-
-            // Exécuter la requête pour le professionnel
-            if ($stmtProfessionnel->execute()) {
-                $id_pro = $dbh->lastInsertId();
+                print_r($iban);
 
                 // Extraire les valeurs du RIB à partir de l'IBAN
                 if ($iban) {
+                    echo "test";
                     $rib = extraireRibDepuisIban($iban);
-                    $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle, id_compte) VALUES (:code_banque, :code_guichet, :numero_compte, :cle, :id_compte)");
+                    $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle) VALUES (:code_banque, :code_guichet, :numero_compte, :cle)");
                     $stmtRib->bindParam(':code_banque', $rib['code_banque']);
                     $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
                     $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
                     $stmtRib->bindParam(':cle', $rib['cle']);
-                    $stmtRib->bindParam(':id_compte', $id_compte); // Assurez-vous que id_compte est défini
-                }
+                    if ($stmtRib->execute()) {
+                        $id_rib = $dbh->lastInsertId();
+                        echo "test2";
+                        $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren, id_rib) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :num_siren, :id_rib)");
+                        $stmtProfessionnel->bindParam(':num_siren', $num_siren);
+                        // Lier les paramètres pour le professionnel
+                        $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
+                        $stmtProfessionnel->bindParam(':mail', $mail);
+                        $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
+                        $stmtProfessionnel->bindParam(':num_tel', $tel);
+                        $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
+                        $stmtProfessionnel->bindParam(':id_rib', $id_rib);
 
+                        // Exécuter la requête pour le professionnel
+                        if ($stmtProfessionnel->execute()) {
+                            echo "LEEEEST GOOOOO";
+
+                        }
+                    }
+                }
+                
             }
+
+            
         }
     }
 
     // Quand tout est bien réalisé, rediriger vers l'accueil du pro en étant connecté
     $_SESSION['id_pro'] = $id_pro;
     unset($_SESSION['id_membre']);
-    header("location: /pro");
+    // header("location: /pro");
 } ?>

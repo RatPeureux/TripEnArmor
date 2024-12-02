@@ -1,16 +1,19 @@
 <?php
 
-require_once "../model/type_repas.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/type_repas.php";
 
-class TypeRepasController {
+class TypeRepasController
+{
 
     private $model;
 
-    function __construct() {
+    function __construct()
+    {
         $this->model = 'TypeRepas';
     }
 
-    public function getInfoTypeRepas($id){
+    public function getInfoTypeRepas($id)
+    {
         $typeRepas = $this->model::getTypeRepasById($id);
 
         $result = [
@@ -21,7 +24,8 @@ class TypeRepasController {
         return $result;
     }
 
-    public function getTypeRepasByName($name){
+    public function getTypeRepasByName($name)
+    {
         $typeRepas = $this->model::getTypeRepasByName($name);
 
         $result = [
@@ -32,20 +36,22 @@ class TypeRepasController {
         return $result;
     }
 
-    public function createTypeRepas($nom_type_repas) {
+    public function createTypeRepas($nom_type_repas)
+    {
         $typeRepasID = $this->model::createTypeRepas($nom_type_repas);
         return $typeRepasID;
     }
 
-    public function updateTypeRepas($id, $nom_type_repas = false) {
+    public function updateTypeRepas($id, $nom_type_repas = false)
+    {
         if ($nom_type_repas === false) {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {
             $typeRepas = $this->model::getTypeRepasById($id);
-            
+
             $updatedTypeRepasId = $this->model::updateTypeRepas(
-                $id, 
+                $id,
                 $nom_type_repas !== false ? $nom_type_repas : $typeRepas["nom_type_repas"]
             );
             return $updatedTypeRepasId;

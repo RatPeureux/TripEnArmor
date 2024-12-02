@@ -19,7 +19,7 @@ SET SCHEMA 'sae_db';
 
 -- ------------------------------------------------------------------------------------------------------- Adresse
 -- Table Adresse
-CREATE TABLE _adresse ( -- Léo
+CREATE TABLE _adresse ( -- Léo -- Léo
     id_adresse SERIAL PRIMARY KEY,
     code_postal CHAR(5) NOT NULL,
     ville VARCHAR(255) NOT NULL,
@@ -54,12 +54,24 @@ CREATE TABLE _membre (
 -- Héritage des types de _compte (abstr.)
 CREATE TABLE _professionnel (nom_pro VARCHAR(255) NOT NULL) INHERITS (_compte);
 
-CREATE TABLE _pro_public ( -- Antoine
+CREATE TABLE _pro_public ( -- Antoine -- Antoine
     type_orga VARCHAR(255) NOT NULL
 ) INHERITS (_professionnel);
 
+-- ------------------------------------------------------------------------------------------------------- RIB
+-- Table RIB
+CREATE TABLE _rib ( -- Léo
+    id_rib SERIAL PRIMARY KEY,
+    code_banque VARCHAR(255) NOT NULL,
+    code_guichet VARCHAR(255) NOT NULL,
+    numero_compte VARCHAR(255) NOT NULL,
+    cle VARCHAR(255) NOT NULL
+);
+-- ------------------------------------------------------------------------------------------------------- TAG
+
 CREATE TABLE _pro_prive ( -- Antoine
-    num_siren VARCHAR(255) UNIQUE NOT NULL
+    num_siren VARCHAR(255) UNIQUE NOT NULL,
+    id_rib INTEGER REFERENCES _rib (id_rib)
 ) INHERITS (_professionnel);
 
 -- Rajouter les contraintes principales perdues à cause de l'héritage (clés primaires & étrangères & UNIQUE);
@@ -108,14 +120,15 @@ ADD CONSTRAINT fk_pro_prive FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adr
 
 -- ------------------------------------------------------------------------------------------------------- RIB
 -- Table RIB
-CREATE TABLE _RIB ( -- Léo
+CREATE TABLE _RIB (
     id_rib SERIAL PRIMARY KEY,
     code_banque VARCHAR(255) NOT NULL,
     code_guichet VARCHAR(255) NOT NULL,
     numero_compte VARCHAR(255) NOT NULL,
-    cle_rib VARCHAR(255) NOT NULL,
+    cle VARCHAR(255) NOT NULL,
     id_compte SERIAL REFERENCES _pro_prive (id_compte) UNIQUE
 );
+
 -- ------------------------------------------------------------------------------------------------------- TAG
 -- Table TAG
 
@@ -143,8 +156,8 @@ CREATE TABLE _souscription (
 create table _type_offre (
     id_type_offre SERIAL PRIMARY KEY NOT NULL,
     nom VARCHAR(255) NOT NULL,
-    prix_ht float,
-    prix_ttc float
+    prix_ttc FLOAT,
+    prix_ht FLOAT
 );
 
 -- ARCHITECTURE DES ENFANTS DE _offre :
@@ -195,27 +208,16 @@ CREATE TABLE _tag_offre (
 
 -- Création de la table _avis
 CREATE TABLE _avis (
-    id_avis SERIAL PRIMARY KEY,  
+    id_avis SERIAL PRIMARY KEY, -- id unique
     date_publication DATE NOT NULL,
-    date_experience DATE NOT NULL,
-    titre VARCHAR(50),
-    commentaire VARCHAR(1024) NOT NULL,
-    note INT CHECK (note BETWEEN 1 AND 5) NOT NULL,
-    note_ambiance INT CHECK (note_ambiance BETWEEN 1 AND 5) NOT NULL,
-    note_service INT CHECK (note_service BETWEEN 1 AND 5) NOT NULL,
-    note_cuisine INT CHECK (note_cuisine BETWEEN 1 AND 5) NOT NULL,
-    rapport_qualite_prix INT CHECK (rapport_qualite_prix BETWEEN 1 AND 5) NOT NULL,
-    id_membre INT NOT NULL REFERENCES _membre(id_compte),
-    id_offre INT NOT NULL REFERENCES _offre(id_offre)
-);
-
-
-CREATE TABLE _reponses(
-    id_reponse SERIAL PRIMARY KEY,
-    reponse VARCHAR(255) NOT NULL,
-    id_avis INT UNIQUE, -- Clé étrangère vers _avis
-    id_pro INT REFERENCES _professionnel(id_compte),
-    CONSTRAINT fk_reponse_avis FOREIGN KEY (id_avis) REFERENCES _avis (id_avis) ON DELETE CASCADE
+    date_experience DATE NOT NULL, -- date où la personne a visité/mangé/...
+    titre VARCHAR(50), -- titre de l'avis
+    commentaire VARCHAR(1024), -- commentaire de l'avis
+    id_compte INT NOT NULL, -- compte de l'utilisateur  |
+    id_offre INT NOT NULL, -- Offre à laquelle est lié l'avis
+    id_avis_reponse INT REFERENCES _avis (id_avis), -- id de l'avis de la réponse du pro
+    -- Contrainte pour empêcher plusieurs avis initiaux d'un même membre sur une offre
+    CONSTRAINT unique_avis_per_member UNIQUE (id_compte, id_offre)
 );
 
 -- ------------------------------------------------------------------------------------------------------- Facture
@@ -250,7 +252,6 @@ create table _type_repas ( -- Baptiste
 -- (MVC) Léo
 CREATE TABLE _restauration (
     gamme_prix VARCHAR(3) NOT NULL,
-    id_type_repas INTEGER REFERENCES _type_repas (id_type_repas)
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _restauration à cause de l'héritage
@@ -311,11 +312,7 @@ create table _tag_activite ( -- Maxime
 );
 -- ------------------------------------------------------------------------------------------------------- Spectacles
 -- Table _spectacle (hérite de _offre)
-CREATE TABLE _spectacle ( -- (MVC) Léo
-    capacite_spectacle INTEGER,
-    duree TIME
-) INHERITS (_offre);
-
+CREATE TABLE _spectacle (capacite INTEGER, duree TIME) INHERITS (_offre);
 -- Rajout des contraintes perdues pour _spectacle à cause de l'héritage
 ALTER TABLE _spectacle
 ADD CONSTRAINT pk_spectacle PRIMARY KEY (id_offre);
@@ -359,12 +356,6 @@ CREATE TABLE _langue ( -- Antoine
 CREATE TABLE _visite_langue ( -- Antoine
     id_offre SERIAL REFERENCES _visite (id_offre),
     id_langue SERIAL REFERENCES _langue (id_langue)
-);
--- ------------------------------------------------------------------------------------------------------- TAG Visites
-create table _tag_visite ( -- Maxime
-    id_offre SERIAL REFERENCES _visite (id_offre),
-    id_tag SERIAL REFERENCES _tag (id_tag),
-    PRIMARY KEY (id_offre, id_tag)
 );
 -- ------------------------------------------------------------------------------------------------------- Parcs d'attractions
 -- Table _parc_attraction (hérite de _offre)

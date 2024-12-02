@@ -1,10 +1,27 @@
 <?php
-
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class Horaire extends BDD {
     // Nom de la table utilisée dans les requêtes
-    private $nom_table = "sae_db._horaire";
+    static private $nom_table = "sae_db._horaire";
+
+    static function getHorairesOfOffre($id_offre) {
+        self::initBDD();
+        // Requête SQL pour sélectionner les horaires d'une offre
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ?";
+        
+        // Prépare la requête SQL
+        $statement = self::$db->prepare($query);
+        $statement->bindParam(1, $id_offre);
+
+        // Exécute la requête et retourne les résultats ou une erreur
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR : Impossible d'obtenir les horaires de cette offre";
+            return -1;
+        }
+    }
 
     /**
      * Récupère un horaire par son ID.

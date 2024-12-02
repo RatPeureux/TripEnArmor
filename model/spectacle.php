@@ -1,14 +1,16 @@
 <?php
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-class Spectacle extends BDD {
-    private $nom_table = "sae_db._spectacle";
+class Spectacle extends BDD
+{
+    static private $nom_table = "sae_db._spectacle";
 
-    static function getSpectacleById($id, $online = true) { 
+    static function getSpectacleById($id, $online = true)
+    {
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ? AND est_en_ligne = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ? AND est_en_ligne = ?";
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
         $statement->bindValue(2, $online);
@@ -21,10 +23,11 @@ class Spectacle extends BDD {
         }
     }
 
-    static function createSpectacle($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree) {
+    static function createSpectacle($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree)
+    {
         self::initBDD();
         $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, capacite, duree) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
-        
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $est_en_ligne);
         $statement->bindParam(2, $description);
@@ -45,10 +48,11 @@ class Spectacle extends BDD {
         }
     }
 
-    static function updateSpectacle($est_en_ligne, $description, $resume, $prix_mini, $titre, $date, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree) {
+    static function updateSpectacle($est_en_ligne, $description, $resume, $prix_mini, $titre, $date, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree)
+    {
         self::initBDD();
-        $query = "UPDATE " . self::$nom_table ." SET est_en_ligne = ?, description = ?, resume = ?, prix_mini = ?, titre = ?, date_mise_a_jour = CURRENT_TIMESTAMP, id_pro = ?, id_type_offre = ?, id_adresse = ?, capacite = ?, duree = ? WHERE id_offre = ? RETURNING id_offre";
-        
+        $query = "UPDATE " . self::$nom_table . " SET est_en_ligne = ?, description = ?, resume = ?, prix_mini = ?, titre = ?, date_mise_a_jour = CURRENT_TIMESTAMP, id_pro = ?, id_type_offre = ?, id_adresse = ?, capacite = ?, duree = ? WHERE id_offre = ? RETURNING id_offre";
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $est_en_ligne);
         $statement->bindParam(2, $description);
@@ -69,10 +73,11 @@ class Spectacle extends BDD {
         }
     }
 
-    static function deleteSpectacle($id) {
+    static function deleteSpectacle($id)
+    {
         self::initBDD();
-        $query = "DELETE FROM " . self::$nom_table ." WHERE id_offre = ?";
-        
+        $query = "DELETE FROM " . self::$nom_table . " WHERE id_offre = ?";
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
         return $statement->execute();

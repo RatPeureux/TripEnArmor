@@ -1,10 +1,5 @@
 <?php
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../model/bdd.php';
-
-// Activer l'affichage des erreurs pour le débogage
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/bdd.php';
 
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -70,9 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prices = $_POST['prices'] ?? [];
     $tags = $_POST['tags'][$activityType] ?? [];
     $id_pro = $_SESSION['id_pro'];
+    $prestations = $_POST['newPrestationName'] ?? [];
+    $horaires = $_POST['horaires'] ?? [];
 
     // Récupérer d'autres valeurs
-    $prestations = $_POST['newPrestationName'] ?? [];
 
 
     // *********************************************************************************************************************** Insertion
@@ -92,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insérer l'adresse dans la base de données
     $realAdresse = extraireInfoAdresse($adresse);
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/adresse_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
     $adresseController = new AdresseController();
     $id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
     if (!$id_adresse) {
@@ -107,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($activity) {
         case 'activite':
             // Insertion spécifique à l'activité
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/activite_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
 
             $activiteController = new ActiviteController();
             $id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
@@ -120,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'visite':
 
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/visite_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
 
             $visiteController = new VisiteController();
             $id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
@@ -133,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'spectacle':
 
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/spectacle_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
 
             $spectacleController = new SpectacleController();
             $id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $capacite);
@@ -146,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'parc_attraction':
 
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/parc_attraction_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
 
             $parcAttractionController = new ParcAttractionController();
             $id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
@@ -159,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'restauration':
 
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/restauration_controller.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
 
             $restaurationController = new RestaurationController();
             $id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas);
@@ -177,12 +173,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insérer les liens entre les offres et les tags dans la base de données
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
     $tagController = new TagController();
     if ($activityType === 'restauration') {
         // Insérer les tags de restauration
     } else {
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tag_offre_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
         $tagOffreController = new TagOffreController();
 
         foreach ($tags as $tag) {
@@ -191,50 +187,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Insérer les image dans la base de données
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/image_controller.php';
-    $uploadDir = dirname($_SERVER['DOCUMENT_ROOT']) . '/../public/images/';
-
+    // Insérer les images dans la base de données
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
     $imageController = new ImageController();
-    $imageIds = [];
 
     // *** CARTE
-    $uploadName = $uploadDir . "carte/" . $id_offre . '0.' . explode('/', $_FILES['photo-upload-carte']['type'])[1];
-    if (!move_uploaded_file($_FILES['photo-upload-carte']['tmp_name'], $uploadName)) {
+    if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
         echo "Erreur lors de l'upload de l'image de la carte.";
         BDD::rollbackTransaction();
         exit;
+
     }
-    $imagesIds['carte'] = $imageController->createImage($uploadName);
 
     // *** DETAIL
     for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
-        $uploadName = $uploadDir . "detail/" . $id_offre . '-' . ($i + 1) . '.' . explode('/', $_FILES['photo-detail']['type'][$i])[1];
-
-        if (!move_uploaded_file($_FILES['photo-detail']['tmp_name'][$i], $uploadName)) {
+        if ($imageController->uploadImage($id_offre, 'detail', $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
             echo "Erreur lors de l'upload de l'image de détail.";
             BDD::rollbackTransaction();
             exit;
         }
-
-        $imageIds['detail'][] = $imageController->createImage($uploadName);
     }
 
     if ($activity === 'parc_attraction') {
-        $uploadName = $uploadDir . "plan/" . $id_offre . implode('/', $_FILES['photo-plan']['type'])[1];
-        if (!move_uploaded_file($_FILES['photo-plan']['tmp_name'], $uploadName)) {
+        if ($imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
             echo "Erreur lors de l'upload de l'image du plan.";
             BDD::rollbackTransaction();
             exit;
         }
-        $imagesIds["plan"][] = $imageController->createImage($uploadName);
     }
 
     if ($activityType === 'visite') {
         // Insérer les langues dans la base de données
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/langue_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/langue_controller.php';
         $langueController = new LangueController();
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/visite_langue_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
         $visiteLangueController = new VisiteLangueController();
 
         foreach ($langues as $langue => $isIncluded) {
@@ -244,9 +230,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } elseif ($activityType === 'restauration') {
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/type_repas_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
         $typeRepasController = new TypeRepasController();
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/restauration_type_repas_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_type_repas_controller.php';
         $restaurationTypeRepasController = new RestaurationTypeRepasController();
 
         foreach ($typesRepas as $typeRepas => $isIncluded) {
@@ -256,9 +242,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } elseif ($activityType === 'activite') {
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/prestation_manager.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_manager.php';
         $prestationController = new PrestationController();
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/activite_prestation_controller.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
         $activitePrestationController = new ActivitePrestationController();
 
         foreach ($prestations as $prestation => $isIncluded) {
@@ -271,8 +257,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // Insérer les horaires dans la base de données
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+    $horaireController = new HoraireController();
+
+    foreach ($horaires as $jour) {
+        $horaireController->createHoraire($jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
+    }
+
     // Insérer les prix dans la base de données
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/tarif_public_controller.php';
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
     $tarifController = new TarifPublicController();
     foreach ($prices as $price) {
         if (!isset($price['name']) || !isset($price['value'])) {
@@ -282,15 +276,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
     }
-
-
-    // // Insérer les prestations dans la base de données
-    // require_once dirname($_SERVER['DOCUMENT_ROOT']) . '../controller/offre_prestation_controller.php';
-    // $offrePrestationController = new OffrePrestationController();
-
-    // foreach ($prestations as $prestation) {
-    //     $offrePrestationController->createOffrePrestation($prestation, $id_offre);
-    // }
 
     BDD::commitTransaction();
     header('location: /pro');

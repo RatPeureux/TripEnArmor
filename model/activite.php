@@ -1,14 +1,15 @@
 <?php
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/../model/bdd.php";
-
-class Activite extends BDD {
+class Activite extends BDD
+{
     static private $nom_table = "sae_db._activite";
 
-    static function getAllActivite() {
+    static function getAllActivite()
+    {
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table;
-        
+
         $statement = self::$db->prepare($query);
 
         if ($statement->execute()) {
@@ -19,10 +20,11 @@ class Activite extends BDD {
         }
     }
 
-    static function getActiviteById($id, $online = true) { 
+    static function getActiviteById($id, $online = true)
+    {
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ? AND est_en_ligne = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ? AND est_en_ligne = ?";
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
         $statement->bindValue(2, $online);
@@ -35,10 +37,11 @@ class Activite extends BDD {
         }
     }
 
-    static function createActivite($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations) {
+    static function createActivite($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations)
+    {
         self::initBDD();
         $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, duree, age_requis, prestations) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
-        
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $est_en_ligne);
         $statement->bindParam(2, $description);
@@ -60,10 +63,11 @@ class Activite extends BDD {
         }
     }
 
-    static function updateActivite($est_en_ligne, $description, $resume, $prix_mini, $titre, $date, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations) {
+    static function updateActivite($est_en_ligne, $description, $resume, $prix_mini, $titre, $date, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations)
+    {
         self::initBDD();
-        $query = "UPDATE " . self::$nom_table ." SET est_en_ligne = ?, description = ?, resume = ?, prix_mini = ?, titre = ?, date_mise_a_jour = CURRENT_TIMESTAMP, id_pro = ?, id_type_offre = ?, id_adresse = ?, duree = ?, age_requis = ?, prestation = ? WHERE id_offre = ? RETURNING id_offre";
-        
+        $query = "UPDATE " . self::$nom_table . " SET est_en_ligne = ?, description = ?, resume = ?, prix_mini = ?, titre = ?, date_mise_a_jour = CURRENT_TIMESTAMP, id_pro = ?, id_type_offre = ?, id_adresse = ?, duree = ?, age_requis = ?, prestation = ? WHERE id_offre = ? RETURNING id_offre";
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $est_en_ligne);
         $statement->bindParam(2, $description);
@@ -85,10 +89,11 @@ class Activite extends BDD {
         }
     }
 
-    static function deleteActivite($id) {
+    static function deleteActivite($id)
+    {
         self::initBDD();
-        $query = "DELETE FROM " . self::$nom_table ." WHERE id_offre = ?";
-        
+        $query = "DELETE FROM " . self::$nom_table . " WHERE id_offre = ?";
+
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
 
