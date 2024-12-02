@@ -405,9 +405,12 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
         // Fonction pour formater l'IBAN
         function formatIBAN(input) {
-            let value = input.value.replace(/[^0-9]/g, '');
+            let value = input.value.replace(/[^A-Z0-9]/g, ''); // Keep letters and numbers
             const prefix = "FR"; // Préfixe de l'IBAN
-            const formattedValue = value.length > 0 ? (prefix + value).match(/.{1, 4}/g)?.join(' ') : prefix; // Formatage de l'IBAN
+            if (value.startsWith(prefix)) {
+                value = value.substring(2); // Remove the prefix from the value
+            }
+            const formattedValue = value.length > 0 ? (prefix + value).match(/.{1,4}/g).join(' ') : prefix; // Formatage de l'IBAN
             input.value = formattedValue;
         }
     </script>
@@ -433,16 +436,15 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         // Revenir sur sur l'inscription comme au début
         header("location: /pro/inscription?valid_mail=true&invalid_phone_number=true");
     }
-
     function extraireRibDepuisIban($iban)
     {
         // Supprimer les espaces
         $iban = str_replace(' ', '', $iban);
 
-        $code_banque = substr($iban, 5, 5);
-        $code_guichet = substr($iban, 10, 5);
-        $numero_compte = substr($iban, 15, 11);
-        $cle = substr($iban, 26, 2);
+        $code_banque = substr($iban, 4, 5);
+        $code_guichet = substr($iban, 9, 5);
+        $numero_compte = substr($iban, 14, 11);
+        $cle = substr($iban, 25, 2);
 
         return [
             'code_banque' => $code_banque,
@@ -500,38 +502,47 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :type_orga)");
                 $stmtProfessionnel->bindParam(':type_orga', $type_orga);
             } else {
-                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :num_siren)");
-                $stmtProfessionnel->bindParam(':num_siren', $num_siren);
-            }
 
-            // Lier les paramètres pour le professionnel
-            $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
-            $stmtProfessionnel->bindParam(':mail', $mail);
-            $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
-            $stmtProfessionnel->bindParam(':num_tel', $tel);
-            $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
-
-            // Exécuter la requête pour le professionnel
-            if ($stmtProfessionnel->execute()) {
-                $id_pro = $dbh->lastInsertId();
+                print_r($iban);
 
                 // Extraire les valeurs du RIB à partir de l'IBAN
                 if ($iban) {
+                    echo "test";
                     $rib = extraireRibDepuisIban($iban);
-                    $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle, id_compte) VALUES (:code_banque, :code_guichet, :numero_compte, :cle, :id_compte)");
+                    $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle) VALUES (:code_banque, :code_guichet, :numero_compte, :cle)");
                     $stmtRib->bindParam(':code_banque', $rib['code_banque']);
                     $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
                     $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
                     $stmtRib->bindParam(':cle', $rib['cle']);
-                    $stmtRib->bindParam(':id_compte', $id_compte); // Assurez-vous que id_compte est défini
-                }
+                    if ($stmtRib->execute()) {
+                        $id_rib = $dbh->lastInsertId();
+                        echo "test2";
+                        $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren, id_rib) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :num_siren, :id_rib)");
+                        $stmtProfessionnel->bindParam(':num_siren', $num_siren);
+                        // Lier les paramètres pour le professionnel
+                        $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
+                        $stmtProfessionnel->bindParam(':mail', $mail);
+                        $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
+                        $stmtProfessionnel->bindParam(':num_tel', $tel);
+                        $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
+                        $stmtProfessionnel->bindParam(':id_rib', $id_rib);
 
+                        // Exécuter la requête pour le professionnel
+                        if ($stmtProfessionnel->execute()) {
+                            echo "LEEEEST GOOOOO";
+
+                        }
+                    }
+                }
+                
             }
+
+            
         }
     }
 
     // Quand tout est bien réalisé, rediriger vers l'accueil du pro en étant connecté
     $_SESSION['id_pro'] = $id_pro;
     unset($_SESSION['id_membre']);
-    header("location: /pro");
+    // header("location: /pro");
 } ?>
