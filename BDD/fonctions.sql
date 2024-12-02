@@ -191,50 +191,50 @@ Triggers
 */
 
 -- Trigger pour valider les règles métier
-CREATE TRIGGER tg_check_contraintes_avis BEFORE
+CREATE OR REPLACE TRIGGER tg_check_contraintes_avis BEFORE
 INSERT
     OR
 UPDATE ON sae_db._avis FOR EACH ROW
 EXECUTE FUNCTION check_contraintes_avis ();
 
 -- Trigger pour valider les clés étrangères
-CREATE TRIGGER tg_fk_avis BEFORE
+CREATE OR REPLACE TRIGGER tg_fk_avis BEFORE
 INSERT
     ON sae_db._avis FOR EACH ROW
 EXECUTE FUNCTION fk_avis ();
 
 -- trigger pour vérifier les id de la table activite
-CREATE TRIGGER fk_activite_professionnel BEFORE
+CREATE OR REPLACE TRIGGER fk_activite_professionnel BEFORE
 INSERT
     ON _activite FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table spectacle
-CREATE TRIGGER fk_spectacle_professionnel BEFORE
+CREATE OR REPLACE TRIGGER fk_spectacle_professionnel BEFORE
 INSERT
     ON _spectacle FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table visite
-CREATE TRIGGER fk_visite_professionnel BEFORE
+CREATE OR REPLACE TRIGGER fk_visite_professionnel BEFORE
 INSERT
     ON _visite FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table parc d'attraction
-CREATE TRIGGER fk_parc_attraction_professionnel BEFORE
+CREATE OR REPLACE TRIGGER fk_parc_attraction_professionnel BEFORE
 INSERT
     ON _parc_attraction FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger pour vérifier les id de la table restauration
-CREATE TRIGGER fk_restauration_professionnel BEFORE
+CREATE OR REPLACE TRIGGER fk_restauration_professionnel BEFORE
 INSERT
     ON _restauration FOR EACH ROW
 EXECUTE FUNCTION fk_vers_professionnel ();
 
 -- trigger changement de statut
-CREATE TRIGGER log_changement_statut AFTER
+CREATE OR REPLACE TRIGGER log_changement_statut AFTER
 UPDATE ON _offre FOR EACH ROW WHEN (
     OLD.est_en_ligne IS DISTINCT
     FROM NEW.est_en_ligne
@@ -242,24 +242,24 @@ UPDATE ON _offre FOR EACH ROW WHEN (
 EXECUTE FUNCTION trigger_log_changement_statut ();
 
 -- trigger pour la mise à jour de la date de mise à jour d'une offre
-CREATE TRIGGER offer_update_timestamp BEFORE
+CREATE OR REPLACE TRIGGER offer_update_timestamp BEFORE
 UPDATE ON _offre FOR EACH ROW
 EXECUTE FUNCTION update_offer_timestamp ();
 
 -- trigers de vérification d'un unique compte professionnel privé puisse rentrer des valeurs (pas très explicit ça)
-CREATE TRIGGER tg_unique_vals_compte BEFORE
+CREATE OR REPLACE TRIGGER tg_unique_vals_compte BEFORE
 INSERT
     ON _pro_prive FOR EACH ROW
 EXECUTE FUNCTION unique_vals_compte ();
 
 -- trigers de vérification d'un unique compte professionnel publique puisse rentrer des valeurs (pas très explicit ça)
-CREATE TRIGGER tg_unique_vals_compte BEFORE
+CREATE OR REPLACE TRIGGER tg_unique_vals_compte BEFORE
 INSERT
     ON _pro_public FOR EACH ROW
 EXECUTE FUNCTION unique_vals_compte ();
 
 -- trigers de vérification d'un unique compte membre puisse rentrer des valeurs (pas très explicit ça)
-CREATE TRIGGER tg_unique_vals_compte BEFORE
+CREATE OR REPLACE TRIGGER tg_unique_vals_compte BEFORE
 INSERT
     ON _membre FOR EACH ROW
 EXECUTE FUNCTION unique_vals_compte ();
