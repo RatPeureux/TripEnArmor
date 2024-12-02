@@ -14,9 +14,9 @@
                 -
                 <a href="mailto:benoit.tottereau@univ-rennes.fr" class="hover:text-primary">Contacter le support</a>
                 -
-                <a href="/TripEnArvor" class="hover:text-primary">Vous êtes un professionnel ?</a>
+                <a href="/pro" class="hover:text-primary">Vous êtes un professionnel ?</a>
             </div>
-            @2024, <a href="#" class="hover:text-primary">TripEnArvor</a>
+            @2024, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
         </div>
         <!-- Format téléphone et tablette -->
         <div class="text-center block md:hidden">
@@ -27,9 +27,9 @@
                 -
                 <a href="mailto:benoit.tottereau@univ-rennes.fr" class="hover:text-primary">Contacter le support</a>
                 -
-                <a href="/TripEnArvor" class="hover:text-primary">Vous êtes un professionnel ?</a>
+                <a href="/pro" class="hover:text-primary">Vous êtes un professionnel ?</a>
                 -
-                @2024, <a href="#" class="hover:text-primary">TripEnArvor</a>
+                @2024, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
             </div>
         </div>
 </footer>

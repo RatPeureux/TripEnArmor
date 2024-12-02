@@ -15,7 +15,7 @@ function verifyPro()
 {
     // Vérifie si l'utilisateur est connecté en tant que pro, sinon le renvoie à la page de connexion
     if (!isConnectedAsPro()) {
-        header('location: /pro/connexion');
+        header('location: /pro/401');
         exit();
     } else {
         require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
