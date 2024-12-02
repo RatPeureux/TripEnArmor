@@ -26,7 +26,7 @@ class TagController
 
     public function getTagsByName($nom, $index = -1)
     {
-        $tag = $this->model::getTagByName($nom);
+        $tag = $this->model::getTagsByName($nom);
 
         if ($index == -1) {
             return $tag;
