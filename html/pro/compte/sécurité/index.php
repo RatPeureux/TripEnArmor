@@ -16,6 +16,13 @@
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
+
+    <div id="menu-pro">
+        <?php
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        ?>
+    </div>
+
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
         <div class="flex w-full items-center">
             <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
@@ -28,11 +35,7 @@
             </p>
         </div>
     </header>
-    <div id="menu-pro">
-        <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
-        ?>
-    </div>
+
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
         <div class="max-w-[44rem] m-auto flex flex-col">
             <p class="text-h1 mb-4">Informations sensibles</p>

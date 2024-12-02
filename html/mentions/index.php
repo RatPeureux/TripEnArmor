@@ -1,7 +1,4 @@
 <?php
-// Définir le code HTTP 401
-http_response_code(401);
-
 session_start();
 // Enlever les informations gardées lors des étapes de connexion / inscription quand on reveint à la page d'accueil (seul point de sortie de la connexion / inscription)
 unset($_SESSION['data_en_cours_connexion']);
@@ -12,7 +9,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,35 +21,31 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
 
-    <title>401 Non autorisé - PACT</title>
+    <title>Mentions légales - PACT</title>
 </head>
-
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col justify-between">
     <!-- Inclusion du header -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
     ?>
 
-    <main class="md:w-full mt-0 m-auto flex max-w-[1280px] p-2">
+    <div class="self-center flex justify-center w-full md:max-w-[1280px] p-2">
         <!-- Inclusion du menu -->
         <div id="menu">
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
             ?>
         </div>
-        
-        <div class="m-auto text-center">
-            <h1 class="font-cormorant text-[10rem]">401</h1>
-            <p>Vous ne pouvez pas accéder à cette page.</p>
-            <img src="https://i.pinimg.com/originals/e0/5a/70/e05a70b23f36987ff395063a1e193db7.gif"
-                class="mt-10 rounded-lg m-auto" alt="tottereau" width="250">
-        </div>
-    </main>
 
-    <!-- FOOTER -->
+        <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
+            
+        </main>
+    </div>
+
+    <!-- Inclusion du footer -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
     ?>
+    
 </body>
-
 </html>
