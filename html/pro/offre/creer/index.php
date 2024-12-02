@@ -231,10 +231,10 @@ $pro = verifyPro();
 				$tagOffreController = new TagOffreController();
 
 				foreach ($tags as $tag) {
+					echo "Tags ids : ";
 					$tags_id = $tagController->getTagsByName($tag);
 					$tag_id = $tags_id ? $tags_id[0]['id_tag'] : $tagController->createTag($tag);
-					print_r($tags_id);
-					echo '  ';
+					echo ' / Tag id : ';
 					echo $tag_id;
 					echo '<br>';
 					$tagOffreController->linkOffreAndTag($id_offre, $tagId);

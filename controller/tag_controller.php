@@ -27,6 +27,8 @@ class TagController
     public function getTagsByName($nom)
     {
         $tags = $this->model::getTagsByName($nom);
+
+        print_r($tags);
         
         if (count($tags) == 0) {
             return false;
@@ -37,6 +39,11 @@ class TagController
 
     public function createTag($nom)
     {
-        return $this->model::createTag($nom)["id_tag"];
+        echo "Creating tag of name $nom<br>";
+        $tag = $this->model::createTag($nom);
+
+        echo $tag;
+
+        return $tag;
     }
 }
