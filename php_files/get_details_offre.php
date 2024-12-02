@@ -25,7 +25,6 @@ $stmt->bindParam(':id_offre', $id_offre);
 $stmt->execute();
 $categorie_offre = $stmt->fetch(PDO::FETCH_ASSOC)['type_offre'];
 
-
 // Obtenir la date de mise à jour
 $est_en_ligne = $offre['est_en_ligne'];
 $date_mise_a_jour = $offre['date_mise_a_jour'];
@@ -106,7 +105,7 @@ if ($categorie_offre == 'restauration') {
         $nom = $stmt->fetch(PDO::FETCH_ASSOC);
         $tags = $tags . ', ' . $nom;
     }
-    $tags_type_repas= $tags;
+    $tags_type_repas = $tags;
     // Tags pour les autres types d'offre
 } else {
     $stmt = $dbh->prepare("SELECT id_tag FROM sae_db._tag_$categorie_offre WHERE id_offre = :id_offre");

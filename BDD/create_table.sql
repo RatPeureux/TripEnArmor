@@ -19,13 +19,13 @@ SET SCHEMA 'sae_db';
 
 -- ------------------------------------------------------------------------------------------------------- Adresse
 -- Table Adresse
-CREATE TABLE _adresse ( -- Léo
+CREATE TABLE _adresse ( -- Léo -- Léo
     id_adresse SERIAL PRIMARY KEY,
     code_postal CHAR(5) NOT NULL,
     ville VARCHAR(255) NOT NULL,
     numero VARCHAR(255) NOT NULL,
     odonyme VARCHAR(255) NOT NULL,
-    complement VARCHAR(255)
+    complement_adresse VARCHAR(255)
 );
 -- ------------------------------------------------------------------------------------------------------- Comptes
 -- ARCHITECTURE DES TABLES CI-DESSOUS :
@@ -54,7 +54,7 @@ CREATE TABLE _membre (
 -- Héritage des types de _compte (abstr.)
 CREATE TABLE _professionnel (nom_pro VARCHAR(255) NOT NULL) INHERITS (_compte);
 
-CREATE TABLE _pro_public ( -- Antoine
+CREATE TABLE _pro_public ( -- Antoine -- Antoine
     type_orga VARCHAR(255) NOT NULL
 ) INHERITS (_professionnel);
 
@@ -118,6 +118,21 @@ ADD CONSTRAINT fk_pro_prive FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adr
 ALTER TABLE _pro_prive
 ADD CONSTRAINT fk_pro_prive FOREIGN KEY (id_rib) REFERENCES _rib (id_rib) DEFERRABLE INITIALLY IMMEDIATE;
 
+
+
+
+-- ------------------------------------------------------------------------------------------------------- RIB
+-- Table RIB
+CREATE TABLE _RIB (
+    id_rib SERIAL PRIMARY KEY,
+    code_banque VARCHAR(255) NOT NULL,
+    code_guichet VARCHAR(255) NOT NULL,
+    numero_compte VARCHAR(255) NOT NULL,
+    cle VARCHAR(255) NOT NULL,
+    id_compte SERIAL REFERENCES _pro_prive (id_compte) UNIQUE
+);
+
+-- ------------------------------------------------------------------------------------------------------- TAG
 -- Table TAG
 
 CREATE TABLE _tag ( -- Antoine
@@ -128,13 +143,10 @@ CREATE TABLE _tag ( -- Antoine
 CREATE TABLE _option (
     nom VARCHAR(50) PRIMARY KEY NOT NULL, -- A la une ou En relief
     prix_ht FLOAT NOT NULL,
-    tva FLOAT NOT NULL,
-    prix_ttc FLOAT NOT NULL,
-    prix_unitaire FLOAT NOT NULL
-
+    prix_ttc FLOAT, -- déduit par prix_unitaire*nb_semaines
+    prix_unitaire FLOAT
 
 );
-
 -- ------------------------------------------------------------------------------------------------------- Souscription
 CREATE TABLE _souscription (
     id_souscription INTEGER PRIMARY KEY,
@@ -147,8 +159,8 @@ CREATE TABLE _souscription (
 create table _type_offre (
     id_type_offre SERIAL PRIMARY KEY NOT NULL,
     nom VARCHAR(255) NOT NULL,
-    prix_ht FLOAT,
-    prix_ttc FLOAT
+    prix_ttc FLOAT,
+    prix_ht FLOAT
 );
 
 -- ARCHITECTURE DES ENFANTS DE _offre :
@@ -192,11 +204,7 @@ CREATE TABLE _offre_souscription_option (
     id_souscription INTEGER NOT NULL,
     nom_option VARCHAR(50) NOT NULL,
     date_association DATE NOT NULL DEFAULT CURRENT_DATE,
-    PRIMARY KEY (
-        id_offre,
-        id_souscription,
-        nom_option
-    ),
+    PRIMARY KEY (id_offre, id_souscription, nom_option),
     FOREIGN KEY (id_offre) REFERENCES _offre (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
     FOREIGN KEY (id_souscription) REFERENCES _souscription (id_souscription) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
     FOREIGN KEY (nom_option) REFERENCES _option (nom) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE
@@ -220,32 +228,38 @@ ADD CONSTRAINT fk_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag) DEFERRABLE I
 
 -- Création de la table _avis
 CREATE TABLE _avis (
-    id_avis SERIAL PRIMARY KEY,
-    date_publication DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_experience DATE NOT NULL,
-    titre VARCHAR(50),
-    commentaire VARCHAR(1024),
-    id_membre INT NOT NULL,
-    id_offre INT NOT NULL,
-    contexte_passage VARCHAR(255) NOT NULL,
-    id_avis_reponse INT REFERENCES _avis (id_avis),
-    note FLOAT NOT NULL,
+    id_avis SERIAL PRIMARY KEY, -- id unique
+    date_publication DATE NOT NULL,
+    date_experience DATE NOT NULL, -- date où la personne a visité/mangé/...
+    titre VARCHAR(50), -- titre de l'avis
+    commentaire VARCHAR(1024), -- commentaire de l'avis
+    id_compte INT NOT NULL, -- compte de l'utilisateur  |
+    id_offre INT NOT NULL, -- Offre à laquelle est lié l'avis
+    id_avis_reponse INT REFERENCES _avis (id_avis), -- id de l'avis de la réponse du pro
     -- Contrainte pour empêcher plusieurs avis initiaux d'un même membre sur une offre
-    CONSTRAINT unique_avis_per_member UNIQUE (id_membre, id_offre)
+    CONSTRAINT unique_avis_per_member UNIQUE (id_compte, id_offre)
 );
 
 -- ------------------------------------------------------------------------------------------------------- Facture
 -- Maxime
 CREATE TABLE _facture (
-    id_facture SERIAL PRIMARY KEY,
-    jour_en_ligne DATE NOT NULL,
-    id_offre SERIAL REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE
+    numero VARCHAR(255),
+    designation VARCHAR(255) NOT NULL,
+    date_emission DATE NOT NULL,
+    date_prestation DATE NOT NULL,
+    date_echeance DATE NOT NULL,
+    date_lancement DATE NOT NULL,
+    nbjours_abonnement INTEGER NOT NULL,
+    quantite INTEGER NOT NULL,
+    prix_unitaire_HT FLOAT NOT NULL,
+    prix_unitaire_TTC FLOAT NOT NULL,
+    PRIMARY KEY (numero, designation) -- Clé primaire composite
 );
 
 ALTER TABLE _facture
 ADD CONSTRAINT fk_facture_offre FOREIGN KEY (id_offre) REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- Logs
+-- ------------------------------------------------------------------------------------------------------- Logs 
 CREATE TABLE _log_changement_status ( -- Maxime
     id SERIAL PRIMARY KEY,
     id_offre SERIAL REFERENCES _offre (id_offre) DEFERRABLE INITIALLY IMMEDIATE,
@@ -265,7 +279,7 @@ create table _type_repas ( -- Baptiste
 -- Table _restauration (hérite _offre)
 -- (MVC) Léo
 CREATE TABLE _restauration (
-    gamme_prix VARCHAR(3) NOT NULL
+    gamme_prix VARCHAR(3) NOT NULL,
 ) INHERITS (_offre);
 
 -- Rajout des contraintes perdues pour _restauration à cause de l'héritage
@@ -295,7 +309,7 @@ ADD CONSTRAINT fk_restaurant_type_repas_type FOREIGN KEY (id_type_repas) REFEREN
 create table _tag_restaurant (
     -- Maxime
     id_tag_restaurant SERIAL PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL
+    nom_tag VARCHAR(255) NOT NULL
 );
 
 -- table 1 restaurant <-> 1..* tag
@@ -316,7 +330,7 @@ ADD CONSTRAINT fk_tag_restaurant_restauration_tag FOREIGN KEY (id_tag_restaurant
 -- Table _activite (hérite de _offre)
 -- (MVC) Léo
 CREATE TABLE _activite (
-    duree TIME,
+    duree_activite TIME,
     age_requis INTEGER,
     prestations VARCHAR(255)
 ) INHERITS (_offre);
@@ -346,11 +360,7 @@ ADD CONSTRAINT fk_tag_activite_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag)
 
 -- ------------------------------------------------------------------------------------------------------- Spectacles
 -- Table _spectacle (hérite de _offre)
-CREATE TABLE _spectacle ( -- (MVC) Léo
-    capacite INTEGER,
-    duree TIME
-) INHERITS (_offre);
-
+CREATE TABLE _spectacle (capacite INTEGER, duree TIME) INHERITS (_offre);
 -- Rajout des contraintes perdues pour _spectacle à cause de l'héritage
 ALTER TABLE _spectacle
 ADD CONSTRAINT pk_spectacle PRIMARY KEY (id_offre) DEFERRABLE INITIALLY IMMEDIATE;
@@ -378,7 +388,7 @@ ADD CONSTRAINT fk_tag_spectacle_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag
 -- Table _visite (hérite de _offre)
 -- (MVC) Léo
 CREATE TABLE _visite (
-    duree TIME,
+    duree_visite TIME,
     avec_guide BOOLEAN
 ) INHERITS (_offre);
 
@@ -514,13 +524,11 @@ ALTER TABLE _prestation
 ADD CONSTRAINT fk_prestation_pro FOREIGN KEY (id_pro) REFERENCES _professionnel (id_compte) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
 -- ------------------------------------------------------------------------------------------------------- Liaison prestation et activité     **** Prestation à revoir, ça ne marche pas ****
-/*CREATE TABLE _activite_prestation (
-id_activite INTEGER NOT NULL REFERENCES _activite(id_offre) ON DELETE CASCADE,
-id_prestation INTEGER NOT NULL REFERENCES _prestation(id_prestation) ON DELETE CASCADE,
-PRIMARY KEY (id_activite, id_prestation)
+CREATE TABLE _activite_prestation (
+    id_activite INTEGER NOT NULL REFERENCES _activite(id_offre) ,
+    id_prestation INTEGER NOT NULL REFERENCES _prestation(id_prestation) ,
+    PRIMARY KEY (id_activite, id_prestation)
 );
-*/
-
 -- ------------------------------------------------------------------------------------------------------- Images
 -- Table T_IMAGE_IMG
 CREATE TABLE T_Image_Img (
