@@ -160,9 +160,7 @@ $pro = verifyPro();
 					require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
 
 					$visiteController = new VisiteController();
-					echo "Avant le createVisite<br>";
 					$id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
-					echo "Après le createVisite<br>";
 
 					if ($id_offre < 0) {
 						echo "Erreur lors de l'insertion : " . $id_offre;
