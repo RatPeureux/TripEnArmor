@@ -28,7 +28,7 @@
         </div>
     </header>
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div id="menu" class="absolute md:block">
+        <div id="menu">
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
             ?>

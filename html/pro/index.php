@@ -39,7 +39,7 @@ if (!function_exists('chaineVersMot')) {
 
 <body class="flex flex-col min-h-screen">
 
-    <div id="menu-pro" class="1">
+    <div id="menu-pro">
         <?php
         $pagination = 1;
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';

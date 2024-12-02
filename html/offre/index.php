@@ -228,7 +228,7 @@ session_start();
     <main class="flex flex-col md:block md:mx-10 self-center rounded-lg md:p-2 max-w-[1280px] overflow-auto">
         <div class="flex md:gap-3">
             <!-- PARTIE GAUCHE (menu) -->
-            <div>
+            <div id="menu">
                 <?php
                 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
                 ?>
