@@ -2,7 +2,7 @@
 
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/facture.php";
 
-class TypeRepasController
+class FactureController
 {
 
     private $model;
