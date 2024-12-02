@@ -71,7 +71,7 @@ CREATE TABLE _rib ( -- Léo
 
 CREATE TABLE _pro_prive ( -- Antoine
     num_siren VARCHAR(255) UNIQUE NOT NULL,
-    id_rib INTEGER REFERENCES _RIB (id_rib)
+    id_rib INTEGER REFERENCES _rib (id_rib)
 ) INHERITS (_professionnel);
 
 -- Rajouter les contraintes principales perdues à cause de l'héritage (clés primaires & étrangères & UNIQUE);
