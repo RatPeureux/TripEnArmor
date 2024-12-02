@@ -27,8 +27,10 @@ class TagController
     public function getTagsByName($nom)
     {
         $tags = $this->model::getTagsByName($nom);
-
-        print_r($tags);
+        
+        if (count($tags) == 0) {
+            return false;
+        }
 
         return $tags;
     }
