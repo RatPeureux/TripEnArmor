@@ -14,10 +14,12 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image" href="/public/images/favicon.png">
-
     <link rel="stylesheet" href="/styles/input.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
+    <script src="/scripts/search.js"></script>
+    <script src="/scripts/filtersAndSorts.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
 
     <title>Toutes les offres - PACT</title>
@@ -36,7 +38,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     $sort_order = '';
     if (isset($_GET['sort'])) {
-        if ($_GET['sort'] == 'price-ascending') {
+        if ($_smGET['sort'] == 'price-ascending') {
             $sort_order = 'ORDER BY prix_mini ASC';
         } elseif ($_GET['sort'] == 'price-descending') {
             $sort_order = 'ORDER BY prix_mini DESC';
@@ -62,6 +64,10 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             </div>
 
             <main class="grow p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
+
+                <!-- Conteneur des tags (!!! RECHERCHE) -->
+                <div class="flex flex-wrap gap-4 mb-4" id="tags-container"></div>
+
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
                     <h1 class="text-4xl">Toutes les offres</h1>
@@ -124,8 +130,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_menu.php'; ?>
 </body>
 
-</html>
-
 <script>
     // Fonction pour afficher ou masquer un conteneur de filtres
     function toggleFiltres() {
@@ -137,4 +141,4 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     }
 </script>
 
-<script src="/scripts/filtersAndSorts.js"></script>
+</html>

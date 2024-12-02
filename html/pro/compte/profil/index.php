@@ -91,7 +91,7 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
                 <a href="/pro/compte">Mon compte</a>
                 >
                 <a href="/pro/compte/profil" class="underline">Profil</a>
-                </>
+            </p>
         </div>
     </header>
     <div id="menu-pro">
@@ -154,7 +154,7 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
         <hr class="mb-8">
 
         <div class="max-w-[23rem] mx-auto">
-            <a href="/pro/compte/profil"
+            <a href="/pro/compte/profil/avis"
                 class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
                 <div class="w-full">
