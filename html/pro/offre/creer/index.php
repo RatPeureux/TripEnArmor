@@ -231,7 +231,7 @@ $pro = verifyPro();
 				$tagOffreController = new TagOffreController();
 
 				foreach ($tags as $tag) {
-					$tag_id = $tagController->getTagsByName($tag, 0);
+					$tag_id = $tagController->getTagsByName($tag);
 					$tagOffreController->linkOffreAndTag($id_offre, $tagId);
 				}
 				echo "Tags insérés.<br>";

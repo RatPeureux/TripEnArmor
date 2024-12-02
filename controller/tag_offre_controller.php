@@ -32,7 +32,7 @@ class TagOffreController
         if ($this->model::checkIfLinkExists($id_offre, $id_tag)) {
             return $this->model::linkOffreAndTag($id_offre, $id_tag);
         } else {
-            echo "The link already exists";
+            echo "The link already exists<br>";
             return false;
         }
     }
