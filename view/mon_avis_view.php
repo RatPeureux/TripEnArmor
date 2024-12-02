@@ -17,9 +17,12 @@ $proPriveController = new ProPriveController();
 $avisController = new avisController();
 $restaurationController = new RestaurationController();
 
-function to_nom_note($nom_attribut_note): string
-{
-    return str_replace('_', ' ', explode('_', $nom_attribut_note, 2)[1]);
+
+if (!function_exists('to_nom_note')) {
+    function to_nom_note($nom_attribut_note): string
+    {
+        return str_replace('_', ' ', explode('_', $nom_attribut_note, 2)[1]);
+    }
 }
 ?>
 
@@ -29,7 +32,7 @@ function to_nom_note($nom_attribut_note): string
     // Obtenir la variables regroupant les infos du membre
     $membre = $membreController->getInfosMembre($id_membre);
     $avis = $avisController->getAvisById($id_avis);
-    $restauration = $restaurationController->getInfosRestauration($id_offre);
+    $restauration = $restaurationController->getInfosRestauration($avis['id_offre']);
     ?>
 
     <!-- Première ligne du haut -->
@@ -70,7 +73,7 @@ function to_nom_note($nom_attribut_note): string
         ?>
 
         <!-- Poubelle de suppression -->
-        <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $id_offre ?>"
+        <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $avis['id_offre'] ?>"
             onclick="confirm('Supprimer votre avis ?')">
             <i class="fa-solid fa-trash text-h2"></i>
         </a>

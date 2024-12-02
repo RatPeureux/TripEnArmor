@@ -20,4 +20,13 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.p
 $avisController = new AvisController();
 $avisController->deleteAvis($id_avis);
 
-header("location: /offre?id=$id_offre");
+if (isset($_SERVER['HTTP_REFERER'])) {
+    // Revenir à la page sur laquelle on était
+    header("Location: " . $_SERVER['HTTP_REFERER']);
+    exit();
+} else {
+    // Si il est impossible de connaître la page précédente, alors revenir sur la page de l'offre où il y avait l'avis
+    header("location: /offre?id=$id_offre");
+    exit();
+}
+
