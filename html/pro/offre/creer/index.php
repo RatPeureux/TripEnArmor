@@ -82,6 +82,9 @@ $pro = verifyPro();
 		$activityType = $_POST['activityType'];
 
 		// *** Données spécifiques
+		echo "Guide : ";
+		var_dump($_POST["guide"]);
+		echo "<br>";
 		$avec_guide = $_POST["guide"] ?? "on"; // VISITE
 		$age = $_POST["age"];
 		$dureeFormatted = sprintf('%02d:%02d:00', $_POST["hours"], $_POST["minutes"]); // ACTIVITE, VISITE, SPECTACLE
@@ -112,17 +115,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-									  1. [x] Adresse
-									  3. [x] Image
-									  5. [x] Offre
-									  6. [x] Offre_Tag / Restauration_Tag
-									  7. [x] Offre_Image
-									  8. [x] Offre_Langue
-									  9. [x] TypeRepas 
-									  10. [x] Offre_Prestation
-									  11. Horaires
-									  12. [x] Tarif_Public
-									  */
+		1. [x] Adresse
+		3. [x] Image
+		5. [x] Offre
+		6. [x] Offre_Tag / Restauration_Tag
+		7. [x] Offre_Image
+		8. [x] Offre_Langue
+		9. [x] TypeRepas 
+		10. [x] Offre_Prestation
+		11. Horaires
+		12. [x] Tarif_Public
+		*/
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -277,7 +280,7 @@ $pro = verifyPro();
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
 				$visiteLangueController = new VisiteLangueController();
 
-				for($i = 0; $i < count($langueController->getInfosAllLangues()); $i++) { // foreach ($langues as $langue => $isIncluded) {
+				for ($i = 0; $i < count($langueController->getInfosAllLangues()); $i++) { // foreach ($langues as $langue => $isIncluded) {
 					$isIncluded = $_POST['langue' . $i] ?? "on";
 					if ($isIncluded) {
 						echo "Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
