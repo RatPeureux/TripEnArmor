@@ -257,11 +257,11 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 ?>
 
                 <!-- Champs pour l'adresse -->
-                <label class="text-small" for="user_input_autocomplete_address">Adresse</label>
+                <label class="text-small" for="adresse">Adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
                     name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs"
                     title="ex: 2 rue Saint-Jean OU rue Edouard Branly" maxlength="255"
-                    value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['adresse'] ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse</label>
@@ -381,7 +381,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     // Partie pour traiter la soumission du second formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         // Assurer que tous les champs obligatoires sont remplis
-        $adresse = $_POST['user_input_autocomplete_address'];
+        $adresse = $_POST['adresse'];
         $infosSupAdresse = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
         $code = $_POST['postal_code'];

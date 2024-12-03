@@ -15,7 +15,7 @@ function verifyPro()
 {
     // Vérifie si l'utilisateur est connecté en tant que pro, sinon le renvoie à la page de connexion
     if (!isConnectedAsPro()) {
-        header('location: /pro/connexion');
+        header('location: /401');
         exit();
     } else {
         require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
@@ -67,7 +67,7 @@ function verifyMember()
 {
     // Vérifie si l'utilisateur est connecté en tant que membre, sinon le renvoie à la page de connexion
     if (!isset($_SESSION['id_membre'])) {
-        header('location: /connexion');
+        header('location: /401');
         exit();
     } else {
         require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/membre_controller.php";

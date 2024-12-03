@@ -153,7 +153,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
         <div class="max-w-[23rem] mx-auto">
             <a href="/pro/compte/profil/avis"
-                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
+                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
                 <div class="w-full">
                     <p class="text-h2">Avis</p>
