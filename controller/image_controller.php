@@ -21,10 +21,7 @@ class ImageController
             $name = explode(".", $image)[0];
             $subparts = explode("_", $name);
 
-            echo "Subparts 0 : " . $subparts[0] . " id_offre : " . $id_offre . "<br>";
-
             if ($subparts[0] == $id_offre) {
-                echo $image ."<br>";
                 if ($subparts[1] == "carte") {
                     $result["carte"] = $image;
                 } else if ($subparts[1] == "plan") {
