@@ -50,7 +50,7 @@ class ImageController
 
         echo "Is uploaded file : ";
         var_dump(is_uploaded_file($actual_path));
-        echo '<br>';
+        echo '<br> Fileperms : ';
         echo substr(sprintf('%o', fileperms($actual_path)), -4);
         echo '<br>';
 
@@ -64,9 +64,8 @@ class ImageController
         }
 
         // $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
-
+        echo "File moving result : ";
         var_dump($result);
-
         echo "<br>";
         return $result;
     }
