@@ -283,7 +283,7 @@ session_start();
                 </div>
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
-                <div class="flex flex-col gap-5">
+                <div class="flex flex-col gap-5 w-full">
                     <div class="flex flex-row items-center">
                         <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
                         <p class="professionnel text-h1">&nbsp;- <?php echo $nom_pro ?></p>
