@@ -163,8 +163,6 @@ if ($mode_carte == 'membre') {
                 $controllerImage = new ImageController();
                 $images = $controllerImage->getImagesOfOffre($id_offre);
 
-                print_r($images);
-
                 ?>
                 <img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
                     echo "offres/" . $images['carte'];
