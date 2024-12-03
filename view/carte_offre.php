@@ -39,8 +39,6 @@ if ($mode_carte == 'membre') {
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
             $controllerImage = new ImageController();
             $images = $controllerImage->getImagesOfOffre($id_offre);
-
-            print_r($images);
             ?>
             <img class="h-48 w-full rounded-t-lg object-cover" src='/public/images/<?php if ($images['carte']) {
                 echo $images['carte'];
@@ -94,8 +92,6 @@ if ($mode_carte == 'membre') {
                     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
                     $controllerImage = new ImageController();
                     $images = $controllerImage->getImagesOfOffre($id_offre);
-
-                    print_r($images);
                     ?>
                     <img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
                         echo $images['carte'];
