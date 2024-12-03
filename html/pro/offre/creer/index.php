@@ -251,7 +251,8 @@ $pro = verifyPro();
 			echo "Image de la carte insérée.<br>";
 
 			// *** DETAIL
-			echo count($_FILES['photo-detail']['name']);
+			print_r($_FILES['photo-detail']);
+			echo '<br>' . count($_FILES['photo-detail']['name']);
 			for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
 				if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
 					echo "Erreur lors de l'upload de l'image de détail.";
