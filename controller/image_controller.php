@@ -50,6 +50,7 @@ class ImageController
         echo "is uploaded file : " . is_uploaded_file($actual_path) . "<br>";
 
         var_dump(is_uploaded_file($actual_path));
+        var_dump(fileperms($actual_path));
 
         if (is_uploaded_file($actual_path)) {
             if (!is_dir($this->uploadDir)) {
