@@ -1,5 +1,24 @@
 <?php
 session_start();
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+
+$membre = verifyMember();
+$id_membre = $_SESSION['id_membre'];
+
+// Connexion avec la bdd
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
+$controllerMembre = new MembreController();
+$membre = $controllerMembre->getInfosMembre($id_membre);
+
+if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
+    $controllerMembre->updateMembre($membre['id_compte'], false, false, false, false, $_POST['pseudo'], false);
+    unset($_POST['pseudo']);
+}
+
+$membre = verifyMember();
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +32,6 @@ session_start();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    <script src="/scripts/filtersAndSorts.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -61,38 +79,18 @@ session_start();
                 <div class="flex justify-between items-center">
                     <p class="text-h1">Mes avis</p>
 
-                    <a href="#" class="hidden md:block flex items-center gap-2 hover:text-primary duration-100"
-                        id="sort-button-tab">
-                        <i class="text xl fa-solid fa-sort"></i>
-                        <p>Trier par</p>
-                    </a>
-
-                    <a href="#" class="block md:hidden flex items-center gap-2 hover:text-primary duration-100"
-                        id="sort-button-tel">
+                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button">
                         <i class="text xl fa-solid fa-sort"></i>
                         <p>Trier par</p>
                     </a>
                 </div>
 
-                <!-- DROPDOWN MENU TRIS TABLETTE-->
-                <div class="hidden md:hidden relative" id="sort-section-tab">
+                <div class="hidden relative" id="sort-section">
                     <div class="absolute top-0 right-0 z-20 self-end bg-white border border-base200 rounded-lg shadow-md max-w-48 p-2 flex flex-col gap-4">
-                        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-ascending') ? '/' : '?sort=date-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-ascending') ? '/compte/profil/avis' : '?sort=date-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                             <p>Plus récent au plus ancien</p>
                         </a>
-                        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-descending') ? '/' : '?sort=date-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
-                            <p>Plus ancien au plus récent</p>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- DROPDOWN MENU TRIS TABLETTE-->
-                <div class="hidden md:hidden relative" id="sort-section-tel">
-                    <div class="absolute top-0 right-0 z-20 self-end bg-white border border-base200 rounded-lg shadow-md max-w-48 p-2 flex flex-col gap-4">
-                        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-ascending') ? '/' : '?sort=date-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
-                            <p>Plus récent au plus ancien</p>
-                        </a>
-                        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-descending') ? '/' : '?sort=date-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-descending') ? '/compte/profil/avis' : '?sort=date-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                             <p>Plus ancien au plus récent</p>
                         </a>
                     </div>
@@ -143,3 +141,28 @@ session_start();
 </body>
 
 </html>
+
+<script>
+    // Fonction pour configurer un bouton qui affiche ou masque une section
+    function setupToggle(buttonId, sectionId) {
+        const button = document.getElementById(buttonId); // Bouton pour activer/désactiver
+        const section = document.getElementById(sectionId); // Section à afficher/masquer
+
+        if (button && section) { // Vérification que les éléments existent
+            button.addEventListener('click', function (event) {
+                event.preventDefault(); // Empêche le comportement par défaut du lien
+                section.classList.toggle('hidden'); // Alterne la visibilité de la section
+            });
+
+            // Fermer la section si l'utilisateur clique en dehors
+            document.addEventListener('click', function (event) {
+                if (!section.contains(event.target) && !button.contains(event.target)) {
+                    section.classList.add('hidden'); // Cache la section si clic ailleurs
+                }
+            });
+        }
+    }
+
+    // Initialisation du toggle pour le bouton et la section
+    setupToggle('sort-button', 'sort-section');
+</script>

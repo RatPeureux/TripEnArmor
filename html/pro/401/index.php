@@ -4,17 +4,15 @@ http_response_code(401);
 
 session_start();
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
-if (isConnectedAsPro()) {
-    header('location: /pro/401');
-    exit();
-}
-
-// Enlever les informations gardées lors des étapes de connexion / inscription quand on reveint à la page d'accueil (seul point de sortie de la connexion / inscription)
+// Enlever les informations gardées lors de l'étape de connexion quand on reveint à la page (retour en arrière)
 unset($_SESSION['data_en_cours_connexion']);
 unset($_SESSION['data_en_cours_inscription']);
-?>
+
+// Vérifier si le pro est bien connecté
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+$pro = verifyPro();?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,24 +29,25 @@ unset($_SESSION['data_en_cours_inscription']);
     <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
 
-    <title>401 Non autorisé - PACT</title>
+    <title>401 Non autorisé - Professionnel - PACT</title>
 </head>
 
 <body class="min-h-screen flex flex-col">
+
+    <div id="menu-pro">
+        <?php
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        ?>
+    </div>
+
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
     ?>
 
-    <main class="grow md:w-full m-auto flex max-w-[1280px] p-2">
-        <!-- Inclusion du menu -->
-        <div id="menu">
-            <?php
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
-            ?>
-        </div>
+    <main class="grow flex justify-center w-full mt-20 m-auto max-w-[1280px] p-2">
+        <div class="flex flex-col items-center justify-center">
 
-        <div class="m-auto text-center">
             <h1 class="font-cormorant text-[10rem]">401</h1>
             <p>Vous ne pouvez pas accéder à cette page.</p>
             <img src="/public/images/401.gif" class="mt-10 mb-28 rounded-lg m-auto" alt="tottereau" width="250">
@@ -57,7 +56,7 @@ unset($_SESSION['data_en_cours_inscription']);
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
     ?>
 </body>
 
