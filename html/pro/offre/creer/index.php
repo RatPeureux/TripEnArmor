@@ -112,17 +112,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-					1. [x] Adresse
-					3. [x] Image
-					5. [x] Offre
-					6. [x] Offre_Tag / Restauration_Tag
-					7. [x] Offre_Image
-					8. [x] Offre_Langue
-					9. [x] TypeRepas 
-					10. [x] Offre_Prestation
-					11. Horaires
-					12. [x] Tarif_Public
-					*/
+						  1. [x] Adresse
+						  3. [x] Image
+						  5. [x] Offre
+						  6. [x] Offre_Tag / Restauration_Tag
+						  7. [x] Offre_Image
+						  8. [x] Offre_Langue
+						  9. [x] TypeRepas 
+						  10. [x] Offre_Prestation
+						  11. Horaires
+						  12. [x] Tarif_Public
+						  */
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -220,7 +220,7 @@ $pro = verifyPro();
 					BDD::rollbackTransaction();
 					exit;
 			}
-			echo "new id_offre : " . $id_offre ."<br>";
+			echo "new id_offre : " . $id_offre . "<br>";
 
 			// Insérer les liens entre les offres et les tags dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
@@ -364,7 +364,8 @@ $pro = verifyPro();
 					</div>
 				</a>
 				<!-- Section de sélection de l'offre -->
-				<form id="formulaire" action="" method="POST" class="grow block w-full space-y-8" enctype="multipart/form-data">
+				<form id="formulaire" action="" method="POST" class="grow block w-full space-y-8"
+					enctype="multipart/form-data">
 					<div class="grid grid-cols-2 justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<div
@@ -602,27 +603,20 @@ $pro = verifyPro();
 											<p>
 												Langues parlées :
 											</p>
-											<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-												onclick="toggleCheckbox('langueFR')">
-												<label for="langueFR">Français</label>
-												<input type="checkbox" name="langueFR" id="langueFR" class="hidden"
-													checked="true">
-											</div>
-											<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-												onclick="toggleCheckbox('langueEN')">
-												<label for="langueEN">Anglais</label>
-												<input type="checkbox" name="langueEN" id="langueEN" class="hidden">
-											</div>
-											<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-												onclick="toggleCheckbox('langueES')">
-												<label for="langueES">Espagnol</label>
-												<input type="checkbox" name="langueES" id="langueES" class="hidden">
-											</div>
-											<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-												onclick="toggleCheckbox('langueDE')">
-												<label for="langueDE">Allemand</label>
-												<input type="checkbox" name="langueDE" id="langueDE" class="hidden">
-											</div>
+											<?php
+											require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/langue_controller.php';
+											$langueController = new LangueController();
+
+											$langues = $langueController->getInfosAllLangues();
+
+											foreach( $langues as $langue ) { ?>
+												<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+													onclick="toggleCheckbox('<?php echo 'langue'.$langue['id_langue']; ?>')">
+													<label for="<?php echo 'langue'.$langue['id_langue']; ?>"><?php echo $langue['nom']; ?></label>
+													<input type="checkbox" name="<?php echo 'langue'.$langue['id_langue']; ?>" id="<?php echo 'langue'.$langue['id_langue']; ?>" class="hidden">
+												</div>
+											<?php }
+											?>
 										</div>
 									</div>
 								</div>
