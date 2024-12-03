@@ -381,7 +381,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     // Partie pour traiter la soumission du second formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         // Assurer que tous les champs obligatoires sont remplis
-        $adresse = $_POST['adresse'];
+        $adresse = $_POST['user_input_autocomplete_address'];
         $infosSupAdresse = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
         $code = $_POST['postal_code'];
