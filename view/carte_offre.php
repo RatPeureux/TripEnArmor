@@ -35,8 +35,17 @@ if ($mode_carte == 'membre') {
                 </div>
             </div>
             <!-- Image de fond -->
-            <img class="h-48 w-full rounded-t-lg object-cover" src='/public/images/<?php echo $categorie_offre ?>.jpg'
-                alt="Image promotionnelle de l'offre">
+            <?php
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+            $controllerImage = new ImageController();
+            $images = $controllerImage->getImagesOfOffre($id_offre);
+
+            ?>
+            <img class="h-48 w-full rounded-t-lg object-cover" src='/public/images/<?php if ($images['carte']) {
+                echo $images['carte'];
+            } else {
+                echo $categorie_offre . '.jpg';
+            } ?>' alt="Image promotionnelle de l'offre">
             <!-- Infos principales -->
             <div class='infos flex items-center justify-around gap-2 px-2 grow'>
                 <!-- Localisation -->
