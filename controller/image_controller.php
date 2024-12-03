@@ -47,6 +47,7 @@ class ImageController
         echo "extension : " . $extension . "<br>";
         echo "uploadDir : " . $this->uploadDir . "<br>";
         echo "new path : " . $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension . "<br>";
+        echo "is uploaded file : " . is_uploaded_file($actual_path) . "<br>";
 
         $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
 
