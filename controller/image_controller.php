@@ -44,9 +44,6 @@ class ImageController
             mkdir($this->uploadDir, 0777, true);
         }
         $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
-        echo "File moving result : ";
-        var_dump($result);
-        echo "<br>";
         return $result;
     }
 }

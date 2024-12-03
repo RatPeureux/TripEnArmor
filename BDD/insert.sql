@@ -530,7 +530,9 @@ INSERT INTO
     _langue (nom)
 VALUES ('Français'),
     ('Breton'),
-    ('Anglais');
+    ('Anglais'),
+    ('Espagnol'),
+    ('Allemand');
 
 INSERT INTO
     _visite_langue (id_offre, id_langue)

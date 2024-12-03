@@ -112,17 +112,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-			  1. [x] Adresse
-			  3. [x] Image
-			  5. [x] Offre
-			  6. [x] Offre_Tag / Restauration_Tag
-			  7. [x] Offre_Image
-			  8. [x] Offre_Langue
-			  9. [x] TypeRepas 
-			  10. [x] Offre_Prestation
-			  11. Horaires
-			  12. [x] Tarif_Public
-			  */
+					1. [x] Adresse
+					3. [x] Image
+					5. [x] Offre
+					6. [x] Offre_Tag / Restauration_Tag
+					7. [x] Offre_Image
+					8. [x] Offre_Langue
+					9. [x] TypeRepas 
+					10. [x] Offre_Prestation
+					11. Horaires
+					12. [x] Tarif_Public
+					*/
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -243,9 +243,7 @@ $pro = verifyPro();
 			$imageController = new ImageController();
 
 			// *** CARTE
-			$resultUploadCart = $imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1]);
-
-			if ($resultUploadCart == false) {
+			if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
 				echo "Erreur lors de l'upload de l'image de la carte.";
 				BDD::rollbackTransaction();
 				exit;
@@ -254,7 +252,7 @@ $pro = verifyPro();
 
 			// *** DETAIL
 			for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
-				if (!$imageController->uploadImage($id_offre, 'detail-'.$i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
+				if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
 					echo "Erreur lors de l'upload de l'image de détail.";
 					BDD::rollbackTransaction();
 					exit;
@@ -280,7 +278,7 @@ $pro = verifyPro();
 
 				foreach ($langues as $langue => $isIncluded) {
 					if ($isIncluded) {
-						$id_langue = $langueController->getInfosLangueByName($langue);
+						$id_langue = $langueController->getInfosLanguesByName($langue);
 						$visiteLangueController->linkVisiteAndLangue($id_offre, $id_langue);
 					}
 				}
