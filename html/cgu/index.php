@@ -21,7 +21,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
 
-    <title>CGU - PACT</title>
+    <title>Conditions générales d'utilisation (CGU) - PACT</title>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
     <!-- Inclusion du header -->
