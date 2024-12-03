@@ -41,7 +41,7 @@ class VisiteLangueController
         if ($this->model::checkIfLinkExists($id_offre, $id_langue)) {
             return $this->model::createVisiteLangue($id_offre, $id_langue);
         } else {
-            echo "The link already exists";
+            echo "The link already exists<br>";
             return -1;
         }
     }
