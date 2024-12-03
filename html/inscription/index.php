@@ -261,7 +261,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
                     name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs"
                     title="ex: 2 rue Saint-Jean OU rue Edouard Branly" maxlength="255"
-                    value="<?php echo $_SESSION['data_en_cours_inscription']['adresse'] ?>"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse</label>

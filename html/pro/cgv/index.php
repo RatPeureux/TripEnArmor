@@ -47,8 +47,8 @@ $pro = verifyPro();?>
             <p class="text-h2">1. Préambule</p>
             <p>
                 Les présentes Conditions Générales de Vente (CGV) définissent les modalités de facturation et de paiement pour
-                l'utilisation des services proposés par le site <strong>PACT</strong> (ci-après "le Site"). Toute souscription à un service
-                implique l'acceptation pleine et entière des présentes CGV, disponibles en permanence sur le Site.
+                l'utilisation des services proposés par ce site (<a href="/" class="underline">fnoc.ventsdouest.dev</a>). Toute souscription à un service
+                implique l'acceptation pleine et entière des présentes CGV, disponibles en permanence sur la PACT.
             </p>
 
             <p class="text-h2">2. Facturation des Offres</p>
