@@ -83,7 +83,14 @@ if (!function_exists('chaineVersMot')) {
             <div class="flex flex-wrap gap-4 mt-20 mb-4" id="tags-container"></div>
 
             <div class="w-full flex justify-between items-end mb-2">
-                <h1 class="text-4xl">Mes offres</h1>
+                <div class="flex items-center gap-4">
+                    <h1 class="text-4xl">Mes offres</h1>
+                    <!-- Bouton de création d'offre -->
+                    <a href="/pro/offre/creer" class="self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary 
+                    focus:scale-[0.97] duration-100">
+                        Créer une offre +
+                    </a>
+                </div>
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="hidden md:flex gap-4">
@@ -120,12 +127,6 @@ if (!function_exists('chaineVersMot')) {
                     } ?>
                 </div>
             <?php } ?>
-
-            <!-- Bouton de création d'offre -->
-            <a href="/pro/offre/creer" class="self-center bg-transparent text-primary mt-4 py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary m-1 
-            focus:scale-[0.97] duration-100">
-                + Nouvelle offre
-            </a>
         </div>
 
         <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
