@@ -5,7 +5,7 @@ class ImageController
     private $uploadDir;
     public function __construct()
     {
-        $this->uploadDir = dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/images/';
+        $this->uploadDir = dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/images/offres/';
     }
 
     public function getImagesOfOffre($id_offre)
