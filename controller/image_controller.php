@@ -40,30 +40,7 @@ class ImageController
 
     public function uploadImage($id_offre, $champ, $actual_path, $extension)
     {
-        echo "In uploadImage<br>";
-        echo "id_offre : " . $id_offre . "<br>";
-        echo "champ : " . $champ . "<br>";
-        echo "actual_path : " . $actual_path . "<br>";
-        echo "extension : " . $extension . "<br>";
-        echo "uploadDir : " . $this->uploadDir . "<br>";
-        echo "new path : " . $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension . "<br>";
-
-        echo "Is uploaded file : ";
-        var_dump(is_uploaded_file($actual_path));
-        echo '<br> Fileperms : ';
-        echo substr(sprintf('%o', fileperms($actual_path)), -4);
-        echo '<br>';
-
-        if (is_uploaded_file($actual_path)) {
-            if (!is_dir($this->uploadDir)) {
-                mkdir($this->uploadDir, 0777, true);
-            }
-            $result = rename($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
-        } else {
-            $result = "not uploaded file";
-        }
-
-        // $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
+        $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
         echo "File moving result : ";
         var_dump($result);
         echo "<br>";
