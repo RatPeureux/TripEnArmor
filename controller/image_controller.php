@@ -40,6 +40,15 @@ class ImageController
 
     public function uploadImage($id_offre, $champ, $actual_path, $extension)
     {
-        return move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
+        echo "In uploadImage<br>";
+        echo "id_offre : " . $id_offre . "<br>";
+        echo "champ : " . $champ . "<br>";
+        echo "actual_path : " . $actual_path . "<br>";
+        echo "extension : " . $extension . "<br>";
+        echo "uploadDir : " . $this->uploadDir . "<br>";
+        
+        $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
+        echo "move_uploaded_file result : " . $result . "<br>";
+        return $result;
     }
 }

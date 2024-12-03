@@ -247,7 +247,11 @@ $pro = verifyPro();
 			$imageController = new ImageController();
 
 			// *** CARTE
-			if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
+			$resultUploadCart = $imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1]);
+
+			echo $resultUploadCart;
+
+			if (!$resultUploadCart) {
 				echo "Erreur lors de l'upload de l'image de la carte.";
 				BDD::rollbackTransaction();
 				exit;
