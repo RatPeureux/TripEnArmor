@@ -67,7 +67,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
             <p class="text-h2">5. Données Personnelles et RGPD</p>
             <p>
-                Les données personnelles des utilisateurs sont collectées et traitées conformément à notre <a href="/politique-de-confidentialite.html" class="underline">Politique de Confidentialité</a>.
+                Les données personnelles des utilisateurs sont collectées et traitées conformément à notre <a href="/confidentialite_et_cookies" class="underline">Politique de Confidentialité</a>.
             </p>
 
             <p class="text-h2">6. Cookies</p>
