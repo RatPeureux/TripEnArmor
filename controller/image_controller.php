@@ -19,7 +19,7 @@ class ImageController
 
         foreach ($allImages as $image) {
             $name = explode(".", $image)[0];
-            $subparts = explode("-", $name);
+            $subparts = explode("_", $name);
 
             if ($subparts[0] == $id_offre) {
                 if ($subparts[1] == "carte") {
