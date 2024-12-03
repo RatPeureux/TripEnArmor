@@ -45,8 +45,6 @@ class VisiteLangue extends BDD
         $statement->bindParam(1, $id_offre);
         $statement->bindParam(2, $id_langue);
 
-        print_r($statement->fetchAll(PDO::FETCH_ASSOC));
-
         if ($statement->execute()) {
             return count($statement->fetchAll(PDO::FETCH_ASSOC)) != 0;
         } else {
