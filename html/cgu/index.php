@@ -99,10 +99,12 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <p class="text-h2">11. Finalité du traitement</p>
             <p>
                 Les finalités du traitement de données sur la PACT pour ses utilisateurs sont :
-                <br>- Garantir la clarté des informations concernant les offres des professionnels,
-                <br>- Rendre les offres proposés accessibles au plus grand nombre,
-                <br>- Permettre aux utilisateurs de partager leurs avis et d’être reconnus pour leurs contributions,
-                <br>- Fournir des notifications concernant l'évolution de nos contenus et de nos offres.
+                <ul class="list-disc list-inside">
+                    <li>Garantir la clarté des informations concernant les offres des professionnels.</li>
+                    <li>Rendre les offres proposées accessibles au plus grand nombre.</li>
+                    <li>Permettre aux utilisateurs de partager leurs avis et d’être reconnus pour leurs contributions.</li>
+                    <li>Fournir des notifications concernant l'évolution de nos contenus et de nos offres.</li>
+                </ul>
             </p>
         </main>
     </div>
