@@ -148,7 +148,7 @@ $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION check_fk_offre() RETURNS TRIGGER AS $$
 BEGIN
-    PERFORM * FROM sae_db._offre WHERE id_offre = NEW.id_offre;
+    PERFORM * FROM sae_db._offre WHERE id_offre = NEW.id_offre FOR SHARE;
     IF NOT FOUND THEN 
         RAISE EXCEPTION 'Foreign key violation: id_offre does not exist in _offre';
     END IF;
