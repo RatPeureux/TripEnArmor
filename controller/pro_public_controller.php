@@ -21,6 +21,21 @@ class ProPublicController
         return $result;
     }
 
+    public function getMdpProPublic($id)
+    {
+        $proPrive = $this->model::getMdpById($id);
+
+        if ($proPrive) {
+            $result = $proPrive["mdp_hash"];
+        } else {
+            return false;
+        }
+
+        return $result;
+    }
+
+
+
     public function updateProPublic($id, $email = false, $mdp = false, $tel = false, $adresseId = false, $nom_pro = false, $type_orga = false)
     {
         if ($email === false && $mdp === false && $tel === false && $adresseId === false && $nom_pro === false && $type_orga === false) {
