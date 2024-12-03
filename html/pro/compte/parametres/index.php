@@ -33,16 +33,12 @@ if (isset($_POST['email']) || isset($_POST['num_tel'])) {
     $email = false;
     $num_tel = false;
 
-    if (isset($_POST['email'])) {
-        if (strlen(string: $_POST['email']) > 0) {
-            $email = $_POST['email'];
-        }
+    if (!empty($_POST['email'])) {
+        $email = $_POST['email'];
         unset($_POST['email']);
     }
-    if (isset($_POST['num_tel'])) {
-        if (strlen(string: $_POST['num_tel']) == 14) {
-            $num_tel = $_POST['num_tel'];
-        }
+    if (!empty($_POST['num_tel'])) {
+        $num_tel = $_POST['num_tel'];
         unset($_POST['num_tel']);
     }
     if ($pro['data']['type'] == 'prive') {
@@ -61,8 +57,11 @@ if (isset($_POST['iban'])) {
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/rib_controller.php';
     $controllerRib = new RibController();
     $rib = extraireRibDepuisIban($iban);
-    if ($pro['data']['id_rib'] == '') {
-        $controllerRib->createRib($rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
+    if ($pro['data']['id_rib'] == null) {
+        $id_rib = $controllerRib->createRib($rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
+        $controllerProPrive = new ProPriveController();
+        $controllerProPrive->updateProPrive($pro['id_compte'], false, false, false, false, false, false, $id_rib);
     } else {
         $controllerRib->updateRib($pro['data']['id_rib'], $rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
     }
@@ -72,7 +71,7 @@ if (isset($_POST['iban'])) {
 if (isset($_POST['siren'])) {
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
     $controllerProPrive = new ProPriveController();
-    if ($_POST['siren'] > 0) {
+    if (!empty($_POST['siren'])) {
         $siren = $_POST['siren'];
         $controllerProPrive->updateProPrive($pro['id_compte'], false, false, false, false, false, $siren);
     }
@@ -110,7 +109,9 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/rib_controller.php';
 $controllerRib = new RibController();
-$rib = $controllerRib->getInfosRib($pro['data']['id_rib']);
+if ($pro['data']['id_rib'] != null) {
+    $rib = $controllerRib->getInfosRib(id: $pro['data']['id_rib']);
+}
 ?>
 
 <body class="min-h-screen flex flex-col justify-between">
@@ -163,10 +164,11 @@ $rib = $controllerRib->getInfosRib($pro['data']['id_rib']);
                 <form action="" class="flex flex-col" method="post">
 
                     <label class="text-h3" for="iban">IBAN</label>
-                    <input value="<?php echo extraireIbanDepuisRib($rib); ?>"
-                        class="border-2 border-secondary p-2 bg-white max-w-80 h-12 mb-3 rounded-lg" type="text" id="iban"
-                        name="iban" pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" oninput="formatIBAN(this)" minlength="27"
-                        maxlength="33">
+                    <input value="<?php if (isset($rib) && $rib != null) {
+                        echo extraireIbanDepuisRib($rib);
+                    } ?>" class="border-2 border-secondary p-2 bg-white max-w-80 h-12 mb-3 rounded-lg" type="text"
+                        id="iban" name="iban" pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" oninput="formatIBAN(this)"
+                        minlength="27" maxlength="33">
 
                     <input type="submit" id="save2" href="" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"

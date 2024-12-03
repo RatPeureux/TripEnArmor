@@ -30,22 +30,22 @@ if (isset($_POST['adresse']) || isset($_POST['complement']) || isset($_POST['cod
     $code_postal = false;
     $ville = false;
 
-    if (isset($_POST['adresse']) && !empty($_POST['adresse'])) {
+    if (!empty($_POST['adresse'])) {
         $adresse = $_POST['adresse'];
         $adresse = explode(" ", $adresse);
         $numero = $adresse[0];
         $odonyme = implode(" ", array_slice($adresse, 1));
         unset($_POST['adresse']);
     }
-    if (isset($_POST['complement']) && !empty($_POST['complement'])) {
+    if (!empty($_POST['complement'])) {
         $complement = $_POST['complement'];
         unset($_POST['ville']);
     }
-    if (isset($_POST['code_postal']) && !empty($_POST['code_postal'])) {
+    if (!empty($_POST['code_postal'])) {
         $code_postal = $_POST['code_postal'];
         unset($_POST['code_postal']);
     }
-    if (isset($_POST['ville']) && !empty($_POST['ville'])) {
+    if (!empty($_POST['ville'])) {
         $ville = $_POST['ville'];
         unset($_POST['ville']);
     }
