@@ -347,22 +347,25 @@ $pro = verifyPro();
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
 
-			<div id="menu-pro" class="w-full mb-20">
-				<!-- Inclusion du header -->
+			<div id="menu-pro">
 				<?php
 				$pagination = 2;
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+				?>
+			</div>
+
+			<div class="w-full">
+				<!-- Inclusion du header -->
+				<?php
 				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
 				?>
 			</div>
 
-			<div class="grow min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center p-2 rounded-xl">
+			<div class="grow w-full max-w-[1280px] mt-20 flex flex-col items-center justify-center p-2 rounded-xl">
 				<!-- Lien de retour avec une icône et un titre -->
-				<a href="" onclick="history.back()" class="flex w-full gap-4 items-center content-center space-x-">
-					<i class="fa-solid fa-arrow-left fa-2xl"></i>
-					<div class="my-2">
-						<h1 class="text-h1">Création d'offre</h1>
-					</div>
-				</a>
+				<div class="w-full flex">
+					<h1 class="text-h1">Création d'offre</h1>
+				</div>
 				<!-- Section de sélection de l'offre -->
 				<form id="formulaire" action="" method="POST" class="grow block w-full space-y-8" enctype="multipart/form-data">
 					<div class="grid grid-cols-2 justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">

@@ -1,12 +1,12 @@
 <!-- BOUTONS DE FILTRES ET DE TRIS TÉLÉPHONE -->
 <div class="block md:hidden p-4 h-16 w-full bg-bgBlur/75 backdrop-blur border-t-2 border-black fixed bottom-0 flex items-center justify-between">
-    <a href="#" class="p-2 flex items-center gap-2 hover:text-primary duration-100" onclick="toggleFiltres()">
+    <a class="p-2 flex items-center gap-2 hover:text-primary duration-100" onclick="toggleFiltres()">
         <i class="text xl fa-solid fa-filter"></i>
         <p>Filtrer</p>
     </a>
 
     <div>
-        <a href="#" class="p-2 flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tel">
+        <a class="p-2 flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tel">
             <i class="text xl fa-solid fa-sort"></i>
             <p>Trier par</p>
         </a>
