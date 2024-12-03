@@ -375,7 +375,7 @@ ADD CONSTRAINT fk_tag_spectacle_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag
 -- Table _visite (hérite de _offre)
 -- (MVC) Léo
 CREATE TABLE _visite (
-    duree_visite TIME,
+    duree TIME,
     avec_guide BOOLEAN
 ) INHERITS (_offre);
 
