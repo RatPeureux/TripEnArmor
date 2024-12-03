@@ -88,7 +88,7 @@ if (!function_exists('chaineVersMot')) {
                     <!-- Bouton de création d'offre -->
                     <a href="/pro/offre/creer" class="self-center bg-transparent text-primary py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary hover:border-primary 
                     focus:scale-[0.97] duration-100">
-                        Créer une offre +
+                        Créer offre +
                     </a>
                 </div>
 
