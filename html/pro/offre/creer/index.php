@@ -112,17 +112,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-		1. [x] Adresse
-		3. [x] Image
-		5. [x] Offre
-		6. [x] Offre_Tag / Restauration_Tag
-		7. [x] Offre_Image
-		8. [x] Offre_Langue
-		9. [x] TypeRepas 
-		10. [x] Offre_Prestation
-		11. Horaires
-		12. [x] Tarif_Public
-		*/
+			  1. [x] Adresse
+			  3. [x] Image
+			  5. [x] Offre
+			  6. [x] Offre_Tag / Restauration_Tag
+			  7. [x] Offre_Image
+			  8. [x] Offre_Langue
+			  9. [x] TypeRepas 
+			  10. [x] Offre_Prestation
+			  11. Horaires
+			  12. [x] Tarif_Public
+			  */
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -251,13 +251,13 @@ $pro = verifyPro();
 			echo "Image de la carte insérée.<br>";
 
 			// *** DETAIL
-			print_r($_FILES['photo-detail']);
-			echo '<br>' . count($_FILES['photo-detail']['name']);
-			for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
-				if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
-					echo "Erreur lors de l'upload de l'image de détail.";
-					BDD::rollbackTransaction();
-					exit;
+			if ($_FILES['photo-detail']['error'][0] !== 4) {
+				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
+					if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
+						echo "Erreur lors de l'upload de l'image de détail.";
+						BDD::rollbackTransaction();
+						exit;
+					}
 				}
 			}
 			echo "Images de détail insérées.<br>";
