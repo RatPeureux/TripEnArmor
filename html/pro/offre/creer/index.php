@@ -259,8 +259,8 @@ $pro = verifyPro();
 						exit;
 					}
 				}
+				echo "Images de détail insérées.<br>";
 			}
-			echo "Images de détail insérées.<br>";
 
 			if ($activityType === 'parc_attraction') {
 				if ($imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
@@ -278,7 +278,7 @@ $pro = verifyPro();
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
 				$visiteLangueController = new VisiteLangueController();
 
-				for ($i = 0; $i < count($langueController->getInfosAllLangues()); $i++) { // foreach ($langues as $langue => $isIncluded) {
+				for ($i = 1; $i < count($langueController->getInfosAllLangues())+1; $i++) { // foreach ($langues as $langue => $isIncluded) {
 					$isIncluded = $_POST['langue' . $i] ?? "on";
 					if ($isIncluded) {
 						echo "Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
