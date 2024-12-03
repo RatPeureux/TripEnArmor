@@ -42,6 +42,21 @@ class Membre extends BDD
         }
     }
 
+    static function getMdpById($id)
+    {
+        self::initBDD();
+        $query = "SELECT mdp_hash FROM " . self::$nom_table . " WHERE id_compte = ?";
+        $statement = self::$db->prepare($query);
+        $statement->bindParam(1, $id);
+
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+        } else {
+            echo "ERREUR : Impossible de récupérer le mot de passe hashé";
+            return false;
+        }
+    }
+
     static function updateMembre($id, $email, $mdp, $tel, $adresseId, $pseudo, $prenom, $nom)
     {
         self::initBDD();

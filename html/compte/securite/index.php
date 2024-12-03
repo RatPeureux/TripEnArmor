@@ -1,3 +1,49 @@
+<?php
+session_start();
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+
+$membre = verifyMember();
+
+if (isset($_POST['mdp'])) {
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
+    $controllerMembre = new MembreController();
+    $currentPassword = $controllerMembre->getMdpMembre($membre['id_compte']);
+
+    if (password_verify($_POST['mdp'], $currentPassword)) {
+        $mdp = password_hash($_POST['newMdp'], PASSWORD_DEFAULT);
+        $controllerMembre->updateMembre($membre['id_compte'], false, $mdp, false, false, false, false);
+    
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var successMessage = document.getElementById('success-message');
+                successMessage.textContent = 'Le mot de passe a bien été modifié.';
+                setTimeout(function() {
+                    successMessage.textContent = '';
+                }, 7500);
+            });
+        </script>";
+    } else {
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
+                setTimeout(function() {
+                    errorMessage.textContent = '';
+                }, 7500);
+            });
+        </script>";
+    }
+
+    unset($_POST['mdp']);
+    unset($_POST['newMdp']);
+    unset($_POST['newConfMdp']);
+
+    $membre = verifyMember();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -47,40 +93,43 @@
                     <li>- 1 caractère numérique</li>
                 </ul>
 
-                <div class="relative w-full">
-                    <label class="text-h3" for="mdp">Mot de passe actuel</label>
-                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                        id="mdp" name="mdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" minlength="8">
+                <form action="" class="flex flex-col" method="post">
+                    <div class="relative w-full">
+                        <label class="text-h3" for="mdp">Mot de passe actuel</label>
+                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                            id="mdp" name="mdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" minlength="8">
 
-                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                        id="togglePassword1"></i>
-                </div>
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                            id="togglePassword1"></i>
+                    </div>
 
-                <div class="relative w-full">
-                    <label class="text-h3" for="newMdp">Nouveau mot de passe</label>
-                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                        id="newMdp" name="newMdp">
+                    <div class="relative w-full">
+                        <label class="text-h3" for="newMdp">Nouveau mot de passe</label>
+                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                            id="newMdp" name="newMdp">
 
-                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                        id="togglePassword2"></i>
-                </div>
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                            id="togglePassword2"></i>
+                    </div>
 
-                <div class="relative w-full">
-                    <label class="text-h3" for="confNewMdp">Confirmation nouveau mot de passe</label>
-                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                        id="confNewMdp" name="confNewMdp">
+                    <div class="relative w-full">
+                        <label class="text-h3" for="confNewMdp">Confirmation nouveau mot de passe</label>
+                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                            id="confNewMdp" name="confNewMdp">
 
-                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                        id="togglePassword3"></i>
-                </div>
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                            id="togglePassword3"></i>
+                    </div>
 
-                <span id="error-message" class="error text-rouge-logo text-small"></span>
+                    <span id="success-message" class="success text-green-600 text-small"></span>
 
-                <button id="save"
-                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
-                    disabled>
-                    Modifier mon mot de passe
-                </button>
+                    <span id="error-message" class="error text-rouge-logo text-small"></span>
+
+                    <input type="submit" id="save" href="" value="Modifier mon mot de passe"
+                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                        disabled>
+                    </input>
+                </form>
             </div>
         </div>
     </main>
@@ -143,45 +192,43 @@
     const save = document.getElementById('save');
     const errorMessage = document.getElementById('error-message');
 
-    function checkFields() {
-        const isMdpValid = mdp.value.match(mdp.pattern);
-        const isNewMdpValid = newMdp.value.match(mdp.pattern);
-        const isConfNewMdpValid = confNewMdp.value.match(mdp.pattern);
-
-        if (mdp.value === 'cacacacaC2') {
-            if (isMdpValid && isNewMdpValid && isConfNewMdpValid) {
-                if (mdp.value !== newMdp.value) {
-                    if (newMdp.value === confNewMdp.value) {
-                        save.disabled = false;
-                        save.classList.remove("opacity-50");
-                        save.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-                    } else {
-                        errorMessage.textContent = "Les nouveaux mots de passe ne correspondent pas.";
-                        save.disabled = true;
-                        save.classList.add("opacity-50");
-                        save.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-                    }
+    function activeSave() {
+        if (mdp.value.match(mdp.pattern) && newMdp.value.match(mdp.pattern) && confNewMdp.value.match(mdp.pattern)) {
+            if (mdp.value !== newMdp.value) {
+                if (newMdp.value === confNewMdp.value) {
+                    save.disabled = false;
+                    save.classList.remove("opacity-50");
+                    save.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+                    errorMessage.textContent = "";
                 } else {
-                    errorMessage.textContent = "Le nouveau mot de passe doit être différent de l'ancien.";
+                    errorMessage.textContent = "Les nouveaux mots de passe ne correspondent pas.";
                     save.disabled = true;
                     save.classList.add("opacity-50");
                     save.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
                 }
             } else {
-                errorMessage.textContent = "Le nouveau mot de passe doit respecter les conditions de sécurité minimum.";
+                errorMessage.textContent = "Le nouveau mot de passe doit être différent de l'ancien.";
                 save.disabled = true;
                 save.classList.add("opacity-50");
                 save.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
             }
         } else {
-            errorMessage.textContent = "Le mot de passe actuel est incorrect.";
+            if (!confNewMdp.value.match(mdp.pattern)) {
+                errorMessage.textContent = "La confirmation du nouveau mot de passe doit contenir au moins 8 caractères, une majuscule et un chiffre.";
+            }
+            if (!newMdp.value.match(mdp.pattern)) {
+                errorMessage.textContent = "Le nouveau mot de passe doit contenir au moins 8 caractères, une majuscule et un chiffre.";
+            }
+            if (!mdp.value.match(mdp.pattern)) {
+                errorMessage.textContent = "Le mot de passe actuel doit contenir au moins 8 caractères, une majuscule et un chiffre.";
+            }
             save.disabled = true;
             save.classList.add("opacity-50");
             save.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
         }
     }
 
-    mdp.addEventListener('input', checkFields);
-    newMdp.addEventListener('input', checkFields);
-    confNewMdp.addEventListener('input', checkFields);
+    mdp.addEventListener('input', activeSave);
+    newMdp.addEventListener('input', activeSave);
+    confNewMdp.addEventListener('input', activeSave);
 </script>

@@ -23,6 +23,19 @@ class MembreController
         return $membre;
     }
 
+    public function getMdpMembre($id)
+    {
+        $membre = $this->model::getMdpById($id);
+
+        if ($membre) {
+            $result = $membre["mdp_hash"];
+        } else {
+            return false;
+        }
+
+        return $result;
+    }
+
     public function updateMembre($id, $email = false, $mdp = false, $tel = false, $adresseId = false, $pseudo = false, $prenom = false, $nom = false)
     {
         if ($email === false && $mdp === false && $tel === false && $adresseId === false && $pseudo === false && $prenom === false && $nom === false) {

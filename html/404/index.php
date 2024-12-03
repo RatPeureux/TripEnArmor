@@ -45,7 +45,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         <div class="m-auto text-center">
             <h1 class="font-cormorant text-[10rem]">404</h1>
             <p>Ce n'est pas la page que vous recherchez.</p>
-            <img src="https://i.gifer.com/4H4U.gif"
+            <img src="/public/images/404.gif"
                 class="mt-10 mb-28 rounded-lg m-auto" alt="tottereau" width="250">
         </div>
     </main>

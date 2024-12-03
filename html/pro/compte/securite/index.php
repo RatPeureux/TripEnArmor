@@ -4,17 +4,53 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 $pro = verifyPro();
-if ($pro['data']['type'] == 'prive') {
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
-    $controllerProPrive = new ProPriveController();
-    $currentPassword = $controllerProPrive->getMdpProPrive($pro['id_compte']);
-} else {
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
-    $controllerProPublic = new ProPublicController();
-    $currentPassword = $controllerProPublic->getMdpProPublic($pro['id_compte']);
-}
 
-echo $currentPassword;
+if (isset($_POST['mdp'])) {
+    if ($pro['data']['type'] == 'prive') {
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
+        $controllerProPrive = new ProPriveController();
+        $currentPassword = $controllerProPrive->getMdpProPrive($pro['id_compte']);
+    } else {
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
+        $controllerProPublic = new ProPublicController();
+        $currentPassword = $controllerProPublic->getMdpProPublic($pro['id_compte']);
+    }
+    
+    if (password_verify($_POST['mdp'], $currentPassword)) {
+        $mdp = password_hash($_POST['newMdp'], PASSWORD_DEFAULT);
+        if ($pro['data']['type'] == 'prive') {
+            $controllerProPrive->updateProPrive($pro['id_compte'], false, $mdp, false, false, false, false);
+        } else {
+            $controllerProPublic->updateProPublic($pro['id_compte'], false, $mdp, false, false, false, false);
+        }
+    
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var successMessage = document.getElementById('success-message');
+                successMessage.textContent = 'Le mot de passe a bien été modifié.';
+                setTimeout(function() {
+                    successMessage.textContent = '';
+                }, 7500);
+            });
+        </script>";
+    } else {
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
+                setTimeout(function() {
+                    errorMessage.textContent = '';
+                }, 7500);
+            });
+        </script>";
+    }
+
+    unset($_POST['mdp']);
+    unset($_POST['newMdp']);
+    unset($_POST['newConfMdp']);
+
+    $pro = verifyPro();
+}
 
 ?>
 
@@ -94,6 +130,8 @@ echo $currentPassword;
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                         id="togglePassword3"></i>
                 </div>
+
+                <span id="success-message" class="success text-green-600 text-small"></span>
 
                 <span id="error-message" class="error text-rouge-logo text-small"></span>
 
