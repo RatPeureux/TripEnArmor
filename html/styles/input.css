@@ -61,7 +61,24 @@ label:has(+ select[required])::after {
 }
 
 /* SCORLLBAR  */
+::-webkit-scrollbar {
+    width: 15px; /* Width of the scrollbar */
+}
 
+::-webkit-scrollbar-track {
+    background: #ffffff; /* Background color of the scrollbar track */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #0a0035; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners */
+    border: 5px solid #ffffff; /* Padding around the thumb to match the track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #222222; /* Darker color when hovering over the thumb */
+}
 
 @layer base {
     @font-face {

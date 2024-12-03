@@ -27,7 +27,7 @@ if (!function_exists('to_nom_note')) {
 ?>
 
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
-<div class="avis w-full rounded-lg border border-primary border-4 p-2 flex flex-col gap-3">
+<div class="avis w-full rounded-lg border border-primary border-4 p-2 flex flex-col gap-1 text-small">
     <?php
     // Obtenir la variables regroupant les infos du membre
     $membre = $membreController->getInfosMembre($id_membre);
@@ -41,7 +41,7 @@ if (!function_exists('to_nom_note')) {
         <p><?php echo $membre['prenom'] . ' ' . $membre['nom'] ?></p>
 
         <!-- Note sur 5 -->
-        <div class="flex gap-1">
+        <div class="flex gap-1 grow shrink-0">
             <?php
             // Note s'il y en a une
             $note = floatval($avis['note']);
@@ -64,14 +64,6 @@ if (!function_exists('to_nom_note')) {
             ?>
         </div>
 
-        <!-- Date de publication -->
-        <?php
-        if ($avis['date_publication']) { ?>
-            <p class="italic grow"><?php echo $avis['date_publication'] ?></p>
-            <?php
-        }
-        ?>
-
         <!-- Poubelle de suppression -->
         <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $avis['id_offre'] ?>"
             onclick="confirm('Supprimer votre avis ?')">
@@ -79,11 +71,19 @@ if (!function_exists('to_nom_note')) {
         </a>
     </div>
 
-    <!-- Deuxième ligne (notes complémentaire d'un restaurant) -->
+    <!-- Date de publication (2ème ligne) -->
+    <?php
+    if ($avis['date_publication']) { ?>
+        <p class="italic grow"><?php echo $avis['date_publication'] ?></p>
+        <?php
+    }
+    ?>
+
+    <!-- Notes complémentaire d'un restaurant) -->
     <?php
     // Notes pour les restaurants
     if ($restauration) { ?>
-        <div class='flex justify-around'>
+        <div class='flex justify-around flex-wrap'>
             <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
             $stmt = $dbh->prepare("SELECT * FROM sae_db._avis_restauration_note WHERE id_avis = :id_avis AND id_restauration = :id_restauration");
             $stmt->bindParam(":id_avis", $id_avis);
@@ -94,7 +94,7 @@ if (!function_exists('to_nom_note')) {
             foreach (['note_ambiance', 'note_service', 'note_cuisine', 'rapport_qualite_prix'] as $nom_note) {
                 ?>
 
-                <div class='flex flex-col items-center'>
+                <div class='flex flex-col items-center shrink-0'>
                     <div class="flex gap-1">
                         <?php
                         $note = floatval($notes_restauration[$nom_note]);
@@ -143,7 +143,7 @@ if (!function_exists('to_nom_note')) {
     <?php
     // Titre de l'avis s'il y en a un
     if ($avis['titre']) { ?>
-        <p class="text-h4 font-bold"><?php echo $avis['titre'] ?></p>
+        <p class="text-h4 font-bold mt-2"><?php echo $avis['titre'] ?></p>
     <?php }
     ?>
 
