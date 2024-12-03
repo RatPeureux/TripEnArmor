@@ -49,6 +49,8 @@ class ImageController
         echo "new path : " . $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension . "<br>";
         echo "is uploaded file : " . is_uploaded_file($actual_path) . "<br>";
 
+        var_dump(is_uploaded_file($actual_path));
+
         if (is_uploaded_file($actual_path)) {
             if (!is_dir($this->uploadDir)) {
                 mkdir($this->uploadDir, 0777, true);
@@ -61,6 +63,8 @@ class ImageController
         // $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
 
         var_dump($result);
+
+        echo "<br>";
 
         echo "move_uploaded_file result : " . ($result ? "true" : "false") . "<br>";
         return $result;
