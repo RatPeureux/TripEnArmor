@@ -164,13 +164,13 @@ if ($mode_carte == 'membre') {
                 $images = $controllerImage->getImagesOfOffre($id_offre);
 
                 print_r($images);
-                
+
                 ?>
                 <img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
                     echo $images['carte'];
                 } else {
                     echo $categorie_offre . '.jpg';
-                } ?>.jpg' alt="Image promotionnelle de l'offre" title="consulter les détails">
+                } ?>' alt="Image promotionnelle de l'offre" title="consulter les détails">
             </a>
         </div>
 
