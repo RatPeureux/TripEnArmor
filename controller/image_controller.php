@@ -57,7 +57,7 @@ class ImageController
             }
             $result = rename($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
         } else {
-            $result = false;
+            $result = "TEEEST";
         }
 
         // $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
