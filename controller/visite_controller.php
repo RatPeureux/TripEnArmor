@@ -33,6 +33,16 @@ class VisiteController
 
     public function createVisite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $avec_guide)
     {
+        echo "In Create Visite";
+        echo "description : " . $description;
+        echo "resume : " . $resume;
+        echo "prix_mini : " . $prix_mini;
+        echo "titre : " . $titre;
+        echo "id_pro : " . $id_pro;
+        echo "id_type_offre : " . $id_type_offre;
+        echo "id_adresse : " . $id_adresse;
+        echo "duree : " . $duree;
+        echo "avec_guide : " . $avec_guide;
         $visite = $this->model::createVisite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $avec_guide);
         return $visite;
     }
