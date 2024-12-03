@@ -20,20 +20,11 @@ session_start();
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
-    <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
-        <div class="flex w-full items-center">
-            <a href="" onclick="toggleMenu()" class="mr-4 md:hidden">
-                <i class="text-3xl fa-solid fa-bars"></i>
-            </a>
-            <p class="text-h2">
-                <a href="/compte">Mon compte</a>
-                >
-                <a href="/compte/profil">Profil</a>
-                >
-                <a href="/compte/profil/avis" class="underline">Avis</a>
-            </p>
-        </div>
-    </header>
+
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    ?>
 
     <?php
     $id_membre = $_SESSION['id_membre'];
@@ -55,40 +46,53 @@ session_start();
                 ?>
             </div>
 
-            <div class="flex flex-col md:mx-10 gap-5 grow">
-                <!-- Afficher tous les avis du membre -->
-                <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
-                $avisController = new AvisController();
-                $tousMesAvis = $avisController->getAvisByIdMembre($id_membre);
+            <div class="flex flex-col md:mx-10 grow">
+                <p class="text-h3 p-4">
+                    <a href="/compte">Mon compte</a>
+                    >
+                    <a href="/compte/profil">Profil</a>
+                    >
+                    <a href="/compte/profil/avis" class="underline">Avis</a>
+                </p>
 
-                if ($tousMesAvis) {
-                    foreach ($tousMesAvis as $avis) {
-                        $id_avis = $avis['id_avis'];
-                        ?>
+                <hr class="mb-8">
 
-                        <div id="clickable_div_<?php echo $id_avis ?>" class="shadow-lg">
-                            <?php
-                            // Ensure the included file outputs within the <a> tag
-                            include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/mon_avis_view.php';
+                <p class="text-h1 mb-4">Mes avis</p>
+
+                <div class="flex flex-col gap-5 grow">
+                    <!-- Afficher tous les avis du membre -->
+                    <?php
+                    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+                    $avisController = new AvisController();
+                    $tousMesAvis = $avisController->getAvisByIdMembre($id_membre);
+
+                    if ($tousMesAvis) {
+                        foreach ($tousMesAvis as $avis) {
+                            $id_avis = $avis['id_avis'];
                             ?>
-                        </div>
 
-                        <script>
-                            document.querySelector('#clickable_div_<?php echo $id_avis ?>').addEventListener('click', function () {
-                                window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
-                            });
-                        </script>
+                            <div id="clickable_div_<?php echo $id_avis ?>" class="shadow-lg">
+                                <?php
+                                // Ensure the included file outputs within the <a> tag
+                                include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/mon_avis_view.php';
+                                ?>
+                            </div>
 
+                            <script>
+                                document.querySelector('#clickable_div_<?php echo $id_avis ?>').addEventListener('click', function () {
+                                    window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
+                                });
+                            </script>
+
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <h1 class="text-h2 font-bold">Vous n'avez publié aucun avis.</h1>
                         <?php
                     }
-                } else {
                     ?>
-                    <h1 class="mt-4 text-h2 font-bold">Vous n'avez publié aucun avis.</h1>
-                    <?php
-                }
-                ?>
-
+                </div>
             </div>
         </div>
     </main>
