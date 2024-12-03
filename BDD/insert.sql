@@ -547,10 +547,6 @@ INSERT INTO
         commentaire,
         note,
         contexte_passage,
-        -- note_ambiance,
-        -- note_service,
-        -- note_cuisine,
-        -- rapport_qualite_prix,
         id_membre,
         id_offre
     )
@@ -564,16 +560,17 @@ VALUES (
         1,
         1
     );
--- insertion réponse
--- INSERT INTO
---     _reponses (reponse, id_avis, id_pro)
--- VALUES (
---         'Merci pour votre avis !',
---         1,
---         2
---     );
--- id_compte = professionnel propriétaire de l'offre
--- Insertion pour la relation ternaire
+
+INSERT INTO
+    sae_db._avis_restauration_note (
+        id_avis,
+        id_restauration,
+        note_ambiance,
+        note_service,
+        note_cuisine,
+        rapport_qualite_prix
+    )
+VALUES (1, 1, 2.5, 1, 4, 4.5)
 
 INSERT INTO
     _souscription (nb_semaines, date_lancement)

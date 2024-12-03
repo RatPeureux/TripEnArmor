@@ -700,9 +700,17 @@ session_start();
                                                     </select>
                                                 </div>
 
-                                                <!-- Publier l'avis -->
-                                                <input type="submit" value="+ Publier"
-                                                    class="bg-secondary text-white font-bold rounded-lg p-2 self-end">
+                                                <!-- Publier l'avis ou annuler l'écriture -->
+                                                <div class="flex gap-2 justify-between">
+                                                    <button
+                                                        onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
+                                                        class="font-bold text-secondary rounded-lg p-2 self-end flex items-center gap-2 border border-secondary">
+                                                        <p>- Annuler</p>
+                                                    </button>
+
+                                                    <input type="submit" value="+ Publier"
+                                                        class="bg-secondary text-white font-bold rounded-lg p-2 self-end">
+                                                </div>
 
                                                 <hr class="w-1/2 border border-black self-end my-2 rounded-lg bg-black">
 
