@@ -277,10 +277,10 @@ $pro = verifyPro();
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
 				$visiteLangueController = new VisiteLangueController();
 
-				foreach ($langues as $langue => $isIncluded) {
+				for($i = 0; $i < count($langueController->getInfosAllLangues()); $i++) { // foreach ($langues as $langue => $isIncluded) {
+					$isIncluded = $_POST['langue' . $i] ?? "on";
 					if ($isIncluded) {
-						$id_langue = $langueController->getInfosLanguesByName($langue)['id_langue'];
-						$visiteLangueController->linkVisiteAndLangue($id_offre, $id_langue);
+						$visiteLangueController->linkVisiteAndLangue($id_offre, $i);
 					}
 				}
 				echo "Langues insérées.<br>";
