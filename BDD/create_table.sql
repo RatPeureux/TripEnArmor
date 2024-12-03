@@ -121,7 +121,6 @@ ADD CONSTRAINT fk_pro_prive_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse
 ALTER TABLE _pro_prive
 ADD CONSTRAINT fk_pro_prive_rib FOREIGN KEY (id_rib) REFERENCES _rib (id_rib) DEFERRABLE INITIALLY IMMEDIATE;
 
-
 -- ------------------------------------------------------------------------------------------------------- TAG
 -- Table TAG
 
@@ -135,6 +134,7 @@ CREATE TABLE _option (
     prix_ht FLOAT NOT NULL,
     prix_ttc FLOAT, -- déduit par prix_unitaire*nb_semaines
     prix_unitaire FLOAT
+
 
 );
 -- ------------------------------------------------------------------------------------------------------- Souscription
@@ -194,7 +194,11 @@ CREATE TABLE _offre_souscription_option (
     id_souscription INTEGER NOT NULL,
     nom_option VARCHAR(50) NOT NULL,
     date_association DATE NOT NULL DEFAULT CURRENT_DATE,
-    PRIMARY KEY (id_offre, id_souscription, nom_option),
+    PRIMARY KEY (
+        id_offre,
+        id_souscription,
+        nom_option
+    ),
     FOREIGN KEY (id_souscription) REFERENCES _souscription (id_souscription) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
     FOREIGN KEY (nom_option) REFERENCES _option (nom) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
@@ -245,7 +249,7 @@ CREATE TABLE _facture (
     PRIMARY KEY (numero, designation) -- Clé primaire composite
 );
 
--- ------------------------------------------------------------------------------------------------------- Logs 
+-- ------------------------------------------------------------------------------------------------------- Logs
 CREATE TABLE _log_changement_status ( -- Maxime
     id SERIAL PRIMARY KEY,
     id_offre INTEGER NOT NULL,
@@ -500,8 +504,8 @@ ADD CONSTRAINT fk_prestation_activite FOREIGN KEY (id_offre) REFERENCES _activit
 
 -- ------------------------------------------------------------------------------------------------------- Liaison prestation et activité     **** Prestation à revoir, ça ne marche pas ****
 CREATE TABLE _activite_prestation (
-    id_activite INTEGER NOT NULL REFERENCES _activite(id_offre) ,
-    id_prestation INTEGER NOT NULL REFERENCES _prestation(id_prestation) ,
+    id_activite INTEGER NOT NULL REFERENCES _activite (id_offre),
+    id_prestation INTEGER NOT NULL REFERENCES _prestation (id_prestation),
     PRIMARY KEY (id_activite, id_prestation)
 );
 -- ------------------------------------------------------------------------------------------------------- Images
