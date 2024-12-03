@@ -18,6 +18,7 @@ class ImageController
         $allImages = scandir($this->uploadDir);
 
         foreach ($allImages as $image) {
+            echo $image . '<br>';
             $name = explode(".", $image)[0];
             $subparts = explode("-", $name);
 
