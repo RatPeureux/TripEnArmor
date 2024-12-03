@@ -20,6 +20,28 @@ class Avis extends BDD
         }
     }
 
+    static function getAvisByIdPro($id_pro): array|bool
+    {
+        self::initBDD();
+        // Obtenir l'ensembre des offres du professionnel identifié
+        $stmt = self::$db->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro");
+        $stmt->bindParam(':id_pro', $id_pro);
+        $stmt->execute();
+        $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $tousMesAvis = [];
+        foreach ($toutesMesOffres as $offre) {
+            $tousMesAvis = array_merge($tousMesAvis, self::getAvisByIdOffre($offre['id_offre']));
+        }
+
+        if ($tousMesAvis) {
+            return $tousMesAvis;
+        } else {
+            return false;
+        }
+
+    }
+
     static function getAvisByIdOffre($idOffre)
     {
         self::initBDD();
