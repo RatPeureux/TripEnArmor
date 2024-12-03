@@ -18,8 +18,12 @@ class AvisController
 
     public function getAvisByIdMembre($idMembre)
     {
-        $result = $this->model::getAvisByIdMembre($idMembre);
-        return $result;
+        return $this->model::getAvisByIdMembre($idMembre);
+    }
+
+    public function getAvisByIdPro($id_pro)
+    {
+        return $this->model::getAvisByIdPro($id_pro);
     }
 
     public function getAvisById($idAvis)

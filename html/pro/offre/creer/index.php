@@ -112,17 +112,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-			  1. [x] Adresse
-			  3. [x] Image
-			  5. [x] Offre
-			  6. [x] Offre_Tag / Restauration_Tag
-			  7. [x] Offre_Image
-			  8. [x] Offre_Langue
-			  9. [x] TypeRepas 
-			  10. [x] Offre_Prestation
-			  11. Horaires
-			  12. [x] Tarif_Public
-			  */
+					1. [x] Adresse
+					3. [x] Image
+					5. [x] Offre
+					6. [x] Offre_Tag / Restauration_Tag
+					7. [x] Offre_Image
+					8. [x] Offre_Langue
+					9. [x] TypeRepas 
+					10. [x] Offre_Prestation
+					11. Horaires
+					12. [x] Tarif_Public
+					*/
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -220,6 +220,7 @@ $pro = verifyPro();
 					BDD::rollbackTransaction();
 					exit;
 			}
+			echo "new id_offre : " . $id_offre ."<br>";
 
 			// Insérer les liens entre les offres et les tags dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
@@ -231,12 +232,8 @@ $pro = verifyPro();
 				$tagOffreController = new TagOffreController();
 
 				foreach ($tags as $tag) {
-					echo "Tags ids : ";
 					$tags_id = $tagController->getTagsByName($tag);
 					$tag_id = $tags_id ? $tags_id[0]['id_tag'] : $tagController->createTag($tag);
-					echo ' / Tag id : ';
-					echo $tag_id;
-					echo '<br>';
 					$tagOffreController->linkOffreAndTag($id_offre, $tag_id);
 				}
 				echo "Tags insérés.<br>";
@@ -256,7 +253,7 @@ $pro = verifyPro();
 
 			// *** DETAIL
 			for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
-				if ($imageController->uploadImage($id_offre, 'detail', $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
+				if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
 					echo "Erreur lors de l'upload de l'image de détail.";
 					BDD::rollbackTransaction();
 					exit;
@@ -282,7 +279,7 @@ $pro = verifyPro();
 
 				foreach ($langues as $langue => $isIncluded) {
 					if ($isIncluded) {
-						$id_langue = $langueController->getInfosLangueByName($langue);
+						$id_langue = $langueController->getInfosLanguesByName($langue)['id_langue'];
 						$visiteLangueController->linkVisiteAndLangue($id_offre, $id_langue);
 					}
 				}
@@ -321,8 +318,8 @@ $pro = verifyPro();
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
 			$horaireController = new HoraireController();
 
-			foreach ($horaires as $jour) {
-				$horaireController->createHoraire($jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
+			foreach ($horaires as $key => $jour) {
+				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 			}
 			echo "Horaires insérés.<br>";
 
@@ -358,7 +355,7 @@ $pro = verifyPro();
 				?>
 			</div>
 
-			<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
+			<div class="grow min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center p-2 rounded-xl">
 				<!-- Lien de retour avec une icône et un titre -->
 				<a href="" onclick="history.back()" class="flex w-full gap-4 items-center content-center space-x-">
 					<i class="fa-solid fa-arrow-left fa-2xl"></i>
@@ -367,7 +364,7 @@ $pro = verifyPro();
 					</div>
 				</a>
 				<!-- Section de sélection de l'offre -->
-				<form id="formulaire" action="" method="POST" class="block w-full space-y-8" enctype="multipart/form-data">
+				<form id="formulaire" action="" method="POST" class="grow block w-full space-y-8" enctype="multipart/form-data">
 					<div class="grid grid-cols-2 justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<div

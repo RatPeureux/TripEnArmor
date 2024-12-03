@@ -83,7 +83,7 @@ class Rib extends BDD
         $statement->bindParam(2, $code_guichet);
         $statement->bindParam(3, $numero_compte);
         $statement->bindParam(4, $cle);
-        $statement->bindParam(6, $id_rib);
+        $statement->bindParam(5, $id_rib);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {

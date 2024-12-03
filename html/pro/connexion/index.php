@@ -83,8 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p class="pb-3">J'ai un compte Professionnel</p>
 
                 <!-- Champ pour l'identifiant -->
-                <label class="text-small" for="id">Identifiant (dénomination, téléphone, mail)</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
+                <label class="text-small" for="id">Identifiant</label>
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id" placeholder="Nom, téléphone ou mail"
                     title="Saisir un identifiant (Dénomination / Nom de l'organisation, Adresse mail ou Téléphone)"
                     maxlength="255" value="<?php echo $_SESSION['data_en_cours_connexion']['id']; ?>" required>
 

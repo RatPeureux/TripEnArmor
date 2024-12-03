@@ -25,7 +25,7 @@ $pro = verifyPro();?>
     <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
 
-    <title>CGU - Professionnel - PACT</title>
+    <title>Conditions générales d'utilisation (CGU) - Professionnel - PACT</title>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
@@ -71,7 +71,7 @@ $pro = verifyPro();?>
 
             <p class="text-h2">5. Données Personnelles et RGPD</p>
             <p>
-                Les données personnelles des utilisateurs sont collectées et traitées conformément à notre <a href="/politique-de-confidentialite.html" class="underline">Politique de Confidentialité</a>.
+                Les données personnelles des utilisateurs sont collectées et traitées conformément à notre <a href="/pro/confidentialite_et_cookies" class="underline">Politique de Confidentialité</a>.
             </p>
 
             <p class="text-h2">6. Cookies</p>
@@ -98,6 +98,17 @@ $pro = verifyPro();?>
             <p class="text-h2">10. Loi Applicable et Juridiction</p>
             <p>
                 Les présentes CGU sont régies par le droit français. En cas de litige, les tribunaux compétents seront ceux du ressort de Lannion.
+            </p>
+
+            <p class="text-h2">11. Finalité du traitement</p>
+            <p>
+                Les finalités du traitement de données sur la PACT pour ses utilisateurs sont :
+                <ul class="list-disc list-inside">
+                    <li>Garantir la clarté des informations concernant les offres des professionnels.</li>
+                    <li>Rendre les offres proposées accessibles au plus grand nombre.</li>
+                    <li>Permettre aux utilisateurs de partager leurs avis et d’être reconnus pour leurs contributions.</li>
+                    <li>Fournir des notifications concernant l'évolution de nos contenus et de nos offres.</li>
+                </ul>
             </p>
         </main>
     </div>

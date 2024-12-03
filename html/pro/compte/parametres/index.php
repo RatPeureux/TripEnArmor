@@ -4,16 +4,22 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 $pro = verifyPro();
+function extraireIbanDepuisRib($rib)
+{
+    $res = 'FR76' . $rib['code_banque'] . $rib['code_guichet'] . $rib['numero_compte'] . $rib['cle'];
+
+    return implode(' ', str_split($res, 4));
+}
 
 function extraireRibDepuisIban($iban)
 {
     // Supprimer les espaces
     $iban = str_replace(' ', '', $iban);
 
-    $code_banque = substr($iban, 5, 5);
-    $code_guichet = substr($iban, 10, 5);
-    $numero_compte = substr($iban, 15, 11);
-    $cle = substr($iban, 26, 2);
+    $code_banque = substr($iban, 4, 5);
+    $code_guichet = substr($iban, 9, 5);
+    $numero_compte = substr($iban, 14, 11);
+    $cle = substr($iban, 25, 2);
 
     return [
         'code_banque' => $code_banque,
@@ -27,15 +33,15 @@ if (isset($_POST['email']) || isset($_POST['num_tel'])) {
     $email = false;
     $num_tel = false;
 
-    if (isset($_POST['email'])) {
+    if (!empty($_POST['email'])) {
         $email = $_POST['email'];
         unset($_POST['email']);
     }
-    if (isset($_POST['num_tel'])) {
+    if (!empty($_POST['num_tel'])) {
         $num_tel = $_POST['num_tel'];
         unset($_POST['num_tel']);
     }
-    if ($pro['type'] == 'prive') {
+    if ($pro['data']['type'] == 'prive') {
         include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
         $controllerProPrive = new ProPriveController();
         $controllerProPrive->updateProPrive($pro['id_compte'], $email, false, $num_tel);
@@ -50,18 +56,25 @@ if (isset($_POST['iban'])) {
     $iban = $_POST['iban'];
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/rib_controller.php';
     $controllerRib = new RibController();
-
     $rib = extraireRibDepuisIban($iban);
-    $iban = $rib['code_banque'] . ' ' . $rib['code_guichet'] . ' ' . $rib['numero_compte'] . ' ' . $rib['cle'];
-
-    $controllerRib->updateRib($pro['id_compte'], $rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
+    if ($pro['data']['id_rib'] == null) {
+        $id_rib = $controllerRib->createRib($rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
+        $controllerProPrive = new ProPriveController();
+        $controllerProPrive->updateProPrive($pro['id_compte'], false, false, false, false, false, false, $id_rib);
+    } else {
+        $controllerRib->updateRib($pro['data']['id_rib'], $rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
+    }
 }
 
+
 if (isset($_POST['siren'])) {
-    $siren = $_POST['siren'];
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
     $controllerProPrive = new ProPriveController();
-    $controllerProPrive->updateProPrive($pro['id_compte'], false, false, false, false, false, $siren);
+    if (!empty($_POST['siren'])) {
+        $siren = $_POST['siren'];
+        $controllerProPrive->updateProPrive($pro['id_compte'], false, false, false, false, false, $siren);
+    }
 }
 
 if (isset($_POST['type_orga'])) {
@@ -96,11 +109,13 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/rib_controller.php';
 $controllerRib = new RibController();
-$rib = $controllerRib->getInfosRib($rib[$pro['id_compte']]);
+if ($pro['data']['id_rib'] != null) {
+    $rib = $controllerRib->getInfosRib(id: $pro['data']['id_rib']);
+}
 ?>
 
 <body class="min-h-screen flex flex-col justify-between">
-    
+
     <div id="menu-pro">
         <?php
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
@@ -115,13 +130,13 @@ $rib = $controllerRib->getInfosRib($rib[$pro['id_compte']]);
             <p class="text-h2">
                 <a href="/pro/compte">Mon compte</a>
                 >
-                <a href="/pro/compte/paramètres" class="underline">Paramètres</a>
+                <a href="/pro/compte/parametres" class="underline">Paramètres</a>
             </p>
         </div>
     </header>
 
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div class="max-w-[44rem] m-auto flex flex-col">
+        <div class="m-auto flex flex-col">
             <p class="text-h1 mb-4">Informations privées</p>
 
             <form action="" class="flex flex-col" method="post">
@@ -132,9 +147,10 @@ $rib = $controllerRib->getInfosRib($rib[$pro['id_compte']]);
                     name="email" maxlength="255">
 
                 <label class="text-h3" for="num_tel">Numéro de téléphone</label>
-                <input value="<?php echo $pro['tel'] ?>"
+                <input value="<?php echo $pro['tel'] ?>" pattern="^0\d( \d{2}){4}"
                     class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel"
-                    name="num_tel" minlength="14" maxlength="14">
+                    name="num_tel" minlength="14" maxlength="14" oninput="formatTEL(this)"
+                    title="Le numéro doit commencer par un 0.">
 
                 <input type="submit" id="save1" href="" value="Enregistrer les modifications"
                     class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
@@ -148,9 +164,11 @@ $rib = $controllerRib->getInfosRib($rib[$pro['id_compte']]);
                 <form action="" class="flex flex-col" method="post">
 
                     <label class="text-h3" for="iban">IBAN</label>
-                    <input value="<?php echo $iban ?>"
-                        class="border-2 border-secondary p-2 bg-white max-w-72 h-12 mb-3 rounded-lg" type="text" id="iban"
-                        name="iban" minlength="33" maxlength="33">
+                    <input value="<?php if (isset($rib) && $rib != null) {
+                        echo extraireIbanDepuisRib($rib);
+                    } ?>" class="border-2 border-secondary p-2 bg-white max-w-80 h-12 mb-3 rounded-lg" type="text"
+                        id="iban" name="iban" pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" oninput="formatIBAN(this)"
+                        minlength="27" maxlength="33">
 
                     <input type="submit" id="save2" href="" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
@@ -164,8 +182,8 @@ $rib = $controllerRib->getInfosRib($rib[$pro['id_compte']]);
 
                     <label class="text-h3" for="siren">Numéro SIREN</label>
                     <input value="<?php echo $pro['data']['numero_siren'] ?>"
-                        class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="text" id="siren"
-                        name="siren" minlength="16" maxlength="16">
+                        class="border-2 border-secondary p-2 bg-white max-w-44 h-12 mb-3 rounded-lg" type="text" id="siren"
+                        name="siren" minlength="17" maxlength="17" oninput="formatSiren(this)">
 
                     <input type="submit" id="save3" href="" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
@@ -296,5 +314,51 @@ $rib = $controllerRib->getInfosRib($rib[$pro['id_compte']]);
         if (type_orga) {
             document.getElementById("type_orga").addEventListener("input", activeSave4);
         }
+
     });
+    // Fonction pour formater le numéro de téléphone
+    function formatTEL(input) {
+        let value = input.value.replace(/[^0-9]/g, '');
+        const formattedValue = value.match(/.{1,2}/g)?.join(' ') || ''; // Formatage en paires de chiffres
+        input.value = formattedValue;
+    }
+
+    function formatIBAN(input) {
+        let value = input.value.replace(/[^A-Z0-9]/g, ''); // Supprime tout sauf les lettres majuscules et les chiffres
+        const prefix = "FR76"; // Préfixe du pays (France)
+
+        // Si la chaîne a moins de 4 caractères, on vide le champ et on le réinitialise avec le préfixe
+        if (value.length < 4) {
+            input.value = prefix;
+            return;
+        }
+
+        // Si l'IBAN commence déjà par "FR76", on l'enlève pour éviter la duplication
+        if (value.startsWith(prefix)) {
+            value = value.substring(4); // Enlever "FR76" pour ne pas répéter
+        }
+
+        // Reconstitue l'IBAN avec le préfixe et formatage en groupes de 4 caractères
+        const formattedValue = (prefix + value).match(/.{1,4}/g)?.join(' ') || prefix;
+
+        // Met à jour la valeur dans le champ input
+        input.value = formattedValue;
+    }
+
+    function formatSiren(input) {
+        // Supprime tout ce qui n'est pas un chiffre
+        let value = input.value.replace(/\D/g, '');
+
+        // Limite à 14 caractères (9 pour le SIREN + 5 pour les caractères supplémentaires)
+        value = value.substring(0, 14);
+
+        // Ajoute les espaces tous les 3 chiffres pour les trois premiers groupes
+        let formatted = value
+            .replace(/(\d{3})(\d)/, '$1 $2') // Ajoute un espace après les 3 premiers chiffres
+            .replace(/(\d{3}) (\d{3})(\d)/, '$1 $2 $3') // Ajoute un espace après les 6 premiers chiffres
+            .replace(/(\d{3}) (\d{3}) (\d{3})(\d+)/, '$1 $2 $3 $4'); // Le reste (5 derniers caractères sans espace)
+
+        // Met à jour la valeur de l'input avec le format correct
+        input.value = formatted;
+    }
 </script>

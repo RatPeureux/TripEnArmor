@@ -701,12 +701,11 @@ session_start();
                                                 </div>
 
                                                 <!-- Publier l'avis ou annuler l'écriture -->
-                                                <div class="flex gap-2 justify-between">
-                                                    <button
-                                                        onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                                        class="font-bold text-secondary rounded-lg p-2 self-end flex items-center gap-2 border border-secondary">
+                                                <div class="flex justify-end gap-3 items-center">
+                                                    <div onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
+                                                        class="font-bold text-secondarygit rounded-lg p-2 self-end flex items-center gap-2 border border-secondary">
                                                         <p>- Annuler</p>
-                                                    </button>
+                                                    </div>
 
                                                     <input type="submit" value="+ Publier"
                                                         class="bg-secondary text-white font-bold rounded-lg p-2 self-end">
@@ -744,10 +743,10 @@ session_start();
 
                                     <?php
                                     // UTILISATEUR PAS CONNECTÉ
-                                } else { ?>
-                                    <p class="text-small italic"><a href='/connexion' class="underline">Connectez-vous</a>
-                                        pour rédiger un
-                                        avis</p>
+                                } else if (!isset($_SESSION['id_pro'])) { ?>
+                                        <p class="text-small italic"><a href='/connexion' class="underline">Connectez-vous</a>
+                                            pour rédiger un
+                                            avis</p>
                                     <?php
                                 }
                                 ?>

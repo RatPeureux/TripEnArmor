@@ -5,7 +5,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 class TarifPublic extends BDD
 {
 
-    private $nom_table = "sae_db._tarif_public";
+    static private $nom_table = "sae_db._tarif_public";
 
     static function getTarifsByIdOffre($id_offre)
     {
@@ -41,7 +41,7 @@ class TarifPublic extends BDD
 
     static function createTarifPublic($titre_tarif, $prix, $id_offre)
     {
-        $query = "INSERT INTO " . self::$nom_table . "(titre_tarif, prix, id_offre) VALUES (?, ?, ?) RETURNING type_repas_id";
+        $query = "INSERT INTO " . self::$nom_table . "(titre, prix, id_offre) VALUES (?, ?, ?) RETURNING id_tarif";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $titre_tarif);

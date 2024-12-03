@@ -31,9 +31,6 @@ abstract class BDD
     {
         self::$db->beginTransaction();
         $result = self::$db->exec('SET CONSTRAINTS ALL DEFERRED');
-        echo "*** BEGIN SET CONSTRAINTS ALL DEFERRED ***<br>";
-        echo "Result : $result<br>";
-        echo "*** END SET CONSTRAINTS ALL DEFERRED ***<br>";
     }
 
     static public function commitTransaction()

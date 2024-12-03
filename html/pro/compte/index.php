@@ -22,7 +22,7 @@ $pro = verifyPro();
     <title>Mon compte - Professionnel - PACT</title>
 </head>
 
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col">
     <?php
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
@@ -43,8 +43,8 @@ $pro = verifyPro();
         </div>
     </header>
 
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div class="max-w-[23rem] my-8 mx-auto space-y-12 flex flex-col items-center">
+    <main class="grow flex items-center md:w-full m-auto max-w-[1280px] p-2">
+        <div class="mt-2 grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center">
             <a href="/pro/compte/profil"
                 class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-user"></i>
@@ -54,7 +54,7 @@ $pro = verifyPro();
                     <p class="text-small">Voir mes activités récentes.</p>
                 </div>
             </a>
-            <a href="/pro/compte/paramètres"
+            <a href="/pro/compte/parametres"
                 class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-gear"></i>
                 <div class="w-full">
@@ -63,8 +63,8 @@ $pro = verifyPro();
                     <p class="text-small">Supprimer mon compte.</p>
                 </div>
             </a>
-            <a href="/pro/compte/sécurité"
-                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
+            <a href="/pro/compte/securite"
+                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-shield"></i>
                 <div class="w-full">
                     <p class="text-h2">Sécurité</p>
