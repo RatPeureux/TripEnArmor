@@ -280,6 +280,7 @@ $pro = verifyPro();
 				for($i = 0; $i < count($langueController->getInfosAllLangues()); $i++) { // foreach ($langues as $langue => $isIncluded) {
 					$isIncluded = $_POST['langue' . $i] ?? "on";
 					if ($isIncluded) {
+						echo "Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
 						$visiteLangueController->linkVisiteAndLangue($id_offre, $i);
 					}
 				}
