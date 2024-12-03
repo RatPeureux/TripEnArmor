@@ -10,11 +10,13 @@
                 -
                 <a href="/pro/cgu" class="hover:text-primary">CGU</a>
                 -
-                <a href="/pro/support" class="hover:text-primary">Contacter le support</a>
+                <a href="/pro/cgv" class="hover:text-primary">CGV</a>
+                -
+                <a href="mailto:benoit.tottereau@univ-rennes.fr" class="hover:text-primary">Contacter le support</a>
                 -
                 <a href="/" class="hover:text-primary">Retour vers la PACT</a>
             </div>
-            ©2024, <a href="#" class="hover:text-primary">TripEnArmor</a>
+            @2024, <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
         </div>
         <!-- Format téléphone -->
         <div class="text-center block sm:hidden">
@@ -23,11 +25,13 @@
                 -
                 <a href="/pro/cgu" class="hover:text-primary">CGU</a>
                 -
-                <a href="/pro/support" class="hover:text-primary">Contacter le support</a>
+                <a href="/pro/cgv" class="hover:text-primary">CGV</a>
+                -
+                <a href="mailto:benoit.tottereau@univ-rennes.fr" class="hover:text-primary">Contacter le support</a>
                 -
                 <a href="/" class="hover:text-primary">Retour vers la PACT</a>
                 -
-                <a href="#">©2024, TripEnArmor</a>
+                <a href="/pro/TripEnArvor">@2024, TripEnArvor</a>
             </div>
         </div>
 </footer>
