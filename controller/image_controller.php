@@ -47,8 +47,8 @@ class ImageController
         echo "extension : " . $extension . "<br>";
         echo "uploadDir : " . $this->uploadDir . "<br>";
         echo "new path : " . $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension . "<br>";
-        echo "is uploaded file : " . is_uploaded_file($actual_path) . "<br>";
 
+        echo "Is uploaded file : ";
         var_dump(is_uploaded_file($actual_path));
         echo '<br>';
         echo substr(sprintf('%o', fileperms($actual_path)), -4);
@@ -60,7 +60,7 @@ class ImageController
             }
             $result = rename($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
         } else {
-            $result = "TEEEST";
+            $result = "not uploaded file";
         }
 
         // $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
@@ -68,8 +68,6 @@ class ImageController
         var_dump($result);
 
         echo "<br>";
-
-        echo "move_uploaded_file result : " . ($result ? "true" : "false") . "<br>";
         return $result;
     }
 }
