@@ -242,7 +242,7 @@ session_start();
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
                             <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
-                                echo $images['carte'];
+                                echo "offres/" . $images['carte'];
                             } else {
                                 echo $categorie_offre . '.jpg';
                             } ?>' alt="image de slider">
@@ -252,7 +252,7 @@ session_start();
                             foreach ($images['details'] as $image) {
                                 ?>
                                 <div class="swiper-slide !w-full">
-                                    <img class="object-cover w-full h-full" src='/public/images/<?php echo $image; ?>'
+                                    <img class="object-cover w-full h-full" src='/public/images/<?php echo "offres/" . $image; ?>'
                                         alt="image de slider">
                                 </div>
                                 <?php

@@ -20,6 +20,7 @@ if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
 
 $membre = verifyMember();
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 

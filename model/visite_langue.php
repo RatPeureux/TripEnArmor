@@ -46,7 +46,7 @@ class VisiteLangue extends BDD
         $statement->bindParam(2, $id_langue);
 
         if ($statement->execute()) {
-            return !empty($statement->fetchAll(PDO::FETCH_ASSOC)[0]);
+            return count($statement->fetchAll(PDO::FETCH_ASSOC)) != 0;
         } else {
             return false;
         }
@@ -54,7 +54,7 @@ class VisiteLangue extends BDD
 
     static function createVisiteLangue($id_offre, $id_langue)
     {
-        $query = "INSERT INTO (id_offre, id_langue" . self::$nom_table . "VALUES (?, ?) RETURNING *";
+        $query = "INSERT INTO " . self::$nom_table . " (id_offre, id_langue) VALUES (?, ?) RETURNING *";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id_offre);
         $statement->bindParam(2, $id_langue);
@@ -69,7 +69,7 @@ class VisiteLangue extends BDD
     static function deleteVisiteLangue($id_offre, $id_langue)
     {
         self::initBDD();
-        $query = "DELETE FROM" . self::$nom_table . "WHERE id_offre = ?";
+        $query = "DELETE FROM" . self::$nom_table . " WHERE id_offre = ?";
 
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id_offre);

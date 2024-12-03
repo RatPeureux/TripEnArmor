@@ -54,27 +54,31 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 <strong>Adresse :</strong> 21 rue Case Nègres, Place d'Armes, Le Lamentin, 97232, Martinique<br>
                 <strong>Contact :</strong> contact@pact.com
             </p>
-
+            
             <p class="text-h2">3. Données Collectées : Membre</p>
             <p>
-                Nous collectons des données personnelles nécessaires au fonctionnement du site, notamment :<br>
-                - <strong>Données fournies directement :</strong> Nom, Prénom, Adresse mail, Adresse postale, Numéro de téléphone,<br>
-                - <strong>Données collectées automatiquement :</strong> Cookies.
+                Nous collectons des données personnelles nécessaires au fonctionnement du site, notamment :
+                <ul class="list-disc list-inside">
+                    <li><strong>Données fournies directement :</strong> Nom, Prénom, Adresse mail, Adresse postale, Numéro de téléphone.</li>
+                    <li><strong>Données collectées automatiquement :</strong> Cookies.</li>
+                </ul>
             </p>
 
             <p class="text-h2">4. Finalités et Conservation</p>
             <p>
-                Les données sont utilisées conformément à la section « Finalité du traitement » des <a href="/cgu.php" class="underline">CGU</a>.
-                La durée de conservation varie selon la finalité :<br>
-                - Données utilisateurs : jusqu'à la suppression du compte ou après 3 ans d'inactivité,<br>
-                - Données analytiques : 13 mois pour les cookies,<br>
+                Les données sont utilisées conformément à la section « Finalité du traitement » des 
+                <a href="/cgu.php" class="underline">CGU</a>. La durée de conservation varie selon la finalité :
+                <ul class="list-disc list-inside">
+                    <li>Données utilisateurs : jusqu'à la suppression du compte ou après 3 ans d'inactivité.</li>
+                    <li>Données analytiques : 13 mois pour les cookies.</li>
+                </ul>
                 Consultez la section sur vos <strong>Droits des Utilisateurs</strong> ci-dessous pour demander la suppression de vos données.
             </p>
 
             <p class="text-h2">5. Vos Droits</p>
             <p>
                 En tant qu'utilisateur, vous disposez des droits suivants :
-                <ul>
+                <ul class="list-disc list-inside">
                     <li>Droit d'accès, rectification ou suppression de vos données,</li>
                     <li>Droit à la portabilité et d'opposition au traitement,</li>
                     <li>Réclamation auprès de l'autorité compétente (CNIL),</li>
@@ -84,9 +88,11 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
             <p class="text-h2">6. Cookies</p>
             <p>
-                Ce site utilise des cookies pour :<br>
-                - Améliorer l'expérience utilisateur,<br>
-                Consultez la liste des cookies utilisés ci-dessous.
+                Ce site utilise des cookies pour :
+                <ul class="list-disc list-inside">
+                    <li>Améliorer l'expérience utilisateur,</li>
+                </ul>
+                Vous pouvez consulter la liste des cookies utilisés ci-dessous.
             </p>
 
             <p class="text-h2">7. Liste des Cookies Utilisés</p>
@@ -112,8 +118,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <p class="text-h2">8. Gestion des Cookies</p>
             <p>
                 Vous pouvez gérer vos préférences en matière de cookies :
-                <ul>
-                    <li>- En modifiant les paramètres de votre navigateur.</li>
+                <ul class="list-disc list-inside">
+                    <li>En modifiant les paramètres de votre navigateur.</li>
                 </ul>
             </p>
 

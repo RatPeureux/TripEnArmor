@@ -98,7 +98,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
     </header>
 
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div class="max-w-[44rem] m-auto flex flex-col">
+        <div class="m-auto flex flex-col">
             <p class="text-h1 mb-4">Informations publiques</p>
 
             <form action="" class="flex flex-col" method="post">
@@ -153,7 +153,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
         <div class="max-w-[23rem] mx-auto">
             <a href="/pro/compte/profil/avis"
-                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
+                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
                 <div class="w-full">
                     <p class="text-h2">Avis</p>

@@ -550,7 +550,9 @@ INSERT INTO
     _langue (nom)
 VALUES ('Français'),
     ('Breton'),
-    ('Anglais');
+    ('Anglais'),
+    ('Espagnol'),
+    ('Allemand');
 
 INSERT INTO
     _visite_langue (id_offre, id_langue)
@@ -754,4 +756,17 @@ VALUES (
         3,
         8.34,
         10.00
+    ),
+    (
+        4,
+        'FAC-2024-004',
+        'Abonnement Premium',
+        '2024-11-01',
+        '2024-11-01',
+        '2024-12-01',
+        '2024-11-01',
+        30,
+        30,
+        3.34,
+        4.00
     );

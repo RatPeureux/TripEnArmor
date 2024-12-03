@@ -95,7 +95,7 @@ session_start();
                     }
                 } else {
                     ?>
-                    <h1 class="mt-4 text-h2 font-bold">Vous n'avez aucun avis</h1>
+                    <h1 class="mt-4 text-h2 font-bold">Vous n'avez publié aucun avis.</h1>
                     <?php
                 }
                 ?>

@@ -5,7 +5,7 @@ class ImageController
     private $uploadDir;
     public function __construct()
     {
-        $this->uploadDir = dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/images/';
+        $this->uploadDir = dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/images/offres/';
     }
 
     public function getImagesOfOffre($id_offre)
@@ -19,7 +19,7 @@ class ImageController
 
         foreach ($allImages as $image) {
             $name = explode(".", $image)[0];
-            $subparts = explode("-", $name);
+            $subparts = explode("_", $name);
 
             if ($subparts[0] == $id_offre) {
                 if ($subparts[1] == "carte") {
@@ -40,6 +40,10 @@ class ImageController
 
     public function uploadImage($id_offre, $champ, $actual_path, $extension)
     {
-        return move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
+        if (!file_exists($this->uploadDir)) {
+            mkdir($this->uploadDir, 0777, true);
+        }
+        $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
+        return $result;
     }
 }

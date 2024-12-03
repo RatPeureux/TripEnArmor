@@ -40,9 +40,9 @@ if (empty($_POST)) { ?>
                     <p class="pb-3">J'ai un compte Membre</p>
 
                     <!-- Champ pour l'identifiant -->
-                    <label class="text-small" for="id">Identifiant (pseudo, téléphone, mail)</label>
+                    <label class="text-small" for="id">Identifiant</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
-                        title="pseudo / mail / téléphone" maxlength="255"
+                        title="pseudo / mail / téléphone" maxlength="255" placeholder="Pseudonyme, téléphone ou mail"
                         value="<?php echo $_SESSION['data_en_cours_connexion']['id']; ?>" required>
 
                     <!-- Champ pour le mot de passe -->

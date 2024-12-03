@@ -144,8 +144,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
-
 CREATE OR REPLACE FUNCTION check_fk_offre() RETURNS TRIGGER AS $$
 BEGIN
     PERFORM * FROM sae_db._offre WHERE id_offre = NEW.id_offre;
@@ -196,36 +194,53 @@ Triggers
 -- EXECUTE FUNCTION fk_avis ();
 
 -- trigger pour vérifier les id de la table offre pour tarif_public
-CREATE OR REPLACE TRIGGER fk_offre_tarif_public BEFORE
-INSERT
-    ON sae_db._tarif_public FOR EACH ROW
-EXECUTE FUNCTION check_fk_offre ();
+DROP TRIGGER IF EXISTS deferred_fk_offre_tarif_public ON sae_db._tarif_public;
+CREATE CONSTRAINT TRIGGER deferred_fk_offre_tarif_public
+AFTER INSERT OR UPDATE ON sae_db._tarif_public
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre();
 
 -- trigger pour vérifier les id de la table offre pour horaires
-CREATE OR REPLACE TRIGGER fk_offre_horaires BEFORE
-INSERT
-    ON sae_db._horaire FOR EACH ROW
-EXECUTE FUNCTION check_fk_offre ();
+DROP TRIGGER IF EXISTS deferred_fk_offre_horaires ON sae_db._horaires;
+CREATE CONSTRAINT TRIGGER deferred_fk_offre_horaires
+AFTER INSERT OR UPDATE ON sae_db._horaire
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre();
 
-CREATE OR REPLACE TRIGGER fk_offre_souscription_option BEFORE
-INSERT
-    ON sae_db._offre_souscription_option FOR EACH ROW
-EXECUTE FUNCTION check_fk_offre ();
+-- trigger pour vérifier les id de la table offre pour offre souscription option
+DROP TRIGGER IF EXISTS deferred_fk_offre_souscription_option ON sae_db._offre_souscription_option;
+CREATE CONSTRAINT TRIGGER deferred_fk_offre_souscription_option
+AFTER INSERT OR UPDATE ON sae_db._offre_souscription_option
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre();
 
-CREATE OR REPLACE TRIGGER fk_offre_tag BEFORE
-INSERT
-    ON sae_db._tag_offre FOR EACH ROW
-EXECUTE FUNCTION check_fk_offre ();
+-- trigger pour vérifier les id de la table offre pour tag offre
+DROP TRIGGER IF EXISTS deferred_fk_offre_tag_offre ON sae_db._tag_offre;
+CREATE CONSTRAINT TRIGGER deferred_fk_offre_tag_offre
+AFTER INSERT OR UPDATE ON sae_db._tag_offre
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre();
 
-CREATE OR REPLACE TRIGGER fk_offre_facture BEFORE
-INSERT
-    ON sae_db._facture FOR EACH ROW
-EXECUTE FUNCTION check_fk_offre ();
+-- trigger pour vérifier les id de la table offre pour offre facture
+DROP TRIGGER IF EXISTS deferred_fk_offre_facture ON sae_db._facture;
+CREATE CONSTRAINT TRIGGER deferred_fk_offre_facture
+AFTER INSERT OR UPDATE ON sae_db._facture
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre();
 
-CREATE OR REPLACE TRIGGER fk_offre_log_changement_status BEFORE
-INSERT
-    ON sae_db._log_changement_status FOR EACH ROW
-EXECUTE FUNCTION check_fk_offre ();
+-- trigger pour vérifier les id de la table offre pour offre log changement status
+DROP TRIGGER IF EXISTS deferred_fk_offre_log_changement_status ON sae_db._log_changement_status;
+CREATE CONSTRAINT TRIGGER deferred_fk_offre_log_changement_status
+AFTER INSERT OR UPDATE ON sae_db._log_changement_status
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre();
+
 
 -- trigger pour vérifier les id de la table activite
 CREATE OR REPLACE TRIGGER fk_activite_professionnel BEFORE
