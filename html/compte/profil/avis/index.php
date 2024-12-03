@@ -34,6 +34,7 @@ session_start();
             </p>
         </div>
     </header>
+
     <?php
     $id_membre = $_SESSION['id_membre'];
 
@@ -59,7 +60,6 @@ session_start();
                 <?php
                 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
                 $avisController = new AvisController();
-
                 $tousMesAvis = $avisController->getAvisByIdMembre($id_membre);
 
                 if ($tousMesAvis) {

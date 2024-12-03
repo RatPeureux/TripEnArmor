@@ -27,7 +27,7 @@ if (!function_exists('to_nom_note')) {
 ?>
 
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
-<div class="avis w-full rounded-lg border border-primary border-4 p-2 flex flex-col gap-1 text-small">
+<div class="avis w-full rounded-lg border border-black p-2 flex flex-col gap-1">
     <?php
     // Obtenir la variables regroupant les infos du membre
     $membre = $membreController->getInfosMembre($id_membre);
@@ -65,7 +65,7 @@ if (!function_exists('to_nom_note')) {
         </div>
 
         <!-- Drapeau de signalement -->
-        <a onclick="confirm('Signaler l\'avis ?')">
+        <a onclick="confirm('Signaler l\'avis ?')" class="z-50">
             <i class="fa-solid fa-flag text-h2"></i>
         </a>
     </div>

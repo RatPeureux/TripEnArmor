@@ -138,6 +138,12 @@ if ($mode_carte == 'membre') {
 
 
 
+
+
+
+
+
+
     <?php
 } else {
     ?>
@@ -151,7 +157,7 @@ if ($mode_carte == 'membre') {
 
             <!-- PARTIE DE GAUCHE, image-->
             <div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
-                <a href="/pages/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>">
+                <a href="/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>">
                 <img class="rounded-l-lg w-full h-full object-cover object-center"
                     src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="Image promotionnelle de l'offre"
                     title="consulter les détails">
@@ -169,8 +175,7 @@ if ($mode_carte == 'membre') {
                     <div>
                         <h3 class="text-h2 font-bold"><?php echo $titre_offre ?></h3>
                         <div class="flex">
-                            <p class="text"><?php echo $pro_nom ?></p>
-                            <p class="categorie text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
+                            <p class="categorie text"><?php chaineVersMot($categorie_offre) ?></p>
                         </div>
                     </div>
 
@@ -213,7 +218,7 @@ if ($mode_carte == 'membre') {
                             <i class="fa-solid fa-gear text-secondary text-h1 hover:text-primary duration-100"></i>
                         </a>
                         <!-- détails de l'offre -->
-                        <a href="/pages/go_to_details.php?id_offre=<?php echo $id_offre ?>" title="voir l'offre">
+                        <a href="/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>" title="voir l'offre">
                             <i class="fa-solid fa-arrow-up-right-from-square text-h1 hover:text-primary duration-100"></i>
                         </a>
                     </div>
