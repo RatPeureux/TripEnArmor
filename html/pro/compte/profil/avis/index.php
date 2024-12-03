@@ -14,6 +14,7 @@ $pro = verifyPro();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
+    <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
