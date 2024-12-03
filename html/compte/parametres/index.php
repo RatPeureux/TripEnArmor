@@ -17,28 +17,28 @@ include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controlle
 $controllerAdresse = new AdresseController();
 $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
 
-if (isset($_POST['nom']) || isset($_POST['prenom']) && !empty($_POST['nom']) && !empty($_POST['prenom'])) {
+if (isset($_POST['nom']) || isset($_POST['prenom'])) {
     $prenom = false;
     $nom = false;
-    if (isset($_POST['nom'])) {
+    if (!empty($_POST['nom'])) {
         $prenom = $_POST['nom'];
         unset($_POST['nom']);
     }
-    if (isset($_POST['prenom'])) {
+    if (!empty($_POST['prenom'])) {
         $nom = $_POST['prenom'];
         unset($_POST['prenom']);
     }
     $controllerMembre->updateMembre($membre['id_compte'], false, false, false, false, false, $nom, $prenom);
 }
 
-if ((isset($_POST['email']) && !empty($_POST['email'])) || (isset($_POST['num_tel']) && !empty($_POST['num_tel']) && strlen($_POST['num_tel']) > 14)) {
+if (isset($_POST['email']) || isset($_POST['num_tel'])) {
     $email = false;
     $num_tel = false;
-    if (isset($_POST['email'])) {
+    if (!empty($_POST['email'])) {
         $email = $_POST['email'];
         unset($_POST['email']);
     }
-    if (isset($_POST['num_tel']) && strlen($_POST['num_tel']) > 14) {
+    if (strlen($_POST['num_tel']) > 14) {
         $num_tel = $_POST['num_tel'];
         unset($_POST['num_tel']);
     }
@@ -51,7 +51,7 @@ if ((isset($_POST['adresse']) && !empty($_POST['adresse'])) || isset($_POST['com
     $code = false;
     $ville = false;
 
-    if (isset($_POST['adresse'])) {
+    if (!empty($_POST['adresse'])) {
         $adresse = $_POST['adresse'];
         $adresse = explode(" ", $adresse);
         $numero = $adresse[0];
@@ -62,11 +62,11 @@ if ((isset($_POST['adresse']) && !empty($_POST['adresse'])) || isset($_POST['com
         $complement = $_POST['complement'];
         unset($_POST['complement']);
     }
-    if (isset($_POST['code'])) {
+    if (!empty($_POST['code'])) {
         $code = $_POST['code'];
         unset($_POST['code']);
     }
-    if (isset($_POST['ville'])) {
+    if (!empty($_POST['ville'])) {
         $ville = $_POST['ville'];
         unset($_POST['ville']);
     }
@@ -116,7 +116,7 @@ $membre = verifyMember();
                 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
                 ?>
             </div>
-            
+
             <div class="flex flex-col md:mx-10 grow">
                 <p class="text-h1 mb-4">Informations privées</p>
 
