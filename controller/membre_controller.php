@@ -57,4 +57,11 @@ class MembreController
             return $updatedMembreId;
         }
     }
+
+    public function deleteMembre($id)
+    {
+        $membre = $this->model::deleteMembre($id);
+
+        return $membre;
+    }
 }

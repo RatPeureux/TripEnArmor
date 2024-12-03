@@ -207,8 +207,14 @@ if ($pro['data']['id_rib'] != null) {
                     </input>
                 </form>
                 <?php
-            }
-            ?>
+            } ?>
+
+            <hr class="mb-8">
+
+            <a href="/scripts/delete.php" onclick="return confirmDelete()"
+                class="mx-auto max-w-[23rem] w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent rounded-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
+                Supprimer mon compte
+            </a>
         </div>
     </main>
 
