@@ -259,7 +259,7 @@ session_start();
                             foreach ($images['details'] as $image) {
                                 ?>
                                 <div class="swiper-slide !w-full">
-                                    <img class="object-cover w-full h-full" src='/public/images/<?php echo $image; ?>'
+                                    <img class="object-cover w-full h-full" src='/public/images/<?php echo "offres/" . $image; ?>'
                                         alt="image de slider">
                                 </div>
                                 <?php
