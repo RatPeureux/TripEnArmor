@@ -51,6 +51,8 @@ class ImageController
 
         $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
 
+        var_dump($result);
+
         echo "move_uploaded_file result : " . ($result ? "true" : "false") . "<br>";
         return $result;
     }
