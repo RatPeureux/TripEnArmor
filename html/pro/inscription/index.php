@@ -44,7 +44,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Professionnel</p>
 
-                    <!-- Choix du statut de l'utilisateur -->
+                    <!-- Choix du statut de l'organisation -->
                     <label class="text-small" for="statut">Je suis un organisme&nbsp;</label>
                     <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="statut" name="statut"
                         title="Choisir un statut" onchange="updateLabel()" required>
@@ -281,19 +281,19 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
                     <label class="text-small" for="num_siren">Numéro SIREN</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="num_siren" name="num_siren"
-                        title="14 chiffres" pattern="^\d{14}$" maxlength="14"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" oninput="formatSiren(this)" type="text"
+                        id="num_siren" name="num_siren" title="14 chiffres" minlength="17" maxlength="17"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?>" required>
                 <?php } ?>
 
                 <!-- Champs pour l'adresse -->
-                <label class="text-small" for="adresse">Adresse postale</label>
+                <label class="text-small" for="adresse">Adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
                     name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs" maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
                     required>
 
-                <label class="text-small" for="complement">Complément d'adresse postale</label>
+                <label class="text-small" for="complement">Complément d'adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
                     title="Complément d'adresse" maxlength="255" placeholder="Bâtiment A, Appartement 5"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?>">
@@ -355,7 +355,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="mb-1.5 flex items-start">
                     <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
                         required>
-                        <label class="text-small" for="termes">J’accepte les <a href="/cgu" class="underline">conditions d'utilisation</a> et je confirme avoir lu la <a href="#" class="underline">Politique de confidentialité et d'utilisation des cookies</a>.</label>
+                        <label class="text-small" for="termes">J’accepte les <a href="/cgu" class="underline">Conditions générales d'utilisation</a> et je confirme avoir lu la <a href="/pro/confidentialite_et_cookies" class="underline">Politique de confidentialité et d'utilisation des cookies</a>.</label>
                     </label>
                 </div>
 
@@ -403,15 +403,43 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             }
         }
 
-        // Fonction pour formater l'IBAN
         function formatIBAN(input) {
-            let value = input.value.replace(/[^A-Z0-9]/g, ''); // Keep letters and numbers
-            const prefix = "FR"; // Préfixe de l'IBAN
-            if (value.startsWith(prefix)) {
-                value = value.substring(2); // Remove the prefix from the value
+            let value = input.value.replace(/[^A-Z0-9]/g, ''); // Supprime tout sauf les lettres majuscules et les chiffres
+            const prefix = "FR76"; // Préfixe du pays (France)
+
+            // Si la chaîne a moins de 4 caractères, on vide le champ et on le réinitialise avec le préfixe
+            if (value.length < 4) {
+                input.value = prefix;
+                return;
             }
-            const formattedValue = value.length > 0 ? (prefix + value).match(/.{1,4}/g).join(' ') : prefix; // Formatage de l'IBAN
+
+            // Si l'IBAN commence déjà par "FR76", on l'enlève pour éviter la duplication
+            if (value.startsWith(prefix)) {
+                value = value.substring(4); // Enlever "FR76" pour ne pas répéter
+            }
+
+            // Reconstitue l'IBAN avec le préfixe et formatage en groupes de 4 caractères
+            const formattedValue = (prefix + value).match(/.{1,4}/g)?.join(' ') || prefix;
+
+            // Met à jour la valeur dans le champ input
             input.value = formattedValue;
+        }
+
+        function formatSiren(input) {
+            // Supprime tout ce qui n'est pas un chiffre
+            let value = input.value.replace(/\D/g, '');
+
+            // Limite à 14 caractères (9 pour le SIREN + 5 pour les caractères supplémentaires)
+            value = value.substring(0, 14);
+
+            // Ajoute les espaces tous les 3 chiffres pour les trois premiers groupes
+            let formatted = value
+                .replace(/(\d{3})(\d)/, '$1 $2') // Ajoute un espace après les 3 premiers chiffres
+                .replace(/(\d{3}) (\d{3})(\d)/, '$1 $2 $3') // Ajoute un espace après les 6 premiers chiffres
+                .replace(/(\d{3}) (\d{3}) (\d{3})(\d+)/, '$1 $2 $3 $4'); // Le reste (5 derniers caractères sans espace)
+
+            // Met à jour la valeur de l'input avec le format correct
+            input.value = formatted;
         }
     </script>
 
@@ -534,10 +562,10 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         }
                     }
                 }
-                
+
             }
 
-            
+
         }
     }
 

@@ -219,8 +219,8 @@ ADD CONSTRAINT fk_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag) DEFERRABLE I
 -- Création de la table _avis
 CREATE TABLE _avis (
     id_avis SERIAL PRIMARY KEY, -- id unique
-    date_publication DATE NOT NULL,
-    date_experience DATE NOT NULL, -- date où la personne a visité/mangé/...
+    date_publication DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    date_experience DATE NOT NULL DEFAULT CURRENT_TIMESTAMP, -- date où la personne a visité/mangé/...
     titre VARCHAR(50), -- titre de l'avis
     commentaire VARCHAR(1024), -- commentaire de l'avis
     note FLOAT,

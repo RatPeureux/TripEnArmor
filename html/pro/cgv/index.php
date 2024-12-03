@@ -1,7 +1,4 @@
 <?php
-// Définir le code HTTP 401
-http_response_code(401);
-
 session_start();
 
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
@@ -16,7 +13,6 @@ $pro = verifyPro();?>
 
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,10 +25,9 @@ $pro = verifyPro();?>
     <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
 
-    <title>404 Page non trouvée - Professionnel - PACT</title>
+    <title>Conditions générales de vente (CGV) - Professionnel - PACT</title>
 </head>
-
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col justify-between">
 
     <div id="menu-pro">
         <?php
@@ -41,23 +36,20 @@ $pro = verifyPro();?>
     </div>
 
     <!-- Inclusion du header -->
-    <?php
+    <?php 
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
     ?>
 
-    <main class="grow flex justify-center w-full mt-20 m-auto max-w-[1280px] p-2">
-        <div class="flex flex-col items-center justify-center">
-            <h1 class="font-cormorant text-[10rem]">404</h1>
-            <p>Ce n'est pas la page que vous recherchez.</p>
-            <img src="https://i.gifer.com/4H4U.gif"
-                class="mt-10 mb-28 m-auto rounded-lg" alt="tottereau" width="250">
-        </div>
-    </main>
+    <div class="self-center mt-20 flex justify-center w-full md:max-w-[1280px] p-2">
+        <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
+            
+        </main>
+    </div>
 
-    <!-- FOOTER -->
+    <!-- Inclusion du footer -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
     ?>
+    
 </body>
-
 </html>

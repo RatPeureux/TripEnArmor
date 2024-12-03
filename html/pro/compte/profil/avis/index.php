@@ -1,10 +1,7 @@
 <?php
 session_start();
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
-
 $pro = verifyPro();
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -23,16 +20,12 @@ $pro = verifyPro();
     <title>Avis de mes offres - Professionnel - PACT</title>
 </head>
 
-<?php
-// Connexion avec la bdd
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';?>
+<body class="min-h-screen flex flex-col">
 
-<body class="min-h-screen flex flex-col justify-between">
-    
     <div id="menu-pro">
-        <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';?>
+        <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php'; ?>
     </div>
-    
+
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
         <div class="flex w-full items-center">
             <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
@@ -48,8 +41,42 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
         </div>
     </header>
 
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        
+    <main class="w-full flex justify-center grow p-4">
+        <div class="max-w-[44rem] grow flex flex-col gap-4">
+            <?php
+            // Afficher tous les avis du professionnel
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+            $avisController = new AvisController();
+            $tousMesAvis = $avisController->getAvisByIdPro($pro['id_compte']);
+
+            if ($tousMesAvis) {
+                foreach ($tousMesAvis as $avis) {
+                    $id_avis = $avis['id_avis'];
+                    $id_membre = $avis['id_membre'];
+                    ?>
+
+                    <div id="clickable_div_<?php echo $id_avis ?>" class="shadow-lg hover:cursor-pointer">
+                        <?php
+                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
+                        ?>
+                    </div>
+
+                    <script>
+                        document.querySelector('#clickable_div_<?php echo $id_avis ?>').addEventListener('click', function () {
+                            window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
+                        });
+                    </script>
+
+                    <?php
+                }
+            } else {
+                ?>
+                <h1 class="mt-4 text-h2 font-bold">Aucun avis n'a été publié sur vos offres</h1>
+                <?php
+            }
+            ?>
+        </div>
+
     </main>
 
     <!-- FOOTER -->

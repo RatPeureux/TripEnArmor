@@ -25,7 +25,7 @@ $pro = verifyPro();?>
     <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
 
-    <title>CGU - Professionnel - PACT</title>
+    <title>Conditions générales d'utilisation (CGU) - Professionnel - PACT</title>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
@@ -46,74 +46,58 @@ $pro = verifyPro();?>
 
             <p class="text-h2">1. Présentation du Site</p>
             <p>
-                <strong>Nom du site :</strong> PACT.<br>
-                <strong>Propriétaire :</strong> TripEnArvor.<br>
-                <strong>Adresse :</strong> Rue Édouard Branly, 22300 Lannion.<br>
-                <strong>Contact :</strong> Tél. +33 2 96 46 93 00.<br>
-                <strong>Hébergement :</strong> Gildas "Big Papoo" Quignou, Vents d'ouest.
+                <strong>Nom du site :</strong> PACT<br>
+                <strong>Propriétaire :</strong> TripEnArvor<br>
+                <strong>Adresse :</strong> Rue Édouard Branly, 22300 Lannion<br>
+                <strong>Contact :</strong> Tél. +33 2 96 46 93 00<br>
+                <strong>Hébergement :</strong> Gildas "Big Papoo" Quignou, Vents d'ouest
             </p>
 
             <p class="text-h2">2. Acceptation des CGU</p>
             <p>
-                En accédant et en utilisant ce site, vous acceptez pleinement les présentes CGU. Si vous n'acceptez pas ces conditions, veuillez cesser d'utiliser le site.
+                En accédant et en utilisant ce site, vous acceptez pleinement les présentes Conditions Générales d'Utilisation.
+                Si vous n'êtes pas d'accord, veuillez cesser d'utiliser le site.
             </p>
 
-            <p class="text-h2">3. Accès au Site</p>
+            <p class="text-h2">3. Utilisation du Site</p>
             <p>
-                Le site est accessible gratuitement à tout utilisateur disposant d’un accès à Internet. Cependant, des interruptions peuvent survenir pour des raisons techniques ou de maintenance. 
+                Le site est accessible gratuitement. Cependant, l’accès peut être suspendu pour maintenance ou en cas de force majeure.
             </p>
 
-            <p class="text-h2">4. Responsabilité de l'Utilisateur</p>
+            <p class="text-h2">4. Propriété Intellectuelle</p>
             <p>
-                L'utilisateur s'engage à utiliser le site conformément à la loi française et à ne pas y effectuer d'activités illégales ou frauduleuses. Il est également responsable des informations qu'il transmet.
+                Tous les contenus présents sur ce site sont protégés par le droit de la propriété intellectuelle. Toute utilisation non autorisée est interdite.
             </p>
 
-            <p class="text-h2">5. Propriété Intellectuelle</p>
+            <p class="text-h2">5. Données Personnelles et RGPD</p>
             <p>
-                Tous les contenus du site (textes, images, vidéos, logos) sont protégés par le droit de la propriété intellectuelle. Toute reproduction ou utilisation non autorisée est strictement interdite.
+                Les données personnelles des utilisateurs sont collectées et traitées conformément à notre <a href="/pro/confidentialite_et_cookies" class="underline">Politique de Confidentialité</a>.
             </p>
 
-            <p class="text-h2">6. Données Personnelles et RGPD</p>
-            <p>
-                Conformément au RGPD et à la loi Informatique et Libertés, les données collectées sont traitées avec soin. Les utilisateurs disposent des droits suivants :
-            </p>
-            <p>
-                - Droit d'accès, de rectification et de suppression.<br>
-                - Droit d'opposition ou de limitation du traitement.<br>
-                - Droit à la portabilité de leurs données.<br>
-            </p>
-            <p>
-                Pour exercer ces droits, veuillez contacter notre support ou envoyer un courrier directement à TripEnArvor.
-            </p>
-
-            <p class="text-h2">7. Cookies</p>
+            <p class="text-h2">6. Cookies</p>
             <p>
                 Le site utilise des cookies obligatoires pour améliorer l’expérience utilisateur.
             </p>
 
-            <p class="text-h2">8. Responsabilité et Limitation</p>
+            <p class="text-h2">7. Responsabilités</p>
             <p>
-                Le propriétaire du site ne saurait être tenu responsable des dommages directs ou indirects liés à l'utilisation du site ou des informations qui y sont contenues.
+                <strong>Responsabilité de l’éditeur :</strong> Le site décline toute responsabilité en cas d’interruptions ou d’erreurs dans les contenus.<br>
+                <strong>Responsabilité de l’utilisateur :</strong> L’utilisateur s’engage à respecter la législation et à ne pas utiliser le site de manière frauduleuse.
             </p>
 
-            <p class="text-h2">9. Liens Hypertextes</p>
+            <p class="text-h2">8. Liens Hypertextes</p>
             <p>
-                Le site peut contenir des liens vers des sites externes. Nous ne sommes pas responsables de leur contenu ou de leur utilisation.
+                Le site peut contenir des liens vers des sites tiers. Nous ne sommes pas responsables du contenu de ces sites.
             </p>
 
-            <p class="text-h2">10. Modifications des CGU</p>
+            <p class="text-h2">9. Modifications des CGU</p>
             <p>
-                Ces CGU peuvent être modifiées à tout moment. Nous vous encourageons à les consulter régulièrement.
+                Les présentes CGU peuvent être modifiées à tout moment. Nous encourageons les utilisateurs à les consulter régulièrement.
             </p>
 
-            <p class="text-h2">11. Loi Applicable et Juridiction</p>
+            <p class="text-h2">10. Loi Applicable et Juridiction</p>
             <p>
                 Les présentes CGU sont régies par le droit français. En cas de litige, les tribunaux compétents seront ceux du ressort de Lannion.
-            </p>
-
-            <p class="text-h2">12. Mentions Légales</p>
-            <p>
-                Voir les <a href="/pro/mentions" class="underline">mentions légales</a> du site.
             </p>
         </main>
     </div>

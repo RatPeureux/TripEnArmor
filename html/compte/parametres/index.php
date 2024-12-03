@@ -1,5 +1,81 @@
 <?php
 session_start();
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+
+$membre = verifyMember();
+$id_membre = $_SESSION['id_membre'];
+
+// Connexion avec la bdd
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
+$controllerMembre = new MembreController();
+$membre = $controllerMembre->getInfosMembre($id_membre);
+
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
+$controllerAdresse = new AdresseController();
+$adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
+
+if (isset($_POST['nom']) || isset($_POST['prenom'])) {
+    $prenom = false;
+    $nom = false;
+    if (!empty($_POST['nom'])) {
+        $prenom = $_POST['nom'];
+        unset($_POST['nom']);
+    }
+    if (!empty($_POST['prenom'])) {
+        $nom = $_POST['prenom'];
+        unset($_POST['prenom']);
+    }
+    $controllerMembre->updateMembre($membre['id_compte'], false, false, false, false, false, $nom, $prenom);
+}
+
+if (isset($_POST['email']) || isset($_POST['num_tel'])) {
+    $email = false;
+    $num_tel = false;
+    if (!empty($_POST['email'])) {
+        $email = $_POST['email'];
+        unset($_POST['email']);
+    }
+    if (strlen($_POST['num_tel']) > 14) {
+        $num_tel = $_POST['num_tel'];
+        unset($_POST['num_tel']);
+    }
+    $controllerMembre->updateMembre($membre['id_compte'], $email, false, $num_tel, false, false, false, false);
+}
+if ((isset($_POST['adresse']) && !empty($_POST['adresse'])) || isset($_POST['complement']) || (isset($_POST['code']) && !empty($_POST['code'])) || (isset($_POST['ville']) && !empty($_POST['ville']))) {
+    $numero = false;
+    $odonyme = false;
+    $complement = false;
+    $code = false;
+    $ville = false;
+
+    if (!empty($_POST['adresse'])) {
+        $adresse = $_POST['adresse'];
+        $adresse = explode(" ", $adresse);
+        $numero = $adresse[0];
+        $odonyme = implode(" ", array_slice($adresse, 1));
+        unset($_POST['adresse']);
+    }
+    if (isset($_POST['complement'])) {
+        $complement = $_POST['complement'];
+        unset($_POST['complement']);
+    }
+    if (!empty($_POST['code'])) {
+        $code = $_POST['code'];
+        unset($_POST['code']);
+    }
+    if (!empty($_POST['ville'])) {
+        $ville = $_POST['ville'];
+        unset($_POST['ville']);
+    }
+
+    $controllerAdresse->updateAdresse($membre['id_adresse'], $code, $ville, $numero, $odonyme, $complement);
+}
+
+$adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
+$membre = verifyMember();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,27 +94,7 @@ session_start();
     <title>Paramètres du compte - PACT</title>
 </head>
 
-<body class="min-h-screen flex flex-col">
-    <?php
-    $id_membre = $_SESSION['id_membre'];
-
-    // Connexion avec la bdd
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-    // Récupération des informations du compte
-    $stmt = $dbh->prepare('SELECT * FROM sae_db._membre WHERE id_compte = :id_membre');
-    $stmt->bindParam(':id_membre', $id_membre);
-    $stmt->execute();
-    $id_membre = $stmt->fetch(PDO::FETCH_ASSOC)['id_compte'];
-
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
-    $controllerMembre = new MembreController();
-    $membre = $controllerMembre->getInfosMembre($id_membre);
-
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
-    $controllerAdresse = new AdresseController();
-    $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
-    ?>
+<body class="min-h-screen flex flex-col justify-between">
 
     <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
         <div class="flex w-full items-center">
@@ -64,78 +120,81 @@ session_start();
             <div class="flex flex-col md:mx-10 grow">
                 <p class="text-h1 mb-4">Informations privées</p>
 
-                <div class="flex flex-nowrap space-x-3 mb-1.5">
-                    <div class="w-full">
-                        <label class="text-h3" for="prenom">Prénom</label>
-                        <input value="<?php echo $membre['prenom'] ?>"
-                            class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                            id="prenom" name="prenom" maxlength="50">
+                <form action="" class="flex flex-col" method="post">
+                    <div class="flex flex-nowrap space-x-3 mb-1.5">
+                        <div class="w-full">
+                            <label class="text-h3" for="prenom">Prénom</label>
+                            <input value="<?php echo $membre['prenom'] ?>"
+                                class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
+                                id="prenom" name="prenom" maxlength="50">
+                        </div>
+                        <div class="w-full">
+                            <label class="text-h3" for="nom">Nom</label>
+                            <input value="<?php echo $membre['nom'] ?>"
+                                class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
+                                id="nom" name="nom" maxlength="50">
+                        </div>
                     </div>
-                    <div class="w-full">
-                        <label class="text-h3" for="nom">Nom</label>
-                        <input value="<?php echo $membre['nom'] ?>"
-                            class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                            id="nom" name="nom" maxlength="50">
-                    </div>
-                </div>
 
-                <button id="save1"
-                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
-                    disabled>
-                    Enregistrer les modifications
-                </button>
+                    <input type="submit" id="save1" href="" value="Enregistrer les modifications"
+                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                        disabled>
+                    </input>
+                </form>
+
+
+                <hr class="mb-8">
+                <form action="" class="flex flex-col" method="post">
+
+                    <label class="text-h3" for="email">Adresse mail</label>
+                    <input value="<?php echo $membre['email'] ?>"
+                        class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="email"
+                        id="email" name="email" maxlength="255">
+
+                    <label class="text-h3" for="num_tel">Numéro de téléphone</label>
+                    <input value="<?php echo $membre['tel'] ?>"
+                        class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="tel"
+                        id="num_tel" name="num_tel" minlength="14" maxlength="14">
+
+                    <input type="submit" id="save2" href="" value="Enregistrer les modifications"
+                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                        disabled>
+                    </input>
+                </form>
 
                 <hr class="mb-8">
 
-                <label class="text-h3" for="email">Adresse mail</label>
-                <input value="<?php echo $membre['email'] ?>"
-                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="email" id="email"
-                    name="email" maxlength="255">
-
-                <label class="text-h3" for="num_tel">Numéro de téléphone</label>
-                <input value="<?php echo $membre['num_tel'] ?>"
-                    class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel"
-                    name="num_tel" minlength="14" maxlength="14">
-
-                <button id="save2"
-                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
-                    disabled>
-                    Enregistrer les modifications
-                </button>
-
-                <hr class="mb-8">
-
-                <label class="text-h3" for="adresse">Adresse postale</label>
-                <input value="<?php echo $adresse['numero'] . " " . $adresse['odonyme'] ?>"
-                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="adresse"
-                    name="adresse" maxlength="255">
-
+                <form action="" class="flex flex-col" method="post">
+                    <label class="text-h3" for="adresse">Adresse postale</label>
+                    <input value="<?php echo $adresse['numero'] . " " . $adresse['odonyme'] ?>"
+                        class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
+                        id="adresse" name="adresse" maxlength="255"">
+                
                 <label class=" text-h3" for="complement">Complément adresse postale</label>
-                <input value="<?php echo $adresse['complement']; ?>"
-                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                    id="complement" name="complement" maxlength="255">
-
+                    <input value="<?php echo $adresse['complement'] ?>"
+                        class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
+                        id="complement" name="complement" maxlength="255"">
+                    
                 <div class=" flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-32">
                         <label class="text-h3" for="code">Code postal</label>
-                        <input value="<?php echo $adresse['code_postal']; ?>"
+                        <input value="<?php echo $adresse['code_postal'] ?>"
                             class="border-2 border-secondary p-2 text-right bg-white max-w-32 h-12 mb-3 rounded-lg"
                             type="text" id="code" name="code" minlength="5" maxlength="5">
                     </div>
                     <div class="w-full">
                         <label class="text-h3" for="ville">Ville</label>
-                        <input value="<?php echo $adresse['ville']; ?>"
+                        <input value="<?php echo $adresse['ville'] ?>"
                             class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
                             id="ville" name="ville" maxlength="50">
                     </div>
-                </div>
-
-                <button id="save3"
-                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
-                    disabled>
-                    Enregistrer les modifications
-                </button>
             </div>
+
+            <input type="submit" id="save3" href="" value="Enregistrer les modifications"
+                class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                disabled>
+            </input>
+            </form>
         </div>
     </main>
 

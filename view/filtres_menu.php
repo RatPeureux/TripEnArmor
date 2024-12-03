@@ -3,13 +3,13 @@
 <!-- MENU FILTRE TÉLÉPHONE -->
 <div class="block md:hidden fixed top-0 flex flex-col justify-between absolute w-full h-screen bg-base100 -translate-x-full duration-200 z-50" id="filtres">
     <div>
-        <div class="p-4 gap-4 flex justify-start items-center h-20 border-b-2 border-black">
+        <div class="p-4 gap-4 flex justify-start items-center h-20">
             <i class="text-3xl fa-solid fa-circle-xmark hover:cursor-pointer" onclick="toggleFiltres()"></i>
             <h1 class="text-h1">Filtres</h1>
         </div>
 
         <div class="w-full">
-            <div class="flex flex-col w-full border-b-2 border-black p-3 gap-4">
+            <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f1-tel">
                     <p>Catégorie</p>
                     <p class="arrow" id="arrow-f1-tel">></p>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full border-b-2 border-black p-3 gap-4">
+            <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f2-tel">
                     <p>Disponibilité</p>
                     <p class="arrow" id="arrow-f2-tel">></p>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full border-b-2 border-black p-3 gap-4">
+            <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f3-tel">
                     <p>Localisation</p>
                     <p class="arrow" id="arrow-f3-tel">></p>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full border-b-2 border-black p-3 gap-4">
+            <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f4-tel">
                     <p>Note générale</p>
                     <p class="arrow" id="arrow-f4-tel">></p>
@@ -90,7 +90,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full border-b-2 border-black p-3 gap-4">
+            <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f5-tel">
                     <p>Période</p>
                     <p class="arrow" id="arrow-f5-tel">></p>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full border-b-2 border-black p-3 gap-4">
+            <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f6-tel">
                     <p>Prix</p>
                     <p class="arrow" id="arrow-f6-tel">></p>

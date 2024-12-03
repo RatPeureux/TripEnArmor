@@ -38,6 +38,19 @@ class ProPriveController
         return $result;
     }
 
+    public function getMdpProPrive($id)
+    {
+        $proPrive = $this->model::getMdpById($id);
+
+        if ($proPrive) {
+            $result = $proPrive["mdp_hash"];
+        } else {
+            return false;
+        }
+
+        return $result;
+    }
+
     public function updateProPrive($id, $email = false, $mdp = false, $tel = false, $adresseId = false, $nom_pro = false, $num_siren = false, $id_rib = false)
     {
         if ($email === false && $mdp === false && $tel === false && $adresseId === false && $nom_pro === false && $num_siren === false && $id_rib === false) {
