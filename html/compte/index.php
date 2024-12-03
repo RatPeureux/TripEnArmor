@@ -61,19 +61,19 @@ $membre = verifyMember();
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
     ?>
 
-    <main class="grow md:w-full m-auto max-w-[1280px] p-2 flex">
+    <main class="grow max-w-[1280px] md:w-full mx-auto p-2 flex">
         <div id="menu">
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
             ?>
         </div>
 
-        <div class="flex flex-col md:mx-10 grow">
+        <div class="grow flex flex-col md:mx-10">
             <p class="text-h3 p-4"><?php echo $membre['prenom'] . ' ' . $membre['nom'] ?></p>
 
-            <hr class="mb-8">
+            <hr class="mb-4">
 
-            <div class="flex justify-center mt-2 grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center">
+            <div class="grow flex justify-center max-w-[23rem] mx-auto gap-12 flex flex-col items-center">
                 <a href="/compte/profil"
                     class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                     <i class="w-[50px] text-center text-5xl fa-solid fa-user"></i>

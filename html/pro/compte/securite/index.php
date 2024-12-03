@@ -79,21 +79,21 @@ if (isset($_POST['mdp'])) {
         ?>
     </div>
 
-    <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
-        <div class="flex w-full items-center">
-            <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
-                <i class="text-3xl fa-solid fa-bars"></i>
-            </a>
-            <p class="text-h2">
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    ?>
+
+    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
+        <div class="m-auto flex flex-col">
+            <p class="text-h3 p-4">
                 <a href="/pro/compte">Mon compte</a>
                 >
                 <a href="pro/compte/securite" class="underline">Sécurité</a>
             </p>
-        </div>
-    </header>
 
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div class="m-auto flex flex-col">
+            <hr class="mb-8">
+
             <p class="text-h1 mb-4">Informations sensibles</p>
             <p class="text-small">Définissez un nouveau mot de passe fiable, respectant les conditions
                 de sécurité minimum suivantes :</p>

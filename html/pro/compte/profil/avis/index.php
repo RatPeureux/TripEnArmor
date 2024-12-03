@@ -17,7 +17,7 @@ $pro = verifyPro();
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
-    <title>Avis de mes offres - Professionnel - PACT</title>
+    <title>Mes avis - Professionnel - PACT</title>
 </head>
 
 <body class="min-h-screen flex flex-col">
@@ -26,22 +26,24 @@ $pro = verifyPro();
         <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php'; ?>
     </div>
 
-    <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
-        <div class="flex w-full items-center">
-            <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
-                <i class="text-3xl fa-solid fa-bars"></i>
-            </a>
-            <p class="text-h2">
-                <a href="/pro/compte">Mon compte</a>
-                >
-                <a href="/pro/compte/profil">Profil</a>
-                >
-                <a href="/pro/compte/profil/avis" class="underline">Avis</a>
-            </p>
-        </div>
-    </header>
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    ?>
 
-    <main class="flex justify-center grow md:w-full mt-0 m-auto max-w-[1280px] p-2">
+    <main class="flex flex-col justify-center grow md:w-full mt-0 m-auto max-w-[1280px] p-2">
+        <p class="text-h3 p-4">
+            <a href="/pro/compte">Mon compte</a>
+            >
+            <a href="/pro/compte/profil">Profil</a>
+            >
+            <a href="/pro/compte/profil/avis" class="underline">Avis</a>
+        </p>
+
+        <hr class="mb-8">
+
+        <p class="text-h1 mb-4">Mes avis</p>
+
         <div class="grow flex flex-col gap-4">
             <?php
             // Afficher tous les avis du professionnel
@@ -71,7 +73,7 @@ $pro = verifyPro();
                 }
             } else {
                 ?>
-                <h1 class="mt-4 text-h2 font-bold">Aucun avis n'a été publié sur vos offres.</h1>
+                <h1 class="text-h2 font-bold">Aucun avis n'a été publié sur vos offres.</h1>
                 <?php
             }
             ?>

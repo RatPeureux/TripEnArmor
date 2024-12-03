@@ -59,7 +59,7 @@ session_start();
 
                 <p class="text-h1 mb-4">Mes avis</p>
 
-                <div class="flex flex-col gap-5 grow">
+                <div class="grow flex flex-col gap-4">
                     <!-- Afficher tous les avis du membre -->
                     <?php
                     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
