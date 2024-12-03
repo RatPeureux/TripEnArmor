@@ -19,7 +19,7 @@ class ImageController
 
         foreach ($allImages as $image) {
             $name = explode(".", $image)[0];
-            $subparts = explode("-", $name);
+            $subparts = explode("_", $name);
 
             echo "Subparts 0 : " . $subparts[0] . " id_offre : " . $id_offre . "<br>";
 
