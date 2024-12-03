@@ -112,17 +112,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-						  1. [x] Adresse
-						  3. [x] Image
-						  5. [x] Offre
-						  6. [x] Offre_Tag / Restauration_Tag
-						  7. [x] Offre_Image
-						  8. [x] Offre_Langue
-						  9. [x] TypeRepas 
-						  10. [x] Offre_Prestation
-						  11. Horaires
-						  12. [x] Tarif_Public
-						  */
+								1. [x] Adresse
+								3. [x] Image
+								5. [x] Offre
+								6. [x] Offre_Tag / Restauration_Tag
+								7. [x] Offre_Image
+								8. [x] Offre_Langue
+								9. [x] TypeRepas 
+								10. [x] Offre_Prestation
+								11. Horaires
+								12. [x] Tarif_Public
+								*/
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -592,12 +592,14 @@ $pro = verifyPro();
 								<!-- Visite guidée -->
 								<!-- Visite -->
 								<div class="flex justify-between items-center w-full space-x-2 optionVisite hidden">
-									<div class="inline-flex items-center cursor-pointer space-x-4"
+									<div class="inline-flex items-center space-x-4">
+										<div class="inline-flex items-center cursor-pointer space-x-2"
 										onclick="toggleCheckbox('guide')">
-										<p>Visite guidée :</p>
-										<input type="checkbox" name="guide" id="guide" value="" class="sr-only peer">
-										<div
-											class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+											<p>Visite guidée :</p>
+											<input type="checkbox" name="guide" id="guide" value="" class="sr-only peer">
+											<div
+												class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+											</div>
 										</div>
 										<div class="space-x-2 w-fit flex items-center invisible peer-checked:visible">
 											<p>
@@ -609,11 +611,13 @@ $pro = verifyPro();
 
 											$langues = $langueController->getInfosAllLangues();
 
-											foreach( $langues as $langue ) { ?>
+											foreach ($langues as $langue) { ?>
 												<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-													onclick="toggleCheckbox('<?php echo 'langue'.$langue['id_langue']; ?>')">
-													<label for="<?php echo 'langue'.$langue['id_langue']; ?>"><?php echo $langue['nom']; ?></label>
-													<input type="checkbox" name="<?php echo 'langue'.$langue['id_langue']; ?>" id="<?php echo 'langue'.$langue['id_langue']; ?>" class="hidden">
+													onclick="toggleCheckbox('<?php echo 'langue' . $langue['id_langue']; ?>')">
+													<label
+														for="<?php echo 'langue' . $langue['id_langue']; ?>"><?php echo $langue['nom']; ?></label>
+													<input type="checkbox" name="<?php echo 'langue' . $langue['id_langue']; ?>"
+														id="<?php echo 'langue' . $langue['id_langue']; ?>" class="hidden">
 												</div>
 											<?php }
 											?>
