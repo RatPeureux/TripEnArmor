@@ -20,7 +20,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     if (isset($_SESSION['data_en_cours_inscription']['num_tel'])) {
         $_SESSION['error'] = '';
     }
-    ?>
+?>
 
     <!DOCTYPE html>
     <html lang="fr">
@@ -58,13 +58,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         <div class="w-full">
                             <label class="text-small" for="prenom">Prénom</label>
                             <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="prenom" name="prenom"
-                                title="Saisir mon prénom" maxlength="50"
+                                title="Saisir votre prénom" maxlength="50"
                                 value="<?php echo $_SESSION['data_en_cours_inscription']['prenom'] ?>" required>
                         </div>
                         <div class="w-full">
                             <label class="text-small" for="nom">Nom</label>
                             <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="nom" name="nom"
-                                title="Saisir mon nom" maxlength="50"
+                                title="Saisir votre nom" maxlength="50"
                                 value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?>" required>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Champ pour l'adresse mail -->
                     <label class="text-small" for="mail">Adresse mail</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="mail" id="mail" name="mail"
-                        title="Jean@gmail.com" pattern=".*@[^\.]+.*\..*$" maxlength="255"
+                        title="Saisir votre adresse mail" pattern=".*@[^\.]+.*\..*$" maxlength="255"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?>" required>
                     <!-- Message d'erreur pour l'adresse mail -->
                     <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span>
@@ -81,10 +81,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <div class="relative w-full">
                         <label class="text-small" for="mdp">Mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
-                            pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
-                            • 8 caractères au moins
-                            • 1 majuscule
-                            • 1 chiffre" minlength="8"
+                            pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)" minlength="8"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>" required>
                         <!-- Oeil pour afficher le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -95,10 +92,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <div class="relative w-full">
                         <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp"
-                            name="confMdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="
-                            • 8 caractères au moins
-                            • 1 majuscule
-                            • 1 chiffre" minlength="8"
+                            name="confMdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="Confirmer le mot de passe saisit ci-dessus" minlength="8"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?>" required>
                         <!-- Oeil pour afficher le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -132,12 +126,12 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         const confMdp = document.getElementById('confMdp');
 
         if (togglePassword1) {
-            togglePassword1.addEventListener('mousedown', function () {
+            togglePassword1.addEventListener('mousedown', function() {
                 mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
                 this.classList.remove('fa-eye'); // Change l'icône
                 this.classList.add('fa-eye-slash');
             });
-            togglePassword1.addEventListener('mouseup', function () {
+            togglePassword1.addEventListener('mouseup', function() {
                 mdp.type = 'password'; // Masque le mot de passe à nouveau
                 this.classList.remove('fa-eye-slash');
                 this.classList.add('fa-eye');
@@ -145,12 +139,12 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         }
 
         if (togglePassword2) {
-            togglePassword2.addEventListener('mousedown', function () {
+            togglePassword2.addEventListener('mousedown', function() {
                 confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
                 this.classList.remove('fa-eye');
                 this.classList.add('fa-eye-slash');
             });
-            togglePassword2.addEventListener('mouseup', function () {
+            togglePassword2.addEventListener('mouseup', function() {
                 confMdp.type = 'password'; // Masque le mot de passe à nouveau
                 this.classList.remove('fa-eye-slash');
                 this.classList.add('fa-eye');
@@ -199,7 +193,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     } elseif (!isset($_SESSION['data_en_cours_inscription']['num_tel'])) {
         $_SESSION['error'] = '';
     }
-    ?>
+?>
 
     <!DOCTYPE html>
     <html lang="fr">
@@ -237,30 +231,30 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <div class="w-full">
                         <label class="text-small" for="prenom">Prénom</label>
                         <input class="p-2 text-gris bg-white w-full h-12 rounded-lg" type="text" id="prenom" name="prenom"
-                            title="Mon prénom" value="<?php echo $_SESSION['data_en_cours_inscription']['prenom']; ?>"
+                            title="Votre prénom" value="<?php echo $_SESSION['data_en_cours_inscription']['prenom']; ?>"
                             readonly>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="nom">Nom</label>
                         <input class="p-2 text-gris bg-white w-full h-12 rounded-lg" type="text" id="nom" name="nom"
-                            title="Mon nom" value="<?php echo $_SESSION['data_en_cours_inscription']['nom']; ?>" readonly>
+                            title="Votre nom" value="<?php echo $_SESSION['data_en_cours_inscription']['nom']; ?>" readonly>
                     </div>
                 </div>
 
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                    title="Mon adresse mail" value="<?php echo $_SESSION['data_en_cours_inscription']['mail']; ?>" readonly>
+                    title="Votre adresse mail" value="<?php echo $_SESSION['data_en_cours_inscription']['mail']; ?>" readonly>
 
                 <!-- Champ pour le pseudonyme -->
                 <label class="text-small" for="pseudo">Pseudonyme</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo"
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo" title="Saisir un pseudonyme valide"
                     maxlength="16" value="<?php echo $_SESSION['data_en_cours_inscription']['pseudo'] ?>" required>
                 <!-- Message d'erreur pour le pseudonyme déjà utilisé -->
                 <?php
                 if (isset($_GET['invalid_pseudo'])) { ?>
                     <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span><br>
-                    <?php
+                <?php
                 }
                 ?>
 
@@ -268,27 +262,27 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <label class="text-small" for="adresse">Adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
                     name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs"
-                    title="ex: 2 rue Saint-Jean OU rue Edouard Branly" maxlength="255"
+                    title="Saisir votre adresse" maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
-                    placeholder="Bâtiment A, Appartement 5" title="Complément d'adresse" maxlength="255"
+                    placeholder="Bâtiment A, Appartement 5" title="Saisir un complément d'adresse ?" maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
                         <label class="text-small" for="postal_code">Code postal</label>
                         <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code"
-                            name="postal_code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Saisir mon code postal"
+                            name="postal_code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Code postal"
                             minlength="5" maxlength="5" oninput="number(this)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['code'] ?>" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="locality">Ville</label>
                         <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" name="locality"
-                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir ma ville"
+                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Ville"
                             maxlength="50" value="<?php echo $_SESSION['data_en_cours_inscription']['ville'] ?>" required>
                     </div>
                 </div>
@@ -297,7 +291,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="w-full flex flex-col">
                     <label class="text-small" for="num_tel">Téléphone</label>
                     <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
-                        pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone" minlength="14" maxlength="14"
+                        pattern="^0\d( \d{2}){4}" title="Saisir votre numéro de téléphone" minlength="14" maxlength="14"
                         oninput="formatTEL(this)" value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?>"
                         required>
                 </div>
@@ -305,7 +299,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php
                 if (isset($_GET['invalid_phone_number'])) { ?>
                     <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span>
-                    <?php
+                <?php
                 }
                 ?>
 
