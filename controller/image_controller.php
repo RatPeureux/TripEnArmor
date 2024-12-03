@@ -18,11 +18,11 @@ class ImageController
         $allImages = scandir($this->uploadDir);
 
         foreach ($allImages as $image) {
-            echo $image . '<br>';
             $name = explode(".", $image)[0];
             $subparts = explode("-", $name);
 
             if ($subparts[0] == $id_offre) {
+                echo $image ."<br>";
                 if ($subparts[1] == "carte") {
                     $result["carte"] = $image;
                 } else if ($subparts[1] == "plan") {
