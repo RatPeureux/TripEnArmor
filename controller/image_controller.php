@@ -49,7 +49,16 @@ class ImageController
         echo "new path : " . $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension . "<br>";
         echo "is uploaded file : " . is_uploaded_file($actual_path) . "<br>";
 
-        $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
+        if (is_uploaded_file($actual_path)) {
+            if (!is_dir($this->uploadDir)) {
+                mkdir($this->uploadDir, 0777, true);
+            }
+            $result = rename($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
+        } else {
+            $result = false;
+        }
+
+        // $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
 
         var_dump($result);
 
