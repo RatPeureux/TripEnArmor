@@ -220,6 +220,7 @@ $pro = verifyPro();
 					BDD::rollbackTransaction();
 					exit;
 			}
+			echo "new id_offre : " . $id_offre ."<br>";
 
 			// Insérer les liens entre les offres et les tags dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
