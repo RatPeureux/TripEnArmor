@@ -66,7 +66,35 @@ if ($mode_carte == 'membre') {
                 </div>
                 <hr class='h-20 border-black border'>
                 <!-- Notation et Prix -->
-                <div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
+                <div class='flex flex-col gap-2 justify-center items-center'>
+                    <?php
+                    // Moyenne des notes quand il y en a une
+                    if ($moyenne) {
+                        $n = $moyenne;
+                        ?>
+                        <div class="flex gap-1 flex-wrap">
+                            <?php for ($i = 0; $i < 5; $i++) {
+                                if ($n > 1) {
+                                    ?>
+                                    <img class="w-2" src="/public/images/oeuf_plein.svg" alt="1 point de note">
+                                    <?php
+                                } else if ($n > 0) {
+                                    ?>
+                                        <img class="w-2" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
+                                    <?php
+                                } else {
+                                    ?>
+                                        <img class="w-2" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                                    <?php
+                                }
+                                $n--;
+                            }
+                            ?>
+                            <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+                        </div>
+                        <?php
+                    }
+                    ?>
                     <p class='text-small' title='<?php echo $title_prix ?>'><?php echo $prix_a_afficher ?></p>
                 </div>
             </div>
@@ -87,11 +115,43 @@ if ($mode_carte == 'membre') {
                 <div class='infos flex flex-col basis-1/2 p-3 justify-between relative'>
                     <!-- En tête avec titre -->
                     <div class='en-tete relative top-0 max-w-full rounded-lg'>
-                        <h3 class='text-xl font-bold'>
-                            <?php echo $titre_offre; ?>
-                        </h3>
+                        <div class="flex w-full">
+                            <h3 class='text-xl font-bold grow'>
+                                <?php echo $titre_offre ?>
+                            </h3>
+                            <?php
+                            // Moyenne des notes quand il y en a une
+                            if ($moyenne) {
+                                $n = $moyenne;
+                                ?>
+                                <div class="flex gap-1">
+                                    <div class="flex gap-1 shrink-0">
+                                        <?php for ($i = 0; $i < 5; $i++) {
+                                            if ($n > 1) {
+                                                ?>
+                                                <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
+                                                <?php
+                                            } else if ($n > 0) {
+                                                ?>
+                                                    <img class="w-3" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
+                                                <?php
+                                            } else {
+                                                ?>
+                                                    <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                                                <?php
+                                            }
+                                            $n--;
+                                        }
+                                        ?>
+                                    </div>
+                                    <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                        </div>
                         <div class='flex'>
-                            <p class='text-small'><?php echo $pro['nom_pro']; ?></p>
+                            <p class='text-small'><?php echo $pro['nom_pro'] ?></p>
                             <p class='categorie text-small'><?php echo ', ' . chaineVersMot($categorie_offre); ?></p>
                         </div>
                     </div>
@@ -126,7 +186,8 @@ if ($mode_carte == 'membre') {
                             </div>
                             <!-- Notation et Prix -->
                             <div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
-                                <p class='text-small' title='<?php echo $title_prix ?>'><?php echo $prix_a_afficher ?></p>
+                                <p class='text-small' title='<?php echo $title_prix ?>'><?php echo $prix_a_afficher ?>
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -77,9 +77,9 @@ FROM _pro_public ppu
     JOIN _offre o ON ppu.id_compte = o.id_pro;
 
 -- -------------------------------------------------------------------- Moyenne des notes pour chaque offre (id_offre);
-CREATE OR REPLACE VIEW vue_moyenne_note AS
-select _offre.id_offre, AVG(note)
-from _offre
-    join _avis on _avis.id_offre = _offre.id_offre
+CREATE OR REPLACE VIEW vue_moyenne AS
+SELECT _offre.id_offre, AVG(_avis.note), COUNT(_avis.note)
+FROM _offre
+    JOIN _avis ON _avis.id_offre = _offre.id_offre
 GROUP BY
     _offre.id_offre;
