@@ -44,7 +44,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Professionnel</p>
 
-                    <!-- Choix du statut de l'utilisateur -->
+                    <!-- Choix du statut de l'organisation -->
                     <label class="text-small" for="statut">Je suis un organisme&nbsp;</label>
                     <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="statut" name="statut"
                         title="Choisir un statut" onchange="updateLabel()" required>
@@ -287,13 +287,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php } ?>
 
                 <!-- Champs pour l'adresse -->
-                <label class="text-small" for="adresse">Adresse postale</label>
+                <label class="text-small" for="adresse">Adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
                     name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs" maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
                     required>
 
-                <label class="text-small" for="complement">Complément d'adresse postale</label>
+                <label class="text-small" for="complement">Complément d'adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
                     title="Complément d'adresse" maxlength="255" placeholder="Bâtiment A, Appartement 5"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?>">
@@ -355,9 +355,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="mb-1.5 flex items-start">
                     <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
                         required>
-                    <label class="text-small" for="termes">J’accepte les <a href="/cgu" class="underline">conditions
-                            d'utilisation</a> et je confirme avoir lu la <a href="#" class="underline">Politique de
-                            confidentialité et d'utilisation des cookies</a>.</label>
+                        <label class="text-small" for="termes">J’accepte les <a href="/cgu" class="underline">Conditions générales d'utilisation</a> et je confirme avoir lu la <a href="/pro/confidentialite_et_cookies" class="underline">Politique de confidentialité et d'utilisation des cookies</a>.</label>
                     </label>
                 </div>
 
