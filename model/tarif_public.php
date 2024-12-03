@@ -5,7 +5,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 class TarifPublic extends BDD
 {
 
-    private $nom_table = "sae_db._tarif_public";
+    static private $nom_table = "sae_db._tarif_public";
 
     static function getTarifsByIdOffre($id_offre)
     {
