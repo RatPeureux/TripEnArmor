@@ -205,7 +205,7 @@ VALUES ( -- Quifaitca13
     );
 
 INSERT INTO
-    _RIB (
+    _rib (
         code_banque,
         code_guichet,
         numero_compte,
@@ -252,6 +252,27 @@ VALUES ( -- Caca123-
         'Canva2Wish',
         2
     );
+
+INSERT INTO _RIB (
+    code_banque,
+    code_guichet,
+    numero_compte,
+    cle
+)
+VALUES (
+    '12345',
+    '67890',
+    '12345678901',
+    '97',
+    ),
+    (
+    '54321',
+    '09876',
+    '10987654321',
+    '45',
+);
+
+
 
 INSERT INTO
     _pro_public (

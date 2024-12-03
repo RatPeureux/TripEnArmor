@@ -15,7 +15,7 @@ function verifyPro()
 {
     // Vérifie si l'utilisateur est connecté en tant que pro, sinon le renvoie à la page de connexion
     if (!isConnectedAsPro()) {
-        header('location: /401');
+        header('location: /pro/connexion');
         exit();
     } else {
         require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
@@ -38,10 +38,7 @@ function verifyPro()
             $pro = $proController->getInfosProPublic($_SESSION["id_pro"]);
             $result["id_compte"] = $pro["id_compte"];
             $result["nom_pro"] = $pro["nom_pro"];
-            $result["nom_pro"] = $pro["nom_pro"];
             $result["email"] = $pro["email"];
-            $result["tel"] = $pro["num_tel"];
-            $result["id_adresse"] = $pro["id_adresse"];
             $result["tel"] = $pro["num_tel"];
             $result["id_adresse"] = $pro["adresse"];
             $result["data"]["type_orga"] = $pro["type_orga"];
@@ -58,6 +55,7 @@ function verifyPro()
             $result["tel"] = $pro["tel"];
             $result["id_adresse"] = $pro["adresse"];
             $result["data"]["numero_siren"] = $pro["num_siren"];
+            $result["data"]["id_rib"] = $pro["id_rib"];
             $result["data"]["type"] = "prive";
         }
 
@@ -71,5 +69,28 @@ function verifyMember()
     if (!isset($_SESSION['id_membre'])) {
         header('location: /connexion');
         exit();
+    } else {
+        require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/membre_controller.php";
+        $result = [
+            "id_compte" => "",
+            "pseudo" => "",
+            "nom" => "",
+            "prenom" => "",
+            "email" => "",
+            "tel" => "",
+            "id_adresse" => "",
+        ];
+        $membreController = new MembreController();
+        $membre = $membreController->getInfosMembre($_SESSION['id_membre']);
+
+        $result["id_compte"] = $membre["id_compte"];
+        $result["pseudo"] = $membre["pseudo"];
+        $result["nom"] = $membre["nom"];
+        $result["prenom"] = $membre["prenom"];
+        $result["email"] = $membre["email"];
+        $result["tel"] = $membre["num_tel"];
+        $result["id_adresse"] = $membre["id_adresse"];
+
+        return $result;
     }
 }
