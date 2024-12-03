@@ -1,5 +1,13 @@
 <?php
-session_start();
+session_start(); // Démarre la session au début du script
+
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+
+if (isConnectedAsMember()) {
+    header('location: /');
+    exit();
+}
+
 // Réinistialiser les messages d'erreur quand on arrive pour la première fois sur la page
 if (!isset($_SESSION['data_en_cours_inscription'])) {
     unset($_SESSION['error']);
