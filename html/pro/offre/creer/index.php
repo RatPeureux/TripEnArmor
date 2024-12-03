@@ -278,7 +278,7 @@ $pro = verifyPro();
 
 				foreach ($langues as $langue => $isIncluded) {
 					if ($isIncluded) {
-						$id_langue = $langueController->getInfosLanguesByName($langue);
+						$id_langue = $langueController->getInfosLanguesByName($langue)['id_langue'];
 						$visiteLangueController->linkVisiteAndLangue($id_offre, $id_langue);
 					}
 				}
