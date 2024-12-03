@@ -10,7 +10,7 @@ class HoraireController {
     }
     
     public function createHoraire($ouverture, $fermeture, $pause_debut, $pause_fin, $id_offre) {
-        $horaireID = $this->model::createCompte($ouverture, $fermeture, $pause_debut, $pause_fin, $id_offre);
+        $horaireID = $this->model::createHoraire($ouverture, $fermeture, $pause_debut, $pause_fin, $id_offre);
         return $horaireID;
     }
 
