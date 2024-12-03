@@ -21,7 +21,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
 
-    <title>CGU - PACT</title>
+    <title>Conditions générales d'utilisation (CGU) - PACT</title>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
     <!-- Inclusion du header -->
@@ -67,7 +67,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
             <p class="text-h2">5. Données Personnelles et RGPD</p>
             <p>
-                Les données personnelles des utilisateurs sont collectées et traitées conformément à notre <a href="/politique-de-confidentialite.html" class="underline">Politique de Confidentialité</a>.
+                Les données personnelles des utilisateurs sont collectées et traitées conformément à notre <a href="/confidentialite_et_cookies" class="underline">Politique de Confidentialité</a>.
             </p>
 
             <p class="text-h2">6. Cookies</p>

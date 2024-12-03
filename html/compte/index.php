@@ -18,7 +18,7 @@ session_start();
     <title>Mon compte - PACT</title>
 </head>
 
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col">
     <?php
     $id_membre = $_SESSION['id_membre'];
 
@@ -45,13 +45,13 @@ session_start();
         </div>
     </header>
 
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2 flex">
+    <main class="grow md:w-full mt-0 m-auto max-w-[1280px] p-2 flex">
         <div id="menu">
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
             ?>
         </div>
-        <div class="max-w-[23rem] my-8 mx-auto space-y-12 flex flex-col items-center">
+        <div class="flex justify-center mt-2 grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center">
             <a href="/compte/profil"
                 class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-user"></i>
@@ -71,7 +71,7 @@ session_start();
                 </div>
             </a>
             <a href="/compte/securite"
-                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
+                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-shield"></i>
                 <div class="w-full">
                     <p class="text-h2">Sécurité</p>

@@ -25,7 +25,7 @@ $pro = verifyPro();?>
     <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer=""></script>
 
-    <title>CGV - Professionnel - PACT</title>
+    <title>Conditions générales de vente (CGV) - Professionnel - PACT</title>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
