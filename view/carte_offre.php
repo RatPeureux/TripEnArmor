@@ -40,6 +40,7 @@ if ($mode_carte == 'membre') {
             $controllerImage = new ImageController();
             $images = $controllerImage->getImagesOfOffre($id_offre);
 
+            print_r($images);
             ?>
             <img class="h-48 w-full rounded-t-lg object-cover" src='/public/images/<?php if ($images['carte']) {
                 echo $images['carte'];
