@@ -14,6 +14,7 @@ $pro = verifyPro();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
+    <script src="/scripts/filtersAndSortsPro.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -42,7 +43,27 @@ $pro = verifyPro();
 
         <hr class="mb-8">
 
-        <p class="text-h1 mb-4">Mes avis</p>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-h1">Mes avis</p>
+
+            <a href="#" class="flex items-center gap-2 hover:text-primary duration-100"
+                id="sort-button-tab">
+                <i class="text xl fa-solid fa-sort"></i>
+                <p>Trier par</p>
+            </a>
+        </div>
+
+        <!-- DROPDOWN MENU TRIS TABLETTE-->
+        <div class="hidden md:hidden relative" id="sort-section-tab">
+            <div class="absolute top-0 right-0 z-20 self-end bg-white border border-base200 rounded-lg shadow-md max-w-48 p-2 flex flex-col gap-4">
+                <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-ascending') ? '/' : '?sort=date-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                    <p>Plus récent au plus ancien</p>
+                </a>
+                <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-descending') ? '/' : '?sort=date-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                    <p>Plus ancien au plus récent</p>
+                </a>
+            </div>
+        </div>
 
         <div class="grow flex flex-col gap-4">
             <?php
