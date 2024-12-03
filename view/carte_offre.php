@@ -90,8 +90,18 @@ if ($mode_carte == 'membre') {
                 <!-- Partie gauche -->
                 <div class='gauche grow relative shrink-0 basis-1/2 h-[280px] overflow-hidden'>
                     <!-- Image de fond -->
-                    <img class='rounded-l-lg w-full h-full object-cover object-center'
-                        src='/public/images/<?php echo $categorie_offre ?>.jpg' alt="Image promotionnelle de l'offre">
+                    <?php
+                    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+                    $controllerImage = new ImageController();
+                    $images = $controllerImage->getImagesOfOffre($id_offre);
+
+                    print_r($images);
+                    ?>
+                    <img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
+                        echo $images['carte'];
+                    } else {
+                        echo $categorie_offre . '.jpg';
+                    } ?>' alt="Image promotionnelle de l'offre">
                 </div>
                 <!-- Partie droite (infos principales) -->
                 <div class='infos flex flex-col basis-1/2 p-3 justify-between relative'>
