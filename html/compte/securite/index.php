@@ -97,7 +97,7 @@ if (isset($_POST['mdp'])) {
                     <div class="relative w-full">
                         <label class="text-h3" for="mdp">Mot de passe actuel</label>
                         <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                            id="mdp" name="mdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" minlength="8">
+                            id="mdp" name="mdp" pattern="^(?=.{8,})(?=.*[A-Z])(?=.*\d).*" minlength="8">
 
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword1"></i>
