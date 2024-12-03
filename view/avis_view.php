@@ -17,7 +17,6 @@ $proPriveController = new ProPriveController();
 $avisController = new avisController();
 $restaurationController = new RestaurationController();
 
-
 if (!function_exists('to_nom_note')) {
     function to_nom_note($nom_attribut_note): string
     {

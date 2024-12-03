@@ -64,20 +64,31 @@ session_start();
 
                 if ($tousMesAvis) {
                     foreach ($tousMesAvis as $avis) {
-                        $id_avis = $avis['id_avis'];
-                        ?>
+                        // Savoir si l'offre correspondante est en ligne pour savoir si l'on peut cliquer sur l'avis
+                        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/offre.php';
+                        $offre = Offre::getOffreById($avis['id_offre']);
+                        $id_avis = $avis['id_avis']; ?>
 
-                        <div id="clickable_div_<?php echo $id_avis ?>" class="shadow-lg">
+                        <div id="<?php if ($offre['est_en_ligne']) {
+                            echo "clickable_div_$id_avis";
+                        }
+                        ?>" class="shadow-lg <?php if (!$offre['est_en_ligne']) {
+                            echo 'opacity-50';
+                        } ?>" title="<?php if (!$offre['est_en_ligne']) {
+                             echo 'offre indisponible';
+                         } ?>">
                             <?php
-                            // Ensure the included file outputs within the <a> tag
                             include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/mon_avis_view.php';
                             ?>
                         </div>
 
                         <script>
-                            document.querySelector('#clickable_div_<?php echo $id_avis ?>').addEventListener('click', function () {
-                                window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
-                            });
+                            const clickableDiv = document.querySelector('#clickable_div_<?php echo $id_avis ?>');
+                            if (clickableDiv) {
+                                clickableDiv.addEventListener('click', function () {
+                                    window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
+                                });
+                            }
                         </script>
 
                         <?php
