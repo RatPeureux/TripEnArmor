@@ -2,7 +2,7 @@
     Composant du header pour le pro
     Pour l'ajouter, écrier la balise <div id='header-pro'></div> dans votre code html
 -->
-<header class="z-30 w-full bg-bgBlur/75 backdrop-blur flex items-center p-4 h-20 border-b-2 border-black fixed top-0">
+<header class="z-30 w-full bg-bgBlur/75 backdrop-blur flex items-center p-4 h-20 border-b-2 border-black fixed top-0 mb-20">
     <div class="flex w-full items-center relative">
         <!-- Partie gauche -->
         <div class="flex-shrink-0 flex items-center">
