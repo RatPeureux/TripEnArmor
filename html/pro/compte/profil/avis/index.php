@@ -41,8 +41,8 @@ $pro = verifyPro();
         </div>
     </header>
 
-    <main class="w-full flex justify-center grow p-4">
-        <div class="max-w-[44rem] grow flex flex-col gap-4">
+    <main class="flex justify-center grow md:w-full mt-0 m-auto max-w-[1280px] p-2">
+        <div class="grow flex flex-col gap-4">
             <?php
             // Afficher tous les avis du professionnel
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
@@ -71,7 +71,7 @@ $pro = verifyPro();
                 }
             } else {
                 ?>
-                <h1 class="mt-4 text-h2 font-bold">Aucun avis n'a été publié sur vos offres</h1>
+                <h1 class="mt-4 text-h2 font-bold">Aucun avis n'a été publié sur vos offres.</h1>
                 <?php
             }
             ?>

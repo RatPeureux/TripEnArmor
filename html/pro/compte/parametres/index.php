@@ -136,7 +136,7 @@ if ($pro['data']['id_rib'] != null) {
     </header>
 
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div class="max-w-[44rem] m-auto flex flex-col">
+        <div class="m-auto flex flex-col">
             <p class="text-h1 mb-4">Informations privées</p>
 
             <form action="" class="flex flex-col" method="post">
