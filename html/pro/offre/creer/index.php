@@ -317,8 +317,8 @@ $pro = verifyPro();
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
 			$horaireController = new HoraireController();
 
-			foreach ($horaires as $jour) {
-				$horaireController->createHoraire($jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
+			foreach ($horaires as $key => $jour) {
+				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 			}
 			echo "Horaires insérés.<br>";
 

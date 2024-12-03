@@ -54,10 +54,10 @@ class Horaire extends BDD {
      * @param string|null $pause_fin Fin de la pause (facultatif).
      * @return array|int Retourne un tableau contenant l'identifiant du nouvel horaire ou -1 en cas d'erreur.
      */
-    static function createHoraire($ouverture, $fermeture, $pause_debut, $pause_fin) {
+    static function createHoraire($jour, $ouverture, $fermeture, $pause_debut, $pause_fin) {
         self::initBDD();
         // Requête SQL pour insérer un nouvel horaire
-        $query = "INSERT INTO " . self::$nom_table ." (ouverture, fermeture, pause_debut, pause_fin) VALUES (?, ?, ?, ?) RETURNING id_horaire";
+        $query = "INSERT INTO " . self::$nom_table ." (ouverture, fermeture, pause_debut, pause_fin, jour) VALUES (?, ?, ?, ?, ?) RETURNING id_horaire";
         
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -65,6 +65,7 @@ class Horaire extends BDD {
         $statement->bindParam(2, $fermeture);
         $statement->bindParam(3, $pause_debut);
         $statement->bindParam(4, $pause_fin);
+        $statement->bindParam(5, $jour);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
