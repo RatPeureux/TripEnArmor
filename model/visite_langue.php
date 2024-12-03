@@ -56,7 +56,7 @@ class VisiteLangue extends BDD
 
     static function createVisiteLangue($id_offre, $id_langue)
     {
-        $query = "INSERT INTO (id_offre, id_langue" . self::$nom_table . " VALUES (?, ?) RETURNING *";
+        $query = "INSERT INTO " . self::$nom_table . " (id_offre, id_langue) VALUES (?, ?) RETURNING *";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id_offre);
         $statement->bindParam(2, $id_langue);
