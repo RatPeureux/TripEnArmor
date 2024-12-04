@@ -34,6 +34,9 @@ class LangueController
         ];
 
         return $result;
+    }
 
+    public function getInfosAllLangues() {
+        return $this->model::getLangues();
     }
 }

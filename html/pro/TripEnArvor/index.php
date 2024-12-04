@@ -40,7 +40,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
     ?>
 
-    <div class="grow self-center mt-20 flex justify-center w-full md:max-w-[1280px] p-2">
+    <div class="grow self-center  flex justify-center w-full md:max-w-[1280px] p-2">
         <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
             <p class="text-h1">L’association TripEnArvor et son projet PACT</p>
 

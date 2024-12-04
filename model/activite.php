@@ -37,23 +37,32 @@ class Activite extends BDD
         }
     }
 
-    static function createActivite($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations)
+    static function createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations)
     {
+        echo "Description =" . $description . "<br>";
+        echo "Resume =" . $resume . "<br>";
+        echo "Prix mini =" . $prix_mini . "<br>";
+        echo "Titre =" . $titre . "<br>";
+        echo "ID Pro =" . $id_pro . "<br>";
+        echo "ID Type Offre =" . $id_type_offre . "<br>";
+        echo "ID Adresse =" . $id_adresse . "<br>";
+        echo "Duree =" . $duree . "<br>";
+        echo "Age requis =" . $age_requis . "<br>";
+        echo "Prestations =" . $prestations . "<br>";
         self::initBDD();
-        $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, duree, age_requis, prestations) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
+        $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, duree, age_requis) VALUES (FALSE, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
 
         $statement = self::$db->prepare($query);
-        $statement->bindParam(1, $est_en_ligne);
-        $statement->bindParam(2, $description);
-        $statement->bindParam(3, $resume);
-        $statement->bindParam(4, $prix_mini);
-        $statement->bindParam(5, $titre);
-        $statement->bindParam(6, $id_pro);
-        $statement->bindParam(7, $id_type_offre);
-        $statement->bindParam(8, $id_adresse);
-        $statement->bindParam(9, $duree);
-        $statement->bindParam(10, $age_requis);
-        $statement->bindParam(11, $prestations);
+        $statement->bindParam(1, $description);
+        $statement->bindParam(2, $resume);
+        $statement->bindParam(3, $prix_mini);
+        $statement->bindParam(4, $titre);
+        $statement->bindParam(5, $id_pro);
+        $statement->bindParam(6, $id_type_offre);
+        $statement->bindParam(7, $id_adresse);
+        $statement->bindParam(8, $duree);
+        $statement->bindParam(9, $age_requis);
+        // $statement->bindParam(10, $prestations);
 
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
