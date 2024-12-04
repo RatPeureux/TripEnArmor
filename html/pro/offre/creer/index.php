@@ -176,7 +176,7 @@ $pro = verifyPro();
 					require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
 
 					$spectacleController = new SpectacleController();
-					$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $capacite);
+					$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $dureeFormatted);
 
 					if ($id_offre < 0) {
 						echo "Erreur lors de l'insertion : " . $id_offre;

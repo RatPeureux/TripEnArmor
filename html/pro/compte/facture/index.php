@@ -119,7 +119,7 @@
                     </div>
                     </div>
 
-                    <h2 class="text-xl font-bold mb-5"> <?php echo htmlspecialchars($offreDetails['titre']) ?> </h2>
+                    <h2 class="text-xl font-bold mb-5"> <?php echo htmlspecialchars($offresDuPro['titre']) ?> </h2>
 
                     <div class="mb-5">
                     <p>Date d'émission : <strong> <?php echo htmlspecialchars($facture['date_emission']); ?> </strong></p>
