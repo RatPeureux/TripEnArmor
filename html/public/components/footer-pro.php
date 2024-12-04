@@ -19,7 +19,7 @@
         @2024, <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
     </div>
     <!-- Format téléphone -->
-    <div class="text-center block sm:hidden">
+    <div class="text-center block pb-20 sm:hidden">
         <div>
             <a href="/pro/mentions" class="hover:text-primary">Mentions légales</a>
             -
