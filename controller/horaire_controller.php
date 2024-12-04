@@ -24,7 +24,7 @@ class HoraireController {
         var_dump($pause_fin);
         echo "<br>";
 
-        $horaireID = $this->model::createHoraire($jour, $ouverture, $fermeture, $pause_debut == '00:00:00' ? null : $pause_debut, $pause_fin == '00:00:00' ? null : $pause_fin, $id_offre);
+        $horaireID = $this->model::createHoraire($jour, $ouverture == '' ? null : $ouverture, $fermeture == '' ? null : $fermeture, $pause_debut == '' ? null : $pause_debut, $pause_fin == '' ? null : $pause_fin, $id_offre);
         return $horaireID;
     }
 
