@@ -19,6 +19,20 @@ class RestaurationController
 
     public function createRestauration($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix)
     {
+        switch ($gamme_prix) {
+            case "prix1":
+                $gamme_prix = "€";
+                break;
+            case "prix2":
+                $gamme_prix = "€€";
+                break;
+            case "prix3":
+                $gamme_prix = "€€€";
+                break;
+            default:
+                $gamme_prix = "€€";
+                break;
+        }
         $restauration = $this->model::createRestauration($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix);
 
         return $restauration;
