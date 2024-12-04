@@ -7,3 +7,5 @@ tailwindcss
 /vendor
 composer.lock
 /html/public/images/offres/
+
+/check_new_commit.*
