@@ -98,7 +98,7 @@ $pro = verifyPro();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    <script src="/scripts/search.js"></script>
+    
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -181,7 +181,7 @@ if ($pro['data']['id_rib'] != null) {
 
                 <form action="" class="flex flex-col" method="post">
 
-                    <label class="text-h3" for="siren">Numéro SIREN</label>
+                    <label class="text-h3" for="siren">Numéro SIRET</label>
                     <input value="<?php echo $pro['data']['numero_siren'] ?>"
                         class="border-2 border-secondary p-2 bg-white max-w-44 h-12 mb-3 rounded-lg" type="text" id="siren"
                         name="siren" minlength="17" maxlength="17" oninput="formatSiren(this)">

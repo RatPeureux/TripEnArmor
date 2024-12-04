@@ -16,12 +16,11 @@ $pro = verifyPro();
 	<link rel="stylesheet" href="/styles/input.css">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="/styles/config.js"></script>
-    <script src="/scripts/search.js"></script>
+
 	<script type="module" src="/scripts/main.js" defer></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
-	<script src="/scripts/utils.js"></script>
 
 	<title>Création d'offre - Professionnel - PACT</title>
 </head>
@@ -85,7 +84,7 @@ $pro = verifyPro();
 		// *** Données spécifiques
 		$avec_guide = $_POST["guide"] ?? "on"; // VISITE
 		$age = $_POST["age"];
-		$dureeFormatted = sprintf('%02d:%02d:00', $_POST["hours"], $_POST["minutes"]); // ACTIVITE, VISITE, SPECTACLE
+		$duree_formatted = sprintf('%02d:%02d:00', $_POST["hours"], $_POST["minutes"]); // ACTIVITE, VISITE, SPECTACLE
 		$gamme_prix = $_POST['gamme_prix'];
 		$capacite = $_POST['capacite'] ?? '';
 		$langues = [
@@ -113,17 +112,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-			  1. [x] Adresse
-			  3. [x] Image
-			  5. [x] Offre
-			  6. [x] Offre_Tag / Restauration_Tag
-			  7. [x] Offre_Image
-			  8. [x] Offre_Langue
-			  9. [x] TypeRepas 
-			  10. [x] Offre_Prestation
-			  11. Horaires
-			  12. [x] Tarif_Public
-			  */
+						  1. [x] Adresse
+						  3. [x] Image
+						  5. [x] Offre
+						  6. [x] Offre_Tag / Restauration_Tag
+						  7. [x] Offre_Image
+						  8. [x] Offre_Langue
+						  9. [x] TypeRepas 
+						  10. [x] Offre_Prestation
+						  11. Horaires
+						  12. [x] Tarif_Public
+						  */
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -145,7 +144,6 @@ $pro = verifyPro();
 				case 'activite':
 					// Insertion spécifique à l'activité
 					require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
-
 					$activiteController = new ActiviteController();
 					$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
 
@@ -221,6 +219,7 @@ $pro = verifyPro();
 					BDD::rollbackTransaction();
 					exit;
 			}
+			echo "new id_offre : " . $id_offre . "<br>";
 
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
@@ -303,7 +302,7 @@ $pro = verifyPro();
 				}
 				echo "Types de repas insérés.<br>";
 			} elseif ($activityType === 'activite') {
-				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_manager.php';
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_controller.php';
 				$prestationController = new PrestationController();
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
 				$activitePrestationController = new ActivitePrestationController();
@@ -318,15 +317,18 @@ $pro = verifyPro();
 				}
 				echo "Prestations insérées.<br>";
 			}
+			if (false) {
+				// Insérer les horaires dans la base de données
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+				$horaireController = new HoraireController();
 
-			// Insérer les horaires dans la base de données
-			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
-			$horaireController = new HoraireController();
-
-			foreach ($horaires as $key => $jour) {
-				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
+				foreach ($horaires as $key => $jour) {
+					// TODO: formater les horaires pour qu'ils fonctionnent
+	
+					$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
+				}
+				echo "Horaires insérés.<br>";
 			}
-			echo "Horaires insérés.<br>";
 
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
@@ -374,10 +376,15 @@ $pro = verifyPro();
 				<!-- Section de sélection de l'offre -->
 				<form id="formulaire" action="" method="POST" class="grow block w-full space-y-8"
 					enctype="multipart/form-data">
-					<div class="grid grid-cols-2 justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
+					<div
+						class="<?php if ($pro['data']['type'] === 'prive') {
+							echo "grid grid-cols-2";
+						} ?> justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<div
-							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full hidden">
+							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "prive") {
+								echo "hidden";
+							} ?>">
 							<input type="radio" name="type_offre" id="type_offre_1" value="1" class="hidden">
 							<label for="type_offre_1"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -403,7 +410,9 @@ $pro = verifyPro();
 						</div>
 						<!-- Carte de l'offre standard -->
 						<div
-							class="border border-primary rounded-lg flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full">
+							class="border border-primary rounded-lg flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
+								echo "hidden";
+							} ?>">
 							<input type="radio" name="type_offre" id="type_offre_2" value="2" class="hidden">
 							<label for="type_offre_2"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -429,7 +438,9 @@ $pro = verifyPro();
 						</div>
 						<!-- Carte de l'offre premium -->
 						<div
-							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full">
+							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
+								echo "hidden";
+							} ?>">
 							<input type="radio" name="type_offre" id="type_offre_3" value="3" class="hidden">
 							<label for="type_offre_3"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -804,7 +815,7 @@ $pro = verifyPro();
 
 									<!-- HORAIRES -->
 									<div
-										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
+										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction optionRestauration hidden">
 
 										<h2 class="text-h2 text-secondary">Horaires</h2>
 										<table class="w-full table-auto">
@@ -1048,7 +1059,9 @@ $pro = verifyPro();
 								</div>
 
 								<div
-									class="optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden w-full">
+									class="<?php if ($pro['data']['type'] === 'prive') {
+										echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
+									} ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
 
 									<!-- TODO: donner la durée en semaines + la date de lancement -->
@@ -1516,9 +1529,7 @@ $pro = verifyPro();
 			});
 		</script>
 		<script>
-			// TODO: gérer les horaires
-			// TODO: lorsque les informations sont remplies pour lundi, elles sont répétées pour les autres jours
-			// TODO: Vérifier que l'horaire d'ouverture soit plus tôt que l'horaire de pause, puis de reprise, puis de fermeture.
+			// TODO: à fix : Lors de la suppression du lundi, suppression du reste
 
 			for (const field of ['ouverture', 'pause', 'reprise', 'fermeture']) {
 				const lundi = document.getElementById(`horaires[lundi][${field}]`);

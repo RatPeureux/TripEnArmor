@@ -333,6 +333,36 @@ if ($mode_carte == 'membre') {
                         <p class="text-small"><?php echo $ville ?></p>
                         <p class="text-small"><?php echo $code_postal ?></p>
                     </div>
+
+                    <?php
+                    // Moyenne des notes quand il y en a une
+                    if ($moyenne) {
+                        $n = $moyenne;
+                        ?>
+                        <div class="flex gap-1 flex-wrap">
+                            <?php for ($i = 0; $i < 5; $i++) {
+                                if ($n > 1) {
+                                    ?>
+                                    <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
+                                    <?php
+                                } else if ($n > 0) {
+                                    ?>
+                                        <img class="w-3" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
+                                    <?php
+                                } else {
+                                    ?>
+                                        <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                                    <?php
+                                }
+                                $n--;
+                            }
+                            ?>
+                            <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+                        </div>
+                        <?php
+                    }
+                    ?>
+
                     <!-- Notation et Prix -->
                     <div class="flex flex-col flex-shrink-0 gap-2 justify-center items-center">
                         <p class="text-small" title="<?php echo $title_prix ?>">
@@ -342,10 +372,10 @@ if ($mode_carte == 'membre') {
                 </div>
 
                 <!-- Infos supplémentaires pour le pro -->
-                <div class="bg-base200 p-3 rounded-lg flex flex-col gap-1">
+                <div class="bg-base200 p-3 rounded-lg flex justify-around gap-1">
 
-                    <!-- Avis et type d'offre -->
-                    <div class="flex justify-between">
+                    <!-- Avis & date de mise à jour -->
+                    <div class="flex flex-col justif-around">
                         <div class="flex italic justify-start gap-4">
                             <!-- Non vus -->
                             <a title="avis non consultés" href="" class="hover:text-primary">
@@ -363,23 +393,22 @@ if ($mode_carte == 'membre') {
                                 (0)
                             </a>
                         </div>
-                        <p class="type-offre text-center grow" title="type de l'offre"><?php echo $type_offre ?></p>
-                    </div>
-
-                    <!-- Dates de mise à jour -->
-                    <div class="flex justify-between text-small">
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center justify-around">
                             <i class="fa-solid fa-rotate text-xl"></i>
                             <p class="italic">Modifiée le <?php echo $date_mise_a_jour ?></p>
                         </div>
-                        <!-- Cacher les options tant que ce n'est pas à développer -->
-                        <!-- <div class="flex items-center gap-2">
+                    </div>
+
+                    <!-- Type offre + options -->
+                    <div class="flex flex-col justify-between gap-2">
+                        <p class="type-offre text-center grow" title="type de l'offre"><?php echo $type_offre ?></p>
+                        <div class="flex items-center gap-2">
                             <i class="fa-solid fa-gears text-xl"></i>
                             <div>
                                 <p>‘A la Une’ 10/09/24-17/09/24</p>
                                 <p>‘En relief' 10/09/24-17/09/24</p>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
 
                 </div>
