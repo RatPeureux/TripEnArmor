@@ -9,7 +9,7 @@ if (isConnectedAsPro()) {
 }
 
 // Vider les messages d'erreur si c'est la première fois qu'on vient sur la page de connexion
-if (!isset($_SESSION['data_en_cours_connexion'])) {
+if (isset($_SESSION['data_en_cous_connexion'])) {
     unset($_SESSION['error']);
 }
 
@@ -94,9 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
                     placeholder="Nom, téléphone ou mail"
                     title="Saisir un de vos identifiants (Dénomination / Nom de l'organisation, Adresse mail ou Téléphone)"
-                    maxlength="255"
-                    value="<?php echo isset($_SESSION['data_en_cours_connexion']) ? $_SESSION['data_en_cours_connexion']['id'] : '' ?>"
-                    required>
+                    maxlength="255" value="<?php echo $_SESSION['data_en_cours_connexion']['id'] ?? '' ?>" required>
 
                 <!-- Champ pour le mot de passe -->
                 <div class="relative w-full">
@@ -105,15 +103,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*"
                         title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                         minlength="8" autocomplete="new-password"
-                        value="<?php echo isset($_SESSION['data_en_cours_connexion']) ? $_SESSION['data_en_cours_connexion']['mdp'] : '' ?>"
-                        required>
+                        value="<?php echo $_SESSION['data_en_cours_connexion']['mdp'] ?? '' ?>" required>
                     <!-- Icône pour afficher/masquer le mot de passe -->
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                         id="togglePassword"></i>
                 </div>
 
                 <span id="error-message" class="error text-rouge-logo text-small">
-                    <?php echo isset($_SESSION['error']) ? $_SESSION['error'] : '' ?>
+                    <?php echo $_SESSION['error'] ?? '' ?>
                 </span>
 
                 <!-- Bouton de connexion -->
