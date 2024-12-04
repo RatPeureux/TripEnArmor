@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 matchesNote = filterState.note[0] <= note.getAttribute('title') && note.getAttribute('title') <= filterState.note[1];
             }
             
-            let matchesPrice = false;
+            let matchesPrice = (filterState.prix[0] === '0' && filterState.prix[1] === document.getElementById('max-price-tab').max);
             if (price) {
                 matchesPrice = filterState.prix[0] <= price.getAttribute('title').match(/Min (\d+)/)?.[1] && price.getAttribute('title').match(/Min (\d+)/)?.[1] <= filterState.prix[1];
             }
