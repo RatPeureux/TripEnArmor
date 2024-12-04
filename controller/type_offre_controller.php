@@ -9,7 +9,7 @@ class TypeOffreController
 
     function __construct()
     {
-        $this->model = '_type_offre';
+        $this->model = 'TypeOffre';
     }
 
 
