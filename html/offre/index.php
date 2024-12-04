@@ -526,24 +526,18 @@ session_start();
                                         <p id="grille-arrow">></p>
                                     </div>
                                     <div class="hidden text-small py-3" id="grille-info">
-                                        <table class="">
-                                            <tbody>
-                                                <?php
-                                                foreach ($tarifs as $tarif) {
-                                                    ?>
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <?php echo $tarif['titre_tarif'] ?> :
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <?php echo $tarif['prix'] ?> €
-                                                        </td>
-                                                    </tr>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
+                                        <?php
+                                        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
+                                        $controllerTarifPublic = new TarifPublicController();
+                                        $tarifs = $controllerTarifPublic->getTarifsByIdOffre($id_offre);
+                                        foreach ($tarifs as $tarif) {
+                                            ?>
+
+                                            <?php echo $tarif['titre'] ?> :&nbsp;
+                                            <?php echo $tarif['prix'] ?> € <br>
+                                            <?php
+                                        }
+                                        ?>
                                     </div>
                                 </a>
                                 <?php

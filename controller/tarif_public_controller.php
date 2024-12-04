@@ -20,7 +20,7 @@ class TarifPublicController
         foreach ($tarifsPublic as $tarifPublic) {
             $result[] = [
                 "id_tarif" => $tarifPublic["id_tarif"],
-                "titre_tarif" => $tarifPublic["titre_tarif"],
+                "titre" => $tarifPublic["titre"],
                 "prix" => $tarifPublic["prix"],
             ];
         }
