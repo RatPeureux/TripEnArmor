@@ -532,6 +532,17 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             if ($statut === "public") {
                 $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :type_orga)");
                 $stmtProfessionnel->bindParam(':type_orga', $type_orga);
+                $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
+                $stmtProfessionnel->bindParam(':mail', $mail);
+                $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
+                $stmtProfessionnel->bindParam(':num_tel', $tel);
+                $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
+
+
+                // Exécuter la requête pour le professionnel
+                if ($stmtProfessionnel->execute()) {
+                    header("location: /pro/connexion");
+                }
             } else {
 
                 // Extraire les valeurs du RIB à partir de l'IBAN
