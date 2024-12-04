@@ -49,6 +49,25 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true $sort_order");
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Initialiser le prix maximum
+    $prix_mini_max = 0;
+
+    // Parcourir le tableau pour trouver le prix_mini maximum
+    foreach ($toutesLesOffres as $offre) {
+        $prix_mini = $offre['prix_mini'];
+        
+        // Vérifier si le prix_mini est une valeur valide
+        if ($prix_mini !== null && $prix_mini !== '') {
+            // Si $prix_mini_max est null, le définir comme le premier prix_mini
+            if ($prix_mini_max === 0) {
+                $prix_mini_max = $prix_mini;
+            } else {
+                // Comparer et garder le maximum
+                $prix_mini_max = max($prix_mini_max, $prix_mini);
+            }
+        }
+    }
     ?>
 
     <!-- MAIN (TABLETTE et TÉLÉPHONE -->
