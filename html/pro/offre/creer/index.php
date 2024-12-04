@@ -352,7 +352,6 @@ $pro = verifyPro();
 
 		$typeOffreController = new TypeOffreController();
 		$typesOffre = $typeOffreController->getAllTypeOffre();
-		var_dump($typesOffre);
 		?>
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
@@ -385,7 +384,6 @@ $pro = verifyPro();
 						<!-- Carte de l'offre gratuite -->
 						<?php
 						foreach ($typesOffre as $i => $typeOffre) {
-							var_dump($typeOffre);
 							$cardColor = $i % 2 == 0 ? 'secondary' : 'primary';
 							$cardVisible = $pro['data']['type'] == 'prive' ? ($typeOffre['id_type_offre'] == 1 ? 'hidden' : '') : ($typeOffre['id_type_offre'] == 1 ? '' : 'hidden');
 							$subTitle = "Pour les entreprises et organismes privés";
