@@ -23,7 +23,7 @@
             <p class="text-h2">
                 <a href="/pro/compte">Mon compte</a>
                 >
-                <a href="pro/compte/facture" class="underline">Facture</a>
+                <a href="/pro/compte/facture" class="underline">Facture</a>
             </p>
         </div>
     </header>
