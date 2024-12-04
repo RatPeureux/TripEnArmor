@@ -298,7 +298,7 @@ $pro = verifyPro();
 				}
 				echo "Types de repas insérés.<br>";
 			} elseif ($activityType === 'activite') {
-				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_manager.php';
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_controller.php';
 				$prestationController = new PrestationController();
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
 				$activitePrestationController = new ActivitePrestationController();
