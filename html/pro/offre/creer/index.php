@@ -204,7 +204,7 @@ $pro = verifyPro();
 					require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
 
 					$restaurationController = new RestaurationController();
-					$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas);
+					$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix);
 
 					if ($id_offre < 0) {
 						echo "Erreur lors de l'insertion : " . $id_offre;
