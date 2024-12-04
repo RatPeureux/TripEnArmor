@@ -128,7 +128,7 @@
             <label class="text-small">Intervalle des prix entre&nbsp;</label>
             <input id="min-price-tab" type="number" value="0" min="0" max="99" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
             <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
-            <input id="max-price-tab" type="number" value="99" min="0" max="99" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
+            <input id="max-price-tab" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
             <label class="text-small">&nbsp;€</label>
         </div>
     </div>
