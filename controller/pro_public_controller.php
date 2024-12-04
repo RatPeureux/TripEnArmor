@@ -18,6 +18,7 @@ class ProPublicController
     public function getInfosProPublic($id)
     {
         $result = $this->model::getProPublicById($id);
+        var_dump($result);
         return $result;
     }
 

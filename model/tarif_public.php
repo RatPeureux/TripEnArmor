@@ -39,12 +39,12 @@ class TarifPublic extends BDD
 
     }
 
-    static function createTarifPublic($titre_tarif, $prix, $id_offre)
+    static function createTarifPublic($titre, $prix, $id_offre)
     {
         $query = "INSERT INTO " . self::$nom_table . "(titre, prix, id_offre) VALUES (?, ?, ?) RETURNING id_tarif";
 
         $stmt = self::$db->prepare($query);
-        $stmt->bindParam(1, $titre_tarif);
+        $stmt->bindParam(1, $titre);
         $stmt->bindParam(2, $prix);
         $stmt->bindParam(3, $id_offre);
 
@@ -57,12 +57,12 @@ class TarifPublic extends BDD
 
     }
 
-    static function updateTarifPublic($titre_tarif, $prix, $id_offre)
+    static function updateTarifPublic($titre, $prix, $id_offre)
     {
-        $query = "UPDATE " . self::$nom_table . " SET titre_tarif = ?, prix = ?, id_offre = ? RETURNING type_repas_id";
+        $query = "UPDATE " . self::$nom_table . " SET titre = ?, prix = ?, id_offre = ? RETURNING type_repas_id";
 
         $stmt = self::$db->prepare($query);
-        $stmt->bindParam(1, $titre_tarif);
+        $stmt->bindParam(1, $titre);
         $stmt->bindParam(2, $prix);
         $stmt->bindParam(3, $id_offre);
 
