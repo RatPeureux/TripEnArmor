@@ -11,11 +11,18 @@ class HoraireController {
     
     public function createHoraire($jour, $ouverture, $fermeture, $pause_debut, $pause_fin, $id_offre) {
         echo "Jour : " . $jour . "<br>";
-        echo "Ouverture : " . $ouverture . "<br>";
-        echo "Fermeture : " . $fermeture . "<br>";
-        echo "Pause debut : " . $pause_debut . "<br>";
-        echo "Pause fin : " . $pause_fin . "<br>";
-        echo "Id offre : " . $id_offre . "<br>";
+        echo "Ouverture : ";
+        var_dump($ouverture);
+        echo "<br>";
+        echo "Fermeture : ";
+        var_dump($fermeture);
+        echo "<br>";
+        echo "Pause début : ";
+        var_dump($pause_debut);
+        echo "<br>";
+        echo "Pause fin : ";
+        var_dump($pause_fin);
+        echo "<br>";
 
         $horaireID = $this->model::createHoraire($jour, $ouverture, $fermeture, $pause_debut == '00:00:00' ? null : $pause_debut, $pause_fin == '00:00:00' ? null : $pause_fin, $id_offre);
         return $horaireID;
