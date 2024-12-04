@@ -352,6 +352,7 @@ $pro = verifyPro();
 
 		$typeOffreController = new TypeOffreController();
 		$typesOffre = $typeOffreController->getAllTypeOffre();
+		array_multisort($typesOffre, SORT_DESC);
 		?>
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
