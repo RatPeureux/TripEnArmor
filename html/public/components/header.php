@@ -61,3 +61,5 @@
         </div>
     </div>
 </header>
+
+<script src="/scripts/search.js"></script>

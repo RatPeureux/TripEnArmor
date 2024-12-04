@@ -22,7 +22,7 @@ $pro = verifyPro();?>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    <script src="/scripts/search.js"></script>
+    
     <script type="module" src="/scripts/main.js" defer=""></script>
 
     <title>Politique de confidentialité et d'utilisation des cookies - Professionnel - PACT</title>
