@@ -379,29 +379,31 @@ $pro = verifyPro();
 				<!-- Section de sélection de l'offre -->
 				<form id="formulaire" action="" method="POST" class="grow block w-full space-y-8"
 					enctype="multipart/form-data">
-					<div class="<?php if ($pro['data']['type'] === 'prive') {
+					<div class="
+					<?php if ($pro['data']['type'] === 'prive') {
 						echo "grid grid-cols-2";
-					} ?> justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
+					}?>
+					justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<?php
 						foreach ($typesOffre as $i => $typeOffre) {
 							$cardColor = $i % 2 == 0 ? 'secondary' : 'primary';
-							$cardVisible = $pro['data']['type'] == 'prive' ? ($typeOffre['id_type_offre'] == 1 ? '' : '') : ($typeOffre['id_type_offre'] == 1 ? '' : 'hidden');
+							$cardVisible = $pro['data']['type'] == 'prive' ? ($typeOffre['id_type_offre'] == 1 ? 'hidden' : '') : ($typeOffre['id_type_offre'] == 1 ? '' : 'hidden');
 							$subTitle = "Pour les entreprises et organismes privés";
 							$avantages = [
 								"Jusqu’à 10 photos de présentations",
 								"Réponse aux avis des membres"
 							];
 
-							if ($typeOffre['id_type_offre'] == 1) {
+							if ($typeOffre['id_type_offre'] == 1) { // Gratuit
 								$subTitle = "Pour les associations et les organismes publics";
-							} else if ($typeOffre['id_type_offre'] == 2) {
+							} else if ($typeOffre['id_type_offre'] == 2) { // Premium
 								$avantages[] = "Possibilité de remplir une grille tarifaire";
 								$avantages[] = "Possibilité de souscrire aux options “À la une” et “En relief”";
-							} else if ($typeOffre['id_type_offre'] == 3) {
-								$avantages[] = "Possibilité de remplir une grille tarifaire";
-								$avantages[] = "Possibilité de souscrire aux options “À la une” et “En relief”";
-								$avantages[] = "Mise sur liste noire de 3 commentaires";
+								$avantages[] = "<span class='font-bold'>Mise sur liste noire de 3 commentaires<span>";
+							} else if ($typeOffre['id_type_offre'] == 3) { // Standard
+								$avantages[] = "<span class='font-bold'>Possibilité de remplir une grille tarifaire<span>";
+								$avantages[] = "<span class='font-bold'>Possibilité de souscrire aux options “À la une” et “En relief”<span>";
 							}
 							?>
 							<div
