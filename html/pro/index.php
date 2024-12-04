@@ -71,6 +71,25 @@ if (!function_exists('chaineVersMot')) {
     $stmt->bindParam(':id_pro', $pro['id_compte']);
     $stmt->execute();
     $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Initialiser le prix maximum
+    $prix_mini_max = 0;
+
+    // Parcourir le tableau pour trouver le prix_mini maximum
+    foreach ($toutesMesOffres as $offre) {
+        $prix_mini = $offre['prix_mini'];
+        
+        // Vérifier si le prix_mini est une valeur valide
+        if ($prix_mini !== null && $prix_mini !== '') {
+            // Si $prix_mini_max est null, le définir comme le premier prix_mini
+            if ($prix_mini_max === 0) {
+                $prix_mini_max = $prix_mini;
+            } else {
+                // Comparer et garder le maximum
+                $prix_mini_max = max($prix_mini_max, $prix_mini);
+            }
+        }
+    }
     ?>
 
     <main class="mx-10 self-center w-full grow rounded-lg p-2 max-w-[1280px]">

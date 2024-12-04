@@ -206,7 +206,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const filterState = {
         categories: [], // Catégories sélectionnées
         localisation: '', // Texte de localisation
-        note: ['0','5'], // Liste de tuples (min, max)
+        note: ['0', '5'], // Note générale minimale et maximale
+        prix: ['0', document.getElementById('max-price-tab').max], // Prix minimal et maximal
         types: [], // Types d'offre séléctionnés
     };
 
@@ -259,6 +260,27 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    function filterOnPrices(device) {
+        const minPriceInputElement = document.getElementById('min-price-'+device);
+        const maxPriceInputElement = document.getElementById('max-price-'+device);
+    
+        minPriceInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.prix[0] = minPriceInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFiltersPro();
+        });
+    
+        maxPriceInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.prix[1] = maxPriceInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFiltersPro();
+        });
+    }
+
     function filterOnOfferTypes(device) {
         const checkboxes = document.querySelectorAll('#developped-f7-'+device+' input[type="checkbox"]');
     
@@ -286,6 +308,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const code = localisation.querySelector('p:nth-of-type(2)').textContent.trim();
             const note = offre.querySelector('.note');
             const type = offre.querySelector('.type-offre').textContent.trim().toLowerCase();
+            const price = offre.querySelector('.prix');
     
             // Vérifie les filtres actifs
             let matchesCategory = false;
@@ -302,11 +325,16 @@ document.addEventListener("DOMContentLoaded", function() {
             if (note) {
                 matchesNote = filterState.note[0] <= note.getAttribute('title') && note.getAttribute('title') <= filterState.note[1];
             }
+            
+            let matchesPrice = false;
+            if (price) {
+                matchesPrice = filterState.prix[0] <= price.getAttribute('title').match(/Min (\d+)/)?.[1] && price.getAttribute('title').match(/Min (\d+)/)?.[1] <= filterState.prix[1];
+            }
 
             let matchesType = filterState.types.length === 0 || filterState.types.includes(type);
 
             // Appliquer les filtres croisés
-            if (matchesCategory && matchesLocalisation && matchesNote && matchesType) {
+            if (matchesCategory && matchesLocalisation && matchesNote && matchesPrice && matchesType) {
                 offre.classList.remove('!hidden');
                 anyVisible = true; // Au moins une offre est visible
             } else {
@@ -343,6 +371,8 @@ document.addEventListener("DOMContentLoaded", function() {
     filterOnLocalisations('tel');
     filterOnNotes('tab');
     filterOnNotes('tel');
+    filterOnPrices('tab');
+    filterOnPrices('tel');
     filterOnOfferTypes('tab');
     filterOnOfferTypes('tel');
 
