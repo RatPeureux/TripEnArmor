@@ -30,7 +30,7 @@ class TypeRepasController
 
         $result = [
             "type_repas_id" => $typeRepas["type_repas_id"],
-            "nom_type_repas" => $typeRepas["nom_type_repas"],
+            "nom_type_repas" => $typeRepas["nom"],
         ];
 
         return $result;

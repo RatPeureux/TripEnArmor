@@ -296,7 +296,7 @@ $pro = verifyPro();
 
 				foreach ($typesRepas as $typeRepas => $isIncluded) {
 					if ($isIncluded) {
-						$id_type_repas = $typeRepasController->getTypeRepasByName($typeRepas);
+						$id_type_repas = $typeRepasController->getTypeRepasByName($typeRepas)['type_repas_id'];
 						$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
 					}
 				}
