@@ -85,7 +85,7 @@ $pro = verifyPro();
 		// *** Données spécifiques
 		$avec_guide = $_POST["guide"] ?? "on"; // VISITE
 		$age = $_POST["age"];
-		$dureeFormatted = sprintf('%02d:%02d:00', $_POST["hours"], $_POST["minutes"]); // ACTIVITE, VISITE, SPECTACLE
+		$duree_formatted = sprintf('%02d:%02d:00', $_POST["hours"], $_POST["minutes"]); // ACTIVITE, VISITE, SPECTACLE
 		$gamme_prix = $_POST['gamme_prix'];
 		$capacite = $_POST['capacite'] ?? '';
 		$langues = [
