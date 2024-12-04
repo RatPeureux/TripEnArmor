@@ -40,7 +40,7 @@ function verifyPro()
             $result["nom_pro"] = $pro["nom_pro"];
             $result["email"] = $pro["email"];
             $result["tel"] = $pro["num_tel"];
-            $result["id_adresse"] = $pro["adresse"];
+            $result["id_adresse"] = $pro["id_adresse"];
             $result["data"]["type_orga"] = $pro["type_orga"];
             $result["data"]["type"] = "public";
 
@@ -53,7 +53,7 @@ function verifyPro()
             $result["nom_pro"] = $pro["nom_pro"];
             $result["email"] = $pro["email"];
             $result["tel"] = $pro["tel"];
-            $result["id_adresse"] = $pro["adresse"];
+            $result["id_adresse"] = $pro["id_adresse"];
             $result["data"]["numero_siren"] = $pro["num_siren"];
             $result["data"]["id_rib"] = $pro["id_rib"];
             $result["data"]["type"] = "prive";
