@@ -282,9 +282,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <br>
                 <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
-                    <label class="text-small" for="num_siren">Numéro SIREN</label>
+                    <label class="text-small" for="num_siren">Numéro SIRET</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" oninput="formatSiren(this)" type="text"
-                        id="num_siren" name="num_siren" title="Saisir le numéro SIREN de l'organisation" minlength="17" maxlength="17"
+                        id="num_siren" name="num_siren" title="Saisir le numéro SIRET de l'organisation" minlength="17" maxlength="17"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?>" required>
                 <?php } ?>
 
@@ -432,7 +432,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             // Supprime tout ce qui n'est pas un chiffre
             let value = input.value.replace(/\D/g, '');
 
-            // Limite à 14 caractères (9 pour le SIREN + 5 pour les caractères supplémentaires)
+            // Limite à 14 caractères (9 pour le SIRET + 5 pour les caractères supplémentaires)
             value = value.substring(0, 14);
 
             // Ajoute les espaces tous les 3 chiffres pour les trois premiers groupes
