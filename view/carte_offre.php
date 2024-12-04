@@ -82,7 +82,7 @@ if ($mode_carte == 'membre') {
                     if ($moyenne) {
                         $n = $moyenne;
                         ?>
-                        <div class="flex gap-1 flex-wrap">
+                        <div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne;?>">
                             <?php for ($i = 0; $i < 5; $i++) {
                                 if ($n > 1) {
                                     ?>
@@ -105,7 +105,7 @@ if ($mode_carte == 'membre') {
                         <?php
                     }
                     ?>
-                    <p class='text-small' title='<?php echo $title_prix ?>'><?php echo $prix_a_afficher ?></p>
+                    <p class='text-small' title='<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>'><?php echo $prix_a_afficher ?></p>
                 </div>
             </div>
         </div>
@@ -135,7 +135,7 @@ if ($mode_carte == 'membre') {
                                 $n = $moyenne;
                                 ?>
                                 <div class="flex gap-1">
-                                    <div class="flex gap-1 shrink-0">
+                                    <div class="note flex gap-1 shrink-0" title="<?php echo $moyenne;?>">
                                         <?php for ($i = 0; $i < 5; $i++) {
                                             if ($n > 1) {
                                                 ?>
@@ -196,7 +196,7 @@ if ($mode_carte == 'membre') {
                             </div>
                             <!-- Notation et Prix -->
                             <div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
-                                <p class='text-small' title='<?php echo $title_prix ?>'><?php echo $prix_a_afficher ?>
+                                <p class='text-small' title='<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>'><?php echo $prix_a_afficher ?>
                                 </p>
                             </div>
                         </div>
@@ -238,7 +238,7 @@ if ($mode_carte == 'membre') {
 
             <div class="w-full">
                 <!-- A droite, en haut -->
-                <div class="flex w-full justify-between">
+                <div class="flex w-full items-center justify-between">
 
                     <!-- Titre de l'offre -->
                     <div>
@@ -249,8 +249,39 @@ if ($mode_carte == 'membre') {
                         </div>
                     </div>
 
+                    <?php
+                    // Moyenne des notes quand il y en a une
+                    if ($moyenne) {
+                        $n = $moyenne;
+                        ?>
+                        <div class="flex gap-1 self-end">
+                            <div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne;?>">
+                                <?php for ($i = 0; $i < 5; $i++) {
+                                    if ($n > 1) {
+                                        ?>
+                                        <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
+                                        <?php
+                                    } else if ($n > 0) {
+                                        ?>
+                                            <img class="w-3" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
+                                        <?php
+                                    } else {
+                                        ?>
+                                            <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                                        <?php
+                                    }
+                                    $n--;
+                                }
+                                ?>
+                            </div>
+                            <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+                        </div>
+                        <?php
+                    }
+                    ?>
+
                     <!-- Manipulations sur l'offre -->
-                    <div class="flex gap-10 self-start items-center">
+                    <div class="flex gap-10 self-start items-center justify-center">
                         <!-- en ligne ? -->
                         <?php
                         if ($est_en_ligne) {
@@ -329,7 +360,7 @@ if ($mode_carte == 'membre') {
                     </div>
                     <!-- Notation et Prix -->
                     <div class="flex flex-col flex-shrink-0 gap-2 justify-center items-center">
-                        <p class="text-small" title="<?php echo $title_prix ?>">
+                        <p class="text-small" title="<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>">
                             <?php echo $prix_a_afficher ?>
                         </p>
                     </div>
@@ -357,7 +388,7 @@ if ($mode_carte == 'membre') {
                                 (0)
                             </a>
                         </div>
-                        <p class="type-offre text-center grow" title="type de l'offre"><?php echo $type_offre ?></p>
+                        <p class="type-offre text-center grow" title="type de l'offre">Type : <?php echo $type_offre ?></p>
                     </div>
 
                     <!-- Dates de mise à jour -->

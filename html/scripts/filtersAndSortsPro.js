@@ -206,6 +206,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const filterState = {
         categories: [], // Catégories sélectionnées
         localisation: '', // Texte de localisation
+        note: ['0','5'], // Liste de tuples (min, max)
         types: [], // Types d'offre séléctionnés
     };
 
@@ -237,6 +238,27 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    function filterOnNotes(device) {
+        const minNoteInputElement = document.getElementById('min-note-'+device);
+        const maxNoteInputElement = document.getElementById('max-note-'+device);
+    
+        minNoteInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.note[0] = minNoteInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFiltersPro();
+        });
+    
+        maxNoteInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.note[1] = maxNoteInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFiltersPro();
+        });
+    }
+
     function filterOnOfferTypes(device) {
         const checkboxes = document.querySelectorAll('#developped-f7-'+device+' input[type="checkbox"]');
     
@@ -256,25 +278,35 @@ document.addEventListener("DOMContentLoaded", function() {
     function applyFiltersPro() {
         const offres = document.querySelectorAll('.card');
         let anyVisible = false; // Variable pour suivre si une offre est visible
-
-        console.log(filterState);
     
         offres.forEach((offre) => {
             const category = offre.querySelector('.categorie').textContent.trim().replace(", ", "").replace(" d'", "_").toLowerCase();
             const localisation = offre.querySelector('.localisation');
             const city = localisation.querySelector('p:nth-of-type(1)').textContent.trim();
             const code = localisation.querySelector('p:nth-of-type(2)').textContent.trim();
+            const note = offre.querySelector('.note');
             const type = offre.querySelector('.type-offre').textContent.trim().toLowerCase();
-
-            console.log(category);
     
             // Vérifie les filtres actifs
-            const matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(category);
-            const matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
-            const matchesType = filterState.types.length === 0 || filterState.types.includes(type);
+            let matchesCategory = false;
+            if (category) {
+                matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(category);
+            }
+
+            let matchesLocalisation = false;
+            if (localisation) {
+                matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
+            }
+            
+            let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5') ? true : false;
+            if (note) {
+                matchesNote = filterState.note[0] <= note.getAttribute('title') && note.getAttribute('title') <= filterState.note[1];
+            }
+
+            let matchesType = filterState.types.length === 0 || filterState.types.includes(type);
 
             // Appliquer les filtres croisés
-            if (matchesCategory && matchesLocalisation && matchesType) {
+            if (matchesCategory && matchesLocalisation && matchesNote && matchesType) {
                 offre.classList.remove('!hidden');
                 anyVisible = true; // Au moins une offre est visible
             } else {
@@ -303,12 +335,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    syncInputs()
+    syncInputs();
 
     filterOnCategories('tab');
     filterOnCategories('tel');
     filterOnLocalisations('tab');
     filterOnLocalisations('tel');
+    filterOnNotes('tab');
+    filterOnNotes('tel');
     filterOnOfferTypes('tab');
     filterOnOfferTypes('tel');
 

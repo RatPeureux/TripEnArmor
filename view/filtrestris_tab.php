@@ -1,10 +1,10 @@
 <!-- DROPDOWN MENU TRIS TABLETTE-->
 <div class="hidden md:hidden relative" id="sort-section-tab">
     <div class="absolute top-0 right-0 z-20 self-end bg-white border border-base200 rounded-lg shadow-md max-w-48 p-2 flex flex-col gap-4">
-        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'rating-ascending') ? '/' : '?sort=rating-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'rating-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-ascending') ? '/' : '?sort=note-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
             <p>Note croissante</p>
         </a>
-        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'rating-descending') ? '/' : '?sort=rating-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'rating-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-descending') ? '/' : '?sort=note-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
             <p>Note décroissante</p>
         </a>
         <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? '/' : '?sort=price-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-    <div class="flex flex-col w-full bg-base100 border border-base200 p-3 gap-4">
+    <div class="hidden flex flex-col w-full bg-base100 border border-base200 p-3 gap-4">
         <div class="flex justify-between cursor-pointer" id="button-f5-tab">
             <p>Période</p>
             <p id="arrow-f5-tab">></p>
