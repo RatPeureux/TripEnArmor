@@ -33,13 +33,13 @@ $pro = verifyPro();?>
 </head>
 
 <body class="min-h-screen flex flex-col">
-    
+
     <div id="menu-pro">
         <?php
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
         ?>
     </div>
-    
+
     <!-- Inclusion du header -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
@@ -47,10 +47,10 @@ $pro = verifyPro();?>
 
     <main class="grow flex justify-center w-full mt-20 m-auto max-w-[1280px] p-2">
         <div class="flex flex-col items-center justify-center">
+
             <h1 class="font-cormorant text-[10rem]">401</h1>
             <p>Vous ne pouvez pas accéder à cette page.</p>
-            <img src="https://i.gifer.com/tdL.gif"
-                class="mt-10 mb-28 m-auto rounded-lg" alt="tottereau" width="250">
+            <img src="/public/images/401.gif" class="mt-10 mb-28 rounded-lg m-auto" alt="tottereau" width="250">
         </div>
     </main>
 

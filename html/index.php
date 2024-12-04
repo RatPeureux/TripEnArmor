@@ -124,10 +124,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
     ?>
-
-    <!-- Inclusion du menu de filtres (téléphone) -->
-    <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_menu.php'; ?>
 </body>
 
 <script>
