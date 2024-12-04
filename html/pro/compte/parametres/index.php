@@ -98,7 +98,7 @@ $pro = verifyPro();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    
+
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -151,7 +151,7 @@ if ($pro['data']['id_rib'] != null) {
                 <input value="<?php echo $pro['tel'] ?>" pattern="^0\d( \d{2}){4}"
                     class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel"
                     name="num_tel" minlength="14" maxlength="14" oninput="formatTEL(this)"
-                    title="Le numéro doit commencer par un 0.">
+                    title="Le numéro doit commencer par un 0">
 
                 <input type="submit" id="save1" href="" value="Enregistrer les modifications"
                     class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
@@ -169,7 +169,7 @@ if ($pro['data']['id_rib'] != null) {
                         echo extraireIbanDepuisRib($rib);
                     } ?>" class="border-2 border-secondary p-2 bg-white max-w-80 h-12 mb-3 rounded-lg" type="text"
                         id="iban" name="iban" pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" oninput="formatIBAN(this)"
-                        minlength="27" maxlength="33">
+                        minlength="33" maxlength="33">
 
                     <input type="submit" id="save2" href="" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"

@@ -277,7 +277,7 @@ if ($mode_carte == 'membre') {
                 echo "offres/" . $images['carte'];
             } else {
                 echo $categorie_offre . '.jpg';
-            } ?>' alt="Image promotionnelle de l'offre" title="consulter les détails">
+            } ?>' alt="Image promotionnelle de l'offre" title="Consulter les détails">
         </div>
 
         <!-- PARTIE DE DROITE (infos principales) -->
@@ -362,11 +362,11 @@ if ($mode_carte == 'membre') {
                         }
                         ?>
                         <!-- modifier l'offre -->
-                        <a href="" title="modifier l'offre">
+                        <a href="" title="Modifier l'offre">
                             <i class="fa-solid fa-gear text-secondary text-h1 hover:text-primary duration-100"></i>
                         </a>
                         <!-- détails de l'offre -->
-                        <a href="/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>" title="voir l'offre">
+                        <a href="/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>" title="Voir l'offre">
                             <i class="fa-solid fa-arrow-up-right-from-square text-h1 hover:text-primary duration-100"></i>
                         </a>
                     </div>
@@ -418,7 +418,7 @@ if ($mode_carte == 'membre') {
                 <hr class="border-black w-full">
                 <div class="flex justify-around self-stretch">
                     <!-- Localisation -->
-                    <div title="localisation de l'offre"
+                    <div title="Adresse de l'offre"
                         class="localisation flex gap-2 flex-shrink-0 justify-center items-center">
                         <i class="fa-solid fa-location-dot"></i>
                         <p class="text-small"><?php echo $ville ?></p>
@@ -441,17 +441,17 @@ if ($mode_carte == 'membre') {
                     <div class="flex flex-col items-center justify-around">
                         <div class="flex italic justify-start gap-4">
                             <!-- Non vus -->
-                            <a title="avis non consultés" href="" class="hover:text-primary">
+                            <a title="Avis non consultés" href="" class="hover:text-primary">
                                 <i class=" fa-solid fa-exclamation text-rouge-logo"></i>
                                 (0)
                             </a>
                             <!-- Non répondus -->
-                            <a title="avis sans réponse" href="" class="hover:text-primary">
+                            <a title="Avis sans réponse" href="" class="hover:text-primary">
                                 <i class="fa-solid fa-reply-all text-rouge-logo"></i>
                                 (0)
                             </a>
                             <!-- Blacklistés -->
-                            <a title="avis blacklistés" href="" class="hover:text-primary">
+                            <a title="Avis blacklistés" href="" class="hover:text-primary">
                                 <i class="fa-regular fa-eye-slash text-rouge-logo"></i>
                                 (0)
                             </a>
@@ -472,7 +472,8 @@ if ($mode_carte == 'membre') {
 
                     <!-- Type offre + options -->
                     <div class="flex flex-col justify-around">
-                        <p class="type-offre text-center grow" title="type de l'offre">Type : <?php echo $type_offre ?></p>
+                        <p class="type-offre text-center grow" title="Type de l'offre (Gratuit / Standard / Prenium)">Type :
+                            <?php echo $type_offre ?></p>
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-gears text-xl"></i>
                             <div>

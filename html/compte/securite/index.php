@@ -13,32 +13,34 @@ if (isset($_POST['mdp'])) {
     if (password_verify($_POST['mdp'], $currentPassword)) {
         $mdp = password_hash($_POST['newMdp'], PASSWORD_DEFAULT);
         $controllerMembre->updateMembre($membre['id_compte'], false, $mdp, false, false, false, false);
-    
-        echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
+
+        ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
                 var successMessage = document.getElementById('success-message');
                 successMessage.textContent = 'Le mot de passe a bien été modifié.';
-                setTimeout(function() {
+                setTimeout(function () {
                     successMessage.textContent = '';
                 }, 7500);
             });
-        </script>";
-    } else {
-        echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
+        </script>
+        <?php
+    } else { ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
                 var errorMessage = document.getElementById('error-message');
                 errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
-                setTimeout(function() {
+                setTimeout(function () {
                     errorMessage.textContent = '';
                 }, 7500);
             });
-        </script>";
+        </script>
+        <?php
     }
 
     unset($_POST['mdp']);
     unset($_POST['newMdp']);
     unset($_POST['newConfMdp']);
-
     $membre = verifyMember();
 }
 
@@ -54,7 +56,7 @@ if (isset($_POST['mdp'])) {
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    
+
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -97,33 +99,33 @@ if (isset($_POST['mdp'])) {
                 <form action="" class="flex flex-col" method="post">
                     <div class="relative w-full">
                         <label class="text-h3" for="mdp">Mot de passe actuel</label>
-                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                            id="mdp" name="mdp" pattern="^(?=.{8,})(?=.*[A-Z])(?=.*\d).*" minlength="8">
-
+                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
+                            title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                            type="password" id="mdp" name="mdp" pattern="(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$">
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword1"></i>
                     </div>
 
                     <div class="relative w-full">
                         <label class="text-h3" for="newMdp">Nouveau mot de passe</label>
-                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                            id="newMdp" name="newMdp">
-
+                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
+                            title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                            type="password" id="newMdp" name="newMdp" pattern="(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$">
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword2"></i>
                     </div>
 
                     <div class="relative w-full">
                         <label class="text-h3" for="confNewMdp">Confirmation nouveau mot de passe</label>
-                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                            id="confNewMdp" name="confNewMdp">
-
+                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
+                            title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                            type="password" id="confNewMdp" name="confNewMdp"
+                            pattern="(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$">
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword3"></i>
                     </div>
 
                     <span id="success-message" class="success text-green-600 text-small"></span>
-
                     <span id="error-message" class="error text-rouge-logo text-small"></span>
 
                     <input type="submit" id="save" href="" value="Modifier mon mot de passe"

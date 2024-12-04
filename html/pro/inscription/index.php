@@ -56,7 +56,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Choix du statut de l'organisation -->
                     <label class="text-small" for="statut">Je suis un organisme&nbsp;</label>
                     <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="statut" name="statut"
-                        title="Sélécionner le statut de l'organisme" onchange="updateLabel()" required>
+                        title="Sélécionner le statut de l'organisme (public OU privé)" onchange="updateLabel()" required>
                         <option value="" disabled <?php if ($statut == "")
                             echo 'selected' ?>> --- </option>
                             <option value="public" <?php if ($statut == "public")
@@ -69,14 +69,15 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         <!-- Champ pour le nom -->
                         <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
                         <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                            title="Saisir le nom de l'organisation" maxlength="100"
+                            title="Saisir le nom de l'organisation (max 100 caractères)" maxlength="100"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" required>
 
                     <!-- Champ pour l'adresse mail -->
                     <label class=" text-small" for="mail">Adresse mail</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="mail" id="mail" name="mail"
-                        pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail valide"
-                        maxlength="255" value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" required>
+                        pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$"
+                        title="L'adresse mail doit contenir un '@'" maxlength="255"
+                        value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" required>
                     <!-- Message d'erreur pour l'adresse mail -->
                     <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?? '' ?></span>
 
@@ -84,9 +85,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <div class="relative w-full">
                         <label class="text-small" for="mdp">Mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
-                            pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*"
+                            pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                            autocomplete="new-password"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -97,8 +97,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <div class="relative w-full">
                         <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp"
-                            name="confMdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*"
-                            title="Confirmer le mot de passe saisit ci-dessus" autocomplete="new-password"
+                            name="confMdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
+                            title="Confirmer le mot de passe saisit ci-dessus"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -256,8 +256,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Champ pour la dénomination sociale (en lecture seule) -->
                     <label class="text-small" for="nom" id="nom">Dénomination sociale</label>
                     <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                        title="Dénomination sociale" value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>"
-                        readonly>
+                        title="Saisir votre dénomination sociale"
+                        value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" readonly>
                 <?php } else { ?>
                     <!-- Champ pour le nom de l'organisation (en lecture seule) -->
                     <label class="text-small" for="nom" id="nom">Nom de l'organisation</label>
@@ -269,8 +269,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                    title="Adresse mail" value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>"
-                    readonly>
+                    title="L'adresse mail doit contenir un '@'"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" readonly>
 
                 <!-- Choix du type d'organisme public -->
                 <?php if ($statut == 'public') {
@@ -278,7 +278,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         ?>
                     <label class="text-small" for="type_orga">Je suis une&nbsp;</label>
                     <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="type_orga" name="type_orga"
-                        title="Choisir le type de l'organisme" required>
+                        title="Choisir le type de l'organisme (association OU autre)" required>
                         <option value="" disabled <?php if ($type_orga == '')
                             echo 'selected'; ?>> --- </option>
                         <option value="public" <?php if ($type_orga == 'association')
@@ -292,8 +292,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Inscription du numéro de SIREN -->
                     <label class="text-small" for="num_siren">Numéro SIRET</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" oninput="formatSiren(this)" type="text"
-                        id="num_siren" name="num_siren" title="Saisir le numéro SIRET de l'organisation" minlength="17"
-                        maxlength="17" value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
+                        id="num_siren" name="num_siren" title="Saisir le numéro SIRET de l'organisation (14 chiffres)"
+                        minlength="17" maxlength="17"
+                        value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
                 <?php } ?>
 
                 <!-- Champs pour l'adresse -->
@@ -306,14 +307,15 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <label class="text-small" for="complement">Complément d'adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
-                    title="Saisir un complément d'adresse ?" maxlength="255" placeholder="Bâtiment A, Appartement 5"
+                    title="Saisir un complément d'adresse (facultatif)" maxlength="255"
+                    placeholder="Bâtiment A, Appartement 5"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?? '' ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
                         <label class="text-small" for="postal_code">Code postal</label>
                         <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code"
-                            name="postal_code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Code postal"
+                            name="postal_code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Code postal (12345)"
                             minlength="5" maxlength="5" oninput="number(this)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['postal_code'] ?? '' ?>" required>
                     </div>
@@ -329,8 +331,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="w-full flex flex-col">
                     <label class="text-small" for="num_tel">Téléphone</label>
                     <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
-                        pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone valide" minlength="14" maxlength="14"
-                        oninput="formatTEL(this)"
+                        pattern="^0\d( \d{2}){4}" title="Le numéro de téléphone doit commencer par un 0" minlength="14"
+                        maxlength="14" oninput="formatTEL(this)"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?? '' ?>" required>
                 </div>
                 <!-- Message d'erreur pour le téléphone -->
