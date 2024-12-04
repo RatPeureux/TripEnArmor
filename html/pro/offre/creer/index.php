@@ -434,7 +434,7 @@ $pro = verifyPro();
 										<h1 class="text-h1 leading-none mt-1 text-center py-2">
 											<?php
 												if ($typeOffre["prix_ht"] == 0) {
-													echo "Gratuit";
+													echo "0€/jour en ligne";
 												} else { ?>
 												HT <?php echo $typeOffre['prix_ht']; ?>€/jour en ligne<br>
 												<span class="text-h2">
