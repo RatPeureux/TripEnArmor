@@ -98,6 +98,7 @@ $pro = verifyPro();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
+    <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -122,21 +123,21 @@ if ($pro['data']['id_rib'] != null) {
         ?>
     </div>
 
-    <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
-        <div class="flex w-full items-center">
-            <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
-                <i class="text-3xl fa-solid fa-bars"></i>
-            </a>
-            <p class="text-h2">
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    ?>
+
+    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
+        <div class="m-auto flex flex-col">
+            <p class="text-h3 p-4">
                 <a href="/pro/compte">Mon compte</a>
                 >
                 <a href="/pro/compte/parametres" class="underline">Paramètres</a>
             </p>
-        </div>
-    </header>
 
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div class="m-auto flex flex-col">
+            <hr class="mb-8">
+
             <p class="text-h1 mb-4">Informations privées</p>
 
             <form action="" class="flex flex-col" method="post">
@@ -207,8 +208,14 @@ if ($pro['data']['id_rib'] != null) {
                     </input>
                 </form>
                 <?php
-            }
-            ?>
+            } ?>
+
+            <hr class="mb-8">
+
+            <a href="/scripts/delete.php" onclick="return confirmDelete()"
+                class="mx-auto max-w-[23rem] w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent rounded-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
+                Supprimer mon compte
+            </a>
         </div>
     </main>
 

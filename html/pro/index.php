@@ -128,21 +128,16 @@ if (!function_exists('chaineVersMot')) {
                 </div>
             <?php } ?>
         </div>
-
-        <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
-        <?php
-        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel_pro.php';
-        ?>
     </main>
+
+    <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel_pro.php';
+    ?>
 
     <!-- FOOTER -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
-    ?>
-
-    <!-- Inclusion du menu de filtres (téléphone) -->
-    <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_menu_pro.php';
     ?>
 </body>
 

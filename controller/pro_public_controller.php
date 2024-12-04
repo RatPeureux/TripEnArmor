@@ -56,4 +56,11 @@ class ProPublicController
             return $updatedProPublicId;
         }
     }
+
+    public function deleteProPublic($id)
+    {
+        $proPublic = $this->model::deleteProPublic($id);
+
+        return $proPublic;
+    }
 }
