@@ -666,16 +666,16 @@ $pro = verifyPro();
 									<label for="gamme" class="text-nowrap">Gamme de prix :</label>
 									<div class="flex  space-x-2">
 										<div>
-											<input type="radio" id="prix1" name="gamme2prix" value="€" />
-											<label for="prix1">€</label>
+											<input type="radio" id="€" name="gamme2prix" value="€" />
+											<label for="€">€</label>
 										</div>
 										<div>
-											<input type="radio" id="prix2" name="gamme2prix" value="€€" checked />
-											<label for="prix2">€€</label>
+											<input type="radio" id="€€" name="gamme2prix" value="€€" checked />
+											<label for="€€">€€</label>
 										</div>
 										<div>
-											<input type="radio" id="prix3" name="gamme2prix" value="€€€" />
-											<label for="prix3">€€€</label>
+											<input type="radio" id="€€€" name="gamme2prix" value="€€€" />
+											<label for="€€€">€€€</label>
 										</div>
 									</div>
 								</div>
