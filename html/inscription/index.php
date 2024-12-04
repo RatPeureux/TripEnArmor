@@ -1,6 +1,5 @@
 <?php
 session_start(); // Démarre la session au début du script
-print_r($_SESSION);
 
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
