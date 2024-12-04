@@ -386,7 +386,7 @@ $pro = verifyPro();
 						<?php
 						foreach ($typesOffre as $i => $typeOffre) {
 							$cardColor = $i % 2 == 0 ? 'secondary' : 'primary';
-							$cardVisible = $pro['data']['type'] == 'prive' ? ($typeOffre['id_type_offre'] == 1 ? 'hidden' : '') : ($typeOffre['id_type_offre'] == 1 ? '' : 'hidden');
+							$cardVisible = $pro['data']['type'] == 'prive' ? ($typeOffre['id_type_offre'] == 1 ? '' : '') : ($typeOffre['id_type_offre'] == 1 ? '' : 'hidden');
 							$subTitle = "Pour les entreprises et organismes privés";
 							$avantages = [
 								"Jusqu’à 10 photos de présentations",
