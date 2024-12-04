@@ -385,6 +385,7 @@ $pro = verifyPro();
 						<!-- Carte de l'offre gratuite -->
 						<?php
 						foreach ($typesOffre as $i => $typeOffre) {
+							var_dump($typeOffre);
 							$cardColor = $i % 2 == 0 ? 'secondary' : 'primary';
 							$cardVisible = $pro['data']['type'] === 'prive' ? 'hidden' : '';
 							$subTitle = "Pour les entreprises et organismes privés";
@@ -392,14 +393,13 @@ $pro = verifyPro();
 								"Jusqu’à 10 photos de présentations",
 								"Réponse aux avis des membres"
 							];
+
 							if ($typeOffre['id_type_offre'] == 1) {
 								$subTitle = "Pour les associations et les organismes publics";
 							} else if ($typeOffre['id_type_offre'] == 2) {
-								$subTitle = "Pour les entreprises et organismes privés";
 								$avantages[] = "Possibilité de remplir une grille tarifaire";
 								$avantages[] = "Possibilité de souscrire aux options “À la une” et “En relief”";
 							} else if ($typeOffre['id_type_offre'] == 3) {
-								$subTitle = "Pour les entreprises et organismes privés";
 								$avantages[] = "Possibilité de remplir une grille tarifaire";
 								$avantages[] = "Possibilité de souscrire aux options “À la une” et “En relief”";
 								$avantages[] = "Mise sur liste noire de 3 commentaires";
@@ -433,9 +433,9 @@ $pro = verifyPro();
 									</div>
 									<div>
 										<h1 class="text-h1 leading-none mt-1 text-center py-2">
-											HT <?php echo $typeOffre['prix_ht'] ?>€/jour en ligne<br>
+											HT <?php echo $typeOffre['prix_ht']; ?>€/jour en ligne<br>
 											<span class="text-h2">
-												TTC <?php echo $typeOffre['prix_ttc'] ?>€/jour en ligne
+												TTC <?php echo $typeOffre['prix_ttc']; ?>€/jour en ligne
 											</span>
 										</h1>
 									</div>
