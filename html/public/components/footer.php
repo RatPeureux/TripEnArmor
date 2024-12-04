@@ -3,7 +3,7 @@
     Pour l'ajouter, écrier la balise <div id='footer'></div> dans votre code html
     (responsive)
 -->
-<footer class="bg-secondary flex text-white justify-center items-center p-8 gap-5 mt-2">
+<footer class="bg-secondary flex text-white justify-center items-center p-8 pb-16 md:pb-8 gap-5 mt-2">
     <img src="/public/images/logo-footer.svg" alt="[img] Logo">
     <!-- Format ordinateur -->
     <div class="text-center hidden md:block">
