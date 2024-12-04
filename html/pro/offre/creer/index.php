@@ -317,18 +317,15 @@ $pro = verifyPro();
 				}
 				echo "Prestations insérées.<br>";
 			}
-			if (false) {
+			
 				// Insérer les horaires dans la base de données
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
 				$horaireController = new HoraireController();
 
 				foreach ($horaires as $key => $jour) {
-					// TODO: formater les horaires pour qu'ils fonctionnent
-	
 					$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 				}
 				echo "Horaires insérés.<br>";
-			}
 
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
@@ -1015,7 +1012,7 @@ $pro = verifyPro();
 
 									<!-- GRILLE TARIFAIRE -->
 									<div
-										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
+										class="w-full <?php if ($pro['data']['type'] === 'prive') { echo "optionActivite optionVisite optionSpectacle optionParcAttraction"; } ?> hidden">
 										<h2 class="text-h2 text-secondary">Grille tarifaire</h2>
 										<table class="w-full">
 											<thead>
