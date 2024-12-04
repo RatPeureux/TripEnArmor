@@ -68,7 +68,7 @@ $pro = verifyPro();?>
             <p>
                 Nous collectons des données personnelles nécessaires au fonctionnement du site, notamment :
                 <ul class="list-disc list-inside">
-                    <li><strong>Données fournies directement :</strong> Statut de l'organisation (publique ou privée), Nom, Adresse mail, Type d'organisation (Organisme public), Numéro de SIREN (Organisme privée), Adresse postale, Numéro de téléphone, IBAN (Facultatif : Organisme privée),</li>
+                    <li><strong>Données fournies directement :</strong> Statut de l'organisation (publique ou privée), Nom, Adresse mail, Type d'organisation (Organisme public), Numéro de SIRET (Organisme privée), Adresse postale, Numéro de téléphone, IBAN (Facultatif : Organisme privée),</li>
                     <li><strong>Données collectées automatiquement :</strong> Cookies.</li>
                 </ul>
             </p>

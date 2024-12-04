@@ -12,7 +12,8 @@ session_start();
 
     <link rel="stylesheet" href="/styles/input.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+        src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
     <script src="/styles/config.js"></script>
     
     <script type="module" src="/scripts/main.js" defer></script>
@@ -216,9 +217,15 @@ session_start();
             ]
         ];
     }
+
+    if ($categorie_offre == 'parc_attraction') {
+        // require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
+        // $controllerImage = new TImageImgController();
+        // $path_plan = $controllerImage->getPathToPlan($id_offre);
+    }
     ?>
 
-    <main class="flex flex-col md:block md:mx-10 self-center rounded-lg md:p-2 max-w-[1280px] overflow-auto">
+    <main class="flex flex-col md:block md:mx-10 self-center md:p-2 max-w-[1280px] overflow-auto">
         <div class="flex md:gap-3">
 
             <!-- PARTIE GAUCHE (menu) -->
@@ -253,8 +260,8 @@ session_start();
                             foreach ($images['details'] as $image) {
                                 ?>
                                 <div class="swiper-slide !w-full">
-                                    <img class="object-cover w-full h-full" src='/public/images/<?php echo "offres/" . $image; ?>'
-                                        alt="image de slider">
+                                    <img class="object-cover w-full h-full"
+                                        src='/public/images/<?php echo "offres/" . $image; ?>' alt="image de slider">
                                 </div>
                                 <?php
                             }
@@ -263,31 +270,29 @@ session_start();
                     </div>
 
                     <!-- Boutons de navigation sur la slider -->
-                    <div class="flex items-center gap-8 justify-center">
-                        <a
-                            class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !left-5 !bg-primary !text-white after:!text-base">
-                            &#129136;</a>
-                        <a
-                            class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !right-5 !bg-primary !text-white after:!text-base">
-                            &#129138;</a>
-                    </div>
-                    <a onclick="history.back()"
-                        class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center"><i
-                            class="fa-solid fa-arrow-left text-h1"></i></a>
-                    <div class="swiper-pagination"></div>
-
+                    <?php if ($images['details']) { ?>
+                        <div class="flex items-center gap-8 justify-center">
+                            <a
+                                class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                &#129136;</a>
+                            <a
+                                class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                &#129138;</a>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
 
-
-
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
-                <div class="flex flex-col gap-5 p-5">
-                    <div class="flex flex-row items-center">
+                <div class="space-y-4 px-2 md:px-0">
+                    <div class="flex flex-col md:flex-row md:items-center">
                         <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
-                        <p class="professionnel text-h1">&nbsp;- <?php echo $nom_pro ?></p>
+                        <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
+                        <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
                     </div>
                     <!-- Afficher les tags de l'offre -->
-                    <p class="text-small">
+                    <p class="text-small prose">
                         <?php echo $resume ?>
                     </p>
 
@@ -313,7 +318,7 @@ session_start();
 
 
                     <!-- Partie du bas de la page (toutes les infos pratiques) -->
-                    <div class="flex flex-row gap-4">
+                    <div class="flex flex-col md:flex-row">
                         <!-- Partie description -->
                         <div class="partie-description flex flex-col basis-1/2">
                             <!-- Prix + localisation -->
@@ -334,7 +339,7 @@ session_start();
                             </div>
                             <!-- Description détaillée -->
                             <div class="description flex flex-col my-4">
-                                <p class="text-justify text-small px-2">
+                                <p class="text-justify text-small px-2 prose">
                                     <?php echo $description ?>
                                 </p>
                             </div>
@@ -464,10 +469,12 @@ session_start();
                                                 <p>Visite guidée :&nbsp</p>
                                                 <p><?php echo $guide ?></p>
                                             </div>
-                                            <div class="text-small">
-                                                <p>Langue(s) parlée(s) lors de la visite guidée :&nbsp <?php echo $langues ?>
-                                                </p>
-                                            </div>
+                                            <?php if ($guideBool == true) { ?>
+                                                <div class="text-small">
+                                                    <p>Langue(s) parlée(s) lors de la visite guidée :&nbsp <?php echo $langues ?>
+                                                    </p>
+                                                </div>
+                                            <?php } ?>
                                             <?php
                                             break;
 

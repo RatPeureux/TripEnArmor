@@ -2,7 +2,7 @@
 
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/facture.php";
 
-class TypeRepasController
+class FactureController
 {
 
     private $model;
@@ -12,14 +12,22 @@ class TypeRepasController
         $this->model = 'Facture';
     }
 
-    public function getInfoFacture($id)
+    public function getInfoFacture($numero, $designation)
     {
-        $facture = $this->model::getFactureById($id);
+        $facture = $this->model::getFactureById($numero, $designation);
 
         $result = [
-            "id_facture" => $facture["id_facture"],
-            "jour_en_ligne" => $facture["jour_en_ligne"],
             "id_offre" => $facture["id_offre"],
+            "numero" => $facture["numero"],
+            "designation" => $facture["designation"],
+            "date_emission" => $facture["date_emission"],
+            "date_prestation" => $facture["date_prestation"],
+            "date_echeance" => $facture["date_echeance"],
+            "date_lancement" => $facture["date_lancement"],
+            "nbjours_abonnement" => $facture["nbjours_abonnement"],
+            "quantite" => $facture["quantite"],
+            "prix_unitaire_HT" => isset($facture["prix_unitaire_HT"]) && is_numeric($facture["prix_unitaire_HT"]) ? (float)$facture["prix_unitaire_HT"] : 0,
+            "prix_unitaire_TTC" => isset($facture["prix_unitaire_TTC"]) && is_numeric($facture["prix_unitaire_TTC"]) ? (float)$facture["prix_unitaire_TTC"] : 0,
         ];
 
         return $result;
@@ -31,19 +39,20 @@ class TypeRepasController
         return $factureID;
     }
 
-    public function updateFacture($id, $jour_en_ligne)
+    public function updateFacture($numero, $designation, $jour_en_ligne)
     {
-        if ($jour_en_ligne === false && $id === false) {
+        if ($jour_en_ligne === false && $numero === false && $designation === false) {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {
             // verif de type sur jour en ligne
 
             if (strtotime($jour_en_ligne)) {
-                $facture = $this->model::getFactureById($id);
+                $facture = $this->model::getFactureById($numero, $designation);
 
                 $updatedFacture = $this->model::updateFacture(
-                    $id,
+                    $numero,
+                    $designation,
                     $facture["jour_en_ligne"],
                     $facture["id_offre"]
                 );

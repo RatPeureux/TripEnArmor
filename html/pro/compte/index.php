@@ -73,6 +73,22 @@ $pro = verifyPro();
                     <p class="text-small">Protéger mon compte.</p>
                 </div>
             </a>
+            
+
+            <?php
+            if (($pro['data']['type']) ==  'prive') { 
+                ?>
+                <a href="/pro/compte/facture"
+                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
+                <i class="w-[50px] text-center text-5xl fa-solid fa-file-invoice"></i>
+                <div class="w-full">
+                    <p class="text-h2">Facture</p>
+                    <p class="text-small">Faire le point sur mes factures.</p>
+                </div>
+            </a>
+            <?php
+            }
+            ?>
 
             <a href="/scripts/logout.php" onclick="return confirmLogout()"
                 class="w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent rounded-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
