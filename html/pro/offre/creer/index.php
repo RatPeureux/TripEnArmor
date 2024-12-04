@@ -222,11 +222,13 @@ $pro = verifyPro();
 			}
 
 			// Insérer les liens entre les offres et les tags dans la base de données
-			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-			$tagController = new TagController();
 			if ($activityType === 'restauration') {
-				// Insérer les tags de restauration
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+				$tagRestauration
+				
 			} else {
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+				$tagController = new TagController();
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
 				$tagOffreController = new TagOffreController();
 
