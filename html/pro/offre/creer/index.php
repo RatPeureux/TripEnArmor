@@ -372,7 +372,7 @@ $pro = verifyPro();
 					<div class="grid grid-cols-2 justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<div
-							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full hidden">
+							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['statut'] === "prive") { echo "hidden";} ?>">
 							<input type="radio" name="type_offre" id="type_offre_1" value="1" class="hidden">
 							<label for="type_offre_1"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -398,7 +398,7 @@ $pro = verifyPro();
 						</div>
 						<!-- Carte de l'offre standard -->
 						<div
-							class="border border-primary rounded-lg flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full">
+							class="border border-primary rounded-lg flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full <?php if ($pro['data']['statut'] === "public") { echo "hidden";} ?>">
 							<input type="radio" name="type_offre" id="type_offre_2" value="2" class="hidden">
 							<label for="type_offre_2"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -424,7 +424,7 @@ $pro = verifyPro();
 						</div>
 						<!-- Carte de l'offre premium -->
 						<div
-							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full">
+							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['statut'] === "public") { echo "hidden";} ?>">
 							<input type="radio" name="type_offre" id="type_offre_3" value="3" class="hidden">
 							<label for="type_offre_3"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -1517,9 +1517,7 @@ $pro = verifyPro();
 			});
 		</script>
 		<script>
-			// TODO: gérer les horaires
-			// TODO: lorsque les informations sont remplies pour lundi, elles sont répétées pour les autres jours
-			// TODO: Vérifier que l'horaire d'ouverture soit plus tôt que l'horaire de pause, puis de reprise, puis de fermeture.
+			// TODO: à fix : Lors de la suppression du lundi, suppression du reste
 
 			for (const field of ['ouverture', 'pause', 'reprise', 'fermeture']) {
 				const lundi = document.getElementById(`horaires[lundi][${field}]`);
