@@ -65,17 +65,25 @@ if ($mode_carte == 'membre') {
 
                             require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
                             $controllerTag = new TagController();
+                            $tagsListe = [];
                             $tagsAffiche = "";
+
+                            // print_r($tags_offre);
                             foreach ($tags_offre as $tag) {
                                 $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
                             }
+
+                            // print_r($tagsListe);
                             foreach ($tagsListe as $tag) {
                                 $tagsAffiche .= $tag['nom'] . ', ';
                             }
-
-                            $tagsAffiche = rtrim($tagsAffiche, ', ');
+                            // print_r($tagsListe);
+                        
+                            $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                             if ($tags_offre) {
-                                echo $tagsAffiche;
+                                ?>
+                            <p class="text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                            <?php
                             } else {
                                 echo 'Aucun tag';
                             }
@@ -199,17 +207,25 @@ if ($mode_carte == 'membre') {
 
                                 require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
                                 $controllerTag = new TagController();
+                                $tagsListe = [];
                                 $tagsAffiche = "";
+
+                                // print_r($tags_offre);
                                 foreach ($tags_offre as $tag) {
                                     $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
                                 }
+
+                                // print_r($tagsListe);
                                 foreach ($tagsListe as $tag) {
                                     $tagsAffiche .= $tag['nom'] . ', ';
                                 }
-
-                                $tagsAffiche = rtrim($tagsAffiche, ', ');
+                                // print_r($tagsListe);
+                            
+                                $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                                 if ($tags_offre) {
-                                    echo $tagsAffiche;
+                                    ?>
+                                <p class="text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                                <?php
                                 } else {
                                     echo 'Aucun tag';
                                 }
@@ -341,17 +357,25 @@ if ($mode_carte == 'membre') {
 
                                 require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
                                 $controllerTag = new TagController();
+                                $tagsListe = [];
                                 $tagsAffiche = "";
+
+                                // print_r($tags_offre);
                                 foreach ($tags_offre as $tag) {
                                     $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
                                 }
+
+                                // print_r($tagsListe);
                                 foreach ($tagsListe as $tag) {
                                     $tagsAffiche .= $tag['nom'] . ', ';
                                 }
-
-                                $tagsAffiche = rtrim($tagsAffiche, ', ');
+                                // print_r($tagsListe);
+                            
+                                $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                                 if ($tags_offre) {
-                                    echo $tagsAffiche;
+                                    ?>
+                                <p class="text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                                <?php
                                 } else {
                                     echo 'Aucun tag';
                                 }

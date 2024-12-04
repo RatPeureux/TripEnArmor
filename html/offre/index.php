@@ -317,7 +317,7 @@ session_start();
                         ?>
                         <div class="p-1 rounded-lg bg-secondary self-center w-full">
                             <?php
-                            echo ("<p class='text-white text-center'>$tagsAffiche</p>");
+                            echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
                             ?>
                         </div>
                         <?php
