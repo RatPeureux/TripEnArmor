@@ -19,11 +19,23 @@ $date_mise_a_jour = $offre['date_mise_a_jour'];
 $titre_offre = $offre['titre'];
 
 
+// Otenir la moyenne des notes de l'offre
+$stmt = $dbh->prepare("SELECT avg, count FROM sae_db.vue_moyenne WHERE id_offre = :id_offre");
+$stmt->bindParam(':id_offre', $id_offre);
+$stmt->execute();
+$moyenne = $stmt->fetch(PDO::FETCH_ASSOC);
+if ($moyenne) {
+    $nb_avis = intval($moyenne['count']);
+    $moyenne = floatval($moyenne['avg']);
+}
+
+
 // Obtenir la catégorie de l'offre
 $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_categorie WHERE id_offre = :id_offre");
 $stmt->bindParam(':id_offre', $id_offre);
 $stmt->execute();
 $categorie_offre = $stmt->fetch(PDO::FETCH_ASSOC)['type_offre'];
+
 
 // Obtenir la date de mise à jour
 $est_en_ligne = $offre['est_en_ligne'];

@@ -138,9 +138,7 @@ session_start();
 
             // Capacité du spectacle
             $capacite = $spectacle['capacite'];
-
             break;
-
         default:
             break;
     }
@@ -217,16 +215,11 @@ session_start();
             ]
         ];
     }
-
-    if ($categorie_offre == 'parc_attraction') {
-        // require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
-        // $controllerImage = new TImageImgController();
-        // $path_plan = $controllerImage->getPathToPlan($id_offre);
-    }
     ?>
 
     <main class="flex flex-col md:block md:mx-10 self-center rounded-lg md:p-2 max-w-[1280px] overflow-auto">
         <div class="flex md:gap-3">
+
             <!-- PARTIE GAUCHE (menu) -->
             <div id="menu">
                 <?php
@@ -249,7 +242,7 @@ session_start();
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
                             <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
-                                echo $images['carte'];
+                                echo "offres/" . $images['carte'];
                             } else {
                                 echo $categorie_offre . '.jpg';
                             } ?>' alt="image de slider">
@@ -259,7 +252,7 @@ session_start();
                             foreach ($images['details'] as $image) {
                                 ?>
                                 <div class="swiper-slide !w-full">
-                                    <img class="object-cover w-full h-full" src='/public/images/<?php echo $image; ?>'
+                                    <img class="object-cover w-full h-full" src='/public/images/<?php echo "offres/" . $image; ?>'
                                         alt="image de slider">
                                 </div>
                                 <?php
@@ -267,23 +260,27 @@ session_start();
                         }
                         ?>
                     </div>
+
                     <!-- Boutons de navigation sur la slider -->
                     <div class="flex items-center gap-8 justify-center">
                         <a
                             class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !left-5 !bg-primary !text-white after:!text-base">
-                        </a>
+                            &#129136;</a>
                         <a
                             class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !right-5 !bg-primary !text-white after:!text-base">
-                        </a>
+                            &#129138;</a>
                     </div>
-                    <a href="#" onclick="history.back()"
+                    <a onclick="history.back()"
                         class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center"><i
                             class="fa-solid fa-arrow-left text-h1"></i></a>
                     <div class="swiper-pagination"></div>
+
                 </div>
 
+
+
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
-                <div class="flex flex-col gap-5">
+                <div class="flex flex-col gap-5 p-5">
                     <div class="flex flex-row items-center">
                         <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
                         <p class="professionnel text-h1">&nbsp;- <?php echo $nom_pro ?></p>
@@ -406,7 +403,7 @@ session_start();
                                 </div>
                                 <div class="flex flex-col py-3 hidden" id="compl-info">
                                     <?php
-                                    switch ($categorie_offre) { # TODO: faire plusieurs if plutot que des switch
+                                    switch ($categorie_offre) {
                                         case 'restauration':
                                             // VALEUR TEST CAR PAS DANS LA BDD
                                             $tags_type_repas = 'Petit-dej, Brunch, Déjeuner, Dîner, Goûter';
@@ -532,7 +529,38 @@ session_start();
                             <!-- Partie avis -->
                             <div class="mt-5 flex flex-col gap-2">
 
-                                <h3 class="text-h4 font-bold">Avis</h3>
+                                <div class="w-full flex justify-between">
+                                    <h3 class="text-h4 font-bold">Avis</h3>
+                                    <?php
+                                    // Moyenne des notes quand il y en a une
+                                    if ($moyenne) { ?>
+                                        <div class="flex gap-1">
+                                            <div class="flex gap-1 shrink-0">
+                                                <?php for ($i = 0; $i < 5; $i++) {
+                                                    if ($moyenne > 1) {
+                                                        ?>
+                                                        <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
+                                                        <?php
+                                                    } else if ($moyenne > 0) {
+                                                        ?>
+                                                            <img class="w-3" src="/public/images/oeuf_moitie.svg"
+                                                                alt="0.5 point de note">
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                            <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                                                        <?php
+                                                    }
+                                                    $moyenne--;
+                                                }
+                                                ?>
+                                            </div>
+                                            <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
 
                                 <?php
                                 if (isset($_SESSION['id_membre'])) {
