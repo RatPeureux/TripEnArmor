@@ -145,17 +145,6 @@ $pro = verifyPro();
 				case 'activite':
 					// Insertion spécifique à l'activité
 					require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
-
-					echo "Description : " . $description . "<br>";
-					echo "Résumé : " . $resume . "<br>";
-					echo "Prix minimum : " . $prixMin . "<br>";
-					echo "Titre : " . $titre . "<br>";
-					echo "ID Pro : " . $id_pro . "<br>";
-					echo "ID Type Offre : " . $id_type_offre . "<br>";
-					echo "ID Adresse : " . $id_adresse . "<br>";
-					echo "Durée : " . $duree_formatted . "<br>";
-					echo "Age : " . $age . "<br>";
-					echo "Prestations : " . $prestations . "<br>";
 					$activiteController = new ActiviteController();
 					$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
 

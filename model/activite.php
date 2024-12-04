@@ -39,6 +39,16 @@ class Activite extends BDD
 
     static function createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations)
     {
+        echo "Description =" . $description . "<br>";
+        echo "Resume =" . $resume . "<br>";
+        echo "Prix mini =" . $prix_mini . "<br>";
+        echo "Titre =" . $titre . "<br>";
+        echo "ID Pro =" . $id_pro . "<br>";
+        echo "ID Type Offre =" . $id_type_offre . "<br>";
+        echo "ID Adresse =" . $id_adresse . "<br>";
+        echo "Duree =" . $duree . "<br>";
+        echo "Age requis =" . $age_requis . "<br>";
+        echo "Prestations =" . $prestations . "<br>";
         self::initBDD();
         $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, duree, age_requis) VALUES (FALSE, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
 
