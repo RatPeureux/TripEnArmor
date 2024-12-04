@@ -270,22 +270,19 @@ session_start();
                     </div>
 
                     <!-- Boutons de navigation sur la slider -->
-                    <div class="flex items-center gap-8 justify-center">
-                        <a
-                            class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !left-5 !bg-primary !text-white after:!text-base">
-                            &#129136;</a>
-                        <a
-                            class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !right-5 !bg-primary !text-white after:!text-base">
-                            &#129138;</a>
-                    </div>
-                    <a onclick="history.back()"
-                        class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center"><i
-                            class="fa-solid fa-arrow-left text-h1"></i></a>
-                    <div class="swiper-pagination"></div>
-
+                    <?php if ($images['details']) { ?>
+                        <div class="flex items-center gap-8 justify-center">
+                            <a
+                                class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                &#129136;</a>
+                            <a
+                                class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                &#129138;</a>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
-
-
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="space-y-4 px-2 md:px-0">
