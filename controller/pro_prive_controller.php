@@ -26,7 +26,7 @@ class ProPriveController
                 "id_compte" => $proPrive["id_compte"],
                 "email" => $proPrive["email"],
                 "tel" => $proPrive["num_tel"],
-                "adresse" => $proPrive["id_adresse"],
+                "id_adresse" => $proPrive["id_adresse"],
                 "nom_pro" => $proPrive["nom_pro"],
                 "num_siren" => $proPrive["num_siren"],
                 "id_rib" => $proPrive["id_rib"]
