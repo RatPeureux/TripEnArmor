@@ -26,6 +26,8 @@ class Restauration extends BDD
     static function createRestauration($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix)
     {
         self::initBDD();
+
+        echo "Gamme de prix : " . $gamme_prix . "<br>";
         $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, gamme_prix) VALUES (FALSE, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
 
         $statement = self::$db->prepare($query);
