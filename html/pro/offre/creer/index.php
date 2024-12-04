@@ -225,7 +225,7 @@ $pro = verifyPro();
 			if ($activityType === 'restauration') {
 				// require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
 				// $tagRestauration
-				echo "Tags Restaurant inséré";
+				echo "Tags Restaurant inséré<br>	";
 			} else {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
 				$tagController = new TagController();
