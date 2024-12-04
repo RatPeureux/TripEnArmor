@@ -805,7 +805,7 @@ $pro = verifyPro();
 
 									<!-- HORAIRES -->
 									<div
-										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
+										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction optionRestauration hidden">
 
 										<h2 class="text-h2 text-secondary">Horaires</h2>
 										<table class="w-full table-auto">
