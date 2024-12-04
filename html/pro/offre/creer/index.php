@@ -352,6 +352,7 @@ $pro = verifyPro();
 
 		$typeOffreController = new TypeOffreController();
 		$typesOffre = $typeOffreController->getAllTypeOffre();
+		var_dump($typesOffre);
 		?>
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
