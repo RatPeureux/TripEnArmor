@@ -1,10 +1,11 @@
 <?php
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class tagRestaurantRestauration extends BDD
 {
-    private $nom_table = "_tag_restaurant_restauration";
+    static private $nom_table = "_tag_restaurant_restauration";
 
-    static function getByIdBoth($id_offre, $id_tag_restaurant){
+    static function getByBothId($id_offre, $id_tag_restaurant){
 
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table . "WHERE id_offre = ? AND id_tag_restaurant = ?";
@@ -38,7 +39,7 @@ class tagRestaurantRestauration extends BDD
         }
     }
 
-    static function getByIdTagRestau($id_tag_restaurant){
+    static function getByIdTagRestaurant($id_tag_restaurant){
 
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table . "WHERE id_tag_restaurant = ?";

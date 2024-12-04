@@ -4,7 +4,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 class TypeRepas extends BDD
 {
 
-    private $nom_table = "sae_db._type_repas";
+    static private $nom_table = "sae_db._type_repas";
 
     static function getTypeRepasById($id)
     {
@@ -25,7 +25,7 @@ class TypeRepas extends BDD
     static function getTypesRepasByName($name)
     {
 
-        $query = "SELECT * FROM " . self::$nom_table . " WHERE nom_type_repas = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE nom = ?";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $name);
@@ -41,7 +41,7 @@ class TypeRepas extends BDD
     static function createTypeRepas($nom_type_repas)
     {
 
-        $query = "INSERT INTO " . self::$nom_table . "(nom_type_repas) VALUES (?) RETURNING type_repas_id";
+        $query = "INSERT INTO " . self::$nom_table . "(nom) VALUES (?) RETURNING type_repas_id";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $nom_type_repas);
@@ -57,7 +57,7 @@ class TypeRepas extends BDD
 
     static function updateTypeRepas($nom_type_repas)
     {
-        $query = "UPDATE " . self::$nom_table . " SET nom_type_repas = ? RETURNING type_repas_id";
+        $query = "UPDATE " . self::$nom_table . " SET nom = ? RETURNING type_repas_id";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $nom_type_repas);

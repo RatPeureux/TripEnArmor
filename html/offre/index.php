@@ -31,7 +31,7 @@ session_start();
 
     <!-- Inclusion du header -->
     <?php
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
     ?>
 
     <?php
@@ -245,7 +245,7 @@ session_start();
                     <?php
                     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
                     $controllerImage = new ImageController();
-                    $images = $controllerImage->getImagesOfOffre($id_offre);
+                        $images = $controllerImage->getImagesOfOffre($id_offre);
                     ?>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
@@ -291,17 +291,33 @@ session_start();
                         <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
                         <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
                     </div>
-                    <!-- Afficher les tags de l'offre -->
                     <p class="text-small prose">
                         <?php echo $resume ?>
                     </p>
 
+                    <!-- Afficher les tags de l'offre -->
                     <?php
-                    if ($tags) {
+                    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+                    $controllerTagOffre = new TagOffreController();
+                    $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+
+                    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+                    $controllerTag = new TagController();
+                    $tagsAffiche = "";
+                    foreach ($tags_offre as $tag) {
+                        $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
+                    }
+                    foreach ($tagsListe as $tag) {
+                        $tagsAffiche .= $tag['nom'] . ', ';
+                    }
+
+                    // print_r($tagsListe);
+                    $tagsAffiche = rtrim($tagsAffiche, ', ');
+                    if ($tags_offre) {
                         ?>
                         <div class="p-1 rounded-lg bg-secondary self-center w-full">
                             <?php
-                            echo ("<p class='text-white text-center'>$tags</p>");
+                            echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
                             ?>
                         </div>
                         <?php
@@ -510,24 +526,18 @@ session_start();
                                         <p id="grille-arrow">></p>
                                     </div>
                                     <div class="hidden text-small py-3" id="grille-info">
-                                        <table class="">
-                                            <tbody>
-                                                <?php
-                                                foreach ($tarifs as $tarif) {
-                                                    ?>
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <?php echo $tarif['titre_tarif'] ?> :
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <?php echo $tarif['prix'] ?> €
-                                                        </td>
-                                                    </tr>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
+                                        <?php
+                                        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
+                                        $controllerTarifPublic = new TarifPublicController();
+                                        $tarifs = $controllerTarifPublic->getTarifsByIdOffre($id_offre);
+                                        foreach ($tarifs as $tarif) {
+                                            ?>
+
+                                            <?php echo $tarif['titre'] ?> :&nbsp;
+                                            <?php echo $tarif['prix'] ?> € <br>
+                                            <?php
+                                        }
+                                        ?>
                                     </div>
                                 </a>
                                 <?php

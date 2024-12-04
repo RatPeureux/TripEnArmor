@@ -85,7 +85,7 @@ $pro = verifyPro();
 		$avec_guide = $_POST["guide"] ?? "on"; // VISITE
 		$age = $_POST["age"];
 		$duree_formatted = sprintf('%02d:%02d:00', $_POST["hours"], $_POST["minutes"]); // ACTIVITE, VISITE, SPECTACLE
-		$gamme_prix = $_POST['gamme_prix'];
+		$gamme_prix = $_POST['gamme2prix'];
 		$capacite = $_POST['capacite'] ?? '';
 		$langues = [
 			"Français" => $_POST["langueFR"] ?? "on",
@@ -204,7 +204,7 @@ $pro = verifyPro();
 					require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
 
 					$restaurationController = new RestaurationController();
-					$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas);
+					$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix);
 
 					if ($id_offre < 0) {
 						echo "Erreur lors de l'insertion : " . $id_offre;
@@ -222,11 +222,13 @@ $pro = verifyPro();
 			echo "new id_offre : " . $id_offre . "<br>";
 
 			// Insérer les liens entre les offres et les tags dans la base de données
-			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-			$tagController = new TagController();
 			if ($activityType === 'restauration') {
-				// Insérer les tags de restauration
+				// require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+				// $tagRestauration
+				echo "Tags Restaurant inséré<br>	";
 			} else {
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+				$tagController = new TagController();
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
 				$tagOffreController = new TagOffreController();
 
@@ -251,14 +253,16 @@ $pro = verifyPro();
 			echo "Image de la carte insérée.<br>";
 
 			// *** DETAIL
-			for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
-				if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
-					echo "Erreur lors de l'upload de l'image de détail.";
-					BDD::rollbackTransaction();
-					exit;
+			if ($_FILES['photo-detail']['error'][0] !== 4) {
+				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
+					if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
+						echo "Erreur lors de l'upload de l'image de détail.";
+						BDD::rollbackTransaction();
+						exit;
+					}
 				}
+				echo "Images de détail insérées.<br>";
 			}
-			echo "Images de détail insérées.<br>";
 
 			if ($activityType === 'parc_attraction') {
 				if ($imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
@@ -276,10 +280,11 @@ $pro = verifyPro();
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
 				$visiteLangueController = new VisiteLangueController();
 
-				foreach ($langues as $langue => $isIncluded) {
+				for ($i = 1; $i < count($langueController->getInfosAllLangues())+1; $i++) { // foreach ($langues as $langue => $isIncluded) {
+					$isIncluded = $_POST['langue' . $i] ?? "on";
 					if ($isIncluded) {
-						$id_langue = $langueController->getInfosLanguesByName($langue)['id_langue'];
-						$visiteLangueController->linkVisiteAndLangue($id_offre, $id_langue);
+						echo "Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
+						$visiteLangueController->linkVisiteAndLangue($id_offre, $i);
 					}
 				}
 				echo "Langues insérées.<br>";
@@ -291,7 +296,7 @@ $pro = verifyPro();
 
 				foreach ($typesRepas as $typeRepas => $isIncluded) {
 					if ($isIncluded) {
-						$id_type_repas = $typeRepasController->getTypeRepasByName($typeRepas);
+						$id_type_repas = $typeRepasController->getTypeRepasByName($typeRepas)['type_repas_id'];
 						$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
 					}
 				}
@@ -312,18 +317,15 @@ $pro = verifyPro();
 				}
 				echo "Prestations insérées.<br>";
 			}
-			if (false) {
+			
 				// Insérer les horaires dans la base de données
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
 				$horaireController = new HoraireController();
 
 				foreach ($horaires as $key => $jour) {
-					// TODO: formater les horaires pour qu'ils fonctionnent
-	
 					$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 				}
 				echo "Horaires insérés.<br>";
-			}
 
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
@@ -606,10 +608,9 @@ $pro = verifyPro();
 								<!-- Visite guidée -->
 								<!-- Visite -->
 								<div class="flex justify-between items-center w-full space-x-2 optionVisite hidden">
-									<div class="inline-flex items-center cursor-pointer space-x-4"
-										onclick="toggleCheckbox('guide')">
+									<div class="inline-flex items-center space-x-4" onclick="toggleCheckbox('guide')">
 										<p>Visite guidée :</p>
-										<input type="checkbox" name="guide" id="guide" value="" class="sr-only peer">
+										<input type="checkbox" name="guide" id="guide" class="sr-only peer">
 										<div
 											class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
 										</div>
@@ -617,27 +618,22 @@ $pro = verifyPro();
 											<p>
 												Langues parlées :
 											</p>
-											<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-												onclick="toggleCheckbox('langueFR')">
-												<label for="langueFR">Français</label>
-												<input type="checkbox" name="langueFR" id="langueFR" class="hidden"
-													checked="true">
-											</div>
-											<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-												onclick="toggleCheckbox('langueEN')">
-												<label for="langueEN">Anglais</label>
-												<input type="checkbox" name="langueEN" id="langueEN" class="hidden">
-											</div>
-											<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-												onclick="toggleCheckbox('langueES')">
-												<label for="langueES">Espagnol</label>
-												<input type="checkbox" name="langueES" id="langueES" class="hidden">
-											</div>
-											<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-												onclick="toggleCheckbox('langueDE')">
-												<label for="langueDE">Allemand</label>
-												<input type="checkbox" name="langueDE" id="langueDE" class="hidden">
-											</div>
+											<?php
+											require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/langue_controller.php';
+											$langueController = new LangueController();
+
+											$langues = $langueController->getInfosAllLangues();
+
+											foreach ($langues as $langue) { ?>
+												<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+													onclick="toggleCheckbox('<?php echo 'langue' . $langue['id_langue']; ?>')">
+													<label
+														for="<?php echo 'langue' . $langue['id_langue']; ?>"><?php echo $langue['nom']; ?></label>
+													<input type="checkbox" name="<?php echo 'langue' . $langue['id_langue']; ?>"
+														id="<?php echo 'langue' . $langue['id_langue']; ?>" class="hidden">
+												</div>
+											<?php }
+											?>
 										</div>
 									</div>
 								</div>
@@ -671,16 +667,16 @@ $pro = verifyPro();
 									<label for="gamme" class="text-nowrap">Gamme de prix :</label>
 									<div class="flex  space-x-2">
 										<div>
-											<input type="radio" id="prix1" name="gamme2prix" value="prix1" />
-											<label for="prix1">€</label>
+											<input type="radio" id="€" name="gamme2prix" value="€" />
+											<label for="€">€</label>
 										</div>
 										<div>
-											<input type="radio" id="prix2" name="gamme2prix" value="prix2" checked />
-											<label for="prix2">€€</label>
+											<input type="radio" id="€€" name="gamme2prix" value="€€" checked />
+											<label for="€€">€€</label>
 										</div>
 										<div>
-											<input type="radio" id="prix3" name="gamme2prix" value="prix3" />
-											<label for="prix3">€€€</label>
+											<input type="radio" id="€€€" name="gamme2prix" value="€€€" />
+											<label for="€€€">€€€</label>
 										</div>
 									</div>
 								</div>
@@ -1016,7 +1012,7 @@ $pro = verifyPro();
 
 									<!-- GRILLE TARIFAIRE -->
 									<div
-										class="w-full optionActivite optionVisite optionSpectacle optionParcAttraction hidden">
+										class="w-full <?php if ($pro['data']['type'] === 'prive') { echo "optionActivite optionVisite optionSpectacle optionParcAttraction"; } ?> hidden">
 										<h2 class="text-h2 text-secondary">Grille tarifaire</h2>
 										<table class="w-full">
 											<thead>

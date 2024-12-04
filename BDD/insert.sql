@@ -31,7 +31,8 @@ _langue,
 _visite_langue,
 _avis,
 _offre_souscription_option,
-_facture
+_facture,
+_horaire
 RESTART IDENTITY CASCADE;
 
 INSERT INTO

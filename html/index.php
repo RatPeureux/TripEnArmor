@@ -38,7 +38,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     $sort_order = '';
     if (isset($_GET['sort'])) {
-        if ($_smGET['sort'] == 'price-ascending') {
+        if ($_GET['sort'] == 'price-ascending') {
             $sort_order = 'ORDER BY prix_mini ASC';
         } elseif ($_GET['sort'] == 'price-descending') {
             $sort_order = 'ORDER BY prix_mini DESC';
@@ -111,8 +111,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                         } ?>
                     </div>
                 <?php } ?>
+            </main>
         </div>
-        </main>
     </div>
 
     <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
