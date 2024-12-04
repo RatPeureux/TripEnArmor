@@ -282,9 +282,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <br>
                 <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
-                    <label class="text-small" for="num_siren">Numéro SIREN</label>
+                    <label class="text-small" for="num_siren">Numéro SIRET</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" oninput="formatSiren(this)" type="text"
-                        id="num_siren" name="num_siren" title="Saisir le numéro SIREN de l'organisation" minlength="17" maxlength="17"
+                        id="num_siren" name="num_siren" title="Saisir le numéro SIRET de l'organisation" minlength="17" maxlength="17"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?>" required>
                 <?php } ?>
 
@@ -432,7 +432,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             // Supprime tout ce qui n'est pas un chiffre
             let value = input.value.replace(/\D/g, '');
 
-            // Limite à 14 caractères (9 pour le SIREN + 5 pour les caractères supplémentaires)
+            // Limite à 14 caractères (9 pour le SIRET + 5 pour les caractères supplémentaires)
             value = value.substring(0, 14);
 
             // Ajoute les espaces tous les 3 chiffres pour les trois premiers groupes
@@ -486,12 +486,18 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
     function extraireInfoAdresse($adresse)
     {
-        $numero = substr($adresse, 0, 1);
-        $odonyme = substr($adresse, 2);
+        // Utiliser une expression régulière pour extraire le numéro et l'odonyme
+        if (preg_match('/^(\d+)\s+(.*)$/', $adresse, $matches)) {
+            return [
+                'numero' => $matches[1],
+                'odonyme' => $matches[2],
+            ];
+        }
 
+        // Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
         return [
-            'numero' => $numero,
-            'odonyme' => $odonyme,
+            'numero' => '',
+            'odonyme' => $adresse,
         ];
     }
 
@@ -532,13 +538,21 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             if ($statut === "public") {
                 $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :type_orga)");
                 $stmtProfessionnel->bindParam(':type_orga', $type_orga);
-            } else {
+                $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
+                $stmtProfessionnel->bindParam(':mail', $mail);
+                $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
+                $stmtProfessionnel->bindParam(':num_tel', $tel);
+                $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
 
-                print_r($iban);
+
+                // Exécuter la requête pour le professionnel
+                if ($stmtProfessionnel->execute()) {
+                    header("location: /pro/connexion");
+                }
+            } else {
 
                 // Extraire les valeurs du RIB à partir de l'IBAN
                 if ($iban) {
-                    echo "test";
                     $rib = extraireRibDepuisIban($iban);
                     $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle) VALUES (:code_banque, :code_guichet, :numero_compte, :cle)");
                     $stmtRib->bindParam(':code_banque', $rib['code_banque']);
@@ -547,7 +561,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     $stmtRib->bindParam(':cle', $rib['cle']);
                     if ($stmtRib->execute()) {
                         $id_rib = $dbh->lastInsertId();
-                        echo "test2";
                         $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren, id_rib) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :num_siren, :id_rib)");
                         $stmtProfessionnel->bindParam(':num_siren', $num_siren);
                         // Lier les paramètres pour le professionnel
