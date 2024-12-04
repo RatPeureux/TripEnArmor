@@ -115,7 +115,7 @@ if ($mode_carte == 'membre') {
             <div class="flex flex-row">
                 <!-- Partie gauche -->
                 <div class='gauche grow relative shrink-0 basis-1/2 h-[280px] overflow-hidden'>
-                    <a href="/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>">
+                    <a href="/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>">
                         <!-- Image de fond -->
                         <?php
                         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
@@ -326,7 +326,7 @@ if ($mode_carte == 'membre') {
                             <i class="fa-solid fa-gear text-secondary text-h1 hover:text-primary duration-100"></i>
                         </a>
                         <!-- détails de l'offre -->
-                        <a href="/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>" title="voir l'offre">
+                        <a href="/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>" title="voir l'offre">
                             <i class="fa-solid fa-arrow-up-right-from-square text-h1 hover:text-primary duration-100"></i>
                         </a>
                     </div>

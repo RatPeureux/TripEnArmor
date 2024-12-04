@@ -207,6 +207,7 @@ document.addEventListener("DOMContentLoaded", function() {
         categories: [], // Catégories sélectionnées
         localisation: '', // Texte de localisation
         note: ['0','5'], // Liste de tuples (min, max)
+        prix: ['0','99'], // Liste de tuples (min, max)
     };
 
     function filterOnCategories(device) {
@@ -238,6 +239,27 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function filterOnNotes(device) {
+        const minNoteInputElement = document.getElementById('min-note-'+device);
+        const maxNoteInputElement = document.getElementById('max-note-'+device);
+    
+        minNoteInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.note[0] = minNoteInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFilters();
+        });
+    
+        maxNoteInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.note[1] = maxNoteInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFilters();
+        });
+    }
+
+    function filterOnPrices(device) {
         const minNoteInputElement = document.getElementById('min-note-'+device);
         const maxNoteInputElement = document.getElementById('max-note-'+device);
     
