@@ -4,7 +4,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 $pro = verifyPro();
-
+var_dump($pro);
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
 $controllerAdresse = new AdresseController();
 $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
@@ -33,9 +33,14 @@ if (isset($_POST['adresse']) || isset($_POST['complement']) || isset($_POST['cod
     if (!empty($_POST['adresse'])) {
         $adresse = $_POST['adresse'];
         $adresse = explode(" ", $adresse);
-        $numero = $adresse[0];
-        $odonyme = implode(" ", array_slice($adresse, 1));
-        unset($_POST['adresse']);
+        if (!is_numeric($adresse[0])) {
+            $numero = null;
+            $odonyme = implode(" ", $adresse);
+        } else {
+            $numero = $adresse[0];
+            $odonyme = implode(" ", array_slice($adresse, 1));
+            unset($_POST['adresse']);
+        }
     }
     if (!empty($_POST['complement'])) {
         $complement = $_POST['complement'];
@@ -55,7 +60,7 @@ if (isset($_POST['adresse']) || isset($_POST['complement']) || isset($_POST['cod
 
 $pro = verifyPro();
 $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
-
+var_dump($adresse);
 // Connexion avec la bdd
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 ?>
@@ -70,7 +75,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    
+
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
