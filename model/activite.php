@@ -40,7 +40,7 @@ class Activite extends BDD
     static function createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations)
     {
         self::initBDD();
-        $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, duree, age_requis, prestations) VALUES (FALSE, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
+        $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, duree, age_requis) VALUES (FALSE, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
 
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $description);
@@ -52,7 +52,7 @@ class Activite extends BDD
         $statement->bindParam(7, $id_adresse);
         $statement->bindParam(8, $duree);
         $statement->bindParam(9, $age_requis);
-        $statement->bindParam(10, $prestations);
+        // $statement->bindParam(10, $prestations);
 
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];
