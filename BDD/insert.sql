@@ -455,7 +455,7 @@ INSERT INTO
         date_creation,
         date_mise_a_jour,
         id_adresse,
-        duree_visite,
+        duree,
         avec_guide,
         id_pro,
         id_type_offre

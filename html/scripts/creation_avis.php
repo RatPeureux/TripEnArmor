@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
-print_r($_POST);
 $avisController = new AvisController;
 
 // Obtenir les informations nécessaires pour la création de l'avis

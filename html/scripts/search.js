@@ -39,10 +39,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Met à jour la visibilité du bouton "Supprimer tout"
     function updateClearButtonVisibility() {
-        if (tagsContainer.children.length === 0) {
-            clearTagsBtn.classList.add("hidden");
-        } else {
-            clearTagsBtn.classList.remove("hidden");
+        if (tagsContainer) {
+            if (tagsContainer.children.length === 0) {
+                clearTagsBtn.classList.add("hidden");
+            } else {
+                clearTagsBtn.classList.remove("hidden");
+            }
         }
     }
 
