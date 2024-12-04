@@ -40,7 +40,7 @@ $pro = verifyPro();?>
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
     ?>
 
-    <div class="self-center mt-20 flex justify-center w-full md:max-w-[1280px] p-2">
+    <div class="self-center  flex justify-center w-full md:max-w-[1280px] p-2">
         <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
             <div class="flex flex-col md:flex-row item-start md:items-center gap-4">
                 <!-- Icône pour revenir à la page précédente -->
@@ -68,7 +68,7 @@ $pro = verifyPro();?>
             <p>
                 Nous collectons des données personnelles nécessaires au fonctionnement du site, notamment :
                 <ul class="list-disc list-inside">
-                    <li><strong>Données fournies directement :</strong> Statut de l'organisation (publique ou privée), Nom, Adresse mail, Type d'organisation (Organisme public), Numéro de SIREN (Organisme privée), Adresse postale, Numéro de téléphone, IBAN (Facultatif : Organisme privée),</li>
+                    <li><strong>Données fournies directement :</strong> Statut de l'organisation (publique ou privée), Nom, Adresse mail, Type d'organisation (Organisme public), Numéro de SIRET (Organisme privée), Adresse postale, Numéro de téléphone, IBAN (Facultatif : Organisme privée),</li>
                     <li><strong>Données collectées automatiquement :</strong> Cookies.</li>
                 </ul>
             </p>

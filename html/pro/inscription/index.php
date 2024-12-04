@@ -282,9 +282,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <br>
                 <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
-                    <label class="text-small" for="num_siren">Numéro SIREN</label>
+                    <label class="text-small" for="num_siren">Numéro SIRET</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" oninput="formatSiren(this)" type="text"
-                        id="num_siren" name="num_siren" title="Saisir le numéro SIREN de l'organisation" minlength="17" maxlength="17"
+                        id="num_siren" name="num_siren" title="Saisir le numéro SIRET de l'organisation" minlength="17" maxlength="17"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?>" required>
                 <?php } ?>
 
@@ -432,7 +432,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             // Supprime tout ce qui n'est pas un chiffre
             let value = input.value.replace(/\D/g, '');
 
-            // Limite à 14 caractères (9 pour le SIREN + 5 pour les caractères supplémentaires)
+            // Limite à 14 caractères (9 pour le SIRET + 5 pour les caractères supplémentaires)
             value = value.substring(0, 14);
 
             // Ajoute les espaces tous les 3 chiffres pour les trois premiers groupes
@@ -504,7 +504,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     // Partie pour traiter la soumission du second formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         // Assurer que tous les champs obligatoires sont remplis
-        $adresse = $_POST['adresse'];
+        $adresse = $_POST['user_input_autocomplete_address'];
         $infosSupAdresse = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
         $code = $_POST['postal_code'];
@@ -538,7 +538,19 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             if ($statut === "public") {
                 $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :type_orga)");
                 $stmtProfessionnel->bindParam(':type_orga', $type_orga);
+                $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
+                $stmtProfessionnel->bindParam(':mail', $mail);
+                $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
+                $stmtProfessionnel->bindParam(':num_tel', $tel);
+                $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
+
+
+                // Exécuter la requête pour le professionnel
+                if ($stmtProfessionnel->execute()) {
+                    header("location: /pro/connexion");
+                }
             } else {
+
                 // Extraire les valeurs du RIB à partir de l'IBAN
                 if ($iban) {
                     $rib = extraireRibDepuisIban($iban);
