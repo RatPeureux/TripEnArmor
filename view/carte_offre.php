@@ -59,9 +59,23 @@ if ($mode_carte == 'membre') {
                     <div class='p-1 rounded-lg bg-secondary self-center w-full'>
                         <p class='text-white text-center'>
                             <?php
-                            // Afficher les tags / plats de l'offre, sinon mentionner l'absence de ces derniers
-                            if ($tags) {
-                                echo $tags;
+                            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+                            $controllerTagOffre = new TagOffreController();
+                            $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+
+                            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+                            $controllerTag = new TagController();
+                            $tagsAffiche = "";
+                            foreach ($tags_offre as $tag) {
+                                $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
+                            }
+                            foreach ($tagsListe as $tag) {
+                                $tagsAffiche .= $tag['nom'] . ', ';
+                            }
+
+                            $tagsAffiche = rtrim($tagsAffiche, ', ');
+                            if ($tags_offre) {
+                                echo $tagsAffiche;
                             } else {
                                 echo 'Aucun tag';
                             }
@@ -179,9 +193,23 @@ if ($mode_carte == 'membre') {
                         <div class='p-1 rounded-lg bg-secondary self-center w-full'>
                             <p class='text-white text-center'>
                                 <?php
-                                // Afficher les tags / plats de l'offre, sinon mentionner l'absence de ces derniers
-                                if ($tags) {
-                                    echo $tags;
+                                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+                                $controllerTagOffre = new TagOffreController();
+                                $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+
+                                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+                                $controllerTag = new TagController();
+                                $tagsAffiche = "";
+                                foreach ($tags_offre as $tag) {
+                                    $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
+                                }
+                                foreach ($tagsListe as $tag) {
+                                    $tagsAffiche .= $tag['nom'] . ', ';
+                                }
+
+                                $tagsAffiche = rtrim($tagsAffiche, ', ');
+                                if ($tags_offre) {
+                                    echo $tagsAffiche;
                                 } else {
                                     echo 'Aucun tag';
                                 }
@@ -307,9 +335,23 @@ if ($mode_carte == 'membre') {
                         <div class="p-2 rounded-lg bg-secondary self-center w-full">
                             <p class="text-white text-center">
                                 <?php
-                                // Afficher les tags de l'offre (ou plats si c'est un resto), sinon indiquer qu'il n'y a aucun tag
-                                if ($tags) {
-                                    echo $tags;
+                                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+                                $controllerTagOffre = new TagOffreController();
+                                $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+
+                                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+                                $controllerTag = new TagController();
+                                $tagsAffiche = "";
+                                foreach ($tags_offre as $tag) {
+                                    $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
+                                }
+                                foreach ($tagsListe as $tag) {
+                                    $tagsAffiche .= $tag['nom'] . ', ';
+                                }
+
+                                $tagsAffiche = rtrim($tagsAffiche, ', ');
+                                if ($tags_offre) {
+                                    echo $tagsAffiche;
                                 } else {
                                     echo 'Aucun tag';
                                 }

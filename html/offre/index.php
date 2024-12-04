@@ -15,7 +15,7 @@ session_start();
     <script
         src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
     <script src="/styles/config.js"></script>
-    
+
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -31,7 +31,7 @@ session_start();
 
     <!-- Inclusion du header -->
     <?php
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
     ?>
 
     <?php
@@ -291,17 +291,33 @@ session_start();
                         <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
                         <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
                     </div>
-                    <!-- Afficher les tags de l'offre -->
                     <p class="text-small prose">
                         <?php echo $resume ?>
                     </p>
 
+                    <!-- Afficher les tags de l'offre -->
                     <?php
-                    if ($tags) {
+                    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+                    $controllerTagOffre = new TagOffreController();
+                    $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+
+                    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+                    $controllerTag = new TagController();
+                    $tagsAffiche = "";
+                    foreach ($tags_offre as $tag) {
+                        $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
+                    }
+                    foreach ($tagsListe as $tag) {
+                        $tagsAffiche .= $tag['nom'] . ', ';
+                    }
+
+                    // print_r($tagsListe);
+                    $tagsAffiche = rtrim($tagsAffiche, ', ');
+                    if ($tags_offre) {
                         ?>
                         <div class="p-1 rounded-lg bg-secondary self-center w-full">
                             <?php
-                            echo ("<p class='text-white text-center'>$tags</p>");
+                            echo ("<p class='text-white text-center'>$tagsAffiche</p>");
                             ?>
                         </div>
                         <?php
