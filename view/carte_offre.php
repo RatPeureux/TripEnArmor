@@ -143,10 +143,10 @@ if ($mode_carte == 'membre') {
                     $images = $controllerImage->getImagesOfOffre($id_offre);
                     ?>
                     <img class='rounded-l-lg w-full h-full object-cover object-center' src='/public/images/<?php if ($images['carte']) {
-                                                                                                                echo "offres/" . $images['carte'];
-                                                                                                            } else {
-                                                                                                                echo $categorie_offre . '.jpg';
-                                                                                                            } ?>' alt="Image promotionnelle de l'offre">
+                        echo "offres/" . $images['carte'];
+                    } else {
+                        echo $categorie_offre . '.jpg';
+                    } ?>' alt="Image promotionnelle de l'offre">
                 </div>
                 <!-- Partie droite (infos principales) -->
                 <div class='infos flex flex-col basis-1/2 p-3 justify-between relative'>
@@ -272,8 +272,7 @@ if ($mode_carte == 'membre') {
             $controllerImage = new ImageController();
             $images = $controllerImage->getImagesOfOffre($id_offre);
             ?>
-            <img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/
-            <?php if ($images['carte']) {
+            <img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
                 echo "offres/" . $images['carte'];
             } else {
                 echo $categorie_offre . '.jpg';
