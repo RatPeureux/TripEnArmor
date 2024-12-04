@@ -60,7 +60,7 @@ INSERT INTO
         ville,
         numero,
         odonyme,
-        complement_adresse
+        complement
     )
 VALUES ( -- Léo
         '29670',
@@ -253,26 +253,25 @@ VALUES ( -- Caca123-
         2
     );
 
-INSERT INTO _RIB (
-    code_banque,
-    code_guichet,
-    numero_compte,
-    cle
-)
+INSERT INTO
+    _RIB (
+        code_banque,
+        code_guichet,
+        numero_compte,
+        cle
+    )
 VALUES (
-    '12345',
-    '67890',
-    '12345678901',
-    '97',
+        '12345',
+        '67890',
+        '12345678901',
+        '97'
     ),
     (
-    '54321',
-    '09876',
-    '10987654321',
-    '45',
-);
-
-
+        '54321',
+        '09876',
+        '10987654321',
+        '45'
+    );
 
 INSERT INTO
     _pro_public (
@@ -593,7 +592,7 @@ INSERT INTO
         note_cuisine,
         rapport_qualite_prix
     )
-VALUES (1, 1, 2.5, 1, 4, 4.5)
+VALUES (1, 1, 2.5, 1, 4, 4.5);
 
 INSERT INTO
     _souscription (nb_semaines, date_lancement)
