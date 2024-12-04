@@ -1049,7 +1049,7 @@ $pro = verifyPro();
 								</div>
 
 								<div
-									class="optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden w-full">
+									class="<?php if ($pro['data']['type'] === 'prive') { echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction"; } ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
 
 									<!-- TODO: donner la durée en semaines + la date de lancement -->
