@@ -11,15 +11,16 @@ class Facture extends BDD
      * @param int $id L'identifiant de la facture à récupérer.
      * @return array|int Retourne un tableau contenant les données de la facture ou -1 en cas d'erreur.
      */
-    static function getFactureById($id)
+    static function getFactureById($numero, $designation)
     {
         self::initBDD();
         // Requête SQL pour sélectionner une facture par son ID
-        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_facture = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE numero = ? AND designation = ?";
 
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
-        $statement->bindParam(1, $id);
+        $statement->bindParam(1, $numero);
+        $statement->bindParam(2, $designation);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
@@ -39,7 +40,7 @@ class Facture extends BDD
     {
         self::initBDD();
         // Requête SQL pour insérer une nouvelle facture
-        $query = "INSERT INTO " . self::$nom_table . " (jour_en_ligne, id_offre) VALUES (?, ?) RETURNING id_facture";
+        $query = "INSERT INTO " . self::$nom_table . " (jour_en_ligne, id_offre) VALUES (?, ?) RETURNING numero AND designation";
 
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -48,7 +49,7 @@ class Facture extends BDD
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_facture'];
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['numero AND designation'];
         } else {
             echo "ERREUR : Impossible de créer la facture";
             return -1;
@@ -60,21 +61,22 @@ class Facture extends BDD
      * @param string $jour_en_ligne La nouvelle date à laquelle la facture est mise en ligne.
      * @return array|int Retourne un tableau contenant l'identifiant de la facture mise à jour ou -1 en cas d'erreur.
      */
-    static function updateFacture($id_facture, $jour_en_ligne, $id_offre)
+    static function updateFacture($numero, $designation, $jour_en_ligne, $id_offre)
     {
         self::initBDD();
         // Requête SQL pour mettre à jour une facture existante
-        $query = "UPDATE " . self::$nom_table . " SET jour_en_ligne = ?, id_offre = ? WHERE id_facture = ? RETURNING id_facture";
+        $query = "UPDATE " . self::$nom_table . " SET jour_en_ligne = ?, id_offre = ? WHERE numero = ? AND designation = ? RETURNING numero AND designation";
 
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $jour_en_ligne);
         $statement->bindParam(2, $id_offre);
-        $statement->bindParam(3, $id_facture);
+        $statement->bindParam(3, $numero);
+        $statement->bindParam(4, $designation);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]["id_facture"];
+            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['numero AND designation'];
         } else {
             echo "ERREUR : Impossible de mettre à jour la facture";
             return -1;
@@ -86,15 +88,16 @@ class Facture extends BDD
      * @param int $id L'identifiant de la facture à supprimer.
      * @return array|int Retourne un tableau vide si la suppression réussit ou -1 en cas d'erreur.
      */
-    static function deleteFacture($id)
+    static function deleteFacture($numero, $designation)
     {
         self::initBDD();
         // Requête SQL pour supprimer une facture par son ID
-        $query = "DELETE FROM " . self::$nom_table . " WHERE id_facture = ?";
+        $query = "DELETE FROM " . self::$nom_table . " WHERE numero = ? AND designation = ?";
 
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
-        $statement->bindParam(1, $id);
+        $statement->bindParam(1, $numero);
+        $statement->bindParam(2, $designation);
 
         // Exécute la requête et retourne les résultats ou une erreur
         return $statement->execute();

@@ -1,6 +1,25 @@
 document.addEventListener("DOMContentLoaded", function() {
-    
     // !!! TOGGLE AFFICHANT/DÉPLIANT LES INTERFACES DE FILTRES/TRIS
+    // Fonction pour configurer un bouton avec fermeture automatique au clic à l'extérieur
+    function setupAutoClose(buttonId, sectionId) {
+        const button = document.getElementById(buttonId);
+        const section = document.getElementById(sectionId);
+
+        if (button && section) {
+            // Écouteur global pour fermer la section au clic à l'extérieur
+            document.addEventListener('click', function(event) {
+                // Vérifie si le clic est en dehors du bouton et de la section
+                if (!section.contains(event.target) && !button.contains(event.target)) {
+                    section.classList.add('md:hidden');
+                    section.classList.remove('md:block');
+                }
+            });
+        }
+    }
+
+    // Initialisation des boutons pour les sections de tri
+    setupAutoClose('sort-button-tab', 'sort-section-tab');
+
     // Fonction pour configurer un bouton qui affiche ou masque une section
     function setupToggleTab(buttonId, sectionId) {
         const button = document.getElementById(buttonId); // Récupère le bouton par son ID

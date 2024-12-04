@@ -16,6 +16,7 @@ $pro = verifyPro();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
+    <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -34,17 +35,17 @@ $pro = verifyPro();
         ?>
     </div>
 
-    <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
-        <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
-            <i class="text-3xl fa-solid fa-bars"></i>
-        </a>
-        <div class="flex w-full items-center">
-            <p class="text-h2"><?php echo $pro['nom_pro'] ?></p>
-        </div>
-    </header>
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    ?>
 
-    <main class="grow flex items-center md:w-full m-auto max-w-[1280px] p-2">
-        <div class="mt-2 grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center">
+    <main class="grow flex flex-col max-w-[1280px] md:w-full mx-auto p-2">
+        <p class="text-h3 p-4"><?php echo $pro['nom_pro'] ?></p>
+
+        <hr class="mb-4">
+
+        <div class="grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center justify-center">
             <a href="/pro/compte/profil"
                 class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-user"></i>
@@ -72,6 +73,22 @@ $pro = verifyPro();
                     <p class="text-small">Protéger mon compte.</p>
                 </div>
             </a>
+            
+
+            <?php
+            if (($pro['data']['type']) ==  'prive') { 
+                ?>
+                <a href="/pro/compte/facture"
+                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center mb-8 px-8 py-4">
+                <i class="w-[50px] text-center text-5xl fa-solid fa-file-invoice"></i>
+                <div class="w-full">
+                    <p class="text-h2">Facture</p>
+                    <p class="text-small">Faire le point sur mes factures.</p>
+                </div>
+            </a>
+            <?php
+            }
+            ?>
 
             <a href="/scripts/logout.php" onclick="return confirmLogout()"
                 class="w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent rounded-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">

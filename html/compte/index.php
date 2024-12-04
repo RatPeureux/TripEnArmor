@@ -32,6 +32,7 @@ $membre = verifyMember();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
+    <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -56,54 +57,57 @@ $membre = verifyMember();
     $membre = $controllerMembre->getInfosMembre($id_membre);
     ?>
 
-    <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
-        <div class="flex w-full items-center">
-            <a href="" onclick="toggleMenu()" class="mr-4 md:hidden">
-                <i class="text-3xl fa-solid fa-bars"></i>
-            </a>
-            <p class="text-h2"><?php echo $membre['prenom'] . ' ' . $membre['nom'] ?></p>
-        </div>
-    </header>
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    ?>
 
-    <main class="grow md:w-full mt-0 m-auto max-w-[1280px] p-2 flex">
+    <main class="grow max-w-[1280px] md:w-full mx-auto p-2 flex">
         <div id="menu">
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
             ?>
         </div>
-        <div class="flex justify-center mt-2 grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center">
-            <a href="/compte/profil"
-                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
-                <i class="w-[50px] text-center text-5xl fa-solid fa-user"></i>
-                <div class="w-full">
-                    <p class="text-h2">Profil</p>
-                    <p class="text-small">Modifier mon profil public.</p>
-                    <p class="text-small">Voir mes activités récentes.</p>
-                </div>
-            </a>
-            <a href="/compte/parametres"
-                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
-                <i class="w-[50px] text-center text-5xl fa-solid fa-gear"></i>
-                <div class="w-full">
-                    <p class="text-h2">Paramètres</p>
-                    <p class="text-small">Modifier mes informations privées.</p>
-                    <p class="text-small">Supprimer mon compte.</p>
-                </div>
-            </a>
-            <a href="/compte/securite"
-                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
-                <i class="w-[50px] text-center text-5xl fa-solid fa-shield"></i>
-                <div class="w-full">
-                    <p class="text-h2">Sécurité</p>
-                    <p class="text-small">Modifier mes informations sensibles.</p>
-                    <p class="text-small">Protéger mon compte.</p>
-                </div>
-            </a>
 
-            <a href="/scripts/logout.php" onclick="return confirmLogout()"
-                class="w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent rounded-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
-                Se déconnecter
-            </a>
+        <div class="grow flex flex-col md:mx-10">
+            <p class="text-h3 p-4"><?php echo $membre['prenom'] . ' ' . $membre['nom'] ?></p>
+
+            <hr class="mb-4">
+
+            <div class="grow flex justify-center max-w-[23rem] mx-auto gap-12 flex flex-col items-center">
+                <a href="/compte/profil"
+                    class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+                    <i class="w-[50px] text-center text-5xl fa-solid fa-user"></i>
+                    <div class="w-full">
+                        <p class="text-h2">Profil</p>
+                        <p class="text-small">Modifier mon profil public.</p>
+                        <p class="text-small">Voir mes activités récentes.</p>
+                    </div>
+                </a>
+                <a href="/compte/parametres"
+                    class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+                    <i class="w-[50px] text-center text-5xl fa-solid fa-gear"></i>
+                    <div class="w-full">
+                        <p class="text-h2">Paramètres</p>
+                        <p class="text-small">Modifier mes informations privées.</p>
+                        <p class="text-small">Supprimer mon compte.</p>
+                    </div>
+                </a>
+                <a href="/compte/securite"
+                    class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+                    <i class="w-[50px] text-center text-5xl fa-solid fa-shield"></i>
+                    <div class="w-full">
+                        <p class="text-h2">Sécurité</p>
+                        <p class="text-small">Modifier mes informations sensibles.</p>
+                        <p class="text-small">Protéger mon compte.</p>
+                    </div>
+                </a>
+
+                <a href="/scripts/logout.php" onclick="return confirmLogout()"
+                    class="w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent rounded-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
+                    Se déconnecter
+                </a>
+            </div>
         </div>
     </main>
 

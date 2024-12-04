@@ -72,4 +72,11 @@ class ProPriveController
             return $updatedProPriveId;
         }
     }
+
+    public function deleteProPrive($id)
+    {
+        $proPrive = $this->model::deleteProPrive($id);
+
+        return $proPrive;
+    }
 }
