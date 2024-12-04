@@ -534,11 +534,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 $stmtProfessionnel->bindParam(':type_orga', $type_orga);
             } else {
 
-                print_r($iban);
-
                 // Extraire les valeurs du RIB à partir de l'IBAN
                 if ($iban) {
-                    echo "test";
                     $rib = extraireRibDepuisIban($iban);
                     $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle) VALUES (:code_banque, :code_guichet, :numero_compte, :cle)");
                     $stmtRib->bindParam(':code_banque', $rib['code_banque']);
@@ -547,7 +544,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     $stmtRib->bindParam(':cle', $rib['cle']);
                     if ($stmtRib->execute()) {
                         $id_rib = $dbh->lastInsertId();
-                        echo "test2";
                         $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren, id_rib) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :num_siren, :id_rib)");
                         $stmtProfessionnel->bindParam(':num_siren', $num_siren);
                         // Lier les paramètres pour le professionnel
