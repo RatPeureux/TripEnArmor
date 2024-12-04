@@ -292,8 +292,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Inscription du numéro de SIREN -->
                     <label class="text-small" for="num_siren">Numéro SIRET</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" oninput="formatSiren(this)" type="text"
-                        id="num_siren" name="num_siren" title="Saisir le numéro SIRET de l'organisation" minlength="14"
-                        maxlength="14" value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
+                        id="num_siren" name="num_siren" title="Saisir le numéro SIRET de l'organisation" minlength="17"
+                        maxlength="17" value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
                 <?php } ?>
 
                 <!-- Champs pour l'adresse -->
@@ -358,7 +358,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                             <input class="p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="iban" name="iban"
                                 pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Saisir un IBAN valide (FR seulement)"
                                 minlength="33" maxlength="33" oninput="formatIBAN(this)"
-                                value="<?php echo $_SESSION['data_en_cours_inscription']['iban'] ?? '' ?>" disabled>
+                                value="<?php echo $_SESSION['data_en_cours_inscription']['iban'] ?? '' ?>">
                         </div>
                     </div>
                 <?php } ?>
