@@ -369,7 +369,7 @@ $pro = verifyPro();
 				</div>
 				<!-- Section de sélection de l'offre -->
 				<form id="formulaire" action="" method="POST" class="grow block w-full space-y-8" enctype="multipart/form-data">
-					<div class="grid grid-cols-2 justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
+					<div class="<?php if ($pro['data']['type'] === 'prive') { echo "grid grid-cols-2"; } ?> justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<div
 							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "prive") { echo "hidden";} ?>">
