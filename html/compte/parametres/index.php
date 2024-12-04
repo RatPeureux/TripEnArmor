@@ -88,6 +88,7 @@ $membre = verifyMember();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
+    <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -96,18 +97,10 @@ $membre = verifyMember();
 
 <body class="min-h-screen flex flex-col justify-between">
 
-    <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
-        <div class="flex w-full items-center">
-            <a href="" onclick="toggleMenu()" class="mr-4 md:hidden">
-                <i class="text-3xl fa-solid fa-bars"></i>
-            </a>
-            <p class="text-h2">
-                <a href="/compte">Mon compte</a>
-                >
-                <a href="/compte/parametres" class="underline">Paramètres</a>
-            </p>
-        </div>
-    </header>
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    ?>
 
     <main class="w-full flex justify-center grow">
         <div class="max-w-[1280px] w-full p-2 flex justify-center">
@@ -118,6 +111,14 @@ $membre = verifyMember();
             </div>
 
             <div class="flex flex-col md:mx-10 grow">
+                <p class="text-h3 p-4">
+                    <a href="/compte">Mon compte</a>
+                    >
+                    <a href="/compte/parametres" class="underline">Paramètres</a>
+                </p>
+
+                <hr class="mb-8">
+
                 <p class="text-h1 mb-4">Informations privées</p>
 
                 <form action="" class="flex flex-col" method="post">
@@ -170,31 +171,39 @@ $membre = verifyMember();
                         class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
                         id="adresse" name="adresse" maxlength="255"">
                 
-                <label class=" text-h3" for="complement">Complément adresse postale</label>
+                    <label class=" text-h3" for="complement">Complément adresse postale</label>
                     <input value="<?php echo $adresse['complement'] ?>"
-                        class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                        id="complement" name="complement" maxlength="255"">
-                    
-                <div class=" flex flex-nowrap space-x-3 mb-1.5">
-                    <div class="w-32">
-                        <label class="text-h3" for="code">Code postal</label>
-                        <input value="<?php echo $adresse['code_postal'] ?>"
-                            class="border-2 border-secondary p-2 text-right bg-white max-w-32 h-12 mb-3 rounded-lg"
-                            type="text" id="code" name="code" minlength="5" maxlength="5">
-                    </div>
-                    <div class="w-full">
-                        <label class="text-h3" for="ville">Ville</label>
-                        <input value="<?php echo $adresse['ville'] ?>"
                             class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                            id="ville" name="ville" maxlength="50">
+                            id="complement" name="complement" maxlength="255"">
+                        
+                    <div class=" flex flex-nowrap space-x-3 mb-1.5">
+                        <div class="w-32">
+                            <label class="text-h3" for="code">Code postal</label>
+                            <input value="<?php echo $adresse['code_postal'] ?>"
+                                class="border-2 border-secondary p-2 text-right bg-white max-w-32 h-12 mb-3 rounded-lg"
+                                type="text" id="code" name="code" minlength="5" maxlength="5">
+                        </div>
+                        <div class="w-full">
+                            <label class="text-h3" for="ville">Ville</label>
+                            <input value="<?php echo $adresse['ville'] ?>"
+                                class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
+                                id="ville" name="ville" maxlength="50">
+                        </div>
                     </div>
-            </div>
 
-            <input type="submit" id="save3" href="" value="Enregistrer les modifications"
-                class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
-                disabled>
-            </input>
-            </form>
+                    <input type="submit" id="save3" href="" value="Enregistrer les modifications"
+                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                        disabled>
+                    </input>
+
+                    <hr class="mb-8">
+
+                    <a href="/scripts/delete.php" onclick="return confirmDelete()"
+                        class="mx-auto max-w-[23rem] w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent rounded-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
+                        Supprimer mon compte
+                    </a>
+                </form>
+            </div>
         </div>
     </main>
 
