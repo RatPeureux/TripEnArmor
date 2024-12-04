@@ -432,10 +432,15 @@ $pro = verifyPro();
 									</div>
 									<div>
 										<h1 class="text-h1 leading-none mt-1 text-center py-2">
-											HT <?php echo $typeOffre['prix_ht']; ?>€/jour en ligne<br>
-											<span class="text-h2">
-												TTC <?php echo $typeOffre['prix_ttc']; ?>€/jour en ligne
-											</span>
+											<?php
+												if ($typeOffre["prix_ht"] == 0) {
+													echo "Gratuit";
+												} else { ?>
+												HT <?php echo $typeOffre['prix_ht']; ?>€/jour en ligne<br>
+												<span class="text-h2">
+													TTC <?php echo $typeOffre['prix_ttc']; ?>€/jour en ligne
+												</span>
+											<?php }?>
 										</h1>
 									</div>
 								</label>
