@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+print_r($_POST);
 $avisController = new AvisController;
 
 // Obtenir les informations nécessaires pour la création de l'avis
@@ -38,12 +39,8 @@ if ($id_avis_inserted && $note_ambiance) {
     $stmt->bindParam(':note_cuisine', $note_cuisine);
     $stmt->bindParam(':rapport_qualite_prix', $note_rapport);
     $stmt->execute();
-} else {
-    echo "pas dedans";
 }
 
 if (isset($id_avis_inserted)) {
-    header('Location: /offre/index.php');
-} else {
-    echo 'pb 1';
+    header('Location: /offre');
 }
