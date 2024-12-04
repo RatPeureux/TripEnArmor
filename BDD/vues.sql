@@ -117,6 +117,37 @@ SELECT
 FROM _pro_public ppu
     JOIN _offre o ON ppu.id_compte = o.id_pro;
 
+CREATE OR REPLACE VIEW vue_facture_quantite AS
+SELECT 
+    f.numero AS "Numéro de Facture",
+    f.designation AS "Service",
+    f.date_emission AS "Date d'émission",
+    f.date_prestation AS "Date de Prestation",
+    f.date_echeance AS "Date d'échéance",
+    f.date_lancement AS "Date de Lancement",
+    CASE
+        -- Recherche des mots clÃ©s dans la dÃ©signation pour dÃ©cider si c'est une option ou un abonnement
+        WHEN LOWER(f.designation) LIKE '%abonnement%' THEN CONCAT(f.nbjours_abonnement, ' jours')
+        WHEN LOWER(f.designation) LIKE '%option%' OR LOWER(f.designation) IN ('a la une', 'en relief') THEN CONCAT(f.quantite, ' semaines')
+        ELSE 'Quantité inconnue'
+    END AS "Quantité",
+    f.prix_unitaire_HT AS "Prix Unitaire HT (â‚¬)",
+    f.prix_unitaire_TTC AS "Prix Unitaire TTC (â‚¬)",
+    f.quantite * f.prix_unitaire_HT AS "Montant HT (â‚¬)",
+    f.quantite * f.prix_unitaire_TTC AS "Montant TTC (â‚¬)"
+FROM _facture f;
+
+
+
+-- vue de la facture avec les montants totaux 
+CREATE OR REPLACE VIEW vue_facture_totaux AS
+SELECT 
+    numero AS "Numéro de Facture",
+    SUM(quantite * prix_unitaire_HT) AS "Total HT (â‚¬)",
+    SUM(quantite * prix_unitaire_TTC) AS "Total TTC (â‚¬)"
+FROM _facture
+GROUP BY numero;
+
 -- -------------------------------------------------------------------- Filtres multicritères Offre
 -- -------------------------------------------------------------------- Mise à la une Offre
 -- -------------------------------------------------------------------- Mise en relief Offre

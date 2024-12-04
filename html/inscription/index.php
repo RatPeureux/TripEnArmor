@@ -369,19 +369,26 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
     function extraireInfoAdresse($adresse)
     {
-        $numero = substr($adresse, 0, 1);
-        $odonyme = substr($adresse, 2);
+        // Utiliser une expression régulière pour extraire le numéro et l'odonyme
+        if (preg_match('/^(\d+)\s+(.*)$/', $adresse, $matches)) {
+            return [
+                'numero' => $matches[1],
+                'odonyme' => $matches[2],
+            ];
+        }
 
+        // Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
         return [
-            'numero' => $numero,
-            'odonyme' => $odonyme,
+            'numero' => '',
+            'odonyme' => $adresse,
         ];
     }
 
     // Partie pour traiter la soumission du second formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         // Assurer que tous les champs obligatoires sont remplis
-        $adresse = $_POST['adresse'];
+        $adresse = $_POST['user_input_autocomplete_address'];
+        var_dump($adresse);
         $infosSupAdresse = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
         $code = $_POST['postal_code'];

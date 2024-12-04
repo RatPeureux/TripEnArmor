@@ -557,8 +557,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                         // Exécuter la requête pour le professionnel
                         if ($stmtProfessionnel->execute()) {
-                            echo "LEEEEST GOOOOO";
-
+                            header("location: /pro/connexion");
                         }
                     }
                 }
