@@ -17,7 +17,7 @@
     } ?>" href="/">Accueil</a>
     <a class="pl-5 py-3 border-t-2 border-black flex justify-between pr-2 <?php if (isset($pagination) && $pagination == 2) {
       echo 'active';
-    } ?>" href="/offre">
+    } ?>" href="/">
       <p>Toutes les offres</p>
       <p>></p>
     </a>
