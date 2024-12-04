@@ -1,5 +1,6 @@
 <?php
 session_start(); // Démarre la session au début du script
+print_r($_SESSION);
 
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
@@ -20,7 +21,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     if (isset($_SESSION['data_en_cours_inscription']['num_tel'])) {
         $_SESSION['error'] = '';
     }
-?>
+    ?>
 
     <!DOCTYPE html>
     <html lang="fr">
@@ -81,8 +82,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <div class="relative w-full">
                         <label class="text-small" for="mdp">Mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
-                            pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)" minlength="8"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>" required>
+                            pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*"
+                            title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                            minlength="8" value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>" required>
                         <!-- Oeil pour afficher le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword1"></i>
@@ -92,7 +94,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <div class="relative w-full">
                         <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp"
-                            name="confMdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="Confirmer le mot de passe saisit ci-dessus" minlength="8"
+                            name="confMdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*"
+                            title="Confirmer le mot de passe saisit ci-dessus" minlength="8"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?>" required>
                         <!-- Oeil pour afficher le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -126,12 +129,12 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         const confMdp = document.getElementById('confMdp');
 
         if (togglePassword1) {
-            togglePassword1.addEventListener('mousedown', function() {
+            togglePassword1.addEventListener('mousedown', function () {
                 mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
                 this.classList.remove('fa-eye'); // Change l'icône
                 this.classList.add('fa-eye-slash');
             });
-            togglePassword1.addEventListener('mouseup', function() {
+            togglePassword1.addEventListener('mouseup', function () {
                 mdp.type = 'password'; // Masque le mot de passe à nouveau
                 this.classList.remove('fa-eye-slash');
                 this.classList.add('fa-eye');
@@ -139,12 +142,12 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         }
 
         if (togglePassword2) {
-            togglePassword2.addEventListener('mousedown', function() {
+            togglePassword2.addEventListener('mousedown', function () {
                 confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
                 this.classList.remove('fa-eye');
                 this.classList.add('fa-eye-slash');
             });
-            togglePassword2.addEventListener('mouseup', function() {
+            togglePassword2.addEventListener('mouseup', function () {
                 confMdp.type = 'password'; // Masque le mot de passe à nouveau
                 this.classList.remove('fa-eye-slash');
                 this.classList.add('fa-eye');
@@ -193,7 +196,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     } elseif (!isset($_SESSION['data_en_cours_inscription']['num_tel'])) {
         $_SESSION['error'] = '';
     }
-?>
+    ?>
 
     <!DOCTYPE html>
     <html lang="fr">
@@ -223,7 +226,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <img class="relative ml-auto -top-5" src="/public/images/logo.svg" alt="moine" width="50">
             </a>
 
-            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="/inscription" method="POST">
+            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="" method="POST">
                 <p class="pb-3">Dites-nous en plus !</p>
 
                 <!-- Champs pour le prénom et le nom (en lecture seule) -->
@@ -244,25 +247,27 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                    title="Votre adresse mail" value="<?php echo $_SESSION['data_en_cours_inscription']['mail']; ?>" readonly>
+                    title="Votre adresse mail" value="<?php echo $_SESSION['data_en_cours_inscription']['mail']; ?>"
+                    readonly>
 
                 <!-- Champ pour le pseudonyme -->
                 <label class="text-small" for="pseudo">Pseudonyme</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo" title="Saisir un pseudonyme valide"
-                    maxlength="16" value="<?php echo $_SESSION['data_en_cours_inscription']['pseudo'] ?>" required>
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo"
+                    title="Saisir un pseudonyme valide" maxlength="16"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['pseudo'] ?>" required>
                 <!-- Message d'erreur pour le pseudonyme déjà utilisé -->
                 <?php
                 if (isset($_GET['invalid_pseudo'])) { ?>
                     <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span><br>
-                <?php
+                    <?php
                 }
                 ?>
 
                 <!-- Champs pour l'adresse -->
                 <label class="text-small" for="adresse">Adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
-                    name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs"
-                    title="Saisir votre adresse" maxlength="255"
+                    name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs" title="Saisir votre adresse"
+                    maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
                     required>
 
@@ -299,7 +304,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php
                 if (isset($_GET['invalid_phone_number'])) { ?>
                     <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span>
-                <?php
+                    <?php
                 }
                 ?>
 
@@ -307,7 +312,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="mb-1.5 flex items-start">
                     <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
                         required>
-                    <label class="text-small" for="termes">J’accepte les <a href="/cgu" class="underline">conditions d'utilisation</a> et je confirme avoir lu la <a href="/confidentialite_et_cookies" class="underline">Politique de confidentialité et d'utilisation des cookies</a>.</label>
+                    <label class="text-small" for="termes">J’accepte les <a href="/cgu" class="underline">conditions
+                            d'utilisation</a> et je confirme avoir lu la <a href="/confidentialite_et_cookies"
+                            class="underline">Politique de confidentialité et d'utilisation des cookies</a>.</label>
                 </div>
 
                 <!-- Bouton pour créer le compte -->
@@ -390,7 +397,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
         // Assurer que tous les champs obligatoires sont remplis
         $adresse = $_POST['user_input_autocomplete_address'];
-        var_dump($adresse);
         $infosSupAdresse = extraireInfoAdresse($adresse);
         $complement = $_POST['complement'];
         $code = $_POST['postal_code'];
