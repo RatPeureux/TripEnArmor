@@ -115,17 +115,19 @@ if ($mode_carte == 'membre') {
             <div class="flex flex-row">
                 <!-- Partie gauche -->
                 <div class='gauche grow relative shrink-0 basis-1/2 h-[280px] overflow-hidden'>
-                    <!-- Image de fond -->
-                    <?php
-                    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
-                    $controllerImage = new ImageController();
-                    $images = $controllerImage->getImagesOfOffre($id_offre);
-                    ?>
-                    <img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
-                        echo $images['carte'];
-                    } else {
-                        echo $categorie_offre . '.jpg';
-                    } ?>' alt="Image promotionnelle de l'offre">
+                    <a href="/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>">
+                        <!-- Image de fond -->
+                        <?php
+                        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+                        $controllerImage = new ImageController();
+                        $images = $controllerImage->getImagesOfOffre($id_offre);
+                        ?>
+                        <img class='rounded-l-lg w-full h-full object-cover object-center' src='/public/images/<?php if ($images['carte']) {
+                            echo "offres/" . $images['carte'];
+                        } else {
+                            echo $categorie_offre . '.jpg';
+                        } ?>' alt="Image promotionnelle de l'offre">
+                    </a>
                 </div>
                 <!-- Partie droite (infos principales) -->
                 <div class='infos flex flex-col basis-1/2 p-3 justify-between relative'>
@@ -229,7 +231,6 @@ if ($mode_carte == 'membre') {
                 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
                 $controllerImage = new ImageController();
                 $images = $controllerImage->getImagesOfOffre($id_offre);
-
                 ?>
                 <img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
                     echo "offres/" . $images['carte'];

@@ -37,7 +37,7 @@ if (!function_exists('to_nom_note')) {
     <!-- Première ligne du haut -->
     <div class="flex gap-3 items-center">
         <!-- Prénom, nom -->
-        <p><?php echo $membre['prenom'] . ' ' . $membre['nom'] ?></p>
+        <p><?php echo $membre['pseudo'] ?></p>
 
         <!-- Note sur 5 -->
         <div class="flex gap-1 grow shrink-0">
@@ -45,7 +45,7 @@ if (!function_exists('to_nom_note')) {
             // Note s'il y en a une
             $note = floatval($avis['note']);
             for ($i = 0; $i < 5; $i++) {
-                if ($note > 1) {
+                if ($note >= 1) {
                     ?>
                     <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
                     <?php
@@ -98,7 +98,7 @@ if (!function_exists('to_nom_note')) {
                         <?php
                         $note = floatval($notes_restauration[$nom_note]);
                         for ($i = 0; $i < 5; $i++) {
-                            if ($note > 1) {
+                            if ($note >= 1) {
                                 ?>
                                 <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
                                 <?php
