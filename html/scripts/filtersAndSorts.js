@@ -206,6 +206,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const filterState = {
         categories: [], // Catégories sélectionnées
         localisation: '', // Texte de localisation
+        note: ['0','5'], // Liste de tuples (min, max)
+        prix: ['0','99'], // Liste de tuples (min, max)
     };
 
     function filterOnCategories(device) {
@@ -236,6 +238,48 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    function filterOnNotes(device) {
+        const minNoteInputElement = document.getElementById('min-note-'+device);
+        const maxNoteInputElement = document.getElementById('max-note-'+device);
+    
+        minNoteInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.note[0] = minNoteInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFilters();
+        });
+    
+        maxNoteInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.note[1] = maxNoteInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFilters();
+        });
+    }
+
+    function filterOnPrices(device) {
+        const minNoteInputElement = document.getElementById('min-note-'+device);
+        const maxNoteInputElement = document.getElementById('max-note-'+device);
+    
+        minNoteInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.note[0] = minNoteInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFilters();
+        });
+    
+        maxNoteInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.note[1] = maxNoteInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFilters();
+        });
+    }
+
     function applyFilters() {
         const offres = document.querySelectorAll('.card');
         let anyVisible = false; // Variable pour suivre si une offre est visible
@@ -245,13 +289,26 @@ document.addEventListener("DOMContentLoaded", function() {
             const localisation = offre.querySelector('.localisation');
             const city = localisation.querySelector('p:nth-of-type(1)').textContent.trim();
             const code = localisation.querySelector('p:nth-of-type(2)').textContent.trim();
+            const note = offre.querySelector('.note');
     
             // Vérifie les filtres actifs
-            const matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(category);
-            const matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
+            let matchesCategory = false;
+            if (category) {
+                matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(category);
+            }
+
+            let matchesLocalisation = false;
+            if (localisation) {
+                matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
+            }
+            
+            let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5') ? true : false;
+            if (note) {
+                matchesNote = filterState.note[0] <= note.getAttribute('title') && note.getAttribute('title') <= filterState.note[1];
+            }
 
             // Appliquer les filtres croisés
-            if (matchesCategory && matchesLocalisation) {
+            if (matchesCategory && matchesLocalisation && matchesNote) {
                 offre.classList.remove('!hidden');
                 anyVisible = true; // Au moins une offre est visible
             } else {
@@ -280,12 +337,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    syncInputs()
+    syncInputs();
 
     filterOnCategories('tab');
     filterOnCategories('tel');
     filterOnLocalisations('tab');
     filterOnLocalisations('tel');
+    filterOnNotes('tab');
+    filterOnNotes('tel');
 
     applyFilters();
 });

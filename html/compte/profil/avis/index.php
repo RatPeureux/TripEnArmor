@@ -52,6 +52,15 @@ $membre = verifyMember();
     // Connexion avec la bdd
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
+    $sort_order = '';
+    if (isset($_GET['sort'])) {
+        if ($_GET['sort'] == 'post-ascending') {
+            $sort_order = 'ORDER BY prix_mini ASC';
+        } elseif ($_GET['sort'] == 'post-descending') {
+            $sort_order = 'ORDER BY prix_mini DESC';
+        }
+    }
+
     // Récupération des informations du compte
     $stmt = $dbh->prepare('SELECT * FROM sae_db._membre WHERE id_compte = :id_membre');
     $stmt->bindParam(':id_membre', $id_membre);

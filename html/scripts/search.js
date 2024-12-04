@@ -252,7 +252,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    updateClearButtonVisibility();
     checkForSearchParams();
 
     // !!! SCRIPT POUR LE FONCTIONNEMENT DU FILTRE DE RECHERCHE
