@@ -81,7 +81,7 @@ if ($mode_carte == 'membre') {
                             $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                             if ($tags_offre) {
                                 ?>
-                            <p class="text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                            <p class="tags text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
                             <?php
                             } else {
                                 echo 'Aucun tag';
@@ -221,7 +221,7 @@ if ($mode_carte == 'membre') {
                                 $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                                 if ($tags_offre) {
                                     ?>
-                                <p class="text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                                <p class="tags text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
                                 <?php
                                 } else {
                                     echo 'Aucun tag';
@@ -401,7 +401,7 @@ if ($mode_carte == 'membre') {
                                 $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                                 if ($tags_offre) {
                                     ?>
-                                <p class="text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                                <p class="tags text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
                                 <?php
                                 } else {
                                     echo 'Aucun tag';

@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
             }
             
-            let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5') ? true : false;
+            let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5');
             if (note) {
                 matchesNote = filterState.note[0] <= note.getAttribute('title') && note.getAttribute('title') <= filterState.note[1];
             }

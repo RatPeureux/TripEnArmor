@@ -6,10 +6,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const tagsContainer = document.getElementById("tags-container");
     const clearTagsBtn = document.getElementById("clear-tags-btn");
 
+    let searchs = []
+
     // Liste des séparateurs
     const separators = [","];
     // Liste des tags récents
     let recentTags = [];
+
+    function syncSearchsWithTags() {
+        searchs = Array.from(tagsContainer.children).map(tag =>
+            tag.querySelector("span").textContent.trim()
+        );
+        applySearch(); // Met à jour le filtre lorsque les tags changent
+    }
 
     // Assurez-vous que le conteneur des tags existe
     function ensureTagsContainerExists() {
@@ -53,23 +62,24 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         if (existingTags.includes(text.trim())) {
-            return; // Arrête l'exécution si le tag existe déjà
+            return;
         }
 
         const tag = document.createElement("div");
         tag.className =
             "flex items-center gap-2 bg-secondary text-white px-3 py-1 rounded-full";
-        tag.innerHTML = `
-            <span>${text}</span>
-            <i class="fa-solid fa-times cursor-pointer"></i>
-        `;
+        tag.innerHTML = `<span>${text}</span><i class="fa-solid fa-times cursor-pointer"></i>`;
+
         tag.querySelector("i").addEventListener("click", () => {
             tag.remove();
             updateClearButtonVisibility();
+            syncSearchsWithTags(); // Met à jour la liste searchs
         });
+
         tagsContainer.appendChild(tag);
         updateClearButtonVisibility();
         updateRecentTags(text.trim());
+        syncSearchsWithTags(); // Met à jour la liste searchs
     }
 
     // Ajoute plusieurs tags
@@ -228,6 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tagsContainer.innerHTML = "";
         searchInput.value = "";
         updateClearButtonVisibility();
+        syncSearchsWithTags(); // Met à jour la liste searchs
     }
 
     searchInput.addEventListener("input", (e) => {
@@ -255,4 +266,49 @@ document.addEventListener("DOMContentLoaded", function () {
     checkForSearchParams();
 
     // !!! SCRIPT POUR LE FONCTIONNEMENT DU FILTRE DE RECHERCHE
+    function applySearch() {
+        const offres = document.querySelectorAll('.card');
+        let anyVisible = false; // Variable pour suivre si une offre est visible
+    
+        offres.forEach((offre) => {
+            // Vérifie les filtres actifs
+            let matchesTag = (searchs.length === 0);
+            if (offre.querySelector('.tags')) {
+                const tags = offre.querySelector('.tags').textContent.split(',').map(tag => tag.trim());
+                console.log(tags);
+                console.log(searchs);
+                matchesTag = searchs.every(tag => tags.includes(tag));
+            }
+
+            // Appliquer les filtres croisés
+            if (matchesTag) {
+                offre.classList.remove('!hidden');
+                anyVisible = true; // Au moins une offre est visible
+            } else {
+                offre.classList.add('!hidden');
+            }
+        });
+    
+        // Vérifie si aucune offre n'est visible
+        const noMacthesElement = document.getElementById('no-matches-message'); // Element pour afficher un message
+        if (!anyVisible) {
+            if (!noMacthesElement) {
+                // Crée et ajoute un élément de message si non présent
+                const message = document.createElement('div');
+                message.id = 'no-matches-message';
+                message.textContent = 'Aucune offre ne possède les tags recherchés.';
+                message.classList.add('mt-4');
+                message.classList.add('font-bold');
+                message.classList.add('text-h2'); 
+                document.querySelector('#no-matches').appendChild(message); // Ajouter dans le conteneur des offres
+            }
+        } else {
+            // Supprime le message si des offres sont visibles
+            if (noMacthesElement) {
+                noMacthesElement.remove();
+            }
+        }
+    }
+
+    applySearch();
 });
