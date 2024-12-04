@@ -620,12 +620,13 @@ session_start();
                                                 <!-- Titre de l'avis -->
                                                 <div>
                                                     <label for="titre">Titre</label>
-                                                    <input type="text" name="titre" placeholder="Titre de l'avis"
+                                                    <input type="text" name="titre" id="titre" placeholder="Titre de l'avis"
                                                         class="w-full border border-black rounded-lg p-1" required>
                                                 </div>
 
                                                 <!-- Commentaire de l'avis -->
-                                                <textarea type="commentaire" name="commentaire" placeholder="Votre commentaire"
+                                                <textarea type="commentaire" name="commentaire" id="commentaire"
+                                                    placeholder="Votre commentaire"
                                                     class="w-full border border-black rounded-lg p-1"></textarea>
 
                                                 <!-- Note globale donnée (pour toutes les offres) -->
@@ -881,17 +882,6 @@ session_start();
                                     }
                                 });
                             </script>
-
-                            <?php
-                            // include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
-                            // $avisController = new AvisController;
-                            
-                            // // Test d'insertion d'un avis (OK)
-                            // $maDate = date('2024-11-02 10:10:10');
-                            // $avisController->createAvis("monTitre", "c nul", $maDate, $id_membre, $id_offre);
-                            // print_r($avisController->getAvisByIdOffre($id_offre));
-                            ?>
-
                         </div>
                     </div>
                 </div>
