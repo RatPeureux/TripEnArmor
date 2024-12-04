@@ -44,8 +44,7 @@ if ($mode_carte == 'membre') {
                 echo $images['carte'];
             } else {
                 echo $categorie_offre . '.jpg';
-            } ?>'
-                alt="Image promotionnelle de l'offre">
+            } ?>' alt="Image promotionnelle de l'offre">
             <!-- Infos principales -->
             <div class='infos flex items-center justify-around gap-2 px-2 grow'>
                 <!-- Localisation -->
@@ -125,7 +124,8 @@ if ($mode_carte == 'membre') {
                     ?>
                     <p class='prix text-small'
                         title='<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>'>
-                        <?php echo $prix_a_afficher ?></p>
+                        <?php echo $prix_a_afficher ?>
+                    </p>
                 </div>
             </div>
         </div>
@@ -147,8 +147,7 @@ if ($mode_carte == 'membre') {
                         echo "offres/" . $images['carte'];
                     } else {
                         echo $categorie_offre . '.jpg';
-                    } ?>'
-                        alt="Image promotionnelle de l'offre">
+                    } ?>' alt="Image promotionnelle de l'offre">
                 </div>
                 <!-- Partie droite (infos principales) -->
                 <div class='infos flex flex-col basis-1/2 p-3 justify-between relative'>
@@ -437,10 +436,10 @@ if ($mode_carte == 'membre') {
                 </div>
 
                 <!-- Infos supplémentaires pour le pro -->
-                <div class="bg-base200 p-3 rounded-lg flex justify-around gap-1">
+                <div class="border border-black p-1 rounded-lg flex justify-around">
 
                     <!-- Avis & date de mise à jour -->
-                    <div class="flex flex-col justif-around">
+                    <div class="flex flex-col items-center justify-around">
                         <div class="flex italic justify-start gap-4">
                             <!-- Non vus -->
                             <a title="avis non consultés" href="" class="hover:text-primary">
@@ -458,20 +457,23 @@ if ($mode_carte == 'membre') {
                                 (0)
                             </a>
                         </div>
-                        <p class="type-offre text-center grow" title="type de l'offre">Type : <?php echo $type_offre ?></p>
+                        <?php if ($date_mise_a_jour) { ?>
+                            <!-- Date de mise à jour -->
+                            <div class="flex justify-between text-small">
+                                <div class="flex items-center justify-arround">
+                                    <i class="fa-solid fa-rotate text-xl"></i>
+                                    <p class="italic">Modifiée le <?php echo $date_mise_a_jour ?></p>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </div>
 
-                    <!-- Dates de mise à jour -->
-                    <div class="flex justify-between text-small">
-                        <div class="flex items-center justify-arround">
-                            <i class="fa-solid fa-rotate text-xl"></i>
-                            <p class="italic">Modifiée le <?php echo $date_mise_a_jour ?></p>
-                        </div>
-                    </div>
 
                     <!-- Type offre + options -->
-                    <div class="flex flex-col justify-between gap-2">
-                        <p class="type-offre text-center grow" title="type de l'offre"><?php echo $type_offre ?></p>
+                    <div class="flex flex-col justify-around">
+                        <p class="type-offre text-center grow" title="type de l'offre">Type : <?php echo $type_offre ?></p>
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-gears text-xl"></i>
                             <div>
