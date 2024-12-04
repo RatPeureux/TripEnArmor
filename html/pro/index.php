@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
-
 // Enlever les informations gardées lors de l'étape de connexion quand on reveint à la page (retour en arrière)
 unset($_SESSION['data_en_cours_connexion']);
 
@@ -30,7 +28,7 @@ if (!function_exists('chaineVersMot')) {
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    
+
     <script src="/scripts/filtersAndSortsPro.js"></script>
     <script type="module" src="/scripts/main.js"></script>
 
@@ -47,7 +45,7 @@ if (!function_exists('chaineVersMot')) {
     </div>
 
     <!-- Inclusion du header -->
-    <?php 
+    <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
     ?>
 

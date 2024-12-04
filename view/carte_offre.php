@@ -68,17 +68,14 @@ if ($mode_carte == 'membre') {
                             $tagsListe = [];
                             $tagsAffiche = "";
 
-                            // print_r($tags_offre);
                             foreach ($tags_offre as $tag) {
                                 $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
                             }
 
-                            // print_r($tagsListe);
                             foreach ($tagsListe as $tag) {
                                 $tagsAffiche .= $tag['nom'] . ', ';
                             }
-                            // print_r($tagsListe);
-                        
+
                             $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                             if ($tags_offre) {
                                 ?>
@@ -102,7 +99,7 @@ if ($mode_carte == 'membre') {
                     if ($moyenne) {
                         $n = $moyenne;
                         ?>
-                        <div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne;?>">
+                        <div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne; ?>">
                             <?php for ($i = 0; $i < 5; $i++) {
                                 if ($n > 1) {
                                     ?>
@@ -125,7 +122,10 @@ if ($mode_carte == 'membre') {
                         <?php
                     }
                     ?>
-                    <p class='text-small' title='<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>'><?php echo $prix_a_afficher ?></p>
+                    <p class='text-small'
+                        title='<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>'>
+                        <?php echo $prix_a_afficher ?>
+                    </p>
                 </div>
             </div>
         </div>
@@ -165,7 +165,7 @@ if ($mode_carte == 'membre') {
                                 $n = $moyenne;
                                 ?>
                                 <div class="flex gap-1">
-                                    <div class="note flex gap-1 shrink-0" title="<?php echo $moyenne;?>">
+                                    <div class="note flex gap-1 shrink-0" title="<?php echo $moyenne; ?>">
                                         <?php for ($i = 0; $i < 5; $i++) {
                                             if ($n > 1) {
                                                 ?>
@@ -210,17 +210,14 @@ if ($mode_carte == 'membre') {
                                 $tagsListe = [];
                                 $tagsAffiche = "";
 
-                                // print_r($tags_offre);
                                 foreach ($tags_offre as $tag) {
                                     $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
                                 }
 
-                                // print_r($tagsListe);
                                 foreach ($tagsListe as $tag) {
                                     $tagsAffiche .= $tag['nom'] . ', ';
                                 }
-                                // print_r($tagsListe);
-                            
+
                                 $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                                 if ($tags_offre) {
                                     ?>
@@ -248,7 +245,9 @@ if ($mode_carte == 'membre') {
                             </div>
                             <!-- Notation et Prix -->
                             <div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
-                                <p class='text-small' title='<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>'><?php echo $prix_a_afficher ?>
+                                <p class='text-small'
+                                    title='<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>'>
+                                    <?php echo $prix_a_afficher ?>
                                 </p>
                             </div>
                         </div>
@@ -306,7 +305,7 @@ if ($mode_carte == 'membre') {
                         $n = $moyenne;
                         ?>
                         <div class="flex gap-1 self-end">
-                            <div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne;?>">
+                            <div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne; ?>">
                                 <?php for ($i = 0; $i < 5; $i++) {
                                     if ($n > 1) {
                                         ?>
@@ -391,17 +390,14 @@ if ($mode_carte == 'membre') {
                                 $tagsListe = [];
                                 $tagsAffiche = "";
 
-                                // print_r($tags_offre);
                                 foreach ($tags_offre as $tag) {
                                     $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
                                 }
 
-                                // print_r($tagsListe);
                                 foreach ($tagsListe as $tag) {
                                     $tagsAffiche .= $tag['nom'] . ', ';
                                 }
-                                // print_r($tagsListe);
-                            
+
                                 $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                                 if ($tags_offre) {
                                     ?>
@@ -463,7 +459,8 @@ if ($mode_carte == 'membre') {
 
                     <!-- Notation et Prix -->
                     <div class="flex flex-col flex-shrink-0 gap-2 justify-center items-center">
-                        <p class="text-small" title="<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>">
+                        <p class="text-small"
+                            title="<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>">
                             <?php echo $prix_a_afficher ?>
                         </p>
                     </div>

@@ -30,5 +30,3 @@ try {
 }
 
 error_log('Données récupérées : ' . print_r($offres, true), 0);
-
-?>

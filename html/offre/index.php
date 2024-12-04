@@ -245,7 +245,7 @@ session_start();
                     <?php
                     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
                     $controllerImage = new ImageController();
-                        $images = $controllerImage->getImagesOfOffre($id_offre);
+                    $images = $controllerImage->getImagesOfOffre($id_offre);
                     ?>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
@@ -311,7 +311,6 @@ session_start();
                         $tagsAffiche .= $tag['nom'] . ', ';
                     }
 
-                    // print_r($tagsListe);
                     $tagsAffiche = rtrim($tagsAffiche, ', ');
                     if ($tags_offre) {
                         ?>
