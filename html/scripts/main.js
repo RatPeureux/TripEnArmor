@@ -3,6 +3,8 @@ import {} from './toggleMenu.js';
 
 import {} from './confirmLogout.js';
 
+import {} from './confirmDelete.js';
+
 // Load fontawesome CLI to load icons
 const script = document.createElement('script');
 script.src = 'https://kit.fontawesome.com/d815dd872f.js';

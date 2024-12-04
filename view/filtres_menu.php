@@ -1,7 +1,7 @@
 
 
 <!-- MENU FILTRE TÉLÉPHONE -->
-<div class="block md:hidden fixed top-0 flex flex-col justify-between absolute w-full h-screen bg-base100 -translate-x-full duration-200 z-50" id="filtres">
+<div class="fixed block md:hidden top-0 flex flex-col justify-between w-full h-screen bg-base100 -translate-x-full duration-200 z-50" id="filtres">
     <div>
         <div class="p-4 gap-4 flex justify-start items-center h-20">
             <i class="text-3xl fa-solid fa-circle-xmark hover:cursor-pointer" onclick="toggleFiltres()"></i>
@@ -123,7 +123,7 @@
         </div>
     </div>
 
-    <a href="#" class="uppercase bg-primary font-bold text-h4 text-white text-center m-2 p-4" onclick="toggleFiltres()">
+    <a class="uppercase bg-primary font-bold text-h4 text-white text-center m-2 p-4" onclick="toggleFiltres()">
         Voir les offres
     </a>
 </div>

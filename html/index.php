@@ -102,7 +102,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
                         <?php $i = 0;
                         foreach ($toutesLesOffres as $offre) {
-                            if ($i < 7) {
+                            if ($i > -1) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';
                                 require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
@@ -124,10 +124,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
     ?>
-
-    <!-- Inclusion du menu de filtres (téléphone) -->
-    <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_menu.php'; ?>
 </body>
 
 <script>

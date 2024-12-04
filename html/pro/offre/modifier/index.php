@@ -101,6 +101,7 @@ try {
 	<link rel="stylesheet" href="/styles/input.css">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="/styles/config.js"></script>
+    <script src="/scripts/search.js"></script>
 	<script type="module" src="/scripts/main.js" defer></script>
 	<script src="//unpkg.com/alpinejs" defer></script>
 	<script type="text/javascript"

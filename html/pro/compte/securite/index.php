@@ -4,17 +4,53 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 $pro = verifyPro();
-if ($pro['data']['type'] == 'prive') {
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
-    $controllerProPrive = new ProPriveController();
-    $currentPassword = $controllerProPrive->getMdpProPrive($pro['id_compte']);
-} else {
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
-    $controllerProPublic = new ProPublicController();
-    $currentPassword = $controllerProPublic->getMdpProPublic($pro['id_compte']);
-}
 
-echo $currentPassword;
+if (isset($_POST['mdp'])) {
+    if ($pro['data']['type'] == 'prive') {
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
+        $controllerProPrive = new ProPriveController();
+        $currentPassword = $controllerProPrive->getMdpProPrive($pro['id_compte']);
+    } else {
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
+        $controllerProPublic = new ProPublicController();
+        $currentPassword = $controllerProPublic->getMdpProPublic($pro['id_compte']);
+    }
+    
+    if (password_verify($_POST['mdp'], $currentPassword)) {
+        $mdp = password_hash($_POST['newMdp'], PASSWORD_DEFAULT);
+        if ($pro['data']['type'] == 'prive') {
+            $controllerProPrive->updateProPrive($pro['id_compte'], false, $mdp, false, false, false, false);
+        } else {
+            $controllerProPublic->updateProPublic($pro['id_compte'], false, $mdp, false, false, false, false);
+        }
+    
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var successMessage = document.getElementById('success-message');
+                successMessage.textContent = 'Le mot de passe a bien été modifié.';
+                setTimeout(function() {
+                    successMessage.textContent = '';
+                }, 7500);
+            });
+        </script>";
+    } else {
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
+                setTimeout(function() {
+                    errorMessage.textContent = '';
+                }, 7500);
+            });
+        </script>";
+    }
+
+    unset($_POST['mdp']);
+    unset($_POST['newMdp']);
+    unset($_POST['newConfMdp']);
+
+    $pro = verifyPro();
+}
 
 ?>
 
@@ -29,6 +65,7 @@ echo $currentPassword;
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
+    <script src="/scripts/search.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -43,21 +80,21 @@ echo $currentPassword;
         ?>
     </div>
 
-    <header class="z-30 w-full bg-white flex justify-center p-4 h-20 border-b-2 border-black top-0">
-        <div class="flex w-full items-center">
-            <a href="#" onclick="toggleMenu()" class="mr-4 flex gap-4 items-center hover:text-primary duration-100">
-                <i class="text-3xl fa-solid fa-bars"></i>
-            </a>
-            <p class="text-h2">
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    ?>
+
+    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
+        <div class="m-auto flex flex-col">
+            <p class="text-h3 p-4">
                 <a href="/pro/compte">Mon compte</a>
                 >
                 <a href="pro/compte/securite" class="underline">Sécurité</a>
             </p>
-        </div>
-    </header>
 
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
-        <div class="m-auto flex flex-col">
+            <hr class="mb-8">
+
             <p class="text-h1 mb-4">Informations sensibles</p>
             <p class="text-small">Définissez un nouveau mot de passe fiable, respectant les conditions
                 de sécurité minimum suivantes :</p>
@@ -71,7 +108,7 @@ echo $currentPassword;
                 <div class="relative w-full">
                     <label class="text-h3" for="mdp">Mot de passe actuel</label>
                     <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                        id="mdp" name="mdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" minlength="8">
+                        id="mdp" name="mdp" pattern="^(?=.{8,})(?=.*[A-Z])(?=.*\d).*" minlength="8">
 
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                         id="togglePassword1"></i>
@@ -95,10 +132,12 @@ echo $currentPassword;
                         id="togglePassword3"></i>
                 </div>
 
+                <span id="success-message" class="success text-green-600 text-small"></span>
+
                 <span id="error-message" class="error text-rouge-logo text-small"></span>
 
                 <input type="submit" id="save" href="" value="Modifier mon mot de passe"
-                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                    class="self-end opacity-50 max-w-sm h-12 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
                     disabled>
                 </input>
             </form>
