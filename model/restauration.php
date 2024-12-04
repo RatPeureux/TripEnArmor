@@ -23,22 +23,24 @@ class Restauration extends BDD
         }
     }
 
-    static function createRestauration($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix, $id_type_repas)
+    static function createRestauration($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix)
     {
         self::initBDD();
-        $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, gamme_prix, id_type_repas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
+
+        echo "Gamme de prix : " . $gamme_prix . "<br>";
+        $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, gamme_prix) VALUES (FALSE, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
 
         $statement = self::$db->prepare($query);
-        $statement->bindParam(1, $est_en_ligne);
-        $statement->bindParam(2, $description);
-        $statement->bindParam(3, $resume);
-        $statement->bindParam(4, $prix_mini);
-        $statement->bindParam(5, $titre);
-        $statement->bindParam(6, $id_pro);
-        $statement->bindParam(7, $id_type_offre);
-        $statement->bindParam(8, $id_adresse);
-        $statement->bindParam(9, $gamme_prix);
-        $statement->bindParam(10, $id_type_repas);
+        // $statement->bindParam(1, $est_en_ligne);
+        $statement->bindParam(1, $description);
+        $statement->bindParam(2, $resume);
+        $statement->bindParam(3, $prix_mini);
+        $statement->bindParam(4, $titre);
+        $statement->bindParam(5, $id_pro);
+        $statement->bindParam(6, $id_type_offre);
+        $statement->bindParam(7, $id_adresse);
+        $statement->bindParam(8, $gamme_prix);
+        // $statement->bindParam(9, $id_type_repas);
 
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];

@@ -80,7 +80,7 @@ if (!function_exists('chaineVersMot')) {
         <div class="w-full grow tablette p-4 flex flex-col">
 
             <!-- Conteneur des tags (!!! RECHERCHE) -->
-            <div class="flex flex-wrap gap-4 mt-20 mb-4" id="tags-container"></div>
+            <div class="flex flex-wrap gap-4  mb-4" id="tags-container"></div>
 
             <div class="w-full flex justify-between items-end mb-2">
                 <div class="flex items-center gap-4">

@@ -5,6 +5,17 @@ class Langue extends BDD
 {
     static private $nom_table = "sae_db._langue";
 
+    static function getLangues() {
+        $query = "SELECT * FROM " . self::$nom_table;
+
+        $statement = self::$db->prepare($query);
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }   
+    }
+
     static function getLangueById($id)
     {
         $query = "SELECT * FROM " . self::$nom_table . " WHERE id_langue = ?";

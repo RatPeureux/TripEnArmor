@@ -1,7 +1,8 @@
 <?php
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class Restauration extends BDD {
-    private $nom_table = "_tag_restaurant";
+    static private $nom_table = "_tag_restaurant";
 
     static function getTagRestaurantById($id) { 
         self::initBDD();
@@ -9,6 +10,21 @@ class Restauration extends BDD {
         
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $id);
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR : Impossible d'obtenir ce tag de restauration";
+            return -1;
+        }
+    }
+
+    static function getTagsRestaurantByName($name) {
+        self::initBDD();
+        $query = "SELECT * FROM " . self::$nom_table ." WHERE nom = ?";
+        
+        $stmt = self::$db->prepare($query);
+        $stmt->bindParam(1, $name);
 
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
