@@ -24,7 +24,7 @@
             <p class="text-h2">
                 <a href="/pro/compte">Mon compte</a>
                 >
-                <a href="/pro/compte/facture" class="underline">Facture</a>
+                <a href="pro/compte/facture" class="underline">Facture</a>
             </p>
         </div>
     </header>
@@ -35,32 +35,26 @@
     </div>
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
 
-        <div>
-            <?php
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/facture_controller.php';
-            session_start();
-            $stmt = $dbh->prepare("SELECT * FROM sae_db._facture");
-            $stmt->execute();
-            $factures = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $numero = $factures[0]['numero'];
-            $designation = $factures[0]['designation'];
+    <div>
+        <?php
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/facture_controller.php';
+        session_start();
 
-            $pro = verifyPro();
-            $idPro = $_SESSION['id_pro'];
-            $factureController = new FactureController;
-            $facture = $factureController->getInfoFacture($numero, $designation);
+        $pro = verifyPro();
+        $idPro = $_SESSION['id_pro'];
 
-            if (isset($_SESSION['id_pro'])) {
-                $stmtOffre = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true AND id_pro = :id_pro");
-                $stmtOffre->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
-                if ($stmtOffre->execute()) {
-                    $offresDuPro = $stmtOffre->fetchAll(PDO::FETCH_ASSOC);
-                    if (count($offresDuPro) > 0) {
-                        echo "<p>Voici vos offres en ligne :</p>";
-                        ?>
+        if (isset($_SESSION['id_pro'])) { 
+            $stmtOffre = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true AND id_pro = :id_pro");
+            $stmtOffre->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
+            if ($stmtOffre->execute()) {
+            $offresDuPro = $stmtOffre->fetchAll(PDO::FETCH_ASSOC);
+            
+            if (count($offresDuPro) > 0) {
+                echo "<p>Voici vos offres en ligne :</p>";
+                ?>
 
                         <select name="offre" id="offre">
                             <option value="" disabled selected>Choisir une offre</option>
@@ -78,40 +72,42 @@
                                 }
                             });
 
-                            function closePopup() {
-                                document.getElementById('facture-details').style.display = 'none';
-                            }
-                        </script>
+                function closePopup() {
+                    document.getElementById('facture-details').style.display = 'none';
+                }
+                </script>
+                
+                
+                <div id="facture-details" class="border border-black p-5 mt-5 mx-auto max-w-4xl" style="display:none;">
+                    <?php
+                        $TVA = 20;
+                        $stmtPro = $dbh->prepare("SELECT * FROM sae_db._pro_prive WHERE id_compte = :id_pro");
+                        $stmtPro->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
+                        $stmtPro->execute();
+                        $proDetails = $stmtPro->fetch(PDO::FETCH_ASSOC);
 
+                        $stmtAdresse = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :id_adresse");
+                        $stmtAdresse->bindParam(':id_adresse', $proDetails['id_adresse'], PDO::PARAM_INT);
+                        $stmtAdresse->execute();
+                        $adresseDetails = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
 
-                        <div id="facture-details" class="border border-black p-5 mt-5 mx-auto max-w-4xl" style="display:none;">
-                            <?php
-                            $TVA = 20;
-                            $stmtPro = $dbh->prepare("SELECT * FROM sae_db._pro_prive WHERE id_compte = :id_pro");
-                            $stmtPro->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
-                            $stmtPro->execute();
-                            $proDetails = $stmtPro->fetch(PDO::FETCH_ASSOC);
-                            $stmtAdresse = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :id_adresse");
-                            $stmtAdresse->bindParam(':id_adresse', $proDetails['id_adresse'], PDO::PARAM_INT);
-                            $stmtAdresse->execute();
-                            $adresseDetails = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
-                            $stmtTypeOffre = $dbh->prepare("SELECT * FROM sae_db._type_offre WHERE id_type_offre = :id_type_offre");
-                            $stmtTypeOffre->bindParam(':id_type_offre', $offre['id_type_offre'], PDO::PARAM_INT);
-                            $stmtTypeOffre->execute();
-                            $typeOffre = $stmtTypeOffre->fetch(PDO::FETCH_ASSOC);
-                            ?>
-                            <!-- En-tête Entreprise -->
-                            <div class="flex flex-col justify-between">
-                                <div class="flex justify-between w-full">
-                                    <div>
-                                        <h1 class="text-xl font-bold">PACT</h1>
-                                        <p>21 rue Case Nègres<br>97232, Fort-de-France<br>FR</p>
-
-                                    </div>
-                                    <div>
-
-                                    </div>
+                        $stmtTypeOffre = $dbh->prepare("SELECT * FROM sae_db._type_offre WHERE id_type_offre = :id_type_offre");
+                        $stmtTypeOffre->bindParam(':id_type_offre', $offre['id_type_offre'], PDO::PARAM_INT);
+                        $stmtTypeOffre->execute();
+                        $typeOffre = $stmtTypeOffre->fetch(PDO::FETCH_ASSOC);
+                    ?>
+                        <!-- En-tête Entreprise -->
+                        <div class="flex flex-col justify-between">
+                            <div class="flex justify-between w-full">
+                                <div>
+                                    <h1 class="text-xl font-bold">PACT</h1>
+                                    <p>21 rue Case Nègres<br>97232, Fort-de-France<br>FR</p>
+                                    
                                 </div>
+                                <div>
+                                    
+                                </div>
+                            </div>
 
                                 <!-- Informations Client -->
                                 <div class="flex justify-end">
