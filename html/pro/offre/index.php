@@ -298,13 +298,6 @@ session_start();
     <main class="flex flex-col md:block md:mx-10 self-center md:p-2 max-w-[1280px] overflow-auto grow">
         <div class="flex md:gap-3">
 
-            <!-- PARTIE GAUCHE (menu) -->
-            <div id="menu">
-                <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
-                ?>
-            </div>
-
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
 
