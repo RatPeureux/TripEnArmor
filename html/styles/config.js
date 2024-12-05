@@ -28,7 +28,6 @@ tailwind.config = {
                 'neutre': '#000',
                 'gris': '#828282',
                 'blur': "#F1F3F4",
-                'veryGris': "#BFBFBF",
             },
             spacing: {
                 '1/6': '16%',
