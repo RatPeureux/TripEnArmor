@@ -307,6 +307,7 @@ $pro = verifyPro();
 					if ($isIncluded) {
 						$query = $typeRepasController->getTypeRepasByName($typeRepas);
 						var_dump($query);
+							
 						$id_type_repas = $query ? $query[0]['type_repas_id'] : $typeRepasController->createTypeRepas($typeRepas);
 
 						var_dump($id_type_repas);
