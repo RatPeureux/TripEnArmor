@@ -171,20 +171,6 @@ session_start();
     $heure_actuelle = date('H:i');
     $ouvert = false;
 
-    // $time1 = "14:30";
-    // $time2 = "16:45";
-    
-    // $timestamp1 = strtotime($time1);
-    // $timestamp2 = strtotime($time2);
-    
-    // if ($timestamp1 < $timestamp2) {
-    //     echo "$time1 est avant $time2";
-    // } elseif ($timestamp1 > $timestamp2) {
-    //     echo "$time1 est après $time2";
-    // } else {
-    //     echo "$time1 est égal à $time2";
-    // }
-    
     foreach ($horaires as $jour => $horaire) {
         if ($jour == $jour_semaine) {
             $ouverture = $horaire['ouverture'];

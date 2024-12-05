@@ -88,13 +88,13 @@
                 </div>
                 <div class="developped hidden text-small flex flex-wrap gap-4" id="developped-f2-tel">
                     <div class="flex items-center gap-2">
-                        <input type="checkbox" class="mb-1" class="mb-1" id="open-tel" />
-                        <label for="open-tel">Ouvert</label>
+                        <input type="checkbox" class="mb-1" class="mb-1" id="ouvert-tel" />
+                        <label for="ouvert-tel">Ouvert</label>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <input type="checkbox" class="mb-1" id="close-tel" />
-                        <label for="close-tel">Fermé</label>
+                        <input type="checkbox" class="mb-1" id="ferme-tel" />
+                        <label for="ferme-tel">Fermé</label>
                     </div>
                 </div>
             </div>
