@@ -465,7 +465,7 @@ session_start();
                                             <?php
                                             if ($images) {
                                                 ?>
-                                                <img src="/public/images/<?php echo $images['plan']; ?>" alt="">
+                                                <img src="/public/images/offres/<?php echo $images['plan']; ?>" alt="">
                                                 <?php
                                             } else {
                                                 ?>
