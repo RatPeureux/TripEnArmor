@@ -443,7 +443,7 @@ if ($mode_carte == 'membre') {
                 <div class="border border-black p-1 rounded-lg flex justify-around">
 
                     <!-- Avis & date de mise à jour -->
-                    <div class="flex flex-col items-center justify-around">
+                    <div class="flex flex-col items-center justify-around hidden">
                         <div class="flex italic justify-start gap-4">
                             <!-- Non vus -->
                             <a title="Avis non consultés" href="" class="hover:text-primary">
