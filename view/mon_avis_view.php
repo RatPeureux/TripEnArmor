@@ -96,7 +96,7 @@ if (!function_exists('to_nom_note')) {
                 <div class='flex flex-col items-center shrink-0'>
                     <div class="flex gap-1">
                         <?php
-                        $note = floatval($notes_restauration[$nom_note]);
+                        $note = isset($notes_restauration[$nom_note]) ? floatval($notes_restauration[$nom_note]) : 2.5;
                         for ($i = 0; $i < 5; $i++) {
                             if ($note >= 1) {
                                 ?>

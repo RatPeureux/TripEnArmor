@@ -116,10 +116,11 @@ if ($categorie_offre == 'restauration') {
         $stmt = $dbh->prepare("SELECT nom FROM sae_db._type_repas WHERE id_type_repas = :id_repas");
         $stmt->bindParam(':id_repas', $id_repas['id_type_repas']);
         $stmt->execute();
-        $nom = $stmt->fetch(PDO::FETCH_ASSOC);
+        $nom = $stmt->fetch(PDO::FETCH_ASSOC)['nom'];
         $tags = $tags . ', ' . $nom;
     }
     $tags_type_repas = $tags;
+
     // Tags pour les autres types d'offre
 } else {
     $stmt = $dbh->prepare("SELECT id_tag FROM sae_db._tag_$categorie_offre WHERE id_offre = :id_offre");
