@@ -275,7 +275,7 @@ $pro = verifyPro();
 			}
 
 			if ($activityType === 'parc_attraction') {
-				if ($imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
+				if (!$imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
 					echo "Erreur lors de l'upload de l'image du plan.";
 					BDD::rollbackTransaction();
 					exit;
