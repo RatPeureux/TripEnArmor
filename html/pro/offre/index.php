@@ -282,7 +282,7 @@ session_start();
                         </a>
                     </div>
                     <a href="#" onclick="history.back()"
-                        class="border absolute top-2 left-2 z-20 p-2 bg-bgBlur/75 rounded-lg flex justify-center items-center"><i
+                        class="border absolute top-2 left-2 z-20 p-2 bg-blur/75 rounded-lg flex justify-center items-center"><i
                             class="fa-solid fa-arrow-left text-h1"></i></a>
                     <div class="swiper-pagination"></div>
                 </div>

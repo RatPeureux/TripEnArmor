@@ -1,5 +1,5 @@
 <!-- BOUTONS DE FILTRES ET DE TRIS TÉLÉPHONE -->
-<div class="block md:hidden p-4 h-16 w-full bg-bgBlur/75 backdrop-blur border-t-2 border-black fixed bottom-0 flex items-center justify-between">
+<div class="block md:hidden p-4 h-16 w-full bg-blur/75 backdrop-blur border-t-2 border-black fixed bottom-0 flex items-center justify-between">
     <a class="p-2 flex items-center gap-2 hover:text-primary duration-100" onclick="toggleFiltres()">
         <i class="text xl fa-solid fa-filter"></i>
         <p>Filtrer</p>

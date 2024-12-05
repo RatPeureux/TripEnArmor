@@ -1211,7 +1211,7 @@ $pro = verifyPro();
 									</script>
 									<!-- En tête -->
 									<div
-										class="en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
+										class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
 										<!-- Mise à jour du titre en temps réel -->
 										<h3 class="text-center font-bold" id="preview-titre"></h3>
 										<script>

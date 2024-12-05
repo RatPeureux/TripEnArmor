@@ -77,7 +77,7 @@ if ($mode_carte == 'membre') {
 		} ?> relative bg-base100 rounded-xl flex flex-col'>
 			<!-- En-tête -->
 			<div
-				class='en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
+				class='en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
 				<h3 class='text-xl text-center font-bold'>
 					<?php echo $titre_offre; ?>
 				</h3>

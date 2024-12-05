@@ -27,7 +27,7 @@ tailwind.config = {
                 'base300': '#CCCCCC',
                 'neutre': '#000',
                 'gris': '#828282',
-                'bgBlur': "#F1F3F4",
+                'blur': "#F1F3F4",
                 'veryGris': "#BFBFBF",
             },
             spacing: {
