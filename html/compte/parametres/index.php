@@ -127,13 +127,13 @@ $membre = verifyMember();
                             <label class="text-h3" for="prenom">Prénom</label>
                             <input value="<?php echo $membre['prenom'] ?>"
                                 class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                                id="prenom" name="prenom" maxlength="50">
+                                id="prenom" name="prenom">
                         </div>
                         <div class="w-full">
                             <label class="text-h3" for="nom">Nom</label>
                             <input value="<?php echo $membre['nom'] ?>"
                                 class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                                id="nom" name="nom" maxlength="50">
+                                id="nom" name="nom">
                         </div>
                     </div>
 
@@ -172,12 +172,12 @@ $membre = verifyMember();
                     <label class="text-h3" for="adresse">Adresse postale</label>
                     <input value="<?php echo $adresse['numero'] . " " . $adresse['odonyme'] ?>"
                         class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                        id="adresse" name="adresse" maxlength="255">
+                        id="adresse" name="adresse">
 
                     <label class=" text-h3" for="complement">Complément adresse postale</label>
                     <input value="<?php echo $adresse['complement'] ?>"
                         class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                        id="complement" name="complement" maxlength="255">
+                        id="complement" name="complement">
 
                     <div class="flex flex-nowrap space-x-3 mb-1.5">
                         <div class="w-32">

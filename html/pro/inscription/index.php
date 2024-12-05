@@ -69,7 +69,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         <!-- Champ pour le nom -->
                         <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
                         <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                            title="Saisir le nom de l'organisation (max 100 caractères)" maxlength="100"
+                            title="Saisir le nom de l'organisation (max 100 caractères)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" required>
 
                     <!-- Champ pour l'adresse mail -->
@@ -227,7 +227,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <script src="/styles/config.js"></script>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr" ></script>
+            src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
         <script type="text/javascript" src="/scripts/formats.js" defer></script>
 
@@ -255,20 +255,20 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php if ($statut == "privé") { ?>
                     <!-- Champ pour la dénomination sociale (en lecture seule) -->
                     <label class="text-small" for="nom" id="nom">Dénomination sociale</label>
-                    <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
                         title="Saisir votre dénomination sociale"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" readonly>
                 <?php } else { ?>
                     <!-- Champ pour le nom de l'organisation (en lecture seule) -->
                     <label class="text-small" for="nom" id="nom">Nom de l'organisation</label>
-                    <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
                         title="Nom de l'organisation" value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>"
                         readonly>
                 <?php } ?>
 
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
-                <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
                     title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" readonly>
 
@@ -301,14 +301,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <label class="text-small" for="adresse">Adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
                     title="Saisir l'adresse de l'organisation" name="user_input_autocomplete_address"
-                    placeholder="Ex : 10 Rue des Fleurs" maxlength="255"
+                    placeholder="Ex : 10 Rue des Fleurs"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?? '' ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
-                    title="Saisir un complément d'adresse (facultatif)" maxlength="255"
-                    placeholder="Bâtiment A, Appartement 5"
+                    title="Saisir un complément d'adresse (facultatif)" placeholder="Bâtiment A, Appartement 5"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?? '' ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
