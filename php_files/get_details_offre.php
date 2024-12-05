@@ -109,6 +109,10 @@ if ($categorie_offre == 'restauration') {
     $stmt->execute();
     $ids_repas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $tags = '';
+
+    echo "ids_repas : ";
+    var_dump($ids_repas);
+
     // Récup chaque nom de tag, et l'ajouter aux tags
     foreach ($ids_repas as $id_repas) {
         $stmt = $dbh->prepare("SELECT nom FROM sae_db._type_repas WHERE id_type_repas = :id_repas");
