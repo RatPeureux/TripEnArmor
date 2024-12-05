@@ -225,7 +225,7 @@ session_start();
     }
     ?>
 
-    <main class="flex flex-col md:block md:mx-10 self-center md:p-2 max-w-[1280px] overflow-auto">
+    <main class="flex flex-col md:block md:mx-10 self-center md:p-2 max-w-[1280px] overflow-auto grow">
         <div class="flex md:gap-3">
 
             <!-- PARTIE GAUCHE (menu) -->
