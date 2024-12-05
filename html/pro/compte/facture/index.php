@@ -57,6 +57,7 @@
             $stmtOffre->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
             if ($stmtOffre->execute()) {
             $offresDuPro = $stmtOffre->fetchAll(PDO::FETCH_ASSOC);
+            // var_dump($offresDuPro); 
             if (count($offresDuPro) > 0) {
                 echo "<p>Voici vos offres en ligne :</p>";
                 ?>
@@ -81,98 +82,134 @@
                     document.getElementById('facture-details').style.display = 'none';
                 }
                 </script>
-
+                
+                
                 <div id="facture-details" class="border border-black p-5 mt-5 mx-auto max-w-4xl" style="display:none;">
-                <?php
-                    $TVA = 20;
-                    $stmtPro = $dbh->prepare("SELECT * FROM sae_db._pro_prive WHERE id_compte = :id_pro");
-                    $stmtPro->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
-                    $stmtPro->execute();
-                    $proDetails = $stmtPro->fetch(PDO::FETCH_ASSOC);
-                    $stmtAdresse = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :id_adresse");
-                    $stmtAdresse->bindParam(':id_adresse', $proDetails['id_adresse'], PDO::PARAM_INT);
-                    $stmtAdresse->execute();
-                    $adresseDetails = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
-                    $stmtOffre = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
-                    $stmtOffre->bindParam(':id_offre', $facture['id_offre'], PDO::PARAM_INT);
-                    $stmtOffre->execute();
-                    $offreDetails = $stmtOffre->fetch(PDO::FETCH_ASSOC);
-                    $stmtVueFactureQuantite = $dbh->prepare('SELECT * FROM sae_db.vue_facture_quantite WHERE "Numéro de Facture" = :numero');
-                    $stmtVueFactureQuantite->bindParam(':numero', $numero, PDO::PARAM_INT);
-                    $stmtVueFactureQuantite->execute();
-                    $vueFactureQuantite = $stmtVueFactureQuantite->fetchAll(PDO::FETCH_ASSOC);
-                    $stmtVueFactureTotaux = $dbh->prepare('SELECT * FROM sae_db.vue_facture_totaux WHERE "Numéro de Facture" = :numero');
-                    $stmtVueFactureTotaux->bindParam(':numero', $numero, PDO::PARAM_INT);
-                    $stmtVueFactureTotaux->execute();
-                    $vueFactureTotaux = $stmtVueFactureTotaux->fetchAll(PDO::FETCH_ASSOC);
-                ?>
-                <div class="bg-white p-10 shadow-lg rounded-lg w-full max-w-4xl mx-auto">
-                    <div class="flex justify-between items-center border-b pb-5 mb-5">
-                    <div>
-                        <h1 class="text-2xl font-bold"><?php echo htmlspecialchars($proDetails['nom_pro']); ?></h1>
-                        <p><?php echo htmlspecialchars($adresseDetails['numero']) . " " . htmlspecialchars($adresseDetails['odonyme']) . " " . htmlspecialchars($adresseDetails['complement']); ?><br><?php echo htmlspecialchars($adresseDetails['code_postal']) . ' - ' . htmlspecialchars($adresseDetails['ville']); ?></p>
-                        <p><?php echo htmlspecialchars($proDetails['num_tel']); ?></p>
-                        <p><?php echo htmlspecialchars($proDetails['email']); ?></p>
-                    </div>
-                    <div>
-                        <p>SIRET : <?php echo htmlspecialchars($proDetails['num_siren']); ?> / TVA <?php echo $TVA ?>%</p>
-                    </div>
+                    <?php
+                        $TVA = 20;
+                        $stmtPro = $dbh->prepare("SELECT * FROM sae_db._pro_prive WHERE id_compte = :id_pro");
+                        $stmtPro->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
+                        $stmtPro->execute();
+                        $proDetails = $stmtPro->fetch(PDO::FETCH_ASSOC);
+                        // print_r($proDetails);
+                        $stmtAdresse = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :id_adresse");
+                        $stmtAdresse->bindParam(':id_adresse', $proDetails['id_adresse'], PDO::PARAM_INT);
+                        $stmtAdresse->execute();
+                        $adresseDetails = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
+                        // var_dump($offre['id_offre']);
+                        $stmtTypeOffre = $dbh->prepare("SELECT * FROM sae_db._type_offre WHERE id_type_offre = :id_type_offre");
+                        $stmtTypeOffre->bindParam(':id_type_offre', $offre['id_type_offre'], PDO::PARAM_INT);
+                        $stmtTypeOffre->execute();
+                        $typeOffre = $stmtTypeOffre->fetch(PDO::FETCH_ASSOC);
+                        // var_dump($typeOffre);
+                    ?>
+                        <!-- En-tête Entreprise -->
+                        <div class="flex flex-col justify-between">
+                            <div class="flex justify-between w-full">
+                                <div>
+                                    <h1 class="text-xl font-bold">PACT</h1>
+                                    <p>21 rue Case Nègres<br>97232, Fort-de-France<br>FR</p>
+                                    
+                                </div>
+                                <div>
+                                    
+                                </div>
+                            </div>
+
+                            <!-- Informations Client -->
+                            <div class="flex justify-end">
+                                <div>
+                                    <h1 class="text-xl font-bold"><?php echo htmlspecialchars($proDetails['nom_pro']); ?></h1>
+                                    <p><?php echo htmlspecialchars($adresseDetails['numero']) . " " . htmlspecialchars($adresseDetails['odonyme']); ?><br><?php echo htmlspecialchars($adresseDetails['code_postal'])?><br>France</p>
+                                    <br>
+                                    <p>SIRET : <?php echo htmlspecialchars($proDetails['num_siren']) ?></p>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+
+                        <hr>
+                        
+
+                        <!-- Informations Facture -->
+                        <div class="mt-5">
+                            <h1 class="text-2xl font-bold">Facture N° <?php echo htmlspecialchars($numero); ?></h1>
+                            <p>Date d'émission : <?php echo htmlspecialchars($facture['date_emission']); ?></p>
+                            <p>Règlement : Le premier de chaque mois </p>
+                        </div>
+
+                        <!-- Tableau de détails -->
+                        <table class="w-full mt-5 border-collapse border border-gray-300">
+                            <thead class="bg-blue-200">
+                                <tr>
+                                    <th class="border p-2 text-left">Désignation</th>
+                                    <th class="border p-2 text-right">Quantité</th>
+                                    <th class="border p-2 text-right">Unité</th>
+                                    <th class="border p-2 text-right">Prix Unitaire</th>
+                                    <th class="border p-2 text-right">TVA</th>
+                                    <th class="border p-2 text-right">Montant HT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                $uniqueTypes = [];
+                                if (!in_array($typeOffre['nom'], $uniqueTypes)) {
+                                    if ($typeOffre['nom']) {
+                                        $unite = "jours";
+                                    } else {
+                                        $unite = "semaines";
+                                    }
+                                    $nbJoursEnLigne = 30; //valeur par défaut
+                                    $uniqueTypes[] = $typeOffre['nom'];
+                                    ?>
+                                    <tr>
+                                        <td class="border p-2"><?php echo htmlspecialchars($typeOffre['nom']); ?></td>
+                                        <td class="border p-2 text-right"><?php echo $nbJoursEnLigne; ?></td>
+                                        <td class="border p-2 text-right"><?php echo $unite ?></td>
+                                        <td class="border p-2 text-right"><?php echo number_format($typeOffre['prix_ht'], 2); ?> €</td>
+                                        <td class="border p-2 text-right"><?php echo $TVA ?>%</td>
+                                        <td class="border p-2 text-right"><?php echo number_format($typeOffre['prix_ht'], 2) * $nbJoursEnLigne; ?> €</td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                                    
+                            </tbody>
+                        </table>
+
+                        <!-- Totaux -->
+                        <div class="mt-5 flex justify-end">
+                            <div class="w-1/3">
+                                <div class="flex justify-between">
+                                    <span>Total HT</span>
+                                    <span><?php echo number_format($typeOffre['prix_ht'], 2) * $nbJoursEnLigne; ?> €</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>TVA (<?php echo $TVA ?>%)</span>
+                                    <span> <?php echo (number_format($typeOffre['prix_ht'], 2) * $nbJoursEnLigne) * ($TVA/100) ?> €</span>
+                                </div>
+                                <div class="flex justify-between font-bold">
+                                    <span>Total TTC</span>
+                                    <span><?php echo (number_format($typeOffre['prix_ht'], 2) * $nbJoursEnLigne) * (1 + ($TVA/100)); ?> €</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Mentions légales et coordonnées bancaires -->
+                        <div class="mt-10 text-sm">
+                            <p>En cas de retard de paiement, une pénalité de 3 fois le taux d’intérêt légal sera appliquée, à laquelle s’ajoutera une indemnité forfaitaire de 40 €.</p>
+                            <p>PACT</p>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="mt-5 text-center text-sm">
+                            <p>SIRET : 123 456 789 00012</p>
+                            <p>Page 1/1</p>
+                        </div>
                     </div>
 
-                    <h2 class="text-xl font-bold mb-5"> <?php echo htmlspecialchars($offresDuPro['titre']) ?> </h2>
-
-                    <div class="mb-5">
-                    <p>Date d'émission : <strong> <?php echo htmlspecialchars($facture['date_emission']); ?> </strong></p>
-                    <p>Période de validité : <strong><?php echo htmlspecialchars($facture['quantite']); ?> jours</strong></p>
-                    </div>
-
-                    <table class="table-auto w-full border-collapse border border-gray-300">
-                    <thead class="bg-blue-100">
-                        <tr>
-                        <th class="border border-gray-300 p-2 text-left">Désignation</th>
-                        <th class="border border-gray-300 p-2 text-right">Quantité</th>
-                        <th class="border border-gray-300 p-2 text-right">Unité</th>
-                        <th class="border border-gray-300 p-2 text-right">Prix Unitaire</th>
-                        <th class="border border-gray-300 p-2 text-right">TVA</th>
-                        <th class="border border-gray-300 p-2 text-right">Total HT</th>
-                        <?php
-                        foreach ($vueFactureQuantite as $ligne) {
-                        echo "<tr>";
-                        echo "<td class='border border-gray-300 p-2'>" . htmlspecialchars($ligne['Service']) . "</td>";
-                        echo "<td class='border border-gray-300 p-2 text-right'>" . htmlspecialchars($ligne['Quantité']) . "</td>";
-                        echo "<td class='border border-gray-300 p-2 text-right'>" . "jours ou semaines" . "</td>";
-                        echo "<td class='border border-gray-300 p-2 text-right'>" . htmlspecialchars($ligne['Prix Unitaire HT (â‚¬)']) . " €</td>";
-                        echo "<td class='border border-gray-300 p-2 text-right'>" . $TVA . " %</td>";
-                        echo "<td class='border border-gray-300 p-2 text-right'>" . number_format((float)$ligne['Montant HT (â‚¬)'], 2, '.', '') . " €</td>";
-                        echo "</tr>";
-                        }
-                        ?>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                    </table>
-
-                    <div class="mt-5">
-                    <div class="flex justify-end">
-                        <div class="w-1/3">
-                        <div class="flex justify-between">
-                            <span>Total HT</span>
-                            <span> <?php echo (number_format((float)$vueFactureTotaux[0]['Total HT (â‚¬)'])); ?> €</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>TVA <?php echo $TVA ?>%</span>
-                            <span><?php echo (number_format((float)$vueFactureTotaux[0]['Total TTC (â‚¬)'])) - (number_format((float)$vueFactureTotaux[0]['Total HT (â‚¬)'])) ?> €</span>
-                        </div>
-                        <div class="flex justify-between font-bold">
-                            <span>Total TTC</span>
-                            <span><?php echo number_format((float)$vueFactureTotaux[0]['Total TTC (â‚¬)']) ?> €</span>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>  
                 <?php
             } else {
                 echo "<p>Vous n'avez pas d'offres en ligne.</p>";
@@ -183,12 +220,3 @@
         } else {
             echo "La session id_pro n'est pas définie";
         } ?>
-    </div>
-    </main>
-
-    <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
-    ?>
-</body>
-
-</html>
