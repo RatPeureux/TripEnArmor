@@ -832,8 +832,7 @@ try {
 													"preview-tag-input"
 												)
 
-												const tagContainers = document.querySelectorAll('.tag-container');
-												tagContainers.forEach(container => {
+												document.querySelectorAll('.tag-container')?.forEach(container => {
 													if (!container.classList.contains('hidden')) {
 														Array.from(container.children).map(tag => console.log(tag.childNodes[0].nodeValue));
 														const tags = Array.from(container.children).map(tag => tag.childNodes[0].nodeValue).join(', ');

@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function syncSearchsWithTags() {
         searchs = Array.from(tagsContainer.children).map(tag =>
-            tag.querySelector("span").textContent.trim()
+            tag.querySelector("span")?.textContent.trim()
         );
         applySearch(); // Met à jour le filtre lorsque les tags changent
     }
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Ajoute un tag
     function addTag(text) {
         const existingTags = Array.from(tagsContainer.children).map((tag) =>
-            tag.querySelector("span").textContent.trim()
+            tag.querySelector("span")?.textContent.trim()
         );
 
         if (existingTags.includes(text.trim())) {
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "flex items-center gap-2 bg-secondary text-white px-3 py-1 rounded-full";
         tag.innerHTML = `<span>${text}</span><i class="fa-solid fa-times cursor-pointer"></i>`;
 
-        tag.querySelector("i").addEventListener("click", () => {
+        tag.querySelector("i")?.addEventListener("click", () => {
             tag.remove();
             updateClearButtonVisibility();
             syncSearchsWithTags(); // Met à jour la liste searchs
@@ -171,10 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
     searchInput.addEventListener("keydown", (e) => {
         if (e.key === "ArrowDown") {
             e.preventDefault();
-            const firstItem = dropdownMenu.querySelector('[tabindex="0"]');
-            if (firstItem) {
-                firstItem.focus();
-            }
+            dropdownMenu.querySelector('[tabindex="0"]')?.focus();
         } else if (e.key === "Enter") {
             e.preventDefault();
             const activeElement = document.activeElement;
@@ -194,21 +191,21 @@ document.addEventListener("DOMContentLoaded", function () {
             dropdownMenu.querySelectorAll('[tabindex="0"]')
         );
         const activeElement = document.activeElement;
-        const currentIndex = focusableItems.indexOf(activeElement);
+        const currentIndex = focusableItems?.indexOf(activeElement);
 
         if (e.key === "ArrowDown") {
             e.preventDefault();
-            const nextIndex = (currentIndex + 1) % focusableItems.length;
-            focusableItems[nextIndex].focus();
+            const nextIndex = (currentIndex + 1) % focusableItems?.length;
+            focusableItems[nextIndex]?.focus();
         } else if (e.key === "ArrowUp") {
             e.preventDefault();
             if (currentIndex === 0) {
                 searchInput.focus();
             } else {
                 const prevIndex =
-                    (currentIndex - 1 + focusableItems.length) %
-                    focusableItems.length;
-                focusableItems[prevIndex].focus();
+                    (currentIndex - 1 + focusableItems?.length) %
+                    focusableItems?.length;
+                focusableItems[prevIndex]?.focus();
             }
         } else if (e.key === "Enter") {
             e.preventDefault();
@@ -269,16 +266,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // !!! SCRIPT POUR LE FONCTIONNEMENT DU FILTRE DE RECHERCHE
     function applySearch() {
-        const offres = document.querySelectorAll('.card');
         let anyVisible = false; // Variable pour suivre si une offre est visible
-    
-        offres.forEach((offre) => {
+
+        document.querySelectorAll('.card')?.forEach((offre) => {
             // Vérifie les filtres actifs
             let matchesTag = (searchs.length === 0);
-            if (offre.querySelector('.tags')) {
-                const tags = offre.querySelector('.tags').textContent.split(',').map(tag => tag.trim());
-                matchesTag = searchs.every(tag => tags.includes(tag));
-            }
+            const tags = offre.querySelector('.tags')?.textContent.split(',').map(tag => tag.trim());
+            matchesTag = searchs.every(tag => tags?.includes(tag));
 
             // Appliquer les filtres croisés
             if (matchesTag) {
@@ -288,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 offre.classList.add('!hidden');
             }
         });
-    
+
         // Vérifie si aucune offre n'est visible
         const noMacthesElement = document.getElementById('no-matches-message'); // Element pour afficher un message
         if (!anyVisible) {
@@ -299,14 +293,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 message.textContent = 'Aucune offre ne possède les tags recherchés.';
                 message.classList.add('mt-4');
                 message.classList.add('font-bold');
-                message.classList.add('text-h2'); 
-                document.querySelector('#no-matches').appendChild(message); // Ajouter dans le conteneur des offres
+                message.classList.add('text-h2');
+                document.querySelector('#no-matches')?.appendChild(message); // Ajouter dans le conteneur des offres
             }
         } else {
             // Supprime le message si des offres sont visibles
-            if (noMacthesElement) {
-                noMacthesElement.remove();
-            }
+            noMacthesElement?.remove();
         }
     }
 

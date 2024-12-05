@@ -100,17 +100,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-																				1. [x] Adresse
-																				3. [x] Image
-																				5. [x] Offre
-																				6. [x] Offre_Tag / Restauration_Tag
-																				7. [x] Offre_Image
-																				8. [x] Offre_Langue
-																				9. [x] TypeRepas 
-																				10. [x] Offre_Prestation
-																				11. Horaires
-																				12. [x] Tarif_Public
-																				*/
+																					  1. [x] Adresse
+																					  3. [x] Image
+																					  5. [x] Offre
+																					  6. [x] Offre_Tag / Restauration_Tag
+																					  7. [x] Offre_Image
+																					  8. [x] Offre_Langue
+																					  9. [x] TypeRepas 
+																					  10. [x] Offre_Prestation
+																					  11. Horaires
+																					  12. [x] Tarif_Public
+																					  */
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -124,7 +124,7 @@ $pro = verifyPro();
 				exit;
 			}
 			// echo "Adresse insérée.<br>";
-
+	
 			// Insérer l'offre dans la base de données
 			$prixMin = calculerPrixMin($prices);
 			$id_offre;
@@ -208,7 +208,7 @@ $pro = verifyPro();
 					exit;
 			}
 			// echo "new id_offre : " . $id_offre . "<br>";
-
+	
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
@@ -249,7 +249,7 @@ $pro = verifyPro();
 				exit;
 			}
 			// echo "Image de la carte insérée.<br>";
-
+	
 			// *** DETAIL
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
@@ -327,7 +327,7 @@ $pro = verifyPro();
 				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 			}
 			// echo "Horaires insérés.<br>";
-
+	
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
 			$tarifController = new TarifPublicController();
@@ -340,7 +340,7 @@ $pro = verifyPro();
 				$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
 			}
 			// echo "Prix insérés.<br>";
-
+	
 			BDD::commitTransaction();
 			header('location: /scripts/go_to_details.php?id_offre=$id_offre');
 		} catch (Exception $e) {
@@ -1129,8 +1129,8 @@ $pro = verifyPro();
 								</div>
 
 								<div class="<?php if ($pro['data']['type'] === 'prive') {
-									// echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
-								} ?> hidden w-full">
+								// echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
+							} ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
 
 									<!-- TODO: donner la durée en semaines + la date de lancement -->
@@ -1365,8 +1365,7 @@ $pro = verifyPro();
 															"preview-tag-input"
 														)
 
-														const tagContainers = document.querySelectorAll('.tag-container');
-														tagContainers.forEach(container => {
+														document.querySelectorAll('.tag-container')?.forEach(container => {
 															if (!container.classList.contains('hidden')) {
 																const tags = Array.from(container.children).map(tag => tag.childNodes[0].nodeValue).join(', ');
 																tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags) : "Ajouter un tag...";

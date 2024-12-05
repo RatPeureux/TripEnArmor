@@ -89,19 +89,19 @@ if (!function_exists('chaineVersMot')) {
         // Récupérer toutes les moyennes en une seule requête
         $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
         $notesMoyennes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
         // Associer les moyennes aux offres
         $notesAssociees = [];
         foreach ($notesMoyennes as $note) {
             $notesAssociees[$note['id_offre']] = floatval($note['avg']);
         }
-    
+
         // Créer un tableau temporaire enrichi
         $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
             $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
             return $offre;
         }, $toutesMesOffres);
-    
+
         // Effectuer le tri
         if ($_GET['sort'] === 'note-ascending') {
             usort($offresAvecNotes, function ($a, $b) {
@@ -112,7 +112,7 @@ if (!function_exists('chaineVersMot')) {
                 return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
             });
         }
-    
+
         // Réassigner les offres triées
         $toutesMesOffres = $offresAvecNotes;
     }
@@ -187,11 +187,7 @@ if (!function_exists('chaineVersMot')) {
 <script>
     // Fonction pour afficher ou masquer un conteneur de filtres
     function toggleFiltres() {
-        let filtres = document.querySelector('#filtres');
-
-        if (filtres) {
-            filtres.classList.toggle('active'); // Alterne la classe 'active'
-        }
+        document.querySelector('#filtres')?.classList.toggle('active'); // Alterne la classe 'active'
     }
 </script>
 

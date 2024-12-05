@@ -37,11 +37,11 @@ function fillInAddress() {
         }
     }
 
-    document.querySelector("#user_input_autocomplete_address").value = address1.trim(); // Remplit le champ d'adresse
-    document.querySelector("#locality").value = locality; // Remplit le champ de ville
-    document.querySelector("#postal_code").value = postalCode; // Remplit le champ de code postal
+    document.querySelector("#user_input_autocomplete_address")?.value = address1.trim(); // Remplit le champ d'adresse
+    document.querySelector("#locality")?.value = locality; // Remplit le champ de ville
+    document.querySelector("#postal_code")?.value = postalCode; // Remplit le champ de code postal
 }
 
-google.maps.event.addDomListener(window, 'load', function() {
+google.maps.event.addDomListener(window, 'load', function () {
     initializeAutocomplete('user_input_autocomplete_address');
 });

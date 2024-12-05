@@ -327,21 +327,4 @@ if ($pro['data']['id_rib'] != null) {
         }
 
     });
-
-    function formatSiren(input) {
-        // Supprime tout ce qui n'est pas un chiffre
-        let value = input.value.replace(/\D/g, '');
-
-        // Limite à 14 caractères (9 pour le SIREN + 5 pour les caractères supplémentaires)
-        value = value.substring(0, 14);
-
-        // Ajoute les espaces tous les 3 chiffres pour les trois premiers groupes
-        let formatted = value
-            .replace(/(\d{3})(\d)/, '$1 $2') // Ajoute un espace après les 3 premiers chiffres
-            .replace(/(\d{3}) (\d{3})(\d)/, '$1 $2 $3') // Ajoute un espace après les 6 premiers chiffres
-            .replace(/(\d{3}) (\d{3}) (\d{3})(\d+)/, '$1 $2 $3 $4'); // Le reste (5 derniers caractères sans espace)
-
-        // Met à jour la valeur de l'input avec le format correct
-        input.value = formatted;
-    }
 </script>

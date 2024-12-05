@@ -10,14 +10,11 @@ function formatTelephone(input) {
         || '';
     input.value = formattedValue;
 }
-const telInputs = document.querySelectorAll('input#num_tel');
-if (telInputs) {
-    telInputs.forEach(telInput => {
-        telInput.addEventListener('input', function () {
-            formatTelephone(this);
-        });
+document.querySelectorAll('input#num_tel')?.forEach(telInput => {
+    telInput.addEventListener('input', function () {
+        formatTelephone(this);
     });
-}
+});
 
 // LES CODES POSTAUX
 function formatCodePostal(input) {
@@ -27,14 +24,11 @@ function formatCodePostal(input) {
     }
     input.value = value;
 }
-const codeInputs = document.querySelectorAll('input#postal_code');
-if (codeInputs) {
-    codeInputs.forEach(codeInput => {
-        codeInput.addEventListener('input', function () {
-            formatCodePostal(this);
-        });
+document.querySelectorAll('input#postal_code')?.forEach(codeInput => {
+    codeInput.addEventListener('input', function () {
+        formatCodePostal(this);
     });
-}
+});
 
 // LES IBANS
 function formatIban(input) {
@@ -63,14 +57,11 @@ function formatIban(input) {
     // Met à jour la valeur dans le champ input
     input.value = formattedValue;
 }
-const ibanInputs = document.querySelectorAll('input#iban');
-if (ibanInputs) {
-    ibanInputs.forEach(ibanInput => {
-        ibanInput.addEventListener('input', function () {
-            formatIban(this);
-        });
+document.querySelectorAll('input#iban')?.forEach(ibanInput => {
+    ibanInput.addEventListener('input', function () {
+        formatIban(this);
     });
-}
+});
 
 // LES NUMÉROS DE SIREN (OU SIRET FIN BREF ÇA CASSE LES CORONES)
 function formatSiren(input) {
@@ -89,11 +80,8 @@ function formatSiren(input) {
     // Met à jour la valeur de l'input avec le format correct
     input.value = formatted;
 }
-const sirenInputs = document.querySelectorAll('input#num_siren');
-if (sirenInputs) {
-    sirenInputs.forEach(sirenInput => {
-        sirenInput.addEventListener('input', function () {
-            formatSiren(this);
-        });
+document.querySelectorAll('input#num_siren')?.forEach(sirenInput => {
+    sirenInput.addEventListener('input', function () {
+        formatSiren(this);
     });
-}
+});

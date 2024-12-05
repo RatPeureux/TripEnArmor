@@ -125,7 +125,8 @@ if ($mode_carte == 'membre') {
                     ?>
                     <p class='prix text-small'
                         title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'>
-                        <?php echo $prix_a_afficher ?></p>
+                        <?php echo $prix_a_afficher ?>
+                    </p>
                 </div>
             </div>
         </div>
@@ -221,7 +222,8 @@ if ($mode_carte == 'membre') {
                                 if ($tags_offre) {
                                     ?>
                                 <p class="tags text-white text-center overflow-ellipsis line-clamp-1">
-                                    <?php echo $tagsAffiche; ?></p>
+                                    <?php echo $tagsAffiche; ?>
+                                </p>
                                 <?php
                                 } else {
                                     echo 'Aucun tag';
@@ -334,7 +336,7 @@ if ($mode_carte == 'membre') {
                         <?php
                         if ($est_en_ligne) {
                             ?>
-                            <a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
+                            <a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>"
                                 onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?');"
                                 title=" [!!!] mettre hors-ligne">
                                 <svg class="toggle-wifi-offline p-1 rounded-lg border-rouge-logo hover:border-y-2 border-solid duration-100 hover:fill-[#EA4335]"
@@ -348,7 +350,7 @@ if ($mode_carte == 'membre') {
                             <?php
                         } else {
                             ?>
-                            <a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
+                            <a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>"
                                 onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> en ligne ?');"
                                 title="[!!!] mettre en ligne">
                                 <svg class="toggle-wifi-online p-1 rounded-lg hover:fill-[#00350D] border-secondary hover:border-y-2 border-solid duration-100"
@@ -400,7 +402,8 @@ if ($mode_carte == 'membre') {
                                 if ($tags_offre) {
                                     ?>
                                 <p class="tags text-white text-center overflow-ellipsis line-clamp-1">
-                                    <?php echo $tagsAffiche; ?></p>
+                                    <?php echo $tagsAffiche; ?>
+                                </p>
                                 <?php
                                 } else {
                                     echo 'Aucun tag';

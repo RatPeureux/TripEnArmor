@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // !!! TOGGLE AFFICHANT/DÉPLIANT LES INTERFACES DE FILTRES/TRIS
     // Fonction pour configurer un bouton avec fermeture automatique au clic à l'extérieur
     function setupAutoClose(buttonId, sectionId) {
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (button && section) {
             // Écouteur global pour fermer la section au clic à l'extérieur
-            document.addEventListener('click', function(event) {
+            document.addEventListener('click', function (event) {
                 // Vérifie si le clic est en dehors du bouton et de la section
                 if (!section.contains(event.target) && !button.contains(event.target)) {
                     section.classList.add('md:hidden');
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const section = document.getElementById(sectionId); // Récupère la section par son ID
 
         if (button && section) { // Vérifie que les éléments existent
-            button.addEventListener('click', function(event) { // Ajoute un événement au clic
+            button.addEventListener('click', function (event) { // Ajoute un événement au clic
                 event.preventDefault(); // Empêche le comportement par défaut (ex: navigation)
                 // Alterne entre affichage (md:block) et masquage (md:hidden) de la section
                 if (section.classList.contains('md:hidden')) {
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const section = document.getElementById(sectionId); // Récupère la section
 
         if (button && section) { // Vérifie que les éléments existent
-            button.addEventListener('click', function(event) {
+            button.addEventListener('click', function (event) {
                 event.preventDefault(); // Empêche le comportement par défaut
                 section.classList.toggle('hidden'); // Alterne la classe 'hidden'
             });
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const developped = document.getElementById(developpedId); // Récupère la section développable
 
         if (button && arrow && developped) { // Vérifie que les éléments existent
-            button.addEventListener('click', function(event) {
+            button.addEventListener('click', function (event) {
                 event.preventDefault(); // Empêche le comportement par défaut
                 arrow.classList.toggle('rotate-90'); // Alterne la rotation de l'icône
                 developped.classList.toggle('hidden'); // Alterne la visibilité de la section
@@ -83,35 +83,31 @@ document.addEventListener("DOMContentLoaded", function() {
         const button = document.getElementById(buttonId); // Récupère le bouton
         const arrow = document.getElementById(arrowId); // Récupère l'icône flèche
         const developped = document.getElementById(developpedId); // Récupère la section développable
-    
+
         if (button && arrow && developped) { // Vérifie que les éléments existent
             button.addEventListener('click', function (event) {
                 event.preventDefault(); // Empêche le comportement par défaut
-    
-                // Sélectionne toutes les flèches et sections développables
-                const allDevelopped = document.querySelectorAll('.developped');
-                const allArrows = document.querySelectorAll('.arrow');
-    
+
                 // Alterne l'état de la section actuelle
                 const isCurrentlyHidden = developped.classList.contains('hidden');
                 arrow.classList.toggle('rotate-90', isCurrentlyHidden); // Ajuste la rotation uniquement si la section est cachée
                 developped.classList.toggle('hidden', !isCurrentlyHidden); // Ajuste la visibilité
-    
+
                 // Ferme les autres sections
-                allDevelopped.forEach(section => {
+                document.querySelectorAll('.developped')?.forEach(section => {
                     if (section !== developped) {
                         section.classList.add('hidden'); // Cache toutes les autres sections
                     }
                 });
-    
-                allArrows.forEach(icon => {
+
+                document.querySelectorAll('.arrow')?.forEach(icon => {
                     if (icon !== arrow) {
                         icon.classList.remove('rotate-90'); // Réinitialise la rotation des autres icônes
                     }
                 });
             });
         }
-    }    
+    }
 
     // Initialisation des filtres pour les onglets (tablette et bureau)
     developpedFilter('button-f1-tab', 'arrow-f1-tab', 'developped-f1-tab');
@@ -136,19 +132,19 @@ document.addEventListener("DOMContentLoaded", function() {
     function enforceDynamicBounds(leftInputId, rightInputId) {
         const leftInput = document.getElementById(leftInputId);
         const rightInput = document.getElementById(rightInputId);
-    
+
         // Vérifie si les éléments existent
         if (!leftInput || !rightInput) {
             console.warn(`Inputs with IDs "${leftInputId}" or "${rightInputId}" not found.`);
             return;
         }
-    
+
         // Mettre à jour les limites à chaque modification
         function updateBounds() {
             leftInput.max = rightInput.value; // Le max de gauche est la valeur de droite
             rightInput.min = leftInput.value; // Le min de droite est la valeur de gauche
         }
-    
+
         // Ajouter des écouteurs pour détecter les changements
         leftInput.addEventListener('input', () => {
             if (parseFloat(leftInput.value) > parseFloat(rightInput.value)) {
@@ -156,17 +152,17 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             updateBounds();
         });
-    
+
         rightInput.addEventListener('input', () => {
             if (parseFloat(rightInput.value) < parseFloat(leftInput.value)) {
                 rightInput.value = leftInput.value; // Ajuste la valeur si nécessaire
             }
             updateBounds();
         });
-    
+
         // Initialiser les bornes lors du chargement
         updateBounds();
-    }    
+    }
 
     // Appliquer la logique aux champs de note
     enforceDynamicBounds('min-note-tab', 'max-note-tab');
@@ -182,15 +178,15 @@ document.addEventListener("DOMContentLoaded", function() {
     function syncInputs() {
         // Récupère tous les inputs (checkbox, text, range, number, etc.)
         const inputs = Array.from(document.querySelectorAll('input'));
-    
-        inputs.forEach((input) => {
+
+        inputs?.forEach((input) => {
             input.addEventListener('input', () => {
                 // Synchronise avec les autres inputs ayant un ID similaire
                 const baseId = input.id.replace(/-tel|-tab/, ''); // Supprime les suffixes spécifiques
-                
+
                 inputs.forEach((otherInput) => {
                     const otherBaseId = otherInput.id.replace(/-tel|-tab/, ''); // Supprime les suffixes pour comparer
-                    
+
                     if (baseId === otherBaseId && otherInput !== input) {
                         if (input.type === 'checkbox') {
                             otherInput.checked = input.checked;
@@ -212,15 +208,15 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     function filterOnCategories(device) {
-        const checkboxes = document.querySelectorAll('#developped-f1-'+device+' input[type="checkbox"]');
-    
-        checkboxes.forEach((checkbox) => {
+        const checkboxes = document.querySelectorAll('#developped-f1-' + device + ' input[type="checkbox"]');
+
+        checkboxes?.forEach((checkbox) => {
             checkbox.addEventListener('change', () => {
                 // Mettre à jour les catégories sélectionnées
                 filterState.categories = Array.from(checkboxes)
                     .filter(checkbox => checkbox.checked)
                     .map(checkbox => checkbox.id.replace(/-tel|-tab/, ''));
-    
+
                 // Appliquer les filtres croisés
                 applyFilters();
             });
@@ -228,69 +224,69 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function filterOnLocalisations(device) {
-        const locInputElement = document.getElementById('localisation-'+device);
-    
+        const locInputElement = document.getElementById('localisation-' + device);
+
         locInputElement.addEventListener('input', () => {
             // Mettre à jour la localisation dans l'état global
             filterState.localisation = locInputElement.value.trim();
-    
+
             // Appliquer les filtres croisés
             applyFilters();
         });
     }
 
     function filterOnNotes(device) {
-        const minNoteInputElement = document.getElementById('min-note-'+device);
-        const maxNoteInputElement = document.getElementById('max-note-'+device);
-    
+        const minNoteInputElement = document.getElementById('min-note-' + device);
+        const maxNoteInputElement = document.getElementById('max-note-' + device);
+
         minNoteInputElement.addEventListener('input', () => {
             // Mettre à jour la localisation dans l'état global
             filterState.note[0] = minNoteInputElement.value.trim();
-    
+
             // Appliquer les filtres croisés
             applyFilters();
         });
-    
+
         maxNoteInputElement.addEventListener('input', () => {
             // Mettre à jour la localisation dans l'état global
             filterState.note[1] = maxNoteInputElement.value.trim();
-    
+
             // Appliquer les filtres croisés
             applyFilters();
         });
     }
 
     function filterOnPrices(device) {
-        const minPriceInputElement = document.getElementById('min-price-'+device);
-        const maxPriceInputElement = document.getElementById('max-price-'+device);
-    
+        const minPriceInputElement = document.getElementById('min-price-' + device);
+        const maxPriceInputElement = document.getElementById('max-price-' + device);
+
         minPriceInputElement.addEventListener('input', () => {
             // Mettre à jour la localisation dans l'état global
             filterState.prix[0] = minPriceInputElement.value.trim();
-    
+
             // Appliquer les filtres croisés
             applyFilters();
         });
-    
+
         maxPriceInputElement.addEventListener('input', () => {
             // Mettre à jour la localisation dans l'état global
             filterState.prix[1] = maxPriceInputElement.value.trim();
-    
+
             // Appliquer les filtres croisés
             applyFilters();
         });
     }
 
     function filterOnGammes(device) {
-        const checkboxes = document.querySelectorAll('#developped-f6-'+device+' input[type="checkbox"]');
-    
-        checkboxes.forEach((checkbox) => {
+        const checkboxes = document.querySelectorAll('#developped-f6-' + device + ' input[type="checkbox"]');
+
+        checkboxes?.forEach((checkbox) => {
             checkbox.addEventListener('change', () => {
                 // Mettre à jour les catégories sélectionnées
                 filterState.gammes = Array.from(checkboxes)
                     .filter(checkbox => checkbox.checked)
                     .map(checkbox => checkbox.id.replace(/-tel|-tab/, ''));
-    
+
                 // Appliquer les filtres croisés
                 applyFilters();
             });
@@ -300,15 +296,15 @@ document.addEventListener("DOMContentLoaded", function() {
     function applyFilters() {
         const offres = document.querySelectorAll('.card');
         let anyVisible = false; // Variable pour suivre si une offre est visible
-    
-        offres.forEach((offre) => {
+
+        offres?.forEach((offre) => {
             const category = offre.querySelector('.categorie').textContent.trim().replace(", ", "").replace(" d'", "_").toLowerCase();
             const localisation = offre.querySelector('.localisation');
             const city = localisation.querySelector('p:nth-of-type(1)').textContent.trim();
             const code = localisation.querySelector('p:nth-of-type(2)').textContent.trim();
             const note = offre.querySelector('.note');
             const price = offre.querySelector('.prix');
-    
+
             // Vérifie les filtres actifs
             let matchesCategory = false;
             if (category) {
@@ -319,12 +315,12 @@ document.addEventListener("DOMContentLoaded", function() {
             if (city && code) {
                 matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
             }
-            
+
             let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5');
             if (note) {
                 matchesNote = filterState.note[0] <= note.getAttribute('title') && note.getAttribute('title') <= filterState.note[1];
             }
-            
+
             let matchesPrice = (filterState.prix[0] === '0' && filterState.prix[1] === document.getElementById('max-price-tab').max);
             if (price) {
                 if (price.getAttribute('title') !== "Gamme des prix") {
@@ -335,14 +331,14 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             // Appliquer les filtres croisés
-            if (matchesCategory && matchesLocalisation && matchesNote&& matchesPrice) {
+            if (matchesCategory && matchesLocalisation && matchesNote && matchesPrice) {
                 offre.classList.remove('!hidden');
                 anyVisible = true; // Au moins une offre est visible
             } else {
                 offre.classList.add('!hidden');
             }
         });
-    
+
         // Vérifie si aucune offre n'est visible
         const noMacthesElement = document.getElementById('no-matches-message'); // Element pour afficher un message
         if (!anyVisible) {
@@ -353,7 +349,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 message.textContent = 'Aucune offre ne correspond à vos critères.';
                 message.classList.add('mt-4');
                 message.classList.add('font-bold');
-                message.classList.add('text-h2'); 
+                message.classList.add('text-h2');
                 document.querySelector('#no-matches').appendChild(message); // Ajouter dans le conteneur des offres
             }
         } else {
