@@ -1164,10 +1164,12 @@ $pro = verifyPro();
 										foreach ($options as $option) {
 											$nom_option = str_contains($option['nom'], 'relief') ? "option-relief" : "option-a-la-une";
 											?>
-											<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+											<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold text-center text-lg"
 												id="<?php echo $nom_option; ?>-div">
 												<input type="radio" id="<?php echo $nom_option; ?>" name="option" value="<?php echo $option['nom']; ?>" class="hidden" />
-												<label for="<?php echo $nom_option; ?>"><?php echo ucwords($option['nom']); ?><br>(HT <?php echo $option['prix_ht'];?>€/semaine)<br>(TTC <?php echo $option['prix_ttc'];?>€/semaine)</label>
+												<label for="<?php echo $nom_option; ?>"><?php echo ucwords($option['nom']); ?><br>
+												<span class="font-normal text-base">(HT <?php echo $option['prix_ht'];?>€/semaine)<br>(TTC <?php echo $option['prix_ttc'];?>€/semaine)</span>
+											</label>
 											</div>
 										<?php }
 										?>
