@@ -168,6 +168,6 @@ $stmt = $dbh->prepare("SELECT (date_lancement, nb_semaines) FROM sae_db._offre_s
 $stmt->bindParam(':id_offre', $id_offre);
 $stmt->execute();
 
-$souscription_options = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$souscription_options = explode(',', substr($stmt->fetchAll(PDO::FETCH_ASSOC)[0]['row'], 1, -1));
 
 var_dump($souscription_options);
