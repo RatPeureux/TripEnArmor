@@ -3,6 +3,7 @@ tailwindcss
 .DS_Store
 
 .env
+.vscode
 
 /vendor
 composer.lock

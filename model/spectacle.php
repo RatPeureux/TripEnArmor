@@ -23,22 +23,21 @@ class Spectacle extends BDD
         }
     }
 
-    static function createSpectacle($est_en_ligne, $description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree)
+    static function createSpectacle($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree)
     {
         self::initBDD();
-        $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, capacite, duree) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
+        $query = "INSERT INTO " . self::$nom_table . " (est_en_ligne, description, resume, prix_mini, titre, id_pro, id_type_offre, id_adresse, capacite, duree) VALUES (FALSE, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_offre";
 
         $statement = self::$db->prepare($query);
-        $statement->bindParam(1, $est_en_ligne);
-        $statement->bindParam(2, $description);
-        $statement->bindParam(3, $resume);
-        $statement->bindParam(4, $prix_mini);
-        $statement->bindParam(5, $titre);
-        $statement->bindParam(6, $id_pro);
-        $statement->bindParam(7, $id_type_offre);
-        $statement->bindParam(8, $id_adresse);
-        $statement->bindParam(9, $capacite);
-        $statement->bindParam(10, $duree);
+        $statement->bindParam(1, $description);
+        $statement->bindParam(2, $resume);
+        $statement->bindParam(3, $prix_mini);
+        $statement->bindParam(4, $titre);
+        $statement->bindParam(5, $id_pro);
+        $statement->bindParam(6, $id_type_offre);
+        $statement->bindParam(7, $id_adresse);
+        $statement->bindParam(8, $capacite);
+        $statement->bindParam(9, $duree);
 
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];

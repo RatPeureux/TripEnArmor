@@ -31,7 +31,7 @@ const show = (classToShow) => {
         option.classList.remove("hidden");
 
         const childElements = option.querySelectorAll('input:not([id*="horaires"]):not([id="newPrixName"]):not([id="newPrixValeur"]):not([id="newPrestationName"]):not([type="checkbox"]), textarea');
-        childElements.forEach(child => {
+        childElements?.forEach(child => {
             child.required = true;
         });
     }
@@ -45,7 +45,7 @@ const hide = () => {
             option.classList.add('hidden');
 
             const childElements = option.querySelectorAll('input:not([type="checkbox"]), textarea');
-            childElements.forEach(child => {
+            childElements?.forEach(child => {
                 child.required = false;
             });
         }

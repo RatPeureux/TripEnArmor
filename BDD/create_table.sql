@@ -173,16 +173,13 @@ CREATE TABLE _offre (
     date_suppression DATE,
     est_en_ligne BOOLEAN NOT NULL,
     id_type_offre INTEGER REFERENCES _type_offre (id_type_offre) DEFERRABLE INITIALLY IMMEDIATE,
-    id_pro INTEGER REFERENCES _professionnel (id_compte) DEFERRABLE INITIALLY IMMEDIATE,
+    id_pro INTEGER,
     id_adresse SERIAL REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE,
     option VARCHAR(10)
 );
 
 ALTER TABLE _offre
 ADD CONSTRAINT fk_offre_type_offre FOREIGN KEY (id_type_offre) REFERENCES _type_offre (id_type_offre) DEFERRABLE INITIALLY IMMEDIATE;
-
-ALTER TABLE _offre
-ADD CONSTRAINT fk_offre_pro FOREIGN KEY (id_pro) REFERENCES _professionnel (id_compte) DEFERRABLE INITIALLY IMMEDIATE;
 
 ALTER TABLE _offre
 ADD CONSTRAINT fk_offre_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;

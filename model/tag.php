@@ -50,7 +50,7 @@ class Tag extends BDD
     static function createTag($nom)
     {
         self::initBDD();
-        $query = "INSERT INTO " . self::$nom_table . " (nom_tag) VALUES (?) RETURNING id_tag";
+        $query = "INSERT INTO " . self::$nom_table . " (nom) VALUES (?) RETURNING id_tag";
 
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $nom);

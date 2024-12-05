@@ -15,35 +15,34 @@ if (isset($_POST['mdp'])) {
         $controllerProPublic = new ProPublicController();
         $currentPassword = $controllerProPublic->getMdpProPublic($pro['id_compte']);
     }
-    
+
     if (password_verify($_POST['mdp'], $currentPassword)) {
         $mdp = password_hash($_POST['newMdp'], PASSWORD_DEFAULT);
         if ($pro['data']['type'] == 'prive') {
             $controllerProPrive->updateProPrive($pro['id_compte'], false, $mdp, false, false, false, false);
         } else {
             $controllerProPublic->updateProPublic($pro['id_compte'], false, $mdp, false, false, false, false);
-        }
-    
-        echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
+        } ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
                 var successMessage = document.getElementById('success-message');
                 successMessage.textContent = 'Le mot de passe a bien été modifié.';
-                setTimeout(function() {
+                setTimeout(function () {
                     successMessage.textContent = '';
                 }, 7500);
             });
-        </script>";
-    } else {
-        echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
+        </script>
+    <?php } else { ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
                 var errorMessage = document.getElementById('error-message');
                 errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
-                setTimeout(function() {
+                setTimeout(function () {
                     errorMessage.textContent = '';
                 }, 7500);
             });
-        </script>";
-    }
+        </script>
+    <?php }
 
     unset($_POST['mdp']);
     unset($_POST['newMdp']);
@@ -65,7 +64,7 @@ if (isset($_POST['mdp'])) {
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    
+
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -108,7 +107,8 @@ if (isset($_POST['mdp'])) {
                 <div class="relative w-full">
                     <label class="text-h3" for="mdp">Mot de passe actuel</label>
                     <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                        id="mdp" name="mdp" pattern="^(?=.{8,})(?=.*[A-Z])(?=.*\d).*" minlength="8">
+                        title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                        id="mdp" name="mdp" pattern="(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$*">
 
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                         id="togglePassword1"></i>
@@ -117,6 +117,8 @@ if (isset($_POST['mdp'])) {
                 <div class="relative w-full">
                     <label class="text-h3" for="newMdp">Nouveau mot de passe</label>
                     <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                        pattern="(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$*"
+                        title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                         id="newMdp" name="newMdp">
 
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -126,6 +128,8 @@ if (isset($_POST['mdp'])) {
                 <div class="relative w-full">
                     <label class="text-h3" for="confNewMdp">Confirmation nouveau mot de passe</label>
                     <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                        pattern="(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$*"
+                        title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                         id="confNewMdp" name="confNewMdp">
 
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -133,7 +137,6 @@ if (isset($_POST['mdp'])) {
                 </div>
 
                 <span id="success-message" class="success text-green-600 text-small"></span>
-
                 <span id="error-message" class="error text-rouge-logo text-small"></span>
 
                 <input type="submit" id="save" href="" value="Modifier mon mot de passe"
