@@ -47,15 +47,15 @@ if (!function_exists('to_nom_note')) {
             for ($i = 0; $i < 5; $i++) {
                 if ($note >= 1) {
                     ?>
-                    <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
+                    <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
                     <?php
                 } else if ($note > 0) {
                     ?>
-                        <img class="w-3" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
+                        <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
                     <?php
                 } else {
                     ?>
-                        <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                        <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
                     <?php
                 }
                 $note--;
@@ -99,15 +99,15 @@ if (!function_exists('to_nom_note')) {
                         for ($i = 0; $i < 5; $i++) {
                             if ($note >= 1) {
                                 ?>
-                                <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
+                                <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
                                 <?php
                             } else if ($note > 0) {
                                 ?>
-                                    <img class="w-3" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
+                                    <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
                                 <?php
                             } else {
                                 ?>
-                                    <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                                    <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
                                 <?php
                             }
                             $note--;

@@ -184,7 +184,7 @@ if ($pro['data']['id_rib'] != null) {
                 <form action="" class="flex flex-col" method="post">
 
                     <label class="text-h3" for="num_siren">Numéro SIRET</label>
-                    <input id="num_siren" name="num_siren" pattern="^\d{14}$"
+                    <input id="num_siren" name="num_siren" pattern="^\d{3} \d{3} \d{3} \d{5}$"
                         title="Le numéro SIRET doit être composé de 14 chiffres" placeholder="Ex: 12345678901234"
                         value="<?php echo $pro['data']['numero_siren'] ?>"
                         class="border-2 border-secondary p-2 bg-white max-w-44 h-12 mb-3 rounded-lg">
