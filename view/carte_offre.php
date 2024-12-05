@@ -271,8 +271,8 @@ if ($mode_carte == 'membre') {
 		echo 'active' ?> relative max-w-[1280px] bg-base100 rounded-lg flex">
 
 			<!-- PARTIE DE GAUCHE, image-->
-			<a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>">
 			<div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
+				<a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>">
 				<?php
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
 				$controllerImage = new ImageController();
@@ -283,8 +283,8 @@ if ($mode_carte == 'membre') {
 				} else {
 					echo $categorie_offre . '.jpg';
 				} ?>' alt="Image promotionnelle de l'offre" title="Consulter les détails">
-			</div>
-		</a>
+			</a>
+		</div>
 
 		<!-- PARTIE DE DROITE (infos principales) -->
 		<div class="infos relative flex flex-col items-center basis-1/2 self-stretch px-5 py-3 justify-between">
