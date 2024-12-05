@@ -138,18 +138,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     const mdp = document.getElementById('mdp');
 
     // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-    togglePassword.addEventListener('mousedown', function () {
-        mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-        this.classList.remove('fa-eye'); // Change l'icône pour indiquer que le mot de passe est visible
-        this.classList.add('fa-eye-slash');
-    });
-
-    // Événement pour masquer le mot de passe lorsque l'utilisateur relâche le clic
-    togglePassword.addEventListener('mouseup', function () {
-        mdp.type = 'password'; // Change le type d'input pour masquer le mot de passe
-        this.classList.remove('fa-eye-slash'); // Réinitialise l'icône
-        this.classList.add('fa-eye');
-    });
+    if (togglePassword) {
+        togglePassword.addEventListener('onclick', function () {
+            if (mdp.type === 'password') {
+                mdp.type = 'text';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                mdp.type = 'password';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+    }
 </script>
 
 </html>
