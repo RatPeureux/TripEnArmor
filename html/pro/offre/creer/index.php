@@ -232,7 +232,7 @@ $pro = verifyPro();
 					$tags_id = $tagRestaurationController->getTagsRestaurantByName($tag);
 					$tag_id = $tags_id ? $tags_id[0]['id_tag_retaurant'] : $tagRestaurationController->createTag($tag);
 
-					$tagRestaurationRestaurantController->linkRestaurationAndTag($id_offre, $id_tag);
+					$tagRestaurationRestaurantController->linkRestaurationAndTag($id_offre, $tag_id);
 				}
 				echo "Tags Restaurant inséré<br>";
 			} else {
