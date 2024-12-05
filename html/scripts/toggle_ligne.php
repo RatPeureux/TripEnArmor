@@ -21,16 +21,15 @@ if (isset($_GET['id_offre'])) {
         $stmt->bindParam(':id_offre', $id_offre);
     }
     $stmt->execute();
-    $est_en_ligne = !$est_en_ligne;
+    $est_en_ligne = $est_en_ligne ? false : true;
 
-    var_dump($est_en_ligne);
-
-    $stmt = $dbh->prepare("INSERT INTO sae_db._log_changement_status (id_offre, enligne) VALUES (:id_offre, :en_ligne)");
+    $stmt = $dbh->prepare("INSERT INTO sae_db._log_changement_status (id_offre, enligne) VALUES (:id_offre, :en_ligne) RETURNING enligne");
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->bindParam(':en_ligne', $est_en_ligne);
     $stmt->execute();
-
-    echo $est_en_ligne;
+    $enligne = $stmt->fetch(PDO::FETCH_ASSOC)[0]['enligne'];
+    
+    echo $enligne;
 }
 header('Location: /pro');
 exit();
