@@ -227,7 +227,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <script src="/styles/config.js"></script>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+            src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr" ></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
         <script type="text/javascript" src="/scripts/formats.js" defer></script>
 
