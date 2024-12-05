@@ -365,7 +365,7 @@ if ($mode_carte == 'membre') {
                         }
                         ?>
                         <!-- modifier l'offre -->
-                        <a href="" title="Modifier l'offre">
+                        <a  title="Modifier l'offre">
                             <i class="fa-solid fa-gear text-secondary text-h1 hover:text-primary duration-100"></i>
                         </a>
                         <!-- détails de l'offre -->
@@ -446,17 +446,17 @@ if ($mode_carte == 'membre') {
                     <div class="flex flex-col items-center justify-around hidden">
                         <div class="flex italic justify-start gap-4">
                             <!-- Non vus -->
-                            <a title="Avis non consultés" href="" class="hover:text-primary">
+                            <a title="Avis non consultés"  class="hover:text-primary">
                                 <i class=" fa-solid fa-exclamation text-rouge-logo"></i>
                                 (0)
                             </a>
                             <!-- Non répondus -->
-                            <a title="Avis sans réponse" href="" class="hover:text-primary">
+                            <a title="Avis sans réponse"  class="hover:text-primary">
                                 <i class="fa-solid fa-reply-all text-rouge-logo"></i>
                                 (0)
                             </a>
                             <!-- Blacklistés -->
-                            <a title="Avis blacklistés" href="" class="hover:text-primary">
+                            <a title="Avis blacklistés"  class="hover:text-primary">
                                 <i class="fa-regular fa-eye-slash text-rouge-logo"></i>
                                 (0)
                             </a>

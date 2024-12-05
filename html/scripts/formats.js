@@ -46,7 +46,7 @@ function formatIban(input) {
         value = value.substring(4); // Enlever "FR76" pour ne pas répéter
     }
 
-    // Limiter la longueur de la valeur à 20 caractères maximum (car 4 caractères sont pour le préfixe FR76)
+    // Limiter la longueur de la valeur à 23 caractères maximum (car 4 caractères sont pour le préfixe FR76)
     if (value.length > 23) {
         value = value.substring(0, 23); // Limiter à 20 caractères pour le numéro de compte
     }
