@@ -172,7 +172,7 @@ if ($mode_carte == 'membre') {
 								$n--;
 							}
 							?>
-							<p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+							<!-- <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p> -->
 						</div>
 						<?php
 					}
