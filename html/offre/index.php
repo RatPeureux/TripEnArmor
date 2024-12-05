@@ -464,7 +464,10 @@ session_start();
                                     <i class="w-6 text-center fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?>
+                                        <p>
+                                            <?php
+                                            echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement']
+                                                ?>
                                         </p>
                                     </div>
                                 </div>

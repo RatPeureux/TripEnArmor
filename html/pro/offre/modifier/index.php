@@ -28,7 +28,7 @@ try {
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$titre = isset($_POST['titre']);
-		$code = isset($_POST['code']);
+		$code = isset($_POST['postal_code']);
 		$ville = isset($_POST['ville']);
 		$description = isset($_POST['description']);
 		$resume = isset($_POST['resume']);
@@ -105,7 +105,8 @@ try {
 	<script src="/styles/config.js"></script>
 	<script type="module" src="/scripts/main.js" defer></script>
 	<script src="//unpkg.com/alpinejs" defer></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 
 	<title>Modifier mon offre - Professionnel - PACT</title>
@@ -118,7 +119,7 @@ try {
 		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 rounded-xl">
 			<!-- Lien de retour avec une icône et un titre -->
 			<div class="w-full text-left">
-				<a href="#" onclick="history.back()" class="flex content-center space-x-">
+				<a onclick="history.back()" class="flex content-center space-x-">
 					<div class="m-4">
 						<i class="fa-solid fa-arrow-left fa-2xl w-4 h-4 mr-2"></i>
 					</div>

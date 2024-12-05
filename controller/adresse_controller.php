@@ -33,7 +33,7 @@ class AdresseController
         return $adresse;
     }
 
-    public function updateAdresse($id, $code_postal = false, $ville = false, $numero = false, $odonyme = false, $complement = false)
+    public function updateAdresse($id, $code_postal = false, $ville = false, $numero = null, $odonyme = null, $complement = null)
     {
         if ($ville === false && $numero === false && $odonyme === false && $complement === false) {
             echo "ERREUR : Aucun champ à modifier";
