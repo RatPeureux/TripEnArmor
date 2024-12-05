@@ -24,8 +24,6 @@ class tagRestaurantRestaurationController
         return $tags;
     }
 
-    public function linkRestaurationAndTag($id_restaurant, $id_tag)
-    {
-    }
+    public function linkRestaurationAndTag($id_restaurant, $id_tag) {}
 
 }
