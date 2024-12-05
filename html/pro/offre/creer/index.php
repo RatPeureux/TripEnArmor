@@ -1131,8 +1131,8 @@ $pro = verifyPro();
 								</div>
 
 								<div class="<?php if ($pro['data']['type'] === 'prive') {
-								echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
-							} ?> hidden w-full">
+									echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
+								} ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
 
 									<!-- CGU -->
@@ -1164,10 +1164,12 @@ $pro = verifyPro();
 										</div>
 									</div>
 
-									<div>
+									<div class="flex">
 										<div class="flex flex-col justify-center w-full">
 											<label for="start_date" class="text-nowrap">Début de la souscription :</label>
-											<input type="date" id="start_date" name="start_date" class="border border-secondary rounded-lg p-2 bg-white w-min" required oninput="validateMonday(this)">
+											<input type="date" id="start_date" name="start_date"
+												class="border border-secondary rounded-lg p-2 bg-white w-min" required
+												oninput="validateMonday(this)">
 											<script>
 												function validateMonday(input) {
 													const date = new Date(input.value);
@@ -1176,8 +1178,8 @@ $pro = verifyPro();
 														input.value = nextMonday.toISOString().split('T')[0];
 													}
 												}
-												
-												document.getElementById('start_date').addEventListener('focus', function(e) {
+
+												document.getElementById('start_date').addEventListener('focus', function (e) {
 													e.target.setAttribute('min', getNextMonday());
 												});
 
@@ -1194,7 +1196,19 @@ $pro = verifyPro();
 
 										<div class="flex flex-col justify-center w-full">
 											<label for="duration" class="text-nowrap">Durée de la souscription :</label>
-											<input type="number" id="duration" name="duration" min="1" max="4" class="border border-secondary rounded-lg p-2 bg-white w-min" required>
+											<input type="number" id="duration" name="duration" min="1" max="4" value="1"
+												class="border border-secondary rounded-lg p-2 bg-white w-min" required>
+											<script>
+
+												document.getElementById('duration').addEventListener('input', function (event) {
+													const value = parseInt(event.target.value, 10);
+													if (value < 1 || value > 4) {
+														event.target.setCustomValidity('La durée doit être comprise entre 1 et 4.');
+													} else {
+														event.target.setCustomValidity('');
+													}
+												});
+											</script>
 										</div>
 									</div>
 								</div>
