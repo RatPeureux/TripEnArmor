@@ -1138,7 +1138,7 @@ $pro = verifyPro();
 								</div>
 
 								<div class="<?php if ($pro['data']['type'] === 'prive') {
-									echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
+									// echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
 								} ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
 
