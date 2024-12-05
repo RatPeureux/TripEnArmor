@@ -104,36 +104,44 @@ $membre = verifyMember();
                     $avisController = new AvisController();
                     $tousMesAvis = $avisController->getAvisByIdMembre($id_membre);
 
-                if ($tousMesAvis) {
-                    foreach ($tousMesAvis as $avis) {
-                        // Savoir si l'offre correspondante est en ligne pour savoir si l'on peut cliquer sur l'avis
-                        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/offre.php';
-                        $offre = Offre::getOffreById($avis['id_offre']);
-                        $id_avis = $avis['id_avis']; ?>
+                    if (isset($_GET['sort']) && $_GET['sort'] === 'date-ascending') {
+                        usort($tousMesAvis, function ($a, $b) {
+                            return strtotime($a['date_publication']) - strtotime($b['date_publication']);
+                        });
+                    } else if (isset($_GET['sort']) && $_GET['sort'] === 'date-descending') {
+                        usort($tousMesAvis, function ($a, $b) {
+                            return strtotime($b['date_publication']) - strtotime($a['date_publication']);
+                        });
+                    }
 
-                        <div id="<?php if ($offre['est_en_ligne']) {
-                            echo "clickable_div_$id_avis";
-                        }
-                        ?>" class="shadow-lg <?php if (!$offre['est_en_ligne']) {
-                            echo 'opacity-50';
-                        } ?>" title="<?php if (!$offre['est_en_ligne']) {
-                             echo 'offre indisponible';
-                         } ?>">
+                    if ($tousMesAvis) {
+                        foreach ($tousMesAvis as $avis) {
+                            // Savoir si l'offre correspondante est en ligne pour savoir si l'on peut cliquer sur l'avis
+                            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/offre.php';
+                            $offre = Offre::getOffreById($avis['id_offre']);
+                            $id_avis = $avis['id_avis']; ?>
+
+                            <div id="<?php if ($offre['est_en_ligne']) {
+                                echo "clickable_div_$id_avis";
+                            }
+                            ?>" class="shadow-lg <?php if (!$offre['est_en_ligne']) {
+                                echo 'opacity-50';
+                            } ?>" title="<?php if (!$offre['est_en_ligne']) {
+                                echo 'offre indisponible';
+                            } ?>">
                             <?php
                             include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/mon_avis_view.php';
                             ?>
-                        </div>
+                            </div>
 
-                        <script>
-                            const clickableDiv = document.querySelector('#clickable_div_<?php echo $id_avis ?>');
-                            if (clickableDiv) {
-                                clickableDiv.addEventListener('click', function () {
-                                    window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
-                                });
-                            }
-                        </script>
-
-                            <?php
+                            <script>
+                                const clickableDiv = document.querySelector('#clickable_div_<?php echo $id_avis ?>');
+                                if (clickableDiv) {
+                                    clickableDiv.addEventListener('click', function () {
+                                        window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
+                                    });
+                                }
+                            </script><?php
                         }
                     } else {
                         ?>

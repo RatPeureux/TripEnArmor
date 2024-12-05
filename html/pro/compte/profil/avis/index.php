@@ -70,6 +70,16 @@ $pro = verifyPro();
             $avisController = new AvisController();
             $tousMesAvis = $avisController->getAvisByIdPro($pro['id_compte']);
 
+            if (isset($_GET['sort']) && $_GET['sort'] === 'date-ascending') {
+                usort($tousMesAvis, function ($a, $b) {
+                    return strtotime($a['date_publication']) - strtotime($b['date_publication']);
+                });
+            } else if (isset($_GET['sort']) && $_GET['sort'] === 'date-descending') {
+                usort($tousMesAvis, function ($a, $b) {
+                    return strtotime($b['date_publication']) - strtotime($a['date_publication']);
+                });
+            }
+
             if ($tousMesAvis) {
                 foreach ($tousMesAvis as $avis) {
                     $id_avis = $avis['id_avis'];

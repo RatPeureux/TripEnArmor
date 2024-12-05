@@ -40,6 +40,12 @@ class ImageController
 
     public function uploadImage($id_offre, $champ, $actual_path, $extension)
     {
+        echo "ID offre : " . $id_offre . "<br>";
+        echo "Champ : " . $champ . "<br>";
+        echo "Actual path : " . $actual_path . "<br>";
+        echo "Extension : " . $extension . "<br>";
+
+        
         if (!file_exists($this->uploadDir)) {
             mkdir($this->uploadDir, 0777, true);
         }

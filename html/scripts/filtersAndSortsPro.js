@@ -206,6 +206,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const filterState = {
         categories: [], // Catégories sélectionnées
         localisation: '', // Texte de localisation
+        note: ['0', '5'], // Note générale minimale et maximale
+        prix: ['0', document.getElementById('max-price-tab').max], // Prix minimal et maximal
+        gammes: [], // Gammes sélectionnées
         types: [], // Types d'offre séléctionnés
     };
 
@@ -237,6 +240,64 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    function filterOnNotes(device) {
+        const minNoteInputElement = document.getElementById('min-note-'+device);
+        const maxNoteInputElement = document.getElementById('max-note-'+device);
+    
+        minNoteInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.note[0] = minNoteInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFiltersPro();
+        });
+    
+        maxNoteInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.note[1] = maxNoteInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFiltersPro();
+        });
+    }
+
+    function filterOnPrices(device) {
+        const minPriceInputElement = document.getElementById('min-price-'+device);
+        const maxPriceInputElement = document.getElementById('max-price-'+device);
+    
+        minPriceInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.prix[0] = minPriceInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFiltersPro();
+        });
+    
+        maxPriceInputElement.addEventListener('input', () => {
+            // Mettre à jour la localisation dans l'état global
+            filterState.prix[1] = maxPriceInputElement.value.trim();
+    
+            // Appliquer les filtres croisés
+            applyFiltersPro();
+        });
+    }
+
+    function filterOnGammes(device) {
+        const checkboxes = document.querySelectorAll('#developped-f6-'+device+' input[type="checkbox"]');
+    
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                // Mettre à jour les catégories sélectionnées
+                filterState.gammes = Array.from(checkboxes)
+                    .filter(checkbox => checkbox.checked)
+                    .map(checkbox => checkbox.id.replace(/-tel|-tab/, ''));
+    
+                // Appliquer les filtres croisés
+                applyFiltersPro();
+            });
+        });
+    }
+
     function filterOnOfferTypes(device) {
         const checkboxes = document.querySelectorAll('#developped-f7-'+device+' input[type="checkbox"]');
     
@@ -256,25 +317,45 @@ document.addEventListener("DOMContentLoaded", function() {
     function applyFiltersPro() {
         const offres = document.querySelectorAll('.card');
         let anyVisible = false; // Variable pour suivre si une offre est visible
-
-        console.log(filterState);
     
         offres.forEach((offre) => {
             const category = offre.querySelector('.categorie').textContent.trim().replace(", ", "").replace(" d'", "_").toLowerCase();
             const localisation = offre.querySelector('.localisation');
             const city = localisation.querySelector('p:nth-of-type(1)').textContent.trim();
             const code = localisation.querySelector('p:nth-of-type(2)').textContent.trim();
-            const type = offre.querySelector('.type-offre').textContent.trim().toLowerCase();
-
-            console.log(category);
+            const note = offre.querySelector('.note');
+            const type = offre.querySelector('.type-offre').textContent.trim().toLowerCase().match(/type : (standard|premium)/)?.[1];
+            const price = offre.querySelector('.prix');
     
             // Vérifie les filtres actifs
-            const matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(category);
-            const matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
-            const matchesType = filterState.types.length === 0 || filterState.types.includes(type);
+            let matchesCategory = false;
+            if (category) {
+                matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(category);
+            }
+
+            let matchesLocalisation = false;
+            if (localisation) {
+                matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
+            }
+            
+            let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5');
+            if (note) {
+                matchesNote = filterState.note[0] <= note.getAttribute('title') && note.getAttribute('title') <= filterState.note[1];
+            }
+            
+            let matchesPrice = (filterState.prix[0] === '0' && filterState.prix[1] === document.getElementById('max-price-tab').max);
+            if (price) {
+                if (price.getAttribute('title') !== "Gamme des prix") {
+                    matchesPrice = filterState.prix[0] <= price.getAttribute('title').match(/Min (\d+)/)?.[1] && price.getAttribute('title').match(/Min (\d+)/)?.[1] <= filterState.prix[1];
+                } else {
+                    matchesPrice = filterState.gammes.length === 0 || filterState.gammes.includes(price.textContent.trim());
+                }
+            }
+
+            let matchesType = filterState.types.length === 0 || filterState.types.includes(type);
 
             // Appliquer les filtres croisés
-            if (matchesCategory && matchesLocalisation && matchesType) {
+            if (matchesCategory && matchesLocalisation && matchesNote && matchesPrice && matchesType) {
                 offre.classList.remove('!hidden');
                 anyVisible = true; // Au moins une offre est visible
             } else {
@@ -303,12 +384,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    syncInputs()
+    syncInputs();
 
     filterOnCategories('tab');
     filterOnCategories('tel');
     filterOnLocalisations('tab');
     filterOnLocalisations('tel');
+    filterOnNotes('tab');
+    filterOnNotes('tel');
+    filterOnPrices('tab');
+    filterOnPrices('tel');
+    filterOnGammes('tab');
+    filterOnGammes('tel');
     filterOnOfferTypes('tab');
     filterOnOfferTypes('tel');
 
