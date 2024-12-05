@@ -41,7 +41,7 @@ class TypeRepas extends BDD
     static function createTypeRepas($nom_type_repas)
     {
 
-        $query = "INSERT INTO " . self::$nom_table . "(nom) VALUES (?) RETURNING type_repas_id";
+        $query = "INSERT INTO " . self::$nom_table . " (nom) VALUES (?) RETURNING type_repas_id";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $nom_type_repas);
