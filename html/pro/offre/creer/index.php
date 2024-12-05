@@ -342,7 +342,7 @@ $pro = verifyPro();
 			// echo"Prix insérés.<br>";
 
 			BDD::commitTransaction();
-			header('location: /scripts/go_to_details.php?id_offre=$id_offre');
+			header('location: /scripts/go_to_details.php?id_offre=' . $id_offre);
 		} catch (Exception $e) {
 			// echo"Erreur lors de l'insertion : " . $e->getMessage();
 			BDD::rollbackTransaction();
@@ -409,9 +409,9 @@ $pro = verifyPro();
 							?>
 							<div
 								class="border border-<?php echo $cardColor; ?> rounded-lg flex-col justify-center w-full text-<?php echo $cardColor; ?> p-4 has-[:checked]:bg-<?php echo $cardColor; ?> has-[:checked]:text-white md:h-full <?php echo $cardVisible; ?>">
-								<input type="radio" name="type_offre" id="type_offre_<? echo $typeOffre['id_type_offre']; ?>"
-									value="<? echo $typeOffre['id_type_offre']; ?>" class="hidden">
-								<label for="type_offre_<? echo $typeOffre['id_type_offre']; ?>"
+								<input type="radio" name="type_offre" id="type_offre_<?php echo $typeOffre['id_type_offre']; ?>"
+									value="<?php echo $typeOffre['id_type_offre']; ?>" class="hidden">
+								<label for="type_offre_<?php echo $typeOffre['id_type_offre']; ?>"
 									class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
 									<div class="h-full divide-y divide-current">
 										<div>
