@@ -99,7 +99,7 @@ if ($mode_carte == 'membre') {
 			<!-- Infos principales -->
 			<div class='infos flex items-center justify-around gap-2 px-2 grow'>
 				<!-- Localisation -->
-				<div class='localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center min-w-1/5'>
+				<div class='localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center min-w-16'>
 					<i class='fa-solid fa-location-dot'></i>
 					<p class='text-small'><?php
 					if (strlen($ville) > 10) {
@@ -111,7 +111,7 @@ if ($mode_carte == 'membre') {
 				</div>
 				<hr class='h-20 border-black border'>
 				<!-- Description avec les tags-->
-				<div class='description py-2 flex flex-col gap-2 justify-center self-stretch min-w-3/5'>
+				<div class='description py-2 flex flex-col gap-2 justify-center self-stretch'>
 					<div class='p-1 rounded-lg bg-secondary self-center w-full'>
 						<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>
 							<?php
@@ -148,7 +148,7 @@ if ($mode_carte == 'membre') {
 				</div>
 				<hr class='h-20 border-black border'>
 				<!-- Notation et Prix -->
-				<div class='flex flex-col gap-2 justify-center items-center min-w-1/5'>
+				<div class='flex flex-col gap-2 justify-center items-center min-w-16'>
 					<?php
 					// Moyenne des notes quand il y en a une
 					if ($moyenne) {
