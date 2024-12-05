@@ -129,7 +129,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         const confMdp = document.getElementById('confMdp');
 
         if (togglePassword1) {
-            togglePassword1.addEventListener('onclick', function () {
+            togglePassword1.addEventListener('click', function () {
                 if (mdp.type === 'password') {
                     mdp.type = 'text';
                     this.classList.remove('fa-eye');
@@ -143,7 +143,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         }
 
         if (togglePassword2) {
-            togglePassword2.addEventListener('onclick', function () {
+            togglePassword2.addEventListener('click', function () {
                 if (confMdp.type === 'password') {
                     confMdp.type = 'text';
                     this.classList.remove('fa-eye');

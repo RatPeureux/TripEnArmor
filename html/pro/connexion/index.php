@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
     if (togglePassword) {
-        togglePassword.addEventListener('onclick', function () {
+        togglePassword.addEventListener('click', function () {
             if (mdp.type === 'password') {
                 mdp.type = 'text';
                 this.classList.remove('fa-eye');
