@@ -340,12 +340,9 @@ if ($mode_carte == 'membre') {
 						<?php
 						if ($est_en_ligne) {
 							?>
-							<a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>" <?php echo (($pro['data']['type'] === 'prive' && $pro['data']['id_rib'] === null)
-							   	?
-							   	("onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre {$titre_offre} en ligne\");'")
-							   	:
-							   	("onclick='return confirm(\"Voulez-vous vraiment mettre {$titre_offre} hors ligne ?\");'")
-							   ); ?> title=" [!!!] mettre hors-ligne">
+							<a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>"
+								onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?');"
+								title=" [!!!] mettre hors-ligne">
 								<svg class="toggle-wifi-offline p-1 rounded-lg border-rouge-logo hover:border-y-2 border-solid duration-100 hover:fill-[#EA4335]"
 									width="55" height="40" viewBox="0 0 40 32" fill="#0a0035">
 									<path
@@ -357,9 +354,14 @@ if ($mode_carte == 'membre') {
 							<?php
 						} else {
 							?>
-							<a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>"
-								onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> en ligne ?');"
-								title="[!!!] mettre en ligne">
+							<a 
+							<?php
+							if ($pro['data']['type'] == 'prive' and !is_null($pro['data']['id_rib'])) {
+								echo "href='/scripts/toggle_ligne.php?id_offre={$id_offre}' onclick='return confirm(\"Voulez-vous vraiment mettre {$titre_offre} hors ligne ?\");'";
+							} else {
+								echo "onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre {$titre_offre} en ligne\");'";
+							}
+							?> title="[!!!] mettre en ligne">
 								<svg class="toggle-wifi-online p-1 rounded-lg hover:fill-[#00350D] border-secondary hover:border-y-2 border-solid duration-100"
 									width="55" height="40" viewBox="0 0 40 32" fill="#EA4335">
 									<path
