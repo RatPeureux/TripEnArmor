@@ -101,7 +101,12 @@ if ($mode_carte == 'membre') {
 				<!-- Localisation -->
 				<div class='localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center'>
 					<i class='fa-solid fa-location-dot'></i>
-					<p class='text-small'><?php echo substr($ville, 0, 10); ?></p>
+					<p class='text-small'><?php 
+					if (strlen($ville) > 10) {
+						echo substr($ville, 0, length: 7) . '...';
+					} else {
+						echo $ville;
+					}?></p>
 					<p class='text-small'><?php echo $code_postal ?></p>
 				</div>
 				<hr class='h-20 border-black border'>
