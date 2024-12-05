@@ -568,6 +568,7 @@ $pro = verifyPro();
 								<div class="justify-between items-center w-full">
 									<label for="locality" class="text-nowrap">Ville :</label>
 									<input id="locality" name="locality"
+										type="text"
 										pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
 										title="Saisir votre ville" placeholder="Rennes"
 										class="border border-secondary rounded-lg p-2 bg-white w-full" required>
