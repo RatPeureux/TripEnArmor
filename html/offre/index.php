@@ -334,7 +334,7 @@ session_start();
 
 
                     <!-- Partie du bas de la page (toutes les infos pratiques) -->
-                    <div class="flex flex-col md:flex-row">
+                    <div class="flex flex-col md:flex-row w-full">
                         <!-- Partie description -->
                         <div class="partie-description flex flex-col basis-1/2">
                             <!-- Prix + localisation -->
