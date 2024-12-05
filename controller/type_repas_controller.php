@@ -26,11 +26,15 @@ class TypeRepasController
 
     public function getTypeRepasByName($name)
     {
-        $typeRepas = $this->model::getTypesRepasByName($name)[0];
+        $typeRepas = $this->model::getTypesRepasByName($name);
+
+        if (count($typeRepas) == 0) {
+            return false;
+        }
 
         $result = [
-            "type_repas_id" => $typeRepas["type_repas_id"],
-            "nom_type_repas" => $typeRepas["nom"],
+            "type_repas_id" => $typeRepas[0]["type_repas_id"],
+            "nom_type_repas" => $typeRepas[0]["nom"],
         ];
 
         return $result;
