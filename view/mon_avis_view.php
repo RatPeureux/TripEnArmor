@@ -51,11 +51,11 @@ if (!function_exists('to_nom_note')) {
                     <?php
                 } else if ($note > 0) {
                     ?>
-                        <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="1 point de note">
+                        <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
                     <?php
                 } else {
                     ?>
-                        <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="1 point de note">
+                        <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
                     <?php
                 }
                 $note--;
