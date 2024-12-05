@@ -22,6 +22,7 @@
             </a>
             <p class="text-h2">
                 <a href="/pro/compte">Mon compte</a>
+                >
                 <a href="pro/compte/facture" class="underline">Facture</a>
             </p>
         </div>
@@ -40,23 +41,16 @@
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/facture_controller.php';
         session_start();
-        $stmt = $dbh->prepare("SELECT * FROM sae_db._facture");
-        $stmt->execute();
-        $factures = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $numero = $factures[0]['numero'];
-        $designation = $factures[0]['designation'];
 
         $pro = verifyPro();
         $idPro = $_SESSION['id_pro'];
-        $factureController = new FactureController;
-        $facture = $factureController->getInfoFacture($numero, $designation);
 
         if (isset($_SESSION['id_pro'])) { 
             $stmtOffre = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true AND id_pro = :id_pro");
             $stmtOffre->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
             if ($stmtOffre->execute()) {
             $offresDuPro = $stmtOffre->fetchAll(PDO::FETCH_ASSOC);
-            // var_dump($offresDuPro); 
+            
             if (count($offresDuPro) > 0) {
                 echo "<p>Voici vos offres en ligne :</p>";
                 ?>
@@ -90,17 +84,16 @@
                         $stmtPro->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
                         $stmtPro->execute();
                         $proDetails = $stmtPro->fetch(PDO::FETCH_ASSOC);
-                        // print_r($proDetails);
+
                         $stmtAdresse = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :id_adresse");
                         $stmtAdresse->bindParam(':id_adresse', $proDetails['id_adresse'], PDO::PARAM_INT);
                         $stmtAdresse->execute();
                         $adresseDetails = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
-                        // var_dump($offre['id_offre']);
+
                         $stmtTypeOffre = $dbh->prepare("SELECT * FROM sae_db._type_offre WHERE id_type_offre = :id_type_offre");
                         $stmtTypeOffre->bindParam(':id_type_offre', $offre['id_type_offre'], PDO::PARAM_INT);
                         $stmtTypeOffre->execute();
                         $typeOffre = $stmtTypeOffre->fetch(PDO::FETCH_ASSOC);
-                        // var_dump($typeOffre);
                     ?>
                         <!-- En-tête Entreprise -->
                         <div class="flex flex-col justify-between">
