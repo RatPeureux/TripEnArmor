@@ -333,7 +333,7 @@ if ($mode_carte == 'membre') {
                         if ($est_en_ligne) {
                         ?>
                             <a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
-                                onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?');"
+                                <?php echo $pro['data']['type'] === 'prive' && $pro['data']['id_rib'] === null ? "onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre {$titre_offre} en ligne\");'" : "onclick='return confirm(\"Voulez-vous vraiment mettre {$titre_offre} hors ligne ?\");'";?>
                                 title=" [!!!] mettre hors-ligne">
                                 <svg class="toggle-wifi-offline p-1 rounded-lg border-rouge-logo hover:border-y-2 border-solid duration-100 hover:fill-[#EA4335]"
                                     width="55" height="40" viewBox="0 0 40 32" fill="#0a0035">
