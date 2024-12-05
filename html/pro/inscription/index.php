@@ -46,7 +46,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
                 <a href="/" class="w-full">
-                    <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
+                    <img class="relative mx-auto -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
 
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST"
@@ -241,7 +241,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <a href="/" class="w-full">
-                <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
+                <img class="relative mx-auto -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
             </a>
 
             <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST">
@@ -291,8 +291,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
                     <label class="text-small" for="num_siren">Numéro SIRET</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" id="num_siren" name="num_siren" pattern="^\d{14}$"
-                        title="Le numéro SIRET doit être composé de 14 chiffres" placeholder="Ex: 12345678901234"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" id="num_siren" name="num_siren"
+                        pattern="^\d{3} \d{3} \d{3} \d{5}$" title="Le numéro SIRET doit être composé de 14 chiffres"
+                        placeholder="Ex: 12345678901234"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
                 <?php } ?>
 
@@ -541,7 +542,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 // Exécuter la requête pour le professionnel
                 if ($stmtProfessionnel->execute()) {
                     header("location: /pro/connexion");
-                } 
+                }
             }
         }
     }

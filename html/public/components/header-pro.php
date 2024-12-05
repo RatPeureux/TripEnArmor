@@ -14,7 +14,7 @@
 
         <!-- Logo centré -->
         <a href="/pro" class="absolute left-1/2 transform -translate-x-1/2 flex gap-2 items-center">
-            <img src="/public/images/logo.svg" alt="Logo" width="50">
+            <img src="/public/icones/logo.svg" alt="Logo" width="50">
             <h1 class="font-cormorant uppercase whitespace-nowrap text-PACT">
                 <span class="hidden md:inline">PACT</span> Pro
             </h1>
