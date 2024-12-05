@@ -36,11 +36,13 @@ $stmt->execute();
 $categorie_offre = $stmt->fetch(PDO::FETCH_ASSOC)['type_offre'];
 
 
-// Obtenir la date de mise à jour
+// Obtenir les dates
 $est_en_ligne = $offre['est_en_ligne'];
 $date_mise_a_jour = $offre['date_mise_a_jour'];
-$date_mise_a_jour = new DateTime($date_mise_a_jour);
-$date_mise_a_jour = $date_mise_a_jour->format('d/m/Y');
+if (isset($date_mise_a_jour) && $date_mise_a_jour) {
+    $date_mise_a_jour = new DateTime($date_mise_a_jour);
+    $date_mise_a_jour = $date_mise_a_jour->format('d/m/Y');
+}
 
 
 // Obtenir le type de l'offre (gratuit, standard, premium)

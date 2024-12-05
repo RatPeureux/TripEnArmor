@@ -17,20 +17,22 @@ class ImageController
         ];
         $allImages = scandir($this->uploadDir);
 
-        foreach ($allImages as $image) {
-            $name = explode(".", $image)[0];
-            $subparts = explode("_", $name);
+        if ($allImages) {
+            foreach ($allImages as $image) {
+                $name = explode(".", $image)[0];
+                $subparts = explode("_", $name);
 
-            if ($subparts[0] == $id_offre) {
-                if ($subparts[1] == "carte") {
-                    $result["carte"] = $image;
-                } else if ($subparts[1] == "plan") {
-                    $result["plan"] = $image;
-                } else {
-                    if ($result["details"] === false) {
-                        $result["details"] = [];
+                if ($subparts[0] == $id_offre) {
+                    if ($subparts[1] == "carte") {
+                        $result["carte"] = $image;
+                    } else if ($subparts[1] == "plan") {
+                        $result["plan"] = $image;
+                    } else {
+                        if ($result["details"] === false) {
+                            $result["details"] = [];
+                        }
+                        $result["details"][] = $image;
                     }
-                    $result["details"][] = $image;
                 }
             }
         }

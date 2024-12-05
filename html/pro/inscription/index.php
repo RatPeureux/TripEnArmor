@@ -1,6 +1,5 @@
 <?php
 session_start(); // Démarre la session au début du script
-
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
 if (isConnectedAsPro()) {
@@ -20,6 +19,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     if (isset($_SESSION['data_en_cours_inscription']['num_tel'])) {
         $_SESSION['error'] = '';
     }
+    // Utile car utiliée plusieurs fois
+    $statut = isset($_SESSION['data_en_cours_inscription']['statut']) ? $_SESSION['data_en_cours_inscription']['statut'] : '';
     ?>
 
     <!DOCTYPE html>
@@ -55,12 +56,12 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Choix du statut de l'organisation -->
                     <label class="text-small" for="statut">Je suis un organisme&nbsp;</label>
                     <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="statut" name="statut"
-                        title="Sélécionner le statut de l'organisme" onchange="updateLabel()" required>
-                        <option value="" disabled <?php if ($_SESSION['data_en_cours_inscription']['statut'] == "")
+                        title="Sélécionner le statut de l'organisme (public OU privé)" onchange="updateLabel()" required>
+                        <option value="" disabled <?php if ($statut == "")
                             echo 'selected' ?>> --- </option>
-                            <option value="public" <?php if ($_SESSION['data_en_cours_inscription']['statut'] == "public")
+                            <option value="public" <?php if ($statut == "public")
                             echo 'selected'; ?>>public</option>
-                        <option value="privé" <?php if ($_SESSION['data_en_cours_inscription']['statut'] == "privé")
+                        <option value="privé" <?php if ($statut == "privé")
                             echo 'selected' ?>>privé</option>
                         </select>
                         <br>
@@ -68,25 +69,24 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         <!-- Champ pour le nom -->
                         <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
                         <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                            title="Saisir le nom de l'organisation" maxlength="100"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?>" required>
+                            title="Saisir le nom de l'organisation (max 100 caractères)" maxlength="100"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" required>
 
                     <!-- Champ pour l'adresse mail -->
                     <label class=" text-small" for="mail">Adresse mail</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="mail" id="mail" name="mail"
-                        pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$" title="Saisir une adresse mail valide"
-                        maxlength="255" value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?>" required>
+                        title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
+                        value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" required>
                     <!-- Message d'erreur pour l'adresse mail -->
-                    <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span>
+                    <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?? '' ?></span>
 
                     <!-- Champ pour le mot de passe -->
                     <div class="relative w-full">
                         <label class="text-small" for="mdp">Mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
-                            pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*"
+                            pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                            minlength="8" autocomplete="new-password"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>" required>
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword1"></i>
@@ -96,9 +96,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <div class="relative w-full">
                         <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp"
-                            name="confMdp" pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*"
-                            title="Confirmer le mot de passe saisit ci-dessus" minlength="8" autocomplete="new-password"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?>" required>
+                            name="confMdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
+                            title="Confirmer le mot de passe saisit ci-dessus"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword2"></i>
@@ -211,7 +211,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Variables utiles car souvent utilisées
-    $statut = $_SESSION['data_en_cours_inscription']['statut'];
+    $statut = isset($_SESSION['data_en_cours_inscription']['statut']) ? $_SESSION['data_en_cours_inscription']['statut'] : '';
     ?>
 
     <!DOCTYPE html>
@@ -229,6 +229,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
+        <script type="text/javascript" src="/scripts/formats.js" defer></script>
 
         <title>Création de compte - Professionnel - PACT</title>
     </head>
@@ -240,7 +241,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <a href="/" class="w-full">
-                <img class="relative ml-auto -top-5" src="/public/images/logo.svg" alt="moine" width="50">
+                <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
             </a>
 
             <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST">
@@ -255,40 +256,44 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Champ pour la dénomination sociale (en lecture seule) -->
                     <label class="text-small" for="nom" id="nom">Dénomination sociale</label>
                     <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                        title="Dénomination sociale" value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?>"
-                        readonly>
+                        title="Saisir votre dénomination sociale"
+                        value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" readonly>
                 <?php } else { ?>
                     <!-- Champ pour le nom de l'organisation (en lecture seule) -->
                     <label class="text-small" for="nom" id="nom">Nom de l'organisation</label>
                     <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
-                        title="Nom de l'organisation" value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?>"
+                        title="Nom de l'organisation" value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>"
                         readonly>
                 <?php } ?>
 
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                    title="Adresse mail" value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?>" readonly>
+                    title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" readonly>
 
                 <!-- Choix du type d'organisme public -->
-                <?php if ($statut == 'public') { ?>
+                <?php if ($statut == 'public') {
+                    $type_orga = isset($_SESSION['data_en_cours_inscription']['type_orga']) ? $_SESSION['data_en_cours_inscription']['type_orga'] : ''
+                        ?>
                     <label class="text-small" for="type_orga">Je suis une&nbsp;</label>
                     <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="type_orga" name="type_orga"
-                        title="Choisir le type de l'organisme" required>
-                        <option value="" disabled <?php if ($_SESSION['data_en_cours_inscription']['type_orga'] == '')
+                        title="Choisir le type de l'organisme (association OU autre)" required>
+                        <option value="" disabled <?php if ($type_orga == '')
                             echo 'selected'; ?>> --- </option>
-                        <option value="public" <?php if ($_SESSION['data_en_cours_inscription']['type_orga'] == 'association')
+                        <option value="public" <?php if ($type_orga == 'association')
                             echo 'selected'; ?>>association</option>
-                        <option value="privé" <?php if ($_SESSION['data_en_cours_inscription']['type_orga'] == 'organisation autre')
-                            echo 'selected'; ?>>organisation autre</option>
+                        <option value="privé" <?php if ($type_orga == 'organisation autre')
+                            echo 'selected'; ?>>organisation autre
+                        </option>
                     </select>
                     <br>
                 <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
                     <label class="text-small" for="num_siren">Numéro SIRET</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" oninput="formatSiren(this)" type="text"
-                        id="num_siren" name="num_siren" title="Saisir le numéro SIRET de l'organisation" minlength="17"
-                        maxlength="17" value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?>" required>
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" id="num_siren" name="num_siren" pattern="^\d{14}$"
+                        title="Le numéro SIRET doit être composé de 14 chiffres" placeholder="Ex: 12345678901234"
+                        value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
                 <?php } ?>
 
                 <!-- Champs pour l'adresse -->
@@ -296,42 +301,44 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
                     title="Saisir l'adresse de l'organisation" name="user_input_autocomplete_address"
                     placeholder="Ex : 10 Rue des Fleurs" maxlength="255"
-                    value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?>"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?? '' ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
-                    title="Saisir un complément d'adresse ?" maxlength="255" placeholder="Bâtiment A, Appartement 5"
-                    value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?>">
+                    title="Saisir un complément d'adresse (facultatif)" maxlength="255"
+                    placeholder="Bâtiment A, Appartement 5"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?? '' ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
                         <label class="text-small" for="postal_code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code"
-                            name="postal_code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Code postal"
-                            minlength="5" maxlength="5" oninput="number(this)"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['code'] ?>" required>
+                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" id="postal_code" name="postal_code"
+                            pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['postal_code'] ?? '' ?>" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="locality">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" name="locality"
-                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Ville"
-                            maxlength="50" value="<?php echo $_SESSION['data_en_cours_inscription']['ville'] ?>" required>
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" id="locality" name="locality"
+                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir votre ville"
+                            placeholder="Rennes"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['locality'] ?? '' ?>" required>
                     </div>
                 </div>
 
                 <!-- Champ pour le numéro de téléphone -->
                 <div class="w-full flex flex-col">
                     <label class="text-small" for="num_tel">Téléphone</label>
-                    <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
-                        pattern="^0\d( \d{2}){4}" title="Saisir un numéro de téléphone valide" minlength="14" maxlength="14"
-                        oninput="formatTEL(this)" value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?>"
-                        required>
+                    <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" id="num_tel" name="num_tel"
+                        pattern="^0\d( \d{2}){4}"
+                        title="Le numéro de téléphone doit commencer par un 0 et comporter 10 chiffres"
+                        placeholder="01 23 45 67 89"
+                        value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?? '' ?>" required>
                 </div>
                 <!-- Message d'erreur pour le téléphone -->
                 <?php
                 if (isset($_GET['invalid_phone_number'])) { ?>
-                    <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?></span>
+                    <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?? '' ?></span>
                     <?php
                 }
                 ?>
@@ -351,9 +358,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         <div id="iban-container" class="hidden">
                             <label class="text-small" for="iban">IBAN</label>
                             <input class="p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="iban" name="iban"
-                                pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Saisir un IBAN valide (FR seulement)"
-                                minlength="33" maxlength="33" oninput="formatIBAN(this)"
-                                value="<?php echo $_SESSION['data_en_cours_inscription']['iban'] ?>" disabled>
+                                pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Format : FRXX XXXX XXXX XXXX XXXX XXXX XXX"
+                                placeholder="FRXX XXXX XXXX XXXX XXXX XXXX XXX"
+                                value="<?php echo $_SESSION['data_en_cours_inscription']['iban'] ?? '' ?>">
                         </div>
                     </div>
                 <?php } ?>
@@ -373,27 +380,16 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                 <!-- Garder les informations de POST même si les champs ne sont plus visibles -->
-                <input type="hidden" name="statut" value="<?php echo $_SESSION['data_en_cours_inscription']['statut'] ?>">
-                <input type="hidden" name="mdp" value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>">
-                <input type="hidden" name="confMdp" value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?>">
+                <input type="hidden" name="statut"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['statut'] ?? '' ?>">
+                <input type="hidden" name="mdp" value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>">
+                <input type="hidden" name="confMdp"
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>">
             </form>
         </div>
     </body>
 
     <script>
-        // Fonction pour autoriser uniquement les chiffres dans l'input
-        function number(input) {
-            let value = input.value.replace(/[^0-9]/g, '');
-            input.value = value;
-        }
-
-        // Fonction pour formater le numéro de téléphone
-        function formatTEL(input) {
-            let value = input.value.replace(/[^0-9]/g, '');
-            const formattedValue = value.match(/.{1,2}/g)?.join(' ') || ''; // Formatage en paires de chiffres
-            input.value = formattedValue;
-        }
-
         // Fonction pour afficher ou masquer le champ IBAN
         function toggleIBAN() {
             const checkbox = document.getElementById('plus');
@@ -410,45 +406,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 iban.value = ''; // Supprime toute saisie
                 iban.disabled = true; // Désactive le champ
             }
-        }
-
-        function formatIBAN(input) {
-            let value = input.value.replace(/[^A-Z0-9]/g, ''); // Supprime tout sauf les lettres majuscules et les chiffres
-            const prefix = "FR76"; // Préfixe du pays (France)
-
-            // Si la chaîne a moins de 4 caractères, on vide le champ et on le réinitialise avec le préfixe
-            if (value.length < 4) {
-                input.value = prefix;
-                return;
-            }
-
-            // Si l'IBAN commence déjà par "FR76", on l'enlève pour éviter la duplication
-            if (value.startsWith(prefix)) {
-                value = value.substring(4); // Enlever "FR76" pour ne pas répéter
-            }
-
-            // Reconstitue l'IBAN avec le préfixe et formatage en groupes de 4 caractères
-            const formattedValue = (prefix + value).match(/.{1,4}/g)?.join(' ') || prefix;
-
-            // Met à jour la valeur dans le champ input
-            input.value = formattedValue;
-        }
-
-        function formatSiren(input) {
-            // Supprime tout ce qui n'est pas un chiffre
-            let value = input.value.replace(/\D/g, '');
-
-            // Limite à 14 caractères (9 pour le SIRET + 5 pour les caractères supplémentaires)
-            value = value.substring(0, 14);
-
-            // Ajoute les espaces tous les 3 chiffres pour les trois premiers groupes
-            let formatted = value
-                .replace(/(\d{3})(\d)/, '$1 $2') // Ajoute un espace après les 3 premiers chiffres
-                .replace(/(\d{3}) (\d{3})(\d)/, '$1 $2 $3') // Ajoute un espace après les 6 premiers chiffres
-                .replace(/(\d{3}) (\d{3}) (\d{3})(\d+)/, '$1 $2 $3 $4'); // Le reste (5 derniers caractères sans espace)
-
-            // Met à jour la valeur de l'input avec le format correct
-            input.value = formatted;
         }
     </script>
 
