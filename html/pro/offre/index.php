@@ -10,16 +10,18 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image" href="/public/images/favicon.png">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+        src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
+
+    <!-- Pour les requêtes ajax -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Détails d'une offre - PACT</title>
@@ -27,9 +29,16 @@ session_start();
 
 <body class="flex flex-col">
 
+    <!-- Inclusion du menu -->
+    <div id="menu-pro">
+        <?php
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        ?>
+    </div>
+
     <!-- Inclusion du header -->
     <?php
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
     ?>
 
     <?php
@@ -55,6 +64,43 @@ session_start();
         $nom_pro = $pro['nom_pro'];
     }
 
+    require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
+    $result = [
+        "id_compte" => "",
+        "nom_pro" => "",
+        "email" => "",
+        "tel" => "",
+        "id_adresse" => "",
+        "data" => [
+        ]
+    ];
+    $proController = new ProPriveController();
+
+    $proAuth = $proController->getInfosProPrive($pro['id_compte']);
+    if (!$proAuth) {
+        require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_public_controller.php";
+        $proController = new ProPublicController();
+        $proAuth = $proController->getInfosProPublic($pro['id_compte']);
+
+        $result["id_compte"] = $proAuth["id_compte"];
+        $result["nom_pro"] = $proAuth["nom_pro"];
+        $result["email"] = $proAuth["email"];
+        $result["tel"] = $proAuth["num_tel"];
+        $result["id_adresse"] = $proAuth["id_adresse"];
+        $result["data"]["type_orga"] = $proAuth["type_orga"];
+        $result["data"]["type"] = "public";
+
+    } else {
+        $result["id_compte"] = $proAuth["id_compte"];
+        $result["nom_pro"] = $proAuth["nom_pro"];
+        $result["email"] = $proAuth["email"];
+        $result["tel"] = $proAuth["tel"];
+        $result["id_adresse"] = $proAuth["id_adresse"];
+        $result["data"]["numero_siren"] = $proAuth["num_siren"];
+        $result["data"]["id_rib"] = $proAuth["id_rib"];
+        $result["data"]["type"] = "prive";
+    }
+
     // Obtenir l'ensemble des informations de l'offre
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
     $stmt->bindParam(':id_offre', $id_offre);
@@ -63,9 +109,27 @@ session_start();
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     switch ($categorie_offre) {
         case 'restauration':
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+
+            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
             $controllerRestauration = new RestaurationController();
-            $parc_attraction = $controllerRestauration->getInfosRestauration($id_offre);
+            $restauration = $controllerRestauration->getInfosRestauration($id_offre);
+
+            // Type de repas servis
+            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_type_repas_controller.php';
+            $controllerRestaurationType = new RestaurationTypeRepasController();
+            $restaurationListeId = $controllerRestaurationType->getTypesRepasBydIdRestaurant($id_offre);
+
+            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
+            $controllerTypeRepas = new TypeRepasController();
+            $tags_type_repas = '';
+            foreach ($restaurationListeId as $type) {
+                $type_repas[] = $controllerTypeRepas->getInfoTypeRepas($type['id_type_repas']);
+            }
+            foreach ($type_repas as $type_repa) {
+                $tags_type_repas .= $type_repa['nom'] . ', ';
+            }
+            $tags_type_repas = rtrim($tags_type_repas, ', ');
+
             break;
 
         case 'activite':
@@ -79,7 +143,15 @@ session_start();
             $duree_act = str_replace(':', 'h', $duree_act);
 
             // Prestations de l'activité
-            $prestation = $activite['prestations'];
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
+            $controllerActivitePrestation = new ActivitePrestationController();
+            $activitePrestations = $controllerActivitePrestation->getPrestationsByIdActivite($id_offre);
+
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_controller.php';
+            $controllerPrestation = new PrestationController();
+            foreach ($activitePrestations as $prestation) {
+                $prestations[] = $controllerPrestation->getPrestationById($prestation['id_prestation']);
+            }
 
             // Âge requis pour l'activité
             $age_requis_act = $activite['age_requis'];
@@ -130,96 +202,76 @@ session_start();
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
             $controllerSpectacle = new SpectacleController();
             $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
+            print_r($spectacle);
 
             // Durée du spectacle
+            echo $spectacle['duree'];
             $duree_spec = $spectacle['duree'];
             $duree_spec = substr($duree_spec, 0, -3);
             $duree_spec = str_replace(':', 'h', $duree_spec);
+            echo $duree_spec;
 
             // Capacité du spectacle
             $capacite = $spectacle['capacite'];
-
             break;
-
         default:
             break;
     }
 
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
     $controllerHoraire = new HoraireController();
-
-    // // VALEUR TEST CAR PAS DANS LA BDD
-    // $horairesV1 = [
-    //     "lundi" => [
-    //         "ouverture" => "08:00",
-    //         "pause_debut" => "12:00",
-    //         "pause_fin" => "14:00",
-    //         "fermeture" => "18:00",
-    //     ],
-    //     "mardi" => [
-    //         "ouverture" => "08:00",
-    //         "pause_debut" => "12:00",
-    //         "pause_fin" => "14:00",
-    //         "fermeture" => "18:00",
-    //     ],
-    //     "mercredi" => [
-    //         "ouverture" => "08:00",
-    //         "pause_debut" => "12:00",
-    //         "pause_fin" => "14:00",
-    //         "fermeture" => "18:00",
-    //     ],
-    //     "jeudi" => [
-    //         "ouverture" => "08:00",
-    //         "pause_debut" => "12:00",
-    //         "pause_fin" => "14:00",
-    //         "fermeture" => "18:00",
-    //     ],
-    //     "vendredi" => [
-    //         "ouverture" => "08:00",
-    //         "pause_debut" => "12:00",
-    //         "pause_fin" => "14:00",
-    //         "fermeture" => "18:00",
-    //     ],
-    //     "samedi" => [
-    //         "ouverture" => "08:00",
-    //         "pause_debut" => "12:00",
-    //         "pause_fin" => "14:00",
-    //         "fermeture" => "18:00",
-    //     ],
-    //     "dimanche" => [
-    //         "ouverture" => "08:00",
-    //         "pause_debut" => "12:00",
-    //         "pause_fin" => "14:00",
-    //         "fermeture" => "18:00",
-    //     ]
-    // ]; 
     $horaires = $controllerHoraire->getHorairesOfOffre($id_offre);
-    // foreach ($horaires as $jour => $horaire) {
-    //     echo "$jour : ";
-    //     foreach ($horaire as $key => $value) {
-    //         if ($value !== null) {
-    //             $horaire[$key] = substr($value, 0, -3);
-    //         }
-    //     }
-    //     print_r($horaire);
-    //     echo "<br>";
-    //     // ouverture-fermeture : 18:00-00:00
-    //     // ouverture-pause_debut pause_fin-fermeture : 18:00-22:00 22:01-00:00
-    // }
+
+    foreach ($horairesV1 as $jour => $horaire) {
+        $horaires['ouverture'][$jour] = $horaire['ouverture'];
+        $horaires['pause_debut'][$jour] = $horaire['pause_debut'];
+        $horaires['pause_fin'][$jour] = $horaire['pause_fin'];
+        $horaires['fermeture'][$jour] = $horaire['fermeture'];
+    }
+    $jour_semaine = date('l');
+    $jours_semaine_fr = [
+        'Monday' => 'lundi',
+        'Tuesday' => 'mardi',
+        'Wednesday' => 'mercredi',
+        'Thursday' => 'jeudi',
+        'Friday' => 'vendredi',
+        'Saturday' => 'samedi',
+        'Sunday' => 'dimanche'
+    ];
+
+    $jour_semaine = $jours_semaine_fr[$jour_semaine];
+    date_default_timezone_set('Europe/Paris');
+    $heure_actuelle = date('H:i');
+    $ouvert = false;
+
+    foreach ($horaires as $jour => $horaire) {
+        if ($jour == $jour_semaine) {
+            $ouverture = $horaire['ouverture'];
+            $fermeture = $horaire['fermeture'];
+            if ($ouverture !== null && $fermeture !== null) {
+                $fermeture_T = explode(':', $fermeture);
+                $fermeture_T[0] = $fermeture_T[0] + 24;
+                $fermeture_T = implode(':', $fermeture_T);
+                if ($heure_actuelle >= $ouverture && $heure_actuelle <= $fermeture_T) {
+                    if ($horaire['pause_debut'] !== null && $horaire['pause_fin'] !== null) {
+                        $pause_debut = $horaire['pause_debut'];
+                        $pause_fin = $horaire['pause_fin'];
+                        if ($heure_actuelle >= $pause_debut && $heure_actuelle <= $pause_fin) {
+                            $ouvert = false;
+                        } else {
+                            $ouvert = true;
+                        }
+                    } else {
+                        $ouvert = true;
+                    }
+                }
+            }
+        }
+    }
+
     if ($categorie_offre !== 'restauration') {
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
         $controllerGrilleTarifaire = new TarifPublicController();
-        // VALEUR TEST CAR PAS DANS LA BDD
-        $tarifs = [
-            [
-                "titre_tarif" => "Tarif adulte",
-                "prix" => 10
-            ],
-            [
-                "titre_tarif" => "Tarif enfant",
-                "prix" => 5
-            ]
-        ];
     }
 
     if ($categorie_offre == 'parc_attraction') {
@@ -229,14 +281,8 @@ session_start();
     }
     ?>
 
-    <main class="flex flex-col md:block md:mx-10 self-center rounded-lg md:p-2 max-w-[1280px] overflow-auto">
+    <main class="flex flex-col md:block md:mx-10 self-center md:p-2 max-w-[1280px] overflow-auto grow">
         <div class="flex md:gap-3">
-            <!-- PARTIE GAUCHE (menu) -->
-            <div id="menu">
-                <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
-                ?>
-            </div>
 
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
@@ -258,6 +304,13 @@ session_start();
                                 echo $categorie_offre . '.jpg';
                             } ?>' alt="image de slider">
                         </div>
+                        <div class="swiper-slide !w-full">
+                            <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
+                                echo "offres/" . $images['carte'];
+                            } else {
+                                echo $categorie_offre . '.jpg';
+                            } ?>' alt="image de slider">
+                        </div>
                         <?php
                         if ($images['details']) {
                             foreach ($images['details'] as $image) {
@@ -271,72 +324,128 @@ session_start();
                         }
                         ?>
                     </div>
-                    <!-- Boutons de navigation sur la slider -->
-                    <div class="flex items-center gap-8 justify-center">
-                        <a
-                            class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !left-5 !bg-primary !text-white after:!text-base">
-                        </a>
-                        <a
-                            class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !right-5 !bg-primary !text-white after:!text-base">
-                        </a>
-                    </div>
-                    <a href="#" onclick="history.back()"
-                        class="border absolute top-2 left-2 z-20 p-2 bg-blur/75 rounded-lg flex justify-center items-center"><i
-                            class="fa-solid fa-arrow-left text-h1"></i></a>
+
+                    <!-- Pagination en bas du slider -->
                     <div class="swiper-pagination"></div>
+
+                    <!-- Boutons de navigation sur la slider -->
+                    <?php if ($images['details']) { ?>
+                        <div class="flex items-center gap-8 justify-center">
+                            <a
+                                class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                ‹</a>
+                            <a
+                                class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                ›</a>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
 
+
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
-                <div class="flex flex-col gap-5 w-full">
-                    <div class="flex flex-row items-center">
-                        <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
-                        <p class="professionnel text-h1">&nbsp;- <?php echo $nom_pro ?></p>
-                    </div>
-                    <!-- Afficher les tags de l'offre -->
-                    <p class="text-small">
-                        <?php echo $resume ?>
-                    </p>
-
-                    <?php
-                    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
-                    $controllerTagOffre = new TagOffreController();
-                    $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
-
-                    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-                    $controllerTag = new TagController();
-                    $tagsAffiche = "";
-                    foreach ($tags_offre as $tag) {
-                        $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
-                    }
-                    foreach ($tagsListe as $tag) {
-                        $tagsAffiche .= $tag['nom'] . ', ';
-                    }
-
-                    $tagsAffiche = rtrim($tagsAffiche, ', ');
-                    if ($tags_offre) {
-                        ?>
-                        <div class="p-1 rounded-lg bg-secondary self-center w-full">
-                            <?php
-                            echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
-                            ?>
+                <div class="space-y-2 px-2 md:px-0 w-full">
+                    <div class="flex flex-col md:flex-row w-full">
+                        <div class="flex flex-col md:flex-row">
+                            <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
+                            <p class="hidden text-h1 md:flex md:pt-1">&nbsp;-&nbsp;</p>
+                            <p class="professionnel text-h1 md:pt-1"><?php echo $nom_pro ?></p>
                         </div>
+                    </div>
+                    <?php if ($ouvert == true) {
+                        ?>
+                        <p class="text-h3 font-bold text-green-500">Ouvert</p>
                         <?php
                     } else {
                         ?>
-                        <div class="p-1 rounded-lg bg-secondary self-center w-full">
-                            <?php
-                            echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
-                            ?>
-                        </div>
+                        <p class="text-h3 font-bold text-red-500">Fermé</p>
                         <?php
+                    }
+                    ?>
+                    <div class="w-full">
+                        <p class="text-small">
+                            <?php echo $resume ?>
+                        </p>
+                    </div>
+
+                    <!-- Afficher les tags de l'offre -->
+                    <?php
+                    if ($categorie_offre != 'restauration') {
+                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+                        $controllerTagOffre = new TagOffreController();
+                        $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+
+                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+                        $controllerTag = new TagController();
+                        $tagsAffiche = "";
+                        $tagsListe = [];
+                        foreach ($tags_offre as $tag) {
+                            array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
+                        }
+                        foreach ($tagsListe as $tag) {
+                            $tagsAffiche .= $tag['nom'] . ', ';
+                        }
+
+                        $tagsAffiche = rtrim($tagsAffiche, ', ');
+                        if ($tags_offre) {
+                            ?>
+                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                                <?php
+                                echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
+                                ?>
+                            </div>
+                            <?php
+                        } else {
+                            ?>
+                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                                <?php
+                                echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
+                                ?>
+                            </div>
+                            <?php
+                        }
+                    } else {
+                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
+                        $controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
+                        $tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
+
+                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+                        $controllerTagRest = new TagRestaurantController();
+                        $tagsAffiche = "";
+                        foreach ($tags_offre as $tag) {
+                            $tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
+                        }
+                        foreach ($tagsListe as $tag) {
+                            $tagsAffiche .= $tag[0]['nom'] . ', ';
+                        }
+
+                        $tagsAffiche = rtrim($tagsAffiche, ', ');
+                        if ($tags_offre) {
+                            ?>
+                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                                <?php
+                                echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
+                                ?>
+                            </div>
+                            <?php
+                        } else {
+                            ?>
+                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                                <?php
+                                echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
+                                ?>
+                            </div>
+                            <?php
+                        }
                     }
                     ?>
 
 
                     <!-- Partie du bas de la page (toutes les infos pratiques) -->
-                    <div class="flex flex-row gap-4">
+                    <div class="flex flex-col md:flex-row w-full">
                         <!-- Partie description -->
-                        <div class="partie-description flex flex-col basis-1/2">
+                        <div class="partie-description flex flex-col basis-1/2 pr-2">
                             <!-- Prix + localisation -->
                             <div class="flex flex-col space-y-2 md:gap-4">
                                 <p class="text-h4 font-bold">À propos</p>
@@ -344,7 +453,10 @@ session_start();
                                     <i class="w-6 text-center fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?>
+                                        <p>
+                                            <?php
+                                            echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement']
+                                                ?>
                                         </p>
                                     </div>
                                 </div>
@@ -354,8 +466,9 @@ session_start();
                                 </div>
                             </div>
                             <!-- Description détaillée -->
-                            <div class="description flex flex-col my-4">
-                                <p class="text-justify text-small px-2">
+                            <div class="description flex flex-col space-y-2 my-4">
+                                <p class="text-h4 font-bold">Description</p>
+                                <p class="text-justify text-small px-2 prose">
                                     <?php echo $description ?>
                                 </p>
                             </div>
@@ -368,16 +481,6 @@ session_start();
                                 <div class="flex flex-row justify-between" id="horaire-button">
                                     <div class="flex font-bold">
                                         <p class="text-h4 font-bold">Horaires&nbsp;</p>
-                                        <?php if ($ouvert) {
-                                            ?>
-                                            <p class="text-h4 text-green-500">&nbsp;Ouvert</p>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <p class="text-h4 text-red-500">&nbsp;Fermé</p>
-                                            <?php
-                                        }
-                                        ?>
                                     </div>
                                     <p id="horaire-arrow">></p>
                                 </div>
@@ -391,7 +494,7 @@ session_start();
                                             }
                                         }
                                         if ($horaire['ouverture'] == null) {
-                                            echo "Fermé";
+                                            echo "Fermé <br>";
                                         } else {
                                             if ($horaire['pause_debut'] == null) {
                                                 echo $horaire['ouverture'] . ' - ' . $horaire['fermeture'];
@@ -406,15 +509,16 @@ session_start();
                             </a>
                             <a class="">
                                 <div class="flex flex-row justify-between pt-3" id="compl-button">
-                                    <p class="text-h4 font-bold">Informations complémentaires</p>
+                                    <p class="text-h4 font-bold ">Informations complémentaires</p>
                                     <p id="compl-arrow">></p>
                                 </div>
                                 <div class="flex flex-col py-3 hidden" id="compl-info">
                                     <?php
-                                    switch ($categorie_offre) { # TODO: faire plusieurs if plutot que des switch
+                                    switch ($categorie_offre) {
                                         case 'restauration':
+
                                             // VALEUR TEST CAR PAS DANS LA BDD
-                                            $tags_type_repas = 'Petit-dej, Brunch, Déjeuner, Dîner, Goûter';
+                                    
                                             ?>
                                             <div class="text-small flex flex-row">
                                                 <p class="text-small">Repas servis&nbsp:&nbsp</p>
@@ -429,9 +533,16 @@ session_start();
                                                 <p>Durée&nbsp:&nbsp</p>
                                                 <p><?php echo $duree_act ?></p>
                                             </div>
-                                            <p class="text-small">Âge requis <?php echo $age_requis_act ?> ans</p>
+                                            <p class="text-small">Âge requis&nbsp;:&nbsp;<?php echo $age_requis_act ?> ans</p>
                                             <div class="text-small">
-                                                <?php echo $prestation ?>
+                                                <?php foreach ($prestations as $presta) {
+                                                    if ($presta['inclus'] == 1) {
+                                                        $presta['inclus'] = 'inclus';
+                                                    } else {
+                                                        $presta['inclus'] = 'non inclus';
+                                                    }
+                                                    echo $presta['nom'] . ' : ' . $presta['inclus'] . '<br>';
+                                                } ?>
                                             </div>
 
                                             <?php
@@ -451,7 +562,7 @@ session_start();
                                             <?php
                                             if ($images) {
                                                 ?>
-                                                <img src="/public/images/<?php echo $images['plan']; ?>" alt="">
+                                                <img src="/public/images/offres/<?php echo $images['plan']; ?>" alt="">
                                                 <?php
                                             } else {
                                                 ?>
@@ -471,10 +582,12 @@ session_start();
                                                 <p>Visite guidée :&nbsp</p>
                                                 <p><?php echo $guide ?></p>
                                             </div>
-                                            <div class="text-small">
-                                                <p>Langue(s) parlée(s) lors de la visite guidée :&nbsp <?php echo $langues ?>
-                                                </p>
-                                            </div>
+                                            <?php if ($guideBool == true) { ?>
+                                                <div class="text-small">
+                                                    <p>Langue(s) parlée(s) lors de la visite guidée :&nbsp <?php echo $langues ?>
+                                                    </p>
+                                                </div>
+                                            <?php } ?>
                                             <?php
                                             break;
 
@@ -502,7 +615,7 @@ session_start();
                                 </div>
                             </a>
                             <?php
-                            if ($categorie_offre != 'restauration') {
+                            if ($categorie_offre != 'restauration' && $proAuth['type_orga'] != 'public') {
                                 ?>
                                 <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
@@ -510,24 +623,18 @@ session_start();
                                         <p id="grille-arrow">></p>
                                     </div>
                                     <div class="hidden text-small py-3" id="grille-info">
-                                        <table class="">
-                                            <tbody>
-                                                <?php
-                                                foreach ($tarifs as $tarif) {
-                                                    ?>
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <?php echo $tarif['titre_tarif'] ?> :
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <?php echo $tarif['prix'] ?> €
-                                                        </td>
-                                                    </tr>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
+                                        <?php
+                                        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
+                                        $controllerTarifPublic = new TarifPublicController();
+                                        $tarifs = $controllerTarifPublic->getTarifsByIdOffre($id_offre);
+                                        foreach ($tarifs as $tarif) {
+                                            ?>
+
+                                            <?php echo $tarif['titre'] ?> :&nbsp;
+                                            <?php echo $tarif['prix'] ?> € <br>
+                                            <?php
+                                        }
+                                        ?>
                                     </div>
                                 </a>
                                 <?php
@@ -537,7 +644,38 @@ session_start();
                             <!-- Partie avis -->
                             <div class="mt-5 flex flex-col gap-2">
 
-                                <h3 class="text-h4 font-bold">Avis</h3>
+                                <div class="w-full flex justify-between">
+                                    <h3 class="text-h4 font-bold">Avis</h3>
+                                    <?php
+                                    // Moyenne des notes quand il y en a une
+                                    if ($moyenne) { ?>
+                                        <div class="flex gap-1">
+                                            <div class="flex gap-1 shrink-0">
+                                                <?php for ($i = 0; $i < 5; $i++) {
+                                                    if ($moyenne > 1) {
+                                                        ?>
+                                                        <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
+                                                        <?php
+                                                    } else if ($moyenne > 0) {
+                                                        ?>
+                                                            <img class="w-3" src="/public/icones/oeuf_moitie.svg"
+                                                                alt="0.5 point de note">
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                            <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                                                        <?php
+                                                    }
+                                                    $moyenne--;
+                                                }
+                                                ?>
+                                            </div>
+                                            <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
 
                                 <?php
                                 if (isset($_SESSION['id_membre'])) {
@@ -573,12 +711,13 @@ session_start();
                                                 <!-- Titre de l'avis -->
                                                 <div>
                                                     <label for="titre">Titre</label>
-                                                    <input type="text" name="titre" placeholder="Titre de l'avis"
+                                                    <input type="text" name="titre" id="titre" placeholder="Titre de l'avis"
                                                         class="w-full border border-black rounded-lg p-1" required>
                                                 </div>
 
                                                 <!-- Commentaire de l'avis -->
-                                                <textarea type="commentaire" name="commentaire" placeholder="Votre commentaire"
+                                                <textarea type="commentaire" name="commentaire" id="commentaire"
+                                                    placeholder="Votre commentaire"
                                                     class="w-full border border-black rounded-lg p-1"></textarea>
 
                                                 <!-- Note globale donnée (pour toutes les offres) -->
