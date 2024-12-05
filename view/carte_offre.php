@@ -69,8 +69,8 @@ if ($mode_carte == 'membre') {
 	Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 -->
 	<a class="card <?php if ($option) {
-			echo "active rounded-lg";
-		} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
+		echo "active rounded-lg";
+	} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
 		<!-- CARTE VERSION TÉLÉPHONE -->
 		<div class='md:hidden relative bg-base100 rounded-xl flex flex-col'>
@@ -101,19 +101,19 @@ if ($mode_carte == 'membre') {
 				<!-- Localisation -->
 				<div class='localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center'>
 					<i class='fa-solid fa-location-dot'></i>
-					<p class='text-small'><?php 
+					<p class='text-small'><?php
 					if (strlen($ville) > 10) {
 						echo substr($ville, 0, length: 7) . '...';
 					} else {
 						echo $ville;
-					}?></p>
+					} ?></p>
 					<p class='text-small'><?php echo $code_postal ?></p>
 				</div>
 				<hr class='h-20 border-black border'>
 				<!-- Description avec les tags-->
 				<div class='description py-2 flex flex-col gap-2 justify-center self-stretch'>
 					<div class='p-1 rounded-lg bg-secondary self-center w-full'>
-						<p class='text-white text-center'>
+						<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>
 							<?php
 							require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
 							$controllerTagOffre = new TagOffreController();
@@ -135,10 +135,7 @@ if ($mode_carte == 'membre') {
 
 							$tagsAffiche = rtrim($tagsAffiche, characters: ', ');
 							if ($tags_offre) {
-								?>
-							<p class="tags text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?>
-							</p>
-							<?php
+								echo $tagsAffiche;
 							} else {
 								echo 'Aucun tag';
 							}
