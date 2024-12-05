@@ -1149,7 +1149,7 @@ $pro = verifyPro();
 									<div
 										class="flex flex-row mb-4 content-center justify-between items-center text-secondary w-full">
 										<!-- Sans option -->
-										<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+										<div class="w-fit p-2 rounded-lg border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold text-lg"
 											id="option-rien-div">
 											<input type="radio" id="option-rien" name="option" value="1" class="hidden"
 												checked="true" />
@@ -1192,7 +1192,7 @@ $pro = verifyPro();
 
 												document.getElementById('start_date').addEventListener('focus', function (e) {
 													e.target.setAttribute('min', getNextMonday());
-													e.target.setAttribute('value', getNextMonday());
+													e.target.value = getNextMonday();
 												});
 
 												function getNextMonday() {
