@@ -285,7 +285,7 @@ session_start();
                 </div>
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
-                <div class="space-y-4 px-2 md:px-0">
+                <div class="space-y-4 px-2 md:px-0 w-full">
                     <div class="flex flex-col md:flex-row md:items-center">
                         <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
                         <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
