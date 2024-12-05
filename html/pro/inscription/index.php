@@ -46,7 +46,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
                 <a href="/" class="w-full">
-                    <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
+                    <img class="relative mx-auto -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
 
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST"
@@ -227,7 +227,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <script src="/styles/config.js"></script>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
+            src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr" ></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
         <script type="text/javascript" src="/scripts/formats.js" defer></script>
 
@@ -241,7 +241,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <a href="/" class="w-full">
-                <img class="relative mx-auto -top-8" src="/public/images/logo.svg" alt="moine" width="108">
+                <img class="relative mx-auto -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
             </a>
 
             <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST">
@@ -291,8 +291,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
                     <label class="text-small" for="num_siren">Numéro SIRET</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" id="num_siren" name="num_siren" pattern="^( \d{3}){3)$"
-                        title="Le numéro SIRET doit être composé de 14 chiffres" placeholder="Ex: 12345678901234"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" id="num_siren" name="num_siren"
+                        pattern="^\d{3} \d{3} \d{3} \d{5}$" title="Le numéro SIRET doit être composé de 14 chiffres"
+                        placeholder="Ex: 12345678901234"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
                 <?php } ?>
 
@@ -508,9 +509,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
 
                 // Exécuter la requête pour le professionnel
-                if ($stmtProfessionnel->execute()) {
-                    header("location: /pro/connexion");
-                }
+                $stmtProfessionnel->execute();
             } else {
                 // Extraire les valeurs du RIB à partir de l'IBAN
                 $id_rib = -1;
@@ -539,15 +538,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 }
 
                 // Exécuter la requête pour le professionnel
-                if ($stmtProfessionnel->execute()) {
-                    header("location: /pro/connexion");
-                } 
+                $stmtProfessionnel->execute();
             }
         }
     }
 
     // Quand tout est bien réalisé, rediriger vers l'accueil du pro en étant connecté
-    $_SESSION['id_pro'] = $id_pro;
+    $_SESSION['id_pro'] = $dbh->lastInsertId();
     unset($_SESSION['id_membre']);
     header("location: /pro");
 } ?>

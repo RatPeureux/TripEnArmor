@@ -568,12 +568,14 @@ $pro = verifyPro();
 								<div class="justify-between items-center w-full">
 									<label for="locality" class="text-nowrap">Ville :</label>
 									<input id="locality" name="locality"
+										type="text"
 										pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
 										title="Saisir votre ville" placeholder="Rennes"
 										class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 
 									<label for="postal_code" class="text-nowrap">Code postal :</label>
 									<input id="postal_code" name="postal_code"
+										type="number"
 										pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345"
 										placeholder="12345"
 										class="border border-secondary rounded-lg p-2 bg-white w-24 w-full" required>
