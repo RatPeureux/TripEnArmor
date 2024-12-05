@@ -291,7 +291,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
                     <label class="text-small" for="num_siren">Numéro SIRET</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" id="num_siren" name="num_siren" pattern="^\d{14}$"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" id="num_siren" name="num_siren" pattern="^( \d{3}){3)$"
                         title="Le numéro SIRET doit être composé de 14 chiffres" placeholder="Ex: 12345678901234"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
                 <?php } ?>
