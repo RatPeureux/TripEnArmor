@@ -182,8 +182,3 @@ foreach( $souscription_options as $souscription) {
         break;
     }
 }
-$options = explode(',', substr($souscription_options[0]['row'], 1, -1));
-
-var_dump($souscription_options);
-
-var_dump($option);
