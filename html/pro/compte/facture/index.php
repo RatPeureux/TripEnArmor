@@ -56,6 +56,9 @@ $pro = verifyPro();
             $numero = $factures[0]['numero'];
             $designation = $factures[0]['designation'];
 
+            $numero = "2024-FAC-0001";
+            $date_emission = "01/12/2024";
+
             $idPro = $_SESSION['id_pro'];
             $factureController = new FactureController;
             $facture = $factureController->getInfoFacture($numero, $designation);
@@ -140,12 +143,17 @@ $pro = verifyPro();
     
 
                         <!-- Informations Facture -->
-                        <div class="mt-5">
-                        <h1 class="text-2xl font-bold">Facture N° <?php echo htmlspecialchars($numero); ?></h1>
-                        <p>Date d'émission : <?php echo htmlspecialchars($facture['date_emission']); ?></p>
-                        <p>Règlement : Le premier de chaque mois </p>
-                        </div>
-
+                            <div class="mt-5">
+                                <h1 class="text-2xl"><?php echo htmlspecialchars($offre['titre']) ?></p>
+                                <br>
+                                <h1 class="text-xl">Facture N° <?php echo htmlspecialchars($numero); ?></h1>
+                                <p>Date d'émission : <?php echo htmlspecialchars($date_emission); ?></p>
+                                <p>Règlement : Le premier de chaque mois </p>
+                            </div>
+                            <div class="mt-5">
+                                
+                            </div>
+                        
                         <!-- Tableau de détails -->
                         <table class="w-full mt-5 border-collapse border border-gray-300">
                         <thead class="bg-blue-200">
