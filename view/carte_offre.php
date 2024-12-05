@@ -119,78 +119,76 @@ if ($mode_carte == 'membre') {
 				<!-- Description avec les tags-->
 				<div class='description py-2 flex flex-col gap-2 justify-center self-stretch'>
 					<div class='p-1 rounded-lg bg-secondary self-center w-full'>
-						<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>
-							<?php
-							if ($categorie_offre != 'restauration') {
-								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
-								$controllerTagOffre = new TagOffreController();
-								$tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+						<?php
+						if ($categorie_offre != 'restauration') {
+							require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+							$controllerTagOffre = new TagOffreController();
+							$tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
 
-								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-								$controllerTag = new TagController();
-								$tagsAffiche = "";
-								$tagsListe = [];
-								foreach ($tags_offre as $tag) {
-									array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
-								}
-								foreach ($tagsListe as $tag) {
-									$tagsAffiche .= $tag['nom'] . ', ';
-								}
-
-								$tagsAffiche = rtrim($tagsAffiche, ', ');
-								if ($tags_offre) {
-									?>
-								<div class="p-1 rounded-lg bg-secondary self-center w-full">
-									<?php
-									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-									?>
-								</div>
-								<?php
-								} else {
-									?>
-								<div class="p-1 rounded-lg bg-secondary self-center w-full">
-									<?php
-									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-									?>
-								</div>
-								<?php
-								}
-							} else {
-								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
-								$controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
-								$tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
-
-								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
-								$controllerTagRest = new TagRestaurantController();
-								$tagsAffiche = "";
-								foreach ($tags_offre as $tag) {
-									$tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
-								}
-								foreach ($tagsListe as $tag) {
-									$tagsAffiche .= $tag[0]['nom'] . ', ';
-								}
-
-								$tagsAffiche = rtrim($tagsAffiche, ', ');
-								if ($tags_offre) {
-									?>
-								<div class="p-1 rounded-lg bg-secondary self-center w-full">
-									<?php
-									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-									?>
-								</div>
-								<?php
-								} else {
-									?>
-								<div class="p-1 rounded-lg bg-secondary self-center w-full">
-									<?php
-									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-									?>
-								</div>
-								<?php
-								}
+							require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+							$controllerTag = new TagController();
+							$tagsAffiche = "";
+							$tagsListe = [];
+							foreach ($tags_offre as $tag) {
+								array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
 							}
-							?>
-						</p>
+							foreach ($tagsListe as $tag) {
+								$tagsAffiche .= $tag['nom'] . ', ';
+							}
+
+							$tagsAffiche = rtrim($tagsAffiche, ', ');
+							if ($tags_offre) {
+								?>
+								<div class="p-1 rounded-lg bg-secondary self-center w-full">
+									<?php
+									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+									?>
+								</div>
+								<?php
+							} else {
+								?>
+								<div class="p-1 rounded-lg bg-secondary self-center w-full">
+									<?php
+									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+									?>
+								</div>
+								<?php
+							}
+						} else {
+							require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
+							$controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
+							$tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
+
+							require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+							$controllerTagRest = new TagRestaurantController();
+							$tagsAffiche = "";
+							foreach ($tags_offre as $tag) {
+								$tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
+							}
+							foreach ($tagsListe as $tag) {
+								$tagsAffiche .= $tag[0]['nom'] . ', ';
+							}
+
+							$tagsAffiche = rtrim($tagsAffiche, ', ');
+							if ($tags_offre) {
+								?>
+								<div class="p-1 rounded-lg bg-secondary self-center w-full">
+									<?php
+									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+									?>
+								</div>
+								<?php
+							} else {
+								?>
+								<div class="p-1 rounded-lg bg-secondary self-center w-full">
+									<?php
+									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+									?>
+								</div>
+								<?php
+							}
+						}
+						?>
 					</div>
 					<p class='overflow-hidden line-clamp-2 text-small'>
 						<?php echo $resume ?>
@@ -303,32 +301,73 @@ if ($mode_carte == 'membre') {
 						<div class='p-1 rounded-lg bg-secondary self-center w-full'>
 							<p class='text-white text-center'>
 								<?php
-								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
-								$controllerTagOffre = new TagOffreController();
-								$tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+								if ($categorie_offre != 'restauration') {
+									require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+									$controllerTagOffre = new TagOffreController();
+									$tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
 
-								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-								$controllerTag = new TagController();
-								$tagsListe = [];
-								$tagsAffiche = "";
+									require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+									$controllerTag = new TagController();
+									$tagsAffiche = "";
+									$tagsListe = [];
+									foreach ($tags_offre as $tag) {
+										array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
+									}
+									foreach ($tagsListe as $tag) {
+										$tagsAffiche .= $tag['nom'] . ', ';
+									}
 
-								foreach ($tags_offre as $tag) {
-									$tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
-								}
-
-								foreach ($tagsListe as $tag) {
-									$tagsAffiche .= $tag['nom'] . ', ';
-								}
-
-								$tagsAffiche = rtrim($tagsAffiche, characters: ', ');
-								if ($tags_offre) {
-									?>
-								<p class="tags text-white text-center overflow-ellipsis line-clamp-1">
-									<?php echo $tagsAffiche; ?>
-								</p>
-								<?php
+									$tagsAffiche = rtrim($tagsAffiche, ', ');
+									if ($tags_offre) {
+										?>
+									<div class="p-1 rounded-lg bg-secondary self-center w-full">
+										<?php
+										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+										?>
+									</div>
+									<?php
+									} else {
+										?>
+									<div class="p-1 rounded-lg bg-secondary self-center w-full">
+										<?php
+										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+										?>
+									</div>
+									<?php
+									}
 								} else {
-									echo 'Aucun tag';
+									require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
+									$controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
+									$tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
+
+									require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+									$controllerTagRest = new TagRestaurantController();
+									$tagsAffiche = "";
+									foreach ($tags_offre as $tag) {
+										$tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
+									}
+									foreach ($tagsListe as $tag) {
+										$tagsAffiche .= $tag[0]['nom'] . ', ';
+									}
+
+									$tagsAffiche = rtrim($tagsAffiche, ', ');
+									if ($tags_offre) {
+										?>
+									<div class="p-1 rounded-lg bg-secondary self-center w-full">
+										<?php
+										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+										?>
+									</div>
+									<?php
+									} else {
+										?>
+									<div class="p-1 rounded-lg bg-secondary self-center w-full">
+										<?php
+										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+										?>
+									</div>
+									<?php
+									}
 								}
 								?>
 							</p>
@@ -490,37 +529,76 @@ if ($mode_carte == 'membre') {
 				<div class=" description py-2 flex flex-col gap-2 w-full">
 					<div class="flex justify-center relative">
 						<div class="p-2 rounded-lg bg-secondary self-center w-full">
-							<p class="text-white text-center">
-								<?php
+							<?php
+							if ($categorie_offre != 'restauration') {
 								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
 								$controllerTagOffre = new TagOffreController();
 								$tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
 
 								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
 								$controllerTag = new TagController();
-								$tagsListe = [];
 								$tagsAffiche = "";
-
+								$tagsListe = [];
 								foreach ($tags_offre as $tag) {
-									$tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
+									array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
 								}
-
 								foreach ($tagsListe as $tag) {
 									$tagsAffiche .= $tag['nom'] . ', ';
 								}
 
-								$tagsAffiche = rtrim($tagsAffiche, characters: ', ');
+								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								if ($tags_offre) {
 									?>
-								<p class="tags text-white text-center overflow-ellipsis line-clamp-1">
-									<?php echo $tagsAffiche; ?>
-								</p>
-								<?php
+									<div class="p-1 rounded-lg bg-secondary self-center w-full">
+										<?php
+										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+										?>
+									</div>
+									<?php
 								} else {
-									echo 'Aucun tag';
+									?>
+									<div class="p-1 rounded-lg bg-secondary self-center w-full">
+										<?php
+										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+										?>
+									</div>
+									<?php
 								}
-								?>
-							</p>
+							} else {
+								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
+								$controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
+								$tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
+
+								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+								$controllerTagRest = new TagRestaurantController();
+								$tagsAffiche = "";
+								foreach ($tags_offre as $tag) {
+									$tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
+								}
+								foreach ($tagsListe as $tag) {
+									$tagsAffiche .= $tag[0]['nom'] . ', ';
+								}
+
+								$tagsAffiche = rtrim($tagsAffiche, ', ');
+								if ($tags_offre) {
+									?>
+									<div class="p-1 rounded-lg bg-secondary self-center w-full">
+										<?php
+										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+										?>
+									</div>
+									<?php
+								} else {
+									?>
+									<div class="p-1 rounded-lg bg-secondary self-center w-full">
+										<?php
+										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+										?>
+									</div>
+									<?php
+								}
+							}
+							?>
 						</div>
 					</div>
 					<p class="line-clamp-3">
