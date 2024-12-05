@@ -39,6 +39,9 @@ class TypeRepasController
     public function createTypeRepas($nom_type_repas)
     {
         $typeRepasID = $this->model::createTypeRepas($nom_type_repas)[0]['id_type_repas'];
+
+        var_dump($typeRepasID);
+        
         return $typeRepasID;
     }
 
