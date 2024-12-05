@@ -231,11 +231,7 @@ $pro = verifyPro();
 				foreach ($tags as $tag) {
 					$tags_id = $tagRestaurationController->getTagsRestaurantByName($tag);
 
-					var_dump( $tags_id[0]['id_tag_restaurant']);
-
 					$tag_id = $tags_id ? $tags_id[0]['id_tag_restaurant'] : $tagRestaurationController->createTag($tag);
-
-					var_dump($tag_id);
 
 					$tagRestaurationRestaurantController->linkRestaurationAndTag($id_offre, $tag_id);
 				}
@@ -311,11 +307,10 @@ $pro = verifyPro();
 				foreach ($typesRepas as $typeRepas => $isIncluded) {
 					if ($isIncluded) {
 						$query = $typeRepasController->getTypeRepasByName($typeRepas);
-						($query);
+						
+						var_dump($query);
 
 						$id_type_repas = $query ? $query[0]['id_type_repas'] : $typeRepasController->createTypeRepas($typeRepas);
-
-						($id_type_repas);
 
 						$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
 					}

@@ -18,7 +18,6 @@ class ProPublicController
     public function getInfosProPublic($id)
     {
         $result = $this->model::getProPublicById($id);
-        ($result);
         return $result;
     }
 
