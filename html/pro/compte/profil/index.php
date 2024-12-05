@@ -4,6 +4,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 $pro = verifyPro();
+
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
 $controllerAdresse = new AdresseController();
 $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);

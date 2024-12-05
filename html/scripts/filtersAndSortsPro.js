@@ -208,6 +208,7 @@ document.addEventListener("DOMContentLoaded", function() {
         localisation: '', // Texte de localisation
         note: ['0', '5'], // Note générale minimale et maximale
         prix: ['0', document.getElementById('max-price-tab').max], // Prix minimal et maximal
+        gammes: [], // Gammes sélectionnées
         types: [], // Types d'offre séléctionnés
     };
 
@@ -281,6 +282,22 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    function filterOnGammes(device) {
+        const checkboxes = document.querySelectorAll('#developped-f6-'+device+' input[type="checkbox"]');
+    
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                // Mettre à jour les catégories sélectionnées
+                filterState.gammes = Array.from(checkboxes)
+                    .filter(checkbox => checkbox.checked)
+                    .map(checkbox => checkbox.id.replace(/-tel|-tab/, ''));
+    
+                // Appliquer les filtres croisés
+                applyFiltersPro();
+            });
+        });
+    }
+
     function filterOnOfferTypes(device) {
         const checkboxes = document.querySelectorAll('#developped-f7-'+device+' input[type="checkbox"]');
     
@@ -307,7 +324,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const city = localisation.querySelector('p:nth-of-type(1)').textContent.trim();
             const code = localisation.querySelector('p:nth-of-type(2)').textContent.trim();
             const note = offre.querySelector('.note');
-            const type = offre.querySelector('.type-offre').textContent.trim().toLowerCase();
+            const type = offre.querySelector('.type-offre').textContent.trim().toLowerCase().match(/type : (standard|premium)/)?.[1];
             const price = offre.querySelector('.prix');
     
             // Vérifie les filtres actifs
@@ -321,14 +338,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
             }
             
-            let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5') ? true : false;
+            let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5');
             if (note) {
                 matchesNote = filterState.note[0] <= note.getAttribute('title') && note.getAttribute('title') <= filterState.note[1];
             }
             
-            let matchesPrice = false;
+            let matchesPrice = (filterState.prix[0] === '0' && filterState.prix[1] === document.getElementById('max-price-tab').max);
             if (price) {
-                matchesPrice = filterState.prix[0] <= price.getAttribute('title').match(/Min (\d+)/)?.[1] && price.getAttribute('title').match(/Min (\d+)/)?.[1] <= filterState.prix[1];
+                if (price.getAttribute('title') !== "Gamme des prix") {
+                    matchesPrice = filterState.prix[0] <= price.getAttribute('title').match(/Min (\d+)/)?.[1] && price.getAttribute('title').match(/Min (\d+)/)?.[1] <= filterState.prix[1];
+                } else {
+                    matchesPrice = filterState.gammes.length === 0 || filterState.gammes.includes(price.textContent.trim());
+                }
             }
 
             let matchesType = filterState.types.length === 0 || filterState.types.includes(type);
@@ -373,6 +394,8 @@ document.addEventListener("DOMContentLoaded", function() {
     filterOnNotes('tel');
     filterOnPrices('tab');
     filterOnPrices('tel');
+    filterOnGammes('tab');
+    filterOnGammes('tel');
     filterOnOfferTypes('tab');
     filterOnOfferTypes('tel');
 

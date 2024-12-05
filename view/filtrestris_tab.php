@@ -116,12 +116,31 @@
             <p>Prix</p>
             <p id="arrow-f6-tab">></p>
         </div>
-        <div class="hidden flex items-center" id="developped-f6-tab">
-            <label class="text-small">Intervalle des prix entre&nbsp;</label>
-            <input id="min-price-tab" type="number" value="0" min="0" max="99" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
-            <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
-            <input id="max-price-tab" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
-            <label class="text-small">&nbsp;€</label>
+        <div class="hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tab">
+            <div class="flex items-center">
+                <label class="text-small">Intervalle des prix entre&nbsp;</label>
+                <input id="min-price-tab" type="number" value="0" min="0" max="99" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
+                <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
+                <input id="max-price-tab" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
+                <label class="text-small">&nbsp;€</label>
+            </div>
+            <div class="text-small flex flex-wrap gap-4" id="developped-f2-tab">
+                <label class="text-small">Restauration :&nbsp;</label>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" class="mb-1" id="€-tab" />
+                    <label for="€-tab">€</label>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" class="mb-1" id="€€-tab" />
+                    <label for="€€-tab">€€</label>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" class="mb-1" id="€€€-tab" />
+                    <label for="€€€-tab">€€€</label>
+                </div>
+            </div>
         </div>
     </div>
 </div>

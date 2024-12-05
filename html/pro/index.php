@@ -71,24 +71,50 @@ if (!function_exists('chaineVersMot')) {
     $stmt->bindParam(':id_pro', $pro['id_compte']);
     $stmt->execute();
     $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    // Initialiser le prix maximum
+
     $prix_mini_max = 0;
 
-    // Parcourir le tableau pour trouver le prix_mini maximum
     foreach ($toutesMesOffres as $offre) {
         $prix_mini = $offre['prix_mini'];
-        
-        // Vérifier si le prix_mini est une valeur valide
         if ($prix_mini !== null && $prix_mini !== '') {
-            // Si $prix_mini_max est null, le définir comme le premier prix_mini
             if ($prix_mini_max === 0) {
                 $prix_mini_max = $prix_mini;
             } else {
-                // Comparer et garder le maximum
                 $prix_mini_max = max($prix_mini_max, $prix_mini);
             }
         }
+    }
+
+    if (isset($_GET['sort'])) {
+        // Récupérer toutes les moyennes en une seule requête
+        $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
+        $notesMoyennes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Associer les moyennes aux offres
+        $notesAssociees = [];
+        foreach ($notesMoyennes as $note) {
+            $notesAssociees[$note['id_offre']] = floatval($note['avg']);
+        }
+    
+        // Créer un tableau temporaire enrichi
+        $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
+            $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
+            return $offre;
+        }, $toutesMesOffres);
+    
+        // Effectuer le tri
+        if ($_GET['sort'] === 'note-ascending') {
+            usort($offresAvecNotes, function ($a, $b) {
+                return $a['note_moyenne'] <=> $b['note_moyenne']; // Tri croissant
+            });
+        } else if ($_GET['sort'] === 'note-descending') {
+            usort($offresAvecNotes, function ($a, $b) {
+                return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
+            });
+        }
+    
+        // Réassigner les offres triées
+        $toutesMesOffres = $offresAvecNotes;
     }
     ?>
 

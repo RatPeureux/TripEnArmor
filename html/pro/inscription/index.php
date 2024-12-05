@@ -524,14 +524,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 $stmtProfessionnel->bindParam(':num_tel', $tel);
                 $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
 
-
                 // Exécuter la requête pour le professionnel
                 if ($stmtProfessionnel->execute()) {
                     header("location: /pro/connexion");
                 }
             } else {
-
                 // Extraire les valeurs du RIB à partir de l'IBAN
+                $id_rib = -1;
                 if ($iban) {
                     $rib = extraireRibDepuisIban($iban);
                     $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle) VALUES (:code_banque, :code_guichet, :numero_compte, :cle)");
@@ -541,21 +540,24 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     $stmtRib->bindParam(':cle', $rib['cle']);
                     if ($stmtRib->execute()) {
                         $id_rib = $dbh->lastInsertId();
-                        $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren, id_rib) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :num_siren, :id_rib)");
-                        $stmtProfessionnel->bindParam(':num_siren', $num_siren);
-                        // Lier les paramètres pour le professionnel
-                        $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
-                        $stmtProfessionnel->bindParam(':mail', $mail);
-                        $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
-                        $stmtProfessionnel->bindParam(':num_tel', $tel);
-                        $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
-                        $stmtProfessionnel->bindParam(':id_rib', $id_rib);
-
-                        // Exécuter la requête pour le professionnel
-                        if ($stmtProfessionnel->execute()) {
-                            header("location: /pro/connexion");
-                        }
                     }
+                }
+
+                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren" . ($id_rib != -1 ? ", id_rib" : "") . ") VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :num_siren" . ($id_rib != -1 ? ", :id_rib" : "") . ")");
+                // Lier les paramètres pour le professionnel
+                $stmtProfessionnel->bindParam(':num_siren', $num_siren);
+                $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
+                $stmtProfessionnel->bindParam(':mail', $mail);
+                $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
+                $stmtProfessionnel->bindParam(':num_tel', $tel);
+                $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
+                if ($id_rib != -1) {
+                    $stmtProfessionnel->bindParam(':id_rib', $id_rib);
+                }
+
+                // Exécuter la requête pour le professionnel
+                if ($stmtProfessionnel->execute()) {
+                    header("location: /pro/connexion");
                 }
             }
         }
@@ -564,5 +566,5 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     // Quand tout est bien réalisé, rediriger vers l'accueil du pro en étant connecté
     $_SESSION['id_pro'] = $id_pro;
     unset($_SESSION['id_membre']);
-    // header("location: /pro");
+    header("location: /pro");
 } ?>

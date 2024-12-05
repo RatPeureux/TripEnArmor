@@ -79,7 +79,8 @@ if ($mode_carte == 'membre') {
                             $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                             if ($tags_offre) {
                                 ?>
-                            <p class="text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                            <p class="tags text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?>
+                            </p>
                             <?php
                             } else {
                                 echo 'Aucun tag';
@@ -123,9 +124,8 @@ if ($mode_carte == 'membre') {
                     }
                     ?>
                     <p class='prix text-small'
-                        title='<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>'>
-                        <?php echo $prix_a_afficher ?>
-                    </p>
+                        title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'>
+                        <?php echo $prix_a_afficher ?></p>
                 </div>
             </div>
         </div>
@@ -220,7 +220,8 @@ if ($mode_carte == 'membre') {
                                 $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                                 if ($tags_offre) {
                                     ?>
-                                <p class="text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                                <p class="tags text-white text-center overflow-ellipsis line-clamp-1">
+                                    <?php echo $tagsAffiche; ?></p>
                                 <?php
                                 } else {
                                     echo 'Aucun tag';
@@ -245,7 +246,7 @@ if ($mode_carte == 'membre') {
                             <!-- Notation et Prix -->
                             <div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
                                 <p class='prix text-small'
-                                    title='<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>'>
+                                    title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'>
                                     <?php echo $prix_a_afficher ?>
                                 </p>
                             </div>
@@ -398,7 +399,8 @@ if ($mode_carte == 'membre') {
                                 $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
                                 if ($tags_offre) {
                                     ?>
-                                <p class="text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                                <p class="tags text-white text-center overflow-ellipsis line-clamp-1">
+                                    <?php echo $tagsAffiche; ?></p>
                                 <?php
                                 } else {
                                     echo 'Aucun tag';
@@ -428,7 +430,7 @@ if ($mode_carte == 'membre') {
                     <!-- Notation et Prix -->
                     <div class="flex flex-col flex-shrink-0 gap-2 justify-center items-center">
                         <p class="prix text-small"
-                            title="<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>">
+                            title="<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>">
                             <?php echo $prix_a_afficher ?>
                         </p>
                     </div>
@@ -456,24 +458,20 @@ if ($mode_carte == 'membre') {
                                 (0)
                             </a>
                         </div>
-                        <?php if ($date_mise_a_jour) { ?>
-                            <!-- Date de mise à jour -->
-                            <div class="flex justify-between text-small">
-                                <div class="flex items-center justify-arround">
-                                    <i class="fa-solid fa-rotate text-xl"></i>
-                                    <p class="italic">Modifiée le <?php echo $date_mise_a_jour ?></p>
-                                </div>
-                            </div>
-                            <?php
-                        }
-                        ?>
                     </div>
 
+                    <!-- Dates de mise à jour -->
+                    <div class="flex justify-between text-small">
+                        <div class="flex items-center justify-arround">
+                            <i class="fa-solid fa-rotate text-xl"></i>
+                            <p class="italic">Modifiée le <?php echo $date_mise_a_jour ?></p>
+                        </div>
+                    </div>
 
                     <!-- Type offre + options -->
-                    <div class="flex flex-col justify-around">
-                        <p class="type-offre text-center grow" title="Type de l'offre (Gratuit / Standard / Prenium)">Type :
-                            <?php echo $type_offre ?></p>
+                    <div class="flex flex-col justify-between gap-2">
+                        <p class="type-offre text-center grow" title="type de l'offre"><?php echo 'Type : ' . $type_offre ?>
+                        </p>
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-gears text-xl"></i>
                             <div>

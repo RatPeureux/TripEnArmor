@@ -46,7 +46,7 @@ class RestaurationTypeRepas extends BDD
         $statement->bindParam(2, $id_type_repas);
 
         if ($statement->execute()) {
-            return !empty($statement->fetchAll(PDO::FETCH_ASSOC)[0]);
+            return count($statement->fetchAll(PDO::FETCH_ASSOC)) != 0;
         } else {
             return false;
         }
@@ -54,7 +54,7 @@ class RestaurationTypeRepas extends BDD
 
     static function createRestaurantTypeRepas($id_offre, $id_type_repas)
     {
-        $query = "INSERT INTO (id_offre, id_type_repas" . self::$nom_table . "VALUES (?, ?) RETURNING *";
+        $query = "INSERT INTO " . self::$nom_table . " (id_offre, id_type_repas) VALUES (?, ?) RETURNING *";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id_offre);
         $statement->bindParam(2, $id_type_repas);
