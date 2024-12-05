@@ -230,6 +230,9 @@ $pro = verifyPro();
 
 				foreach ($tags as $tag) {
 					$tags_id = $tagRestaurationController->getTagsRestaurantByName($tag);
+
+					var_dump( $tags_id );
+
 					$tag_id = $tags_id ? $tags_id[0]['id_tag_retaurant'] : $tagRestaurationController->createTag($tag);
 
 					var_dump($tag_id);
