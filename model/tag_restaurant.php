@@ -2,7 +2,8 @@
 echo "Before require bdd";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 echo "After require bdd";
-class Restauration extends BDD {
+
+class TagRestaurant extends BDD {
     static private $nom_table = "sae_db._tag_restaurant";
 
     static function getTagRestaurantById($id) { 
