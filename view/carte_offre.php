@@ -74,12 +74,12 @@ if ($mode_carte == 'membre') {
 	Composant dynamique (généré avec les données en php)
 	Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 -->
-	<a class="card" href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
+	<a class="card <?php if ($option) {
+		echo "active rounded-lg";
+	} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
 		<!-- CARTE VERSION TÉLÉPHONE -->
-		<div class='md:hidden <?php if ($option) {
-			echo "active";
-		} ?> relative bg-base100 rounded-xl flex flex-col'>
+		<div class='md:hidden relative bg-base100 rounded-xl flex flex-col'>
 			<!-- En-tête -->
 			<div
 				class='en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
@@ -105,16 +105,21 @@ if ($mode_carte == 'membre') {
 			<!-- Infos principales -->
 			<div class='infos flex items-center justify-around gap-2 px-2 grow'>
 				<!-- Localisation -->
-				<div class='localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center'>
+				<div class='localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center min-w-16'>
 					<i class='fa-solid fa-location-dot'></i>
-					<p class='text-small'><?php echo $ville ?></p>
+					<p class='text-small'><?php
+					if (strlen($ville) > 10) {
+						echo substr($ville, 0, length: 7) . '...';
+					} else {
+						echo $ville;
+					} ?></p>
 					<p class='text-small'><?php echo $code_postal ?></p>
 				</div>
 				<hr class='h-20 border-black border'>
 				<!-- Description avec les tags-->
 				<div class='description py-2 flex flex-col gap-2 justify-center self-stretch'>
 					<div class='p-1 rounded-lg bg-secondary self-center w-full'>
-						<p class='text-white text-center'>
+						<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>
 							<?php
 							if ($categorie_offre != 'restauration') {
 								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
@@ -193,7 +198,7 @@ if ($mode_carte == 'membre') {
 				</div>
 				<hr class='h-20 border-black border'>
 				<!-- Notation et Prix -->
-				<div class='flex flex-col gap-2 justify-center items-center'>
+				<div class='flex flex-col gap-2 justify-center items-center min-w-16'>
 					<?php
 					// Moyenne des notes quand il y en a une
 					if ($moyenne) {
@@ -217,7 +222,7 @@ if ($mode_carte == 'membre') {
 								$n--;
 							}
 							?>
-							<p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+							<!-- <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p> -->
 						</div>
 						<?php
 					}
@@ -231,9 +236,7 @@ if ($mode_carte == 'membre') {
 		</div>
 
 		<!-- CARTE VERSION TABLETTE -->
-		<div class='md:block hidden <?php if ($option) {
-			echo "active";
-		} ?> relative bg-base100 rounded-lg'>
+		<div class='md:block hidden relative bg-base100 rounded-lg'>
 			<div class="flex flex-row">
 				<!-- Partie gauche -->
 				<div class='gauche grow relative shrink-0 basis-1/2 h-[280px] overflow-hidden'>
@@ -473,7 +476,7 @@ if ($mode_carte == 'membre') {
 						}
 						?>
 						<!-- modifier l'offre -->
-						<a title="Modifier l'offre">
+						<a title="Modifier l'offre" class="hidden">
 							<i class="fa-solid fa-gear text-secondary text-h1 hover:text-primary duration-100"></i>
 						</a>
 						<!-- détails de l'offre -->
