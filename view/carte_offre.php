@@ -267,8 +267,8 @@ if ($mode_carte == 'membre') {
 	Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 	-->
 
-	<a class="card" href='/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>'>
-		<div class="<?php if ($option)
+	<a href='/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>'>
+		<div class="card <?php if ($option)
 			echo 'active' ?> relative max-w-[1280px] bg-base100 rounded-lg flex">
 
 				<!-- PARTIE DE GAUCHE, image-->
