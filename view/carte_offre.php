@@ -68,12 +68,12 @@ if ($mode_carte == 'membre') {
 	Composant dynamique (généré avec les données en php)
 	Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 -->
-	<a class="card" href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
+	<a class="card <?php if ($option) {
+			echo "active";
+		} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
 		<!-- CARTE VERSION TÉLÉPHONE -->
-		<div class='md:hidden <?php if ($option) {
-			echo "active";
-		} ?> relative bg-base100 rounded-xl flex flex-col'>
+		<div class='md:hidden relative bg-base100 rounded-xl flex flex-col'>
 			<!-- En-tête -->
 			<div
 				class='en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
@@ -184,9 +184,7 @@ if ($mode_carte == 'membre') {
 		</div>
 
 		<!-- CARTE VERSION TABLETTE -->
-		<div class='md:block hidden <?php if ($option) {
-			echo "active";
-		} ?> relative bg-base100 rounded-lg'>
+		<div class='md:block hidden relative bg-base100 rounded-lg'>
 			<div class="flex flex-row">
 				<!-- Partie gauche -->
 				<div class='gauche grow relative shrink-0 basis-1/2 h-[280px] overflow-hidden'>
