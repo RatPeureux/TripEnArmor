@@ -147,54 +147,7 @@ session_start();
 
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
     $controllerHoraire = new HoraireController();
-
-    // VALEUR TEST CAR PAS DANS LA BDD
-    $horairesV1 = [
-        "lundi" => [
-            "ouverture" => "08:00",
-            "pause_debut" => "12:00",
-            "pause_fin" => "14:00",
-            "fermeture" => "18:00",
-        ],
-        "mardi" => [
-            "ouverture" => "08:00",
-            "pause_debut" => "12:00",
-            "pause_fin" => "14:00",
-            "fermeture" => "18:00",
-        ],
-        "mercredi" => [
-            "ouverture" => "08:00",
-            "pause_debut" => "12:00",
-            "pause_fin" => "14:00",
-            "fermeture" => "18:00",
-        ],
-        "jeudi" => [
-            "ouverture" => "08:00",
-            "pause_debut" => "12:00",
-            "pause_fin" => "14:00",
-            "fermeture" => "18:00",
-        ],
-        "vendredi" => [
-            "ouverture" => "08:00",
-            "pause_debut" => "12:00",
-            "pause_fin" => "14:00",
-            "fermeture" => "18:00",
-        ],
-        "samedi" => [
-            "ouverture" => "08:00",
-            "pause_debut" => "12:00",
-            "pause_fin" => "14:00",
-            "fermeture" => "18:00",
-        ],
-        "dimanche" => [
-            "ouverture" => "08:00",
-            "pause_debut" => "12:00",
-            "pause_fin" => "14:00",
-            "fermeture" => "18:00",
-        ]
-    ]; # $controllerHoraire->getHorairesOfOffre($id_offre);
-    
-    $horaires = [];
+    $horaires = $controllerHoraire->getHorairesOfOffre($id_offre);
 
     foreach ($horairesV1 as $jour => $horaire) {
         $horaires['ouverture'][$jour] = $horaire['ouverture'];
@@ -202,20 +155,60 @@ session_start();
         $horaires['pause_fin'][$jour] = $horaire['pause_fin'];
         $horaires['fermeture'][$jour] = $horaire['fermeture'];
     }
+    $jour_semaine = date('l');
+    $jours_semaine_fr = [
+        'Monday' => 'Lundi',
+        'Tuesday' => 'Mardi',
+        'Wednesday' => 'Mercredi',
+        'Thursday' => 'Jeudi',
+        'Friday' => 'Vendredi',
+        'Saturday' => 'Samedi',
+        'Sunday' => 'Dimanche'
+    ];
+
+    $jour_semaine = $jours_semaine_fr[$jour_semaine];
+    $heure_actuelle = date('H:i');
+    echo $jour_semaine;
+    echo $heure_actuelle;
+    $ouvert = false;
+    if ($horaires['ouverture'][$jour_semaine] !== null) {
+        echo "test 1";
+        if ($horaires['pause_debut'][$jour_semaine] !== null) {
+            echo "test 2";
+            if ($heure_actuelle >= $horaires['ouverture'][$jour_semaine] && $heure_actuelle <= $horaires['pause_debut'][$jour_semaine]) {
+                echo "test 3";
+
+                $ouvert = true;
+            } else if ($heure_actuelle >= $horaires['pause_fin'][$jour_semaine] && $heure_actuelle <= $horaires['fermeture'][$jour_semaine]) {
+                echo "test 4";
+
+                $ouvert = true;
+            }
+        } else {
+            echo "test 5";
+
+            if ($heure_actuelle >= $horaires['ouverture'][$jour_semaine] && $heure_actuelle <= $horaires['fermeture'][$jour_semaine]) {
+                echo "test 6";
+
+                $ouvert = true;
+            }
+        }
+    }
+
     if ($categorie_offre !== 'restauration') {
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
         $controllerGrilleTarifaire = new TarifPublicController();
         // VALEUR TEST CAR PAS DANS LA BDD
-        $tarifs = [
-            [
-                "titre_tarif" => "Tarif adulte",
-                "prix" => 10
-            ],
-            [
-                "titre_tarif" => "Tarif enfant",
-                "prix" => 5
-            ]
-        ];
+        // $tarifs = [
+        //     [
+        //         "titre_tarif" => "Tarif adulte",
+        //         "prix" => 10
+        //     ],
+        //     [
+        //         "titre_tarif" => "Tarif enfant",
+        //         "prix" => 5
+        //     ]
+        // ];
     }
 
     if ($categorie_offre == 'parc_attraction') {
@@ -245,7 +238,7 @@ session_start();
                     <?php
                     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
                     $controllerImage = new ImageController();
-                        $images = $controllerImage->getImagesOfOffre($id_offre);
+                    $images = $controllerImage->getImagesOfOffre($id_offre);
                     ?>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
@@ -336,7 +329,7 @@ session_start();
                     <!-- Partie du bas de la page (toutes les infos pratiques) -->
                     <div class="flex flex-col md:flex-row">
                         <!-- Partie description -->
-                        <div class="partie-description flex flex-col basis-1/2">
+                        <div class="partie-description flex flex-col basis-1/2 pr-2">
                             <!-- Prix + localisation -->
                             <div class="flex flex-col space-y-2 md:gap-4">
                                 <p class="text-h4 font-bold">À propos</p>
@@ -366,56 +359,42 @@ session_start();
                             <!-- Infos en fonction du type de l'offre -->
                             <a href="" class="">
                                 <div class="flex flex-row justify-between" id="horaire-button">
-                                    <p class="text-h4 font-bold">Horaires</p>
+                                    <div class="flex font-bold">
+                                        <p class="text-h4 font-bold">Horaires&nbsp;</p>
+                                        <?php if ($ouvert == true) {
+                                            ?>
+                                            <p class="text-h4 text-green-500">&nbsp;Ouvert</p>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <p class="text-h4 text-red-500">&nbsp;Fermé</p>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
                                     <p id="horaire-arrow">></p>
                                 </div>
                                 <div class="hidden text-small py-3" id="horaire-info">
-                                    <table class="w-full table-auto">
-                                        <thead>
-                                            <th>
-                                                Lundi
-                                            </th>
-                                            <th>
-                                                Mardi
-                                            </th>
-                                            <th>
-                                                Mercredi
-                                            </th>
-                                            <th>
-                                                Jeudi
-                                            </th>
-                                            <th>
-                                                Vendredi
-                                            </th>
-                                            <th>
-                                                Samedi
-                                            </th>
-                                            <th>
-                                                Dimanche
-                                            </th>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            foreach ($horaires as $etat => $jours) {
-                                                ?>
-                                                <tr><?php
-                                                foreach ($jours as $jour => $value) {
-                                                    ?>
-                                                        <td class="relative">
-                                                            <p class="text-center">
-                                                                <?php
-                                                                echo $value;
-                                                                ?>
-                                                            </p>
-                                                        </td>
-                                                        <?php
-                                                }
-                                                ?>
-                                                </tr><?php
+                                    <?php
+                                    foreach ($horaires as $jour => $horaire) {
+                                        echo "$jour : ";
+                                        foreach ($horaire as $key => $value) {
+                                            if ($value !== null) {
+                                                $horaire[$key] = substr($value, 0, -3);
                                             }
-                                            ?>
-                                        </tbody>
-                                    </table>
+                                        }
+                                        if ($horaire['ouverture'] == null) {
+                                            echo "Fermé";
+                                        } else {
+                                            if ($horaire['pause_debut'] == null) {
+                                                echo $horaire['ouverture'] . ' - ' . $horaire['fermeture'];
+                                            } else {
+                                                echo $horaire['ouverture'] . ' - ' . $horaire['pause_debut'] . ' ' . $horaire['pause_fin'] . ' - ' . $horaire['fermeture'];
+                                            }
+                                            echo "<br>";
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </a>
                             <a href="" class="">
@@ -443,7 +422,7 @@ session_start();
                                                 <p>Durée&nbsp:&nbsp</p>
                                                 <p><?php echo $duree_act ?></p>
                                             </div>
-                                            <p class="text-small">Âge requis <?php echo $age_requis_act ?> ans</p>
+                                            <p class="text-small">Âge requis&nbsp;:&nbsp;<?php echo $age_requis_act ?> ans</p>
                                             <div class="text-small">
                                                 <?php echo $prestation ?>
                                             </div>
