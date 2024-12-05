@@ -1163,7 +1163,25 @@ $pro = verifyPro();
 										</div>
 									</div>
 
-									<div class="flex items-start">
+									<script>
+										document.getElementById('option-a-la-une').addEventListener('change', toggleOptionData);
+										document.getElementById('option-relief').addEventListener('change', toggleOptionData);
+										document.getElementById('option-rien').addEventListener('change', toggleOptionData);
+
+										function toggleOptionData() {
+											const optionData = document.getElementById('option-data');
+											if (document.getElementById('option-a-la-une').checked || document.getElementById('option-relief').checked) {
+												optionData.style.display = 'block';
+											} else {
+												optionData.style.display = 'none';
+											}
+										}
+
+										// Initial check
+										toggleOptionData();
+									</script>
+
+									<div class="flex items-start" id="option-data">
 										<div class="flex flex-col justify-center w-full">
 											<label for="start_date" class="text-nowrap">Début de la souscription :</label>
 											<input type="date" id="start_date" name="start_date"
