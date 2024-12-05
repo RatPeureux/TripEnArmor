@@ -300,17 +300,17 @@ session_start();
                             <p class="hidden text-h1 md:flex md:pt-1">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-h1 md:pt-1"><?php echo $nom_pro ?></p>
                         </div>
-                        <?php if ($ouvert == true) {
-                            ?>
-                            <p class="text-h1 font-bold text-green-500">Ouvert</p>
-                            <?php
-                        } else {
-                            ?>
-                            <p class="text-h1 font-bold text-red-500">Fermé</p>
-                            <?php
-                        }
-                        ?>
                     </div>
+                    <?php if ($ouvert == true) {
+                        ?>
+                        <p class="text-h2 font-bold text-green-500">Ouvert</p>
+                        <?php
+                    } else {
+                        ?>
+                        <p class="text-h1 font-bold text-red-500">Fermé</p>
+                        <?php
+                    }
+                    ?>
                     <div class="w-full">
                         <p class="text-small">
                             <?php echo $resume ?>
