@@ -94,8 +94,13 @@ $pro = verifyPro();
 		$id_pro = $_SESSION['id_pro'];
 		$prestations = $_POST['newPrestationName'] ?? [];
 		$horaires = $_POST['horaires'] ?? [];
-
 		$option = $_POST['option'] ?? [];
+		$duree_option = $_POST['duration'] ?? [];
+		$debut_option = $_POST['start_date'] ?? [];
+
+		echo "Option : " . $option . "<br>";
+		echo "Durée option : " . $duree_option . "<br>";
+		echo "Debut option : " . $debut_option . "<br>";
 
 		// Récupérer d'autres valeurs
 	
@@ -112,7 +117,8 @@ $pro = verifyPro();
 		// 	10. [x] Offre_Prestation
 		// 	11. Horaires
 		// 	12. [x] Tarif_Public
-	
+		
+		/*
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -350,6 +356,7 @@ $pro = verifyPro();
 			BDD::rollbackTransaction();
 			exit;
 		}
+		*/
 	} else {
 		require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_offre_controller.php';
 
