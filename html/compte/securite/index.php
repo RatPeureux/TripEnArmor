@@ -152,41 +152,44 @@ if (isset($_POST['mdp'])) {
     const togglePassword3 = document.getElementById('togglePassword3');
 
     if (togglePassword1) {
-        togglePassword1.addEventListener('mousedown', function () {
-            mdp.type = 'text';
-            this.classList.remove('fa-eye');
-            this.classList.add('fa-eye-slash');
-        });
-        togglePassword1.addEventListener('mouseup', function () {
-            mdp.type = 'password';
-            this.classList.remove('fa-eye-slash');
-            this.classList.add('fa-eye');
+        togglePassword1.addEventListener('onclick', function () {
+            if (mdp.type === 'password') {
+                mdp.type = 'text';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                mdp.type = 'password';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
         });
     }
 
     if (togglePassword2) {
-        togglePassword2.addEventListener('mousedown', function () {
-            newMdp.type = 'text';
-            this.classList.remove('fa-eye');
-            this.classList.add('fa-eye-slash');
-        });
-        togglePassword2.addEventListener('mouseup', function () {
-            newMdp.type = 'password';
-            this.classList.remove('fa-eye-slash');
-            this.classList.add('fa-eye');
+        togglePassword2.addEventListener('onclick', function () {
+            if (newMdp.type === 'password') {
+                newMdp.type = 'text';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                newMdp.type = 'password';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
         });
     }
 
     if (togglePassword3) {
-        togglePassword3.addEventListener('mousedown', function () {
-            confNewMdp.type = 'text';
-            this.classList.remove('fa-eye');
-            this.classList.add('fa-eye-slash');
-        });
-        togglePassword3.addEventListener('mouseup', function () {
-            confNewMdp.type = 'password';
-            this.classList.remove('fa-eye-slash');
-            this.classList.add('fa-eye');
+        togglePassword3.addEventListener('onclick', function () {
+            if (confNewMdp.type === 'password') {
+                confNewMdp.type = 'text';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                confNewMdp.type = 'password';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
         });
     }
 

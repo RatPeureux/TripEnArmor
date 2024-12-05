@@ -21,6 +21,10 @@ $pro = verifyPro();
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
     <title>Facture - Professionnel - PACT</title>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -56,6 +60,9 @@ $pro = verifyPro();
             $numero = $factures[0]['numero'];
             $designation = $factures[0]['designation'];
 
+            $numero = "2024-FAC-0001";
+            $date_emission = "01/12/2024";
+
             $idPro = $_SESSION['id_pro'];
             $factureController = new FactureController;
             $facture = $factureController->getInfoFacture($numero, $designation);
@@ -78,18 +85,6 @@ $pro = verifyPro();
                             }
                             ?>
                     </select>
-
-                    <script>
-                        document.getElementById('offre').addEventListener('change', function () {
-                        if (this.value) {
-                            document.getElementById('facture-details').style.display = 'block';
-                        }
-                        });
-
-                    function closePopup() {
-                    document.getElementById('facture-details').style.display = 'none';
-                    }
-                </script>
 
 
                 <div id="facture-details" class="border border-black p-5 mt-5 mx-auto max-w-4xl" style="display:none;">
@@ -140,12 +135,17 @@ $pro = verifyPro();
     
 
                         <!-- Informations Facture -->
-                        <div class="mt-5">
-                        <h1 class="text-2xl font-bold">Facture N° <?php echo htmlspecialchars($numero); ?></h1>
-                        <p>Date d'émission : <?php echo htmlspecialchars($facture['date_emission']); ?></p>
-                        <p>Règlement : Le premier de chaque mois </p>
-                        </div>
-
+                            <div class="mt-5">
+                                <h1 class="text-2xl"><?php echo htmlspecialchars($offre['titre']) ?></p>
+                                <br>
+                                <h1 class="text-xl">Facture N° <?php echo htmlspecialchars($numero); ?></h1>
+                                <p>Date d'émission : <?php echo htmlspecialchars($date_emission); ?></p>
+                                <p>Règlement : Le premier de chaque mois </p>
+                            </div>
+                            <div class="mt-5">
+                                
+                            </div>
+                        
                         <!-- Tableau de détails -->
                         <table class="w-full mt-5 border-collapse border border-gray-300">
                         <thead class="bg-blue-200">
@@ -224,8 +224,35 @@ $pro = verifyPro();
                         <p>Page 1/1</p>
                         </div>
                     </div>
+                    <button onclick="generatePDF()" class="mt-5 bg-blue-500 text-white p-2 rounded">
+                            Télécharger la facture en PDF
+                        </button>
                     </div>
+
+                    <script>
+                            document.getElementById('offre').addEventListener('change', function () {
+                                if (this.value) {
+                                    document.getElementById('facture-details').style.display = 'block';
+                                }
+                                });
+
+                            function closePopup() {
+                            document.getElementById('facture-details').style.display = 'none';
+                            }
+
+                            async function generatePDF() {
+                                const { jsPDF } = window.jspdf;
+                                const pdf = new jsPDF();
+                                const element = document.querySelector('#facture-details');
+                                const canvas = await html2canvas(element);
+                                const imgData = canvas.toDataURL('image/png');
+                                pdf.addImage(imgData, 'PNG', 10, 10, 190, canvas.height * 190 / canvas.width);
+                                pdf.save('facture.pdf');
+                            }
+                        </script>
+
                     <?php
+
                     } else {
                     echo "<p>Vous n'avez pas d'offres en ligne.</p>";
                     }

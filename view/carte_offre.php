@@ -68,8 +68,7 @@ if ($mode_carte == 'membre') {
 	Composant dynamique (généré avec les données en php)
 	Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 -->
-	<a class="card" href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' 
-		<?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'" ;?>>
+	<a class="card" href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
 		<!-- CARTE VERSION TÉLÉPHONE -->
 		<div class='md:hidden <?php if ($option) {
@@ -120,7 +119,7 @@ if ($mode_carte == 'membre') {
 							$tagsListe = [];
 							$tagsAffiche = "";
 
-                            // print_r($tags_offre);
+							// print_r($tags_offre);
 							foreach ($tags_offre as $tag) {
 								$tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
 							}
@@ -321,12 +320,11 @@ if ($mode_carte == 'membre') {
 	-->
 
 	<div class="card <?php if ($option)
-		echo 'active' ?> relative max-w-[1280px] bg-base100 rounded-lg flex" 
-		<?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'" ;?>>
+		echo 'active' ?> relative max-w-[1280px] bg-base100 rounded-lg flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
-			<!-- PARTIE DE GAUCHE, image-->
-			<div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
-				<a href='/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>'>
+		<!-- PARTIE DE GAUCHE, image-->
+		<div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
+			<a href='/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>'>
 				<?php
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
 				$controllerImage = new ImageController();
@@ -394,7 +392,7 @@ if ($mode_carte == 'membre') {
 						if ($est_en_ligne) {
 							?>
 							<a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>"
-								onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?');"
+								onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?\nLa facturation s\'arrêtra à compter de demain.');"
 								title=" [!!!] mettre hors-ligne">
 								<svg class="toggle-wifi-offline p-1 rounded-lg border-rouge-logo hover:border-y-2 border-solid duration-100 hover:fill-[#EA4335]"
 									width="55" height="40" viewBox="0 0 40 32" fill="#0a0035">
@@ -407,12 +405,13 @@ if ($mode_carte == 'membre') {
 							<?php
 						} else {
 							?>
-							<a 
-							<?php
-							if ($pro['data']['type'] == 'prive' and !is_null($pro['data']['id_rib'])) {
-								echo "href='/scripts/toggle_ligne.php?id_offre={$id_offre}' onclick='return confirm(\"Voulez-vous vraiment mettre {$titre_offre} hors ligne ?\");'";
-							} else {
+							<a <?php
+							// Cas où aucun rib n'est rentré : ne pas pouvoir mettre en ligne
+							if ($pro['data']['type'] == 'prive' && (!isset($pro['data']['id_rib']) || $pro['data']['id_rib'] == null)) {
 								echo "onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre {$titre_offre} en ligne\");'";
+							} else {
+								// Pouvoir mettre en ligne si tout est OK ou si public
+								echo "href='/scripts/toggle_ligne.php?id_offre={$id_offre}' onclick='return confirm(\"Voulez-vous vraiment mettre {$titre_offre} en ligne ? N'hésitez pas à consulter de nouveau nos CGV\");'";
 							}
 							?> title="[!!!] mettre en ligne">
 								<svg class="toggle-wifi-online p-1 rounded-lg hover:fill-[#00350D] border-secondary hover:border-y-2 border-solid duration-100"
