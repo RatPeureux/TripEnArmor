@@ -42,7 +42,7 @@ class tagRestaurantRestauration extends BDD
     static function checkIfLinkExists($id_restaurant, $id_tag)
     {
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ? AND id_tag = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ? AND id_tag_restaurant = ?";
 
         $statement = self::$db->prepare($query);
         $statement->bindValue(1, $id_restaurant);

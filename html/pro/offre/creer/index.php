@@ -223,10 +223,17 @@ $pro = verifyPro();
 
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
-				// require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
-				// $tagRestaurationController = new TagRestaurantController();
-				// require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
-				// $tagRestaurationRestaurantController = new TagRestaurantRestaurationController();
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+				$tagRestaurationController = new TagRestaurantController();
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
+				$tagRestaurationRestaurantController = new TagRestaurantRestaurationController();
+
+				foreach ($tags as $tag) {
+					$tags_id = $tagRestaurationController->getTagsRestaurantByName($tag);
+					$tag_id = $tags_id ? $tags_id[0]['id_tag_retaurant'] : $tagRestaurationController->createTag($tag);
+
+					$tagOffreController->linkOffreAndTag($id_offre, $id_tag);
+				}
 				echo "Tags Restaurant inséré<br>";
 			} else {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
