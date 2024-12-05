@@ -268,7 +268,7 @@ $pro = verifyPro();
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
 					if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
-						echo "Erreur lors de l'upload de l'image de détail.";
+						// echo "Erreur lors de l'upload de l'image de détail.";
 						BDD::rollbackTransaction();
 						exit;
 					}
@@ -299,7 +299,7 @@ $pro = verifyPro();
 						$visiteLangueController->linkVisiteAndLangue($id_offre, $i);
 					}
 				}
-				echo "Langues insérées.<br>";
+				// echo "Langues insérées.<br>";
 			} elseif ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
 				$typeRepasController = new TypeRepasController();
