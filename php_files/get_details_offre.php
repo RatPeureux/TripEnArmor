@@ -2,12 +2,13 @@
 
 
 // Obtenir le nom du pro
-$id_pro = $offre['id_pro'];
-$stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
-$stmt->bindParam(':id_pro', $id_pro);
-$stmt->execute();
-$pro = $stmt->fetch(PDO::FETCH_ASSOC);
-
+if ($mode_carte !== 'pro') {
+    $id_pro = $offre['id_pro'];
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
+    $stmt->bindParam(':id_pro', $id_pro);
+    $stmt->execute();
+    $pro = $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
 // Détails globaux de l'offre
 $id_offre = $offre['id_offre'];

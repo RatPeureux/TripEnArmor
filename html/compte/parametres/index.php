@@ -86,10 +86,10 @@ $membre = verifyMember();
 
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js"></script>
-
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Paramètres du compte - PACT</title>
@@ -188,7 +188,7 @@ $membre = verifyMember();
                                 placeholder="12345">
                         </div>
                         <div class="w-full">
-                            <label class="text-h3" for="ville">Ville</label>
+                            <label class="text-h3" for="locality">Ville</label>
                             <input id="locality" name="locality" value="<?php echo $adresse['ville'] ?>"
                                 pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
                                 title="Saisir votre ville" placeholder="Rennes"
@@ -230,7 +230,7 @@ $membre = verifyMember();
             adresse: document.getElementById("adresse").value,
             complement: document.getElementById("complement").value,
             code: document.getElementById("postal_code").value,
-            ville: document.getElementById("ville").value,
+            ville: document.getElementById("locality").value,
         };
 
         function activeSave1() {
@@ -270,7 +270,7 @@ $membre = verifyMember();
             const adresse = document.getElementById("adresse").value;
             const complement = document.getElementById("complement").value;
             const code = document.getElementById("postal_code").value;
-            const ville = document.getElementById("ville").value;
+            const ville = document.getElementById("locality").value;
 
             if (adresse !== initialValues.adresse || complement !== initialValues.complement || code !== initialValues.code || ville !== initialValues.ville) {
                 save3.disabled = false;
@@ -290,6 +290,6 @@ $membre = verifyMember();
         document.getElementById("adresse").addEventListener("input", activeSave3);
         document.getElementById("complement").addEventListener("input", activeSave3);
         document.getElementById("postal_code").addEventListener("input", activeSave3);
-        document.getElementById("ville").addEventListener("input", activeSave3);
+        document.getElementById("locality").addEventListener("input", activeSave3);
     });
 </script>
