@@ -157,40 +157,55 @@ session_start();
     }
     $jour_semaine = date('l');
     $jours_semaine_fr = [
-        'Monday' => 'Lundi',
-        'Tuesday' => 'Mardi',
-        'Wednesday' => 'Mercredi',
-        'Thursday' => 'Jeudi',
-        'Friday' => 'Vendredi',
-        'Saturday' => 'Samedi',
-        'Sunday' => 'Dimanche'
+        'Monday' => 'lundi',
+        'Tuesday' => 'mardi',
+        'Wednesday' => 'mercredi',
+        'Thursday' => 'jeudi',
+        'Friday' => 'vendredi',
+        'Saturday' => 'samedi',
+        'Sunday' => 'dimanche'
     ];
 
     $jour_semaine = $jours_semaine_fr[$jour_semaine];
+    date_default_timezone_set('Europe/Paris');
     $heure_actuelle = date('H:i');
-    echo $jour_semaine;
-    echo $heure_actuelle;
     $ouvert = false;
-    if ($horaires['ouverture'][$jour_semaine] !== null) {
-        echo "test 1";
-        if ($horaires['pause_debut'][$jour_semaine] !== null) {
-            echo "test 2";
-            if ($heure_actuelle >= $horaires['ouverture'][$jour_semaine] && $heure_actuelle <= $horaires['pause_debut'][$jour_semaine]) {
-                echo "test 3";
 
-                $ouvert = true;
-            } else if ($heure_actuelle >= $horaires['pause_fin'][$jour_semaine] && $heure_actuelle <= $horaires['fermeture'][$jour_semaine]) {
-                echo "test 4";
-
-                $ouvert = true;
-            }
-        } else {
-            echo "test 5";
-
-            if ($heure_actuelle >= $horaires['ouverture'][$jour_semaine] && $heure_actuelle <= $horaires['fermeture'][$jour_semaine]) {
-                echo "test 6";
-
-                $ouvert = true;
+    // $time1 = "14:30";
+    // $time2 = "16:45";
+    
+    // $timestamp1 = strtotime($time1);
+    // $timestamp2 = strtotime($time2);
+    
+    // if ($timestamp1 < $timestamp2) {
+    //     echo "$time1 est avant $time2";
+    // } elseif ($timestamp1 > $timestamp2) {
+    //     echo "$time1 est après $time2";
+    // } else {
+    //     echo "$time1 est égal à $time2";
+    // }
+    
+    foreach ($horaires as $jour => $horaire) {
+        if ($jour == $jour_semaine) {
+            $ouverture = $horaire['ouverture'];
+            $fermeture = $horaire['fermeture'];
+            if ($ouverture !== null && $fermeture !== null) {
+                $fermeture_T = explode(':', $fermeture);
+                $fermeture_T[0] = $fermeture_T[0] + 24;
+                $fermeture_T = implode(':', $fermeture_T);
+                if ($heure_actuelle >= $ouverture && $heure_actuelle <= $fermeture_T) {
+                    if ($horaire['pause_debut'] !== null && $horaire['pause_fin'] !== null) {
+                        $pause_debut = $horaire['pause_debut'];
+                        $pause_fin = $horaire['pause_fin'];
+                        if ($heure_actuelle >= $pause_debut && $heure_actuelle <= $pause_fin) {
+                            $ouvert = false;
+                        } else {
+                            $ouvert = true;
+                        }
+                    } else {
+                        $ouvert = true;
+                    }
+                }
             }
         }
     }
@@ -278,15 +293,29 @@ session_start();
                 </div>
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
-                <div class="space-y-4 px-2 md:px-0">
-                    <div class="flex flex-col md:flex-row md:items-center">
-                        <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
-                        <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
-                        <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
+                <div class="space-y-4 px-2 md:px-0 w-full">
+                    <div class="flex flex-col md:flex-row md:items-center w-full md:justify-between">
+                        <div class="flex flex-col md:flex-row md:items-center">
+                            <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
+                            <p class="hidden text-h1 md:flex md:pt-1">&nbsp;-&nbsp;</p>
+                            <p class="professionnel text-h1 md:pt-1"><?php echo $nom_pro ?></p>
+                        </div>
+                        <?php if ($ouvert == true) {
+                            ?>
+                            <p class="text-h1 font-bold text-green-500">Ouvert</p>
+                            <?php
+                        } else {
+                            ?>
+                            <p class="text-h1 font-bold text-red-500">Fermé</p>
+                            <?php
+                        }
+                        ?>
                     </div>
-                    <p class="text-small prose">
-                        <?php echo $resume ?>
-                    </p>
+                    <div class="w-full">
+                        <p class="text-small">
+                            <?php echo $resume ?>
+                        </p>
+                    </div>
 
                     <!-- Afficher les tags de l'offre -->
                     <?php
@@ -347,7 +376,8 @@ session_start();
                                 </div>
                             </div>
                             <!-- Description détaillée -->
-                            <div class="description flex flex-col my-4">
+                            <div class="description flex flex-col space-y-2 my-4">
+                                <p class="text-h4 font-bold">Description</p>
                                 <p class="text-justify text-small px-2 prose">
                                     <?php echo $description ?>
                                 </p>
@@ -361,16 +391,6 @@ session_start();
                                 <div class="flex flex-row justify-between" id="horaire-button">
                                     <div class="flex font-bold">
                                         <p class="text-h4 font-bold">Horaires&nbsp;</p>
-                                        <?php if ($ouvert == true) {
-                                            ?>
-                                            <p class="text-h4 text-green-500">&nbsp;Ouvert</p>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <p class="text-h4 text-red-500">&nbsp;Fermé</p>
-                                            <?php
-                                        }
-                                        ?>
                                     </div>
                                     <p id="horaire-arrow">></p>
                                 </div>
@@ -384,7 +404,7 @@ session_start();
                                             }
                                         }
                                         if ($horaire['ouverture'] == null) {
-                                            echo "Fermé";
+                                            echo "Fermé <br>";
                                         } else {
                                             if ($horaire['pause_debut'] == null) {
                                                 echo $horaire['ouverture'] . ' - ' . $horaire['fermeture'];
@@ -399,7 +419,7 @@ session_start();
                             </a>
                             <a href="" class="">
                                 <div class="flex flex-row justify-between pt-3" id="compl-button">
-                                    <p class="text-h4 font-bold">Informations complémentaires</p>
+                                    <p class="text-h4 font-bold ">Informations complémentaires</p>
                                     <p id="compl-arrow">></p>
                                 </div>
                                 <div class="flex flex-col py-3 hidden" id="compl-info">
