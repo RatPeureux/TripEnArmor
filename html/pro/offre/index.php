@@ -202,14 +202,11 @@ session_start();
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
             $controllerSpectacle = new SpectacleController();
             $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
-            print_r($spectacle);
 
             // Durée du spectacle
-            echo $spectacle['duree'];
             $duree_spec = $spectacle['duree'];
             $duree_spec = substr($duree_spec, 0, -3);
             $duree_spec = str_replace(':', 'h', $duree_spec);
-            echo $duree_spec;
 
             // Capacité du spectacle
             $capacite = $spectacle['capacite'];
@@ -249,9 +246,13 @@ session_start();
             $ouverture = $horaire['ouverture'];
             $fermeture = $horaire['fermeture'];
             if ($ouverture !== null && $fermeture !== null) {
-                $fermeture_T = explode(':', $fermeture);
-                $fermeture_T[0] = $fermeture_T[0] + 24;
-                $fermeture_T = implode(':', $fermeture_T);
+                if ($fermeture < $ouverture) {
+                    $fermeture_T = explode(':', $fermeture);
+                    $fermeture_T[0] = $fermeture_T[0] + 24;
+                    $fermeture_T = implode(':', $fermeture_T);
+                } else {
+                    $fermeture_T = $fermeture;
+                }
                 if ($heure_actuelle >= $ouverture && $heure_actuelle <= $fermeture_T) {
                     if ($horaire['pause_debut'] !== null && $horaire['pause_fin'] !== null) {
                         $pause_debut = $horaire['pause_debut'];
@@ -259,7 +260,9 @@ session_start();
                         if ($heure_actuelle >= $pause_debut && $heure_actuelle <= $pause_fin) {
                             $ouvert = false;
                         } else {
-                            $ouvert = true;
+                            if ($heure_actuelle >= $ouverture && $heure_actuelle <= $fermeture_T) {
+                                $ouvert = true;
+                            }
                         }
                     } else {
                         $ouvert = true;
@@ -272,6 +275,17 @@ session_start();
     if ($categorie_offre !== 'restauration') {
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
         $controllerGrilleTarifaire = new TarifPublicController();
+        // VALEUR TEST CAR PAS DANS LA BDD
+        // $tarifs = [
+        //     [
+        //         "titre_tarif" => "Tarif adulte",
+        //         "prix" => 10
+        //     ],
+        //     [
+        //         "titre_tarif" => "Tarif enfant",
+        //         "prix" => 5
+        //     ]
+        // ];
     }
 
     if ($categorie_offre == 'parc_attraction') {
@@ -283,6 +297,13 @@ session_start();
 
     <main class="flex flex-col md:block md:mx-10 self-center md:p-2 max-w-[1280px] overflow-auto grow">
         <div class="flex md:gap-3">
+
+            <!-- PARTIE GAUCHE (menu) -->
+            <div id="menu">
+                <?php
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+                ?>
+            </div>
 
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
@@ -392,7 +413,7 @@ session_start();
                             ?>
                             <div class="p-1 rounded-lg bg-secondary self-center w-full">
                                 <?php
-                                echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
+                                echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
                             </div>
                             <?php
@@ -400,7 +421,7 @@ session_start();
                             ?>
                             <div class="p-1 rounded-lg bg-secondary self-center w-full">
                                 <?php
-                                echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
+                                echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
                             </div>
                             <?php
@@ -425,7 +446,7 @@ session_start();
                             ?>
                             <div class="p-1 rounded-lg bg-secondary self-center w-full">
                                 <?php
-                                echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
+                                echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
                             </div>
                             <?php
@@ -433,7 +454,7 @@ session_start();
                             ?>
                             <div class="p-1 rounded-lg bg-secondary self-center w-full">
                                 <?php
-                                echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
+                                echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
                             </div>
                             <?php
