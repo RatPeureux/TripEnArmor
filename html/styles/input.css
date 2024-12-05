@@ -35,7 +35,7 @@ label:has(+ select[required])::after {
 }
 
 /* CARTES DES OFFRES */
-.card.active {
+.card.active, .card>.active {
     box-shadow: 0 0 8px 3px var(--secondary-color);
 }
 
