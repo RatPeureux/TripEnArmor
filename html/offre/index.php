@@ -386,7 +386,7 @@ session_start();
                         <!-- Partie avis & Infos en fonction du type offre -->
                         <div class="basis-1/2">
                             <!-- Infos en fonction du type de l'offre -->
-                            <a href="" class="">
+                            <a class="">
                                 <div class="flex flex-row justify-between" id="horaire-button">
                                     <div class="flex font-bold">
                                         <p class="text-h4 font-bold">Horaires&nbsp;</p>
@@ -416,7 +416,7 @@ session_start();
                                     ?>
                                 </div>
                             </a>
-                            <a href="" class="">
+                            <a class="">
                                 <div class="flex flex-row justify-between pt-3" id="compl-button">
                                     <p class="text-h4 font-bold ">Informations complémentaires</p>
                                     <p id="compl-arrow">></p>
@@ -518,7 +518,7 @@ session_start();
                             <?php
                             if ($categorie_offre != 'restauration') {
                                 ?>
-                                <a href="" class="">
+                                <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
                                         <p class="text-h4 font-bold">Grille tarifaire</p>
                                         <p id="grille-arrow">></p>
@@ -555,16 +555,16 @@ session_start();
                                                 <?php for ($i = 0; $i < 5; $i++) {
                                                     if ($moyenne > 1) {
                                                         ?>
-                                                        <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
+                                                        <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
                                                         <?php
                                                     } else if ($moyenne > 0) {
                                                         ?>
-                                                            <img class="w-3" src="/public/images/oeuf_moitie.svg"
+                                                            <img class="w-3" src="/public/icones/oeuf_moitie.svg"
                                                                 alt="0.5 point de note">
                                                         <?php
                                                     } else {
                                                         ?>
-                                                            <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                                                            <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
                                                         <?php
                                                     }
                                                     $moyenne--;
