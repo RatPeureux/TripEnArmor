@@ -40,7 +40,6 @@ if (!$pro) {
 $id_offre = $offre['id_offre'];
 $description = $offre['description'];
 $resume = $offre['resume'];
-$option = $offre['option'];
 $est_en_ligne = $offre['est_en_ligne'];
 $date_mise_a_jour = $offre['date_mise_a_jour'];
 $titre_offre = $offre['titre'];
@@ -164,3 +163,11 @@ if ($categorie_offre == 'restauration') {
         $tags = $tags . ', ' . $nom;
     }
 }
+
+$stmt = $dbh->prepare("SELECT (date_lancement, nb_semaines) FROM sae_db._offre_souscription_option as offre_souscription_option INNER JOIN sae_db._souscription as souscription ON offre_souscription_option.id_souscription = souscription.id_souscription WHERE id_offre = :id_offre");
+$stmt->bindParam(':id_offre', $id_offre);
+$stmt->execute();
+
+$souscription_options = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+var_dump($souscription_options);
