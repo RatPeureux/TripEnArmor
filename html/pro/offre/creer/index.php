@@ -1200,12 +1200,12 @@ $pro = verifyPro();
 												class="border border-secondary rounded-lg p-2 bg-white w-min" required>
 											<script>
 
-												document.getElementById('duration').addEventListener('input', function (event) {
+												document.getElementById('duration').addEventListener('change', function (event) {
 													const value = parseInt(event.target.value, 10);
-													if (value < 1 || value > 4) {
-														event.target.setCustomValidity('La durée doit être comprise entre 1 et 4.');
-													} else {
-														event.target.setCustomValidity('');
+													if (value < 1) {
+														event.target.value = 1;
+													} else if (value > 4) {
+														event.target.value = 4;
 													}
 												});
 											</script>
