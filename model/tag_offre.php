@@ -55,7 +55,7 @@ class TagOffre extends BDD
     static function linkOffreAndTag($id_offre, $id_tag)
     {
         self::initBDD();
-        $query = "INSERT INTO " . self::$nom_table . " VALUES (?, ?) RETURNING *";
+        $query = "INSERT INTO " . self::$nom_table . " (id_offre, id_tag) VALUES (?, ?) RETURNING *";
 
         $statement = self::$db->prepare($query);
         $statement->bindValue(1, $id_offre);

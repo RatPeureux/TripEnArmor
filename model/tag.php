@@ -34,7 +34,7 @@ class Tag extends BDD
     {
         self::initBDD();
 
-        $query = "SELECT * FROM " . self::$nom_table . " WHERE nom_tag = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE nom = ?";
 
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $nom);
