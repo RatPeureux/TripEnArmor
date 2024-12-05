@@ -18,6 +18,7 @@ class HoraireController {
 
     public function getHorairesOfOffre($id_offre) {
         $horaires = $this->model::getHorairesOfOffre($id_offre);
+        array_multisort($horaires);
         $result = [];
 
         foreach ($horaires as $horaire) {
@@ -29,6 +30,7 @@ class HoraireController {
                 "pause_fin" => $horaire["pause_fin"]
             ];
         }
+
         return $result;
     }
 

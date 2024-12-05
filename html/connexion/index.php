@@ -50,22 +50,24 @@ if (empty($_POST)) { ?>
                     <!-- Champ pour l'identifiant -->
                     <label class="text-small" for="id">Identifiant</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
-                        title="Saisir un de vos identifiants (Pseudonyme, Adresse mail ou Téléphone)" maxlength="255" placeholder="Pseudonyme, téléphone ou mail"
-                        value="<?php echo $_SESSION['data_en_cours_connexion']['id']; ?>" required>
+                        title="Saisir un de vos identifiants (Pseudonyme, téléphone ou mail)" maxlength="255"
+                        placeholder="Pseudonyme, téléphone ou mail"
+                        value="<?php echo $_SESSION['data_en_cours_connexion']['id'] ?? '' ?>" required>
 
                     <!-- Champ pour le mot de passe -->
                     <div class="relative w-full">
                         <label class="text-small" for="mdp">Mot de passe</label>
                         <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
-                            pattern=".*[A-Z].*.*\d.*|.*\d.*.*[A-Z].*" title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)" minlength="8" autocomplete="new-password"
-                            value="<?php echo $_SESSION['data_en_cours_connexion']['mdp']; ?>" required>
+                            pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
+                            title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                            value="<?php echo $_SESSION['data_en_cours_connexion']['mdp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                             id="togglePassword"></i>
                     </div>
 
                     <span id="error-message" class="error text-rouge-logo text-small">
-                        <?php echo $_SESSION['error']; ?>
+                        <?php echo $_SESSION['error'] ?? '' ?>
                     </span>
 
                     <!-- Bouton de connexion -->

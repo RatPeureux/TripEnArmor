@@ -32,7 +32,7 @@ $membre = verifyMember();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    
+
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -87,11 +87,14 @@ $membre = verifyMember();
                 </div>
 
                 <div class="hidden relative" id="sort-section">
-                    <div class="absolute top-0 right-0 z-20 self-end bg-white border border-base200 rounded-lg shadow-md max-w-48 p-2 flex flex-col gap-4">
-                        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-ascending') ? '/compte/profil/avis' : '?sort=date-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                    <div
+                        class="absolute top-0 right-0 z-20 self-end bg-white border border-base200 rounded-lg shadow-md max-w-48 p-2 flex flex-col gap-4">
+                        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-ascending') ? '/compte/profil/avis' : '?sort=date-ascending'; ?>"
+                            class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                             <p>Plus récent au plus ancien</p>
                         </a>
-                        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-descending') ? '/compte/profil/avis' : '?sort=date-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-descending') ? '/compte/profil/avis' : '?sort=date-descending'; ?>"
+                            class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                             <p>Plus ancien au plus récent</p>
                         </a>
                     </div>
@@ -127,20 +130,17 @@ $membre = verifyMember();
                             ?>" class="shadow-lg <?php if (!$offre['est_en_ligne']) {
                                 echo 'opacity-50';
                             } ?>" title="<?php if (!$offre['est_en_ligne']) {
-                                echo 'offre indisponible';
-                            } ?>">
-                            <?php
-                            include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/mon_avis_view.php';
-                            ?>
+                                 echo 'offre indisponible';
+                             } ?>">
+                                <?php
+                                include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/mon_avis_view.php';
+                                ?>
                             </div>
 
                             <script>
-                                const clickableDiv = document.querySelector('#clickable_div_<?php echo $id_avis ?>');
-                                if (clickableDiv) {
-                                    clickableDiv.addEventListener('click', function () {
-                                        window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
-                                    });
-                                }
+                                document.querySelector('#clickable_div_<?php echo $id_avis ?>')?.addEventListener('click', function () {
+                                    window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
+                                });
                             </script><?php
                         }
                     } else {
