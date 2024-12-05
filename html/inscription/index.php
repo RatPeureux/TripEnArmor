@@ -129,28 +129,30 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         const confMdp = document.getElementById('confMdp');
 
         if (togglePassword1) {
-            togglePassword1.addEventListener('mousedown', function () {
-                mdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-                this.classList.remove('fa-eye'); // Change l'icône
-                this.classList.add('fa-eye-slash');
-            });
-            togglePassword1.addEventListener('mouseup', function () {
-                mdp.type = 'password'; // Masque le mot de passe à nouveau
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
+            togglePassword1.addEventListener('onclick', function () {
+                if (mdp.type === 'password') {
+                    mdp.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    mdp.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
             });
         }
 
         if (togglePassword2) {
-            togglePassword2.addEventListener('mousedown', function () {
-                confMdp.type = 'text'; // Change le type d'input pour afficher le mot de passe
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            });
-            togglePassword2.addEventListener('mouseup', function () {
-                confMdp.type = 'password'; // Masque le mot de passe à nouveau
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
+            togglePassword2.addEventListener('onclick', function () {
+                if (confMdp.type === 'password') {
+                    confMdp.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    confMdp.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
             });
         }
 
