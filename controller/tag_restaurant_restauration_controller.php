@@ -2,7 +2,7 @@
 
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/tag_restaurant_restauration.php";
 
-class tagRestaurantRestaurationController
+class TagRestaurantRestaurationController
 {
     private $model;
 
@@ -24,7 +24,8 @@ class tagRestaurantRestaurationController
         return $tags;
     }
 
-    public function linkRestaurationAndTag($id_restaurant, $id_tag) {
+    public function linkRestaurationAndTag($id_restaurant, $id_tag)
+    {
         if ($this->model::checkIfLinkExists($id_restaurant, $id_tag)) {
             echo "The link already exists<br>";
             return false;

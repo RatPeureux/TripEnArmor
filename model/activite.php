@@ -52,7 +52,7 @@ class Activite extends BDD
         $statement->bindParam(7, $id_adresse);
         $statement->bindParam(8, $duree);
         $statement->bindParam(9, $age_requis);
-        // $statement->bindParam(10, $prestations);
+        $statement->bindParam(10, $prestations);
 
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_offre'];

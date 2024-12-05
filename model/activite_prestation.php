@@ -3,7 +3,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class ActivitePrestation extends BDD
 {
-    private $nom_table = "sae_db._activite_prestation";
+    static private $nom_table = "sae_db._activite_prestation";
 
     static function getActivitesByIdPrestation($id_prestation)
     {
