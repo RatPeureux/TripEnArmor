@@ -32,7 +32,7 @@ $membre = verifyMember();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    
+
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -72,7 +72,7 @@ $membre = verifyMember();
                         class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
                         id="pseudo" name="pseudo" maxlength="255">
 
-                    <input type="submit" id="save" href="" value="Enregistrer les modifications"
+                    <input type="submit" id="save" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
                         disabled>
                     </input>

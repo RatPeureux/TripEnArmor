@@ -365,7 +365,7 @@ session_start();
                         <!-- Partie avis & Infos en fonction du type offre -->
                         <div class="basis-1/2">
                             <!-- Infos en fonction du type de l'offre -->
-                            <a href="" class="">
+                            <a class="">
                                 <div class="flex flex-row justify-between" id="horaire-button">
                                     <div class="flex font-bold">
                                         <p class="text-h4 font-bold">Horaires&nbsp;</p>
@@ -405,7 +405,7 @@ session_start();
                                     ?>
                                 </div>
                             </a>
-                            <a href="" class="">
+                            <a class="">
                                 <div class="flex flex-row justify-between pt-3" id="compl-button">
                                     <p class="text-h4 font-bold">Informations complémentaires</p>
                                     <p id="compl-arrow">></p>
@@ -505,7 +505,7 @@ session_start();
                             <?php
                             if ($categorie_offre != 'restauration') {
                                 ?>
-                                <a href="" class="">
+                                <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
                                         <p class="text-h4 font-bold">Grille tarifaire</p>
                                         <p id="grille-arrow">></p>
