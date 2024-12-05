@@ -1164,7 +1164,7 @@ $pro = verifyPro();
 										</div>
 									</div>
 
-									<div class="flex items-start" id="option-data">
+									<div class="flex items-start hidden" id="option-data">
 										<div class="flex flex-col justify-center w-full">
 											<label for="start_date" class="text-nowrap">Début de la souscription :</label>
 											<input type="date" id="start_date" name="start_date"
@@ -1194,7 +1194,7 @@ $pro = verifyPro();
 											</p>
 										</div>
 
-										<div class="flex flex-col justify-center w-full hidden">
+										<div class="flex flex-col justify-center w-full">
 											<label for="duration" class="text-nowrap">Durée de la souscription :</label>
 											<input type="number" id="duration" name="duration" min="1" max="4" value="1"
 												class="border border-secondary rounded-lg p-2 bg-white w-min" required>
