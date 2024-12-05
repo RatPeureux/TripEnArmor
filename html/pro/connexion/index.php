@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label class="text-small" for="id">Identifiant</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
                     placeholder="Nom, téléphone ou mail"
-                    title="Saisir un de vos identifiants (Dénomination, téléphone, mail)" maxlength="255"
+                    title="Saisir un de vos identifiants (Dénomination, téléphone, mail)"
                     value="<?php echo $_SESSION['data_en_cours_connexion']['id'] ?? '' ?>" required>
 
                 <!-- Champ pour le mot de passe -->

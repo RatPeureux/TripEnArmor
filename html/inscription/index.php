@@ -58,13 +58,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         <div class="w-full">
                             <label class="text-small" for="prenom">Prénom</label>
                             <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="prenom" name="prenom"
-                                title="Saisir votre prénom (max 50 caractères)" maxlength="50"
+                                title="Saisir votre prénom (max 50 caractères)"
                                 value="<?php echo $_SESSION['data_en_cours_inscription']['prenom'] ?? '' ?>" required>
                         </div>
                         <div class="w-full">
                             <label class="text-small" for="nom">Nom</label>
                             <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="nom" name="nom"
-                                title="Saisir votre nom (max 50 caractères)" maxlength="50"
+                                title="Saisir votre nom (max 50 caractères)"
                                 value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" required>
                         </div>
                     </div>
@@ -233,13 +233,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-full">
                         <label class="text-small" for="prenom">Prénom</label>
-                        <input class="p-2 text-gris bg-white w-full h-12 rounded-lg" type="text" id="prenom" name="prenom"
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="prenom" name="prenom"
                             title="Saisir votre prénom (max 50 caractères)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['prenom'] ?? '' ?>" readonly>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="nom">Nom</label>
-                        <input class="p-2 text-gris bg-white w-full h-12 rounded-lg" type="text" id="nom" name="nom"
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="nom" name="nom"
                             title="Saisir votre nom (max 50 caractères)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" readonly>
                     </div>
@@ -247,13 +247,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
-                <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
+                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
                     title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" readonly>
                 <!-- Champ pour le pseudonyme -->
                 <label class="text-small" for="pseudo">Pseudonyme</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo"
-                    title="Saisir un pseudonyme" maxlength="16"
+                    title="Saisir un pseudonyme"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['pseudo'] ?? '' ?>" required>
                 <!-- Message d'erreur pour le pseudonyme déjà utilisé -->
                 <?php
@@ -267,13 +267,12 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <label class="text-small" for="adresse">Adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
                     name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs" title="Saisir votre adresse"
-                    maxlength="255"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?? '' ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
-                    placeholder="Bâtiment A, Appartement 5" title="Saisir un complément d'adresse ?" maxlength="255"
+                    placeholder="Bâtiment A, Appartement 5" title="Saisir un complément d'adresse ?"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?? '' ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
