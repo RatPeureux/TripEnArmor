@@ -1181,6 +1181,7 @@ $pro = verifyPro();
 
 												document.getElementById('start_date').addEventListener('focus', function (e) {
 													e.target.setAttribute('min', getNextMonday());
+													e.target.setAttribute('value', getNextMonday());
 												});
 
 												function getNextMonday() {
