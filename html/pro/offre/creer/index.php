@@ -55,7 +55,7 @@ $pro = verifyPro();
 					'odonyme' => $matches[2],
 				];
 			}
-	
+
 			// Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
 			return [
 				'numero' => '',
@@ -362,8 +362,10 @@ $pro = verifyPro();
 				$stmt->bindParam(':nb_semaines', $duree_option);
 				$stmt->bindParam(':date_lancement', $debut_option);
 				$stmt->execute();
+				
+				$id_souscription = $stmt->fetch(PDO::FETCH_ASSOC);
 
-				$id_souscription = $stmt->fetch(PDO::FETCH_ASSOC)[0]['id_souscription'];
+				var_dump($id_souscription);
 
 				$stmt = $dbh->prepare("INSERT INTO sae_db._offre_souscription_option (id_offre, id_souscription, nom_option) VALUES (:id_offre, :id_souscription, :nom_option)");
 				$stmt->bindParam(':id_offre', $id_offre);
@@ -1248,6 +1250,9 @@ $pro = verifyPro();
 													}
 												});
 											</script>
+											<p>
+												La durée se compte en semaines.
+											</p>
 										</div>
 									</div>
 								</div>
