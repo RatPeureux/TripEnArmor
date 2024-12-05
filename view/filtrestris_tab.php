@@ -57,13 +57,13 @@
         </div>
         <div class="hidden text-small flex flex-wrap gap-4" id="developped-f2-tab">
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="mb-1" id="open-tab" />
-                <label for="open-tab">Ouvert</label>
+                <input type="checkbox" class="mb-1" id="ouvert-tab" />
+                <label for="ouvert-tab">Ouvert</label>
             </div>
 
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="mb-1" id="close-tab" />
-                <label for="close-tab">Fermé</label>
+                <input type="checkbox" class="mb-1" id="ferme-tab" />
+                <label for="ferme-tab">Fermé</label>
             </div>
         </div>
     </div>

@@ -29,8 +29,10 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/input.css">
+
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="/styles/config.js"></script>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>

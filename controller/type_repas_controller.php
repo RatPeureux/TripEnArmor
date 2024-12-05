@@ -16,12 +16,7 @@ class TypeRepasController
     {
         $typeRepas = $this->model::getTypeRepasById($id);
 
-        $result = [
-            "id_type_repas" => $typeRepas["id_type_repas"],
-            "nom_type_repas" => $typeRepas["nom_type_repas"],
-        ];
-
-        return $result;
+        return $typeRepas;
     }
 
     public function getTypeRepasByName($name)
@@ -38,7 +33,7 @@ class TypeRepasController
     public function createTypeRepas($nom_type_repas)
     {
         $typeRepasID = $this->model::createTypeRepas($nom_type_repas)[0]['id_type_repas'];
-        
+
         return $typeRepasID;
     }
 

@@ -1,6 +1,6 @@
 <!-- BOUTONS DE FILTRES ET DE TRIS TÉLÉPHONE -->
 <div
-    class="block md:hidden p-4 h-16 w-full bg-bgBlur/75 backdrop-blur border-t-2 border-black fixed bottom-0 flex items-center justify-between">
+    class="block md:hidden p-4 h-16 w-full bg-blur/75 backdrop-blur border-t-2 border-black fixed bottom-0 flex items-center justify-between">
     <a class="p-2 flex items-center gap-2 hover:text-primary duration-100" onclick="toggleFiltres()">
         <i class="text xl fa-solid fa-filter"></i>
         <p>Filtrer</p>
@@ -88,13 +88,13 @@
                 </div>
                 <div class="developped hidden text-small flex flex-wrap gap-4" id="developped-f2-tel">
                     <div class="flex items-center gap-2">
-                        <input type="checkbox" class="mb-1" class="mb-1" id="open-tel" />
-                        <label for="open-tel">Ouvert</label>
+                        <input type="checkbox" class="mb-1" class="mb-1" id="ouvert-tel" />
+                        <label for="ouvert-tel">Ouvert</label>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <input type="checkbox" class="mb-1" id="close-tel" />
-                        <label for="close-tel">Fermé</label>
+                        <input type="checkbox" class="mb-1" id="ferme-tel" />
+                        <label for="ferme-tel">Fermé</label>
                     </div>
                 </div>
             </div>

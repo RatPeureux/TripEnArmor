@@ -12,14 +12,13 @@ $pro = verifyPro();
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<link rel="icon" type="image" href="/public/images/favicon.png">
- 
+
 	<link rel="stylesheet" href="/styles/input.css">
+
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="/styles/config.js"></script>
-
 	<script type="module" src="/scripts/main.js" defer></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 
 	<title>Création d'offre - Professionnel - PACT</title>
@@ -95,22 +94,24 @@ $pro = verifyPro();
 		$prestations = $_POST['newPrestationName'] ?? [];
 		$horaires = $_POST['horaires'] ?? [];
 
+		$option = $_POST['option'] ?? [];
+
 		// Récupérer d'autres valeurs
 	
 
 		// *********************************************************************************************************************** Insertion
-		/* Ordre de l'insertion :
-																							1. [x] Adresse
-																							3. [x] Image
-																							5. [x] Offre
-																							6. [x] Offre_Tag / Restauration_Tag
-																							7. [x] Offre_Image
-																							8. [x] Offre_Langue
-																							9. [x] TypeRepas 
-																							10. [x] Offre_Prestation
-																							11. Horaires
-																							12. [x] Tarif_Public
-																							*/
+		// Ordre de l'insertion :
+		// 	1. [x] Adresse
+		// 	3. [x] Image
+		// 	5. [x] Offre
+		// 	6. [x] Offre_Tag / Restauration_Tag
+		// 	7. [x] Offre_Image
+		// 	8. [x] Offre_Langue
+		// 	9. [x] TypeRepas 
+		// 	10. [x] Offre_Prestation
+		// 	11. Horaires
+		// 	12. [x] Tarif_Public
+	
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -119,12 +120,12 @@ $pro = verifyPro();
 			$adresseController = new AdresseController();
 			$id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
 			if (!$id_adresse) {
-				// echo"Erreur lors de la création de l'adresse.";
+				echo"Erreur lors de la création de l'adresse.";
 				BDD::rollbackTransaction();
 				exit;
 			}
 			// echo"Adresse insérée.<br>";
-
+	
 			// Insérer l'offre dans la base de données
 			$prixMin = calculerPrixMin($prices);
 			$id_offre;
@@ -136,11 +137,11 @@ $pro = verifyPro();
 					$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
 
 					if ($id_offre < 0) { // Cas d'erreur
-						// echo"Erreur lors de l'insertion : " . $id_offre;
+						echo"Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo"Activité insérée.<br>";
+					echo"Activité insérée.<br>";
 					break;
 
 				case 'visite':
@@ -150,11 +151,11 @@ $pro = verifyPro();
 					$id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
 
 					if ($id_offre < 0) {
-						// echo"Erreur lors de l'insertion : " . $id_offre;
+						echo"Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo"Visite insérée<br>";
+					echo"Visite insérée<br>";
 					break;
 
 				case 'spectacle':
@@ -165,11 +166,11 @@ $pro = verifyPro();
 					$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $dureeFormatted);
 
 					if ($id_offre < 0) {
-						// echo"Erreur lors de l'insertion : " . $id_offre;
+						echo"Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo"Spectacle inséré<br>";
+					echo"Spectacle inséré<br>";
 					break;
 
 				case 'parc_attraction':
@@ -180,11 +181,11 @@ $pro = verifyPro();
 					$id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
 
 					if ($id_offre < 0) {
-						// echo"Erreur lors de l'insertion : " . $id_offre;
+						echo"Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo"Parc d'attraction inséré<br>";
+					echo"Parc d'attraction inséré<br>";
 					break;
 
 				case 'restauration':
@@ -195,20 +196,20 @@ $pro = verifyPro();
 					$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix);
 
 					if ($id_offre < 0) {
-						// echo"Erreur lors de l'insertion : " . $id_offre;
+						echo"Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo"Restauration insérée<br>";
+					echo"Restauration insérée<br>";
 					break;
 
 				default:
-					// echo"Aucune activité sélectionnée";
+					echo"Aucune activité sélectionnée";
 					BDD::rollbackTransaction();
 					exit;
 			}
 			// echo"new id_offre : " . $id_offre . "<br>";
-
+	
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
@@ -223,7 +224,7 @@ $pro = verifyPro();
 
 					$tagRestaurationRestaurantController->linkRestaurationAndTag($id_offre, $tag_id);
 				}
-				// echo"Tags Restaurant inséré<br>";
+				echo"Tags Restaurant inséré<br>";
 			} else {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
 				$tagController = new TagController();
@@ -235,7 +236,7 @@ $pro = verifyPro();
 					$tag_id = $tags_id ? $tags_id[0]['id_tag'] : $tagController->createTag($tag);
 					$tagOffreController->linkOffreAndTag($id_offre, $tag_id);
 				}
-				// echo"Tags insérés.<br>";
+				echo"Tags insérés.<br>";
 			}
 
 			// Insérer les images dans la base de données
@@ -244,31 +245,31 @@ $pro = verifyPro();
 
 			// *** CARTE
 			if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
-				// echo"Erreur lors de l'upload de l'image de la carte.";
+				echo"Erreur lors de l'upload de l'image de la carte.";
 				BDD::rollbackTransaction();
 				exit;
 			}
 			// echo"Image de la carte insérée.<br>";
-
+	
 			// *** DETAIL
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
 					if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
-						// echo"Erreur lors de l'upload de l'image de détail.";
+						echo"Erreur lors de l'upload de l'image de détail.";
 						BDD::rollbackTransaction();
 						exit;
 					}
 				}
-				// echo"Images de détail insérées.<br>";
+				echo"Images de détail insérées.<br>";
 			}
 
 			if ($activityType === 'parc_attraction') {
 				if (!$imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
-					// echo"Erreur lors de l'upload de l'image du plan.";
+					echo"Erreur lors de l'upload de l'image du plan.";
 					BDD::rollbackTransaction();
 					exit;
 				}
-				// echo"Image du plan insérée.<br>";
+				echo"Image du plan insérée.<br>";
 			}
 
 			if ($activityType === 'visite' && $avec_guide) {
@@ -281,11 +282,11 @@ $pro = verifyPro();
 				for ($i = 1; $i < count($langueController->getInfosAllLangues()) + 1; $i++) { // foreach ($langues as $langue => $isIncluded) {
 					$isIncluded = $_POST['langue' . $i] ?? "on";
 					if ($isIncluded) {
-						// echo"Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
+						echo"Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
 						$visiteLangueController->linkVisiteAndLangue($id_offre, $i);
 					}
 				}
-				// echo"Langues insérées.<br>";
+				echo"Langues insérées.<br>";
 			} elseif ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
 				$typeRepasController = new TypeRepasController();
@@ -301,7 +302,7 @@ $pro = verifyPro();
 						$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
 					}
 				}
-				// echo"Types de repas insérés.<br>";
+				echo"Types de repas insérés.<br>";
 			} elseif ($activityType === 'activite') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_controller.php';
 				$prestationController = new PrestationController();
@@ -316,7 +317,7 @@ $pro = verifyPro();
 
 					$activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
 				}
-				// echo"Prestations insérées.<br>";
+				echo"Prestations insérées.<br>";
 			}
 
 			// Insérer les horaires dans la base de données
@@ -327,24 +328,24 @@ $pro = verifyPro();
 				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 			}
 			// echo"Horaires insérés.<br>";
-
+	
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
 			$tarifController = new TarifPublicController();
 			foreach ($prices as $price) {
 				if (!isset($price['name']) || !isset($price['value'])) {
-					// echo"Erreur : données de prix invalides.";
+					echo"Erreur : données de prix invalides.";
 					continue;
 				}
 
 				$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
 			}
 			// echo"Prix insérés.<br>";
-
+	
 			BDD::commitTransaction();
-			header('location: /scripts/go_to_details.php?id_offre=$id_offre');
+			header('location: /scripts/go_to_details.php?id_offre=' . $id_offre);
 		} catch (Exception $e) {
-			// echo"Erreur lors de l'insertion : " . $e->getMessage();
+			echo"Erreur lors de l'insertion : " . $e->getMessage();
 			BDD::rollbackTransaction();
 			exit;
 		}
@@ -409,9 +410,9 @@ $pro = verifyPro();
 							?>
 							<div
 								class="border border-<?php echo $cardColor; ?> rounded-lg flex-col justify-center w-full text-<?php echo $cardColor; ?> p-4 has-[:checked]:bg-<?php echo $cardColor; ?> has-[:checked]:text-white md:h-full <?php echo $cardVisible; ?>">
-								<input type="radio" name="type_offre" id="type_offre_<? echo $typeOffre['id_type_offre']; ?>"
-									value="<? echo $typeOffre['id_type_offre']; ?>" class="hidden">
-								<label for="type_offre_<? echo $typeOffre['id_type_offre']; ?>"
+								<input type="radio" name="type_offre" id="type_offre_<?php echo $typeOffre['id_type_offre']; ?>"
+									value="<?php echo $typeOffre['id_type_offre']; ?>" class="hidden">
+								<label for="type_offre_<?php echo $typeOffre['id_type_offre']; ?>"
 									class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
 									<div class="h-full divide-y divide-current">
 										<div>
@@ -567,15 +568,13 @@ $pro = verifyPro();
 
 								<div class="justify-between items-center w-full">
 									<label for="locality" class="text-nowrap">Ville :</label>
-									<input id="locality" name="locality"
-										type="text"
+									<input id="locality" name="locality" type="text"
 										pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
 										title="Saisir votre ville" placeholder="Rennes"
 										class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 
 									<label for="postal_code" class="text-nowrap">Code postal :</label>
-									<input id="postal_code" name="postal_code"
-										type="number"
+									<input id="postal_code" name="postal_code" type="number"
 										pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345"
 										placeholder="12345"
 										class="border border-secondary rounded-lg p-2 bg-white w-24 w-full" required>
@@ -1131,11 +1130,9 @@ $pro = verifyPro();
 								</div>
 
 								<div class="<?php if ($pro['data']['type'] === 'prive') {
-								// echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
-							} ?> hidden w-full">
+									echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
+								} ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
-
-									<!-- TODO: donner la durée en semaines + la date de lancement -->
 
 									<!-- CGU -->
 									<a href="/cgu" class="text-small underline text-secondary"> Voir les CGU</a>
@@ -1147,14 +1144,14 @@ $pro = verifyPro();
 										<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
 											id="option-rien-div">
 											<input type="radio" id="option-rien" name="option" value="option-rien"
-												class="hidden" />
+												class="hidden" checked="true" />
 											<label for="option-rien">Sans option</label>
 										</div>
 										<!-- Option en relief -->
 										<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
 											id="option-relief-div">
 											<input type="radio" id="option-relief" name="option" value="option-relief"
-												class="hidden" checked="true" />
+												class="hidden" />
 											<label for="option-relief">En Relief (3.99€)</label>
 										</div>
 										<!-- À la une -->
@@ -1163,6 +1160,54 @@ $pro = verifyPro();
 											<input type="radio" id="option-a-la-une" name="option" class="hidden"
 												value="option-a-la-une" />
 											<label for="option-a-la-une">À la une (5.99€)</label>
+										</div>
+									</div>
+
+									<div class="flex items-start">
+										<div class="flex flex-col justify-center w-full">
+											<label for="start_date" class="text-nowrap">Début de la souscription :</label>
+											<input type="date" id="start_date" name="start_date"
+												class="border border-secondary rounded-lg p-2 bg-white w-min" required
+												oninput="validateMonday(this)">
+											<script>
+												function validateMonday(input) {
+													const date = new Date(input.value);
+													if (date.getDay() !== 1) {
+														const nextMonday = new Date(date.setDate(date.getDate() + (1 + 7 - date.getDay()) % 7));
+														input.value = nextMonday.toISOString().split('T')[0];
+													}
+												}
+
+												document.getElementById('start_date').addEventListener('focus', function (e) {
+													e.target.setAttribute('min', getNextMonday());
+												});
+
+												function getNextMonday() {
+													const today = new Date();
+													const nextMonday = new Date(today.setDate(today.getDate() + (1 + 7 - today.getDay()) % 7));
+													return nextMonday.toISOString().split('T')[0];
+												}
+											</script>
+											<p>
+												Votre souscription doit commencer un lundi.
+											</p>
+										</div>
+
+										<div class="flex flex-col justify-center w-full">
+											<label for="duration" class="text-nowrap">Durée de la souscription :</label>
+											<input type="number" id="duration" name="duration" min="1" max="4" value="1"
+												class="border border-secondary rounded-lg p-2 bg-white w-min" required>
+											<script>
+
+												document.getElementById('duration').addEventListener('change', function (event) {
+													const value = parseInt(event.target.value, 10);
+													if (value < 1) {
+														event.target.value = 1;
+													} else if (value > 4) {
+														event.target.value = 4;
+													}
+												});
+											</script>
 										</div>
 									</div>
 								</div>
@@ -1211,7 +1256,7 @@ $pro = verifyPro();
 									</script>
 									<!-- En tête -->
 									<div
-										class="en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
+										class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
 										<!-- Mise à jour du titre en temps réel -->
 										<h3 class="text-center font-bold" id="preview-titre"></h3>
 										<script>

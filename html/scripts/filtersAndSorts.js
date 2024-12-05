@@ -315,11 +315,12 @@ document.addEventListener("DOMContentLoaded", function () {
         let anyVisible = false; // Variable pour suivre si une offre est visible
 
         offres?.forEach((offre) => {
-            const category = offre.querySelector('.categorie').textContent.trim().replace(", ", "").replace(" d'", "_").toLowerCase();
-            const availability = offre.querySelector('.disponibilite');
-            const localisation = offre.querySelector('.localisation');
-            const city = localisation.querySelector('p:nth-of-type(1)').textContent.trim();
-            const code = localisation.querySelector('p:nth-of-type(2)').textContent.trim();
+            // Récupère les informations de l'offre
+            const category = offre.querySelector('.categorie').textContent.replace(", ", "").replace(" d'", "_").toLowerCase().trim();
+            const availability = offre.getAttribute('title').replace("é", "e").toLowerCase().trim();
+            const city = offre.querySelector('.localisation').querySelector('p:nth-of-type(1)').textContent.trim();
+            const code = offre.querySelector('.localisation').querySelector('p:nth-of-type(2)').textContent.trim();
+
             const note = offre.querySelector('.note');
             const price = offre.querySelector('.prix');
 
@@ -329,9 +330,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(category);
             }
 
-            let matchesAvailability = true;
+            let matchesAvailability = false;
             if (availability) {
-                matchesAvailability = filterState.categories.length === 0 || filterState.categories.includes(category);
+                matchesAvailability = filterState.disponiblitees.length === 0 || filterState.disponiblitees.includes(availability);
             }
 
             let matchesLocalisation = false;
@@ -341,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5');
             if (note) {
-                matchesNote = filterState.note[0] <= note.getAttribute('title') && note.getAttribute('title') <= filterState.note[1];
+                matchesNote = filterState.note[0] <= note.getAttribute('title').trim() && note.getAttribute('title').trim() <= filterState.note[1];
             }
 
             let matchesPrice = (filterState.prix[0] === '0' && filterState.prix[1] === document.getElementById('max-price-tab').max);

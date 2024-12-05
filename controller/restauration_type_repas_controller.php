@@ -2,25 +2,25 @@
 
 require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . "/model/restauration_type_repas.php";
 
-class RestaurationTypeRepasController {
+class RestaurationTypeRepasController
+{
 
     private $model;
 
-    function __construct() {
+    function __construct()
+    {
         $this->model = 'RestaurationTypeRepas';
     }
-    
-    public function getTypesRepasBydIdRestaurant($id_offre){
+
+    public function getTypesRepasBydIdRestaurant($id_offre)
+    {
         $typesRepas = $this->model::getTypesRepasBydIdRestaurant($id_offre);
 
-        $result = [
-            "id_type_repas" => $typesRepas["id_type_repas"],
-        ];
-
-        return $result;
+        return $typesRepas;
     }
 
-    public function getRestaurantsByIdTypeRepas($id_type_repas) {
+    public function getRestaurantsByIdTypeRepas($id_type_repas)
+    {
         $restaurants = $this->model::getRestaurantByIdTypesRepas($id_type_repas);
 
         $result = [
@@ -30,7 +30,8 @@ class RestaurationTypeRepasController {
         return $result;
     }
 
-    public function linkRestaurantAndTypeRepas($id_offre, $id_type_repas) {
+    public function linkRestaurantAndTypeRepas($id_offre, $id_type_repas)
+    {
         if ($this->model::checkIfLinkExists($id_offre, $id_type_repas)) {
             echo "The link already exists";
             return -1;
@@ -39,7 +40,8 @@ class RestaurationTypeRepasController {
         }
     }
 
-    public function unlinkRestaurantAndTypeRepas($id_offre, $id_type_repas) {
+    public function unlinkRestaurantAndTypeRepas($id_offre, $id_type_repas)
+    {
         if ($this->model::checkIfLinkExists($id_offre, $id_type_repas)) {
             return $this->model::deleteRestaurantTypeRepas($id_offre, $id_type_repas);
         } else {

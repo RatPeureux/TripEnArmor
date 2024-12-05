@@ -10,6 +10,57 @@ if (!function_exists('chaineVersMot')) {
 // Obtenir les différentes variables avec les infos nécessaires via des requêtes SQL
 require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
 
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+$controllerHoraire = new HoraireController();
+$horaires = $controllerHoraire->getHorairesOfOffre($id_offre);
+
+foreach ($horairesV1 as $jour => $horaire) {
+	$horaires['ouverture'][$jour] = $horaire['ouverture'];
+	$horaires['pause_debut'][$jour] = $horaire['pause_debut'];
+	$horaires['pause_fin'][$jour] = $horaire['pause_fin'];
+	$horaires['fermeture'][$jour] = $horaire['fermeture'];
+}
+$jour_semaine = date('l');
+$jours_semaine_fr = [
+	'Monday' => 'lundi',
+	'Tuesday' => 'mardi',
+	'Wednesday' => 'mercredi',
+	'Thursday' => 'jeudi',
+	'Friday' => 'vendredi',
+	'Saturday' => 'samedi',
+	'Sunday' => 'dimanche'
+];
+
+$jour_semaine = $jours_semaine_fr[$jour_semaine];
+date_default_timezone_set('Europe/Paris');
+$heure_actuelle = date('H:i');
+$ouvert = false;
+
+foreach ($horaires as $jour => $horaire) {
+	if ($jour == $jour_semaine) {
+		$ouverture = $horaire['ouverture'];
+		$fermeture = $horaire['fermeture'];
+		if ($ouverture !== null && $fermeture !== null) {
+			$fermeture_T = explode(':', $fermeture);
+			$fermeture_T[0] = $fermeture_T[0] + 24;
+			$fermeture_T = implode(':', $fermeture_T);
+			if ($heure_actuelle >= $ouverture && $heure_actuelle <= $fermeture_T) {
+				if ($horaire['pause_debut'] !== null && $horaire['pause_fin'] !== null) {
+					$pause_debut = $horaire['pause_debut'];
+					$pause_fin = $horaire['pause_fin'];
+					if ($heure_actuelle >= $pause_debut && $heure_actuelle <= $pause_fin) {
+						$ouvert = false;
+					} else {
+						$ouvert = true;
+					}
+				} else {
+					$ouvert = true;
+				}
+			}
+		}
+	}
+}
+
 if ($mode_carte == 'membre') {
 	?>
 	<!--
@@ -17,7 +68,8 @@ if ($mode_carte == 'membre') {
 	Composant dynamique (généré avec les données en php)
 	Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 -->
-	<a class="card" href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>'>
+	<a class="card" href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' 
+		<?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'" ;?>>
 
 		<!-- CARTE VERSION TÉLÉPHONE -->
 		<div class='md:hidden <?php if ($option) {
@@ -25,7 +77,7 @@ if ($mode_carte == 'membre') {
 		} ?> relative bg-base100 rounded-xl flex flex-col'>
 			<!-- En-tête -->
 			<div
-				class='en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
+				class='en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
 				<h3 class='text-xl text-center font-bold'>
 					<?php echo $titre_offre; ?>
 				</h3>
@@ -68,6 +120,7 @@ if ($mode_carte == 'membre') {
 							$tagsListe = [];
 							$tagsAffiche = "";
 
+                            // print_r($tags_offre);
 							foreach ($tags_offre as $tag) {
 								$tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
 							}
@@ -268,7 +321,8 @@ if ($mode_carte == 'membre') {
 	-->
 
 	<div class="card <?php if ($option)
-		echo 'active' ?> relative max-w-[1280px] bg-base100 rounded-lg flex">
+		echo 'active' ?> relative max-w-[1280px] bg-base100 rounded-lg flex" 
+		<?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'" ;?>>
 
 			<!-- PARTIE DE GAUCHE, image-->
 			<div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
@@ -339,12 +393,9 @@ if ($mode_carte == 'membre') {
 						<?php
 						if ($est_en_ligne) {
 							?>
-							<a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>" <?php echo (($pro['data']['type'] === 'prive' && $pro['data']['id_rib'] === null)
-							   	?
-							   	("onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre {$titre_offre} en ligne\");'")
-							   	:
-							   	("onclick='return confirm(\"Voulez-vous vraiment mettre {$titre_offre} hors ligne ?\");'")
-							   ); ?> title=" [!!!] mettre hors-ligne">
+							<a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>"
+								onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?');"
+								title=" [!!!] mettre hors-ligne">
 								<svg class="toggle-wifi-offline p-1 rounded-lg border-rouge-logo hover:border-y-2 border-solid duration-100 hover:fill-[#EA4335]"
 									width="55" height="40" viewBox="0 0 40 32" fill="#0a0035">
 									<path
@@ -356,9 +407,14 @@ if ($mode_carte == 'membre') {
 							<?php
 						} else {
 							?>
-							<a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>"
-								onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> en ligne ?');"
-								title="[!!!] mettre en ligne">
+							<a 
+							<?php
+							if ($pro['data']['type'] == 'prive' and !is_null($pro['data']['id_rib'])) {
+								echo "href='/scripts/toggle_ligne.php?id_offre={$id_offre}' onclick='return confirm(\"Voulez-vous vraiment mettre {$titre_offre} hors ligne ?\");'";
+							} else {
+								echo "onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre {$titre_offre} en ligne\");'";
+							}
+							?> title="[!!!] mettre en ligne">
 								<svg class="toggle-wifi-online p-1 rounded-lg hover:fill-[#00350D] border-secondary hover:border-y-2 border-solid duration-100"
 									width="55" height="40" viewBox="0 0 40 32" fill="#EA4335">
 									<path

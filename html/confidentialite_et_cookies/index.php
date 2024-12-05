@@ -18,7 +18,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    
     <script type="module" src="/scripts/main.js" defer=""></script>
 
     <title>Politique de confidentialité et d'utilisation des cookies - PACT</title>

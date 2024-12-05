@@ -8,20 +8,18 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image" href="/public/images/favicon.png">
 
+    <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
     <script
         src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
     <script src="/styles/config.js"></script>
-
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="/scripts/loadCaroussel.js" type="module"></script>
-
-    <!-- Pour les requêtes AJAX -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Détails d'une offre - PACT</title>
@@ -57,6 +55,43 @@ session_start();
         $nom_pro = $pro['nom_pro'];
     }
 
+    require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
+    $result = [
+        "id_compte" => "",
+        "nom_pro" => "",
+        "email" => "",
+        "tel" => "",
+        "id_adresse" => "",
+        "data" => [
+        ]
+    ];
+    $proController = new ProPriveController();
+
+    $proAuth = $proController->getInfosProPrive($pro['id_compte']);
+    if (!$proAuth) {
+        require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_public_controller.php";
+        $proController = new ProPublicController();
+        $proAuth = $proController->getInfosProPublic($pro['id_compte']);
+
+        $result["id_compte"] = $proAuth["id_compte"];
+        $result["nom_pro"] = $proAuth["nom_pro"];
+        $result["email"] = $proAuth["email"];
+        $result["tel"] = $proAuth["num_tel"];
+        $result["id_adresse"] = $proAuth["id_adresse"];
+        $result["data"]["type_orga"] = $proAuth["type_orga"];
+        $result["data"]["type"] = "public";
+
+    } else {
+        $result["id_compte"] = $proAuth["id_compte"];
+        $result["nom_pro"] = $proAuth["nom_pro"];
+        $result["email"] = $proAuth["email"];
+        $result["tel"] = $proAuth["tel"];
+        $result["id_adresse"] = $proAuth["id_adresse"];
+        $result["data"]["numero_siren"] = $proAuth["num_siren"];
+        $result["data"]["id_rib"] = $proAuth["id_rib"];
+        $result["data"]["type"] = "prive";
+    }
+
     // Obtenir l'ensemble des informations de l'offre
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
     $stmt->bindParam(':id_offre', $id_offre);
@@ -65,9 +100,27 @@ session_start();
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
     switch ($categorie_offre) {
         case 'restauration':
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+
+            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
             $controllerRestauration = new RestaurationController();
-            $parc_attraction = $controllerRestauration->getInfosRestauration($id_offre);
+            $restauration = $controllerRestauration->getInfosRestauration($id_offre);
+
+            // Type de repas servis
+            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_type_repas_controller.php';
+            $controllerRestaurationType = new RestaurationTypeRepasController();
+            $restaurationListeId = $controllerRestaurationType->getTypesRepasBydIdRestaurant($id_offre);
+
+            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
+            $controllerTypeRepas = new TypeRepasController();
+            $tags_type_repas = '';
+            foreach ($restaurationListeId as $type) {
+                $type_repas[] = $controllerTypeRepas->getInfoTypeRepas($type['id_type_repas']);
+            }
+            foreach ($type_repas as $type_repa) {
+                $tags_type_repas .= $type_repa['nom'] . ', ';
+            }
+            $tags_type_repas = rtrim($tags_type_repas, ', ');
+
             break;
 
         case 'activite':
@@ -81,7 +134,15 @@ session_start();
             $duree_act = str_replace(':', 'h', $duree_act);
 
             // Prestations de l'activité
-            $prestation = $activite['prestations'];
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
+            $controllerActivitePrestation = new ActivitePrestationController();
+            $activitePrestations = $controllerActivitePrestation->getPrestationsByIdActivite($id_offre);
+
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_controller.php';
+            $controllerPrestation = new PrestationController();
+            foreach ($activitePrestations as $prestation) {
+                $prestations[] = $controllerPrestation->getPrestationById($prestation['id_prestation']);
+            }
 
             // Âge requis pour l'activité
             $age_requis_act = $activite['age_requis'];
@@ -132,11 +193,14 @@ session_start();
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
             $controllerSpectacle = new SpectacleController();
             $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
+            print_r($spectacle);
 
             // Durée du spectacle
+            echo $spectacle['duree'];
             $duree_spec = $spectacle['duree'];
             $duree_spec = substr($duree_spec, 0, -3);
             $duree_spec = str_replace(':', 'h', $duree_spec);
+            echo $duree_spec;
 
             // Capacité du spectacle
             $capacite = $spectacle['capacite'];
@@ -171,20 +235,6 @@ session_start();
     $heure_actuelle = date('H:i');
     $ouvert = false;
 
-    // $time1 = "14:30";
-    // $time2 = "16:45";
-    
-    // $timestamp1 = strtotime($time1);
-    // $timestamp2 = strtotime($time2);
-    
-    // if ($timestamp1 < $timestamp2) {
-    //     echo "$time1 est avant $time2";
-    // } elseif ($timestamp1 > $timestamp2) {
-    //     echo "$time1 est après $time2";
-    // } else {
-    //     echo "$time1 est égal à $time2";
-    // }
-    
     foreach ($horaires as $jour => $horaire) {
         if ($jour == $jour_semaine) {
             $ouverture = $horaire['ouverture'];
@@ -293,24 +343,24 @@ session_start();
                 </div>
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
-                <div class="space-y-4 px-2 md:px-0 w-full">
-                    <div class="flex flex-col md:flex-row md:items-center w-full md:justify-between">
-                        <div class="flex flex-col md:flex-row md:items-center">
+                <div class="space-y-2 px-2 md:px-0 w-full">
+                    <div class="flex flex-col md:flex-row w-full">
+                        <div class="flex flex-col md:flex-row">
                             <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
                             <p class="hidden text-h1 md:flex md:pt-1">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-h1 md:pt-1"><?php echo $nom_pro ?></p>
                         </div>
-                        <?php if ($ouvert == true) {
-                            ?>
-                            <p class="text-h1 font-bold text-green-500">Ouvert</p>
-                            <?php
-                        } else {
-                            ?>
-                            <p class="text-h1 font-bold text-red-500">Fermé</p>
-                            <?php
-                        }
-                        ?>
                     </div>
+                    <?php if ($ouvert == true) {
+                        ?>
+                        <p class="text-h3 font-bold text-green-500">Ouvert</p>
+                        <?php
+                    } else {
+                        ?>
+                        <p class="text-h3 font-bold text-red-500">Fermé</p>
+                        <?php
+                    }
+                    ?>
                     <div class="w-full">
                         <p class="text-small">
                             <?php echo $resume ?>
@@ -319,38 +369,73 @@ session_start();
 
                     <!-- Afficher les tags de l'offre -->
                     <?php
-                    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
-                    $controllerTagOffre = new TagOffreController();
-                    $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+                    if ($categorie_offre != 'restauration') {
+                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+                        $controllerTagOffre = new TagOffreController();
+                        $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
 
-                    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-                    $controllerTag = new TagController();
-                    $tagsAffiche = "";
-                    $tagsListe = [];
-                    foreach ($tags_offre as $tag) {
-                        array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
-                    }
-                    foreach ($tagsListe as $tag) {
-                        $tagsAffiche .= $tag['nom'] . ', ';
-                    }
+                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+                        $controllerTag = new TagController();
+                        $tagsAffiche = "";
+                        $tagsListe = [];
+                        foreach ($tags_offre as $tag) {
+                            array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
+                        }
+                        foreach ($tagsListe as $tag) {
+                            $tagsAffiche .= $tag['nom'] . ', ';
+                        }
 
-                    $tagsAffiche = rtrim($tagsAffiche, ', ');
-                    if ($tags_offre) {
-                        ?>
-                        <div class="p-1 rounded-lg bg-secondary self-center w-full">
-                            <?php
-                            echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
+                        $tagsAffiche = rtrim($tagsAffiche, ', ');
+                        if ($tags_offre) {
                             ?>
-                        </div>
-                        <?php
+                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                                <?php
+                                echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
+                                ?>
+                            </div>
+                            <?php
+                        } else {
+                            ?>
+                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                                <?php
+                                echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
+                                ?>
+                            </div>
+                            <?php
+                        }
                     } else {
-                        ?>
-                        <div class="p-1 rounded-lg bg-secondary self-center w-full">
-                            <?php
-                            echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
+                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
+                        $controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
+                        $tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
+
+                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+                        $controllerTagRest = new TagRestaurantController();
+                        $tagsAffiche = "";
+                        foreach ($tags_offre as $tag) {
+                            $tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
+                        }
+                        foreach ($tagsListe as $tag) {
+                            $tagsAffiche .= $tag[0]['nom'] . ', ';
+                        }
+
+                        $tagsAffiche = rtrim($tagsAffiche, ', ');
+                        if ($tags_offre) {
                             ?>
-                        </div>
-                        <?php
+                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                                <?php
+                                echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
+                                ?>
+                            </div>
+                            <?php
+                        } else {
+                            ?>
+                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                                <?php
+                                echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
+                                ?>
+                            </div>
+                            <?php
+                        }
                     }
                     ?>
 
@@ -426,8 +511,9 @@ session_start();
                                     <?php
                                     switch ($categorie_offre) {
                                         case 'restauration':
+
                                             // VALEUR TEST CAR PAS DANS LA BDD
-                                            $tags_type_repas = 'Petit-dej, Brunch, Déjeuner, Dîner, Goûter';
+                                    
                                             ?>
                                             <div class="text-small flex flex-row">
                                                 <p class="text-small">Repas servis&nbsp:&nbsp</p>
@@ -444,7 +530,14 @@ session_start();
                                             </div>
                                             <p class="text-small">Âge requis&nbsp;:&nbsp;<?php echo $age_requis_act ?> ans</p>
                                             <div class="text-small">
-                                                <?php echo $prestation ?>
+                                                <?php foreach ($prestations as $presta) {
+                                                    if ($presta['inclus'] == 1) {
+                                                        $presta['inclus'] = 'inclus';
+                                                    } else {
+                                                        $presta['inclus'] = 'non inclus';
+                                                    }
+                                                    echo $presta['nom'] . ' : ' . $presta['inclus'] . '<br>';
+                                                } ?>
                                             </div>
 
                                             <?php
@@ -517,7 +610,7 @@ session_start();
                                 </div>
                             </a>
                             <?php
-                            if ($categorie_offre != 'restauration') {
+                            if ($categorie_offre != 'restauration' && $proAuth['type_orga'] != 'public') {
                                 ?>
                                 <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">

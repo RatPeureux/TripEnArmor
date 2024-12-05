@@ -11,12 +11,7 @@ class TagRestaurantController {
     public function getInfosTagRestaurant($id) {
         $tag = $this->model::getTagRestaurantById($id);
 
-        $result = [
-            "id_tag_restaurant" => $tag["id_tag_restaurant"],
-            "nom" => $tag["nom"]
-        ];
-
-        return $result;
+        return $tag;
     }
 
     public function getTagsRestaurantByName( $name ) {
