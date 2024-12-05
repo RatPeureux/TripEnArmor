@@ -45,6 +45,7 @@ class ImageController
         echo "Actual path : " . $actual_path . "<br>";
         echo "Extension : " . $extension . "<br>";
 
+        echo "Destination path : " . $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension . "<br>";
         
         if (!file_exists($this->uploadDir)) {
             mkdir($this->uploadDir, 0777, true);
