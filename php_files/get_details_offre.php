@@ -164,7 +164,7 @@ if ($categorie_offre == 'restauration') {
     }
 }
 
-$stmt = $dbh->prepare("SELECT * FROM sae_db._offre_souscription_option as offre_souscription_option INNER JOIN sae_db._souscription as souscription ON offre_souscription_option.id_souscription = souscription.id_souscription WHERE id_offre = :id_offre");
+$stmt = $dbh->prepare("SELECT (date_lancement, nb_semaines) FROM sae_db._offre_souscription_option as offre_souscription_option INNER JOIN sae_db._souscription as souscription ON offre_souscription_option.id_souscription = souscription.id_souscription WHERE id_offre = :id_offre");
 $stmt->bindParam(':id_offre', $id_offre);
 $stmt->execute();
 
