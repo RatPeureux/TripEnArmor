@@ -113,7 +113,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                         de l'organisation<?php } ?></label>
                 <input value="<?php echo $pro['nom_pro'] ?>"
                     class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="nom"
-                    name="nom" maxlength="255">
+                    name="nom">
 
                 <input type="submit" id="save1" value="Enregistrer les modifications"
                     class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
@@ -127,13 +127,13 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                 <label class="text-h3" for="adresse">Adresse postale</label>
                 <input value="<?php echo $adresse['numero'] . " " . $adresse['odonyme'] ?>"
                     class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="adresse"
-                    name="adresse" maxlength="255"">
-                
+                    name="adresse">
+
                 <label class=" text-h3" for="complement">Complément adresse postale</label>
                 <input value="<?php echo $adresse['complement'] ?>"
                     class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                    id="complement" name="complement" maxlength="255"">
-                    
+                    id="complement" name="complement">
+
                 <div class=" flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-32">
                         <label class="text-h3" for="postal_code">Code postal</label>
@@ -142,7 +142,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                             pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345">
                     </div>
                     <div class="w-full">
-                        <label class="text-h3" for="ville">Ville</label>
+                        <label class="text-h3" for="locality">Ville</label>
                         <input id="locality" name="locality" value="<?php echo $adresse['ville'] ?>"
                             class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir votre ville"

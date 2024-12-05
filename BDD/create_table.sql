@@ -473,12 +473,10 @@ CREATE TABLE _tarif_public ( -- Baptiste
 CREATE TABLE _avis_restauration_note (
     id_avis INT REFERENCES _avis (id_avis) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
     id_restauration INT REFERENCES _restauration (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
-    note_ambiance INT CHECK (note_ambiance BETWEEN 1 AND 5),
-    note_service INT CHECK (note_service BETWEEN 1 AND 5),
-    note_cuisine INT CHECK (note_cuisine BETWEEN 1 AND 5),
-    rapport_qualite_prix INT CHECK (
-        rapport_qualite_prix BETWEEN 1 AND 5
-    ),
+    note_ambiance FLOAT,
+    note_service FLOAT,
+    note_cuisine FLOAT,
+    rapport_qualite_prix FLOAT,
     PRIMARY KEY (id_avis, id_restauration)
 );
 

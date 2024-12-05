@@ -105,7 +105,6 @@ class AvisController
     public function deleteAvis($id)
     {
         if ($this->model::deleteAvis($id)) {
-            echo "Avis supprimé";
             return 0;
         } else {
             echo "ERREUR: Impossible de supprimer l'avis";

@@ -49,7 +49,7 @@ if (empty($_POST)) { ?>
                     <!-- Champ pour l'identifiant -->
                     <label class="text-small" for="id">Identifiant</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
-                        title="Saisir un de vos identifiants (Pseudonyme, téléphone ou mail)" maxlength="255"
+                        title="Saisir un de vos identifiants (Pseudonyme, téléphone ou mail)"
                         placeholder="Pseudonyme, téléphone ou mail"
                         value="<?php echo $_SESSION['data_en_cours_connexion']['id'] ?? '' ?>" required>
 
