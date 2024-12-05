@@ -326,8 +326,9 @@ session_start();
                     require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
                     $controllerTag = new TagController();
                     $tagsAffiche = "";
+                    $tagsListe = [];
                     foreach ($tags_offre as $tag) {
-                        $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
+                        array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
                     }
                     foreach ($tagsListe as $tag) {
                         $tagsAffiche .= $tag['nom'] . ', ';

@@ -92,7 +92,6 @@ if (!function_exists('to_nom_note')) {
 
             foreach (['note_ambiance', 'note_service', 'note_cuisine', 'rapport_qualite_prix'] as $nom_note) {
                 ?>
-
                 <div class='flex flex-col items-center shrink-0'>
                     <div class="flex gap-1">
                         <?php
