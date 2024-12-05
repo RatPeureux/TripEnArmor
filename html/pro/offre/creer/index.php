@@ -1151,14 +1151,25 @@ $pro = verifyPro();
 										<!-- Sans option -->
 										<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
 											id="option-rien-div">
-											<input type="radio" id="option-rien" name="option" value="option-rien"
+											<input type="radio" id="option-rien" name="option" value="1"
 												class="hidden" checked="true" />
 											<label for="option-rien">Sans option</label>
 										</div>
+										<?php
+										require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/php_files/connect_to_bdd.php";
+
+										$stmt = $dbh->prepare('SELECT * FROM sae_db._option');
+										$stmt->execute();
+										$options = $stmt->fetchAll(PDO::FETCH_ASSOC);
+										var_dump($options);
+										foreach($options as $option) {
+
+										}
+										?>
 										<!-- Option en relief -->
 										<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
 											id="option-relief-div">
-											<input type="radio" id="option-relief" name="option" value="option-relief"
+											<input type="radio" id="option-relief" name="option" value="2"
 												class="hidden" />
 											<label for="option-relief">En Relief (3.99€)</label>
 										</div>
@@ -1166,7 +1177,7 @@ $pro = verifyPro();
 										<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
 											id="option-a-la-une-div">
 											<input type="radio" id="option-a-la-une" name="option" class="hidden"
-												value="option-a-la-une" />
+												value="3è" />
 											<label for="option-a-la-une">À la une (5.99€)</label>
 										</div>
 									</div>
