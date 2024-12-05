@@ -590,5 +590,5 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     // Quand tout est bien réalisé, rediriger vers l'accueil du pro en étant connecté
     $_SESSION['id_pro'] = $id_pro;
     unset($_SESSION['id_membre']);
-    // header("location: /pro");
+    header("location: /pro");
 } ?>
