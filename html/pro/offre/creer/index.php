@@ -223,12 +223,9 @@ $pro = verifyPro();
 
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
-				echo "in if";
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
-				echo "After first require";
 				$tagRestaurationController = new TagRestaurantController();
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
-				echo 'After second require';
 				$tagRestaurationRestaurantController = new TagRestaurantRestaurationController();
 
 				foreach ($tags as $tag) {

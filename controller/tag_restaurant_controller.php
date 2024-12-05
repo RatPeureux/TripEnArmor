@@ -1,7 +1,6 @@
 <?php
-echo "Before require model";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/tag_restaurant.php";
-echo "After require model";
+
 class TagRestaurantController {
     private $model;
 
@@ -21,7 +20,7 @@ class TagRestaurantController {
     }
 
     public function getTagsRestaurantByName( $name ) {
-        $tags = $this->model::getTagsByName($name);
+        $tags = $this->model::getTagsRestaurantByName($name);
 
         if (count($tags) == 0) {
             return false;
