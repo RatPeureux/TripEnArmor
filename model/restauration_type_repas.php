@@ -46,7 +46,7 @@ class RestaurationTypeRepas extends BDD
         $statement->bindParam(2, $id_type_repas);
 
         if ($statement->execute()) {
-            return !empty($statement->fetchAll(PDO::FETCH_ASSOC)[0]);
+            return count($statement->fetchAll(PDO::FETCH_ASSOC)) != 0;
         } else {
             return false;
         }
