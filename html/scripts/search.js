@@ -275,8 +275,6 @@ document.addEventListener("DOMContentLoaded", function () {
             let matchesTag = (searchs.length === 0);
             if (offre.querySelector('.tags')) {
                 const tags = offre.querySelector('.tags').textContent.split(',').map(tag => tag.trim());
-                console.log(tags);
-                console.log(searchs);
                 matchesTag = searchs.every(tag => tags.includes(tag));
             }
 

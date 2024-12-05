@@ -124,7 +124,7 @@ if ($mode_carte == 'membre') {
                     <?php
                     }
                     ?>
-                    <p class='prix text-small' title='<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>'><?php echo $prix_a_afficher ?></p>
+                    <p class='prix text-small' title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration' ) ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'><?php echo $prix_a_afficher ?></p>
                 </div>
             </div>
         </div>
@@ -245,7 +245,7 @@ if ($mode_carte == 'membre') {
                             </div>
                             <!-- Notation et Prix -->
                             <div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
-                                <p class='prix text-small' title='<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>'><?php echo $prix_a_afficher ?>
+                                <p class='prix text-small' title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration' ) ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'><?php echo $prix_a_afficher ?>
                                 </p>
                             </div>
                         </div>
@@ -429,7 +429,7 @@ if ($mode_carte == 'membre') {
 
                     <!-- Notation et Prix -->
                     <div class="flex flex-col flex-shrink-0 gap-2 justify-center items-center">
-                        <p class="prix text-small" title="<?php echo "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max ?>">
+                        <p class="prix text-small" title="<?php echo (chaineVersMot($categorie_offre) !== 'Restauration' ) ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>">
                             <?php echo $prix_a_afficher ?>
                         </p>
                     </div>
@@ -457,7 +457,6 @@ if ($mode_carte == 'membre') {
                                 (0)
                             </a>
                         </div>
-                        <p class="type-offre text-center grow" title="type de l'offre">Type : <?php echo $type_offre ?></p>
                     </div>
 
                     <!-- Dates de mise à jour -->
@@ -470,7 +469,7 @@ if ($mode_carte == 'membre') {
 
                     <!-- Type offre + options -->
                     <div class="flex flex-col justify-between gap-2">
-                        <p class="type-offre text-center grow" title="type de l'offre"><?php echo $type_offre ?></p>
+                        <p class="type-offre text-center grow" title="type de l'offre"><?php echo 'Type : ' . $type_offre ?></p>
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-gears text-xl"></i>
                             <div>
