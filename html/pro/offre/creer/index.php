@@ -12,14 +12,12 @@ $pro = verifyPro();
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<link rel="icon" type="image" href="/public/images/favicon.png">
- 
 	<link rel="stylesheet" href="/styles/input.css">
+
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="/styles/config.js"></script>
-
 	<script type="module" src="/scripts/main.js" defer></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 
 	<title>Création d'offre - Professionnel - PACT</title>

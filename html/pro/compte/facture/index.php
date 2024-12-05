@@ -15,6 +15,7 @@ $pro = verifyPro();
 
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>

@@ -23,7 +23,6 @@ unset($_SESSION['data_en_cours_inscription']);
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    
     <script type="module" src="/scripts/main.js" defer=""></script>
 
     <title>404 Page non trouvée - PACT</title>
