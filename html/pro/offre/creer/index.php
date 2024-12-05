@@ -1164,7 +1164,7 @@ $pro = verifyPro();
 										</div>
 									</div>
 
-									<div class="flex">
+									<div class="flex items-start">
 										<div class="flex flex-col justify-center w-full">
 											<label for="start_date" class="text-nowrap">Début de la souscription :</label>
 											<input type="date" id="start_date" name="start_date"
@@ -1189,7 +1189,7 @@ $pro = verifyPro();
 													return nextMonday.toISOString().split('T')[0];
 												}
 											</script>
-											<p class="text-red-500">
+											<p>
 												Votre souscription doit commencer un lundi.
 											</p>
 										</div>
