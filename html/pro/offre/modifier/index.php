@@ -101,7 +101,7 @@ try {
 	<link rel="stylesheet" href="/styles/input.css">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="/styles/config.js"></script>
-    
+
 	<script type="module" src="/scripts/main.js" defer></script>
 	<script src="//unpkg.com/alpinejs" defer></script>
 	<script type="text/javascript"
@@ -110,18 +110,6 @@ try {
 
 	<title>Modifier mon offre - Professionnel - PACT</title>
 </head>
-
-<!-- 
-	À FAIRE :
-	X lier les champs, VILLE, CODE POSTAL, ADRESSE à l'aide de l'API GOOGLE.
-	- Faire les champs de recherches avec TAG, qui sera aussi utilisé pour VISITE : LANGUE, RESTAURATION : REPAS SERVIS (Petit-dej, Brunch, Dej, Diner, Boissons)
-	- Appliquer les scripts à tous les champs pour s'assurer de leur conformité
-	- Faire le PHP
-	- Faire du JS  
-
-	TODO : Ajouter des 'i' d'informations pour expliquer les champs
-	TODO : Enlever la grille tarifaire pour les restaurants
--->
 
 <body>
 	<!-- Conteneur principal pour le contenu -->
@@ -250,12 +238,15 @@ try {
 
 						<div class="justify-between items-center w-full">
 							<label for="locality" class="text-nowrap">Ville :</label>
-							<input type="text" id="locality" name="locality" placeholder="Rennes"
-								class="border border-secondary rounded-lg p-2 bg-white w-full" required>
+							<input id="locality" name="locality"
+								class="border border-secondary rounded-lg p-2 bg-white w-full"
+								pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
+								title="Saisir votre ville" placeholder="Rennes" required>
 
 							<label for="postal_code" class="text-nowrap">Code postal :</label>
-							<input type="number" min="0" step="10" max="57000" id="postal_code" name="postal_code"
-								placeholder="35000" class="border border-secondary rounded-lg p-2 bg-white w-24 w-full"
+							<input id="postal_code" name="postal_code"
+								class="border border-secondary rounded-lg p-2 bg-white w-24 w-full" placeholder="12345"
+								pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345"
 								value="<?php echo htmlspecialchars($offre['code_postal'] ?? '', ENT_QUOTES); ?>"
 								required>
 						</div>

@@ -104,6 +104,7 @@ $pro = verifyPro();
 
     <title>Paramètres du compte - Professionnel - PACT</title>
 </head>
+
 <?php
 // Connexion avec la bdd
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
@@ -143,15 +144,16 @@ if ($pro['data']['id_rib'] != null) {
             <form action="" class="flex flex-col" method="post">
 
                 <label class="text-h3" for="email">Adresse mail</label>
-                <input value="<?php echo $pro['email'] ?>"
+                <input value="<?php echo $pro['email'] ?>" title="L'adresse mail doit comporter un '@' et un '.'"
+                    placeholder="exemple@gmail.com"
                     class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="email" id="email"
-                    name="email" maxlength="255">
+                    name="email">
 
                 <label class="text-h3" for="num_tel">Numéro de téléphone</label>
                 <input value="<?php echo $pro['tel'] ?>" pattern="^0\d( \d{2}){4}"
-                    class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel"
-                    name="num_tel" minlength="14" maxlength="14" oninput="formatTEL(this)"
-                    title="Le numéro doit commencer par un 0">
+                    class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" id="num_tel"
+                    name="num_tel" title="Le numéro doit commencer par un 0 et comporter 10 chiffres"
+                    placeholder="01 23 45 67 89">
 
                 <input type="submit" id="save1" href="" value="Enregistrer les modifications"
                     class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
@@ -168,8 +170,8 @@ if ($pro['data']['id_rib'] != null) {
                     <input value="<?php if (isset($rib) && $rib != null) {
                         echo extraireIbanDepuisRib($rib);
                     } ?>" class="border-2 border-secondary p-2 bg-white max-w-80 h-12 mb-3 rounded-lg" type="text"
-                        id="iban" name="iban" pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" oninput="formatIBAN(this)"
-                        minlength="33" maxlength="33">
+                        id="iban" name="iban" pattern="^(FR)\d{2}( \d{4}){5} \d{3}$"
+                        placeholder="FRXX XXXX XXXX XXXX XXXX XXXX XXX" title="Format : FRXX XXXX XXXX XXXX XXXX XXXX XXX ">
 
                     <input type="submit" id="save2" href="" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
@@ -181,15 +183,17 @@ if ($pro['data']['id_rib'] != null) {
 
                 <form action="" class="flex flex-col" method="post">
 
-                    <label class="text-h3" for="siren">Numéro SIRET</label>
-                    <input value="<?php echo $pro['data']['numero_siren'] ?>"
-                        class="border-2 border-secondary p-2 bg-white max-w-44 h-12 mb-3 rounded-lg" type="text" id="siren"
-                        name="siren" minlength="17" maxlength="17" oninput="formatSiren(this)">
+                    <label class="text-h3" for="num_siren">Numéro SIRET</label>
+                    <input id="num_siren" name="num_siren" pattern="^\d{14}$"
+                        title="Le numéro SIRET doit être composé de 14 chiffres" placeholder="Ex: 12345678901234"
+                        value="<?php echo $pro['data']['numero_siren'] ?>"
+                        class="border-2 border-secondary p-2 bg-white max-w-44 h-12 mb-3 rounded-lg">
 
                     <input type="submit" id="save3" href="" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
                         disabled>
                     </input>
+
                 </form>
 
                 <?php
@@ -231,7 +235,7 @@ if ($pro['data']['id_rib'] != null) {
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const iban = document.getElementById("iban");
-        const siren = document.getElementById("siren");
+        const siren = document.getElementById("num_siren");
         const type_orga = document.getElementById("type_orga");
 
         const initialValues = {
@@ -282,7 +286,7 @@ if ($pro['data']['id_rib'] != null) {
 
         function activeSave3() {
             const save3 = document.getElementById("save3");
-            const siren = document.getElementById("siren").value;
+            const siren = document.getElementById("num_siren").value;
 
             if (siren !== initialValues.siren) {
                 save3.disabled = false;
@@ -316,41 +320,13 @@ if ($pro['data']['id_rib'] != null) {
             document.getElementById("iban").addEventListener("input", activeSave2);
         }
         if (siren) {
-            document.getElementById("siren").addEventListener("input", activeSave3);
+            document.getElementById("num_siren").addEventListener("input", activeSave3);
         }
         if (type_orga) {
             document.getElementById("type_orga").addEventListener("input", activeSave4);
         }
 
     });
-    // Fonction pour formater le numéro de téléphone
-    function formatTEL(input) {
-        let value = input.value.replace(/[^0-9]/g, '');
-        const formattedValue = value.match(/.{1,2}/g)?.join(' ') || ''; // Formatage en paires de chiffres
-        input.value = formattedValue;
-    }
-
-    function formatIBAN(input) {
-        let value = input.value.replace(/[^A-Z0-9]/g, ''); // Supprime tout sauf les lettres majuscules et les chiffres
-        const prefix = "FR76"; // Préfixe du pays (France)
-
-        // Si la chaîne a moins de 4 caractères, on vide le champ et on le réinitialise avec le préfixe
-        if (value.length < 4) {
-            input.value = prefix;
-            return;
-        }
-
-        // Si l'IBAN commence déjà par "FR76", on l'enlève pour éviter la duplication
-        if (value.startsWith(prefix)) {
-            value = value.substring(4); // Enlever "FR76" pour ne pas répéter
-        }
-
-        // Reconstitue l'IBAN avec le préfixe et formatage en groupes de 4 caractères
-        const formattedValue = (prefix + value).match(/.{1,4}/g)?.join(' ') || prefix;
-
-        // Met à jour la valeur dans le champ input
-        input.value = formattedValue;
-    }
 
     function formatSiren(input) {
         // Supprime tout ce qui n'est pas un chiffre

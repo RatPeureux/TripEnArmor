@@ -72,7 +72,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Champ pour l'adresse mail -->
                     <label class="text-small" for="mail">Adresse mail</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="mail" id="mail" name="mail"
-                        title="L'adresse mail doit contenir un '@'" pattern=".*@[^\.]+.*\..*$" maxlength="255"
+                        title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" required>
                     <!-- Message d'erreur pour l'adresse mail -->
                     <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?? '' ?></span>
@@ -211,6 +211,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
+        <script type="text/javascript" defer src="/scripts/formats.js"></script>
 
         <title>Création de compte - PACT</title>
     </head>
@@ -247,9 +248,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                    title="L'adresse mail doit contenir un '@'"
+                    title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" readonly>
-
                 <!-- Champ pour le pseudonyme -->
                 <label class="text-small" for="pseudo">Pseudonyme</label>
                 <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="pseudo" name="pseudo"
@@ -279,26 +279,25 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
                         <label class="text-small" for="postal_code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code"
-                            name="postal_code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Code postal (12345)"
-                            minlength="5" maxlength="5" oninput="number(this)"
+                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" id="postal_code" name="postal_code"
+                            pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['postal_code'] ?? '' ?>" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="locality">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" name="locality"
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" id="locality" name="locality"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir votre ville"
-                            maxlength="50" value="<?php echo $_SESSION['data_en_cours_inscription']['locality'] ?? '' ?>"
-                            required>
+                            placeholder="Rennes"
+                            value="<?php echo $_SESSION['data_en_cours_inscription']['locality'] ?? '' ?>" required>
                     </div>
                 </div>
 
                 <!-- Champ pour le numéro de téléphone -->
                 <div class="w-full flex flex-col">
                     <label class="text-small" for="num_tel">Téléphone</label>
-                    <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
-                        pattern="^0\d( \d{2}){4}" title="Le numéro doit contenir un 0" minlength="14" maxlength="14"
-                        oninput="formatTEL(this)"
+                    <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" id="num_tel" name="num_tel"
+                        pattern="^0\d( \d{2}){4}" title="Le numéro doit commencer par un 0 et comporter 10 chiffres"
+                        placeholder="01 23 45 67 89"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?? '' ?>" required>
                 </div>
                 <!-- Message d'erreur pour le téléphone -->
@@ -329,21 +328,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             </form>
         </div>
     </body>
-
-    <script>
-        // Fonction pour autoriser uniquement les chiffres dans l'input
-        function number(input) {
-            let value = input.value.replace(/[^0-9]/g, '');
-            input.value = value;
-        }
-
-        // Fonction pour formater le numéro de téléphone
-        function formatTEL(input) {
-            let value = input.value.replace(/[^0-9]/g, '');
-            const formattedValue = value.match(/.{1,2}/g)?.join(' ') || ''; // Formatage en paires de chiffres
-            input.value = formattedValue;
-        }
-    </script>
 
     </html>
 

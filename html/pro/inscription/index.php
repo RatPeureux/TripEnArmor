@@ -75,8 +75,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Champ pour l'adresse mail -->
                     <label class=" text-small" for="mail">Adresse mail</label>
                     <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="mail" id="mail" name="mail"
-                        pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$"
-                        title="L'adresse mail doit contenir un '@'" maxlength="255"
+                        title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" required>
                     <!-- Message d'erreur pour l'adresse mail -->
                     <span class="error text-rouge-logo text-small"><?php echo $_SESSION['error'] ?? '' ?></span>
@@ -230,6 +229,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
+        <script type="text/javascript" src="/scripts/formats.js" defer></script>
 
         <title>Création de compte - Professionnel - PACT</title>
     </head>
@@ -269,7 +269,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
                 <input class="p-2 text-gris bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
-                    title="L'adresse mail doit contenir un '@'"
+                    title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" readonly>
 
                 <!-- Choix du type d'organisme public -->
@@ -291,9 +291,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
                     <label class="text-small" for="num_siren">Numéro SIRET</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" oninput="formatSiren(this)" type="text"
-                        id="num_siren" name="num_siren" title="Saisir le numéro SIRET de l'organisation (14 chiffres)"
-                        minlength="17" maxlength="17"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" id="num_siren" name="num_siren" pattern="^\d{14}$"
+                        title="Le numéro SIRET doit être composé de 14 chiffres" placeholder="Ex: 12345678901234"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
                 <?php } ?>
 
@@ -314,15 +313,15 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
                         <label class="text-small" for="postal_code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" type="text" id="postal_code"
-                            name="postal_code" pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)[0-9]{3}$" title="Code postal (12345)"
-                            minlength="5" maxlength="5" oninput="number(this)"
+                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" id="postal_code" name="postal_code"
+                            pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['postal_code'] ?? '' ?>" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="locality">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" type="text" id="locality" name="locality"
-                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" maxlength="50"
+                        <input class="p-2 bg-white w-full h-12 rounded-lg" id="locality" name="locality"
+                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir votre ville"
+                            placeholder="Rennes"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['locality'] ?? '' ?>" required>
                     </div>
                 </div>
@@ -330,9 +329,10 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <!-- Champ pour le numéro de téléphone -->
                 <div class="w-full flex flex-col">
                     <label class="text-small" for="num_tel">Téléphone</label>
-                    <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" type="tel" id="num_tel" name="num_tel"
-                        pattern="^0\d( \d{2}){4}" title="Le numéro de téléphone doit commencer par un 0" minlength="14"
-                        maxlength="14" oninput="formatTEL(this)"
+                    <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" id="num_tel" name="num_tel"
+                        pattern="^0\d( \d{2}){4}"
+                        title="Le numéro de téléphone doit commencer par un 0 et comporter 10 chiffres"
+                        placeholder="01 23 45 67 89"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?? '' ?>" required>
                 </div>
                 <!-- Message d'erreur pour le téléphone -->
@@ -358,8 +358,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         <div id="iban-container" class="hidden">
                             <label class="text-small" for="iban">IBAN</label>
                             <input class="p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="iban" name="iban"
-                                pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Saisir un IBAN valide (FR seulement)"
-                                minlength="33" maxlength="33" oninput="formatIBAN(this)"
+                                pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Format : FRXX XXXX XXXX XXXX XXXX XXXX XXX"
+                                placeholder="FRXX XXXX XXXX XXXX XXXX XXXX XXX"
                                 value="<?php echo $_SESSION['data_en_cours_inscription']['iban'] ?? '' ?>">
                         </div>
                     </div>
@@ -390,19 +390,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     </body>
 
     <script>
-        // Fonction pour autoriser uniquement les chiffres dans l'input
-        function number(input) {
-            let value = input.value.replace(/[^0-9]/g, '');
-            input.value = value;
-        }
-
-        // Fonction pour formater le numéro de téléphone
-        function formatTEL(input) {
-            let value = input.value.replace(/[^0-9]/g, '');
-            const formattedValue = value.match(/.{1,2}/g)?.join(' ') || ''; // Formatage en paires de chiffres
-            input.value = formattedValue;
-        }
-
         // Fonction pour afficher ou masquer le champ IBAN
         function toggleIBAN() {
             const checkbox = document.getElementById('plus');
@@ -419,28 +406,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 iban.value = ''; // Supprime toute saisie
                 iban.disabled = true; // Désactive le champ
             }
-        }
-
-        function formatIBAN(input) {
-            let value = input.value.replace(/[^A-Z0-9]/g, ''); // Supprime tout sauf les lettres majuscules et les chiffres
-            const prefix = "FR76"; // Préfixe du pays (France)
-
-            // Si la chaîne a moins de 4 caractères, on vide le champ et on le réinitialise avec le préfixe
-            if (value.length < 4) {
-                input.value = prefix;
-                return;
-            }
-
-            // Si l'IBAN commence déjà par "FR76", on l'enlève pour éviter la duplication
-            if (value.startsWith(prefix)) {
-                value = value.substring(4); // Enlever "FR76" pour ne pas répéter
-            }
-
-            // Reconstitue l'IBAN avec le préfixe et formatage en groupes de 4 caractères
-            const formattedValue = (prefix + value).match(/.{1,4}/g)?.join(' ') || prefix;
-
-            // Met à jour la valeur dans le champ input
-            input.value = formattedValue;
         }
 
         function formatSiren(input) {
