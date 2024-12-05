@@ -169,7 +169,21 @@ $stmt->bindParam(':id_offre', $id_offre);
 $stmt->execute();
 
 $souscription_options = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$option = false;
+foreach( $souscription_options as $souscription) {
+    // $souscription est un tableau associatif avec une clé "date_lancement" et une clé "nb_semaines". Il faudrait calculer si une option est actuellement active. Si oui, on met la variable $option à true.
+    $date_lancement = new DateTime($souscription['date_lancement']);
+    $date_fin = clone $date_lancement;
+    $date_fin->modify('+' . $souscription['nb_semaines'] . ' weeks');
+    $now = new DateTime();
+
+    if ($now >= $date_lancement && $now <= $date_fin) {
+        $option = true;
+        break;
+    }
+}
 $options = explode(',', substr($souscription_options[0]['row'], 1, -1));
 
 var_dump($souscription_options);
 
+var_dump($option);
