@@ -339,7 +339,7 @@ if ($mode_carte == 'membre') {
 						<?php
 						if ($est_en_ligne) {
 							?>
-							<a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>" <?php echo (($pro['data']['type'] === 'prive' && $pro['data']['id_rib'] === null)
+							<a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>" <?php echo (($pro['data']['type'] === 'prive' && $pro['data']['id_rib'] === null)
 							   	?
 							   	("onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre {$titre_offre} en ligne\");'")
 							   	:
