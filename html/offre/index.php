@@ -14,7 +14,8 @@ session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <script
+        src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
     <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -376,8 +377,9 @@ session_start();
                         require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
                         $controllerTag = new TagController();
                         $tagsAffiche = "";
+                        $tagsListe = [];
                         foreach ($tags_offre as $tag) {
-                            $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
+                            array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
                         }
                         foreach ($tagsListe as $tag) {
                             $tagsAffiche .= $tag['nom'] . ', ';
