@@ -1166,7 +1166,7 @@ $pro = verifyPro();
 
 									<div>
 										<div class="flex flex-col justify-center w-full">
-											<label for="titre" class="text-nowrap">Début de la souscription :</label>
+											<label for="start_date" class="text-nowrap">Début de la souscription :</label>
 											<input type="date" id="start_date" name="start_date" class="border border-secondary rounded-lg p-2 bg-white w-min" required oninput="validateMonday(this)">
 											<script>
 												function validateMonday(input) {
@@ -1187,6 +1187,14 @@ $pro = verifyPro();
 													return nextMonday.toISOString().split('T')[0];
 												}
 											</script>
+											<p class="text-red-500">
+												Votre souscription doit commencer un lundi.
+											</p>
+										</div>
+
+										<div class="flex flex-col justify-center w-full">
+											<label for="duration" class="text-nowrap">Durée de la souscription :</label>
+											<input type="number" id="duration" name="duration" min="1" max="4" class="border border-secondary rounded-lg p-2 bg-white w-min" required>
 										</div>
 									</div>
 								</div>
