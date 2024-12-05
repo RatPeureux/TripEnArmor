@@ -22,7 +22,7 @@ if (isset($_GET['id_offre'])) {
     }
     $stmt->execute();
 
-    $stmt = $dbh->prepare("INSERT INTO sae_db._log_changement_status (id_offre, enligne) VALUES (?, " . ($est_en_ligne ? 'false' : 'true') . "})");
+    $stmt = $dbh->prepare("INSERT INTO sae_db._log_changement_status (id_offre, enligne) VALUES (?, " . ($est_en_ligne ? 'false' : 'true') . ")");
     $stmt->bindParam(1, $id_offre);
     $stmt->execute();
 }
