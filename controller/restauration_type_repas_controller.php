@@ -32,10 +32,10 @@ class RestaurationTypeRepasController {
 
     public function linkRestaurantAndTypeRepas($id_offre, $id_type_repas) {
         if ($this->model::checkIfLinkExists($id_offre, $id_type_repas)) {
-            return $this->model::createRestaurantTypeRepas($id_offre, $id_type_repas);
-        } else {
             echo "The link already exists";
             return -1;
+        } else {
+            return $this->model::createRestaurantTypeRepas($id_offre, $id_type_repas);
         }
     }
 

@@ -151,14 +151,33 @@
                     <p>Prix</p>
                     <p class="arrow" id="arrow-f6-tel">></p>
                 </div>
-                <div class="developped hidden flex items-center" id="developped-f6-tel">
-                    <label class="text-small">Intervalle des prix entre&nbsp;</label>
-                    <input id="min-price-tel" type="number" value="0" min="0" max="99" class="border border-base300 rounded-lg p-1 text-small text-right w-[34px] focus:ring-0" />
-                    <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
-                    <input id="max-price-tel" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="border border-base300 rounded-lg p-1 text-small text-right w-[34px] focus:ring-0" />
-                    <label class="text-small">&nbsp;€</label>
+                <div class="devellopped hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tel">
+                    <div class="flex items-center">
+                        <label class="text-small">Intervalle des prix entre&nbsp;</label>
+                        <input id="min-price-tel" type="number" value="0" min="0" max="99" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
+                        <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
+                        <input id="max-price-tel" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
+                        <label class="text-small">&nbsp;€</label>
+                    </div>
+                    <div class="text-small flex flex-wrap gap-4" id="developped-f2-tel">
+                        <label class="text-small">Restauration :&nbsp;</label>
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" class="mb-1" id="€-tel" />
+                            <label for="€-tel">€</label>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" class="mb-1" id="€€-tel" />
+                            <label for="€€-tel">€€</label>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" class="mb-1" id="€€€-tel" />
+                            <label for="€€€-tel">€€€</label>
+                        </div>
+                    </div>
                 </div>
-            </div>        
+            </div>
         <?php if ($pro['data']['type'] === 'prive') { ?>
             <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f7-tel">

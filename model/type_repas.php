@@ -9,7 +9,7 @@ class TypeRepas extends BDD
     static function getTypeRepasById($id)
     {
 
-        $query = "SELECT * FROM " . self::$nom_table . " WHERE type_repas_id = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_type_repas = ?";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $id);
@@ -41,13 +41,13 @@ class TypeRepas extends BDD
     static function createTypeRepas($nom_type_repas)
     {
 
-        $query = "INSERT INTO " . self::$nom_table . "(nom) VALUES (?) RETURNING type_repas_id";
+        $query = "INSERT INTO " . self::$nom_table . " (nom) VALUES (?) RETURNING id_type_repas";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $nom_type_repas);
 
         if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC)[0]['type_repas_id'];
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
             echo "ERREUR : Impossible de créer le type de repas";
             return -1;
@@ -57,13 +57,13 @@ class TypeRepas extends BDD
 
     static function updateTypeRepas($nom_type_repas)
     {
-        $query = "UPDATE " . self::$nom_table . " SET nom = ? RETURNING type_repas_id";
+        $query = "UPDATE " . self::$nom_table . " SET nom = ? RETURNING id_type_repas";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $nom_type_repas);
 
         if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC)[0]["type_repas_id"];
+            return $stmt->fetchAll(PDO::FETCH_ASSOC)[0]["id_type_repas"];
         } else {
             echo "ERREUR : Impossible de mettre à jour le type repas";
             return -1;
@@ -72,7 +72,7 @@ class TypeRepas extends BDD
 
     static function deleteTag($id)
     {
-        $query = "DELETE FROM " . self::$nom_table . " WHERE type_repas_id = ?";
+        $query = "DELETE FROM " . self::$nom_table . " WHERE id_type_repas = ?";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $id);

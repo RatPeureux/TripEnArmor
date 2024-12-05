@@ -223,9 +223,19 @@ $pro = verifyPro();
 
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
-				// require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
-				// $tagRestauration
-				echo "Tags Restaurant inséré<br>	";
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+				$tagRestaurationController = new TagRestaurantController();
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
+				$tagRestaurationRestaurantController = new TagRestaurantRestaurationController();
+
+				foreach ($tags as $tag) {
+					$tags_id = $tagRestaurationController->getTagsRestaurantByName($tag);
+
+					$tag_id = $tags_id ? $tags_id[0]['id_tag_restaurant'] : $tagRestaurationController->createTag($tag);
+
+					$tagRestaurationRestaurantController->linkRestaurationAndTag($id_offre, $tag_id);
+				}
+				echo "Tags Restaurant inséré<br>";
 			} else {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
 				$tagController = new TagController();
@@ -296,7 +306,10 @@ $pro = verifyPro();
 
 				foreach ($typesRepas as $typeRepas => $isIncluded) {
 					if ($isIncluded) {
-						$id_type_repas = $typeRepasController->getTypeRepasByName($typeRepas)['type_repas_id'];
+						$query = $typeRepasController->getTypeRepasByName($typeRepas);
+
+						$id_type_repas = $query ? $query[0]['id_type_repas'] : $typeRepasController->createTypeRepas($typeRepas);
+
 						$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
 					}
 				}
@@ -341,7 +354,7 @@ $pro = verifyPro();
 			echo "Prix insérés.<br>";
 
 			BDD::commitTransaction();
-			header('location: /pro');
+			header('location: /scripts/go_to_details.php?id_offre=$id_offre');
 		} catch (Exception $e) {
 			echo "Erreur lors de l'insertion : " . $e->getMessage();
 			BDD::rollbackTransaction();
@@ -1125,7 +1138,7 @@ $pro = verifyPro();
 								</div>
 
 								<div class="<?php if ($pro['data']['type'] === 'prive') {
-									echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
+									// echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
 								} ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
 

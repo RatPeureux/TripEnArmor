@@ -1,5 +1,4 @@
 <?php
-
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/tag_restaurant.php";
 
 class TagRestaurantController {
@@ -21,7 +20,7 @@ class TagRestaurantController {
     }
 
     public function getTagsRestaurantByName( $name ) {
-        $tags = $this->model::getTagsByName($name);
+        $tags = $this->model::getTagsRestaurantByName($name);
 
         if (count($tags) == 0) {
             return false;
@@ -31,6 +30,6 @@ class TagRestaurantController {
     }
 
     public function createTag($name) {
-        return $this->model::createTag($name);
+        return $this->model::createTagRestaurant($name)[0]['id_tag_restaurant'];
     }
 }
