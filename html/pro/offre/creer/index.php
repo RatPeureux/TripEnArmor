@@ -12,7 +12,7 @@ $pro = verifyPro();
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<link rel="icon" type="image" href="/public/images/favicon.png">
- 
+
 	<link rel="stylesheet" href="/styles/input.css">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="/styles/config.js"></script>
@@ -95,22 +95,24 @@ $pro = verifyPro();
 		$prestations = $_POST['newPrestationName'] ?? [];
 		$horaires = $_POST['horaires'] ?? [];
 
+		$option = $_POST['option'] ?? [];
+
 		// Récupérer d'autres valeurs
 	
 
 		// *********************************************************************************************************************** Insertion
-		/* Ordre de l'insertion :
-																							1. [x] Adresse
-																							3. [x] Image
-																							5. [x] Offre
-																							6. [x] Offre_Tag / Restauration_Tag
-																							7. [x] Offre_Image
-																							8. [x] Offre_Langue
-																							9. [x] TypeRepas 
-																							10. [x] Offre_Prestation
-																							11. Horaires
-																							12. [x] Tarif_Public
-																							*/
+		// Ordre de l'insertion :
+		// 	1. [x] Adresse
+		// 	3. [x] Image
+		// 	5. [x] Offre
+		// 	6. [x] Offre_Tag / Restauration_Tag
+		// 	7. [x] Offre_Image
+		// 	8. [x] Offre_Langue
+		// 	9. [x] TypeRepas 
+		// 	10. [x] Offre_Prestation
+		// 	11. Horaires
+		// 	12. [x] Tarif_Public
+	
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -124,7 +126,7 @@ $pro = verifyPro();
 				exit;
 			}
 			// echo"Adresse insérée.<br>";
-
+	
 			// Insérer l'offre dans la base de données
 			$prixMin = calculerPrixMin($prices);
 			$id_offre;
@@ -208,7 +210,7 @@ $pro = verifyPro();
 					exit;
 			}
 			// echo"new id_offre : " . $id_offre . "<br>";
-
+	
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
@@ -249,7 +251,7 @@ $pro = verifyPro();
 				exit;
 			}
 			// echo"Image de la carte insérée.<br>";
-
+	
 			// *** DETAIL
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
@@ -327,7 +329,7 @@ $pro = verifyPro();
 				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 			}
 			// echo"Horaires insérés.<br>";
-
+	
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
 			$tarifController = new TarifPublicController();
@@ -340,7 +342,7 @@ $pro = verifyPro();
 				$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
 			}
 			// echo"Prix insérés.<br>";
-
+	
 			BDD::commitTransaction();
 			header('location: /scripts/go_to_details.php?id_offre=' . $id_offre);
 		} catch (Exception $e) {
@@ -567,15 +569,13 @@ $pro = verifyPro();
 
 								<div class="justify-between items-center w-full">
 									<label for="locality" class="text-nowrap">Ville :</label>
-									<input id="locality" name="locality"
-										type="text"
+									<input id="locality" name="locality" type="text"
 										pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
 										title="Saisir votre ville" placeholder="Rennes"
 										class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 
 									<label for="postal_code" class="text-nowrap">Code postal :</label>
-									<input id="postal_code" name="postal_code"
-										type="number"
+									<input id="postal_code" name="postal_code" type="number"
 										pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345"
 										placeholder="12345"
 										class="border border-secondary rounded-lg p-2 bg-white w-24 w-full" required>
@@ -1131,11 +1131,9 @@ $pro = verifyPro();
 								</div>
 
 								<div class="<?php if ($pro['data']['type'] === 'prive') {
-								// echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
+								echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
 							} ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
-
-									<!-- TODO: donner la durée en semaines + la date de lancement -->
 
 									<!-- CGU -->
 									<a href="/cgu" class="text-small underline text-secondary"> Voir les CGU</a>
@@ -1147,14 +1145,14 @@ $pro = verifyPro();
 										<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
 											id="option-rien-div">
 											<input type="radio" id="option-rien" name="option" value="option-rien"
-												class="hidden" />
+												class="hidden" checked="true" />
 											<label for="option-rien">Sans option</label>
 										</div>
 										<!-- Option en relief -->
 										<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
 											id="option-relief-div">
 											<input type="radio" id="option-relief" name="option" value="option-relief"
-												class="hidden" checked="true" />
+												class="hidden" />
 											<label for="option-relief">En Relief (3.99€)</label>
 										</div>
 										<!-- À la une -->
@@ -1163,6 +1161,23 @@ $pro = verifyPro();
 											<input type="radio" id="option-a-la-une" name="option" class="hidden"
 												value="option-a-la-une" />
 											<label for="option-a-la-une">À la une (5.99€)</label>
+										</div>
+									</div>
+
+									<div>
+										<div class="flex flex-col justify-center w-full">
+											<label for="titre" class="text-nowrap">Début de la souscription :</label>
+											<input type="date" id="start_date" name="start_date" class="border border-secondary rounded-lg p-2 bg-white w-full" required pattern="\d{4}-W\d{2}-1" title="Sélectionnez un lundi" oninput="validateMonday(this)">
+											<script>
+												function validateMonday(input) {
+													const date = new Date(input.value);
+													if (date.getDay() !== 1) {
+														input.setCustomValidity("Veuillez sélectionner un lundi.");
+													} else {
+														input.setCustomValidity("");
+													}
+												}
+											</script>
 										</div>
 									</div>
 								</div>
