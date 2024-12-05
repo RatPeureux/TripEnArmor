@@ -1242,6 +1242,7 @@ $pro = verifyPro();
 											}
 										}
 										// Ajouter un EventListener pour détecter les changements dans les options
+										optionData = document.getElementById("option-data");
 										document.getElementById("option-rien-div").addEventListener("click", function () {
 											toggleRadio("option-rien");
 											toggleCardPreview("option-rien");
