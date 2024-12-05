@@ -20,6 +20,8 @@ session_start();
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
+
+    <!-- Pour les requêtes ajax -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Détails d'une offre - PACT</title>
@@ -313,6 +315,13 @@ session_start();
                                 echo $categorie_offre . '.jpg';
                             } ?>' alt="image de slider">
                         </div>
+                        <div class="swiper-slide !w-full">
+                            <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
+                                echo "offres/" . $images['carte'];
+                            } else {
+                                echo $categorie_offre . '.jpg';
+                            } ?>' alt="image de slider">
+                        </div>
                         <?php
                         if ($images['details']) {
                             foreach ($images['details'] as $image) {
@@ -326,6 +335,9 @@ session_start();
                         }
                         ?>
                     </div>
+
+                    <!-- Pagination en bas du slider -->
+                    <div class="swiper-pagination"></div>
 
                     <!-- Boutons de navigation sur la slider -->
                     <?php if ($images['details']) { ?>
@@ -341,6 +353,7 @@ session_start();
                     }
                     ?>
                 </div>
+
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="space-y-2 px-2 md:px-0 w-full">

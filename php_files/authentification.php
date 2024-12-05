@@ -29,13 +29,13 @@ function verifyPro()
             ]
         ];
         $proController = new ProPriveController();
-
         $pro = $proController->getInfosProPrive($_SESSION['id_pro']);
+
         if (!$pro) {
             require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_public_controller.php";
             $proController = new ProPublicController();
 
-            $pro = $proController->getInfosProPublic($_SESSION["id_pro"]);
+            $pro = $proController->getInfosProPublic($_SESSION['id_pro']);
             $result["id_compte"] = $pro["id_compte"];
             $result["nom_pro"] = $pro["nom_pro"];
             $result["email"] = $pro["email"];

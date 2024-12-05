@@ -1,14 +1,40 @@
 <?php
 
-
 // Obtenir le nom du pro
-if ($mode_carte !== 'pro') {
-    $id_pro = $offre['id_pro'];
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
-    $stmt->bindParam(':id_pro', $id_pro);
-    $stmt->execute();
-    $pro = $stmt->fetch(PDO::FETCH_ASSOC);
+$id_pro = $offre['id_pro'];
+
+require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
+$result = [
+    "id_compte" => "",
+    "nom_pro" => "",
+    "email" => "",
+    "tel" => "",
+    "id_adresse" => "",
+    "data" => [
+    ]
+];
+$proController = new ProPriveController();
+$pro = $proController->getInfosProPrive($id_pro);
+
+if (!$pro) {
+    require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_public_controller.php";
+    $proController = new ProPublicController();
+    $pro = $proController->getInfosProPublic($id_pro);
+
+    $pro["data"]["type_orga"] = $pro["type_orga"];
+    $pro["data"]["type"] = "public";
+
+    // Si aucun pro n'est trouvé avec cet identifiant
+    if (!$pro) {
+        header('location: /pro/connexion');
+        exit();
+    }
+} else {
+    $pro["data"]["numero_siren"] = $pro["num_siren"];
+    $pro["data"]["id_rib"] = $pro["id_rib"];
+    $pro["data"]["type"] = "prive";
 }
+
 
 // Détails globaux de l'offre
 $id_offre = $offre['id_offre'];
