@@ -281,11 +281,11 @@ session_start();
                     <?php if ($images['details']) { ?>
                         <div class="flex items-center gap-8 justify-center">
                             <a
-                                class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !left-5 !bg-primary !text-white after:!text-base">
-                                &#129136;</a>
+                                class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                ‹</a>
                             <a
-                                class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 -translate-y-1/2 !right-5 !bg-primary !text-white after:!text-base">
-                                &#129138;</a>
+                                class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                ›</a>
                         </div>
                         <?php
                     }
@@ -333,7 +333,6 @@ session_start();
                         $tagsAffiche .= $tag['nom'] . ', ';
                     }
 
-                    // print_r($tagsListe);
                     $tagsAffiche = rtrim($tagsAffiche, ', ');
                     if ($tags_offre) {
                         ?>

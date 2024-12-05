@@ -88,8 +88,8 @@ $membre = verifyMember();
     <link rel="stylesheet" href="/styles/input.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    
-    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/main.js"></script>
+
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Paramètres du compte - PACT</title>
@@ -148,16 +148,19 @@ $membre = verifyMember();
                 <form action="" class="flex flex-col" method="post">
 
                     <label class="text-h3" for="email">Adresse mail</label>
-                    <input value="<?php echo $membre['email'] ?>"
+                    <input value="<?php echo $membre['email'] ?>" placeholder="exemple@gmail.com"
+                        title="L'adresse mail doit comporter un '@' et un '.'"
                         class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="email"
-                        id="email" name="email" maxlength="255">
+                        id="email" name="email">
 
                     <label class="text-h3" for="num_tel">Numéro de téléphone</label>
-                    <input value="<?php echo $membre['tel'] ?>"
-                        class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg" type="tel"
-                        id="num_tel" name="num_tel" minlength="14" maxlength="14">
+                    <input id="num_tel" name="num_tel" value="<?php echo $membre['tel'] ?>"
+                        class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 rounded-lg"
+                        pattern="^0\d( \d{2}){4}"
+                        title="Le numéro de téléphone doit commencer par un 0 et comporter 10 chiffres"
+                        placeholder="01 23 45 67 89">
 
-                    <input type="submit" id="save2" href="" value="Enregistrer les modifications"
+                    <input type="submit" id="save2" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
                         disabled>
                     </input>
@@ -169,25 +172,27 @@ $membre = verifyMember();
                     <label class="text-h3" for="adresse">Adresse postale</label>
                     <input value="<?php echo $adresse['numero'] . " " . $adresse['odonyme'] ?>"
                         class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                        id="adresse" name="adresse" maxlength="255"">
-                
+                        id="adresse" name="adresse" maxlength="255">
+
                     <label class=" text-h3" for="complement">Complément adresse postale</label>
                     <input value="<?php echo $adresse['complement'] ?>"
-                            class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                            id="complement" name="complement" maxlength="255"">
-                        
-                    <div class=" flex flex-nowrap space-x-3 mb-1.5">
+                        class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
+                        id="complement" name="complement" maxlength="255">
+
+                    <div class="flex flex-nowrap space-x-3 mb-1.5">
                         <div class="w-32">
-                            <label class="text-h3" for="code">Code postal</label>
-                            <input value="<?php echo $adresse['code_postal'] ?>"
+                            <label class="text-h3" for="postal_code">Code postal</label>
+                            <input id="postal_code" name="postal_code" value="<?php echo $adresse['code_postal'] ?>"
                                 class="border-2 border-secondary p-2 text-right bg-white max-w-32 h-12 mb-3 rounded-lg"
-                                type="text" id="code" name="code" minlength="5" maxlength="5">
+                                pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345"
+                                placeholder="12345">
                         </div>
                         <div class="w-full">
                             <label class="text-h3" for="ville">Ville</label>
-                            <input value="<?php echo $adresse['ville'] ?>"
-                                class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
-                                id="ville" name="ville" maxlength="50">
+                            <input id="locality" name="locality" value="<?php echo $adresse['ville'] ?>"
+                                pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
+                                title="Saisir votre ville" placeholder="Rennes"
+                                class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg">
                         </div>
                     </div>
 
@@ -224,7 +229,7 @@ $membre = verifyMember();
             num_tel: document.getElementById("num_tel").value,
             adresse: document.getElementById("adresse").value,
             complement: document.getElementById("complement").value,
-            code: document.getElementById("code").value,
+            code: document.getElementById("postal_code").value,
             ville: document.getElementById("ville").value,
         };
 
@@ -264,7 +269,7 @@ $membre = verifyMember();
             const save3 = document.getElementById("save3");
             const adresse = document.getElementById("adresse").value;
             const complement = document.getElementById("complement").value;
-            const code = document.getElementById("code").value;
+            const code = document.getElementById("postal_code").value;
             const ville = document.getElementById("ville").value;
 
             if (adresse !== initialValues.adresse || complement !== initialValues.complement || code !== initialValues.code || ville !== initialValues.ville) {
@@ -284,7 +289,7 @@ $membre = verifyMember();
         document.getElementById("num_tel").addEventListener("input", activeSave2);
         document.getElementById("adresse").addEventListener("input", activeSave3);
         document.getElementById("complement").addEventListener("input", activeSave3);
-        document.getElementById("code").addEventListener("input", activeSave3);
+        document.getElementById("postal_code").addEventListener("input", activeSave3);
         document.getElementById("ville").addEventListener("input", activeSave3);
     });
 </script>

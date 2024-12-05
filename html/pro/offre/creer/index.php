@@ -25,18 +25,6 @@ $pro = verifyPro();
 	<title>Création d'offre - Professionnel - PACT</title>
 </head>
 
-<!-- 
-	À FAIRE :
-	X lier les champs, VILLE, CODE POSTAL, ADRESSE à l'aide de l'API GOOGLE.
-	- Faire les champs de recherches avec TAG, qui sera aussi utilisé pour VISITE : LANGUE, RESTAURATION : REPAS SERVIS (Petit-dej, Brunch, Dej, Diner, Boissons)
-	- Appliquer les scripts à tous les champs pour s'assurer de leur conformité
-	- Faire le PHP
-	- Faire du JS
-
-	TODO : Ajouter des 'i' d'informations pour expliquer les champs
-	TODO : Enlever la grille tarifaire pour les restaurants
--->
-
 <body>
 	<?php
 	// Partie pour traiter la soumission du formulaire
@@ -112,17 +100,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-								1. [x] Adresse
-								3. [x] Image
-								5. [x] Offre
-								6. [x] Offre_Tag / Restauration_Tag
-								7. [x] Offre_Image
-								8. [x] Offre_Langue
-								9. [x] TypeRepas 
-								10. [x] Offre_Prestation
-								11. Horaires
-								12. [x] Tarif_Public
-								*/
+																							1. [x] Adresse
+																							3. [x] Image
+																							5. [x] Offre
+																							6. [x] Offre_Tag / Restauration_Tag
+																							7. [x] Offre_Image
+																							8. [x] Offre_Langue
+																							9. [x] TypeRepas 
+																							10. [x] Offre_Prestation
+																							11. Horaires
+																							12. [x] Tarif_Public
+																							*/
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -395,7 +383,7 @@ $pro = verifyPro();
 					<div class="
 					<?php if ($pro['data']['type'] === 'prive') {
 						echo "grid grid-cols-2";
-					}?>
+					} ?>
 					justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
 						<?php
@@ -428,7 +416,8 @@ $pro = verifyPro();
 									<div class="h-full divide-y divide-current">
 										<div>
 											<h1 class="text-h1 leading-none mt-1 text-center">
-												<?php echo ucfirst($typeOffre['nom']) ?></h1>
+												<?php echo ucfirst($typeOffre['nom']) ?>
+											</h1>
 											<h1 class="text-center font-bold">
 												<?php echo $subTitle ?>
 											</h1>
@@ -448,14 +437,14 @@ $pro = verifyPro();
 									<div>
 										<h1 class="text-h1 leading-none mt-1 text-center py-2">
 											<?php
-												if ($typeOffre["prix_ht"] == 0) {
-													echo "0€/jour en ligne";
-												} else { ?>
+											if ($typeOffre["prix_ht"] == 0) {
+												echo "0€/jour en ligne";
+											} else { ?>
 												HT <?php echo $typeOffre['prix_ht']; ?>€/jour en ligne<br>
 												<span class="text-h2">
 													TTC <?php echo $typeOffre['prix_ttc']; ?>€/jour en ligne
 												</span>
-											<?php }?>
+											<?php } ?>
 										</h1>
 									</div>
 								</label>
@@ -578,12 +567,15 @@ $pro = verifyPro();
 
 								<div class="justify-between items-center w-full">
 									<label for="locality" class="text-nowrap">Ville :</label>
-									<input type="text" id="locality" name="locality" placeholder="Rennes"
+									<input id="locality" name="locality"
+										pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
+										title="Saisir votre ville" placeholder="Rennes"
 										class="border border-secondary rounded-lg p-2 bg-white w-full" required>
 
 									<label for="postal_code" class="text-nowrap">Code postal :</label>
-									<input type="number" min="0" step="10" max="57000" id="postal_code" name="postal_code"
-										placeholder="35000"
+									<input id="postal_code" name="postal_code"
+										pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345"
+										placeholder="12345"
 										class="border border-secondary rounded-lg p-2 bg-white w-24 w-full" required>
 								</div>
 
@@ -1091,10 +1083,9 @@ $pro = verifyPro();
 									</div>
 
 									<!-- GRILLE TARIFAIRE -->
-									<div
-										class="w-full <?php if ($pro['data']['type'] === 'prive') {
-											echo "optionActivite optionVisite optionSpectacle optionParcAttraction";
-										} ?> hidden">
+									<div class="w-full <?php if ($pro['data']['type'] === 'prive') {
+										echo "optionActivite optionVisite optionSpectacle optionParcAttraction";
+									} ?> hidden">
 										<h2 class="text-h2 text-secondary">Grille tarifaire</h2>
 										<table class="w-full">
 											<thead>
@@ -1138,8 +1129,8 @@ $pro = verifyPro();
 								</div>
 
 								<div class="<?php if ($pro['data']['type'] === 'prive') {
-									// echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
-								} ?> hidden w-full">
+								// echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
+							} ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
 
 									<!-- TODO: donner la durée en semaines + la date de lancement -->
@@ -1374,8 +1365,7 @@ $pro = verifyPro();
 															"preview-tag-input"
 														)
 
-														const tagContainers = document.querySelectorAll('.tag-container');
-														tagContainers.forEach(container => {
+														document.querySelectorAll('.tag-container')?.forEach(container => {
 															if (!container.classList.contains('hidden')) {
 																const tags = Array.from(container.children).map(tag => tag.childNodes[0].nodeValue).join(', ');
 																tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags) : "Ajouter un tag...";
