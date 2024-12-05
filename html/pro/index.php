@@ -15,6 +15,9 @@ if (!function_exists('chaineVersMot')) {
         return str_replace('_', " d'", ucfirst($str));
     }
 }
+
+print_r($pro['data']['type']);
+print_r($pro['data']['id_rib']);
 ?>
 
 <!DOCTYPE html>
