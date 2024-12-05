@@ -69,7 +69,7 @@ if ($mode_carte == 'membre') {
 	Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 -->
 	<a class="card <?php if ($option) {
-			echo "active";
+			echo "active rounded-lg";
 		} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
 		<!-- CARTE VERSION TÉLÉPHONE -->
