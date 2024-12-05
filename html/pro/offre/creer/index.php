@@ -1167,7 +1167,7 @@ $pro = verifyPro();
 									<div>
 										<div class="flex flex-col justify-center w-full">
 											<label for="titre" class="text-nowrap">Début de la souscription :</label>
-											<input type="date" id="start_date" name="start_date" class="border border-secondary rounded-lg p-2 bg-white w-full" required pattern="\d{4}-W\d{2}-1" title="Sélectionnez un lundi" oninput="validateMonday(this)">
+											<input type="date" id="start_date" name="start_date" class="border border-secondary rounded-lg p-2 bg-white w-min" required oninput="validateMonday(this)">
 											<script>
 												function validateMonday(input) {
 													const date = new Date(input.value);
@@ -1176,6 +1176,16 @@ $pro = verifyPro();
 													} else {
 														input.setCustomValidity("");
 													}
+												}
+												
+												document.getElementById('start_date').addEventListener('focus', function(e) {
+													e.target.setAttribute('min', getNextMonday());
+												});
+
+												function getNextMonday() {
+													const today = new Date();
+													const nextMonday = new Date(today.setDate(today.getDate() + (1 + 7 - today.getDay()) % 7));
+													return nextMonday.toISOString().split('T')[0];
 												}
 											</script>
 										</div>
