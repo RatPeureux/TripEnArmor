@@ -4,7 +4,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 $pro = verifyPro();
-var_dump($pro);
+($pro);
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
 $controllerAdresse = new AdresseController();
 $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
@@ -60,7 +60,7 @@ if (isset($_POST['adresse']) || isset($_POST['complement']) || isset($_POST['cod
 
 $pro = verifyPro();
 $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
-var_dump($adresse);
+($adresse);
 // Connexion avec la bdd
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 ?>
