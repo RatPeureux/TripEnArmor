@@ -1,5 +1,5 @@
 <?php
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/bdd.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/activite_prestation.php';
 
 class ActivitePrestationController
 {
@@ -25,11 +25,7 @@ class ActivitePrestationController
     {
         $prestations = $this->model::getPrestationsByIdActivite($id_activite);
 
-        $result = [
-            "id_prestation" => $prestations["id_prestation"],
-        ];
-
-        return $result;
+        return $prestations;
     }
 
     public function linkActiviteAndPrestation($id_prestation, $id_activite)
