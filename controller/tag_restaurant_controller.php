@@ -30,6 +30,6 @@ class TagRestaurantController {
     }
 
     public function createTag($name) {
-        return $this->model::createTagRestaurant($name);
+        return $this->model::createTagRestaurant($name)[0]['id_tag_restaurant'];
     }
 }
