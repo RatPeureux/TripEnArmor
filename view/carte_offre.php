@@ -343,6 +343,7 @@ if ($mode_carte == 'membre') {
 									require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
 									$controllerTagRest = new TagRestaurantController();
 									$tagsAffiche = "";
+									$tagsListe = [];
 									foreach ($tags_offre as $tag) {
 										$tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
 									}
@@ -572,6 +573,7 @@ if ($mode_carte == 'membre') {
 								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
 								$controllerTagRest = new TagRestaurantController();
 								$tagsAffiche = "";
+								$tagsListe = [];
 								foreach ($tags_offre as $tag) {
 									$tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
 								}
