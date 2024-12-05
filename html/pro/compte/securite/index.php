@@ -47,10 +47,8 @@ if (isset($_POST['mdp'])) {
     unset($_POST['mdp']);
     unset($_POST['newMdp']);
     unset($_POST['newConfMdp']);
-
     $pro = verifyPro();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -62,9 +60,9 @@ if (isset($_POST['mdp'])) {
 
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -106,32 +104,27 @@ if (isset($_POST['mdp'])) {
             <form action="" class="flex flex-col" method="post">
                 <div class="relative w-full">
                     <label class="text-h3" for="mdp">Mot de passe actuel</label>
-                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
+                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
                         title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                        id="mdp" name="mdp" pattern="(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$*">
-
+                        type="password" id="mdp" name="mdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$">
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                         id="togglePassword1"></i>
                 </div>
 
                 <div class="relative w-full">
                     <label class="text-h3" for="newMdp">Nouveau mot de passe</label>
-                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                        pattern="(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$*"
+                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
                         title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                        id="newMdp" name="newMdp">
-
+                        type="password" id="newMdp" name="newMdp">
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                         id="togglePassword2"></i>
                 </div>
 
                 <div class="relative w-full">
                     <label class="text-h3" for="confNewMdp">Confirmation nouveau mot de passe</label>
-                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="password"
-                        pattern="(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$*"
+                    <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
                         title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                        id="confNewMdp" name="confNewMdp">
-
+                        type="password" id="confNewMdp" name="confNewMdp">
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                         id="togglePassword3"></i>
                 </div>
@@ -146,7 +139,6 @@ if (isset($_POST['mdp'])) {
             </form>
         </div>
     </main>
-
 
     <!-- FOOTER -->
     <?php

@@ -14,12 +14,11 @@ $pro = verifyPro();
 	<link rel="icon" type="image" href="/public/images/favicon.png">
 
 	<link rel="stylesheet" href="/styles/input.css">
+
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="/styles/config.js"></script>
-
 	<script type="module" src="/scripts/main.js" defer></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 
 	<title>Création d'offre - Professionnel - PACT</title>
@@ -121,7 +120,7 @@ $pro = verifyPro();
 			$adresseController = new AdresseController();
 			$id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
 			if (!$id_adresse) {
-				// echo"Erreur lors de la création de l'adresse.";
+				echo"Erreur lors de la création de l'adresse.";
 				BDD::rollbackTransaction();
 				exit;
 			}
@@ -138,11 +137,11 @@ $pro = verifyPro();
 					$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
 
 					if ($id_offre < 0) { // Cas d'erreur
-						// echo"Erreur lors de l'insertion : " . $id_offre;
+						echo"Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo"Activité insérée.<br>";
+					echo"Activité insérée.<br>";
 					break;
 
 				case 'visite':
@@ -152,11 +151,11 @@ $pro = verifyPro();
 					$id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
 
 					if ($id_offre < 0) {
-						// echo"Erreur lors de l'insertion : " . $id_offre;
+						echo"Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo"Visite insérée<br>";
+					echo"Visite insérée<br>";
 					break;
 
 				case 'spectacle':
@@ -167,11 +166,11 @@ $pro = verifyPro();
 					$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $dureeFormatted);
 
 					if ($id_offre < 0) {
-						// echo"Erreur lors de l'insertion : " . $id_offre;
+						echo"Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo"Spectacle inséré<br>";
+					echo"Spectacle inséré<br>";
 					break;
 
 				case 'parc_attraction':
@@ -182,11 +181,11 @@ $pro = verifyPro();
 					$id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
 
 					if ($id_offre < 0) {
-						// echo"Erreur lors de l'insertion : " . $id_offre;
+						echo"Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo"Parc d'attraction inséré<br>";
+					echo"Parc d'attraction inséré<br>";
 					break;
 
 				case 'restauration':
@@ -197,15 +196,15 @@ $pro = verifyPro();
 					$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix);
 
 					if ($id_offre < 0) {
-						// echo"Erreur lors de l'insertion : " . $id_offre;
+						echo"Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo"Restauration insérée<br>";
+					echo"Restauration insérée<br>";
 					break;
 
 				default:
-					// echo"Aucune activité sélectionnée";
+					echo"Aucune activité sélectionnée";
 					BDD::rollbackTransaction();
 					exit;
 			}
@@ -225,7 +224,7 @@ $pro = verifyPro();
 
 					$tagRestaurationRestaurantController->linkRestaurationAndTag($id_offre, $tag_id);
 				}
-				// echo"Tags Restaurant inséré<br>";
+				echo"Tags Restaurant inséré<br>";
 			} else {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
 				$tagController = new TagController();
@@ -237,7 +236,7 @@ $pro = verifyPro();
 					$tag_id = $tags_id ? $tags_id[0]['id_tag'] : $tagController->createTag($tag);
 					$tagOffreController->linkOffreAndTag($id_offre, $tag_id);
 				}
-				// echo"Tags insérés.<br>";
+				echo"Tags insérés.<br>";
 			}
 
 			// Insérer les images dans la base de données
@@ -246,7 +245,7 @@ $pro = verifyPro();
 
 			// *** CARTE
 			if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
-				// echo"Erreur lors de l'upload de l'image de la carte.";
+				echo"Erreur lors de l'upload de l'image de la carte.";
 				BDD::rollbackTransaction();
 				exit;
 			}
@@ -256,21 +255,21 @@ $pro = verifyPro();
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
 					if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
-						// echo"Erreur lors de l'upload de l'image de détail.";
+						echo"Erreur lors de l'upload de l'image de détail.";
 						BDD::rollbackTransaction();
 						exit;
 					}
 				}
-				// echo"Images de détail insérées.<br>";
+				echo"Images de détail insérées.<br>";
 			}
 
 			if ($activityType === 'parc_attraction') {
 				if (!$imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
-					// echo"Erreur lors de l'upload de l'image du plan.";
+					echo"Erreur lors de l'upload de l'image du plan.";
 					BDD::rollbackTransaction();
 					exit;
 				}
-				// echo"Image du plan insérée.<br>";
+				echo"Image du plan insérée.<br>";
 			}
 
 			if ($activityType === 'visite' && $avec_guide) {
@@ -283,11 +282,11 @@ $pro = verifyPro();
 				for ($i = 1; $i < count($langueController->getInfosAllLangues()) + 1; $i++) { // foreach ($langues as $langue => $isIncluded) {
 					$isIncluded = $_POST['langue' . $i] ?? "on";
 					if ($isIncluded) {
-						// echo"Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
+						echo"Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
 						$visiteLangueController->linkVisiteAndLangue($id_offre, $i);
 					}
 				}
-				// echo"Langues insérées.<br>";
+				echo"Langues insérées.<br>";
 			} elseif ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
 				$typeRepasController = new TypeRepasController();
@@ -303,7 +302,7 @@ $pro = verifyPro();
 						$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
 					}
 				}
-				// echo"Types de repas insérés.<br>";
+				echo"Types de repas insérés.<br>";
 			} elseif ($activityType === 'activite') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_controller.php';
 				$prestationController = new PrestationController();
@@ -318,7 +317,7 @@ $pro = verifyPro();
 
 					$activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
 				}
-				// echo"Prestations insérées.<br>";
+				echo"Prestations insérées.<br>";
 			}
 
 			// Insérer les horaires dans la base de données
@@ -335,7 +334,7 @@ $pro = verifyPro();
 			$tarifController = new TarifPublicController();
 			foreach ($prices as $price) {
 				if (!isset($price['name']) || !isset($price['value'])) {
-					// echo"Erreur : données de prix invalides.";
+					echo"Erreur : données de prix invalides.";
 					continue;
 				}
 
@@ -346,7 +345,7 @@ $pro = verifyPro();
 			BDD::commitTransaction();
 			header('location: /scripts/go_to_details.php?id_offre=' . $id_offre);
 		} catch (Exception $e) {
-			// echo"Erreur lors de l'insertion : " . $e->getMessage();
+			echo"Erreur lors de l'insertion : " . $e->getMessage();
 			BDD::rollbackTransaction();
 			exit;
 		}
@@ -1257,7 +1256,7 @@ $pro = verifyPro();
 									</script>
 									<!-- En tête -->
 									<div
-										class="en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
+										class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
 										<!-- Mise à jour du titre en temps réel -->
 										<h3 class="text-center font-bold" id="preview-titre"></h3>
 										<script>
