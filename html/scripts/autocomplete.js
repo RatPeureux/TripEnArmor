@@ -45,5 +45,5 @@ function fillInAddress() {
 google.maps.event.addDomListener(window, 'load', function () {
     console.log("Initializing Google Maps");
     initializeAutocomplete('user_input_autocomplete_address');
-    console.log("Initialized     Google Maps");
+    console.log("Initialized Google Maps");
 });
