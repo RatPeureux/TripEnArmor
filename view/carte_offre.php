@@ -272,7 +272,7 @@ if ($mode_carte == 'membre') {
 
 			<!-- PARTIE DE GAUCHE, image-->
 			<div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
-				<a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>">
+				<a href='/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>'>
 				<?php
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
 				$controllerImage = new ImageController();
