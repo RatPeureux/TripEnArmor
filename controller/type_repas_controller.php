@@ -32,12 +32,7 @@ class TypeRepasController
             return false;
         }
 
-        $result = [
-            "id_type_repas" => $typeRepas[0]["id_type_repas"],
-            "nom_type_repas" => $typeRepas[0]["nom"],
-        ];
-
-        return $result;
+        return $typeRepas;
     }
 
     public function createTypeRepas($nom_type_repas)
