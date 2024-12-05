@@ -17,9 +17,7 @@
 </head>
 
 <body class="flex flex-col min-h-screen">
-    <?php
-    // ...
-    ?>
+    
 </body>
 
 </html>

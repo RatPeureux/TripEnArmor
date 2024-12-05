@@ -152,7 +152,7 @@ if (isset($_POST['mdp'])) {
     const togglePassword3 = document.getElementById('togglePassword3');
 
     if (togglePassword1) {
-        togglePassword1.addEventListener('onclick', function () {
+        togglePassword1.addEventListener('click', function () {
             if (mdp.type === 'password') {
                 mdp.type = 'text';
                 this.classList.remove('fa-eye');
@@ -166,7 +166,7 @@ if (isset($_POST['mdp'])) {
     }
 
     if (togglePassword2) {
-        togglePassword2.addEventListener('onclick', function () {
+        togglePassword2.addEventListener('click', function () {
             if (newMdp.type === 'password') {
                 newMdp.type = 'text';
                 this.classList.remove('fa-eye');
@@ -180,7 +180,7 @@ if (isset($_POST['mdp'])) {
     }
 
     if (togglePassword3) {
-        togglePassword3.addEventListener('onclick', function () {
+        togglePassword3.addEventListener('click', function () {
             if (confNewMdp.type === 'password') {
                 confNewMdp.type = 'text';
                 this.classList.remove('fa-eye');
