@@ -22,7 +22,6 @@ $pro = verifyPro();?>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
-    
     <script type="module" src="/scripts/main.js" defer=""></script>
 
     <title>Conditions générales de vente (CGV) - Professionnel - PACT</title>
