@@ -1172,9 +1172,8 @@ $pro = verifyPro();
 												function validateMonday(input) {
 													const date = new Date(input.value);
 													if (date.getDay() !== 1) {
-														input.setCustomValidity("Veuillez sélectionner un lundi.");
-													} else {
-														input.setCustomValidity("");
+														const nextMonday = new Date(date.setDate(date.getDate() + (1 + 7 - date.getDay()) % 7));
+														input.value = nextMonday.toISOString().split('T')[0];
 													}
 												}
 												
