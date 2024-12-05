@@ -37,6 +37,7 @@ if (!function_exists('chaineVersMot')) {
 
 <body class="flex flex-col min-h-screen">
 
+    <!-- Inclusion du menu -->
     <div id="menu-pro">
         <?php
         $pagination = 1;
@@ -137,13 +138,12 @@ if (!function_exists('chaineVersMot')) {
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="hidden md:flex gap-4">
-                    <a href="#" class="flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
+                    <a class="flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
                         <i class="text xl fa-solid fa-filter"></i>
                         <p>Filtrer</p>
                     </a>
                     |
-                    <a href="#" class="self-end flex items-center gap-2 hover:text-primary duration-100"
-                        id="sort-button-tab">
+                    <a class="self-end flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
                         <i class="text xl fa-solid fa-sort"></i>
                         <p>Trier par</p>
                     </a>
