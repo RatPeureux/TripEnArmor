@@ -21,10 +21,11 @@ if (isset($_GET['id_offre'])) {
         $stmt->bindParam(':id_offre', $id_offre);
     }
     $stmt->execute();
+    $est_en_ligne = !$est_en_ligne;
 
     $stmt = $dbh->prepare("INSERT INTO sae_db._log_changement_status (id_offre, enLigne) VALUES (:id_offre, :en_ligne)");
     $stmt->bindParam(':id_offre', $id_offre);
-    $stmt->bindParam(':en_ligne', !$est_en_ligne);
+    $stmt->bindParam(':en_ligne', $est_en_ligne);
     $stmt->execute();
 
     echo $est_en_ligne;
