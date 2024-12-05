@@ -271,18 +271,20 @@ if ($mode_carte == 'membre') {
 		echo 'active' ?> relative max-w-[1280px] bg-base100 rounded-lg flex">
 
 			<!-- PARTIE DE GAUCHE, image-->
+			<a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>">
 			<div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
 				<?php
-	require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
-	$controllerImage = new ImageController();
-	$images = $controllerImage->getImagesOfOffre($id_offre);
-	?>
-			<img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
-				echo "offres/" . $images['carte'];
-			} else {
-				echo $categorie_offre . '.jpg';
-			} ?>' alt="Image promotionnelle de l'offre" title="Consulter les détails">
-		</div>
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+				$controllerImage = new ImageController();
+				$images = $controllerImage->getImagesOfOffre($id_offre);
+				?>
+				<img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
+					echo "offres/" . $images['carte'];
+				} else {
+					echo $categorie_offre . '.jpg';
+				} ?>' alt="Image promotionnelle de l'offre" title="Consulter les détails">
+			</div>
+		</a>
 
 		<!-- PARTIE DE DROITE (infos principales) -->
 		<div class="infos relative flex flex-col items-center basis-1/2 self-stretch px-5 py-3 justify-between">
