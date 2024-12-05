@@ -115,7 +115,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                     class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="nom"
                     name="nom" maxlength="255">
 
-                <input type="submit" id="save1" href="" value="Enregistrer les modifications"
+                <input type="submit" id="save1" value="Enregistrer les modifications"
                     class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
                     disabled>
                 </input>
@@ -150,7 +150,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                 </div>
         </div>
 
-        <input type="submit" id="save2" href="" value="Enregistrer les modifications"
+        <input type="submit" id="save2" value="Enregistrer les modifications"
             class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
             disabled>
         </input>
