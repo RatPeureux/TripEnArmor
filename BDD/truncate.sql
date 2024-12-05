@@ -1,3 +1,5 @@
+set schema 'sae_db';
+
 TRUNCATE TABLE
 _activite,
 _activite_prestation,
