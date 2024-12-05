@@ -320,11 +320,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const availability = offre.getAttribute('title').replace("é", "e").toLowerCase().trim();
             const city = offre.querySelector('.localisation').querySelector('p:nth-of-type(1)').textContent.trim();
             const code = offre.querySelector('.localisation').querySelector('p:nth-of-type(2)').textContent.trim();
-            const note = offre.querySelector('.note').getAttribute('title').trim();
 
+            const note = offre.querySelector('.note');
             const price = offre.querySelector('.prix');
-
-            console.log(filterState.disponiblitees, availability);
 
             // Vérifie les filtres actifs
             let matchesCategory = false;
@@ -344,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5');
             if (note) {
-                matchesNote = filterState.note[0] <= note && note <= filterState.note[1];
+                matchesNote = filterState.note[0] <= note.getAttribute('title').trim() && note.getAttribute('title').trim() <= filterState.note[1];
             }
 
             let matchesPrice = (filterState.prix[0] === '0' && filterState.prix[1] === document.getElementById('max-price-tab').max);
