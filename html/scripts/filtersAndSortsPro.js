@@ -205,6 +205,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const filterState = {
         categories: [], // Catégories sélectionnées
+        disponiblitees: [], // Disponibilitées sélectionnées
         localisation: '', // Texte de localisation
         note: ['0', '5'], // Note générale minimale et maximale
         prix: ['0', document.getElementById('max-price-tab').max], // Prix minimal et maximal
@@ -219,6 +220,22 @@ document.addEventListener("DOMContentLoaded", function() {
             checkbox.addEventListener('change', () => {
                 // Mettre à jour les catégories sélectionnées
                 filterState.categories = Array.from(checkboxes)
+                    .filter(checkbox => checkbox.checked)
+                    .map(checkbox => checkbox.id.replace(/-tel|-tab/, ''));
+    
+                // Appliquer les filtres croisés
+                applyFiltersPro();
+            });
+        });
+    }
+
+    function filterOnAvailability(device) {
+        const checkboxes = document.querySelectorAll('#developped-f2-'+device+' input[type="checkbox"]');
+    
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                // Mettre à jour les catégories sélectionnées
+                filterState.disponiblitees = Array.from(checkboxes)
                     .filter(checkbox => checkbox.checked)
                     .map(checkbox => checkbox.id.replace(/-tel|-tab/, ''));
     
@@ -320,6 +337,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
         offres.forEach((offre) => {
             const category = offre.querySelector('.categorie').textContent.trim().replace(", ", "").replace(" d'", "_").toLowerCase();
+            const availability = offre.querySelector('.disponibilite');
             const localisation = offre.querySelector('.localisation');
             const city = localisation.querySelector('p:nth-of-type(1)').textContent.trim();
             const code = localisation.querySelector('p:nth-of-type(2)').textContent.trim();
@@ -331,6 +349,11 @@ document.addEventListener("DOMContentLoaded", function() {
             let matchesCategory = false;
             if (category) {
                 matchesCategory = filterState.categories.length === 0 || filterState.categories.includes(category);
+            }
+
+            let matchesAvailability = true;
+            if (availability) {
+                matchesAvailability = filterState.categories.length === 0 || filterState.categories.includes(category);
             }
 
             let matchesLocalisation = false;
@@ -388,6 +411,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     filterOnCategories('tab');
     filterOnCategories('tel');
+    filterOnAvailability('tab');
+    filterOnAvailability('tel');
     filterOnLocalisations('tab');
     filterOnLocalisations('tel');
     filterOnNotes('tab');
