@@ -1211,24 +1211,6 @@ $pro = verifyPro();
 											</script>
 										</div>
 									</div>
-
-									<script>
-										document.getElementById('option-a-la-une').addEventListener('change', toggleOptionData);
-										document.getElementById('option-relief').addEventListener('change', toggleOptionData);
-										document.getElementById('option-rien').addEventListener('change', toggleOptionData);
-
-										function toggleOptionData() {
-											const optionData = document.getElementById('option-data');
-											if (document.getElementById('option-a-la-une').checked || document.getElementById('option-relief').checked) {
-												optionData.classList.remove('hidden');
-											} else {
-												optionData.classList.add('hidden');
-											}
-										}
-
-										// Initial check
-										toggleOptionData();
-									</script>
 								</div>
 							</div>
 							<!-- Créer l'offre -->
@@ -1263,14 +1245,17 @@ $pro = verifyPro();
 										document.getElementById("option-rien-div").addEventListener("click", function () {
 											toggleRadio("option-rien");
 											toggleCardPreview("option-rien");
+											optionData.classList.add('hidden');
 										});
 										document.getElementById("option-relief-div").addEventListener("click", function () {
 											toggleRadio("option-relief");
 											toggleCardPreview("option-relief");
+											optionData.classList.remove('hidden');
 										});
 										document.getElementById("option-a-la-une-div").addEventListener("click", function () {
 											toggleRadio("option-a-la-une");
 											toggleCardPreview("option-a-la-une");
+											optionData.classList.remove('hidden');
 										});
 									</script>
 									<!-- En tête -->
