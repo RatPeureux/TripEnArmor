@@ -1158,7 +1158,7 @@ $pro = verifyPro();
 										<?php
 										require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/php_files/connect_to_bdd.php";
 
-										$stmt = $dbh->prepare('SELECT * FROM sae_db._option');
+										$stmt = $dbh->prepare('SELECT * FROM sae_db._option ORDER BY prix_ht ASC');
 										$stmt->execute();
 										$options = $stmt->fetchAll(PDO::FETCH_ASSOC);
 										foreach ($options as $option) {
@@ -1168,7 +1168,7 @@ $pro = verifyPro();
 												id="<?php echo $nom_option; ?>-div">
 												<input type="radio" id="<?php echo $nom_option; ?>" name="option" value="<?php echo $option['nom']; ?>" class="hidden" />
 												<label for="<?php echo $nom_option; ?>"><?php echo ucwords($option['nom']); ?><br>
-												<span class="font-normal text-base">(HT <?php echo $option['prix_ht'];?>€/semaine)<br>(TTC <?php echo $option['prix_ttc'];?>€/semaine)</span>
+												<span class="font-normal text-base">HT <?php echo $option['prix_ht'];?>€/semaine<br>(TTC <?php echo $option['prix_ttc'];?>€/semaine)</span>
 											</label>
 											</div>
 										<?php }
