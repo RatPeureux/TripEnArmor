@@ -11,7 +11,7 @@ if (!function_exists('chaineVersMot')) {
 require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
 
 if ($mode_carte == 'membre') {
-    ?>
+?>
     <!--
     !!! CARD COMPONENT MEMBER !!!
     Composant dynamique (généré avec les données en php)
@@ -21,11 +21,10 @@ if ($mode_carte == 'membre') {
 
         <!-- CARTE VERSION TÉLÉPHONE -->
         <div class='md:hidden <?php if ($option) {
-            echo "active";
-        } ?> relative bg-base100 rounded-xl flex flex-col'>
+                                    echo "active";
+                                } ?> relative bg-base100 rounded-xl flex flex-col'>
             <!-- En-tête -->
-            <div
-                class='en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
+            <div class='en-tete absolute top-0 w-72 max-w-full bg-bgBlur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
                 <h3 class='text-xl text-center font-bold'>
                     <?php echo $titre_offre; ?>
                 </h3>
@@ -41,7 +40,7 @@ if ($mode_carte == 'membre') {
             $images = $controllerImage->getImagesOfOffre($id_offre);
             ?>
             <img class="h-48 w-full rounded-t-lg object-cover" src='/public/images/<?php if ($images['carte']) {
-                echo $images['carte'];
+                echo "offres/" . $images['carte'];
             } else {
                 echo $categorie_offre . '.jpg';
             } ?>' alt="Image promotionnelle de l'offre">
@@ -59,9 +58,31 @@ if ($mode_carte == 'membre') {
                     <div class='p-1 rounded-lg bg-secondary self-center w-full'>
                         <p class='text-white text-center'>
                             <?php
-                            // Afficher les tags / plats de l'offre, sinon mentionner l'absence de ces derniers
-                            if ($tags) {
-                                echo $tags;
+                            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+                            $controllerTagOffre = new TagOffreController();
+                            $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+
+                            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+                            $controllerTag = new TagController();
+                            $tagsListe = [];
+                            $tagsAffiche = "";
+
+                            // print_r($tags_offre);
+                            foreach ($tags_offre as $tag) {
+                                $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
+                            }
+
+                            // print_r($tagsListe);
+                            foreach ($tagsListe as $tag) {
+                                $tagsAffiche .= $tag['nom'] . ', ';
+                            }
+                            // print_r($tagsListe);
+                        
+                            $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
+                            if ($tags_offre) {
+                                ?>
+                            <p class="tags text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                            <?php
                             } else {
                                 echo 'Aucun tag';
                             }
@@ -79,55 +100,53 @@ if ($mode_carte == 'membre') {
                     // Moyenne des notes quand il y en a une
                     if ($moyenne) {
                         $n = $moyenne;
-                        ?>
-                        <div class="flex gap-1 flex-wrap">
+                    ?>
+                        <div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne; ?>">
                             <?php for ($i = 0; $i < 5; $i++) {
                                 if ($n > 1) {
-                                    ?>
+                            ?>
                                     <img class="w-2" src="/public/images/oeuf_plein.svg" alt="1 point de note">
-                                    <?php
+                                <?php
                                 } else if ($n > 0) {
-                                    ?>
-                                        <img class="w-2" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
-                                    <?php
+                                ?>
+                                    <img class="w-2" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
+                                <?php
                                 } else {
-                                    ?>
-                                        <img class="w-2" src="/public/images/oeuf_vide.svg" alt="0 point de note">
-                                    <?php
+                                ?>
+                                    <img class="w-2" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                            <?php
                                 }
                                 $n--;
                             }
                             ?>
                             <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
                         </div>
-                        <?php
+                    <?php
                     }
                     ?>
-                    <p class='text-small' title='<?php echo $title_prix ?>'><?php echo $prix_a_afficher ?></p>
+                    <p class='prix text-small' title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration' ) ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'><?php echo $prix_a_afficher ?></p>
                 </div>
             </div>
         </div>
 
         <!-- CARTE VERSION TABLETTE -->
         <div class='md:block hidden <?php if ($option) {
-            echo "active";
-        } ?> relative bg-base100 rounded-lg'>
+                                        echo "active";
+                                    } ?> relative bg-base100 rounded-lg'>
             <div class="flex flex-row">
                 <!-- Partie gauche -->
                 <div class='gauche grow relative shrink-0 basis-1/2 h-[280px] overflow-hidden'>
-                    <a href="/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>">
-                        <!-- Image de fond -->
-                        <?php
-                        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
-                        $controllerImage = new ImageController();
-                        $images = $controllerImage->getImagesOfOffre($id_offre);
-                        ?>
-                        <img class='rounded-l-lg w-full h-full object-cover object-center' src='/public/images/<?php if ($images['carte']) {
-                            echo "offres/" . $images['carte'];
-                        } else {
-                            echo $categorie_offre . '.jpg';
-                        } ?>' alt="Image promotionnelle de l'offre">
-                    </a>
+                    <!-- Image de fond -->
+                    <?php
+                    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+                    $controllerImage = new ImageController();
+                    $images = $controllerImage->getImagesOfOffre($id_offre);
+                    ?>
+                    <img class='rounded-l-lg w-full h-full object-cover object-center' src='/public/images/<?php if ($images['carte']) {
+                        echo "offres/" . $images['carte'];
+                    } else {
+                        echo $categorie_offre . '.jpg';
+                    } ?>' alt="Image promotionnelle de l'offre">
                 </div>
                 <!-- Partie droite (infos principales) -->
                 <div class='infos flex flex-col basis-1/2 p-3 justify-between relative'>
@@ -141,22 +160,22 @@ if ($mode_carte == 'membre') {
                             // Moyenne des notes quand il y en a une
                             if ($moyenne) {
                                 $n = $moyenne;
-                                ?>
+                            ?>
                                 <div class="flex gap-1">
-                                    <div class="flex gap-1 shrink-0">
+                                    <div class="note flex gap-1 shrink-0" title="<?php echo $moyenne; ?>">
                                         <?php for ($i = 0; $i < 5; $i++) {
                                             if ($n > 1) {
-                                                ?>
+                                        ?>
                                                 <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
-                                                <?php
+                                            <?php
                                             } else if ($n > 0) {
-                                                ?>
-                                                    <img class="w-3" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
-                                                <?php
+                                            ?>
+                                                <img class="w-3" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
+                                            <?php
                                             } else {
-                                                ?>
-                                                    <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
-                                                <?php
+                                            ?>
+                                                <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                                        <?php
                                             }
                                             $n--;
                                         }
@@ -164,13 +183,13 @@ if ($mode_carte == 'membre') {
                                     </div>
                                     <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
                                 </div>
-                                <?php
+                            <?php
                             }
                             ?>
                         </div>
                         <div class='flex'>
                             <p class='text-small'><?php echo $pro['nom_pro'] ?></p>
-                            <p class='categorie text-small'><?php echo ', ' . chaineVersMot($categorie_offre); ?></p>
+                            <p class='categorie text-small tablette'><?php echo ', ' . chaineVersMot($categorie_offre); ?></p>
                         </div>
                     </div>
 
@@ -179,9 +198,31 @@ if ($mode_carte == 'membre') {
                         <div class='p-1 rounded-lg bg-secondary self-center w-full'>
                             <p class='text-white text-center'>
                                 <?php
-                                // Afficher les tags / plats de l'offre, sinon mentionner l'absence de ces derniers
-                                if ($tags) {
-                                    echo $tags;
+                                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+                                $controllerTagOffre = new TagOffreController();
+                                $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+
+                                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+                                $controllerTag = new TagController();
+                                $tagsListe = [];
+                                $tagsAffiche = "";
+
+                                // print_r($tags_offre);
+                                foreach ($tags_offre as $tag) {
+                                    $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
+                                }
+
+                                // print_r($tagsListe);
+                                foreach ($tagsListe as $tag) {
+                                    $tagsAffiche .= $tag['nom'] . ', ';
+                                }
+                                // print_r($tagsListe);
+                            
+                                $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
+                                if ($tags_offre) {
+                                    ?>
+                                <p class="tags text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                                <?php
                                 } else {
                                     echo 'Aucun tag';
                                 }
@@ -204,7 +245,7 @@ if ($mode_carte == 'membre') {
                             </div>
                             <!-- Notation et Prix -->
                             <div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
-                                <p class='text-small' title='<?php echo $title_prix ?>'><?php echo $prix_a_afficher ?>
+                                <p class='prix text-small' title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration' ) ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'><?php echo $prix_a_afficher ?>
                                 </p>
                             </div>
                         </div>
@@ -213,31 +254,29 @@ if ($mode_carte == 'membre') {
             </div>
         </div>
     </a>
-    <?php
+<?php
 } else {
-    ?>
+?>
     <!--
     !!! CARD COMPONENT PRO !!!
     Composant dynamique (généré avec les données en php)
     Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
     -->
     <div class="card <?php if ($option)
-        echo 'active' ?> relative max-w-[1280px] bg-base100 rounded-lg flex">
+                            echo 'active' ?> relative max-w-[1280px] bg-base100 rounded-lg flex">
 
-            <!-- PARTIE DE GAUCHE, image-->
-            <div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
-                <a href="/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>">
-                <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
-                $controllerImage = new ImageController();
-                $images = $controllerImage->getImagesOfOffre($id_offre);
-                ?>
-                <img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
-                    echo "offres/" . $images['carte'];
-                } else {
-                    echo $categorie_offre . '.jpg';
-                } ?>' alt="Image promotionnelle de l'offre" title="consulter les détails">
-            </a>
+        <!-- PARTIE DE GAUCHE, image-->
+        <div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
+            <?php
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+            $controllerImage = new ImageController();
+            $images = $controllerImage->getImagesOfOffre($id_offre);
+            ?>
+            <img class="rounded-l-lg w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
+                echo "offres/" . $images['carte'];
+            } else {
+                echo $categorie_offre . '.jpg';
+            } ?>' alt="Image promotionnelle de l'offre" title="consulter les détails">
         </div>
 
         <!-- PARTIE DE DROITE (infos principales) -->
@@ -245,7 +284,7 @@ if ($mode_carte == 'membre') {
 
             <div class="w-full">
                 <!-- A droite, en haut -->
-                <div class="flex w-full justify-between">
+                <div class="flex w-full items-center justify-between">
 
                     <!-- Titre de l'offre -->
                     <div>
@@ -256,12 +295,43 @@ if ($mode_carte == 'membre') {
                         </div>
                     </div>
 
+                    <?php
+                    // Moyenne des notes quand il y en a une
+                    if ($moyenne) {
+                        $n = $moyenne;
+                    ?>
+                        <div class="flex gap-1 self-end">
+                            <div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne; ?>">
+                                <?php for ($i = 0; $i < 5; $i++) {
+                                    if ($n > 1) {
+                                ?>
+                                        <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
+                                    <?php
+                                    } else if ($n > 0) {
+                                    ?>
+                                        <img class="w-3" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
+                                <?php
+                                    }
+                                    $n--;
+                                }
+                                ?>
+                            </div>
+                            <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
                     <!-- Manipulations sur l'offre -->
-                    <div class="flex gap-10 self-start items-center">
+                    <div class="flex gap-10 self-start items-center justify-center">
                         <!-- en ligne ? -->
                         <?php
                         if ($est_en_ligne) {
-                            ?>
+                        ?>
                             <a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
                                 onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?');"
                                 title=" [!!!] mettre hors-ligne">
@@ -273,9 +343,9 @@ if ($mode_carte == 'membre') {
                                         stroke-linecap="round" />
                                 </svg>
                             </a>
-                            <?php
+                        <?php
                         } else {
-                            ?>
+                        ?>
                             <a href="/scripts/toggleLigne.php?id_offre=<?php echo $id_offre ?>"
                                 onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> en ligne ?');"
                                 title="[!!!] mettre en ligne">
@@ -287,7 +357,7 @@ if ($mode_carte == 'membre') {
                                         stroke-linecap="round" />
                                 </svg>
                             </a>
-                            <?php
+                        <?php
                         }
                         ?>
                         <!-- modifier l'offre -->
@@ -295,7 +365,7 @@ if ($mode_carte == 'membre') {
                             <i class="fa-solid fa-gear text-secondary text-h1 hover:text-primary duration-100"></i>
                         </a>
                         <!-- détails de l'offre -->
-                        <a href="/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>" title="voir l'offre">
+                        <a href="/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>" title="voir l'offre">
                             <i class="fa-solid fa-arrow-up-right-from-square text-h1 hover:text-primary duration-100"></i>
                         </a>
                     </div>
@@ -307,9 +377,31 @@ if ($mode_carte == 'membre') {
                         <div class="p-2 rounded-lg bg-secondary self-center w-full">
                             <p class="text-white text-center">
                                 <?php
-                                // Afficher les tags de l'offre (ou plats si c'est un resto), sinon indiquer qu'il n'y a aucun tag
-                                if ($tags) {
-                                    echo $tags;
+                                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+                                $controllerTagOffre = new TagOffreController();
+                                $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+
+                                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+                                $controllerTag = new TagController();
+                                $tagsListe = [];
+                                $tagsAffiche = "";
+
+                                // print_r($tags_offre);
+                                foreach ($tags_offre as $tag) {
+                                    $tagsListe[] = $controllerTag->getInfosTag($tag['id_tag']);
+                                }
+
+                                // print_r($tagsListe);
+                                foreach ($tagsListe as $tag) {
+                                    $tagsAffiche .= $tag['nom'] . ', ';
+                                }
+                                // print_r($tagsListe);
+                            
+                                $tagsAffiche = rtrim($tagsAffiche, characters: ', ');
+                                if ($tags_offre) {
+                                    ?>
+                                <p class="tags text-white text-center overflow-ellipsis line-clamp-1"><?php echo $tagsAffiche; ?></p>
+                                <?php
                                 } else {
                                     echo 'Aucun tag';
                                 }
@@ -335,38 +427,9 @@ if ($mode_carte == 'membre') {
                         <p class="text-small"><?php echo $code_postal ?></p>
                     </div>
 
-                    <?php
-                    // Moyenne des notes quand il y en a une
-                    if ($moyenne) {
-                        $n = $moyenne;
-                        ?>
-                        <div class="flex gap-1 flex-wrap">
-                            <?php for ($i = 0; $i < 5; $i++) {
-                                if ($n > 1) {
-                                    ?>
-                                    <img class="w-3" src="/public/images/oeuf_plein.svg" alt="1 point de note">
-                                    <?php
-                                } else if ($n > 0) {
-                                    ?>
-                                        <img class="w-3" src="/public/images/oeuf_moitie.svg" alt="0.5 point de note">
-                                    <?php
-                                } else {
-                                    ?>
-                                        <img class="w-3" src="/public/images/oeuf_vide.svg" alt="0 point de note">
-                                    <?php
-                                }
-                                $n--;
-                            }
-                            ?>
-                            <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
-                        </div>
-                        <?php
-                    }
-                    ?>
-
                     <!-- Notation et Prix -->
                     <div class="flex flex-col flex-shrink-0 gap-2 justify-center items-center">
-                        <p class="text-small" title="<?php echo $title_prix ?>">
+                        <p class="prix text-small" title="<?php echo (chaineVersMot($categorie_offre) !== 'Restauration' ) ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>">
                             <?php echo $prix_a_afficher ?>
                         </p>
                     </div>
@@ -376,7 +439,7 @@ if ($mode_carte == 'membre') {
                 <div class="bg-base200 p-3 rounded-lg flex justify-around gap-1">
 
                     <!-- Avis & date de mise à jour -->
-                    <div class="flex flex-col justif-around">
+                    <div class="flex flex-col justif-around hidden">
                         <div class="flex italic justify-start gap-4">
                             <!-- Non vus -->
                             <a title="avis non consultés" href="" class="hover:text-primary">
@@ -394,7 +457,11 @@ if ($mode_carte == 'membre') {
                                 (0)
                             </a>
                         </div>
-                        <div class="flex items-center justify-around">
+                    </div>
+
+                    <!-- Dates de mise à jour -->
+                    <div class="flex justify-between text-small">
+                        <div class="flex items-center justify-arround">
                             <i class="fa-solid fa-rotate text-xl"></i>
                             <p class="italic">Modifiée le <?php echo $date_mise_a_jour ?></p>
                         </div>
@@ -402,7 +469,7 @@ if ($mode_carte == 'membre') {
 
                     <!-- Type offre + options -->
                     <div class="flex flex-col justify-between gap-2">
-                        <p class="type-offre text-center grow" title="type de l'offre"><?php echo $type_offre ?></p>
+                        <p class="type-offre text-center grow" title="type de l'offre"><?php echo 'Type : ' . $type_offre ?></p>
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-gears text-xl"></i>
                             <div>

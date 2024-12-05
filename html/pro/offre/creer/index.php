@@ -112,17 +112,17 @@ $pro = verifyPro();
 
 		// *********************************************************************************************************************** Insertion
 		/* Ordre de l'insertion :
-						  1. [x] Adresse
-						  3. [x] Image
-						  5. [x] Offre
-						  6. [x] Offre_Tag / Restauration_Tag
-						  7. [x] Offre_Image
-						  8. [x] Offre_Langue
-						  9. [x] TypeRepas 
-						  10. [x] Offre_Prestation
-						  11. Horaires
-						  12. [x] Tarif_Public
-						  */
+								1. [x] Adresse
+								3. [x] Image
+								5. [x] Offre
+								6. [x] Offre_Tag / Restauration_Tag
+								7. [x] Offre_Image
+								8. [x] Offre_Langue
+								9. [x] TypeRepas 
+								10. [x] Offre_Prestation
+								11. Horaires
+								12. [x] Tarif_Public
+								*/
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -223,9 +223,19 @@ $pro = verifyPro();
 
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
-				// require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
-				// $tagRestauration
-				echo "Tags Restaurant inséré<br>	";
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+				$tagRestaurationController = new TagRestaurantController();
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
+				$tagRestaurationRestaurantController = new TagRestaurantRestaurationController();
+
+				foreach ($tags as $tag) {
+					$tags_id = $tagRestaurationController->getTagsRestaurantByName($tag);
+
+					$tag_id = $tags_id ? $tags_id[0]['id_tag_restaurant'] : $tagRestaurationController->createTag($tag);
+
+					$tagRestaurationRestaurantController->linkRestaurationAndTag($id_offre, $tag_id);
+				}
+				echo "Tags Restaurant inséré<br>";
 			} else {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
 				$tagController = new TagController();
@@ -280,7 +290,7 @@ $pro = verifyPro();
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
 				$visiteLangueController = new VisiteLangueController();
 
-				for ($i = 1; $i < count($langueController->getInfosAllLangues())+1; $i++) { // foreach ($langues as $langue => $isIncluded) {
+				for ($i = 1; $i < count($langueController->getInfosAllLangues()) + 1; $i++) { // foreach ($langues as $langue => $isIncluded) {
 					$isIncluded = $_POST['langue' . $i] ?? "on";
 					if ($isIncluded) {
 						echo "Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
@@ -296,7 +306,10 @@ $pro = verifyPro();
 
 				foreach ($typesRepas as $typeRepas => $isIncluded) {
 					if ($isIncluded) {
-						$id_type_repas = $typeRepasController->getTypeRepasByName($typeRepas)['type_repas_id'];
+						$query = $typeRepasController->getTypeRepasByName($typeRepas);
+
+						$id_type_repas = $query ? $query[0]['id_type_repas'] : $typeRepasController->createTypeRepas($typeRepas);
+
 						$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
 					}
 				}
@@ -317,15 +330,15 @@ $pro = verifyPro();
 				}
 				echo "Prestations insérées.<br>";
 			}
-			
-				// Insérer les horaires dans la base de données
-				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
-				$horaireController = new HoraireController();
 
-				foreach ($horaires as $key => $jour) {
-					$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
-				}
-				echo "Horaires insérés.<br>";
+			// Insérer les horaires dans la base de données
+			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+			$horaireController = new HoraireController();
+
+			foreach ($horaires as $key => $jour) {
+				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
+			}
+			echo "Horaires insérés.<br>";
 
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
@@ -341,13 +354,19 @@ $pro = verifyPro();
 			echo "Prix insérés.<br>";
 
 			BDD::commitTransaction();
-			header('location: /pro');
+			header('location: /scripts/go_to_details.php?id_offre=$id_offre');
 		} catch (Exception $e) {
 			echo "Erreur lors de l'insertion : " . $e->getMessage();
 			BDD::rollbackTransaction();
 			exit;
 		}
-	} else { ?>
+	} else {
+		require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_offre_controller.php';
+
+		$typeOffreController = new TypeOffreController();
+		$typesOffre = $typeOffreController->getAllTypeOffre();
+		array_multisort($typesOffre, SORT_DESC);
+		?>
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
 
@@ -373,15 +392,80 @@ $pro = verifyPro();
 				<!-- Section de sélection de l'offre -->
 				<form id="formulaire" action="" method="POST" class="grow block w-full space-y-8"
 					enctype="multipart/form-data">
-					<div
-						class="<?php if ($pro['data']['type'] === 'prive') {
-							echo "grid grid-cols-2";
-						} ?> justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
+					<div class="
+					<?php if ($pro['data']['type'] === 'prive') {
+						echo "grid grid-cols-2";
+					}?>
+					justify-around items-evenly gap-6 w-full md:space-y-0 md:flex-nowrap">
 						<!-- Carte de l'offre gratuite -->
-						<div
-							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "prive") {
-								echo "hidden";
-							} ?>">
+						<?php
+						foreach ($typesOffre as $i => $typeOffre) {
+							$cardColor = $i % 2 == 0 ? 'secondary' : 'primary';
+							$cardVisible = $pro['data']['type'] == 'prive' ? ($typeOffre['id_type_offre'] == 1 ? 'hidden' : '') : ($typeOffre['id_type_offre'] == 1 ? '' : 'hidden');
+							$subTitle = "Pour les entreprises et organismes privés";
+							$avantages = [
+								"Jusqu’à 10 photos de présentations",
+								"Réponse aux avis des membres"
+							];
+
+							if ($typeOffre['id_type_offre'] == 1) { // Gratuit
+								$subTitle = "Pour les associations et les organismes publics";
+							} else if ($typeOffre['id_type_offre'] == 2) { // Premium
+								$avantages[] = "Possibilité de remplir une grille tarifaire";
+								$avantages[] = "Possibilité de souscrire aux options “À la une” et “En relief”";
+								$avantages[] = "<span class='font-bold'>Mise sur liste noire de 3 commentaires<span>";
+							} else if ($typeOffre['id_type_offre'] == 3) { // Standard
+								$avantages[] = "<span class='font-bold'>Possibilité de remplir une grille tarifaire<span>";
+								$avantages[] = "<span class='font-bold'>Possibilité de souscrire aux options “À la une” et “En relief”<span>";
+							}
+							?>
+							<div
+								class="border border-<?php echo $cardColor; ?> rounded-lg flex-col justify-center w-full text-<?php echo $cardColor; ?> p-4 has-[:checked]:bg-<?php echo $cardColor; ?> has-[:checked]:text-white md:h-full <?php echo $cardVisible; ?>">
+								<input type="radio" name="type_offre" id="type_offre_<? echo $typeOffre['id_type_offre']; ?>"
+									value="<? echo $typeOffre['id_type_offre']; ?>" class="hidden">
+								<label for="type_offre_<? echo $typeOffre['id_type_offre']; ?>"
+									class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
+									<div class="h-full divide-y divide-current">
+										<div>
+											<h1 class="text-h1 leading-none mt-1 text-center">
+												<?php echo ucfirst($typeOffre['nom']) ?></h1>
+											<h1 class="text-center font-bold">
+												<?php echo $subTitle ?>
+											</h1>
+										</div>
+										<div>
+											<div class="ml-8">
+												<ul class="list-disc text-left text-small my-2">
+													<?php
+													foreach ($avantages as $avantage) {
+														echo "<li>$avantage</li>";
+													}
+													?>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div>
+										<h1 class="text-h1 leading-none mt-1 text-center py-2">
+											<?php
+												if ($typeOffre["prix_ht"] == 0) {
+													echo "0€/jour en ligne";
+												} else { ?>
+												HT <?php echo $typeOffre['prix_ht']; ?>€/jour en ligne<br>
+												<span class="text-h2">
+													TTC <?php echo $typeOffre['prix_ttc']; ?>€/jour en ligne
+												</span>
+											<?php }?>
+										</h1>
+									</div>
+								</label>
+							</div>
+							<?php
+						} ?>
+
+						<!-- <div class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "prive") {
+							echo "hidden";
+						} ?>">
 							<input type="radio" name="type_offre" id="type_offre_1" value="1" class="hidden">
 							<label for="type_offre_1"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -405,11 +489,9 @@ $pro = verifyPro();
 								</div>
 							</label>
 						</div>
-						<!-- Carte de l'offre standard -->
-						<div
-							class="border border-primary rounded-lg flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
-								echo "hidden";
-							} ?>">
+						<div class="border border-primary rounded-lg flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
+							echo "hidden";
+						} ?>">
 							<input type="radio" name="type_offre" id="type_offre_2" value="2" class="hidden">
 							<label for="type_offre_2"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -433,11 +515,9 @@ $pro = verifyPro();
 								</div>
 							</label>
 						</div>
-						<!-- Carte de l'offre premium -->
-						<div
-							class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
-								echo "hidden";
-							} ?>">
+						<div class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
+							echo "hidden";
+						} ?>">
 							<input type="radio" name="type_offre" id="type_offre_3" value="3" class="hidden">
 							<label for="type_offre_3"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -459,7 +539,7 @@ $pro = verifyPro();
 									<p class="text-h1 leading-none mt-1 text-center py-2">19€/mois</p>
 								</div>
 							</label>
-						</div>
+						</div> -->
 					</div>
 					<div class="w-full flex space-x-12">
 						<div class="w-full">
@@ -777,7 +857,7 @@ $pro = verifyPro();
 													<label for="newPrestationInclude"
 														class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
 														<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-															viewBox="0 0 32 32" fill="none" stroke="currentColor"
+															viewBox="0 0 32 32" fill="none" stroke="currentcardColor"
 															stroke-width="2.5" stroke-linecap="round"
 															stroke-linejoin="round" class="lucide lucide-square-x">
 															<rect width="28" height="28" x="2" y="2" rx="4" ry="4" />
@@ -1012,7 +1092,9 @@ $pro = verifyPro();
 
 									<!-- GRILLE TARIFAIRE -->
 									<div
-										class="w-full <?php if ($pro['data']['type'] === 'prive') { echo "optionActivite optionVisite optionSpectacle optionParcAttraction"; } ?> hidden">
+										class="w-full <?php if ($pro['data']['type'] === 'prive') {
+											echo "optionActivite optionVisite optionSpectacle optionParcAttraction";
+										} ?> hidden">
 										<h2 class="text-h2 text-secondary">Grille tarifaire</h2>
 										<table class="w-full">
 											<thead>
@@ -1055,10 +1137,9 @@ $pro = verifyPro();
 									</div>
 								</div>
 
-								<div
-									class="<?php if ($pro['data']['type'] === 'prive') {
-										echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
-									} ?> hidden w-full">
+								<div class="<?php if ($pro['data']['type'] === 'prive') {
+									// echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
+								} ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
 
 									<!-- TODO: donner la durée en semaines + la date de lancement -->

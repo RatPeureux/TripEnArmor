@@ -12,10 +12,10 @@
         </a>
         <!-- DROPDOWN MENU TRIS TÉLÉPHONE -->
         <div class="hidden md:hidden absolute bottom-[72px] right-2 z-20 bg-white border border-base200 rounded-lg shadow-md max-w-48 p-2 flex flex-col gap-4" id="sort-section-tel">
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'rating-ascending') ? '/' : '?sort=rating-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'rating-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-ascending') ? '/' : '?sort=note-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                 <p>Note croissante</p>
             </a>
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'rating-descending') ? '/' : '?sort=rating-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'rating-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-descending') ? '/' : '?sort=note-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                 <p>Note décroissante</p>
             </a>
             <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? '/' : '?sort=price-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
@@ -119,7 +119,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
+            <div class="hidden flex flex-col w-full border-t-2 border-black p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f5-tel">
                     <p>Période</p>
                     <p class="arrow" id="arrow-f5-tel">></p>
@@ -141,12 +141,31 @@
                     <p>Prix</p>
                     <p class="arrow" id="arrow-f6-tel">></p>
                 </div>
-                <div class="developped hidden flex items-center" id="developped-f6-tel">
-                    <label class="text-small">Intervalle des prix entre&nbsp;</label>
-                    <input id="min-price-tel" type="number" value="0" min="0" max="99" class="border border-base300 rounded-lg p-1 text-small text-right w-[34px] focus:ring-0" />
-                    <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
-                    <input id="max-price-tel" type="number" value="99" min="0" max="99" class="border border-base300 rounded-lg p-1 text-small text-right w-[34px] focus:ring-0" />
-                    <label class="text-small">&nbsp;€</label>
+                <div class="devellopped hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tel">
+                    <div class="flex items-center">
+                        <label class="text-small">Intervalle des prix entre&nbsp;</label>
+                        <input id="min-price-tel" type="number" value="0" min="0" max="99" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
+                        <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
+                        <input id="max-price-tel" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
+                        <label class="text-small">&nbsp;€</label>
+                    </div>
+                    <div class="text-small flex flex-wrap gap-4" id="developped-f2-tel">
+                        <label class="text-small">Restauration :&nbsp;</label>
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" class="mb-1" id="€-tel" />
+                            <label for="€-tel">€</label>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" class="mb-1" id="€€-tel" />
+                            <label for="€€-tel">€€</label>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" class="mb-1" id="€€€-tel" />
+                            <label for="€€€-tel">€€€</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

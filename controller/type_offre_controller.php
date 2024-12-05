@@ -15,13 +15,10 @@ class TypeOffreController
 
     public function getInfosTypeOffre($id)
     {
-        $typeOffre = $this->model::getProPriveById($id);
+        return $this->model::getTypeOffreById($id);
+    }
 
-        $result = [
-            "id_type_offre" => $typeOffre["id_type_offre"],
-            "nom" => $typeOffre["nom"]
-        ];
-
-        return $result;
+    public function getAllTypeOffre() {
+        return $this->model::getAllTypeOffre();
     }
 }

@@ -8,6 +8,7 @@ class TagOffre extends BDD
 
     static function getTagsByIdOffre($id_offre)
     {
+        self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ?";
 
         $statement = self::$db->prepare($query);
@@ -22,6 +23,7 @@ class TagOffre extends BDD
 
     static function getOffresByIdTag($id_tag)
     {
+        self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table . " WHERE id_tag = ?";
 
         $statement = self::$db->prepare($query);
@@ -36,6 +38,7 @@ class TagOffre extends BDD
 
     static function checkIfLinkExists($id_offre, $id_tag)
     {
+        self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ? AND id_tag = ?";
 
         $statement = self::$db->prepare($query);
@@ -51,7 +54,8 @@ class TagOffre extends BDD
 
     static function linkOffreAndTag($id_offre, $id_tag)
     {
-        $query = "INSERT INTO " . self::$nom_table . " VALUES (?, ?) RETURNING *";
+        self::initBDD();
+        $query = "INSERT INTO " . self::$nom_table . " (id_offre, id_tag) VALUES (?, ?) RETURNING *";
 
         $statement = self::$db->prepare($query);
         $statement->bindValue(1, $id_offre);
@@ -66,6 +70,7 @@ class TagOffre extends BDD
 
     static function unlinkOffreAndTag($id_offre, $id_tag)
     {
+        self::initBDD();
         $query = "DELETE FROM " . self::$nom_table . " WHERE id_offre = ? AND id_tag = ?";
 
         $statement = self::$db->prepare($query);

@@ -1,8 +1,8 @@
 <?php
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-class Restauration extends BDD {
-    static private $nom_table = "_tag_restaurant";
+class TagRestaurant extends BDD {
+    static private $nom_table = "sae_db._tag_restaurant";
 
     static function getTagRestaurantById($id) { 
         self::initBDD();

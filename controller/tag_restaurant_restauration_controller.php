@@ -21,5 +21,22 @@ class tagRestaurantRestaurationController {
     }
 
     public function linkRestaurationAndTag($id_restaurant, $id_tag) {
+        if ($this->model::checkIfLinkExists($id_restaurant, $id_tag)) {
+            echo "The link already exists<br>";
+            return false;
+        } else {
+            return $this->model::linkOffreAndTag($id_restaurant, $id_tag);
+        }
+    }
+
+    public function unlinkRestaurationAndTag($id_restaurant, $id_tag)
+    {
+        if ($this->model::checkIfLinkExists($id_restaurant, $id_tag)) {
+            return $this->model::unlinkOffreAndTag($id_restaurant, $id_tag);
+        } else {
+            echo "The link does not exist";
+            return false;
+        }
+    }
 
 }

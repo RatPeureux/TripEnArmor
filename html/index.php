@@ -38,7 +38,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     $sort_order = '';
     if (isset($_GET['sort'])) {
-        if ($_smGET['sort'] == 'price-ascending') {
+        if ($_GET['sort'] == 'price-ascending') {
             $sort_order = 'ORDER BY prix_mini ASC';
         } elseif ($_GET['sort'] == 'price-descending') {
             $sort_order = 'ORDER BY prix_mini DESC';
@@ -49,6 +49,51 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true $sort_order");
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    $prix_mini_max = 0;
+
+    foreach ($toutesLesOffres as $offre) {
+        $prix_mini = $offre['prix_mini'];
+        if ($prix_mini !== null && $prix_mini !== '') {
+            if ($prix_mini_max === 0) {
+                $prix_mini_max = $prix_mini;
+            } else {
+                $prix_mini_max = max($prix_mini_max, $prix_mini);
+            }
+        }
+    }
+
+    if (isset($_GET['sort'])) {
+        // Récupérer toutes les moyennes en une seule requête
+        $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
+        $notesMoyennes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Associer les moyennes aux offres
+        $notesAssociees = [];
+        foreach ($notesMoyennes as $note) {
+            $notesAssociees[$note['id_offre']] = floatval($note['avg']);
+        }
+    
+        // Créer un tableau temporaire enrichi
+        $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
+            $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
+            return $offre;
+        }, $toutesLesOffres);
+    
+        // Effectuer le tri
+        if ($_GET['sort'] === 'note-ascending') {
+            usort($offresAvecNotes, function ($a, $b) {
+                return $a['note_moyenne'] <=> $b['note_moyenne']; // Tri croissant
+            });
+        } else if ($_GET['sort'] === 'note-descending') {
+            usort($offresAvecNotes, function ($a, $b) {
+                return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
+            });
+        }
+    
+        // Réassigner les offres triées
+        $toutesLesOffres = $offresAvecNotes;
+    }
     ?>
 
     <!-- MAIN (TABLETTE et TÉLÉPHONE -->
@@ -102,7 +147,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
                         <?php $i = 0;
                         foreach ($toutesLesOffres as $offre) {
-                            if ($i < 12) {
+                            if ($i > -1) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';
                                 require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
@@ -111,8 +156,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                         } ?>
                     </div>
                 <?php } ?>
+            </main>
         </div>
-        </main>
     </div>
 
     <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
