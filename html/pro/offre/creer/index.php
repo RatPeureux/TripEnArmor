@@ -232,6 +232,8 @@ $pro = verifyPro();
 					$tags_id = $tagRestaurationController->getTagsRestaurantByName($tag);
 					$tag_id = $tags_id ? $tags_id[0]['id_tag_retaurant'] : $tagRestaurationController->createTag($tag);
 
+					var_dump($tag_id);
+
 					$tagRestaurationRestaurantController->linkRestaurationAndTag($id_offre, $tag_id);
 				}
 				echo "Tags Restaurant inséré<br>";
@@ -308,7 +310,7 @@ $pro = verifyPro();
 						$query = $typeRepasController->getTypeRepasByName($typeRepas);
 						($query);
 
-						$id_type_repas = $query ? $query[0]['type_repas_id'] : $typeRepasController->createTypeRepas($typeRepas);
+						$id_type_repas = $query ? $query[0]['id_type_repas'] : $typeRepasController->createTypeRepas($typeRepas);
 
 						($id_type_repas);
 
