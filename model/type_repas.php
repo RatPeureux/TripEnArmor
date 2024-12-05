@@ -47,7 +47,7 @@ class TypeRepas extends BDD
         $stmt->bindParam(1, $nom_type_repas);
 
         if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC)[0]['id_type_repas'];
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
             echo "ERREUR : Impossible de créer le type de repas";
             return -1;
