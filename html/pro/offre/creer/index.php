@@ -48,12 +48,18 @@ $pro = verifyPro();
 		// Fonction pour extraire des informations depuis une adresse complète
 		function extraireInfoAdresse($adresse)
 		{
-			$numero = substr($adresse, 0, 1);  // À adapter selon le format de l'adresse
-			$odonyme = substr($adresse, 2);
-
+			// Utiliser une expression régulière pour extraire le numéro et l'odonyme
+			if (preg_match('/^(\d+)\s+(.*)$/', $adresse, $matches)) {
+				return [
+					'numero' => $matches[1],
+					'odonyme' => $matches[2],
+				];
+			}
+	
+			// Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
 			return [
-				'numero' => $numero,
-				'odonyme' => $odonyme,
+				'numero' => '',
+				'odonyme' => $adresse,
 			];
 		}
 		// ******************************************************************************************************************** Récupération des données du POST
