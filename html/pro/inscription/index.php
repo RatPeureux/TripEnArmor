@@ -508,9 +508,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
 
                 // Exécuter la requête pour le professionnel
-                if ($stmtProfessionnel->execute()) {
-                    header("location: /pro/connexion");
-                }
+                $stmtProfessionnel->execute();
             } else {
                 // Extraire les valeurs du RIB à partir de l'IBAN
                 $id_rib = -1;
@@ -539,15 +537,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 }
 
                 // Exécuter la requête pour le professionnel
-                if ($stmtProfessionnel->execute()) {
-                    header("location: /pro/connexion");
-                }
+                $stmtProfessionnel->execute();
             }
         }
     }
 
     // Quand tout est bien réalisé, rediriger vers l'accueil du pro en étant connecté
-    $_SESSION['id_pro'] = $id_pro;
+    $_SESSION['id_pro'] = $dbh->lastInsertId();
     unset($_SESSION['id_membre']);
     header("location: /pro");
 } ?>
