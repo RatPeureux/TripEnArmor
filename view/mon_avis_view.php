@@ -51,11 +51,11 @@ if (!function_exists('to_nom_note')) {
                     <?php
                 } else if ($note > 0) {
                     ?>
-                        <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="1 point de note">
+                        <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
                     <?php
                 } else {
                     ?>
-                        <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="1 point de note">
+                        <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
                     <?php
                 }
                 $note--;
@@ -64,8 +64,8 @@ if (!function_exists('to_nom_note')) {
         </div>
 
         <!-- Poubelle de suppression -->
-        <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $avis['id_offre'] ?>"
-            onclick="confirm('Supprimer votre avis ?')">
+        <a href="/scripts/delete_avis.php?id_avis=<?php echo 'fd' ?>&id_offre=<?php echo $avis['id_offre'] ?>"
+            onclick="return confirm('Supprimer votre avis ?')">
             <i class="fa-solid fa-trash text-h2"></i>
         </a>
     </div>

@@ -119,13 +119,12 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     <h1 class="text-4xl">Toutes les offres</h1>
 
                     <div class="hidden md:flex gap-4">
-                        <a href="#" class="flex items-center gap-2 hover:text-primary duration-100"
-                            id="filter-button-tab">
+                        <a class="flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
                             <i class="text xl fa-solid fa-filter"></i>
                             <p>Filtrer</p>
                         </a>
                         |
-                        <a href="#" class="self-end flex items-center gap-2 hover:text-primary duration-100"
+                        <a class="self-end flex items-center gap-2 hover:text-primary duration-100"
                             id="sort-button-tab">
                             <i class="text xl fa-solid fa-sort"></i>
                             <p>Trier par</p>

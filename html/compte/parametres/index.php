@@ -44,27 +44,34 @@ if (isset($_POST['email']) || isset($_POST['num_tel'])) {
     }
     $controllerMembre->updateMembre($membre['id_compte'], $email, false, $num_tel, false, false, false, false);
 }
-if ((isset($_POST['adresse']) && !empty($_POST['adresse'])) || isset($_POST['complement']) || (isset($_POST['code']) && !empty($_POST['code'])) || (isset($_POST['ville']) && !empty($_POST['ville']))) {
-    $numero = false;
-    $odonyme = false;
-    $complement = false;
+if ((isset($_POST['adresse']) && !empty($_POST['adresse'])) || isset($_POST['complement']) || (isset($_POST['postal_code']) && !empty($_POST['postal_code'])) || (isset($_POST['ville']) && !empty($_POST['ville']))) {
+    $numero = null;
+    $odonyme = null;
+    $complement = null;
     $code = false;
     $ville = false;
 
     if (!empty($_POST['adresse'])) {
         $adresse = $_POST['adresse'];
-        $adresse = explode(" ", $adresse);
-        $numero = $adresse[0];
-        $odonyme = implode(" ", array_slice($adresse, 1));
+        // Utiliser une expression régulière pour extraire le numéro et l'odonyme
+        if (preg_match('/^(\d+)\s+(.*)$/', $adresse, $matches)) {
+            $numero = $matches[1];
+            $odonyme = $matches[2];
+        }
+        // Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
+        else {
+            $numero = null;
+            $odonyme = $adresse;
+        }
         unset($_POST['adresse']);
     }
     if (isset($_POST['complement'])) {
         $complement = $_POST['complement'];
         unset($_POST['complement']);
     }
-    if (!empty($_POST['code'])) {
-        $code = $_POST['code'];
-        unset($_POST['code']);
+    if (!empty($_POST['postal_code'])) {
+        $code = $_POST['postal_code'];
+        unset($_POST['postal_code']);
     }
     if (!empty($_POST['ville'])) {
         $ville = $_POST['ville'];
@@ -174,7 +181,7 @@ $membre = verifyMember();
                         class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
                         id="adresse" name="adresse">
 
-                    <label class=" text-h3" for="complement">Complément adresse postale</label>
+                    <label class="text-h3" for="complement">Complément adresse postale</label>
                     <input value="<?php echo $adresse['complement'] ?>"
                         class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
                         id="complement" name="complement">

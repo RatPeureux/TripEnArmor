@@ -1,20 +1,45 @@
 <?php
 
-
 // Obtenir le nom du pro
-if ($mode_carte !== 'pro') {
-    $id_pro = $offre['id_pro'];
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
-    $stmt->bindParam(':id_pro', $id_pro);
-    $stmt->execute();
-    $pro = $stmt->fetch(PDO::FETCH_ASSOC);
+$id_pro = $offre['id_pro'];
+
+require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
+$result = [
+    "id_compte" => "",
+    "nom_pro" => "",
+    "email" => "",
+    "tel" => "",
+    "id_adresse" => "",
+    "data" => [
+    ]
+];
+$proController = new ProPriveController();
+$pro = $proController->getInfosProPrive($id_pro);
+
+if (!$pro) {
+    require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_public_controller.php";
+    $proController = new ProPublicController();
+    $pro = $proController->getInfosProPublic($id_pro);
+
+    $pro["data"]["type_orga"] = $pro["type_orga"];
+    $pro["data"]["type"] = "public";
+
+    // Si aucun pro n'est trouvé avec cet identifiant
+    if (!$pro) {
+        header('location: /pro/connexion');
+        exit();
+    }
+} else {
+    $pro["data"]["numero_siren"] = $pro["num_siren"];
+    $pro["data"]["id_rib"] = $pro["id_rib"];
+    $pro["data"]["type"] = "prive";
 }
+
 
 // Détails globaux de l'offre
 $id_offre = $offre['id_offre'];
 $description = $offre['description'];
 $resume = $offre['resume'];
-$option = $offre['option'];
 $est_en_ligne = $offre['est_en_ligne'];
 $date_mise_a_jour = $offre['date_mise_a_jour'];
 $titre_offre = $offre['titre'];
@@ -136,5 +161,24 @@ if ($categorie_offre == 'restauration') {
         $stmt->execute();
         $nom = $stmt->fetch(PDO::FETCH_ASSOC);
         $tags = $tags . ', ' . $nom;
+    }
+}
+
+$stmt = $dbh->prepare("SELECT date_lancement, nb_semaines FROM sae_db._offre_souscription_option as offre_souscription_option INNER JOIN sae_db._souscription as souscription ON offre_souscription_option.id_souscription = souscription.id_souscription WHERE id_offre = :id_offre");
+$stmt->bindParam(':id_offre', $id_offre);
+$stmt->execute();
+
+$souscription_options = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$option = false;
+foreach( $souscription_options as $souscription) {
+    // $souscription est un tableau associatif avec une clé "date_lancement" et une clé "nb_semaines". Il faudrait calculer si une option est actuellement active. Si oui, on met la variable $option à true.
+    $date_lancement = new DateTime($souscription['date_lancement']);
+    $date_fin = clone $date_lancement;
+    $date_fin->modify('+' . $souscription['nb_semaines'] . ' weeks');
+    $now = new DateTime();
+
+    if ($now >= $date_lancement && $now <= $date_fin) {
+        $option = true;
+        break;
     }
 }

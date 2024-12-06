@@ -378,7 +378,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 'odonyme' => $matches[2],
             ];
         }
-
         // Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
         return [
             'numero' => '',

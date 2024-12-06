@@ -29,7 +29,7 @@
             -
             <a href="mailto:benoit.tottereau@univ-rennes.fr" class="hover:text-primary">Contacter le support</a>
             -
-            <a href="/pro" class="hover:text-primary">Retour vers la PACT</a>
+            <a href="/" class="hover:text-primary">Retour vers la PACT</a>
             -
             <a href="/pro/TripEnArvor">@2024, TripEnArvor</a>
         </div>

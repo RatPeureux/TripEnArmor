@@ -23,32 +23,35 @@ if (isset($_POST['nom']) && !empty($_POST['nom'])) {
     }
 }
 
-if (isset($_POST['adresse']) || isset($_POST['complement']) || isset($_POST['code_postal']) || isset($_POST['ville'])) {
-    $numero = false;
-    $odonyme = false;
-    $complement = false;
+// Récupérer les valeurs des différents champs
+if (isset($_POST['adresse']) || isset($_POST['complement']) || isset($_POST['postal_code']) || isset($_POST['ville'])) {
+    $numero = null;
+    $odonyme = null;
+    $complement = null;
     $code_postal = false;
     $ville = false;
 
     if (!empty($_POST['adresse'])) {
         $adresse = $_POST['adresse'];
-        $adresse = explode(" ", $adresse);
-        if (!is_numeric($adresse[0])) {
-            $numero = null;
-            $odonyme = implode(" ", $adresse);
-        } else {
-            $numero = $adresse[0];
-            $odonyme = implode(" ", array_slice($adresse, 1));
-            unset($_POST['adresse']);
+        // Utiliser une expression régulière pour extraire le numéro et l'odonyme
+        if (preg_match('/^(\d+)\s+(.*)$/', $adresse, $matches)) {
+            $numero = $matches[1];
+            $odonyme = $matches[2];
         }
+        // Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
+        else {
+            $numero = null;
+            $odonyme = $adresse;
+        }
+        unset($_POST['adresse']);
     }
     if (!empty($_POST['complement'])) {
         $complement = $_POST['complement'];
-        unset($_POST['ville']);
+        unset($_POST['complement']);
     }
-    if (!empty($_POST['code_postal'])) {
-        $code_postal = $_POST['code_postal'];
-        unset($_POST['code_postal']);
+    if (!empty($_POST['postal_code'])) {
+        $code_postal = $_POST['postal_code'];
+        unset($_POST['postal_code']);
     }
     if (!empty($_POST['ville'])) {
         $ville = $_POST['ville'];
@@ -125,7 +128,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
             <form action="" class="flex flex-col" method="post">
                 <label class="text-h3" for="adresse">Adresse postale</label>
-                <input value="<?php echo $adresse['numero'] . " " . $adresse['odonyme'] ?>"
+                <input value="<?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] ?>"
                     class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="adresse"
                     name="adresse">
 
@@ -145,8 +148,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                         <label class="text-h3" for="locality">Ville</label>
                         <input id="locality" name="locality" value="<?php echo $adresse['ville'] ?>"
                             class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
-                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir votre ville"
-                            placeholder="Rennes">
+                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
+                            title="Saisir votre ville" placeholder="Rennes">
                     </div>
                 </div>
 
@@ -181,50 +184,50 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 </html>
 
 <script>
-const initialValues = {
-    nom: document.getElementById("nom").value,
-    adresse: document.getElementById("adresse").value,
-    complement: document.getElementById("complement").value,
-    code: document.getElementById("postal_code").value,
-    ville: document.getElementById("locality").value,
-};
+    const initialValues = {
+        nom: document.getElementById("nom").value,
+        adresse: document.getElementById("adresse").value,
+        complement: document.getElementById("complement").value,
+        code: document.getElementById("postal_code").value,
+        ville: document.getElementById("locality").value,
+    };
 
-function activeSave1() {
-    const save1 = document.getElementById("save1");
-    const nom = document.getElementById("nom").value;
+    function activeSave1() {
+        const save1 = document.getElementById("save1");
+        const nom = document.getElementById("nom").value;
 
-    if (nom !== initialValues.nom) {
-        save1.disabled = false;
-        save1.classList.remove("opacity-50");
-        save1.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-    } else {
-        save1.disabled = true;
-        save1.classList.add("opacity-50");
-        save1.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+        if (nom !== initialValues.nom) {
+            save1.disabled = false;
+            save1.classList.remove("opacity-50");
+            save1.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+        } else {
+            save1.disabled = true;
+            save1.classList.add("opacity-50");
+            save1.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+        }
     }
-}
 
-function activeSave2() {
-    const save2 = document.getElementById("save2");
-    const adresse = document.getElementById("adresse").value;
-    const complement = document.getElementById("complement").value;
-    const code = document.getElementById("postal_code").value;
-    const ville = document.getElementById("locality").value;
+    function activeSave2() {
+        const save2 = document.getElementById("save2");
+        const adresse = document.getElementById("adresse").value;
+        const complement = document.getElementById("complement").value;
+        const code = document.getElementById("postal_code").value;
+        const ville = document.getElementById("locality").value;
 
-    if (adresse !== initialValues.adresse || complement !== initialValues.complement || code !== initialValues.code || ville !== initialValues.ville) {
-        save2.disabled = false;
-        save2.classList.remove("opacity-50");
-        save2.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-    } else {
-        save2.disabled = true;
-        save2.classList.add("opacity-50");
-        save2.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+        if (adresse !== initialValues.adresse || complement !== initialValues.complement || code !== initialValues.code || ville !== initialValues.ville) {
+            save2.disabled = false;
+            save2.classList.remove("opacity-50");
+            save2.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+        } else {
+            save2.disabled = true;
+            save2.classList.add("opacity-50");
+            save2.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+        }
     }
-}
 
-document.getElementById("nom").addEventListener("input", activeSave1);
-document.getElementById("adresse").addEventListener("input", activeSave2);
-document.getElementById("complement").addEventListener("input", activeSave2);
-document.getElementById("postal_code").addEventListener("input", activeSave2);
-document.getElementById("locality").addEventListener("input", activeSave2);
+    document.getElementById("nom").addEventListener("input", activeSave1);
+    document.getElementById("adresse").addEventListener("input", activeSave2);
+    document.getElementById("complement").addEventListener("input", activeSave2);
+    document.getElementById("postal_code").addEventListener("input", activeSave2);
+    document.getElementById("locality").addEventListener("input", activeSave2);
 </script>
