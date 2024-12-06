@@ -18,7 +18,8 @@ label:has(+ select[required])::after {
 /* ACTIVATION DU MENU */
 #menu>.active,
 #menu-pro>.active,
-#filtres.active {
+#filtres.active,
+#cgu.active {
     --tw-translate-x: 0%;
 }
 
