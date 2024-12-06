@@ -66,14 +66,14 @@ if (isset($_POST['mdp'])) {
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
     ?>
 
     <main class="w-full flex justify-center grow">
         <div class="max-w-[1280px] w-full p-2 flex justify-center">
             <div id="menu">
                 <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
                 ?>
             </div>
 
@@ -137,7 +137,7 @@ if (isset($_POST['mdp'])) {
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
     ?>
 </body>
 

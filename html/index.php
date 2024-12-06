@@ -30,7 +30,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
     ?>
 
     <?php
@@ -105,7 +105,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <div id="menu">
                 <?php
                 $pagination = 2;
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
                 ?>
             </div>
 
@@ -167,7 +167,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
     ?>
 </body>
 

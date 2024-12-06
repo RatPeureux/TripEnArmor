@@ -904,7 +904,7 @@ try {
 
 		<!-- FOOTER -->
 		<?php
-		include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+		include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
 		?>
 	</div>
 

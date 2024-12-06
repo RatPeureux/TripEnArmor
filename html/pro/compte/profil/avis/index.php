@@ -26,13 +26,13 @@ $pro = verifyPro();
     <!-- Inclusion du menu -->
     <div id="menu-pro">
         <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
         ?>
     </div>
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
     ?>
 
     <main class="flex flex-col justify-center grow md:w-full mt-0 m-auto max-w-[1280px] p-2">
@@ -118,7 +118,7 @@ $pro = verifyPro();
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
 </body>
 

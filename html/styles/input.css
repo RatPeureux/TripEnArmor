@@ -19,7 +19,9 @@ label:has(+ select[required])::after {
 #menu>.active,
 #menu-pro>.active,
 #filtres.active,
-#cgu.active {
+#cgu.active,
+#politique.active,
+#mentions.active {
     --tw-translate-x: 0%;
 }
 

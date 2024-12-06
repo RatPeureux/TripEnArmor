@@ -393,14 +393,14 @@ $pro = verifyPro();
 			<div id="menu-pro">
 				<?php
 				$pagination = 2;
-				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
 				?>
 			</div>
 
 			<div class="w-full">
 				<!-- Inclusion du header -->
 				<?php
-				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
 				?>
 			</div>
 
@@ -1532,7 +1532,7 @@ $pro = verifyPro();
 			<!-- FOOTER -->
 			<div class="w-full">
 				<?php
-				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
 				?>
 			</div>
 		</div>

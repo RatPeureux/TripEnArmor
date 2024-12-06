@@ -30,13 +30,13 @@ $pro = verifyPro();?>
 
     <div id="menu-pro">
         <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
         ?>
     </div>
 
     <!-- Inclusion du header -->
     <?php 
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
     ?>
 
     <div class="self-center  flex justify-center w-full md:max-w-[1280px] p-2">
@@ -58,7 +58,7 @@ $pro = verifyPro();?>
                 <strong>Contact :</strong> contact@pact.com
             </p>
 
-            <p class="text-h2">3. Données Collectées : Membre</p>
+            <p class="text-h2">3. Données Collectées : Professionnel</p>
             <p>
                 Nous collectons des données personnelles nécessaires au fonctionnement du site, notamment :
                 <ul class="list-disc list-inside">
@@ -135,7 +135,7 @@ $pro = verifyPro();?>
 
     <!-- Inclusion du footer -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
     
 </body>

@@ -41,13 +41,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
     <body class="h-screen bg-white p-4 overflow-hidden">
         <!-- Icône pour revenir à la page précédente -->
-        <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+        <i onclick="history.back()" class="fixed top-[27px] fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
                 <a href="/" class="w-full">
-                    <img class="relative mx-auto -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
+                    <img class="relative mx-auto mt-8 -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
 
                 <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="" method="POST"
@@ -117,11 +117,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 </form>
             </div>
         </div>
-
-        <!-- Inclusion -->
-        <?php
-        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/fiches_inscription.php';
-        ?>
     </body>
 
     </html>
@@ -225,8 +220,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     </head>
 
     <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
+        <!-- Inclusion -->
+        <?php
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/fiches_inscription.php';
+        ?>
+
         <!-- Icône pour revenir à la page précédente -->
-        <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+        <i onclick="history.back()" class="fixed top-[27px] fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
@@ -316,12 +316,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 ?>
 
                 <!-- Choix d'acceptation des termes et conditions -->
-                <div class="mb-1.5 flex items-start">
-                    <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
-                        required>
-                    <label class="text-small">J’accepte les <span onclick="toggleCGU()" class="underline cursor-pointer">conditions
-                            d'utilisation</span> et je confirme avoir lu la <a href="/confidentialite_et_cookies"
-                            class="underline">Politique de confidentialité et d'utilisation des cookies</a>.</label>
+                <div class="mb-1.5 text-small flex items-start">
+                    <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer" required>
+                    <label for="termes">J’accepte les <span onclick="toggleCGU()" class="underline cursor-pointer">Conditions générales d'utilisation</span> et je confirme avoir lu la <span onclick="togglePolitique()" class="underline cursor-pointer">Politique de confidentialité et d'utilisation des cookies</span>.</label>
                 </div>
 
                 <!-- Bouton pour créer le compte -->
@@ -337,6 +334,83 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     </body>
 
     </html>
+
+    <script>
+        // Synchroniser les cases à cocher
+        function syncCheckboxes() {
+            // Récupère toutes les cases à cocher ayant le même name "termes"
+            const checkboxes = document.querySelectorAll('input[name="termes"]');
+
+            checkboxes.forEach((checkbox) => {
+                // Ajoute un écouteur sur le changement d'état
+                checkbox.addEventListener('change', () => {
+                    // Applique le même état à toutes les cases
+                    checkboxes.forEach((cb) => cb.checked = checkbox.checked);
+                });
+            });
+        }
+
+        syncCheckboxes();
+
+        function toggleCheckbox() {
+            const checkbox = document.querySelector('#termes');
+            checkbox.checked = (checkbox.checked) ? false : true; // Cocher la case
+        }
+
+        // Fonction pour afficher ou masquer les cgu pendant l'inscription
+        function toggleCGU() {
+            const cgu = document.querySelector('#cgu');
+
+            if (!cgu.classList.contains('active')) {
+                toggleCheckbox();
+            }
+
+            // Toggle la classe 'active' pour le CGU
+            cgu.classList.toggle('active');
+        }
+
+        // Fonction pour afficher ou masquer la politique de confidentialité et d'utilisation des cookies pendant l'inscription
+        function togglePolitique() {
+            const politique = document.querySelector('#politique');
+
+            if (!politique.classList.contains('active')) {
+                toggleCheckbox();
+            }
+
+            // Toggle la classe 'active' pour la politique
+            politique.classList.toggle('active');
+        }
+
+        // Fonction pour afficher ou masquer les mentions légales pendant l'inscription
+        function toggleMentions() {
+            const mentions = document.querySelector('#mentions');
+
+            if (!mentions.classList.contains('active')) {
+                toggleCheckbox();
+            }
+
+            // Toggle la classe 'active' pour les mentions légales
+            mentions.classList.toggle('active');
+        }
+
+        function versCGU() {
+            document.querySelector('#cgu')?.classList.toggle('active'); // Alterne la classe 'active'
+            document.querySelector('#politique')?.classList.remove('active'); // Supprime la classe 'active'
+            document.querySelector('#mentions')?.classList.remove('active'); // Supprime la classe 'active'
+        }
+
+        function versPolitique() {
+            document.querySelector('#politique')?.classList.toggle('active'); // Alterne la classe 'active'
+            document.querySelector('#cgu')?.classList.remove('active'); // Supprime la classe 'active'
+            document.querySelector('#mentions')?.classList.remove('active'); // Supprime la classe 'active'
+        }
+
+        function versMentions() {
+            document.querySelector('#mentions')?.classList.toggle('active'); // Alterne la classe 'active'
+            document.querySelector('#cgu')?.classList.remove('active'); // Supprime la classe 'active'
+            document.querySelector('#politique')?.classList.remove('active'); // Supprime la classe 'active'
+        }
+    </script>
 
     <!-- 3ème étape de l'inscription (écriture dans la base de données) -->
 <?php } else {

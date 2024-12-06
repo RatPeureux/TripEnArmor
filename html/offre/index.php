@@ -31,7 +31,7 @@ session_start();
 
     <!-- Inclusion du header -->
     <?php
-    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
     ?>
 
     <?php
@@ -294,7 +294,7 @@ session_start();
             <!-- PARTIE GAUCHE (menu) -->
             <div id="menu">
                 <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
                 ?>
             </div>
 
@@ -994,7 +994,7 @@ session_start();
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
     ?>
 
     <script>
