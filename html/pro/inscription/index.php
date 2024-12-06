@@ -246,7 +246,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <a href="/" class="w-full">
-                <img class="relative mx-auto -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
+                <img class="relative mx-auto mt-8 -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
             </a>
 
             <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST">

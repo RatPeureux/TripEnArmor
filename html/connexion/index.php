@@ -24,9 +24,9 @@ if (empty($_POST)) { ?>
 
         <link rel="icon" type="image" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/input.css">
-        
+
         <script src="https://cdn.tailwindcss.com"></script>
-        <script src="/styles/config.js"></script>*
+        <script src="/styles/config.js"></script>
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
         <title>Connexion au compte - PACT</title>
@@ -75,7 +75,7 @@ if (empty($_POST)) { ?>
 
                     <!-- Liens pour mot de passe oublié et création de compte -->
                     <div class="flex items-center flex-nowrap h-12 space-x-1.5">
-                        <a href="#"
+                        <a
                             class="text-small text-center w-full text-wrap bg-transparent text-primary underline font-bold focus:scale-[0.97]">
                             Mot de passe oublié ?
                         </a>

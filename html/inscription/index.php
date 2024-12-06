@@ -117,6 +117,11 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 </form>
             </div>
         </div>
+
+        <!-- Inclusion -->
+        <?php
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/fiches_inscription.php';
+        ?>
     </body>
 
     </html>
@@ -226,7 +231,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <a href="/" class="w-full">
-                <img class="relative mx-auto -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
+                <img class="relative mx-auto mt-8 -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
             </a>
 
             <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="" method="POST">
@@ -314,8 +319,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <div class="mb-1.5 flex items-start">
                     <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
                         required>
-                    <label class="text-small" for="termes">J’accepte les <a href="/cgu" class="underline">conditions
-                            d'utilisation</a> et je confirme avoir lu la <a href="/confidentialite_et_cookies"
+                    <label class="text-small">J’accepte les <span onclick="toggleCGU()" class="underline cursor-pointer">conditions
+                            d'utilisation</span> et je confirme avoir lu la <a href="/confidentialite_et_cookies"
                             class="underline">Politique de confidentialité et d'utilisation des cookies</a>.</label>
                 </div>
 
@@ -373,7 +378,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 'odonyme' => $matches[2],
             ];
         }
-
         // Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
         return [
             'numero' => '',

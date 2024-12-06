@@ -18,7 +18,8 @@ $pro = verifyPro();
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="/styles/config.js"></script>
 	<script type="module" src="/scripts/main.js" defer></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 
 	<title>Création d'offre - Professionnel - PACT</title>
@@ -47,12 +48,18 @@ $pro = verifyPro();
 		// Fonction pour extraire des informations depuis une adresse complète
 		function extraireInfoAdresse($adresse)
 		{
-			$numero = substr($adresse, 0, 1);  // À adapter selon le format de l'adresse
-			$odonyme = substr($adresse, 2);
+			// Utiliser une expression régulière pour extraire le numéro et l'odonyme
+			if (preg_match('/^(\d+)\s+(.*)$/', $adresse, $matches)) {
+				return [
+					'numero' => $matches[1],
+					'odonyme' => $matches[2],
+				];
+			}
 
+			// Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
 			return [
-				'numero' => $numero,
-				'odonyme' => $odonyme,
+				'numero' => '',
+				'odonyme' => $adresse,
 			];
 		}
 		// ******************************************************************************************************************** Récupération des données du POST
@@ -93,8 +100,13 @@ $pro = verifyPro();
 		$id_pro = $_SESSION['id_pro'];
 		$prestations = $_POST['newPrestationName'] ?? [];
 		$horaires = $_POST['horaires'] ?? [];
-
 		$option = $_POST['option'] ?? [];
+		$duree_option = $_POST['duration'] ?? [];
+		$debut_option = $_POST['start_date'] ?? [];
+
+		// echo "Option : " . $option . "<br>";
+		// echo "Durée option : " . $duree_option . "<br>";
+		// echo "Debut option : " . $debut_option . "<br>";
 
 		// Récupérer d'autres valeurs
 	
@@ -112,6 +124,7 @@ $pro = verifyPro();
 		// 	11. Horaires
 		// 	12. [x] Tarif_Public
 	
+
 		BDD::startTransaction();
 		try {
 			// Insérer l'adresse dans la base de données
@@ -120,7 +133,7 @@ $pro = verifyPro();
 			$adresseController = new AdresseController();
 			$id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
 			if (!$id_adresse) {
-				echo"Erreur lors de la création de l'adresse.";
+				// echo "Erreur lors de la création de l'adresse.";
 				BDD::rollbackTransaction();
 				exit;
 			}
@@ -137,11 +150,11 @@ $pro = verifyPro();
 					$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
 
 					if ($id_offre < 0) { // Cas d'erreur
-						echo"Erreur lors de l'insertion : " . $id_offre;
+						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					echo"Activité insérée.<br>";
+					// echo "Activité insérée.<br>";
 					break;
 
 				case 'visite':
@@ -151,11 +164,11 @@ $pro = verifyPro();
 					$id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
 
 					if ($id_offre < 0) {
-						echo"Erreur lors de l'insertion : " . $id_offre;
+						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					echo"Visite insérée<br>";
+					// echo "Visite insérée<br>";
 					break;
 
 				case 'spectacle':
@@ -166,11 +179,11 @@ $pro = verifyPro();
 					$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $dureeFormatted);
 
 					if ($id_offre < 0) {
-						echo"Erreur lors de l'insertion : " . $id_offre;
+						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					echo"Spectacle inséré<br>";
+					// echo "Spectacle inséré<br>";
 					break;
 
 				case 'parc_attraction':
@@ -181,11 +194,11 @@ $pro = verifyPro();
 					$id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
 
 					if ($id_offre < 0) {
-						echo"Erreur lors de l'insertion : " . $id_offre;
+						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					echo"Parc d'attraction inséré<br>";
+					// echo "Parc d'attraction inséré<br>";
 					break;
 
 				case 'restauration':
@@ -196,15 +209,15 @@ $pro = verifyPro();
 					$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix);
 
 					if ($id_offre < 0) {
-						echo"Erreur lors de l'insertion : " . $id_offre;
+						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					echo"Restauration insérée<br>";
+					// echo "Restauration insérée<br>";
 					break;
 
 				default:
-					echo"Aucune activité sélectionnée";
+					// echo "Aucune activité sélectionnée";
 					BDD::rollbackTransaction();
 					exit;
 			}
@@ -224,7 +237,7 @@ $pro = verifyPro();
 
 					$tagRestaurationRestaurantController->linkRestaurationAndTag($id_offre, $tag_id);
 				}
-				echo"Tags Restaurant inséré<br>";
+				// echo "Tags Restaurant inséré<br>";
 			} else {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
 				$tagController = new TagController();
@@ -236,7 +249,7 @@ $pro = verifyPro();
 					$tag_id = $tags_id ? $tags_id[0]['id_tag'] : $tagController->createTag($tag);
 					$tagOffreController->linkOffreAndTag($id_offre, $tag_id);
 				}
-				echo"Tags insérés.<br>";
+				// echo "Tags insérés.<br>";
 			}
 
 			// Insérer les images dans la base de données
@@ -245,7 +258,7 @@ $pro = verifyPro();
 
 			// *** CARTE
 			if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
-				echo"Erreur lors de l'upload de l'image de la carte.";
+				echo "Erreur lors de l'upload de l'image de la carte.";
 				BDD::rollbackTransaction();
 				exit;
 			}
@@ -255,21 +268,21 @@ $pro = verifyPro();
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
 					if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
-						echo"Erreur lors de l'upload de l'image de détail.";
+						// echo "Erreur lors de l'upload de l'image de détail.";
 						BDD::rollbackTransaction();
 						exit;
 					}
 				}
-				echo"Images de détail insérées.<br>";
+				// echo "Images de détail insérées.<br>";
 			}
 
 			if ($activityType === 'parc_attraction') {
 				if (!$imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
-					echo"Erreur lors de l'upload de l'image du plan.";
+					echo "Erreur lors de l'upload de l'image du plan.";
 					BDD::rollbackTransaction();
 					exit;
 				}
-				echo"Image du plan insérée.<br>";
+				// echo "Image du plan insérée.<br>";
 			}
 
 			if ($activityType === 'visite' && $avec_guide) {
@@ -282,11 +295,11 @@ $pro = verifyPro();
 				for ($i = 1; $i < count($langueController->getInfosAllLangues()) + 1; $i++) { // foreach ($langues as $langue => $isIncluded) {
 					$isIncluded = $_POST['langue' . $i] ?? "on";
 					if ($isIncluded) {
-						echo"Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
+						// echo "Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
 						$visiteLangueController->linkVisiteAndLangue($id_offre, $i);
 					}
 				}
-				echo"Langues insérées.<br>";
+				// echo "Langues insérées.<br>";
 			} elseif ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
 				$typeRepasController = new TypeRepasController();
@@ -302,7 +315,7 @@ $pro = verifyPro();
 						$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
 					}
 				}
-				echo"Types de repas insérés.<br>";
+				// echo "Types de repas insérés.<br>";
 			} elseif ($activityType === 'activite') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_controller.php';
 				$prestationController = new PrestationController();
@@ -317,7 +330,7 @@ $pro = verifyPro();
 
 					$activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
 				}
-				echo"Prestations insérées.<br>";
+				// echo "Prestations insérées.<br>";
 			}
 
 			// Insérer les horaires dans la base de données
@@ -334,18 +347,36 @@ $pro = verifyPro();
 			$tarifController = new TarifPublicController();
 			foreach ($prices as $price) {
 				if (!isset($price['name']) || !isset($price['value'])) {
-					echo"Erreur : données de prix invalides.";
+					// echo "Erreur : données de prix invalides.";
 					continue;
 				}
 
 				$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
 			}
 			// echo"Prix insérés.<br>";
-	
 			BDD::commitTransaction();
-			header('location: /scripts/go_to_details.php?id_offre=' . $id_offre);
+	
+			// Insérer les options dans la base de données
+			if ($option == "A la une" || $option == "En relief") {
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+				$stmt = $dbh->prepare("INSERT INTO sae_db._souscription (nb_semaines, date_lancement) VALUES (:nb_semaines, :date_lancement) RETURNING id_souscription");
+				$stmt->bindParam(':nb_semaines', $duree_option);
+				$stmt->bindParam(':date_lancement', $debut_option);
+				$stmt->execute();
+				
+				$id_souscription = $stmt->fetch(PDO::FETCH_ASSOC)['id_souscription'];
+
+				$stmt = $dbh->prepare("INSERT INTO sae_db._offre_souscription_option (id_offre, id_souscription, nom_option) VALUES (:id_offre, :id_souscription, :nom_option)");
+				$stmt->bindParam(':id_offre', $id_offre);
+				$stmt->bindParam(':id_souscription', $id_souscription);
+				$stmt->bindParam(':nom_option', $option);
+
+				$stmt->execute();
+			}
+
+			header('location: /pro');
 		} catch (Exception $e) {
-			echo"Erreur lors de l'insertion : " . $e->getMessage();
+			echo "Erreur lors de l'insertion : " . $e->getMessage();
 			BDD::rollbackTransaction();
 			exit;
 		}
@@ -1141,29 +1172,37 @@ $pro = verifyPro();
 									<div
 										class="flex flex-row mb-4 content-center justify-between items-center text-secondary w-full">
 										<!-- Sans option -->
-										<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+										<div class="w-fit p-2 rounded-lg border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold text-lg"
 											id="option-rien-div">
-											<input type="radio" id="option-rien" name="option" value="option-rien"
-												class="hidden" checked="true" />
+											<input type="radio" id="option-rien" name="option" value="1" class="hidden"
+												checked="true" />
 											<label for="option-rien">Sans option</label>
 										</div>
-										<!-- Option en relief -->
-										<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-											id="option-relief-div">
-											<input type="radio" id="option-relief" name="option" value="option-relief"
-												class="hidden" />
-											<label for="option-relief">En Relief (3.99€)</label>
-										</div>
-										<!-- À la une -->
-										<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
-											id="option-a-la-une-div">
-											<input type="radio" id="option-a-la-une" name="option" class="hidden"
-												value="option-a-la-une" />
-											<label for="option-a-la-une">À la une (5.99€)</label>
-										</div>
+										<?php
+										require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/php_files/connect_to_bdd.php";
+
+										$stmt = $dbh->prepare('SELECT * FROM sae_db._option ORDER BY prix_ht ASC');
+										$stmt->execute();
+										$options = $stmt->fetchAll(PDO::FETCH_ASSOC);
+										foreach ($options as $option) {
+											$nom_option = str_contains($option['nom'], 'relief') ? "option-relief" : "option-a-la-une";
+											?>
+											<div class="w-fit p-2 rounded-lg border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold text-center text-lg"
+												id="<?php echo $nom_option; ?>-div">
+												<input type="radio" id="<?php echo $nom_option; ?>" name="option"
+													value="<?php echo $option['nom']; ?>" class="hidden" />
+												<label
+													for="<?php echo $nom_option; ?>"><?php echo ucwords($option['nom']); ?><br>
+													<span class="font-normal text-base">HT
+														<?php echo $option['prix_ht']; ?>€/semaine<br>(TTC
+														<?php echo $option['prix_ttc']; ?>€/semaine)</span>
+												</label>
+											</div>
+										<?php }
+										?>
 									</div>
 
-									<div class="flex items-start">
+									<div class="flex items-start hidden" id="option-data">
 										<div class="flex flex-col justify-center w-full">
 											<label for="start_date" class="text-nowrap">Début de la souscription :</label>
 											<input type="date" id="start_date" name="start_date"
@@ -1180,6 +1219,7 @@ $pro = verifyPro();
 
 												document.getElementById('start_date').addEventListener('focus', function (e) {
 													e.target.setAttribute('min', getNextMonday());
+													e.target.value = getNextMonday();
 												});
 
 												function getNextMonday() {
@@ -1208,6 +1248,9 @@ $pro = verifyPro();
 													}
 												});
 											</script>
+											<p>
+												La durée se compte en semaines.
+											</p>
 										</div>
 									</div>
 								</div>
@@ -1241,17 +1284,21 @@ $pro = verifyPro();
 											}
 										}
 										// Ajouter un EventListener pour détecter les changements dans les options
+										optionData = document.getElementById("option-data");
 										document.getElementById("option-rien-div").addEventListener("click", function () {
 											toggleRadio("option-rien");
 											toggleCardPreview("option-rien");
+											optionData.classList.add('hidden');
 										});
 										document.getElementById("option-relief-div").addEventListener("click", function () {
 											toggleRadio("option-relief");
 											toggleCardPreview("option-relief");
+											optionData.classList.remove('hidden');
 										});
 										document.getElementById("option-a-la-une-div").addEventListener("click", function () {
 											toggleRadio("option-a-la-une");
 											toggleCardPreview("option-a-la-une");
+											optionData.classList.remove('hidden');
 										});
 									</script>
 									<!-- En tête -->

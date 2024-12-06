@@ -20,6 +20,8 @@ session_start();
     <script type="module" src="/scripts/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
+
+    <!-- Pour les requêtes ajax -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Détails d'une offre - PACT</title>
@@ -193,14 +195,11 @@ session_start();
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
             $controllerSpectacle = new SpectacleController();
             $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
-            print_r($spectacle);
 
             // Durée du spectacle
-            echo $spectacle['duree'];
             $duree_spec = $spectacle['duree'];
             $duree_spec = substr($duree_spec, 0, -3);
             $duree_spec = str_replace(':', 'h', $duree_spec);
-            echo $duree_spec;
 
             // Capacité du spectacle
             $capacite = $spectacle['capacite'];
@@ -240,9 +239,13 @@ session_start();
             $ouverture = $horaire['ouverture'];
             $fermeture = $horaire['fermeture'];
             if ($ouverture !== null && $fermeture !== null) {
-                $fermeture_T = explode(':', $fermeture);
-                $fermeture_T[0] = $fermeture_T[0] + 24;
-                $fermeture_T = implode(':', $fermeture_T);
+                if ($fermeture < $ouverture) {
+                    $fermeture_T = explode(':', $fermeture);
+                    $fermeture_T[0] = $fermeture_T[0] + 24;
+                    $fermeture_T = implode(':', $fermeture_T);
+                } else {
+                    $fermeture_T = $fermeture;
+                }
                 if ($heure_actuelle >= $ouverture && $heure_actuelle <= $fermeture_T) {
                     if ($horaire['pause_debut'] !== null && $horaire['pause_fin'] !== null) {
                         $pause_debut = $horaire['pause_debut'];
@@ -250,7 +253,9 @@ session_start();
                         if ($heure_actuelle >= $pause_debut && $heure_actuelle <= $pause_fin) {
                             $ouvert = false;
                         } else {
-                            $ouvert = true;
+                            if ($heure_actuelle >= $ouverture && $heure_actuelle <= $fermeture_T) {
+                                $ouvert = true;
+                            }
                         }
                     } else {
                         $ouvert = true;
@@ -313,6 +318,13 @@ session_start();
                                 echo $categorie_offre . '.jpg';
                             } ?>' alt="image de slider">
                         </div>
+                        <div class="swiper-slide !w-full">
+                            <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
+                                echo "offres/" . $images['carte'];
+                            } else {
+                                echo $categorie_offre . '.jpg';
+                            } ?>' alt="image de slider">
+                        </div>
                         <?php
                         if ($images['details']) {
                             foreach ($images['details'] as $image) {
@@ -326,6 +338,9 @@ session_start();
                         }
                         ?>
                     </div>
+
+                    <!-- Pagination en bas du slider -->
+                    <div class="swiper-pagination"></div>
 
                     <!-- Boutons de navigation sur la slider -->
                     <?php if ($images['details']) { ?>
@@ -341,6 +356,7 @@ session_start();
                     }
                     ?>
                 </div>
+
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="space-y-2 px-2 md:px-0 w-full">
@@ -390,7 +406,7 @@ session_start();
                             ?>
                             <div class="p-1 rounded-lg bg-secondary self-center w-full">
                                 <?php
-                                echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
+                                echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
                             </div>
                             <?php
@@ -398,7 +414,7 @@ session_start();
                             ?>
                             <div class="p-1 rounded-lg bg-secondary self-center w-full">
                                 <?php
-                                echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
+                                echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
                             </div>
                             <?php
@@ -423,7 +439,7 @@ session_start();
                             ?>
                             <div class="p-1 rounded-lg bg-secondary self-center w-full">
                                 <?php
-                                echo ("<p class='text-white text-center truncate'>$tagsAffiche</p>");
+                                echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
                             </div>
                             <?php
@@ -431,7 +447,7 @@ session_start();
                             ?>
                             <div class="p-1 rounded-lg bg-secondary self-center w-full">
                                 <?php
-                                echo ("<p class='text-white text-center'>Aucun tag à afficher</p>");
+                                echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
                             </div>
                             <?php
@@ -451,7 +467,10 @@ session_start();
                                     <i class="w-6 text-center fa-solid fa-location-dot"></i>
                                     <div class="text-small">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
-                                        <p><?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] ?>
+                                        <p>
+                                            <?php
+                                            echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement']
+                                                ?>
                                         </p>
                                     </div>
                                 </div>

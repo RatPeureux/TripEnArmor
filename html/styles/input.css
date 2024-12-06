@@ -18,7 +18,8 @@ label:has(+ select[required])::after {
 /* ACTIVATION DU MENU */
 #menu>.active,
 #menu-pro>.active,
-#filtres.active {
+#filtres.active,
+#cgu.active {
     --tw-translate-x: 0%;
 }
 
@@ -35,7 +36,7 @@ label:has(+ select[required])::after {
 }
 
 /* CARTES DES OFFRES */
-.card.active {
+.card.active, .card .active {
     box-shadow: 0 0 8px 3px var(--secondary-color);
 }
 
