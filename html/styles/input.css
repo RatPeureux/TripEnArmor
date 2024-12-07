@@ -83,6 +83,17 @@ label:has(+ select[required])::after {
     background-color: #222222; /* Darker color when hovering over the thumb */
 }
 
+/* MENU DE GAUCHE M TABLLETTE */
+/* Masquer la scrollbar */
+.scroll-hidden::-webkit-scrollbar {
+    display: none; /* Chrome, Safari et Edge */
+}
+
+.scroll-hidden {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;     /* Firefox */
+}
+
 @layer base {
     @font-face {
         font-family: 'Cormorant-Bold';

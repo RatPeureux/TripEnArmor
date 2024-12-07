@@ -36,7 +36,7 @@
 <div id="layer-background" onclick="toggleMenu()" class="hidden fixed w-full h-full top-0 left-0 z-40"></div>
 
 <!-- VERSION TABLETTE OU PLUS (+768px) -->
-<div class="sticky top-2 hidden md:block flex flex-col min-w-56 h-[82vh] overflow-x-hidden overflow-y-scroll">
+<div class="sticky top-2 hidden md:block flex flex-col min-w-52 h-[80.5vh] scroll-hidden overflow-x-hidden overflow-y-auto">
     <div class="w-52 border-black border rounded-b-lg rounded-tr-lg z-25">
         <div class="p-4 flex flex-row gap-3 justify-start items-center rounded-tr-lg <?php if (!isset($pagination)) {
             echo 'bg-primary text-white';
@@ -69,13 +69,18 @@
         </div>
     </div>
 
-    <div class="w-52 mt-2 border-black border rounded-b-lg rounded-tr-lg z-25">
+    <a class="mx-2 mt-4 self-end flex items-center gap-2 hover:text-primary duration-100" onclick="allDevelopped()">
+        <i class="text xl fa-solid fa-filter"></i>
+        <p>Tout découvrir</p>
+    </a>
+    
+    <div class="w-52 border-black border rounded-b-lg rounded-tr-lg z-25">
         <div class="flex flex-col w-full p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f1-tab">
                 <p>Catégorie</p>
                 <p class="arrow" id="arrow-f1-tab">></p>
             </div>
-            <div class="developped hidden text-small flex flex-wrap gap-4" id="developped-f1-tab">
+            <div class="alldevelopped hidden text-small flex flex-wrap gap-4" id="developped-f1-tab">
                 <div class="flex items-center gap-2">
                     <input type="checkbox" class="mb-1" id="restauration-tab" />
                     <label for="restauration-tab">Restauration</label>
@@ -107,7 +112,7 @@
                 <p>Disponibilité</p>
                 <p class="arrow" id="arrow-f2-tab">></p>
             </div>
-            <div class="developped hidden text-small flex flex-wrap gap-4" id="developped-f2-tab">
+            <div class="alldevelopped hidden text-small flex flex-wrap gap-4" id="developped-f2-tab">
                 <div class="flex items-center gap-2">
                     <input type="checkbox" class="mb-1" class="mb-1" id="ouvert-tab" />
                     <label for="ouvert-tab">Ouvert</label>
@@ -124,7 +129,7 @@
                 <p>Localisation</p>
                 <p class="arrow" id="arrow-f3-tab">></p>
             </div>
-            <div class="developped hidden flex flex-col w-full" id="developped-f3-tab">
+            <div class="alldevelopped hidden flex flex-col w-full" id="developped-f3-tab">
                 <label class="text-small">Ville ou Code postal</label>
                 <input id="localisation-tab" type="text" class="w-full border border-base300 rounded-lg p-1 focus:ring-0" />
             </div>
@@ -134,7 +139,7 @@
                 <p>Note générale</p>
                 <p class="arrow" id="arrow-f4-tab">></p>
             </div>
-            <div class="developped hidden flex-col" id="developped-f4-tab">
+            <div class="alldevelopped hidden flex-col" id="developped-f4-tab">
                 <label class="text-small">Intervalle des prix entre :&nbsp;</label>
                 <div class="flex items-center">
                     <div class="flex items-center">
@@ -156,7 +161,7 @@
                 <p>Période</p>
                 <p class="arrow" id="arrow-f5-tab">></p>
             </div>
-            <div class="developped text-small hidden flex flex-wrap items-center" id="developped-f5-tab">
+            <div class="alldevelopped text-small hidden flex flex-wrap items-center" id="developped-f5-tab">
                 <div>
                     <label>Offre allant du&nbsp;</label>
                     <input type="date" class="border border-base300 rounded-lg p-1 text-right mr-4" id="min-date-tab" name="min-date-tab">
@@ -173,7 +178,7 @@
                 <p>Prix</p>
                 <p class="arrow" id="arrow-f6-tab">></p>
             </div>
-            <div class="devellopped hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tab">
+            <div class="alldevelopped hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tab">
                 <div class="flex flex-col">
                     <label class="text-small">Intervalle des prix entre :&nbsp;</label>
                     <div class="flex items-center">
@@ -206,3 +211,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    function allDevelopped() {
+        const developped = document.querySelectorAll('.alldevelopped');
+        const arrows = document.querySelectorAll('.arrow');
+
+        developped?.forEach((section) => {
+            section.classList.remove('hidden');
+        });
+
+        arrows?.forEach((icon) => {
+            icon.classList.add('rotate-90');
+        });
+    }
+</script>
