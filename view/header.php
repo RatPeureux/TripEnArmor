@@ -5,11 +5,13 @@
 <header class="flex items-center z-30 w-full bg-white p-4 h-20 border-b-2 border-black top-0">
     <div class="w-full flex items-center justify-between">
         <!-- Menu Burger pour les petits écrans -->
-        <div class="md:hidden">
-            <button class="flex items-center gap-4 " onclick="toggleMenu()">
+        <div class="flex items-center gap-4 md:hidden">
+            <button onclick="toggleMenu()">
                 <i class="text-3xl fa-solid fa-bars"></i>
-                <img src="/public/icones/logo.svg" alt="Logo" width="40">
             </button>
+            <a href="/">
+                <img src="/public/icones/logo.svg" alt="Logo" width="40">
+            </a>
         </div>
 
         <!-- Logo -->
