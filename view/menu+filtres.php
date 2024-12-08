@@ -69,9 +69,9 @@
         </div>
     </div>
 
-    <a class="mx-2 mt-4 self-end flex items-center gap-2 hover:text-primary duration-100" onclick="allDevelopped()">
-        <i class="text xl fa-solid fa-filter"></i>
-        <p>Tout découvrir</p>
+    <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2 hover:text-primary duration-100" onclick="allDevelopped()">
+        <i class="fa-solid fa-filter"></i>
+        <p>Filtrer</p>
     </a>
     
     <div class="w-52 border-black border rounded-b-lg rounded-tr-lg z-25">

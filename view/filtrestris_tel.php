@@ -171,7 +171,7 @@
         </div>
     </div>
 
-    <a class="bg-primary font-bold text-h3 text-white text-center m-2 p-4" onclick="toggleFiltres()">
-        Voir les offres
+    <a class="fixed left-0 right-0 bottom-0 rounded bg-primary font-bold uppercase text-h4 text-white text-center m-2 p-4 cursor-pointer hover:bg-orange-600" onclick="toggleFiltres()">
+        Valider
     </a>
 </div>
