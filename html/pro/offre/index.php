@@ -219,12 +219,6 @@ session_start();
     $controllerHoraire = new HoraireController();
     $horaires = $controllerHoraire->getHorairesOfOffre($id_offre);
 
-    foreach ($horairesV1 as $jour => $horaire) {
-        $horaires['ouverture'][$jour] = $horaire['ouverture'];
-        $horaires['pause_debut'][$jour] = $horaire['pause_debut'];
-        $horaires['pause_fin'][$jour] = $horaire['pause_fin'];
-        $horaires['fermeture'][$jour] = $horaire['fermeture'];
-    }
     $jour_semaine = date('l');
     $jours_semaine_fr = [
         'Monday' => 'lundi',
@@ -275,24 +269,8 @@ session_start();
     if ($categorie_offre !== 'restauration') {
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
         $controllerGrilleTarifaire = new TarifPublicController();
-        // VALEUR TEST CAR PAS DANS LA BDD
-        // $tarifs = [
-        //     [
-        //         "titre_tarif" => "Tarif adulte",
-        //         "prix" => 10
-        //     ],
-        //     [
-        //         "titre_tarif" => "Tarif enfant",
-        //         "prix" => 5
-        //     ]
-        // ];
     }
 
-    if ($categorie_offre == 'parc_attraction') {
-        // require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
-        // $controllerImage = new TImageImgController();
-        // $path_plan = $controllerImage->getPathToPlan($id_offre);
-    }
     ?>
 
     <main class="flex flex-col md:block md:mx-10 self-center md:p-2 max-w-[1280px] overflow-auto grow">
@@ -507,10 +485,10 @@ session_start();
                                                 $horaire[$key] = substr($value, 0, -3);
                                             }
                                         }
-                                        if ($horaire['ouverture'] == null) {
+                                        if (!isset($horaire['ouverture'])) {
                                             echo "Fermé <br>";
                                         } else {
-                                            if ($horaire['pause_debut'] == null) {
+                                            if (!isset($horaire['pause_debut'])) {
                                                 echo $horaire['ouverture'] . ' - ' . $horaire['fermeture'];
                                             } else {
                                                 echo $horaire['ouverture'] . ' - ' . $horaire['pause_debut'] . ' ' . $horaire['pause_fin'] . ' - ' . $horaire['fermeture'];

@@ -14,7 +14,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controlle
 $controllerHoraire = new HoraireController();
 $horaires = $controllerHoraire->getHorairesOfOffre($id_offre);
 
-foreach ($horairesV1 as $jour => $horaire) {
+foreach ($horaires as $jour => $horaire) {
 	$horaires['ouverture'][$jour] = $horaire['ouverture'];
 	$horaires['pause_debut'][$jour] = $horaire['pause_debut'];
 	$horaires['pause_fin'][$jour] = $horaire['pause_fin'];

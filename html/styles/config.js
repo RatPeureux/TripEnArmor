@@ -34,11 +34,17 @@ tailwind.config = {
             },
             animation: {
                 'expand-width': 'expandWidth 1s ease-out forwards',
+                scale: 'scale 1s ease-in-out infinite',
+                
             },
             keyframes: {
                 expandWidth: {
                     '0%': { width: '100%' },
                     '100%': { width: '0%' },
+                },
+                scale: {
+                  '0%, 100%': { transform: 'scale(1.01)' },
+                  '50%': { transform: 'scale(0.99)' },
                 },
             },
             boxShadow: {
