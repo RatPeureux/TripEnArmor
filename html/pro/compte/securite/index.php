@@ -73,13 +73,13 @@ if (isset($_POST['mdp'])) {
 
     <div id="menu-pro">
         <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
         ?>
     </div>
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
     ?>
 
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
@@ -142,7 +142,7 @@ if (isset($_POST['mdp'])) {
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
 </body>
 
@@ -157,7 +157,7 @@ if (isset($_POST['mdp'])) {
     const togglePassword3 = document.getElementById('togglePassword3');
 
     if (togglePassword1) {
-        togglePassword1.addEventListener('onclick', function () {
+        togglePassword1.addEventListener('click', function () {
             if (mdp.type === 'password') {
                 mdp.type = 'text';
                 this.classList.remove('fa-eye');
@@ -171,7 +171,7 @@ if (isset($_POST['mdp'])) {
     }
 
     if (togglePassword2) {
-        togglePassword2.addEventListener('onclick', function () {
+        togglePassword2.addEventListener('click', function () {
             if (newMdp.type === 'password') {
                 newMdp.type = 'text';
                 this.classList.remove('fa-eye');
@@ -185,7 +185,7 @@ if (isset($_POST['mdp'])) {
     }
 
     if (togglePassword3) {
-        togglePassword3.addEventListener('onclick', function () {
+        togglePassword3.addEventListener('click', function () {
             if (confNewMdp.type === 'password') {
                 confNewMdp.type = 'text';
                 this.classList.remove('fa-eye');

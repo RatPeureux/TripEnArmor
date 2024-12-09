@@ -12,7 +12,7 @@
         <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';
         } ?>" href="/pro">Mes offres</a>
-        <a class="pl-5 py-3 border-y-2 border-black <?php if (isset($pagination) && $pagination == 2) {
+        <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
             echo 'active';
         } ?>" href="/pro/offre/creer">Créer une offre</a>
     </div>

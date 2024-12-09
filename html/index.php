@@ -30,7 +30,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
     ?>
 
     <?php
@@ -101,13 +101,10 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <div class="w-full grow flex items-start justify-center p-2">
         <div class="flex justify-center w-full md:max-w-[1280px]">
 
-            <!-- Inclusion du menu -->
-            <div id="menu">
-                <?php
-                $pagination = 2;
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
-                ?>
-            </div>
+            <!-- Inclusion du menu et de l'interface de filtres (tablette et +) -->
+            <?php
+            include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu+filtres.php';
+            ?>
 
             <main class="grow p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
 
@@ -119,11 +116,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     <h1 class="text-h1 font-bold">Toutes les offres</h1>
 
                     <div class="hidden md:flex gap-4">
-                        <a class="flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
-                            <i class="text xl fa-solid fa-filter"></i>
-                            <p>Filtrer</p>
-                        </a>
-                        |
                         <a class="self-end flex items-center gap-2 hover:text-primary duration-100"
                             id="sort-button-tab">
                             <i class="text xl fa-solid fa-sort"></i>
@@ -132,9 +124,9 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     </div>
                 </div>
 
-                <!-- Inclusion des interfaces de filtres/tris (tablette et +) -->
+                <!-- Inclusion des interfaces de tris (tablette et +) -->
                 <?php
-                include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tab.php';
+                include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/tris_tab.php';
                 ?>
 
                 <?php
@@ -167,7 +159,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
     ?>
 </body>
 

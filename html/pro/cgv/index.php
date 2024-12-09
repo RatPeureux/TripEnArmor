@@ -30,23 +30,18 @@ $pro = verifyPro();?>
 
     <div id="menu-pro">
         <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
         ?>
     </div>
 
     <!-- Inclusion du header -->
     <?php 
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
     ?>
 
     <div class="self-center  flex justify-center w-full md:max-w-[1280px] p-2">
         <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
-            <div class="flex flex-col md:flex-row item-start md:items-center gap-4">
-                <!-- Icône pour revenir à la page précédente -->
-                <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer mb-1"></i>
-                
-                <p class="text-h1">Conditions Générales de Vente (CGV)</p>
-            </div>
+            <p class="text-h1">Conditions Générales de Vente (CGV)</p>
 
             <p class="text-h2">1. Préambule</p>
             <p>
@@ -118,7 +113,7 @@ $pro = verifyPro();?>
 
     <!-- Inclusion du footer -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
     
 </body>

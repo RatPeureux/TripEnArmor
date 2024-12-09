@@ -66,14 +66,14 @@ if (isset($_POST['mdp'])) {
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
     ?>
 
     <main class="w-full flex justify-center grow">
         <div class="max-w-[1280px] w-full p-2 flex justify-center">
             <div id="menu">
                 <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu.php';
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
                 ?>
             </div>
 
@@ -137,7 +137,7 @@ if (isset($_POST['mdp'])) {
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
     ?>
 </body>
 
@@ -152,7 +152,7 @@ if (isset($_POST['mdp'])) {
     const togglePassword3 = document.getElementById('togglePassword3');
 
     if (togglePassword1) {
-        togglePassword1.addEventListener('onclick', function () {
+        togglePassword1.addEventListener('click', function () {
             if (mdp.type === 'password') {
                 mdp.type = 'text';
                 this.classList.remove('fa-eye');
@@ -166,7 +166,7 @@ if (isset($_POST['mdp'])) {
     }
 
     if (togglePassword2) {
-        togglePassword2.addEventListener('onclick', function () {
+        togglePassword2.addEventListener('click', function () {
             if (newMdp.type === 'password') {
                 newMdp.type = 'text';
                 this.classList.remove('fa-eye');
@@ -180,7 +180,7 @@ if (isset($_POST['mdp'])) {
     }
 
     if (togglePassword3) {
-        togglePassword3.addEventListener('onclick', function () {
+        togglePassword3.addEventListener('click', function () {
             if (confNewMdp.type === 'password') {
                 confNewMdp.type = 'text';
                 this.classList.remove('fa-eye');

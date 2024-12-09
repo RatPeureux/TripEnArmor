@@ -337,6 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const availability = offre.getAttribute('title').replace("é", "e").toLowerCase().trim();
             const city = offre.querySelector('.localisation').querySelector('p:nth-of-type(1)').textContent.trim();
             const code = offre.querySelector('.localisation').querySelector('p:nth-of-type(2)').textContent.trim();
+            const type = offre.querySelector('.type-offre').textContent.trim().match(/Type : (Standard|Premium)/)[1].toLowerCase();
 
             const note = offre.querySelector('.note');
             const price = offre.querySelector('.prix');
@@ -354,7 +355,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let matchesLocalisation = false;
             if (city && code) {
-                matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
+                matchesLocalisation = filterState.localisation === '' || filterState.localisation.includes(code) || filterState.localisation.includes(city);
             }
 
             let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5');
@@ -365,13 +366,16 @@ document.addEventListener("DOMContentLoaded", function () {
             let matchesPrice = (filterState.prix[0] === '0' && filterState.prix[1] === document.getElementById('max-price-tab').max);
             if (price) {
                 if (price.getAttribute('title') !== "Gamme des prix") {
-                    matchesPrice = filterState.prix[0] <= price.getAttribute('title').match(/Min (\d+)/)?.[1] && price.getAttribute('title').match(/Min (\d+)/)?.[1] <= filterState.prix[1];
+                    matchesPrice = (price.getAttribute('title').match(/Min (\d+),/)) ? filterState.prix[0] <= parseInt(price.getAttribute('title').match(/Min (\d+),/)[1], 10) && parseInt(price.getAttribute('title').match(/Min (\d+),/)[1], 10) <= filterState.prix[1] : false;
                 } else {
                     matchesPrice = filterState.gammes.length === 0 || filterState.gammes.includes(price.textContent.trim());
                 }
             }
 
-            let matchesType = filterState.types.length === 0 || filterState.types.includes(type);
+            let matchesType = false;
+            if (type) {
+                matchesType = filterState.types.length === 0 || filterState.types.includes(type);
+            }
 
             // Appliquer les filtres croisés
             if (matchesCategory && matchesLocalisation && matchesNote && matchesPrice && matchesType) {

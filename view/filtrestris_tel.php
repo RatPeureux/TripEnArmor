@@ -141,7 +141,7 @@
                     <p>Prix</p>
                     <p class="arrow" id="arrow-f6-tel">></p>
                 </div>
-                <div class="devellopped hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tel">
+                <div class="developped hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tel">
                     <div class="flex items-center">
                         <label class="text-small">Intervalle des prix entre&nbsp;</label>
                         <input id="min-price-tel" type="number" value="0" min="0" max="99" class="w-[44px] border border-base300 rounded-lg p-1 text-small text-right focus:ring-0" />
@@ -171,7 +171,7 @@
         </div>
     </div>
 
-    <a class="bg-primary font-bold text-h3 text-white text-center m-2 p-4" onclick="toggleFiltres()">
-        Voir les offres
+    <a class="fixed left-0 right-0 bottom-0 rounded bg-primary font-bold uppercase text-h4 text-white text-center m-2 p-4 cursor-pointer hover:bg-orange-600" onclick="toggleFiltres()">
+        Valider
     </a>
 </div>
