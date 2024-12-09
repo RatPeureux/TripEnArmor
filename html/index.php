@@ -116,7 +116,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
-                    <h1 class="text-4xl">Toutes les offres</h1>
+                    <h1 class="text-h1 font-bold">Toutes les offres</h1>
 
                     <div class="hidden md:flex gap-4">
                         <a class="flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
