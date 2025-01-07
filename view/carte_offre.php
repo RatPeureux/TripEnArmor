@@ -1,5 +1,6 @@
-<!-- FONCTION UTILES -->
 <?php
+// FONCTION UTILES
+
 if (!function_exists('chaineVersMot')) {
 	function chaineVersMot($str): string
 	{
@@ -68,12 +69,10 @@ foreach ($horaires as $jour => $horaire) {
 }
 
 if ($mode_carte == 'membre') {
+	// !!! CARD COMPONENT MEMBER !!!
+	// Composant dynamique (généré avec les données en php)
+	// Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 	?>
-	<!--
-	!!! CARD COMPONENT MEMBER !!!
-	Composant dynamique (généré avec les données en php)
-	Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
--->
 	<a class="card <?php if ($option) {
 		echo "active rounded-lg";
 	} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
@@ -402,13 +401,10 @@ if ($mode_carte == 'membre') {
 	</a>
 	<?php
 } else {
+	// !!! CARD COMPONENT PRO !!!
+	// Composant dynamique (généré avec les données en php)
+	// Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 	?>
-	<!--
-	!!! CARD COMPONENT PRO !!!
-	Composant dynamique (généré avec les données en php)
-	Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
-	-->
-
 	<div class="card <?php if ($option)
 		echo 'active' ?> relative max-w-[1280px] bg-base100 rounded-lg flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 

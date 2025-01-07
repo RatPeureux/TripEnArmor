@@ -51,7 +51,7 @@
 
             <p class="text-h2">5. Données Personnelles et RGPD</p>
             <p>
-                Les données personnelles des utilisateurs sont collectées et traitées conformément à notre <a href="/confidentialite_et_cookies" class="underline">Politique de Confidentialité</a>.
+                Les données personnelles des utilisateurs sont collectées et traitées conformément à notre <a href="/confidentialite-et-cookies" class="underline">Politique de Confidentialité</a>.
             </p>
 
             <p class="text-h2">6. Cookies</p>

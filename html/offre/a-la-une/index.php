@@ -23,7 +23,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <script src="/scripts/filtersAndSorts.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
 
-    <title>Toutes les offres - PACT</title>
+    <title>À la une - PACT</title>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
@@ -49,11 +49,11 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     // Obtenez l'ensemble des offres avec le tri approprié
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true $sort_order");
     $stmt->execute();
-    $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $aLaUne = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $prix_mini_max = 0;
 
-    foreach ($toutesLesOffres as $offre) {
+    foreach ($aLaUne as $offre) {
         $prix_mini = $offre['prix_mini'];
         if ($prix_mini !== null && $prix_mini !== '') {
             if ($prix_mini_max === 0) {
@@ -79,7 +79,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
             $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
             return $offre;
-        }, $toutesLesOffres);
+        }, $aLaUne);
 
         // Effectuer le tri
         if ($_GET['sort'] === 'note-ascending') {
@@ -93,7 +93,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         }
 
         // Réassigner les offres triées
-        $toutesLesOffres = $offresAvecNotes;
+        $aLaUne = $offresAvecNotes;
     }
     ?>
 
@@ -104,7 +104,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <!-- Inclusion du menu et de l'interface de filtres (tablette et +) -->
             <div id="menu">
                 <?php
-                $pagination = 2;
+                $pagination = 3;
                 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu+filtres.php';
                 ?>
             </div>
@@ -116,7 +116,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
-                    <h1 class="text-h1 font-bold">Toutes les offres</h1>
+                    <h1 class="text-h1 font-bold">À la une</h1>
 
                     <div class="hidden md:flex gap-4">
                         <a class="self-end flex items-center gap-2 hover:text-primary duration-100"
@@ -134,14 +134,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
                 <?php
                 // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
-                if (!$toutesLesOffres) { ?>
+                if (!$aLaUne) { ?>
                     <div class="md:min-w-full flex flex-col gap-4">
                         <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
                     </div>
                 <?php } else { ?>
                     <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
                         <?php $i = 0;
-                        foreach ($toutesLesOffres as $offre) {
+                        foreach ($aLaUne as $offre) {
                             if ($i > -1) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';
@@ -171,6 +171,45 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     function toggleFiltres() {
         document.querySelector('#filtres')?.classList.toggle('active'); // Alterne la classe 'active'
     }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // N'affiche que les offres "À la une"
+    const offres = document.querySelectorAll('.card');
+    let anyVisible = false; // Variable pour suivre si une offre est visible
+
+    offres?.forEach((offre) => {
+        // Vérifie si l'offre contient la classe 'active'
+        if (offre.classList.contains('active')) {
+            anyVisible = true; // Marque qu'une offre est visible
+            offre.classList.remove('hidden'); // Affiche l'offre
+        } else {
+            offre.classList.add('hidden'); // Masque l'offre
+        }
+    });
+
+    // Vérifie si aucune offre n'est visible
+    const noMatchesContainer = document.querySelector('#no-matches');
+    if (!noMatchesContainer) {
+        console.error('Le conteneur #no-matches est introuvable.');
+        return;
+    }
+
+    const noMatchesMessage = document.getElementById('no-matches-message');
+    if (!anyVisible) {
+        if (!noMatchesMessage) {
+            // Crée et ajoute un élément de message si non présent
+            const message = document.createElement('div');
+            message.id = 'no-matches-message';
+            message.textContent = 'Aucune offre n\'est "À la Une".';
+            message.classList.add('mt-4', 'font-bold', 'text-h2');
+            noMatchesContainer.appendChild(message); // Ajouter dans le conteneur des offres
+            console.log('Message ajouté : Aucune offre n\'est "À la Une".');
+        }
+    } else {
+        // Supprime le message si des offres sont visibles
+        noMatchesMessage?.remove();
+    }
+});
 </script>
 
 </html>
