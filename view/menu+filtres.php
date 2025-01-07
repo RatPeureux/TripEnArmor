@@ -14,22 +14,24 @@
     <div class="all-items flex flex-col items-stretch">
         <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';
-        } ?>" href="/">Accueil</a>
-        <a class="pl-5 py-3 border-t-2 border-black flex justify-between pr-2 <?php if (isset($pagination) && $pagination == 2) {
-            echo 'active';
-        } ?>" href="/">
-            <p>Toutes les offres</p>
-            <p>></p>
+        } ?>" href="/">Accueil
         </a>
         <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
             echo 'active';
-        } ?>" href="/offre/a-la-une">À la une</a>
-        <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
+        } ?>" href="/offre/a-la-une">À la une
+        </a>
+        <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
             echo 'active';
-        } ?>" href="/offre/consultees-recemment">Consultées récemment</a>
+        } ?>" href="/offre/a-la-une">Toutes les offres
+        </a>
+        <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
+            echo 'active';
+        } ?>" href="/offre/consultees-recemment">Consultées récemment
+        </a>
         <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 5) {
             echo 'active';
-        } ?>" href="/offre/nouveau">Nouveautés</a>
+        } ?>" href="/offre/nouveau">Nouveautés
+        </a> -->
     </div>
 </div>
 
@@ -47,25 +49,24 @@
         <div class="all-items flex flex-col items-stretch">
             <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';
-            } ?>" href="/">Accueil</a>
-            <a class="pl-5 py-3 border-t-2 border-black flex justify-between pr-2 <?php if (isset($pagination) && $pagination == 2) {
-                echo 'active';
-            } ?>" href="/">
-                <p>Toutes les offres</p>
-                <p>></p>
+            } ?>" href="/">Accueil
             </a>
-            <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
+            <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
                 echo 'active';
             } ?>" href="/offre/a-la-une">À la une
             </a>
-            <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
+            <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
+                echo 'active';
+            } ?>" href="/offre/a-la-une">Toutes les offres
+            </a>
+            <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
                 echo 'active';
             } ?>" href="/offre/consultees-recemment">Consultées récemment
             </a>
             <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 5) {
                 echo 'active';
             } ?>" href="/offre/nouveau">Nouveautés
-            </a>
+            </a> -->
         </div>
     </div>
 

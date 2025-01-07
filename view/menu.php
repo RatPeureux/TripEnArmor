@@ -24,13 +24,13 @@
     <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
     } ?>" href="/offre/a-la-une">À la une</a>
-    <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
+    <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
       echo 'active';
     } ?>" href="/offre/consultees-recemment">Consultées récemment</a>
     <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 5) {
       echo 'active';
     } ?>" href="/offre/nouveau">Nouveautés</a>
-  </div>
+  </div> -->
 </div>
 
 <div id="layer-background" onclick="toggleMenu()" class="hidden fixed w-full h-full top-0 left-0 z-40"></div>
@@ -56,11 +56,11 @@
     <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
     } ?>" href="/offre/a-la-une">À la une</a>
-    <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
+    <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
       echo 'active';
     } ?>" href="/offre/consultees-recemment">Consultées récemment</a>
     <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 5) {
       echo 'active';
-    } ?>" href="/offre/nouveau">Nouveautés</a>
+    } ?>" href="/offre/nouveau">Nouveautés</a> -->
   </div>
 </div>
