@@ -19,8 +19,10 @@ function fillInAddress() {
     let locality = "";
 
     for (const component of place.address_components) {
+        // Obtenir le type de champ pour chaque donnée reçue par l'API google
         const componentType = component.types[0];
 
+        // Prendre les infos
         switch (componentType) {
             case "street_number":
                 address1 = `${component.long_name} ${address1}`;
@@ -37,6 +39,7 @@ function fillInAddress() {
         }
     }
 
+    // Remplir les informations dansl les champs
     document.querySelector("#user_input_autocomplete_address").value = address1.trim(); // Remplit le champ d'adresse
     document.querySelector("#locality").value = locality; // Remplit le champ de ville
     document.querySelector("#postal_code").value = postalCode; // Remplit le champ de code postal
