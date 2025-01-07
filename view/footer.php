@@ -25,7 +25,7 @@
             -
             <a href="/cgu" class="hover:text-primary">CGU</a>
             -
-            <a href="mailto:benoit.tottereau@univ-rennes.fr" class="hover:text-primary">Contacter le support</a>
+            <a href="mailto:pact.tripenarvor@gmail.com" class="hover:text-primary">Contacter le support</a>
             -
             <a href="/pro/connexion" class="hover:text-primary">Vous êtes un professionnel ?</a>
             -
