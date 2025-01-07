@@ -1,5 +1,7 @@
 # TripEnArmor
 
+[JIRA](https://sae3projets.atlassian.net/jira/software/projects/C22/boards/1/backlog)
+
 ## Initialisation
 
 1. Pour fork, aller sur la page du [repo github](https://github.com/Phenixis/TripEnArmor) : ![screen1](README_files/screenshot1.png)
