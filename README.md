@@ -1,6 +1,6 @@
 # TripEnArmor
 
-[JIRA](https://sae3projets.atlassian.net/jira/software/projects/C22/boards/1/backlog)
+[JIRA!](https://sae3projets.atlassian.net/jira/software/projects/C22/boards/1/backlog)
 
 ## Initialisation
 
