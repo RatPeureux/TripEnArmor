@@ -18,7 +18,7 @@
     <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
       echo 'active';
     } ?>" href="/offres/a-la-une">À la Une</a>
-    <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
+    <a class="pl-5 py-3 border-t-2 border-black rounded-b-lg <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
     } ?>" href="/offres">Toutes les offres</a>
     <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
@@ -47,7 +47,7 @@
     <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
     } ?>" href="/offres/a-la-une">À la Une</a>
-    <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
+    <a class="pl-10 py-3 border-t-2 border-black rounded-b-lg <?php if (isset($pagination) && $pagination == 2) {
       echo 'active';
     } ?>" href="/offres">Toutes les offres</a>
     <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
