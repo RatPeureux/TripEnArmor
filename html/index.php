@@ -56,9 +56,9 @@
                 </a>
             </div>
 
-            <div class="flex gap-4">
-                <a href="/offres/a-la-une">À la Une</a>
-                <a href="/offres">Toutes les offres</a>
+            <div class="flex gap-2">
+                <a class="p-2 hover:bg-base100 rounded-lg" href="/offres/a-la-une">À la Une</a>
+                <a class="p-2 hover:bg-base100 rounded-lg" href="/offres">Toutes les offres</a>
             </div>
 
             <!-- Actions Utilisateur -->
@@ -93,7 +93,7 @@
     <main class="self-center align-center w-full grow rounded-lg max-w-[1280px] p-2">
         <h1 class="font-cormorant uppercase text-center text-[10rem] tracking-widest text-7xl hidden md:block mb-4">PACT</h1>
 
-        <div class="searchOn flex justify-between space-x-2 items-center mb-4">
+        <div class="searchOn text-nowrap flex flex-col sm:flex-row text-center sm:text-left gap-2 sm:gap-0 flex-wrap justify-between space-x-2 items-center mb-4">
             <h1 class="cursor-pointer text-h3 border-b-2 border-secondary hover:text-gray-600" id="all">
                 Tout rechercher
             </h1>
@@ -143,7 +143,7 @@
                 <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
-            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-16" id="no-matches">
+            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-16" id="no-matches">
                 <?php $i = 0;
                 foreach ($toutesLesOffres as $offre) {
                     if ($i > -1) {
@@ -165,7 +165,7 @@
                 <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
-            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-16" id="no-matches">
+            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-0 md:mb-16" id="no-matches">
                 <?php $i = 0;
                 foreach ($toutesLesOffres as $offre) {
                     if ($i > -1) {
