@@ -14,16 +14,13 @@
     <div class="all-items flex flex-col items-stretch">
         <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';
-        } ?>" href="/">Accueil
-        </a>
-        <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
+        } ?>" href="/">Accueil</a>
+        <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
             echo 'active';
-        } ?>" href="/offre/a-la-une">À la une
-        </a>
-        <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
+        } ?>" href="/offres/a-la-une">À la Une</a>
+        <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
             echo 'active';
-        } ?>" href="/offre/a-la-une">Toutes les offres
-        </a>
+        } ?>" href="/offres">Toutes les offres</a>
         <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
             echo 'active';
         } ?>" href="/offre/consultees-recemment">Consultées récemment
@@ -53,11 +50,11 @@
             </a>
             <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
                 echo 'active';
-            } ?>" href="/offre/a-la-une">À la une
+            } ?>" href="/offres/a-la-une">À la Une
             </a>
             <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
                 echo 'active';
-            } ?>" href="/offre/a-la-une">Toutes les offres
+            } ?>" href="/offres">Toutes les offres
             </a>
             <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
                 echo 'active';

@@ -15,15 +15,12 @@
     <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>
-    <a class="pl-5 py-3 border-t-2 border-black flex justify-between pr-2 <?php if (isset($pagination) && $pagination == 2) {
+    <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
       echo 'active';
-    } ?>" href="/">
-      <p>Toutes les offres</p>
-      <p>></p>
-    </a>
-    <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
+    } ?>" href="/offres/a-la-une">À la Une</a>
+    <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
-    } ?>" href="/offre/a-la-une">À la une</a>
+    } ?>" href="/offres">Toutes les offres</a>
     <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
       echo 'active';
     } ?>" href="/offre/consultees-recemment">Consultées récemment</a>
@@ -47,15 +44,12 @@
     <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>
-    <a class="pl-5 py-3 border-t-2 border-black flex justify-between pr-2 <?php if (isset($pagination) && $pagination == 2) {
-      echo 'active';
-    } ?>" href="/">
-      <p>Toutes les offres</p>
-      <p>></p>
-    </a>
     <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
-    } ?>" href="/offre/a-la-une">À la une</a>
+    } ?>" href="/offres/a-la-une">À la Une</a>
+    <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
+      echo 'active';
+    } ?>" href="/offres">Toutes les offres</a>
     <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
       echo 'active';
     } ?>" href="/offre/consultees-recemment">Consultées récemment</a>
