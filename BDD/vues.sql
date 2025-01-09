@@ -41,7 +41,7 @@ GROUP BY
     _offre.id_offre;
 
 -------------------------------------------------------------------- Périodes en ligne pour chaque offre (date_fin vaut CURRENT_DATE si la période n'est pas finie)
-CREATE OR REPLACE VIEW periodes_en_ligne AS
+CREATE OR REPLACE VIEW vue_periodes_en_ligne AS
 SELECT
     c1.id_offre,
     c1.date_changement AS date_debut,
@@ -67,7 +67,7 @@ ORDER BY
     c1.id_offre, c1.date_changement;
 
 ------------------------------- Vue pratique pour visualiser les jours de mise en ligne durant le mois acutel (date_debut & date_fin incluses)
-CREATE OR REPLACE VIEW periodes_en_ligne_du_mois AS
+CREATE OR REPLACE VIEW vue_periodes_en_ligne_du_mois AS
 SELECT 
     id_offre,
     -- Si date_debut est antérieure à date_fin et dans un mois différent, on remplace par le 1er jour du mois de date_fin
