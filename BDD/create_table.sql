@@ -446,7 +446,7 @@ ADD CONSTRAINT fk_tag_parc_attraction_offre FOREIGN KEY (id_offre) REFERENCES _p
 ALTER TABLE _tag_parc_attraction
 ADD CONSTRAINT fk_tag_parc_attraction_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- ²
+-- -------------------------------------------------------------------------------------------------------
 -- Table Horaire
 CREATE TABLE _horaire ( -- Antoine
     id_horaire SERIAL PRIMARY KEY,
@@ -505,7 +505,7 @@ CREATE TABLE _activite_prestation (
 );
 -- ------------------------------------------------------------------------------------------------------- Images
 -- Table T_IMAGE_IMG
-CREATE TABLE T_Image_Img (
+CREATE TABLE t_image_img (
     -- IMG = IMaGe
     img_path VARCHAR(255) PRIMARY KEY,
     img_date_creation DATE NOT NULL,

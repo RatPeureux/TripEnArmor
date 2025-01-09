@@ -1,6 +1,5 @@
 set schema 'sae_db';
 
--- Seules les offres en ligne sont visibles publiquement
 -- création de la vue permettant de voire les types d'offres
 CREATE OR REPLACE VIEW vue_offre_categorie AS
 SELECT o.id_offre, 'restauration' AS type_offre
@@ -24,80 +23,6 @@ select id_offre, nom
 from _offre
     join _type_offre on _type_offre.id_type_offre = _offre.id_type_offre;
 
--- -------------------------------------------------------------------- Connexion Compte
-CREATE OR REPLACE VIEW vue_connexion_compte AS
-SELECT email, mdp_hash
-FROM sae_db._compte;
-
--- -------------------------------------------------------------------- id compte affilié au compte
-CREATE OR REPLACE VIEW vue_comptes AS
-SELECT
-    m.id_compte AS id_compte,
-    'Membre' AS type_compte,
-    m.email,
-    m.pseudo AS nom_ou_pseudo
-FROM _membre m
-UNION ALL
-SELECT
-    ppr.id_compte AS id_compte,
-    'Professionnel Privé' AS type_compte,
-    ppr.email,
-    ppr.nom_pro AS nom_ou_pseudo
-FROM _pro_prive ppr
-UNION ALL
-SELECT
-    ppu.id_compte AS id_compte,
-    'Professionnel Public' AS type_compte,
-    ppu.email,
-    ppu.nom_pro AS nom_ou_pseudo
-FROM _pro_public ppu;
-
--- -------------------------------------------------------------------- offre lié au pro
-CREATE OR REPLACE VIEW vue_pro_offres AS
-SELECT
-    ppr.id_compte AS id_pro,
-    'Professionnel Privé' AS type_pro,
-    ppr.nom_pro AS nom_pro,
-    ppr.email AS email_pro,
-    o.id_offre AS id_offre,
-    o.titre AS titre_offre,
-    o.description AS description_offre
-FROM _pro_prive ppr
-    JOIN _offre o ON ppr.id_compte = o.id_pro
-UNION ALL
-SELECT
-    ppu.id_compte AS id_pro,
-    'Professionnel Public' AS type_pro,
-    ppu.nom_pro AS nom_pro,
-    ppu.email AS email_pro,
-    o.id_offre AS id_offre,
-    o.titre AS titre_offre,
-    o.description AS description_offre
-FROM _pro_public ppu
-    JOIN _offre o ON ppu.id_compte = o.id_pro;
-
-CREATE OR REPLACE VIEW vue_facture_quantite AS
-SELECT 
-    f.numero AS "Numéro de Facture",
-    f.designation AS "Service",
-    f.date_emission AS "Date d'émission",
-    f.date_prestation AS "Date de Prestation",
-    f.date_echeance AS "Date d'échéance",
-    f.date_lancement AS "Date de Lancement",
-    CASE
-        -- Recherche des mots clÃ©s dans la dÃ©signation pour dÃ©cider si c'est une option ou un abonnement
-        WHEN LOWER(f.designation) LIKE '%abonnement%' THEN CONCAT(f.nbjours_abonnement, ' jours')
-        WHEN LOWER(f.designation) LIKE '%option%' OR LOWER(f.designation) IN ('a la une', 'en relief') THEN CONCAT(f.quantite, ' semaines')
-        ELSE 'Quantité inconnue'
-    END AS "Quantité",
-    f.prix_unitaire_HT AS "Prix Unitaire HT (â‚¬)",
-    f.prix_unitaire_TTC AS "Prix Unitaire TTC (â‚¬)",
-    f.quantite * f.prix_unitaire_HT AS "Montant HT (â‚¬)",
-    f.quantite * f.prix_unitaire_TTC AS "Montant TTC (â‚¬)"
-FROM _facture f;
-
-
-
 -- vue de la facture avec les montants totaux 
 CREATE OR REPLACE VIEW vue_facture_totaux AS
 SELECT 
@@ -114,3 +39,50 @@ FROM _offre
     JOIN _avis ON _avis.id_offre = _offre.id_offre
 GROUP BY
     _offre.id_offre;
+
+-------------------------------------------------------------------- Périodes en ligne pour chaque offre (date_fin vaut CURRENT_DATE si la période n'est pas finie)
+CREATE OR REPLACE VIEW periodes_en_ligne AS
+SELECT
+    c1.id_offre,
+    c1.date_changement AS date_debut,
+    COALESCE(c2.date_changement, CURRENT_DATE) AS date_fin
+    _log_changement_status c1
+LEFT JOIN 
+    _log_changement_status c2
+    ON c1.id_offre = c2.id_offre
+    AND c1.en_ligne = TRUE
+    AND c2.en_ligne = FALSE
+    AND c1.date_changement < c2.date_changement  -- La mise hors ligne doit être après la mise en ligne
+WHERE 
+    c1.en_ligne = TRUE  -- Ajout de cette condition pour s'assurer que ce sont bien des mises en ligne
+    AND NOT EXISTS (
+        SELECT 1
+        FROM _log_changement_status c3
+        WHERE c3.id_offre = c1.id_offre
+          AND c3.en_ligne = FALSE
+          AND c3.date_changement > c1.date_changement
+          AND c3.date_changement < c2.date_changement
+    )
+ORDER BY 
+    c1.id_offre, c1.date_changement;
+
+------------------------------- Vue pratique pour visualiser les jours de mise en ligne durant le mois acutel (date_debut & date_fin incluses)
+CREATE OR REPLACE VIEW periodes_en_ligne_du_mois AS
+SELECT 
+    id_offre,
+    -- Si date_debut est antérieure à date_fin et dans un mois différent, on remplace par le 1er jour du mois de date_fin
+    CASE
+        WHEN date_debut < date_fin
+             AND (EXTRACT(MONTH FROM date_debut) != EXTRACT(MONTH FROM date_fin) 
+                  OR EXTRACT(YEAR FROM date_debut) != EXTRACT(YEAR FROM date_fin))
+        THEN DATE_TRUNC('MONTH', date_fin)::DATE
+        ELSE date_debut
+    END AS date_debut,
+    date_fin
+FROM 
+    periodes_en_ligne
+WHERE
+	EXTRACT(YEAR FROM date_fin) = EXTRACT(YEAR FROM CURRENT_DATE)
+    AND EXTRACT(MONTH FROM date_fin) = EXTRACT(MONTH FROM CURRENT_DATE)
+ORDER BY 
+    id_offre, date_debut;
