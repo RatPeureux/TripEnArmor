@@ -432,11 +432,11 @@ $pro = verifyPro();
 								$subTitle = "Pour les associations et les organismes publics";
 							} else if ($typeOffre['id_type_offre'] == 2) { // Premium
 								$avantages[] = "Possibilité de remplir une grille tarifaire";
-								$avantages[] = "Possibilité de souscrire aux options “À la une” et “En relief”";
+								$avantages[] = "Possibilité de souscrire aux options “À la Une” et “En relief”";
 								$avantages[] = "<span class='font-bold'>Mise sur liste noire de 3 commentaires<span>";
 							} else if ($typeOffre['id_type_offre'] == 3) { // Standard
 								$avantages[] = "<span class='font-bold'>Possibilité de remplir une grille tarifaire<span>";
-								$avantages[] = "<span class='font-bold'>Possibilité de souscrire aux options “À la une” et “En relief”<span>";
+								$avantages[] = "<span class='font-bold'>Possibilité de souscrire aux options “À la Une” et “En relief”<span>";
 							}
 							?>
 							<div
@@ -526,7 +526,7 @@ $pro = verifyPro();
 											<ul class="list-disc text-left text-small my-2">
 												<li>Jusqu’à 10 photos de présentations</li>
 												<li>Réponse aux avis des membres</li>
-												<li>Possibilité de souscrire aux options “À la une” et “En relief”</li>
+												<li>Possibilité de souscrire aux options “À la Une” et “En relief”</li>
 											</ul>
 										</div>
 									</div>
@@ -1268,7 +1268,7 @@ $pro = verifyPro();
 							class="w-full min-w-[450px] max-w-[450px] h-screen flex justify-center items-center sticky top-0 part1 hidden">
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
-								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
+								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la Une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
 								<div class="card active relative bg-base300 rounded-xl flex flex-col w-full"
 									id="card-preview">
 									<script>

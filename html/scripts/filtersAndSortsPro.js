@@ -133,12 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const leftInput = document.getElementById(leftInputId);
         const rightInput = document.getElementById(rightInputId);
 
-        // Vérifie si les éléments existent
-        if (!leftInput || !rightInput) {
-            console.warn(`Inputs with IDs "${leftInputId}" or "${rightInputId}" not found.`);
-            return;
-        }
-
         // Mettre à jour les limites à chaque modification
         function updateBounds() {
             leftInput.max = rightInput.value; // Le max de gauche est la valeur de droite
@@ -379,10 +373,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Appliquer les filtres croisés
             if (matchesCategory && matchesLocalisation && matchesNote && matchesPrice && matchesType) {
-                offre.classList.remove('!hidden');
+                offre.classList.remove('hidden');
                 anyVisible = true; // Au moins une offre est visible
             } else {
-                offre.classList.add('!hidden');
+                offre.classList.add('hidden');
             }
         });
 

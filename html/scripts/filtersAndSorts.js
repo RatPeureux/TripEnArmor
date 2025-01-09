@@ -133,12 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const leftInput = document.getElementById(leftInputId);
         const rightInput = document.getElementById(rightInputId);
 
-        // Vérifie si les éléments existent
-        if (!leftInput || !rightInput) {
-            console.warn(`Inputs with IDs "${leftInputId}" or "${rightInputId}" not found.`);
-            return;
-        }
-
         // Mettre à jour les limites à chaque modification
         function updateBounds() {
             leftInput.max = rightInput.value; // Le max de gauche est la valeur de droite
@@ -356,10 +350,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Appliquer les filtres croisés
             if (matchesCategory && matchesAvailability && matchesLocalisation && matchesNote && matchesPrice) {
-                offre.classList.remove('!hidden');
+                offre.classList.remove('hidden');
                 anyVisible = true; // Au moins une offre est visible
             } else {
-                offre.classList.add('!hidden');
+                offre.classList.add('hidden');
             }
         });
 
@@ -383,6 +377,26 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
+
+    function initializeFiltersFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const category = urlParams.get('category');
+        if (category) {
+
+            const checkbox = document.querySelector(`input[id="${category}-tab"], input[id="${category}-tel"]`);
+            if (checkbox) {
+                checkbox.checked = true;
+            }
+
+            const checkboxes = document.querySelectorAll('#developped-f1-tab input[type="checkbox"], #developped-f1-tel input[type="checkbox"]');
+            filterState.categories = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.id.replace(/-tel|-tab/, ''));
+        }
+    }
+
+    initializeFiltersFromURL();
 
     syncInputs();
 

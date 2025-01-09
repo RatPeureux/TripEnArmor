@@ -76,7 +76,7 @@ $pro = verifyPro();?>
             <p class="text-h2">5. Données Personnelles et RGPD</p>
             <p>
                 Conformément au RGPD, les données collectées via ce site sont utilisées uniquement dans le cadre de son fonctionnement.
-                Consultez notre <a href="/pro/confidentialite_et_cookies" class="underline">Politique de Confidentialité</a> pour en savoir plus.
+                Consultez notre <a href="/pro/confidentialite-et-cookies" class="underline">Politique de Confidentialité</a> pour en savoir plus.
             </p>
 
             <p class="text-h2">6. Cookies</p>

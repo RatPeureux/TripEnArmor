@@ -78,10 +78,10 @@ if ($mode_carte == 'membre') {
 	} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
 		<!-- CARTE VERSION TÉLÉPHONE -->
-		<div class='md:hidden relative bg-base100 rounded-xl flex flex-col'>
+		<div class='w-max h-full relative bg-base100 rounded-xl overflow-hidden flex flex-col group'>
 			<!-- En-tête -->
 			<div
-				class='en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
+				class='en-tete absolute opacity-0 top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg group-hover:opacity-100 duration-200'>
 				<h3 class='text-xl text-center font-bold'>
 					<?php echo $titre_offre; ?>
 				</h3>
@@ -96,13 +96,13 @@ if ($mode_carte == 'membre') {
 			$controllerImage = new ImageController();
 			$images = $controllerImage->getImagesOfOffre($id_offre);
 			?>
-			<img class="h-48 w-full rounded-t-lg object-cover" src='/public/images/<?php if ($images['carte']) {
+			<img class="h-[27rem] w-full rounded-lg object-cover" src='/public/images/<?php if ($images['carte']) {
 				echo "offres/" . $images['carte'];
 			} else {
 				echo $categorie_offre . '.jpg';
 			} ?>' alt="Image promotionnelle de l'offre">
 			<!-- Infos principales -->
-			<div class='infos flex items-center justify-around gap-2 px-2 grow'>
+			<div class='infos w-full absolute bottom-0 flex opacity-0 bg-blur/75 backdrop-blur items-center justify-around gap-2 px-2 rounded-lg grow group-hover:opacity-100 duration-200'>
 				<!-- Localisation -->
 				<div class='localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center min-w-16'>
 					<i class='fa-solid fa-location-dot'></i>
@@ -228,173 +228,6 @@ if ($mode_carte == 'membre') {
 						title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'>
 						<?php echo $prix_a_afficher ?>
 					</p>
-				</div>
-			</div>
-		</div>
-
-		<!-- CARTE VERSION TABLETTE -->
-		<div class='md:block hidden relative bg-base100 rounded-lg'>
-			<div class="flex flex-row">
-				<!-- Partie gauche -->
-				<div class='gauche grow relative shrink-0 basis-1/2 h-[280px] overflow-hidden'>
-					<!-- Image de fond -->
-					<?php
-					require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
-					$controllerImage = new ImageController();
-					$images = $controllerImage->getImagesOfOffre($id_offre);
-					?>
-					<img class='rounded-l-lg w-full h-full object-cover object-center' src='/public/images/<?php if ($images['carte']) {
-						echo "offres/" . $images['carte'];
-					} else {
-						echo $categorie_offre . '.jpg';
-					} ?>' alt="Image promotionnelle de l'offre">
-				</div>
-				<!-- Partie droite (infos principales) -->
-				<div class='infos flex flex-col basis-1/2 p-3 justify-between relative'>
-					<!-- En tête avec titre -->
-					<div class='en-tete relative top-0 max-w-full rounded-lg'>
-						<div class="flex w-full">
-							<h3 class='text-xl font-bold grow'>
-								<?php echo $titre_offre ?>
-							</h3>
-							<?php
-							// Moyenne des notes quand il y en a une
-							if ($moyenne) {
-								$n = $moyenne;
-								?>
-								<div class="flex gap-1">
-									<div class="note flex gap-1 shrink-0" title="<?php echo $moyenne; ?>">
-										<?php for ($i = 0; $i < 5; $i++) {
-											if ($n > 1) {
-												?>
-												<img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-												<?php
-											} else if ($n > 0) {
-												?>
-													<img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
-												<?php
-											} else {
-												?>
-													<img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-												<?php
-											}
-											$n--;
-										}
-										?>
-									</div>
-									<p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
-								</div>
-								<?php
-							}
-							?>
-						</div>
-						<div class='flex'>
-							<p class='text-small'><?php echo $pro['nom_pro'] ?></p>
-							<p class='categorie text-small tablette'><?php echo ', ' . chaineVersMot($categorie_offre); ?>
-							</p>
-						</div>
-					</div>
-
-					<!-- Description + tags -->
-					<div class='description py-2 flex flex-col gap-2 self-stretch grow'>
-						<div class='p-1 rounded-lg bg-secondary self-center w-full'>
-							<p class='text-white text-center'>
-								<?php
-								if ($categorie_offre != 'restauration') {
-									require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
-									$controllerTagOffre = new TagOffreController();
-									$tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
-
-									require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-									$controllerTag = new TagController();
-									$tagsAffiche = "";
-									$tagsListe = [];
-									foreach ($tags_offre as $tag) {
-										array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
-									}
-									foreach ($tagsListe as $tag) {
-										$tagsAffiche .= $tag['nom'] . ', ';
-									}
-
-									$tagsAffiche = rtrim($tagsAffiche, ', ');
-									if ($tags_offre) {
-										?>
-									<div class="p-1 rounded-lg bg-secondary self-center w-full">
-										<?php
-										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-										?>
-									</div>
-									<?php
-									} else {
-										?>
-									<div class="p-1 rounded-lg bg-secondary self-center w-full">
-										<?php
-										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-										?>
-									</div>
-									<?php
-									}
-								} else {
-									require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
-									$controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
-									$tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
-
-									require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
-									$controllerTagRest = new TagRestaurantController();
-									$tagsAffiche = "";
-									$tagsListe = [];
-									foreach ($tags_offre as $tag) {
-										$tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
-									}
-									foreach ($tagsListe as $tag) {
-										$tagsAffiche .= $tag[0]['nom'] . ', ';
-									}
-
-									$tagsAffiche = rtrim($tagsAffiche, ', ');
-									if ($tags_offre) {
-										?>
-									<div class="p-1 rounded-lg bg-secondary self-center w-full">
-										<?php
-										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-										?>
-									</div>
-									<?php
-									} else {
-										?>
-									<div class="p-1 rounded-lg bg-secondary self-center w-full">
-										<?php
-										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-										?>
-									</div>
-									<?php
-									}
-								}
-								?>
-							</p>
-						</div>
-						<p class='overflow-hidden line-clamp-5 text-small'>
-							<?php echo $resume ?>
-						</p>
-					</div>
-					<!-- A droite, en bas -->
-					<div class='self-stretch flex flex-col gap-2'>
-						<hr class='border-black w-full'>
-						<div class='flex justify-around self-stretch'>
-							<!-- Localisation -->
-							<div class='localisation flex gap-2 flex-shrink-0 justify-center items-center'>
-								<i class='fa-solid fa-location-dot'></i>
-								<p class='text-small'><?php echo $ville ?></p>
-								<p class='text-small'><?php echo $code_postal ?></p>
-							</div>
-							<!-- Notation et Prix -->
-							<div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
-								<p class='prix text-small'
-									title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'>
-									<?php echo $prix_a_afficher ?>
-								</p>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
