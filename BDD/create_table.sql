@@ -141,7 +141,9 @@ CREATE TABLE _option (
 CREATE TABLE _souscription (
     id_souscription SERIAL PRIMARY KEY,
     nb_semaines INTEGER NOT NULL,
-    date_lancement DATE NOT NULL
+    date_lancement DATE NOT NULL,
+    date_annulation DATE,
+    CONSTRAINT check_lundi_lancement CHECK (EXTRACT(DOW FROM date_lancement) = 1)
 );
 -- ------------------------------------------------------------------------------------------------------- Offre
 -- Table _type_offre (gratuite OU standard OU premium)

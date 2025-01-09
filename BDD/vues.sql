@@ -86,3 +86,39 @@ WHERE
     AND EXTRACT(MONTH FROM date_fin) = EXTRACT(MONTH FROM CURRENT_DATE)
 ORDER BY 
     id_offre, date_debut;
+
+----------------------------- Vue pour connaître les détails d'une souscription de chaque offre dans temps
+create or replace view vue_souscription_offre_option_details as
+select
+	*,
+	(date_lancement + (nb_semaines * INTERVAL '1 week'))::DATE AS date_fin,
+	(nb_semaines * prix_ht) as prix_ht_total,
+	(nb_semaines * prix_ttc) as prix_ttc_total,
+	CASE
+        WHEN date_annulation IS NOT NULL AND date_annulation < date_lancement THEN true
+        ELSE false
+    END AS est_remboursee
+from _offre_souscription_option
+natural join _souscription
+join _option on nom_option = nom
+WHERE
+	EXTRACT(YEAR FROM date_lancement) = EXTRACT(YEAR FROM CURRENT_DATE)
+    AND EXTRACT(MONTH FROM date_lancement) = EXTRACT(MONTH FROM CURRENT_DATE);
+
+------------------------------------ Vue pour connaître les détails des souscriptions de chaque offre durant le mois actuel
+create or replace view vue_souscription_offre_option_details_du_mois as
+select
+	*,
+	(date_lancement + (nb_semaines * INTERVAL '1 week'))::DATE AS date_fin,
+	(nb_semaines * prix_ht) as prix_ht_total,
+	(nb_semaines * prix_ttc) as prix_ttc_total,
+	CASE
+        WHEN date_annulation IS NOT NULL AND date_annulation < date_lancement THEN true
+        ELSE false
+    END AS est_remboursee
+from _offre_souscription_option
+natural join _souscription
+join _option on nom_option = nom
+WHERE
+	EXTRACT(YEAR FROM date_lancement) = EXTRACT(YEAR FROM CURRENT_DATE)
+    AND EXTRACT(MONTH FROM date_lancement) = EXTRACT(MONTH FROM CURRENT_DATE);
