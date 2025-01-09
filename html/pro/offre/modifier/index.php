@@ -172,7 +172,7 @@ try {
 									<ul class="list-disc text-left text-small my-2">
 										<li>Jusqu’à 10 photos de présentations</li>
 										<li>Réponse aux avis des membres</li>
-										<li>Possibilité de souscrire aux options “À la une” et “En relief”</li>
+										<li>Possibilité de souscrire aux options “À la Une” et “En relief”</li>
 									</ul>
 								</div>
 							</div>
@@ -627,12 +627,12 @@ try {
 										class="hidden" checked="true" />
 									<label for="option-relief">En Relief (3.99€)</label>
 								</div>
-								<!-- À la une -->
+								<!-- À la Une -->
 								<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
 									id="option-a-la-une-div">
 									<input type="radio" id="option-a-la-une" name="option" class="hidden"
 										value="option-a-la-une" />
-									<label for="option-a-la-une">À la une (5.99€)</label>
+									<label for="option-a-la-une">À la Une (5.99€)</label>
 								</div>
 							</div>
 						</div>
@@ -649,7 +649,7 @@ try {
 				<div class="w-full min-w-[450px] max-w-[450px] h-screen flex justify-center items-center sticky top-0">
 					<div class="h-fit w-full">
 						<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
-						<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
+						<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la Une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
 						<div class="card active relative bg-base300 rounded-xl flex flex-col w-full" id="card-preview">
 							<script>
 								// Fonction pour activer ou désactiver la carte en fonction de l'option choisie

@@ -24,10 +24,35 @@ document.addEventListener("DOMContentLoaded", function () {
     function ensureTagsContainerExists() {
         if (!tagsContainer) {
             const searchQuery = encodeURIComponent(searchInput.value.trim());
-            var redirectUrl = `/?search=${searchQuery}`;
+            let redirectUrl = `/offres?search=${searchQuery}`;
+
+            let category = null;
+
+            if (searchInput.placeholder.includes("des")) {
+                if (searchInput.placeholder.includes("restaurant")) {
+                    category = "restauration";
+                } else if (searchInput.placeholder.includes("spectacle")) {
+                    category = "spectacle";
+                } else if (searchInput.placeholder.includes("activite")) {
+                    category = "activite";
+                } else if (searchInput.placeholder.includes("visite")) {
+                    category = "visite";
+                } else if (searchInput.placeholder.includes("attraction")) {
+                    category = "parc_attraction";
+                }
+
+                if (category) {
+                    redirectUrl += `&category=${encodeURIComponent(category)}`;
+                }
+            }
+
             if (window.location.href.includes("pro")) {
                 redirectUrl = `/pro?search=${searchQuery}`;
+                if (category) {
+                    redirectUrl += `&category=${encodeURIComponent(category)}`;
+                }
             }
+
             window.location.href = redirectUrl;
         }
     }
@@ -36,6 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function checkForSearchParams() {
         const urlParams = new URLSearchParams(window.location.search);
         const searchQuery = urlParams.get("search");
+        const categoryQuery = urlParams.get("category");
+
         if (searchQuery) {
             const tags = searchQuery.split(",").map((tag) => tag.trim());
             tags.forEach((tag) => {
@@ -43,6 +70,26 @@ document.addEventListener("DOMContentLoaded", function () {
                     addTag(tag);
                 }
             });
+        }
+
+        if (categoryQuery) {
+            const checkboxId1 = `${categoryQuery}-tab`;
+            const checkbox1 = document.getElementById(checkboxId1);
+
+            if (checkbox1) {
+                checkbox1.checked = true;
+            } else {
+                console.warn(`Checkbox avec l'ID "${checkboxId1}" introuvable.`);
+            }
+
+            const checkboxId2 = `${categoryQuery}-tel`;
+            const checkbox2 = document.getElementById(checkboxId2);
+
+            if (checkbox2) {
+                checkbox2.checked = true;
+            } else {
+                console.warn(`Checkbox avec l'ID "${checkboxId2}" introuvable.`);
+            }
         }
     }
 

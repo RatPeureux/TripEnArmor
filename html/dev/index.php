@@ -5,93 +5,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image" href="/public/images/favicon.png">
-
-    <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/input.css">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/styles/config.js"></script>
+
+    <script src="/scripts/filtersAndSorts.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
 
     <title>PACT</title>
+
+    <script src="/scripts/search.js"></script>
 </head>
 
 <body class="flex flex-col min-h-screen overflow-hidden">
-    <div class="p-4 fixed top-0 w-full h-full bg-white z-50 overflow-hidden" id="cgu">
-        <!-- Icône pour revenir à la page précédente -->
-        <i onclick="toggleCGU()" class="top-[27px] absolute fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
-        <main class="max-w-[720px] mx-auto h-full gap-4 p-4 md:p-2 flex flex-col overflow-y-scroll">
-            <p class="text-h1">Conditions Générales d'Utilisation (CGU)</p>
+    <?php
+    // Connexion avec la bdd
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-            <p class="text-h2">1. Présentation du Site</p>
-            <p>
-                <strong>Nom du site :</strong> PACT<br>
-                <strong>Propriétaire :</strong> TripEnArvor<br>
-                <strong>Adresse :</strong> Rue Édouard Branly, 22300 Lannion<br>
-                <strong>Contact :</strong> Tél. +33 2 96 46 93 00<br>
-                <strong>Hébergement :</strong> Gildas "Big Papoo" Quignou, Vents d'ouest
-            </p>
+    $sort_order = '';
+    if (isset($_GET['sort'])) {
+        if ($_GET['sort'] == 'price-ascending') {
+            $sort_order = 'ORDER BY prix_mini ASC';
+        } elseif ($_GET['sort'] == 'price-descending') {
+            $sort_order = 'ORDER BY prix_mini DESC';
+        }
+    }
 
-            <p class="text-h2">2. Acceptation des CGU</p>
-            <p>
-                En accédant et en utilisant ce site, vous acceptez pleinement les présentes Conditions Générales d'Utilisation.
-                Si vous n'êtes pas d'accord, veuillez cesser d'utiliser le site.
-            </p>
+    // Obtenez l'ensemble des offres avec le tri approprié
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true $sort_order");
+    $stmt->execute();
+    $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC); ?>
 
-            <p class="text-h2">3. Utilisation du Site</p>
-            <p>
-                Le site est accessible gratuitement. Cependant, l’accès peut être suspendu pour maintenance ou en cas de force majeure.
-            </p>
+    <div class="w-full flex flex-col justify-center items-center">
 
-            <p class="text-h2">4. Propriété Intellectuelle</p>
-            <p>
-                Tous les contenus présents sur ce site sont protégés par le droit de la propriété intellectuelle. Toute utilisation non autorisée est interdite.
-            </p>
+        <header class="flex justify-between items-center z-30 w-full h-20 top-0 mx-auto max-w-[1280px]">
+            <div class="flex items-center justify-between">
+                <!-- Menu Burger pour les petits écrans -->
+                <div class="flex items-center gap-4 md:hidden">
+                    <button onclick="toggleMenu()">
+                        <i class="text-3xl fa-solid fa-bars"></i>
+                    </button>
+                    <a href="/">
+                        <img src="/public/icones/logo.svg" alt="Logo" width="40">
+                    </a>
+                </div>
 
-            <p class="text-h2">5. Données Personnelles et RGPD</p>
-            <p>
-                Les données personnelles des utilisateurs sont collectées et traitées conformément à notre <a href="/confidentialite_et_cookies" class="underline">Politique de Confidentialité</a>.
-            </p>
+                <!-- Logo -->
+                <a href="/" class="flex items-center gap-2">
+                    <img src="/public/icones/logo.svg" alt="Logo" width="50" class="hidden md:block">
+                    <!-- <h1 class="font-cormorant uppercase text-PACT hidden md:block">PACT</h1> -->
+                </a>
+            </div>
 
-            <p class="text-h2">6. Cookies</p>
-            <p>
-                Le site utilise des cookies obligatoires pour améliorer l’expérience utilisateur.
-            </p>
+            <div class="flex gap-4">
+                <p class="">À la Une</p>
+                <p class="">Toutes les offres</p>
+            </div>
 
-            <p class="text-h2">7. Responsabilités</p>
-            <p>
-                <strong>Responsabilité de l’éditeur :</strong> Le site décline toute responsabilité en cas d’interruptions ou d’erreurs dans les contenus.<br>
-                <strong>Responsabilité de l’utilisateur :</strong> L’utilisateur s’engage à respecter la législation et à ne pas utiliser le site de manière frauduleuse.
-            </p>
-
-            <p class="text-h2">8. Liens Hypertextes</p>
-            <p>
-                Le site peut contenir des liens vers des sites tiers. Nous ne sommes pas responsables du contenu de ces sites.
-            </p>
-
-            <p class="text-h2">9. Modifications des CGU</p>
-            <p>
-                Les présentes CGU peuvent être modifiées à tout moment. Nous encourageons les utilisateurs à les consulter régulièrement.
-            </p>
-
-            <p class="text-h2">10. Loi Applicable et Juridiction</p>
-            <p>
-                Les présentes CGU sont régies par le droit français. En cas de litige, les tribunaux compétents seront ceux du ressort de Lannion.
-            </p>
-
-            <p class="text-h2">11. Finalité du traitement</p>
-            <p>
-                Les finalités du traitement de données sur la PACT pour ses utilisateurs sont :
-            <ul class="list-disc list-inside">
-                <li>Garantir la clarté des informations concernant les offres des professionnels.</li>
-                <li>Rendre les offres proposées accessibles au plus grand nombre.</li>
-                <li>Permettre aux utilisateurs de partager leurs avis et d’être reconnus pour leurs contributions.</li>
-                <li>Fournir des notifications concernant l'évolution de nos contenus et de nos offres.</li>
-            </ul>
-            </p>
-        </main>
+            <!-- Actions Utilisateur -->
+            <div class="flex items-center gap-4">
+                <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+                if (isConnectedAsMember()) { ?>
+                    <!-- Si connecté -->
+                    <a href="/compte">
+                        <i class="text-3xl fa-regular fa-user"></i>
+                    </a>
+                    <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
+                        onclick="return confirmLogout()">
+                        <div class="border border-primary rounded-lg p-2">
+                            <p class="font-bold">Se déconnecter</p>
+                        </div>
+                    </a>
+                <?php } else { ?>
+                    <!-- Si non connecté -->
+                    <a href="/connexion" class="md:hidden">
+                        <i class="text-3xl fa-regular fa-user"></i>
+                    </a>
+                    <a href="/connexion" class="hidden md:block">
+                        <div class="border border-primary rounded-lg p-2">
+                            <p class="text-nowrap font-bold">Se connecter</p>
+                        </div>
+                    </a>
+                <?php } ?>
+            </div>
+        </header>
     </div>
+
+
+
+    <main class="self-center align-center text-center w-full grow rounded-lg max-w-[1280px]">
+        <h1 class="font-cormorant uppercase text-[10rem] tracking-widest text-7xl hidden md:block mb-4">PACT</h1>
+
+        <div class="flex justify-between space-x-2 items-center mb-4">
+            <h1 class="text-h3 border-b-2 border-secondary">
+                Toutes les offres
+            </h1>
+            <h1 class="text-h3 ">
+                Restaurants
+            </h1>
+            <h1 class="text-h3 ">
+                Spectacles
+            </h1>
+            <h1 class="text-h3 ">
+                Activités
+            </h1>
+            <h1 class="text-h3 ">
+                Visites
+            </h1>
+            <h1 class="text-h3 flex justify-center items-center">
+                Attractions
+            </h1>
+        </div>
+
+        <!-- Barre de recherche -->
+        <div class="relative flex-1 max-w-full mx-auto mb-8">
+            <div class="relative flex items-center">
+                <input type="text" id="search-field" placeholder="Rechercher par tags..."
+                    class="w-full border border-primary p-2 rounded-full h-16 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                    aria-label="Recherche" autocomplete="off">
+                <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">
+                    <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
+                </div>
+                <!-- Bouton de suppression -->
+                <button
+                    class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white rounded-lg px-2 py-1"
+                    id="clear-tags-btn">
+                    <i class="text-xl fa-solid fa-times cursor-pointer"></i>
+                </button>
+            </div>
+            <!-- Dropdown de recherche -->
+            <div class="absolute top-full left-0 right-0 bg-white border border-base200 rounded-lg shadow-md mt-2 hidden z-10"
+                id="search-menu">
+            </div>
+        </div>
+
+        <?php
+        // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
+        if (!$toutesLesOffres) { ?>
+            <div class="md:min-w-full flex flex-col gap-4">
+                <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
+            </div>
+        <?php } else { ?>
+            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4" id="no-matches">
+                <?php $i = 0;
+                foreach ($toutesLesOffres as $offre) {
+                    if ($i > -1) {
+                        // Afficher la carte (!!! défnir la variable $mode_carte !!!)
+                        $mode_carte = 'membre';
+                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_carroussel.php';
+                        $i++;
+                    }
+                } ?>
+            </div>
+        <?php } ?>
+    </main>
 </body>
 
 </html>
