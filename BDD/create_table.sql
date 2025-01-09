@@ -232,21 +232,23 @@ CREATE TABLE _avis (
 );
 
 -- ------------------------------------------------------------------------------------------------------- Facture
--- Maxime
 CREATE TABLE _facture (
+    numero VARCHAR(255) PRIMARY KEY,
     id_offre INTEGER NOT NULL,
-    numero VARCHAR(255),
-    designation VARCHAR(255) NOT NULL,
-    date_emission DATE NOT NULL,
-    date_prestation DATE NOT NULL,
-    date_echeance DATE NOT NULL,
-    date_lancement DATE NOT NULL,
-    nbjours_abonnement INTEGER NOT NULL,
-    quantite INTEGER NOT NULL,
-    prix_unitaire_HT FLOAT NOT NULL,
-    prix_unitaire_TTC FLOAT NOT NULL,
-    PRIMARY KEY (numero, designation) -- Clé primaire composite
+    date_emission DATE NOT NULL
 );
+
+-- ------------------------------------------------------------------------------------------------------- Ligne_facture
+CREATE TABLE _ligne_facture (
+    designation VARCHAR(255) NOT NULL,
+    quantite INT NOT NULL,
+    unite VARCHAR(255) NOT NULL,
+    prix_unitaire_ht FLOAT NOT NULL,
+    prix_total_ht FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite) STORED, -- Prix total calculé automatiquement
+    tva INT NOT NULL DEFAULT 20,
+    prix_total_ttc FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite * (1 + tva/100)) STORED, -- Prix total calculé automatiquement
+    numero_facture VARCHAR(255) NOT NULL REFERENCES _facture(numero)
+)
 
 -- ------------------------------------------------------------------------------------------------------- Logs
 CREATE TABLE _log_changement_status ( -- Maxime

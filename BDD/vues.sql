@@ -100,10 +100,7 @@ select
     END AS est_remboursee
 from _offre_souscription_option
 natural join _souscription
-join _option on nom_option = nom
-WHERE
-	EXTRACT(YEAR FROM date_lancement) = EXTRACT(YEAR FROM CURRENT_DATE)
-    AND EXTRACT(MONTH FROM date_lancement) = EXTRACT(MONTH FROM CURRENT_DATE);
+join _option on nom_option = nom;
 
 ------------------------------------ Vue pour connaître les détails des souscriptions de chaque offre durant le mois actuel
 create or replace view vue_souscription_offre_option_details_du_mois as
@@ -122,3 +119,8 @@ join _option on nom_option = nom
 WHERE
 	EXTRACT(YEAR FROM date_lancement) = EXTRACT(YEAR FROM CURRENT_DATE)
     AND EXTRACT(MONTH FROM date_lancement) = EXTRACT(MONTH FROM CURRENT_DATE);
+
+------------------------------------ Vue pour connaître les données d'une facture simulée (preview)
+CREATE or replace view vue_preview_facture as
+...
+
