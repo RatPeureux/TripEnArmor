@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!tagsContainer) {
             const searchQuery = encodeURIComponent(searchInput.value.trim());
             let redirectUrl = `/offres?search=${searchQuery}`;
+            console.log(redirectUrl);
 
             let category = null;
 
