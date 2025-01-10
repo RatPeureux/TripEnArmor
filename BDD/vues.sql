@@ -40,31 +40,60 @@ FROM _offre
 GROUP BY
     _offre.id_offre;
 
--------------------------------------------------------------------- Périodes en ligne pour chaque offre (date_fin vaut CURRENT_DATE si la période n'est pas finie)
+------------------------------- Vue pratique pour visualiser les jours de mise en ligne durant le mois acutel (date_debut & date_fin incluses)
 CREATE OR REPLACE VIEW vue_periodes_en_ligne AS
+WITH periodes_brutes AS (
+    -- Ta vue de périodes sans fusion des chevauchements
+    SELECT
+        c1.id_offre,
+        c1.date_changement AS date_debut,
+        COALESCE(c2.date_changement, CURRENT_DATE) AS date_fin
+    FROM 
+        _log_changement_status c1
+    LEFT JOIN 
+        _log_changement_status c2
+        ON c1.id_offre = c2.id_offre
+        AND c1.en_ligne = TRUE
+        AND c2.en_ligne = FALSE
+        AND c1.date_changement < c2.date_changement
+    WHERE 
+        c1.en_ligne = TRUE
+        AND NOT EXISTS (
+            SELECT 1
+            FROM _log_changement_status c3
+            WHERE c3.id_offre = c1.id_offre
+              AND c3.en_ligne = FALSE
+              AND c3.date_changement > c1.date_changement
+              AND c3.date_changement < c2.date_changement
+        )
+),
+-- Étape 1 : Fusionner les périodes sur une base continue
+periodes_avec_fusion AS (
+    SELECT
+        id_offre,
+        date_debut,
+        date_fin,
+        -- Créer un numéro de groupe en fonction des chevauchements
+        ROW_NUMBER() OVER (PARTITION BY id_offre ORDER BY date_debut) 
+        - ROW_NUMBER() OVER (PARTITION BY id_offre ORDER BY date_fin) AS groupe
+    FROM periodes_brutes
+),
+-- Étape 2 : Fusionner les périodes en fonction des groupes
+periodes_fusionnees AS (
+    SELECT
+        id_offre,
+        MIN(date_debut) AS date_debut,
+        MAX(date_fin) AS date_fin
+    FROM periodes_avec_fusion
+    GROUP BY id_offre, groupe
+)
+-- Sélectionner les périodes fusionnées
 SELECT
-    c1.id_offre,
-    c1.date_changement AS date_debut,
-    COALESCE(c2.date_changement, CURRENT_DATE) AS date_fin
-    _log_changement_status c1
-LEFT JOIN 
-    _log_changement_status c2
-    ON c1.id_offre = c2.id_offre
-    AND c1.en_ligne = TRUE
-    AND c2.en_ligne = FALSE
-    AND c1.date_changement < c2.date_changement  -- La mise hors ligne doit être après la mise en ligne
-WHERE 
-    c1.en_ligne = TRUE  -- Ajout de cette condition pour s'assurer que ce sont bien des mises en ligne
-    AND NOT EXISTS (
-        SELECT 1
-        FROM _log_changement_status c3
-        WHERE c3.id_offre = c1.id_offre
-          AND c3.en_ligne = FALSE
-          AND c3.date_changement > c1.date_changement
-          AND c3.date_changement < c2.date_changement
-    )
-ORDER BY 
-    c1.id_offre, c1.date_changement;
+    id_offre,
+    date_debut,
+    date_fin
+FROM periodes_fusionnees
+ORDER BY id_offre, date_debut;
 
 ------------------------------- Vue pratique pour visualiser les jours de mise en ligne durant le mois acutel (date_debut & date_fin incluses)
 CREATE OR REPLACE VIEW vue_periodes_en_ligne_du_mois AS
@@ -104,18 +133,8 @@ join _option on nom_option = nom;
 
 ------------------------------------ Vue pour connaître les détails des souscriptions de chaque offre durant le mois actuel
 create or replace view vue_souscription_offre_option_details_du_mois as
-select
-	*,
-	(date_lancement + (nb_semaines * INTERVAL '1 week'))::DATE AS date_fin,
-	(nb_semaines * prix_ht) as prix_ht_total,
-	(nb_semaines * prix_ttc) as prix_ttc_total,
-	CASE
-        WHEN date_annulation IS NOT NULL AND date_annulation < date_lancement THEN true
-        ELSE false
-    END AS est_remboursee
-from _offre_souscription_option
-natural join _souscription
-join _option on nom_option = nom
+select *
+from vue_souscription_offre_option_details_du_mois
 WHERE
 	EXTRACT(YEAR FROM date_lancement) = EXTRACT(YEAR FROM CURRENT_DATE)
     AND EXTRACT(MONTH FROM date_lancement) = EXTRACT(MONTH FROM CURRENT_DATE);
@@ -123,4 +142,3 @@ WHERE
 ------------------------------------ Vue pour connaître les données d'une facture simulée (preview)
 CREATE or replace view vue_preview_facture as
 ...
-

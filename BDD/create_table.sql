@@ -239,7 +239,18 @@ CREATE TABLE _facture (
 );
 
 -- ------------------------------------------------------------------------------------------------------- Ligne_facture
-CREATE TABLE _ligne_facture (
+CREATE TABLE _ligne_facture_en_ligne (
+    designation VARCHAR(255) NOT NULL,
+    quantite INT NOT NULL,
+    unite VARCHAR(255) NOT NULL,
+    prix_unitaire_ht FLOAT NOT NULL,
+    prix_total_ht FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite) STORED, -- Prix total calculé automatiquement
+    tva INT NOT NULL DEFAULT 20,
+    prix_total_ttc FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite * (1 + tva/100)) STORED, -- Prix total calculé automatiquement
+    numero_facture VARCHAR(255) NOT NULL REFERENCES _facture(numero)
+)
+
+CREATE TABLE _ligne_facture_option (
     designation VARCHAR(255) NOT NULL,
     quantite INT NOT NULL,
     unite VARCHAR(255) NOT NULL,
