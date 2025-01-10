@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     category = "restauration";
                 } else if (searchInput.placeholder.includes("spectacle")) {
                     category = "spectacle";
-                } else if (searchInput.placeholder.includes("activite")) {
+                } else if (searchInput.placeholder.includes("activité")) {
                     category = "activite";
                 } else if (searchInput.placeholder.includes("visite")) {
                     category = "visite";
@@ -187,11 +187,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 item.className = "p-3 cursor-pointer hover:bg-base100";
                 item.textContent = tag;
                 item.setAttribute("tabindex", "0");
+                
+                // Événement pour ajouter un tag lors d'un clic
                 item.addEventListener("click", () => {
                     addTag(tag);
                     searchInput.value = "";
                     dropdownMenu.classList.add("hidden");
                 });
+                
+                // Événement pour ajouter un tag lors de la touche "Entrée"
+                item.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter") {
+                        addTag(tag);
+                        searchInput.value = "";
+                        dropdownMenu.classList.add("hidden");
+                    }
+                });
+                
                 dropdownMenu.appendChild(item);
             });
 
@@ -204,11 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
             suggestionsText.setAttribute("tabindex", "-1");
             dropdownMenu.appendChild(suggestionsText);
 
-            if (dropdownMenu.children.length === 1) {
-                dropdownMenu.classList.add("hidden");
-            } else {
-                dropdownMenu.classList.remove("hidden");
-            }
+            dropdownMenu.classList.toggle("hidden", dropdownMenu.children.length <= 1);
         }
     }
 
@@ -216,18 +224,13 @@ document.addEventListener("DOMContentLoaded", function () {
     searchInput.addEventListener("keydown", (e) => {
         if (e.key === "ArrowDown") {
             e.preventDefault();
-            dropdownMenu.querySelector('[tabindex="0"]')?.focus();
+            const firstItem = dropdownMenu.querySelector('[tabindex="0"]');
+            if (firstItem) {
+                firstItem.focus();
+            }
         } else if (e.key === "Enter") {
             e.preventDefault();
-            const activeElement = document.activeElement;
-            if (
-                activeElement &&
-                activeElement.getAttribute("tabindex") === "0"
-            ) {
-                addMultipleTags(activeElement.textContent.trim());
-                searchInput.value = "";
-                dropdownMenu.classList.add("hidden");
-            }
+            validateInput();
         }
     });
 
@@ -236,28 +239,19 @@ document.addEventListener("DOMContentLoaded", function () {
             dropdownMenu.querySelectorAll('[tabindex="0"]')
         );
         const activeElement = document.activeElement;
-        const currentIndex = focusableItems?.indexOf(activeElement);
+        const currentIndex = focusableItems.indexOf(activeElement);
 
         if (e.key === "ArrowDown") {
             e.preventDefault();
-            const nextIndex = (currentIndex + 1) % focusableItems?.length;
+            const nextIndex = (currentIndex + 1) % focusableItems.length;
             focusableItems[nextIndex]?.focus();
         } else if (e.key === "ArrowUp") {
             e.preventDefault();
-            if (currentIndex === 0) {
-                searchInput.focus();
-            } else {
-                const prevIndex =
-                    (currentIndex - 1 + focusableItems?.length) %
-                    focusableItems?.length;
-                focusableItems[prevIndex]?.focus();
-            }
+            const prevIndex = (currentIndex - 1 + focusableItems.length) % focusableItems.length;
+            focusableItems[prevIndex]?.focus();
         } else if (e.key === "Enter") {
             e.preventDefault();
-            if (
-                activeElement &&
-                activeElement.getAttribute("tabindex") === "0"
-            ) {
+            if (activeElement && activeElement.getAttribute("tabindex") === "0") {
                 addMultipleTags(activeElement.textContent.trim());
                 searchInput.value = "";
                 dropdownMenu.classList.add("hidden");
