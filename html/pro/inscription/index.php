@@ -51,13 +51,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <img class="relative mx-auto mt-8 -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST"
+                <form class="bg-base100 w-full p-5 roundex-lg border-2 border-secondary" action="" method="POST"
                     onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Professionnel</p>
 
                     <!-- Choix du statut de l'organisation -->
                     <label class="text-small" for="statut">Je suis un organisme&nbsp;</label>
-                    <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="statut" name="statut"
+                    <select class="text-small mt-1.5 mb-3 bg-white p-1 roundex-lg" id="statut" name="statut"
                         title="Sélécionner le statut de l'organisme (public OU privé)" onchange="updateLabel()" required>
                         <option value="" disabled <?php if ($statut == "")
                             echo 'selected' ?>> --- </option>
@@ -70,13 +70,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                         <!-- Champ pour le nom -->
                         <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
-                        <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
+                        <input class="p-2 bg-white w-full h-12 mb-1.5 roundex-lg" type="text" id="nom" name="nom"
                             title="Saisir le nom de l'organisation (max 100 caractères)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" required>
 
                     <!-- Champ pour l'adresse mail -->
                     <label class=" text-small" for="mail">Adresse mail</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="mail" id="mail" name="mail"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 roundex-lg" type="mail" id="mail" name="mail"
                         title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" required>
                     <!-- Message d'erreur pour l'adresse mail -->
@@ -85,7 +85,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Champ pour le mot de passe -->
                     <div class="relative w-full">
                         <label class="text-small" for="mdp">Mot de passe</label>
-                        <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
+                        <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 roundex-lg" type="password" id="mdp" name="mdp"
                             pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
@@ -97,7 +97,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Champ pour confirmer le mot de passe -->
                     <div class="relative w-full">
                         <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
-                        <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="confMdp"
+                        <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 roundex-lg" type="password" id="confMdp"
                             name="confMdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
                             title="Confirmer le mot de passe saisit ci-dessus"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
@@ -111,11 +111,11 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                     <!-- Bouton pour continuer -->
                     <input type="submit" value="Continuer"
-                        class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                        class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                     <!-- Lien vers la page de connexion -->
                     <a href="/pro/connexion"
-                        class="w-full h-12 p-1 bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
+                        class="w-full h-12 p-1 bg-transparent text-secondary font-bold roundex-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
                         J'ai déjà un compte
                     </a>
                 </form>
@@ -254,7 +254,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <img class="relative mx-auto mt-8 -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
             </a>
 
-            <form class="mb-4 bg-base100 w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST">
+            <form class="mb-4 bg-base100 w-full p-5 roundex-lg border-2 border-secondary" action="" method="POST">
                 <p class=" pb-3">Dites-nous en plus !</p>
 
                 <div class="mb-3">
@@ -265,20 +265,20 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php if ($statut == "privé") { ?>
                     <!-- Champ pour la dénomination sociale (en lecture seule) -->
                     <label class="text-small" for="nom" id="nom">Dénomination sociale</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 roundex-lg" type="text" id="nom" name="nom"
                         title="Saisir votre dénomination sociale"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" readonly>
                 <?php } else { ?>
                     <!-- Champ pour le nom de l'organisation (en lecture seule) -->
                     <label class="text-small" for="nom" id="nom">Nom de l'organisation</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="nom" name="nom"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 roundex-lg" type="text" id="nom" name="nom"
                         title="Nom de l'organisation" value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>"
                         readonly>
                 <?php } ?>
 
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="email" id="mail" name="mail"
+                <input class="p-2 bg-white w-full h-12 mb-1.5 roundex-lg" type="email" id="mail" name="mail"
                     title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" readonly>
 
@@ -287,7 +287,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     $type_orga = isset($_SESSION['data_en_cours_inscription']['type_orga']) ? $_SESSION['data_en_cours_inscription']['type_orga'] : ''
                         ?>
                     <label class="text-small" for="type_orga">Je suis une&nbsp;</label>
-                    <select class="text-small mt-1.5 mb-3 bg-white p-1 rounded-lg" id="type_orga" name="type_orga"
+                    <select class="text-small mt-1.5 mb-3 bg-white p-1 roundex-lg" id="type_orga" name="type_orga"
                         title="Choisir le type de l'organisme (association OU autre)" required>
                         <option value="" disabled <?php if ($type_orga == '')
                             echo 'selected'; ?>> --- </option>
@@ -301,7 +301,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php } else { ?>
                     <!-- Inscription du numéro de SIREN -->
                     <label class="text-small" for="num_siren">Numéro SIRET</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" id="num_siren" name="num_siren"
+                    <input class="p-2 bg-white w-full h-12 mb-1.5 roundex-lg" id="num_siren" name="num_siren"
                         pattern="^\d{3} \d{3} \d{3} \d{5}$" title="Le numéro SIRET doit être composé de 14 chiffres"
                         placeholder="Ex: 12345678901234"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
@@ -309,27 +309,27 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <!-- Champs pour l'adresse -->
                 <label class="text-small" for="adresse">Adresse</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="user_input_autocomplete_address"
+                <input class="p-2 bg-white w-full h-12 mb-1.5 roundex-lg" type="text" id="user_input_autocomplete_address"
                     title="Saisir l'adresse de l'organisation" name="user_input_autocomplete_address"
                     placeholder="Ex : 10 Rue des Fleurs"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?? '' ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="complement" name="complement"
+                <input class="p-2 bg-white w-full h-12 mb-1.5 roundex-lg" type="text" id="complement" name="complement"
                     title="Saisir un complément d'adresse (facultatif)" placeholder="Bâtiment A, Appartement 5"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?? '' ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
                         <label class="text-small" for="postal_code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 rounded-lg" id="postal_code" name="postal_code"
+                        <input class="text-right p-2 bg-white w-28 h-12 roundex-lg" id="postal_code" name="postal_code"
                             pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['postal_code'] ?? '' ?>" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="locality">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 rounded-lg" id="locality" name="locality"
+                        <input class="p-2 bg-white w-full h-12 roundex-lg" id="locality" name="locality"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir votre ville"
                             placeholder="Rennes"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['locality'] ?? '' ?>" required>
@@ -339,7 +339,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <!-- Champ pour le numéro de téléphone -->
                 <div class="w-full flex flex-col">
                     <label class="text-small" for="num_tel">Téléphone</label>
-                    <input class="text-center p-2 bg-white w-36 h-12 mb-3 rounded-lg" id="num_tel" name="num_tel"
+                    <input class="text-center p-2 bg-white w-36 h-12 mb-3 roundex-lg" id="num_tel" name="num_tel"
                         pattern="^0\d( \d{2}){4}"
                         title="Le numéro de téléphone doit commencer par un 0 et comporter 10 chiffres"
                         placeholder="01 23 45 67 89"
@@ -367,7 +367,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         <!-- Champ pour l'IBAN -->
                         <div id="iban-container" class="hidden">
                             <label class="text-small" for="iban">IBAN</label>
-                            <input class="p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="iban" name="iban"
+                            <input class="p-2 bg-white w-full h-12 mb-3 roundex-lg" type="text" id="iban" name="iban"
                                 pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Format : FRXX XXXX XXXX XXXX XXXX XXXX XXX"
                                 placeholder="FRXX XXXX XXXX XXXX XXXX XXXX XXX"
                                 value="<?php echo $_SESSION['data_en_cours_inscription']['iban'] ?? '' ?>">
@@ -383,7 +383,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <!-- Bouton pour créer le compte -->
                 <input type="submit" value="Créer mon compte"
-                    class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                    class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                 <!-- Garder les informations de POST même si les champs ne sont plus visibles -->
                 <input type="hidden" name="statut"

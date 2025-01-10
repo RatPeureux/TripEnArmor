@@ -88,7 +88,7 @@ $membre = verifyMember();
 
                 <div class="hidden relative" id="sort-section">
                     <div
-                        class="absolute top-0 right-0 z-20 self-end bg-white border border-base200 rounded-lg shadow-md max-w-48 p-2 flex flex-col gap-4">
+                        class="absolute top-0 right-0 z-20 self-end bg-white border border-base200 roundex-lg shadow-md max-w-48 p-2 flex flex-col gap-4">
                         <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-ascending') ? '/compte/profil/avis' : '?sort=date-ascending'; ?>"
                             class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
                             <p>Plus récent au plus ancien</p>

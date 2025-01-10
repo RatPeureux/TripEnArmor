@@ -228,7 +228,7 @@ $pro = verifyPro();
                             </div>
                         </div>
 
-                        <button onclick="generatePDF()" class="mt-5 bg-blue-500 text-white p-2 rounded">
+                        <button onclick="generatePDF()" class="mt-5 bg-blue-500 text-white p-2 roundex">
                             Télécharger la facture en PDF
                         </button>
                     </div>

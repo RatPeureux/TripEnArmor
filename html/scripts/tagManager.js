@@ -126,7 +126,7 @@ class TagManager {
         // Création du tag visuel dans l'interface
         const tagDiv = document.createElement('div');
         tagDiv.textContent = tag;
-        tagDiv.classList.add('bg-secondary', 'text-white', 'py-1', 'px-3', 'rounded-full', 'mr-2', 'flex', 'items-center');
+        tagDiv.classList.add('bg-secondary', 'text-white', 'py-1', 'px-3', 'roundex-full', 'mr-2', 'flex', 'items-center');
     
         const removeBtn = document.createElement('span');
         removeBtn.textContent = 'X';

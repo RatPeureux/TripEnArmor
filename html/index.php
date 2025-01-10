@@ -72,9 +72,9 @@
             </div>
 
             <div class="flex items-center justify-center gap-2">
-                <a class="p-2 hover:bg-base100 rounded-lg" href="/offres/a-la-une">À la Une</a>
+                <a class="p-2 hover:bg-base100 roundex-lg" href="/offres/a-la-une">À la Une</a>
                 <p class="font-thin text-xl text-base200">|</p>
-                <a class="p-2 hover:bg-base100 rounded-lg" href="/offres">Toutes les offres</a>
+                <a class="p-2 hover:bg-base100 roundex-lg" href="/offres">Toutes les offres</a>
             </div>
 
             <!-- Actions Utilisateur -->
@@ -87,7 +87,7 @@
                     </a>
                     <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                         onclick="return confirmLogout()">
-                        <div class="border border-primary rounded-lg p-2">
+                        <div class="border border-primary roundex-lg p-2">
                             <p class="font-bold">Se déconnecter</p>
                         </div>
                     </a>
@@ -97,7 +97,7 @@
                         <i class="text-3xl fa-regular fa-user"></i>
                     </a>
                     <a href="/connexion" class="hidden md:block">
-                        <div class="border border-primary rounded-lg p-2">
+                        <div class="border border-primary roundex-lg p-2">
                             <p class="text-nowrap font-bold">Se connecter</p>
                         </div>
                     </a>
@@ -106,7 +106,7 @@
         </header>
     </div>
 
-    <main class="self-center align-center w-full grow rounded-lg max-w-[1280px] p-2">
+    <main class="self-center align-center w-full grow roundex-lg max-w-[1280px] p-2">
         <h1 class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl mb-4">PACT</h1>
 
         <div class="searchOn hidden md:flex justify-between text-center items-center mb-2">
@@ -145,20 +145,20 @@
         <div class="relative flex-1 max-w-full mx-2 mb-8">
             <div class="relative flex items-center">
                 <input type="text" id="search-field" placeholder="Rechercher par tags..."
-                    class="w-full border border-primary p-2 rounded-full h-12 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                    class="w-full border border-primary p-2 roundex-full h-12 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
                     aria-label="Recherche" autocomplete="off">
                 <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">
                     <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
                 </div>
                 <!-- Bouton de suppression -->
                 <button
-                    class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white rounded-lg px-2 py-1"
+                    class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white roundex-lg px-2 py-1"
                     id="clear-tags-btn">
                     <i class="text-xl fa-solid fa-times cursor-pointer"></i>
                 </button>
             </div>
             <!-- Dropdown de recherche -->
-            <div class="absolute top-full left-0 right-0 bg-white border border-base200 rounded-lg shadow-md mt-2 hidden z-10"
+            <div class="absolute top-full left-0 right-0 bg-white border border-base200 roundex-lg shadow-md mt-2 hidden z-10"
                 id="search-menu">
             </div>
         </div>

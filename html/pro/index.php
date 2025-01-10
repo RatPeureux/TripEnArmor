@@ -119,7 +119,7 @@ if (!function_exists('chaineVersMot')) {
     }
     ?>
 
-    <main class="mx-10 self-center w-full grow rounded-lg p-2 max-w-[1280px]">
+    <main class="mx-10 self-center w-full grow roundex-lg p-2 max-w-[1280px]">
         <!-- TOUTES LES OFFRES (offre & détails) -->
         <div class="w-full grow tablette p-4 flex flex-col">
 
@@ -130,7 +130,7 @@ if (!function_exists('chaineVersMot')) {
                 <div class="flex items-center gap-4">
                     <h1 class="text-4xl">Mes offres</h1>
                     <!-- Bouton de création d'offre -->
-                    <a href="/pro/offre/creer" class="self-center bg-primary text-white py-2 px-4 rounded-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary/90 hover:border-primary/90 
+                    <a href="/pro/offre/creer" class="self-center bg-primary text-white py-2 px-4 roundex-lg inline-flex items-center border border-primary hover:text-white hover:bg-primary/90 hover:border-primary/90 
                     focus:scale-[0.97] <?php
                     if (!$toutesMesOffres) {
                         echo "hidden";
@@ -165,7 +165,7 @@ if (!function_exists('chaineVersMot')) {
                     <!-- <?php echo "<p class='mt-4 text-h2'>Vous n'avez aucune offre...</p>"; ?> -->
                     <!-- <?php echo "<p class='mt-4 font-bold text-h2'>Créer votre toute première offre dès maintenant !</p>"; ?> -->
                     <div class="flex justify-center">
-                        <a href="/pro/offre/creer" class="self-center w-full h-80 text-center font-bold text-gray-500 py-2 px-4 rounded-lg inline-flex items-center justify-center border border-dashed border-gray-500 hover:border-primary hover:text-primary animate-scale
+                        <a href="/pro/offre/creer" class="self-center w-full h-80 text-center font-bold text-gray-500 py-2 px-4 roundex-lg inline-flex items-center justify-center border border-dashed border-gray-500 hover:border-primary hover:text-primary animate-scale
                     focus:scale-[0.97]"> Créer votre première offre dès maintenant ! </a>
                     </div>
                 </div>

@@ -98,7 +98,7 @@ if (isset($_POST['mdp'])) {
                 <form action="" class="flex flex-col" method="post">
                     <div class="relative w-full">
                         <label class="text-h3" for="mdp">Mot de passe actuel</label>
-                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
+                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 roundex-lg"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             type="password" id="mdp" name="mdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$">
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -107,7 +107,7 @@ if (isset($_POST['mdp'])) {
 
                     <div class="relative w-full">
                         <label class="text-h3" for="newMdp">Nouveau mot de passe</label>
-                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
+                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 roundex-lg"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             type="password" id="newMdp" name="newMdp">
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -116,7 +116,7 @@ if (isset($_POST['mdp'])) {
 
                     <div class="relative w-full">
                         <label class="text-h3" for="confNewMdp">Confirmation nouveau mot de passe</label>
-                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
+                        <input class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 roundex-lg"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             type="password" id="confNewMdp" name="confNewMdp">
                         <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -127,7 +127,7 @@ if (isset($_POST['mdp'])) {
                     <span id="error-message" class="error text-rouge-logo text-small"></span>
 
                     <input type="submit" id="save" value="Modifier mon mot de passe"
-                        class="self-end opacity-50 max-w-sm h-12 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                        class="self-end opacity-50 max-w-sm h-12 px-4 font-bold text-small text-white bg-primary roundex-lg border border-transparent"
                         disabled>
                     </input>
                 </form>

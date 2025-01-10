@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const tag = document.createElement("div");
         tag.className =
-            "flex items-center gap-2 bg-secondary text-white px-3 py-1 rounded-full";
+            "flex items-center gap-2 bg-secondary text-white px-3 py-1 roundex-full";
         tag.innerHTML = `<span>${text}</span><i class="fa-solid fa-times cursor-pointer"></i>`;
 
         tag.querySelector("i")?.addEventListener("click", () => {

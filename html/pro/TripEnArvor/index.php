@@ -41,7 +41,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     ?>
 
     <div class="grow self-center  flex justify-center w-full md:max-w-[1280px] p-2">
-        <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
+        <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:roundex-lg">
             <p class="text-h1">L’association TripEnArvor et son projet PACT</p>
 
             <div class="block md:hidden w-full flex items-center justify-center">

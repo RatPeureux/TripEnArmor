@@ -46,7 +46,7 @@ $pro = verifyPro();
 
         <div class="grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center justify-center">
             <a href="/pro/compte/profil"
-                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+                class="cursor-pointer w-full roundex-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-user"></i>
                 <div class="w-full">
                     <p class="text-h2">Profil</p>
@@ -55,7 +55,7 @@ $pro = verifyPro();
                 </div>
             </a>
             <a href="/pro/compte/parametres"
-                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+                class="cursor-pointer w-full roundex-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-gear"></i>
                 <div class="w-full">
                     <p class="text-h2">Paramètres</p>
@@ -64,7 +64,7 @@ $pro = verifyPro();
                 </div>
             </a>
             <a href="/pro/compte/securite"
-                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+                class="cursor-pointer w-full roundex-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-shield"></i>
                 <div class="w-full">
                     <p class="text-h2">Sécurité</p>
@@ -77,7 +77,7 @@ $pro = verifyPro();
             if (($pro['data']['type']) ==  'prive') { 
                 ?>
                 <a href="/pro/compte/facture"
-                class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+                class="cursor-pointer w-full roundex-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-file-invoice"></i>
                 <div class="w-full">
                     <p class="text-h2">Factures</p>
@@ -89,7 +89,7 @@ $pro = verifyPro();
             ?>
 
             <a href="/scripts/logout.php" onclick="return confirmLogout()"
-                class="w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent rounded-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
+                class="w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent roundex-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
                 Se déconnecter
             </a>
         </div>

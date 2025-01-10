@@ -45,7 +45,7 @@ unset($_SESSION['data_en_cours_inscription']);
         <div class="m-auto text-center">
             <h1 class="font-cormorant text-[10rem]">404</h1>
             <p>Ce n'est pas la page que vous recherchez.</p>
-            <img src="/public/images/404.gif" class="mt-10 mb-28 rounded-lg m-auto" alt="tottereau" width="250">
+            <img src="/public/images/404.gif" class="mt-10 mb-28 roundex-lg m-auto" alt="tottereau" width="250">
         </div>
     </main>
 

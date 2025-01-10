@@ -340,10 +340,10 @@ session_start();
                     <?php if ($images['details']) { ?>
                         <div class="flex items-center gap-8 justify-center">
                             <a
-                                class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-prev group flex justify-center items-center border border-solid roundex-full !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
                                 ‹</a>
                             <a
-                                class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-next group flex justify-center items-center border border-solid roundex-full !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
                                 ›</a>
                         </div>
                         <?php
@@ -398,7 +398,7 @@ session_start();
                         $tagsAffiche = rtrim($tagsAffiche, ', ');
                         if ($tags_offre) {
                             ?>
-                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                            <div class="p-1 roundex-lg bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
@@ -406,7 +406,7 @@ session_start();
                             <?php
                         } else {
                             ?>
-                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                            <div class="p-1 roundex-lg bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
@@ -431,7 +431,7 @@ session_start();
                         $tagsAffiche = rtrim($tagsAffiche, ', ');
                         if ($tags_offre) {
                             ?>
-                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                            <div class="p-1 roundex-lg bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
@@ -439,7 +439,7 @@ session_start();
                             <?php
                         } else {
                             ?>
-                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                            <div class="p-1 roundex-lg bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
@@ -709,7 +709,7 @@ session_start();
                                         <div class="flex flex-col gap-2">
                                             <button
                                                 onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                                class="bg-secondary font-bold text-white rounded-lg p-2 self-end flex items-center gap-2">
+                                                class="bg-secondary font-bold text-white roundex-lg p-2 self-end flex items-center gap-2">
                                                 <i class="fa-solid fa-pen"></i>
                                                 <p>Rédiger un avis</p>
                                             </button>
@@ -721,18 +721,18 @@ session_start();
                                                 <div>
                                                     <label for="titre">Titre</label>
                                                     <input type="text" name="titre" id="titre" placeholder="Titre de l'avis"
-                                                        class="w-full border border-black rounded-lg p-1" required>
+                                                        class="w-full border border-black roundex-lg p-1" required>
                                                 </div>
 
                                                 <!-- Commentaire de l'avis -->
                                                 <textarea type="commentaire" name="commentaire" id="commentaire"
                                                     placeholder="Votre commentaire"
-                                                    class="w-full border border-black rounded-lg p-1"></textarea>
+                                                    class="w-full border border-black roundex-lg p-1"></textarea>
 
                                                 <!-- Note globale donnée (pour toutes les offres) -->
                                                 <div>
                                                     <label for="note_globale">Note globale</label>
-                                                    <select name="note_globale" id="note_globale" class="p-1 rounded-lg" required>
+                                                    <select name="note_globale" id="note_globale" class="p-1 roundex-lg" required>
                                                         <option value="" selected disabled>...</option>
                                                         <option value="0">0</option>
                                                         <option value="0.5">0,5</option>
@@ -753,7 +753,7 @@ session_start();
                                                 if ($categorie_offre == 'restauration') { ?>
                                                     <div>
                                                         <label for="note_ambiance">Ambiance</label>
-                                                        <select name="note_ambiance" id="note_ambiance" class="p-1 rounded-lg"
+                                                        <select name="note_ambiance" id="note_ambiance" class="p-1 roundex-lg"
                                                             required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
@@ -772,7 +772,7 @@ session_start();
 
                                                     <div>
                                                         <label for="note_service">Service</label>
-                                                        <select name="note_service" id="note_service" class="p-1 rounded-lg"
+                                                        <select name="note_service" id="note_service" class="p-1 roundex-lg"
                                                             required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
@@ -791,7 +791,7 @@ session_start();
 
                                                     <div>
                                                         <label for="note_cuisine">Cuisine</label>
-                                                        <select name="note_cuisine" id="note_cuisine" class="p-1 rounded-lg"
+                                                        <select name="note_cuisine" id="note_cuisine" class="p-1 roundex-lg"
                                                             required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
@@ -810,7 +810,7 @@ session_start();
 
                                                     <div>
                                                         <label for="note_rapport">Rapport qualité / prix</label>
-                                                        <select name="note_rapport" id="note_rapport" class="p-1 rounded-lg"
+                                                        <select name="note_rapport" id="note_rapport" class="p-1 roundex-lg"
                                                             required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
@@ -841,7 +841,7 @@ session_start();
                                                 <!-- Contexte de passage -->
                                                 <div>
                                                     <label for="contexte_passage">Contexte de passage</label>
-                                                    <select name="contexte_passage" id="contexte_passage" class="p-1 rounded-lg"
+                                                    <select name="contexte_passage" id="contexte_passage" class="p-1 roundex-lg"
                                                         required>
                                                         <option value="" selected disabled>...</option>
                                                         <option value="en solo">en solo</option>
@@ -861,14 +861,14 @@ session_start();
                                                 <!-- Publier l'avis ou annuler l'écriture -->
                                                 <div class="flex justify-end gap-3 items-center">
                                                     <div onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                                        class="font-bold text-secondarygit rounded-lg p-2 self-end flex items-center gap-2 border border-secondary">
+                                                        class="font-bold text-secondarygit roundex-lg p-2 self-end flex items-center gap-2 border border-secondary">
                                                         <p>Annuler</p>
                                                     </div>
 
-                                                    <input type="submit" value="+ Publier" class="bg-secondary text-white font-bold rounded-lg p-2 self-end">
+                                                    <input type="submit" value="+ Publier" class="bg-secondary text-white font-bold roundex-lg p-2 self-end">
                                                 </div>
 
-                                                <hr class="w-1/2 border border-black self-end my-2 rounded-lg bg-black">
+                                                <hr class="w-1/2 border border-black self-end my-2 roundex-lg bg-black">
                                             </form>
 
                                             <script>
