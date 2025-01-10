@@ -28,6 +28,7 @@ $pro = verifyPro();
     <title>Facture - Professionnel - PACT</title>
 </head>
 
+
 <body class="min-h-screen flex flex-col">
 
     <!-- Inclusion du menu -->
@@ -271,11 +272,15 @@ $pro = verifyPro();
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
+    <!-- FOOTER -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    ?>
 
 </body>
 
 </html>
-</main>
-</body>
-
-</html>
+        </div>
+        </main>
+    </body>
+    </html>
