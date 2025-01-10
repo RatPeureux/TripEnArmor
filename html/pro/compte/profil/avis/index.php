@@ -94,6 +94,7 @@ $pro = verifyPro();
 
                     <div id="clickable_div_<?php echo $id_avis ?>" class="shadow-lg hover:cursor-pointer">
                         <?php
+                        $mode = 'avis';
                         include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
                         ?>
                     </div>

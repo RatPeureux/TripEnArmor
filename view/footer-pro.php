@@ -12,11 +12,11 @@
             -
             <a href="/pro/cgv" class="hover:text-primary">CGV</a>
             -
-            <a href="mailto:benoit.tottereau@univ-rennes.fr" class="hover:text-primary">Contacter le support</a>
+            <a href="mailto:pact.tripenarvor@gmail.com" class="hover:text-primary">Contacter le support</a>
             -
             <a href="/" class="hover:text-primary">Retour vers la PACT</a>
         </div>
-        @2024, <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+        @2025, <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
     </div>
     <!-- Format téléphone -->
     <div class="text-center block sm:hidden">
@@ -27,7 +27,7 @@
             -
             <a href="/pro/cgv" class="hover:text-primary">CGV</a>
             -
-            <a href="mailto:benoit.tottereau@univ-rennes.fr" class="hover:text-primary">Contacter le support</a>
+            <a href="mailto:pact.tripenarvor@gmail.com" class="hover:text-primary">Contacter le support</a>
             -
             <a href="/" class="hover:text-primary">Retour vers la PACT</a>
             -

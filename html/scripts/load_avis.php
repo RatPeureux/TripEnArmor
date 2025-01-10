@@ -31,6 +31,7 @@ if (isset($_GET['id_offre']) && isset($_GET['idx_avis']) && isset($_GET['id_memb
 
             // Charger le contenu de la vue dans un variable $carte_content
             ob_start();
+            $mode = 'avis';
             require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
             $carte_content = ob_get_clean();
 
