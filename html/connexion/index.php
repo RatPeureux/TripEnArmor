@@ -120,10 +120,16 @@ if (empty($_POST)) { ?>
 
         // Vérifie si la requête est une soumission de formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
             //  Pour garder les informations dans le formulaire si erreur
             $_SESSION['data_en_cours_connexion'] = $_POST;
-            $id = $_POST['id']; // Récupère l'id soumise
-            $mdp = $_POST['mdp']; // Récupère le mot de passe soumis
+            $id = $_POST['id'];
+            $mdp = $_POST['mdp'];
+
+            // Formatter (avec espaces) si c'est un numéro de téléphone qui est utilisé comme id
+            if (preg_match('/^0\d{9}$/', $id)) {
+                $id = preg_replace('/(\d{2})(?=\d)/', '$1 ', $id);
+            }
 
             // Prépare une requête SQL pour trouver l'utilisateur par nom, email ou numéro de téléphone
             $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :id OR email = :id OR num_tel = :id");

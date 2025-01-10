@@ -133,7 +133,8 @@ $membre = verifyMember();
                                  echo 'offre indisponible';
                              } ?>">
                                 <?php
-                                include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/mon_avis_view.php';
+                                $mode = 'mon_avis';
+                                include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
                                 ?>
                             </div>
 

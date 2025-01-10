@@ -80,8 +80,8 @@ $pro = verifyPro();
                 class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-5xl fa-solid fa-file-invoice"></i>
                 <div class="w-full">
-                    <p class="text-h2">Facture</p>
-                    <p class="text-small">Faire le point sur mes factures.</p>
+                    <p class="text-h2">Factures</p>
+                    <p class="text-small">Faire le point sur mes paiements réels ou prévisionnels.</p>
                 </div>
             </a>
             <?php
