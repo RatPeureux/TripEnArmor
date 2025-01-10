@@ -11,19 +11,19 @@
     </a>
 
     <div class="all-items flex flex-col items-stretch">
-        <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 1) {
+        <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';
         } ?>" href="/">Accueil</a>
-        <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
+        <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 3) {
             echo 'active';
         } ?>" href="/offres/a-la-une">À la Une</a>
-        <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
+        <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 2) {
             echo 'active';
         } ?>" href="/offres">Toutes les offres</a>
-        <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
+        <!-- <a class="pl-10 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 4) {
             echo 'active';
         } ?>" href="/offre/consultees-recemment">Consultées récemment</a>
-        <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 5) {
+        <a class="pl-10 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 5) {
             echo 'active';
         } ?>" href="/offre/nouveau">Nouveautés</a> -->
     </div>
@@ -44,25 +44,28 @@
             <a class="pl-5 py-3 border-black <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';
             } ?>" href="/">Accueil</a>
-            <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
+            <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 2) {
                 echo 'active';
             } ?>" href="/offres/a-la-une">À la Une</a>
-            <a class="pl-5 py-3 border-t-2 border-black roundex-b-lg <?php if (isset($pagination) && $pagination == 3) {
+            <a class="pl-5 py-3 border-t border-black roundex-b-lg <?php if (isset($pagination) && $pagination == 3) {
                 echo 'active';
             } ?>" href="/offres">Toutes les offres</a>
-            <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
+            <!-- <a class="pl-10 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 4) {
                 echo 'active';
             } ?>" href="/offre/consultees-recemment">Consultées récemment</a>
-            <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 5) {
+            <a class="pl-10 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 5) {
                 echo 'active';
             } ?>" href="/offre/nouveau">Nouveautés</a> -->
         </div>
     </div>
 
-    <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2 hover:text-primary duration-100" onclick="allDevelopped()">
-        <i class="fa-solid fa-filter"></i>
-        <p>Filtrer</p>
-    </a>
+    <div class="ml-2 mt-4 mb-1 flex justify-between items-center">
+        <a class="self-end flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-filter"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            <p>Filtrer</p>
+        </a>
+        <p class="cursor-pointer hover:text-primary duration-100" id="statut" onclick="allDevelopped()">Ouvrir</p>
+    </div>
     
     <div class="w-52 border-black border roundex-b-lg roundex-tr-lg z-25">
         <div class="flex flex-col w-full p-3 gap-4">
@@ -97,7 +100,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
+        <div class="flex flex-col w-full border-t border-black p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f2-tab">
                 <p>Disponibilité</p>
                 <p class="arrow" id="arrow-f2-tab">></p>
@@ -114,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
+        <div class="flex flex-col w-full border-t border-black p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f3-tab">
                 <p>Localisation</p>
                 <p class="arrow" id="arrow-f3-tab">></p>
@@ -124,7 +127,7 @@
                 <input id="localisation-tab" type="text" class="w-full border border-base300 roundex-lg p-1 focus:ring-0" />
             </div>
         </div>
-        <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
+        <div class="flex flex-col w-full border-t border-black p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f4-tab">
                 <p>Note générale</p>
                 <p class="arrow" id="arrow-f4-tab">></p>
@@ -146,7 +149,7 @@
                 </div>
             </div>
         </div>
-        <div class="hidden flex flex-col w-full border-t-2 border-black p-3 gap-4">
+        <div class="hidden flex flex-col w-full border-t border-black p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f5-tab">
                 <p>Période</p>
                 <p class="arrow" id="arrow-f5-tab">></p>
@@ -163,7 +166,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col w-full border-t-2 border-black p-3 gap-4">
+        <div class="flex flex-col w-full border-t border-black p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f6-tab">
                 <p>Prix</p>
                 <p class="arrow" id="arrow-f6-tab">></p>
@@ -203,16 +206,34 @@
 </div>
 
 <script>
+    let developped = false; // État initial : toutes les sections sont fermées
+
     function allDevelopped() {
-        const developped = document.querySelectorAll('.alldevelopped');
+        const sections = document.querySelectorAll('.alldevelopped');
         const arrows = document.querySelectorAll('.arrow');
+        const statutButton = document.getElementById('statut'); // Récupère le bouton
 
-        developped?.forEach((section) => {
-            section.classList.remove('hidden');
+        // Bascule l'état global
+        developped = !developped;
+
+        // Applique l'état à toutes les sections et icônes
+        sections.forEach((section) => {
+            if (developped) {
+                section.classList.remove('hidden'); // Affiche toutes les sections
+            } else {
+                section.classList.add('hidden'); // Masque toutes les sections
+            }
         });
 
-        arrows?.forEach((icon) => {
-            icon.classList.add('rotate-90');
+        arrows.forEach((icon) => {
+            if (developped) {
+                icon.classList.add('rotate-90'); // Oriente les flèches pour "ouvert"
+            } else {
+                icon.classList.remove('rotate-90'); // Oriente les flèches pour "fermé"
+            }
         });
+
+        // Met à jour le texte du bouton
+        statutButton.textContent = developped ? "Fermer" : "Ouvrir";
     }
 </script>

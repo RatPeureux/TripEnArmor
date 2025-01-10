@@ -27,8 +27,9 @@ label:has(+ select[required])::after {
 
 #menu a.active,
 #menu-pro a.active {
-    color: white;
-    background-color: var(--primary-color);
+    text-decoration: underline;
+    text-decoration-color: var(--primary-color);
+    text-underline-offset: 4px;
 }
 
 #layer-background.active {

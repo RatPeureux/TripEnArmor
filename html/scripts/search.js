@@ -156,62 +156,59 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Tags culturels et cuisine
+    const culturalTags = [
+        'Culturel', 'Patrimoine', 'Histoire', 'Urbain', 'Nature', 
+        'Plein air', 'Sport', 'Nautique', 'Gastronomie', 'Musée', 
+        'Atelier', 'Musique', 'Famille', 'Cinéma', 'Cirque', 
+        'Son et lumière', 'Humour'
+    ];
+
+    const cuisineTags = [
+        'Française', 'Fruits de mer', 'Asiatique', 'Indienne', 
+        'Italienne', 'Gastronomique', 'Restauration rapide', 
+        'Crêperie'
+    ];
+
+    // ... (rest of the script)
+
     // Met à jour le menu déroulant
     function updateDropdown(value) {
         dropdownMenu.innerHTML = "";
         if (value.trim() !== "") {
-            const item = document.createElement("div");
-            item.className = "p-3 cursor-pointer hover:bg-base100";
-            item.textContent = value;
-            item.setAttribute("tabindex", "0");
-            item.addEventListener("click", () => {
-                addMultipleTags(value.trim());
-                searchInput.value = "";
+            // Ajouter une suggestion basée sur l'entrée utilisateur
+            const relatedTags = [...culturalTags, ...cuisineTags].filter(tag =>
+                tag.toLowerCase().includes(value.toLowerCase())
+            );
+
+            // Suggestions basées sur l'entrée utilisateur
+            relatedTags.forEach((tag) => {
+                const item = document.createElement("div");
+                item.className = "p-3 cursor-pointer hover:bg-base100";
+                item.textContent = tag;
+                item.setAttribute("tabindex", "0");
+                item.addEventListener("click", () => {
+                    addTag(tag);
+                    searchInput.value = "";
+                    dropdownMenu.classList.add("hidden");
+                });
+                dropdownMenu.appendChild(item);
+            });
+
+            // Suggestions textuelles générales
+            const suggestionsText = document.createElement("div");
+            suggestionsText.className =
+                "p-3 text-gray-500 text-sm bg-base100 border-t border-base200 cursor-default select-none";
+            suggestionsText.textContent =
+                "À savoir : Utiliser des virgules permet d'ajouter plusieurs tags d'un coup.";
+            suggestionsText.setAttribute("tabindex", "-1");
+            dropdownMenu.appendChild(suggestionsText);
+
+            if (dropdownMenu.children.length === 1) {
                 dropdownMenu.classList.add("hidden");
-            });
-            dropdownMenu.appendChild(item);
-        }
-
-        recentTags.forEach((tag) => {
-            const item = document.createElement("div");
-            item.className =
-                "p-3 cursor-pointer flex justify-between items-center hover:bg-base100";
-            const textContainer = document.createElement("span");
-            textContainer.textContent = tag;
-            textContainer.className = "cursor-pointer flex-grow";
-
-            const deleteIcon = document.createElement("i");
-            deleteIcon.className =
-                "fa-solid fa-times text-gray-400 hover:text-black ml-3 cursor-pointer";
-            deleteIcon.addEventListener("click", (e) => {
-                e.stopPropagation();
-                removeRecentTag(tag);
-                updateDropdown(searchInput.value);
-            });
-
-            item.appendChild(textContainer);
-            item.appendChild(deleteIcon);
-            item.addEventListener("click", () => {
-                addTag(tag);
-                searchInput.value = "";
-                dropdownMenu.classList.add("hidden");
-            });
-            item.setAttribute("tabindex", "0");
-            dropdownMenu.appendChild(item);
-        });
-
-        const suggestionsText = document.createElement("div");
-        suggestionsText.className =
-            "p-3 text-gray-500 text-sm bg-base100 border-t border-base200 cursor-default select-none";
-        suggestionsText.textContent =
-            "À savoir : Utiliser des virgules permet d'ajouter plusieurs tags d'un coup.";
-        suggestionsText.setAttribute("tabindex", "-1");
-        dropdownMenu.appendChild(suggestionsText);
-
-        if (dropdownMenu.children.length === 1) {
-            dropdownMenu.classList.add("hidden");
-        } else {
-            dropdownMenu.classList.remove("hidden");
+            } else {
+                dropdownMenu.classList.remove("hidden");
+            }
         }
     }
 
