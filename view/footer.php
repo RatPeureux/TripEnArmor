@@ -16,7 +16,7 @@
             -
             <a href="/pro/connexion" class="hover:text-primary">Vous êtes un professionnel ?</a>
         </div>
-        ©<?php echo date("YYYY"); ?>, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+        ©<?php echo date("Y"); ?>, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
     </div>
     <!-- Format téléphone et tablette -->
     <div class="text-center block md:hidden">
@@ -29,7 +29,7 @@
             -
             <a href="/pro/connexion" class="hover:text-primary">Vous êtes un professionnel ?</a>
             -
-            ©<?php echo date("YYYY"); ?>, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+            ©<?php echo date("Y"); ?>, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
         
         </div>
     </div>
