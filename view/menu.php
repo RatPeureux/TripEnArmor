@@ -11,19 +11,19 @@
   </a>
 
   <div class="all-items flex flex-col items-stretch">
-    <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 1) {
+    <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>
-    <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
+    <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 2) {
       echo 'active';
     } ?>" href="/offres/a-la-une">À la Une</a>
-    <a class="pl-5 py-3 border-t-2 border-black rounded-b-lg <?php if (isset($pagination) && $pagination == 3) {
+    <a class="pl-5 py-3 border-t border-black rounded-b-lg <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
     } ?>" href="/offres">Toutes les offres</a>
-    <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
+    <!-- <a class="pl-10 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 4) {
       echo 'active';
     } ?>" href="/offre/consultees-recemment">Consultées récemment</a>
-    <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 5) {
+    <a class="pl-10 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 5) {
       echo 'active';
     } ?>" href="/offre/nouveau">Nouveautés</a>
   </div> -->
@@ -39,19 +39,19 @@
   </a>
 
   <div class="all-items flex flex-col items-stretch">
-    <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 1) {
+    <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>
-    <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
+    <a class="pl-10 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
     } ?>" href="/offres/a-la-une">À la Une</a>
-    <a class="pl-10 py-3 border-t-2 border-black rounded-b-lg <?php if (isset($pagination) && $pagination == 2) {
+    <a class="pl-10 py-3 border-t border-black rounded-b-lg <?php if (isset($pagination) && $pagination == 2) {
       echo 'active';
     } ?>" href="/offres">Toutes les offres</a>
-    <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
+    <!-- <a class="pl-10 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 4) {
       echo 'active';
     } ?>" href="/offre/consultees-recemment">Consultées récemment</a>
-    <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 5) {
+    <a class="pl-10 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 5) {
       echo 'active';
     } ?>" href="/offre/nouveau">Nouveautés</a> -->
   </div>
