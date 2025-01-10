@@ -55,7 +55,7 @@ $pro = verifyPro();
         <hr class="mb-8">
 
         <!-- Montants totaux prévisionnels -->
-        <h2 class="text-h2">Montants totaux prévisionnels :</h2>
+        <h2 class="text-h2">Montants totaux prévisionnels</h2>
         <br>
         <p>...</p>
         <br>
@@ -77,7 +77,7 @@ $pro = verifyPro();
 
             $idPro = $_SESSION['id_pro'];
             $factureController = new FactureController;
-            $facture = $factureController->getInfoFacture($numero, $designation);
+            // $facture = $factureController->getInfoFacture($numero);
 
             if (isset($_SESSION['id_pro'])) {
                 $stmtOffre = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true AND id_pro = :id_pro");
