@@ -49,11 +49,11 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     // Obtenez l'ensemble des offres avec le tri approprié
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true $sort_order");
     $stmt->execute();
-    $aLaUne = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $aLaUnes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $prix_mini_max = 0;
 
-    foreach ($aLaUne as $offre) {
+    foreach ($aLaUnes as $offre) {
         $prix_mini = $offre['prix_mini'];
         if ($prix_mini !== null && $prix_mini !== '') {
             if ($prix_mini_max === 0) {
@@ -79,7 +79,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
             $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
             return $offre;
-        }, $aLaUne);
+        }, $aLaUnes);
 
         // Effectuer le tri
         if ($_GET['sort'] === 'note-ascending') {
@@ -93,7 +93,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         }
 
         // Réassigner les offres triées
-        $aLaUne = $offresAvecNotes;
+        $aLaUnes = $offresAvecNotes;
     }
     ?>
 
@@ -134,14 +134,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
                 <?php
                 // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
-                if (!$aLaUne) { ?>
+                if (!$aLaUnes) { ?>
                     <div class="md:min-w-full flex flex-col gap-4">
                         <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
                     </div>
                 <?php } else { ?>
                     <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
                         <?php $i = 0;
-                        foreach ($aLaUne as $offre) {
+                        foreach ($aLaUnes as $offre) {
                             if ($i > -1) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';
@@ -203,7 +203,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 message.textContent = 'Aucune offre n\'est "À la Une".';
                 message.classList.add('mt-4', 'font-bold', 'text-h2');
                 noMatchesContainer.appendChild(message); // Ajouter dans le conteneur des offres
-                console.log('Message ajouté : Aucune offre n\'est "À la Une".');
             }
         } else {
             // Supprime le message si des offres sont visibles
