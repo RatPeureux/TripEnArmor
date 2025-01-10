@@ -236,9 +236,10 @@ CREATE TABLE _facture (
     numero VARCHAR(255) PRIMARY KEY,
     id_offre INTEGER NOT NULL,
     date_emission DATE NOT NULL
+    date_echeance DATE NOT NULL
 );
 
--- ------------------------------------------------------------------------------------------------------- Ligne_facture
+--------------------------------------------------------------------------------------------------------- Ligne_facture
 CREATE TABLE _ligne_facture (
     designation VARCHAR(255) NOT NULL,
     quantite INT NOT NULL,
