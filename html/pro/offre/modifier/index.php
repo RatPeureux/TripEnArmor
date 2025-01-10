@@ -140,7 +140,7 @@ try {
 						<div class="h-full divide-y divide-current">
 							<div>
 								<h1 class="text-h1 leading-none mt-1 text-center">Gratuite</h1>
-								<h1 class="text-center font-bold">Pour les associations et les organismes publics</h1>
+								<h1 class="text-center font-bolx">Pour les associations et les organismes publics</h1>
 							</div>
 							<div>
 								<div class="ml-8">
@@ -165,7 +165,7 @@ try {
 						<div class="h-full divide-y divide-current">
 							<div>
 								<h1 class="text-h1 leading-none mt-1 text-center">Standard</h1>
-								<h1 class="text-center font-bold">Pour les entreprises et organismes privés</h1>
+								<h1 class="text-center font-bolx">Pour les entreprises et organismes privés</h1>
 							</div>
 							<div class="h-full">
 								<div class="ml-8">
@@ -191,7 +191,7 @@ try {
 						<div class="h-full divide-y divide-current">
 							<div>
 								<h1 class="text-h1 leading-none mt-1 text-center">Premium</h1>
-								<h2 class="text-center font-bold">Pour les entreprises et organismes privés</h2>
+								<h2 class="text-center font-bolx">Pour les entreprises et organismes privés</h2>
 							</div>
 							<div class="h-full">
 								<p class="mt-2 text-small">Standard +</p>
@@ -260,7 +260,7 @@ try {
 							  border-dashed border-2 border-secondary roundex-lg p-2
 							  file:mr-5 file:py-3 file:px-10
 							  file:roundex-lg
-							  file:text-small file:font-bold  file:text-secondary
+							  file:text-small file:font-bolx  file:text-secondary
 							  file:border file:border-secondary
 							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" required />
 							</div>
@@ -273,7 +273,7 @@ try {
 							  border-dashed border-2 border-secondary roundex-lg p-2
 							  file:mr-5 file:py-3 file:px-10
 							  file:roundex-lg
-							  file:text-small file:font-bold  file:text-secondary
+							  file:text-small file:font-bolx  file:text-secondary
 							  file:border file:border-secondary
 							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
 							</div>
@@ -425,22 +425,22 @@ try {
 							<p>
 								Langues parlées :
 							</p>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 								onclick="toggleCheckbox('langueFR')">
 								<label for="langueFR">Français</label>
 								<input type="checkbox" name="langueFR" id="langueFR" class="hidden" checked="true">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 								onclick="toggleCheckbox('langueEN')">
 								<label for="langueEN">Anglais</label>
 								<input type="checkbox" name="langueEN" id="langueEN" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 								onclick="toggleCheckbox('langueES')">
 								<label for="langueES">Espagnol</label>
 								<input type="checkbox" name="langueES" id="langueES" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 								onclick="toggleCheckbox('langueDE')">
 								<label for="langueDE">Allemand</label>
 								<input type="checkbox" name="langueDE" id="langueDE" class="hidden">
@@ -454,27 +454,27 @@ try {
 							<p>
 								Repas servis :
 							</p>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 								onclick="toggleCheckbox('repasPetitDejeuner')">
 								<label for="repasPetitDejeuner">Petit-déjeuner</label>
 								<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 								onclick="toggleCheckbox('repasBrunch')">
 								<label for="repasBrunch">Brunch</label>
 								<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 								onclick="toggleCheckbox('repasDejeuner')">
 								<label for="repasDejeuner">Déjeuner</label>
 								<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 								onclick="toggleCheckbox('repasDiner')">
 								<label for="repasDiner">Dîner</label>
 								<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 								onclick="toggleCheckbox('repasBoissons')">
 								<label for="repasBoissons">Boissons</label>
 								<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
@@ -489,7 +489,7 @@ try {
 							border-dashed border-2 border-secondary roundex-lg p-2
 							file:mr-5 file:py-3 file:px-10
 							file:roundex-lg
-							file:text-small file:font-bold  file:text-secondary
+							file:text-small file:font-bolx  file:text-secondary
 							file:border file:border-secondary
 							hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
 						</div>
@@ -614,21 +614,21 @@ try {
 							<div
 								class="flex flex-row mb-4 content-center justify-between items-center text-secondary w-full">
 								<!-- Sans option -->
-								<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 									id="option-rien-div">
 									<input type="radio" id="option-rien" name="option" value="option-rien"
 										class="hidden" />
 									<label for="option-rien">Sans option</label>
 								</div>
 								<!-- Option en relief -->
-								<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 									id="option-relief-div">
 									<input type="radio" id="option-relief" name="option" value="option-relief"
 										class="hidden" checked="true" />
 									<label for="option-relief">En Relief (3.99€)</label>
 								</div>
 								<!-- À la Une -->
-								<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+								<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 									id="option-a-la-une-div">
 									<input type="radio" id="option-a-la-une" name="option" class="hidden"
 										value="option-a-la-une" />
@@ -681,7 +681,7 @@ try {
 							<div
 								class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 roundex-b-lg">
 								<!-- Mise à jour du titre en temps réel -->
-								<h3 class="text-center font-bold" id="preview-titre"></h3>
+								<h3 class="text-center font-bolx" id="preview-titre"></h3>
 								<script>
 									document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
 										document.getElementById("titre").value
@@ -820,10 +820,10 @@ try {
 								<div class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
 									<div class="p-1 w-full flex justify-center items-center">
 										<!-- <p
-								class="text-white text-center text-small w-full font-bold"
+								class="text-white text-center text-small w-full font-bolx"
 							  ></p> -->
 										<!-- Mise à jour du tag en temps réel -->
-										<p class="text-white text-center roundex-lg bg-secondary font-bold w-fit p-2"
+										<p class="text-white text-center roundex-lg bg-secondary font-bolx w-fit p-2"
 											id="preview-tag-input">
 											Ajouter un tag...
 										</p>

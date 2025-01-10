@@ -12,16 +12,16 @@
         </a>
         <!-- DROPDOWN MENU TRIS TÉLÉPHONE -->
         <div class="hidden md:hidden absolute bottom-[72px] right-2 z-20 bg-white border border-base200 roundex-lg shadow-md max-w-48 p-2 flex flex-col gap-4" id="sort-section-tel">
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-ascending') ? '/' : '?sort=note-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-ascending') ? '/' : '?sort=note-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-ascending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
                 <p>Note croissante</p>
             </a>
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-descending') ? '/' : '?sort=note-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-descending') ? '/' : '?sort=note-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-descending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
                 <p>Note décroissante</p>
             </a>
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-descending') ? '/' : '?sort=price-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-descending') ? '/' : '?sort=price-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-descending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
                 <p>Prix croissant</p>
             </a>
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? '/' : '?sort=price-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'price-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? '/' : '?sort=price-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'price-ascending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
                 <p>Prix décroissant</p>
             </a>
         </div>
@@ -171,7 +171,7 @@
         </div>
     </div>
 
-    <a class="fixed left-0 right-0 bottom-0 roundex bg-primary font-bold uppercase text-h4 text-white text-center m-2 p-4 cursor-pointer hover:bg-orange-600" onclick="toggleFiltres()">
+    <a class="fixed left-0 right-0 bottom-0 roundex bg-primary font-bolx uppercase text-h4 text-white text-center m-2 p-4 cursor-pointer hover:bg-orange-600" onclick="toggleFiltres()">
         Valider
     </a>
 </div>

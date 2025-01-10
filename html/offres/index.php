@@ -116,7 +116,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
-                    <h1 class="text-h1 font-bold">Toutes les offres</h1>
+                    <h1 class="text-h1 font-bolx">Toutes les offres</h1>
 
                     <div class="hidden md:flex gap-4">
                         <a class="self-end flex items-center gap-2 hover:text-primary duration-100"
@@ -136,7 +136,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
                 if (!$toutesLesOffres) { ?>
                     <div class="md:min-w-full flex flex-col gap-4">
-                        <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
+                        <?php echo "<p class='mt-4 font-bolx text-h2'>Il n'existe aucune offre...</p>"; ?>
                     </div>
                 <?php } else { ?>
                     <div class="md:min-w-full flex flex-col gap-4" id="no-matches">

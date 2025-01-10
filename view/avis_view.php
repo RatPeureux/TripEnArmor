@@ -164,7 +164,7 @@ if (!function_exists('to_nom_note')) {
         <?php
         // Titre de l'avis s'il y en a un
         if ($avis['titre']) { ?>
-            <p class="text-h4 font-bold"><?php echo $avis['titre'] ?></p>
+            <p class="text-h4 font-bolx"><?php echo $avis['titre'] ?></p>
         <?php }
         ?>
 

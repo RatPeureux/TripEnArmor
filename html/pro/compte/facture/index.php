@@ -119,7 +119,7 @@ $pro = verifyPro();
                             <div class="flex flex-col justify-between">
                                 <div class="flex justify-between w-full">
                                     <div>
-                                        <h1 class="text-xl font-bold">PACT</h1>
+                                        <h1 class="text-xl font-bolx">PACT</h1>
                                         <p>21 rue Case Nègres<br>97232, Fort-de-France<br>FR</p>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@ $pro = verifyPro();
                                 <!-- Informations Client -->
                                 <div class="flex justify-end">
                                     <div>
-                                        <h1 class="text-xl font-bold"><?php echo htmlspecialchars($proDetails['nom_pro']); ?></h1>
+                                        <h1 class="text-xl font-bolx"><?php echo htmlspecialchars($proDetails['nom_pro']); ?></h1>
                                         <p><?php echo htmlspecialchars($adresseDetails['numero']) . " " . htmlspecialchars($adresseDetails['odonyme']); ?><br><?php echo htmlspecialchars($adresseDetails['code_postal']) ?><br>France
                                         </p>
                                         <br>
@@ -205,7 +205,7 @@ $pro = verifyPro();
                                         <span>
                                             <?php echo (number_format($typeOffre['prix_ht'], 2) * $nbJoursEnLigne) * ($TVA / 100) ?>€</span>
                                     </div>
-                                    <div class="flex justify-between font-bold">
+                                    <div class="flex justify-between font-bolx">
                                         <span>Total TTC</span>
                                         <span><?php echo (number_format($typeOffre['prix_ht'], 2) * $nbJoursEnLigne) * (1 + ($TVA / 100)); ?>€</span>
                                     </div>

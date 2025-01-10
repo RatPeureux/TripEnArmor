@@ -73,7 +73,7 @@ $membre = verifyMember();
                         id="pseudo" name="pseudo">
 
                     <input type="submit" id="save" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary roundex-lg border border-transparent"
+                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bolx text-small text-white bg-primary roundex-lg border border-transparent"
                         disabled>
                     </input>
                 </form>

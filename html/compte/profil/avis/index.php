@@ -90,11 +90,11 @@ $membre = verifyMember();
                     <div
                         class="absolute top-0 right-0 z-20 self-end bg-white border border-base200 roundex-lg shadow-md max-w-48 p-2 flex flex-col gap-4">
                         <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-ascending') ? '/compte/profil/avis' : '?sort=date-ascending'; ?>"
-                            class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-ascending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                            class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-ascending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
                             <p>Plus récent au plus ancien</p>
                         </a>
                         <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'date-descending') ? '/compte/profil/avis' : '?sort=date-descending'; ?>"
-                            class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-descending') ? 'font-bold' : ''; ?> hover:text-primary duration-100">
+                            class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'date-descending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
                             <p>Plus ancien au plus récent</p>
                         </a>
                     </div>
@@ -146,7 +146,7 @@ $membre = verifyMember();
                         }
                     } else {
                         ?>
-                        <h1 class="text-h2 font-bold">Vous n'avez publié aucun avis.</h1>
+                        <h1 class="text-h2 font-bolx">Vous n'avez publié aucun avis.</h1>
                         <?php
                     }
                     ?>

@@ -52,7 +52,7 @@
                 <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                     onclick="return confirmLogout()">
                     <div class="border border-primary roundex-lg p-2">
-                        <p class="font-bold">Se déconnecter</p>
+                        <p class="font-bolx">Se déconnecter</p>
                     </div>
                 </a>
             <?php } else { ?>
@@ -62,7 +62,7 @@
                 </a>
                 <a href="/connexion" class="hidden md:block">
                     <div class="border border-primary roundex-lg p-2">
-                        <p class="font-bold">Se connecter</p>
+                        <p class="font-bolx">Se connecter</p>
                     </div>
                 </a>
             <?php } ?>

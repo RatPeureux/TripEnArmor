@@ -75,7 +75,7 @@
                     <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                         onclick="return confirmLogout()">
                         <div class="border border-primary roundex-lg p-2">
-                            <p class="font-bold">Se déconnecter</p>
+                            <p class="font-bolx">Se déconnecter</p>
                         </div>
                     </a>
                 <?php } else { ?>
@@ -85,7 +85,7 @@
                     </a>
                     <a href="/connexion" class="hidden md:block">
                         <div class="border border-primary roundex-lg p-2">
-                            <p class="text-nowrap font-bold">Se connecter</p>
+                            <p class="text-nowrap font-bolx">Se connecter</p>
                         </div>
                     </a>
                 <?php } ?>
@@ -145,7 +145,7 @@
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$toutesLesOffres) { ?>
             <div class="md:min-w-full flex flex-col gap-4">
-                <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
+                <?php echo "<p class='mt-4 font-bolx text-h2'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
             <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4" id="no-matches">

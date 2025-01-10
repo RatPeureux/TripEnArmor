@@ -433,10 +433,10 @@ $pro = verifyPro();
 							} else if ($typeOffre['id_type_offre'] == 2) { // Premium
 								$avantages[] = "Possibilité de remplir une grille tarifaire";
 								$avantages[] = "Possibilité de souscrire aux options “À la Une” et “En relief”";
-								$avantages[] = "<span class='font-bold'>Mise sur liste noire de 3 commentaires<span>";
+								$avantages[] = "<span class='font-bolx'>Mise sur liste noire de 3 commentaires<span>";
 							} else if ($typeOffre['id_type_offre'] == 3) { // Standard
-								$avantages[] = "<span class='font-bold'>Possibilité de remplir une grille tarifaire<span>";
-								$avantages[] = "<span class='font-bold'>Possibilité de souscrire aux options “À la Une” et “En relief”<span>";
+								$avantages[] = "<span class='font-bolx'>Possibilité de remplir une grille tarifaire<span>";
+								$avantages[] = "<span class='font-bolx'>Possibilité de souscrire aux options “À la Une” et “En relief”<span>";
 							}
 							?>
 							<div
@@ -450,7 +450,7 @@ $pro = verifyPro();
 											<h1 class="text-h1 leading-none mt-1 text-center">
 												<?php echo ucfirst($typeOffre['nom']) ?>
 											</h1>
-											<h1 class="text-center font-bold">
+											<h1 class="text-center font-bolx">
 												<?php echo $subTitle ?>
 											</h1>
 										</div>
@@ -493,7 +493,7 @@ $pro = verifyPro();
 								<div class="h-full divide-y divide-current">
 									<div>
 										<h1 class="text-h1 leading-none mt-1 text-center">Gratuite</h1>
-										<h1 class="text-center font-bold">Pour les associations et les organismes publics
+										<h1 class="text-center font-bolx">Pour les associations et les organismes publics
 										</h1>
 									</div>
 									<div>
@@ -519,7 +519,7 @@ $pro = verifyPro();
 								<div class="h-full divide-y divide-current">
 									<div>
 										<h1 class="text-h1 leading-none mt-1 text-center">Standard</h1>
-										<h1 class="text-center font-bold">Pour les entreprises et organismes privés</h1>
+										<h1 class="text-center font-bolx">Pour les entreprises et organismes privés</h1>
 									</div>
 									<div class="h-full">
 										<div class="ml-8">
@@ -545,10 +545,10 @@ $pro = verifyPro();
 								<div class="h-full divide-y divide-current">
 									<div>
 										<h1 class="text-h1 leading-none mt-1 text-center">Premium</h1>
-										<h2 class="text-center font-bold">Pour les entreprises et organismes privés</h2>
+										<h2 class="text-center font-bolx">Pour les entreprises et organismes privés</h2>
 									</div>
 									<div class="h-full">
-										<p class="mt-2 text-small font-bold">Standard +</p>
+										<p class="mt-2 text-small font-bolx">Standard +</p>
 										<div class="ml-8">
 											<ul class="list-disc text-left text-small">
 												<li>Mise sur liste noire de 3 commentaires</li>
@@ -620,7 +620,7 @@ $pro = verifyPro();
 									border-dashed border-2 border-secondary roundex-lg p-2
 									file:mr-5 file:py-3 file:px-10
 									file:roundex-lg
-									file:text-small file:font-bold  file:text-secondary
+									file:text-small file:font-bolx  file:text-secondary
 									file:border file:border-secondary
 									hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp"
 											required />
@@ -634,7 +634,7 @@ $pro = verifyPro();
 											border-dashed border-2 border-secondary roundex-lg p-2
 											file:mr-5 file:py-3 file:px-10
 											file:roundex-lg
-											file:text-small file:font-bold  file:text-secondary
+											file:text-small file:font-bolx  file:text-secondary
 											file:border file:border-secondary
 											hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp"
 											multiple />
@@ -729,7 +729,7 @@ $pro = verifyPro();
 											$langues = $langueController->getInfosAllLangues();
 
 											foreach ($langues as $langue) { ?>
-												<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+												<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 													onclick="toggleCheckbox('<?php echo 'langue' . $langue['id_langue']; ?>')">
 													<label
 														for="<?php echo 'langue' . $langue['id_langue']; ?>"><?php echo $langue['nom']; ?></label>
@@ -809,28 +809,28 @@ $pro = verifyPro();
 									<p>
 										Repas servis :
 									</p>
-									<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 										onclick="toggleCheckbox('repasPetitDejeuner')">
 										<label for="repasPetitDejeuner">Petit-déjeuner</label>
 										<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner"
 											class="hidden">
 									</div>
-									<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 										onclick="toggleCheckbox('repasBrunch')">
 										<label for="repasBrunch">Brunch</label>
 										<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
 									</div>
-									<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 										onclick="toggleCheckbox('repasDejeuner')">
 										<label for="repasDejeuner">Déjeuner</label>
 										<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
 									</div>
-									<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 										onclick="toggleCheckbox('repasDiner')">
 										<label for="repasDiner">Dîner</label>
 										<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
 									</div>
-									<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
 										onclick="toggleCheckbox('repasBoissons')">
 										<label for="repasBoissons">Boissons</label>
 										<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
@@ -845,7 +845,7 @@ $pro = verifyPro();
 							border-dashed border-2 border-secondary roundex-lg p-2
 							file:mr-5 file:py-3 file:px-10
 							file:roundex-lg
-							file:text-small file:font-bold  file:text-secondary
+							file:text-small file:font-bolx  file:text-secondary
 							file:border file:border-secondary
 							hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
 								</div>
@@ -1109,7 +1109,7 @@ $pro = verifyPro();
 											</tbody>
 										</table>
 										<p>
-											<span class="font-bold">Pro Tip :</span> Lorsque vous remplissez les horaires du
+											<span class="font-bolx">Pro Tip :</span> Lorsque vous remplissez les horaires du
 											lundi, elles mettent à jour les horaires des autres jours de la semaine.
 										</p>
 									</div>
@@ -1172,7 +1172,7 @@ $pro = verifyPro();
 									<div
 										class="flex flex-row mb-4 content-center justify-between items-center text-secondary w-full">
 										<!-- Sans option -->
-										<div class="w-fit p-2 roundex-lg border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold text-lg"
+										<div class="w-fit p-2 roundex-lg border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx text-lg"
 											id="option-rien-div">
 											<input type="radio" id="option-rien" name="option" value="1" class="hidden"
 												checked="true" />
@@ -1187,7 +1187,7 @@ $pro = verifyPro();
 										foreach ($options as $option) {
 											$nom_option = str_contains($option['nom'], 'relief') ? "option-relief" : "option-a-la-une";
 											?>
-											<div class="w-fit p-2 roundex-lg border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold text-center text-lg"
+											<div class="w-fit p-2 roundex-lg border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx text-center text-lg"
 												id="<?php echo $nom_option; ?>-div">
 												<input type="radio" id="<?php echo $nom_option; ?>" name="option"
 													value="<?php echo $option['nom']; ?>" class="hidden" />
@@ -1305,7 +1305,7 @@ $pro = verifyPro();
 									<div
 										class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 roundex-b-lg">
 										<!-- Mise à jour du titre en temps réel -->
-										<h3 class="text-center font-bold" id="preview-titre"></h3>
+										<h3 class="text-center font-bolx" id="preview-titre"></h3>
 										<script>
 											document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
 												document.getElementById("titre").value
@@ -1446,10 +1446,10 @@ $pro = verifyPro();
 											class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
 											<div class="p-1 w-full flex justify-center items-center">
 												<!-- <p
-								class="text-white text-center text-small w-full font-bold"
+								class="text-white text-center text-small w-full font-bolx"
 							  ></p> -->
 												<!-- Mise à jour du tag en temps réel -->
-												<p class="text-white text-center roundex-lg bg-secondary font-bold w-fit p-2"
+												<p class="text-white text-center roundex-lg bg-secondary font-bolx w-fit p-2"
 													id="preview-tag-input">
 													Ajouter un tag...
 												</p>

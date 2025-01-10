@@ -119,7 +119,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                     name="nom">
 
                 <input type="submit" id="save1" value="Enregistrer les modifications"
-                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary roundex-lg border border-transparent"
+                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bolx text-small text-white bg-primary roundex-lg border border-transparent"
                     disabled>
                 </input>
             </form>
@@ -154,7 +154,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                 </div>
 
                 <input type="submit" id="save2" value="Enregistrer les modifications"
-                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary roundex-lg border border-transparent"
+                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bolx text-small text-white bg-primary roundex-lg border border-transparent"
                     disabled>
                 </input>
             </form>

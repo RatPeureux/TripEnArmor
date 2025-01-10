@@ -111,11 +111,11 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                     <!-- Bouton pour continuer -->
                     <input type="submit" value="Continuer"
-                        class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                        class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bolx roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                     <!-- Lien vers la page de connexion -->
                     <a href="/pro/connexion"
-                        class="w-full h-12 p-1 bg-transparent text-secondary font-bold roundex-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
+                        class="w-full h-12 p-1 bg-transparent text-secondary font-bolx roundex-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
                         J'ai déjà un compte
                     </a>
                 </form>
@@ -383,7 +383,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <!-- Bouton pour créer le compte -->
                 <input type="submit" value="Créer mon compte"
-                    class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bold roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                    class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white font-bolx roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                 <!-- Garder les informations de POST même si les champs ne sont plus visibles -->
                 <input type="hidden" name="statut"

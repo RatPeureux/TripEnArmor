@@ -107,11 +107,11 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                     <!-- Bouton pour continuer -->
                     <input type="submit" value="Continuer"
-                        class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white font-bold roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+                        class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white font-bolx roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
 
                     <!-- Lien vers la page de connexion -->
                     <a href="/connexion"
-                        class="w-full h-12 p-1 bg-transparent text-primary font-bold roundex-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
+                        class="w-full h-12 p-1 bg-transparent text-primary font-bolx roundex-lg inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
                         J'ai déjà un compte
                     </a>
                 </form>
@@ -323,7 +323,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <!-- Bouton pour créer le compte -->
                 <input type="submit" value="Créer mon compte"
-                    class="mt-1.5 cursor-pointer w-full h-12 bg-primary text-white font-bold roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+                    class="mt-1.5 cursor-pointer w-full h-12 bg-primary text-white font-bolx roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
 
                 <!-- Garder le mdp en mémoire mais le cacher -->
                 <input type="hidden" name="mdp" value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>">

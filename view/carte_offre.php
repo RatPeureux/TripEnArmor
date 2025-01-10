@@ -82,7 +82,7 @@ if ($mode_carte == 'membre') {
 			<!-- En-tête -->
 			<div
 				class='en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 roundex-b-lg'>
-				<h3 class='text-xl text-center font-bold'>
+				<h3 class='text-xl text-center font-bolx'>
 					<?php echo $titre_offre; ?>
 				</h3>
 				<div class='flex w-full justify-between px-2'>
@@ -254,7 +254,7 @@ if ($mode_carte == 'membre') {
 					<!-- En tête avec titre -->
 					<div class='en-tete relative top-0 max-w-full roundex-lg'>
 						<div class="flex w-full">
-							<h3 class='text-xl font-bold grow'>
+							<h3 class='text-xl font-bolx grow'>
 								<?php echo $titre_offre ?>
 							</h3>
 							<?php
@@ -433,7 +433,7 @@ if ($mode_carte == 'membre') {
 
 					<!-- Titre de l'offre -->
 					<div>
-						<h3 class="text-h2 font-bold"><?php echo $titre_offre ?></h3>
+						<h3 class="text-h2 font-bolx"><?php echo $titre_offre ?></h3>
 						<div class="flex">
 							<p class="text"><?php echo $pro['nom_pro'] ?></p>
 							<p class="categorie text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>

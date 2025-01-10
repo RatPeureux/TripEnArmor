@@ -356,18 +356,18 @@ session_start();
                 <div class="space-y-2 px-2 md:px-0 w-full">
                     <div class="flex flex-col md:flex-row w-full">
                         <div class="flex flex-col md:flex-row">
-                            <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
+                            <h1 class="text-h1 font-bolx"><?php echo $offre['titre'] ?></h1>
                             <p class="hidden text-h1 md:flex md:pt-1">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-h1 md:pt-1"><?php echo $nom_pro ?></p>
                         </div>
                     </div>
                     <?php if ($ouvert == true) {
                         ?>
-                        <p class="text-h3 font-bold text-green-500">Ouvert</p>
+                        <p class="text-h3 font-bolx text-green-500">Ouvert</p>
                         <?php
                     } else {
                         ?>
-                        <p class="text-h3 font-bold text-red-500">Fermé</p>
+                        <p class="text-h3 font-bolx text-red-500">Fermé</p>
                         <?php
                     }
                     ?>
@@ -456,7 +456,7 @@ session_start();
                         <div class="partie-description flex flex-col basis-1/2 pr-2">
                             <!-- Prix + localisation -->
                             <div class="flex flex-col space-y-2 md:gap-4">
-                                <p class="text-h4 font-bold">À propos</p>
+                                <p class="text-h4 font-bolx">À propos</p>
                                 <div class="flex items-center gap-4 px-2">
                                     <i class="w-6 text-center fa-solid fa-location-dot"></i>
                                     <div class="text-small">
@@ -475,7 +475,7 @@ session_start();
                             </div>
                             <!-- Description détaillée -->
                             <div class="description flex flex-col space-y-2 my-4">
-                                <p class="text-h4 font-bold">Description</p>
+                                <p class="text-h4 font-bolx">Description</p>
                                 <p class="text-justify text-small px-2 prose">
                                     <?php echo $description ?>
                                 </p>
@@ -487,8 +487,8 @@ session_start();
                             <!-- Infos en fonction du type de l'offre -->
                             <a class="">
                                 <div class="flex flex-row justify-between" id="horaire-button">
-                                    <div class="flex font-bold">
-                                        <p class="text-h4 font-bold">Horaires&nbsp;</p>
+                                    <div class="flex font-bolx">
+                                        <p class="text-h4 font-bolx">Horaires&nbsp;</p>
                                     </div>
                                     <p id="horaire-arrow">></p>
                                 </div>
@@ -517,7 +517,7 @@ session_start();
                             </a>
                             <a class="">
                                 <div class="flex flex-row justify-between pt-3" id="compl-button">
-                                    <p class="text-h4 font-bold ">Informations complémentaires</p>
+                                    <p class="text-h4 font-bolx ">Informations complémentaires</p>
                                     <p id="compl-arrow">></p>
                                 </div>
                                 <div class="flex flex-col py-3 hidden" id="compl-info">
@@ -627,7 +627,7 @@ session_start();
                                 ?>
                                 <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
-                                        <p class="text-h4 font-bold">Grille tarifaire</p>
+                                        <p class="text-h4 font-bolx">Grille tarifaire</p>
                                         <p id="grille-arrow">></p>
                                     </div>
                                     <div class="hidden text-small py-3" id="grille-info">
@@ -653,7 +653,7 @@ session_start();
                             <div class="mt-5 flex flex-col gap-2">
 
                                 <div class="w-full flex justify-between">
-                                    <h3 class="text-h4 font-bold">Avis</h3>
+                                    <h3 class="text-h4 font-bolx">Avis</h3>
                                     <?php
                                     // Moyenne des notes quand il y en a une
                                     if ($moyenne) { ?>
@@ -709,7 +709,7 @@ session_start();
                                         <div class="flex flex-col gap-2">
                                             <button
                                                 onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                                class="bg-secondary font-bold text-white roundex-lg p-2 self-end flex items-center gap-2">
+                                                class="bg-secondary font-bolx text-white roundex-lg p-2 self-end flex items-center gap-2">
                                                 <i class="fa-solid fa-pen"></i>
                                                 <p>Rédiger un avis</p>
                                             </button>
@@ -861,11 +861,11 @@ session_start();
                                                 <!-- Publier l'avis ou annuler l'écriture -->
                                                 <div class="flex justify-end gap-3 items-center">
                                                     <div onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                                        class="font-bold text-secondarygit roundex-lg p-2 self-end flex items-center gap-2 border border-secondary">
+                                                        class="font-bolx text-secondarygit roundex-lg p-2 self-end flex items-center gap-2 border border-secondary">
                                                         <p>Annuler</p>
                                                     </div>
 
-                                                    <input type="submit" value="+ Publier" class="bg-secondary text-white font-bold roundex-lg p-2 self-end">
+                                                    <input type="submit" value="+ Publier" class="bg-secondary text-white font-bolx roundex-lg p-2 self-end">
                                                 </div>
 
                                                 <hr class="w-1/2 border border-black self-end my-2 roundex-lg bg-black">
@@ -910,7 +910,7 @@ session_start();
                                     <!-- Symbole de chargement quand les avis chargent -->
                                     <img id="loading-indicator" class="w-8 h-6" style="display: none;"
                                         src="/public/images/loading.gif" alt="Loading...">
-                                    <button class="text-small font-bold" id="load-more-btn">
+                                    <button class="text-small font-bolx" id="load-more-btn">
                                         Afficher plus...
                                     </button>
                                 </div>

@@ -127,7 +127,7 @@ if (isset($_POST['mdp'])) {
                     <span id="error-message" class="error text-rouge-logo text-small"></span>
 
                     <input type="submit" id="save" value="Modifier mon mot de passe"
-                        class="self-end opacity-50 max-w-sm h-12 px-4 font-bold text-small text-white bg-primary roundex-lg border border-transparent"
+                        class="self-end opacity-50 max-w-sm h-12 px-4 font-bolx text-small text-white bg-primary roundex-lg border border-transparent"
                         disabled>
                     </input>
                 </form>

@@ -88,7 +88,7 @@
                     <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                         onclick="return confirmLogout()">
                         <div class="border border-primary roundex-lg p-2">
-                            <p class="font-bold">Se déconnecter</p>
+                            <p class="font-bolx">Se déconnecter</p>
                         </div>
                     </a>
                 <?php } else { ?>
@@ -98,7 +98,7 @@
                     </a>
                     <a href="/connexion" class="hidden md:block">
                         <div class="border border-primary roundex-lg p-2">
-                            <p class="text-nowrap font-bold">Se connecter</p>
+                            <p class="text-nowrap font-bolx">Se connecter</p>
                         </div>
                     </a>
                 <?php } ?>
@@ -163,13 +163,13 @@
             </div>
         </div>
 
-        <h1 class="text-h1 font-bold">Nos meilleures offres</h1>
+        <h1 class="text-h1 font-bolx">Nos meilleures offres</h1>
 
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$meilleuresNotes) { ?>
             <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-12">
-                <?php echo "<p class='font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
+                <?php echo "<p class='font-bolx text-h2'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
             <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-12" id="no-matches">
@@ -224,14 +224,14 @@
         <?php } ?>
 
         <a class="cursor-pointer group" href="/offres/a-la-une">
-            <h1 class="text-h1 font-bold">À la Une<span class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
+            <h1 class="text-h1 font-bolx">À la Une<span class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
         </a>
 
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$aLaUnes) { ?>
             <div class="md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-16">
-                <?php echo "<p class='font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
+                <?php echo "<p class='font-bolx text-h2'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
             <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-0 md:mb-16" id="no-matches-2">
@@ -342,7 +342,7 @@
                 message.id = 'no-matches-message';
                 const content = document.createElement('p');
                 content.textContent = 'Aucune offre n\'est "À la Une".';
-                message.classList.add('flex', 'justify-center', 'items-center', 'font-bold', 'text-h2', 'h-72');
+                message.classList.add('flex', 'justify-center', 'items-center', 'font-bolx', 'text-h2', 'h-72');
                 message.appendChild(content);
                 messageContainer.appendChild(message);
                 noMatchesContainer.appendChild(messageContainer);

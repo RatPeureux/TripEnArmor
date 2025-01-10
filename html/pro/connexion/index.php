@@ -114,16 +114,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Bouton de connexion -->
                 <input type="submit" value="Me connecter"
-                    class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                    class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bolx roundex-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                 <!-- Liens pour mot de passe oublié et création de compte -->
                 <div class="flex items-center flex-nowrap h-12 space-x-1.5">
                     <a
-                        class="text-small text-center w-full text-wrap bg-transparent text-secondary underline font-bold focus:scale-[0.97]">
+                        class="text-small text-center w-full text-wrap bg-transparent text-secondary underline font-bolx focus:scale-[0.97]">
                         Mot de passe oublié ?
                     </a>
                     <a href="/pro/inscription"
-                        class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-secondary font-bold roundex-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
+                        class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-secondary font-bolx roundex-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
                         Créer un compte
                     </a>
                 </div>

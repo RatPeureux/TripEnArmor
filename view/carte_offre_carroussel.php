@@ -80,7 +80,7 @@ foreach ($horaires as $jour => $horaire) {
 		<!-- En-tête -->
 		<div
 			class='en-tete absolute p-4 top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 roundex-b-lg'>
-			<h3 class='text-xl text-center font-bold'>
+			<h3 class='text-xl text-center font-bolx'>
 				<?php echo $titre_offre; ?>
 			</h3>
 			<div class='flex w-full justify-between px-2'>

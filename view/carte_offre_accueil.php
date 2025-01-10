@@ -81,7 +81,7 @@ foreach ($horaires as $jour => $horaire) {
 		<!-- En-tête -->
 		<div
 			class='en-tete absolute opacity-0 top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 group-hover:opacity-100 duration-200'>
-			<h3 class='text-xl text-center font-bold mb-2'>
+			<h3 class='text-xl text-center font-bolx mb-2'>
 				<?php echo $titre_offre; ?>
 			</h3>
 			<div class='flex w-full justify-between px-2'>
@@ -135,7 +135,7 @@ foreach ($horaires as $jour => $horaire) {
 		<!-- En-tête -->
 		<div
 			class='en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2'>
-			<h3 class='text-xl text-center font-bold mb-2'>
+			<h3 class='text-xl text-center font-bolx mb-2'>
 				<?php echo $titre_offre; ?>
 			</h3>
 			<div class='flex w-full justify-between px-2'>

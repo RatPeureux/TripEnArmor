@@ -156,7 +156,7 @@ if ($pro['data']['id_rib'] != null) {
                     placeholder="01 23 45 67 89">
 
                 <input type="submit" id="save1" value="Enregistrer les modifications"
-                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary roundex-lg border border-transparent"
+                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bolx text-small text-white bg-primary roundex-lg border border-transparent"
                     disabled>
                 </input>
             </form>
@@ -174,7 +174,7 @@ if ($pro['data']['id_rib'] != null) {
                         placeholder="FRXX XXXX XXXX XXXX XXXX XXXX XXX" title="Format : FRXX XXXX XXXX XXXX XXXX XXXX XXX ">
 
                     <input type="submit" id="save2" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary roundex-lg border border-transparent"
+                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bolx text-small text-white bg-primary roundex-lg border border-transparent"
                         disabled>
                     </input>
                 </form>
@@ -190,7 +190,7 @@ if ($pro['data']['id_rib'] != null) {
                         class="border-2 border-secondary p-2 bg-white max-w-44 h-12 mb-3 roundex-lg">
 
                     <input type="submit" id="save3" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary roundex-lg border border-transparent"
+                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bolx text-small text-white bg-primary roundex-lg border border-transparent"
                         disabled>
                     </input>
 
@@ -207,7 +207,7 @@ if ($pro['data']['id_rib'] != null) {
                         id="type_orga" name="type_orga">
 
                     <input type="submit" id="save4" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary roundex-lg border border-transparent"
+                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bolx text-small text-white bg-primary roundex-lg border border-transparent"
                         disabled>
                     </input>
                 </form>
@@ -217,7 +217,7 @@ if ($pro['data']['id_rib'] != null) {
             <hr class="mb-8">
 
             <a href="/scripts/delete.php" onclick="return confirmDelete()"
-                class="mx-auto max-w-[23rem] w-full h-12 p-1 font-bold text-small text-center text-wrap text-rouge-logo bg-transparent roundex-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
+                class="mx-auto max-w-[23rem] w-full h-12 p-1 font-bolx text-small text-center text-wrap text-rouge-logo bg-transparent roundex-lg flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
                 Supprimer mon compte
             </a>
         </div>
