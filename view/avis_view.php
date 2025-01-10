@@ -138,12 +138,19 @@ if (!function_exists('to_nom_note')) {
     }
     ?>
 
-    <?php
-    // Titre de l'avis s'il y en a un
-    if ($avis['titre']) { ?>
-        <p class="text-h4 font-bold mt-2"><?php echo $avis['titre'] ?></p>
-    <?php }
-    ?>
+    <div class="flex items-center justify-between">
+        <?php
+        // Titre de l'avis s'il y en a un
+        if ($avis['titre']) { ?>
+            <p class="text-h4 font-bold"><?php echo $avis['titre'] ?></p>
+        <?php }
+        ?>
+
+        <div class="flex gap-4">
+            <i class="cursor-pointer fa-regular fa-thumbs-up text-h2" id="tup-<?php echo $id_avis ?>"></i>
+            <i class="cursor-pointer fa-regular fa-thumbs-down text-h2" id="tdown-<?php echo $id_avis ?>"></i>
+        </div>
+    </div>
 
     <?php
     // Commentaire de l'avis s'il y en a un
@@ -152,3 +159,30 @@ if (!function_exists('to_nom_note')) {
     <?php }
     ?>
 </div>
+
+<script>
+    const thumbsUp = document.getElementById("tup-<?php echo $id_avis ?>");
+    const thumbsDown = document.getElementById("tdown-<?php echo $id_avis ?>");
+
+    thumbsUp.addEventListener("click", function () {
+        thumbsUp.classList.toggle("fa-regular");
+        thumbsUp.classList.toggle("fa-solid");
+        thumbsUp.classList.toggle("text-secondary");
+        if (thumbsDown.classList.contains("fa-solid")) {
+            thumbsDown.classList.toggle("fa-regular");
+            thumbsDown.classList.toggle("fa-solid");
+            thumbsDown.classList.toggle("text-rouge-logo");
+        }
+    });
+
+    thumbsDown.addEventListener("click", function () {
+        thumbsDown.classList.toggle("fa-regular");
+        thumbsDown.classList.toggle("fa-solid");
+        thumbsDown.classList.toggle("text-rouge-logo");
+        if (thumbsUp.classList.contains("fa-solid")) {
+            thumbsUp.classList.toggle("fa-regular");
+            thumbsUp.classList.toggle("fa-solid");
+            thumbsUp.classList.toggle("text-secondary");
+        }
+    });
+</script>
