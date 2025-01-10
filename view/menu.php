@@ -15,22 +15,19 @@
     <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>
-    <a class="pl-5 py-3 border-t-2 border-black flex justify-between pr-2 <?php if (isset($pagination) && $pagination == 2) {
+    <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 2) {
       echo 'active';
-    } ?>" href="/">
-      <p>Toutes les offres</p>
-      <p>></p>
-    </a>
-    <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
+    } ?>" href="/offres/a-la-une">À la Une</a>
+    <a class="pl-5 py-3 border-t-2 border-black rounded-b-lg <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
-    } ?>" href="/offre/a-la-une">À la une</a>
-    <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
+    } ?>" href="/offres">Toutes les offres</a>
+    <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
       echo 'active';
     } ?>" href="/offre/consultees-recemment">Consultées récemment</a>
     <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 5) {
       echo 'active';
     } ?>" href="/offre/nouveau">Nouveautés</a>
-  </div>
+  </div> -->
 </div>
 
 <div id="layer-background" onclick="toggleMenu()" class="hidden fixed w-full h-full top-0 left-0 z-40"></div>
@@ -47,20 +44,17 @@
     <a class="pl-5 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>
-    <a class="pl-5 py-3 border-t-2 border-black flex justify-between pr-2 <?php if (isset($pagination) && $pagination == 2) {
-      echo 'active';
-    } ?>" href="/">
-      <p>Toutes les offres</p>
-      <p>></p>
-    </a>
     <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
-    } ?>" href="/offre/a-la-une">À la une</a>
-    <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
+    } ?>" href="/offres/a-la-une">À la Une</a>
+    <a class="pl-10 py-3 border-t-2 border-black rounded-b-lg <?php if (isset($pagination) && $pagination == 2) {
+      echo 'active';
+    } ?>" href="/offres">Toutes les offres</a>
+    <!-- <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 4) {
       echo 'active';
     } ?>" href="/offre/consultees-recemment">Consultées récemment</a>
     <a class="pl-10 py-3 border-t-2 border-black <?php if (isset($pagination) && $pagination == 5) {
       echo 'active';
-    } ?>" href="/offre/nouveau">Nouveautés</a>
+    } ?>" href="/offre/nouveau">Nouveautés</a> -->
   </div>
 </div>
