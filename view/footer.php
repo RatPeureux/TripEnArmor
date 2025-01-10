@@ -16,7 +16,7 @@
             -
             <a href="/pro/connexion" class="hover:text-primary">Vous êtes un professionnel ?</a>
         </div>
-        @2024, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+        @2025, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
     </div>
     <!-- Format téléphone et tablette -->
     <div class="text-center block md:hidden">
@@ -29,7 +29,7 @@
             -
             <a href="/pro/connexion" class="hover:text-primary">Vous êtes un professionnel ?</a>
             -
-            @2024, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+            @2025, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
         </div>
     </div>
 </footer>

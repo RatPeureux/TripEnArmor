@@ -6,7 +6,7 @@
     <div class="flex w-full items-center relative">
         <!-- Partie gauche -->
         <div class="flex-shrink-0 flex items-center">
-            <a onclick="toggleMenu()" class="flex gap-4 items-center hover:text-primary duration-100">
+            <a onclick="toggleMenu()" class="flex gap-4 items-center hover:text-primary hover:cursor-pointer duration-100">
                 <i class="text-3xl fa-solid fa-bars"></i>
                 <p class="hidden md:block">Menu</p>
             </a>

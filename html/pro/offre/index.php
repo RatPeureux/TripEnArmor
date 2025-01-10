@@ -684,7 +684,8 @@ session_start();
                                         <?php
                                         $id_avis = $mon_avis['id_avis'];
                                         $id_membre = $_SESSION['id_membre'];
-                                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/mon_avis_view.php';
+                                        $mode = 'mon_avis';
+                                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
                                         ?>
                                     <?php } else {
                                         ?>
@@ -717,7 +718,7 @@ session_start();
                                                     <label for="note_globale">Note globale</label>
                                                     <select name="note_globale" id="note_globale" class="p-1 rounded-lg"
                                                         required>
-                                                        <option selected disabled>...</option>
+                                                        <option value="" selected disabled>...</option>
                                                         <option value="0">0</option>
                                                         <option value="0.5">0,5</option>
                                                         <option value="1">1</option>
@@ -739,7 +740,7 @@ session_start();
                                                         <label for="note_ambiance">Ambiance</label>
                                                         <select name="note_ambiance" id="note_ambiance" class="p-1 rounded-lg"
                                                             required>
-                                                            <option selected disabled>...</option>
+                                                            <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
                                                             <option value="0.5">0,5</option>
                                                             <option value="1">1</option>
@@ -758,7 +759,7 @@ session_start();
                                                         <label for="note_service">Service</label>
                                                         <select name="note_service" id="note_service" class="p-1 rounded-lg"
                                                             required>
-                                                            <option selected disabled>...</option>
+                                                            <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
                                                             <option value="0.5">0,5</option>
                                                             <option value="1">1</option>
@@ -777,7 +778,7 @@ session_start();
                                                         <label for="note_cuisine">Cuisine</label>
                                                         <select name="note_cuisine" id="note_cuisine" class="p-1 rounded-lg"
                                                             required>
-                                                            <option selected disabled>...</option>
+                                                            <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
                                                             <option value="0.5">0,5</option>
                                                             <option value="1">1</option>
@@ -796,7 +797,7 @@ session_start();
                                                         <label for="note_rapport">Rapport qualité / prix</label>
                                                         <select name="note_rapport" id="note_rapport" class="p-1 rounded-lg"
                                                             required>
-                                                            <option selected disabled>...</option>
+                                                            <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
                                                             <option value="0.5">0,5</option>
                                                             <option value="1">1</option>
@@ -827,7 +828,7 @@ session_start();
                                                     <label for="contexte_passage">Contexte de passage</label>
                                                     <select name="contexte_passage" id="contexte_passage" class="p-1 rounded-lg"
                                                         required>
-                                                        <option selected disabled>...</option>
+                                                        <option value="" selected disabled>...</option>
                                                         <option value="en solo">en solo</option>
                                                         <option value="en couple">en couple</option>
                                                         <option value="entre amis">entre amis</option>
