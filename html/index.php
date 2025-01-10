@@ -24,19 +24,34 @@
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-    $sort_order = '';
-    if (isset($_GET['sort'])) {
-        if ($_GET['sort'] == 'price-ascending') {
-            $sort_order = 'ORDER BY prix_mini ASC';
-        } elseif ($_GET['sort'] == 'price-descending') {
-            $sort_order = 'ORDER BY prix_mini DESC';
-        }
+    // Obtenez l'ensemble des offres à la une avec le tri approprié
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true");
+    $stmt->execute();
+    $aLaUnes = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+
+    // Récupérer toutes les moyennes en une seule requête
+    $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
+    $notesMoyennes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Associer les moyennes aux offres
+    $notesAssociees = [];
+    foreach ($notesMoyennes as $note) {
+        $notesAssociees[$note['id_offre']] = floatval($note['avg']);
     }
 
-    // Obtenez l'ensemble des offres avec le tri approprié
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true $sort_order");
-    $stmt->execute();
-    $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC); ?>
+    // Créer un tableau temporaire enrichi
+    $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
+        $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
+        return $offre;
+    }, $aLaUnes);
+
+    usort($offresAvecNotes, function ($a, $b) {
+        return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
+    });
+
+    $meilleuresNotes = $offresAvecNotes;
+    ?>
+
 
     <div class="w-full flex flex-col justify-center items-center">
 
@@ -56,8 +71,9 @@
                 </a>
             </div>
 
-            <div class="flex gap-2">
+            <div class="flex items-center justify-center gap-2">
                 <a class="p-2 hover:bg-base100 rounded-lg" href="/offres/a-la-une">À la Une</a>
+                <p class="font-thin text-xl text-base200">|</p>
                 <a class="p-2 hover:bg-base100 rounded-lg" href="/offres">Toutes les offres</a>
             </div>
 
@@ -91,34 +107,45 @@
     </div>
 
     <main class="self-center align-center w-full grow rounded-lg max-w-[1280px] p-2">
-        <h1 class="font-cormorant uppercase text-center text-[10rem] tracking-widest text-7xl hidden md:block mb-4">PACT</h1>
+        <h1 class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl mb-4">PACT</h1>
 
-        <div class="searchOn text-nowrap flex flex-col sm:flex-row text-center sm:text-left gap-2 sm:gap-0 flex-wrap justify-between space-x-2 items-center mb-4">
-            <h1 class="cursor-pointer text-h3 border-b-2 border-secondary hover:text-gray-600" id="all">
+        <div class="searchOn hidden md:flex justify-between text-center items-center mb-2">
+            <h1 class="cursor-pointer text-h3 border-b border-secondary hover:text-secondary" id="all">
                 Tout rechercher
             </h1>
-            <h1 class="cursor-pointer text-h3 hover:text-gray-600" id="restaurants">
+            <h1 class="cursor-pointer text-h3 hover:text-secondary" id="restaurants">
                 Restaurants
             </h1>
-            <h1 class="cursor-pointer text-h3 hover:text-gray-600" id="spectacles">
+            <h1 class="cursor-pointer text-h3 hover:text-secondary" id="spectacles">
                 Spectacles
             </h1>
-            <h1 class="cursor-pointer text-h3 hover:text-gray-600" id="activites">
+            <h1 class="cursor-pointer text-h3 hover:text-secondary" id="activites">
                 Activités
             </h1>
-            <h1 class="cursor-pointer text-h3 hover:text-gray-600" id="visites">
+            <h1 class="cursor-pointer text-h3 hover:text-secondary" id="visites">
                 Visites
             </h1>
-            <h1 class="cursor-pointer text-h3 hover:text-gray-600" id="attractions">
+            <h1 class="cursor-pointer text-h3 hover:text-secondary" id="attractions">
                 Attractions
             </h1>
         </div>
 
+        <div class="searchOn text-center md:hidden mb-2">
+            <select class="text-center text-h3 bg-white border-b border-secondary p-1 cursor-pointer focus:outline-none" id="search-category">
+                <option class="text-left" value="all">Tout rechercher</option>
+                <option class="text-left" value="restaurants">Restaurants</option>
+                <option class="text-left" value="spectacles">Spectacles</option>
+                <option class="text-left" value="activites">Activités</option>
+                <option class="text-left" value="visites">Visites</option>
+                <option class="text-left" value="attractions">Attractions</option>
+            </select>
+        </div>
+
         <!-- Barre de recherche -->
-        <div class="relative flex-1 max-w-full mx-auto mb-8">
+        <div class="relative flex-1 max-w-full mx-2 mb-8">
             <div class="relative flex items-center">
                 <input type="text" id="search-field" placeholder="Rechercher par tags..."
-                    class="w-full border border-primary p-2 rounded-full h-16 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                    class="w-full border border-primary p-2 rounded-full h-12 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
                     aria-label="Recherche" autocomplete="off">
                 <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">
                     <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
@@ -136,41 +163,81 @@
             </div>
         </div>
 
+        <h1 class="text-h1 font-bold">Nos meilleures offres</h1>
+
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
-        if (!$toutesLesOffres) { ?>
-            <div class="md:min-w-full flex flex-col gap-4">
-                <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
+        if (!$meilleuresNotes) { ?>
+            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-12">
+                <?php echo "<p class='font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
-            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-16" id="no-matches">
-                <?php $i = 0;
-                foreach ($toutesLesOffres as $offre) {
-                    if ($i > -1) {
-                        // Afficher la carte (!!! défnir la variable $mode_carte !!!)
-                        $mode_carte = 'membre';
-                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
-                        $i++;
+            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-12" id="no-matches">
+                <?php
+                $temp = []; // Tableau pour stocker les offres sélectionnées
+                $categoriesOrdre = [
+                    'restauration' => null,
+                    'spectacle' => null,
+                    'activite' => null,
+                    'visite' => null,
+                    'parc_attraction' => null,
+                ];
+
+                // Parcourir les offres
+                foreach ($meilleuresNotes as $offre) {
+
+                    $stmt = $dbh->prepare("SELECT count FROM sae_db.vue_moyenne WHERE id_offre = :id_offre");
+                    $stmt->bindParam(':id_offre', $offre['id_offre']);
+                    $stmt->execute();
+                    $moyenne = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                    if ($moyenne) {
+                        $stmt = $dbh->prepare("SELECT type_offre FROM sae_db.vue_offre_categorie WHERE id_offre = :id_offre");
+                        $stmt->bindParam(':id_offre', $offre['id_offre']);
+                        $stmt->execute();
+                        $categorie = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                        if ($categorie && isset($categorie['type_offre'])) {
+                            $typeOffre = $categorie['type_offre'];
+    
+                            // Ajouter l'offre dans la catégorie correspondante si elle n'est pas encore définie
+                            if (array_key_exists($typeOffre, $categoriesOrdre) && $categoriesOrdre[$typeOffre] === null) {
+                                $categoriesOrdre[$typeOffre] = $offre;
+                            }
+                        }
                     }
+                }
+
+                // Reconstituer $temp dans l'ordre des catégories
+                $temp = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
+
+                $meilleuresNotes = $temp;
+
+                $iOffres = 0;
+                foreach ($meilleuresNotes as $offre) {
+                    if ($iOffres < 5) {
+                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
+                    }
+                    $iOffres++;
                 } ?>
             </div>
         <?php } ?>
 
-        <h1 class="text-h1 font-bold">Offres les plus récentes</h1>
+        <a class="cursor-pointer group" href="/offres/a-la-une">
+            <h1 class="text-h1 font-bold">À la Une<span class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
+        </a>
 
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
-        if (!$toutesLesOffres) { ?>
-            <div class="md:min-w-full flex flex-col gap-4">
-                <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
+        if (!$aLaUnes) { ?>
+            <div class="md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-16">
+                <?php echo "<p class='font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
-            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-0 md:mb-16" id="no-matches">
+            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-0 md:mb-16" id="no-matches-2">
                 <?php $i = 0;
-                foreach ($toutesLesOffres as $offre) {
+                foreach ($aLaUnes as $offre) {
                     if ($i > -1) {
-                        // Afficher la carte (!!! défnir la variable $mode_carte !!!)
-                        $mode_carte = 'membre';
                         require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_carroussel.php';
                         $i++;
                     }
@@ -187,33 +254,101 @@
 
 </html>
 
+
 <script>
-    // Sélectionne tous les éléments h1 à l'intérieur du conteneur "searchOn"
-    const titres = document.querySelectorAll('.searchOn h1');
-    const searchField = document.getElementById('search-field');
+    document.addEventListener('DOMContentLoaded', () => {
+        // Sélectionne les éléments nécessaires
+        const titres = document.querySelectorAll('.searchOn h1');
+        const searchField = document.getElementById('search-field');
+        const selectMenu = document.getElementById('search-category');
 
-    // Placeholder correspondant à chaque h1
-    const placeholders = {
-        all: "Rechercher par tags...",
-        restaurants: "Rechercher des restaurants par tags...",
-        spectacles: "Rechercher des spectacles par tags...",
-        activites: "Rechercher des activités par tags...",
-        visites: "Rechercher des visites par tags...",
-        attractions: "Rechercher des parcs d'attractions par tags..."
-    };
+        // Placeholder correspondant à chaque catégorie
+        const placeholders = {
+            all: "Rechercher par tags...",
+            restaurants: "Rechercher des restaurants par tags...",
+            spectacles: "Rechercher des spectacles par tags...",
+            activites: "Rechercher des activités par tags...",
+            visites: "Rechercher des visites par tags...",
+            attractions: "Rechercher des parcs d'attractions par tags..."
+        };
 
-    // Fonction pour gérer le clic
-    titres.forEach(titre => {
-        titre.addEventListener('click', () => {
+        // Fonction pour gérer le clic sur les h1
+        const handleH1Click = (titre) => {
+            const id = titre.id;
+
             // Retire la classe de soulignement de tous les h1
-            titres.forEach(t => t.classList.remove('border-b-2', 'border-secondary'));
+            titres.forEach(t => t.classList.remove('border-b', 'border-secondary'));
 
-            // Ajoute la classe de soulignement uniquement au h1 cliqué
-            titre.classList.add('border-b-2', 'border-secondary');
+            // Ajoute la classe de soulignement au h1 cliqué
+            titre.classList.add('border-b', 'border-secondary');
 
-            // Met à jour le placeholder selon l'élément cliqué
-            const id = titre.id; // Récupère l'ID du h1 cliqué
+            // Met à jour le placeholder
             searchField.placeholder = placeholders[id] || "Rechercher...";
+
+            // Met à jour la valeur du select pour qu'elle corresponde
+            selectMenu.value = id;
+        };
+
+        // Fonction pour gérer le changement du select
+        const handleSelectChange = () => {
+            const selectedValue = selectMenu.value;
+
+            // Met à jour le placeholder
+            searchField.placeholder = placeholders[selectedValue] || "Rechercher...";
+
+            // Met à jour le style des h1 pour refléter la sélection
+            titres.forEach(t => {
+                if (t.id === selectedValue) {
+                    t.classList.add('border-b', 'border-secondary');
+                } else {
+                    t.classList.remove('border-b', 'border-secondary');
+                }
+            });
+        };
+
+        // Ajoute les écouteurs sur les h1
+        titres.forEach(titre => {
+            titre.addEventListener('click', () => handleH1Click(titre));
         });
+
+        // Ajoute un écouteur sur le select
+        selectMenu.addEventListener('change', handleSelectChange);
+
+        // Gestion de l'affichage des offres "À la Une"
+        const offres = document.querySelectorAll('#no-matches-2 .card');
+        let anyVisible = false;
+
+        offres?.forEach((offre) => {
+            if (offre.classList.contains('active')) {
+                anyVisible = true;
+                offre.classList.remove('hidden');
+            } else {
+                offre.classList.add('hidden');
+            }
+        });
+
+        const noMatchesContainer = document.querySelector('#no-matches-2');
+        if (!noMatchesContainer) {
+            console.error('Le conteneur #no-matches-2 est introuvable.');
+            return;
+        }
+
+        const noMatchesMessage = document.getElementById('no-matches-message');
+        if (!anyVisible) {
+            if (!noMatchesMessage) {
+                const messageContainer = document.createElement('div');
+                messageContainer.classList.add('w-full', 'h-full', 'h-full');
+                const message = document.createElement('div');
+                message.id = 'no-matches-message';
+                const content = document.createElement('p');
+                content.textContent = 'Aucune offre n\'est "À la Une".';
+                message.classList.add('flex', 'justify-center', 'items-center', 'font-bold', 'text-h2', 'h-72');
+                message.appendChild(content);
+                messageContainer.appendChild(message);
+                noMatchesContainer.appendChild(messageContainer);
+            }
+        } else {
+            noMatchesMessage?.remove();
+        }
     });
 </script>

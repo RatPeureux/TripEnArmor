@@ -297,7 +297,7 @@ session_start();
 
                 <!-- CAROUSSEL -->
                 <div
-                    class="w-full h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container md:border md:border-black md:rounded-lg">
+                    class="w-full h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container">
                     <!-- Wrapper -->
                     <?php
                     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
