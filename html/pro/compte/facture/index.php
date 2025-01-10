@@ -55,7 +55,7 @@ $pro = verifyPro();
         <hr class="mb-8">
 
         <!-- Montants totaux prévisionnels -->
-        <h2 class="text-h2">Montants totaux prévisionnels :</h2>
+        <h2 class="text-h2">Montants totaux prévisionnels</h2>
         <br>
         <p>...</p>
         <br>
