@@ -2,7 +2,7 @@
     Composant du header pour les visiteurs / membres
     Pour l'ajouter, écrier la balise <div id='header'></div> dans votre code html
 -->
-<header class="flex items-center z-30 w-full bg-white p-4 h-20 border-b-2 border-black top-0">
+<header class="flex items-center z-30 w-full bg-white p-4 h-20 top-0">
     <div class="w-full flex items-center justify-between">
         <!-- Menu Burger pour les petits écrans -->
         <div class="flex items-center gap-4 md:hidden">
