@@ -490,8 +490,6 @@ CREATE TABLE _tarif_public ( -- Baptiste
     id_offre INTEGER NOT NULL
 );
 
--- ------------------------------------------------------------------------------------------------------- Tarif Facture
-
 -- ------------------------------------------------------------------------------------------------------- Table ternaire restauration avis et note détaillée
 CREATE TABLE _avis_restauration_note (
     id_avis INT REFERENCES _avis (id_avis) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
@@ -520,14 +518,14 @@ CREATE TABLE _prestation ( -- Prestations des activités
 ALTER TABLE _prestation
 ADD CONSTRAINT fk_prestation_activite FOREIGN KEY (id_offre) REFERENCES _activite (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- Liaison prestation et activité     **** Prestation à revoir, ça ne marche pas ****
+-- ------------------------------------------------------------------------------------------------------- Liaison prestation et activité
 CREATE TABLE _activite_prestation (
     id_activite INTEGER NOT NULL REFERENCES _activite (id_offre),
     id_prestation INTEGER NOT NULL REFERENCES _prestation (id_prestation),
     PRIMARY KEY (id_activite, id_prestation)
 );
+
 -- ------------------------------------------------------------------------------------------------------- Images
--- Table T_IMAGE_IMG
 CREATE TABLE t_image_img (
     -- IMG = IMaGe
     img_path VARCHAR(255) PRIMARY KEY,
@@ -555,30 +553,10 @@ ADD CONSTRAINT fk_image_offre FOREIGN KEY (id_offre) REFERENCES _offre (id_offre
 ALTER TABLE T_Image_Img
 ADD CONSTRAINT fk_image_parc FOREIGN KEY (id_parc) REFERENCES _parc_attraction (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
--- Sécurité --------------------------------------------------------------
-
-/*
--- créer une sécurité sur la table _offre
-ALTER TABLE _offre ENABLE ROW LEVEL SECURITY;
--- créer une politique RLS (les professionnels uniquement peuvent accéder à leur offre=
-CREATE POLICY offre_filter_pro ON _offre
-USING (id_pro = current_setting('app.current_professional')::INTEGER);
--- créer une politique RLS (les visiteurs peuvent accéder à toutes les offres)
-CREATE POLICY offre_filter_visiteur ON _offre
-FOR SELECT -- Uniquement sur le select
-USING (current_setting('app.current_professional', true) IS NULL);
--- créer politique RLS sur l'insertion
-CREATE POLICY offre_insert_pro ON _offre
-FOR INSERT
-WITH CHECK (id_pro = current_setting('app.current_professional')::INTEGER);
--- créer politique RLS sur la mise à jour
-CREATE POLICY offre_update_pro ON _offre
-FOR UPDATE
-USING (id_pro = current_setting('app.current_professional')::INTEGER);
--- créer politique RLS sur la supression
-CREATE POLICY offre_delete_pro ON _offre
-FOR DELETE
-USING (id_pro = current_setting('app.current_professional')::INTEGER);
--- assure que même les supers utilisateurs respectent la politique de sécurité
-ALTER TABLE _offre FORCE ROW LEVEL SECURITY;
-*/
+-- ------------------------------------------------------------------------------------------------------- Historique des périodes en ligne pour chaque offre
+create table _periodes_en_ligne (
+	id_offre INT references _offre(id_offre),
+	type_offre VARCHAR(255), -- Pas de référence, si les types changent plus tard...
+	date_debut DATE NOT NULL,
+	date_fin DATE
+);

@@ -68,32 +68,17 @@ $pro = verifyPro();
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/facture_controller.php';
-
-            $stmt = $dbh->prepare("SELECT * FROM sae_db._facture");
-            $stmt->execute();
-            $factures = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $numero = $factures[0]['numero'];
-            $designation = $factures[0]['designation'];
-
-            $numero = "2024-FAC-0001";
-            $date_emission = "01/12/2024";
-
-            $idPro = $_SESSION['id_pro'];
-            $factureController = new FactureController;
-            $facture = $factureController->getFacture($numero);
+            $factureController = new FactureController();
 
             if (isset($_SESSION['id_pro'])) {
+
                 $stmtOffre = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_pro = :id_pro");
                 $stmtOffre->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
 
                 if ($stmtOffre->execute()) {
                     $offresDuPro = $stmtOffre->fetchAll(PDO::FETCH_ASSOC);
 
-                    if (count($offresDuPro) > 0) {
-
-                        // Connexion avec la bdd
-                        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-                        ?>
+                    if (count($offresDuPro) > 0) { ?>
 
                         <h2 class="text-h2">Simuler la facturation d'une offre</h2>
 
@@ -102,18 +87,21 @@ $pro = verifyPro();
                             <?php
                             foreach ($offresDuPro as $offre) { ?>
                                 <option value="<?php echo htmlspecialchars($offre['id_offre']) ?>">
-                                    <?php echo htmlspecialchars($offre['titre']) ?></option>
+                                    <?php echo htmlspecialchars($offre['titre']) ?>
+                                </option>
                                 <?php
                             }
                             ?>
+                            <option value="2">Autre offre</option>
                         </select>
 
                         <div id="facture-preview"></div>
 
                         <script>
+                            // AFFICHER LA PREVIEW D'UNE FACTURE QUAND OFFRE SÉLECTIONNÉE
                             function loadPreview() {
-                                // Get the selected value
                                 const id_offre = document.getElementById('offre').value;
+                                $('#facture-preview').html('');
 
                                 $.ajax({
                                     url: '/scripts/load_preview.php',
@@ -125,9 +113,20 @@ $pro = verifyPro();
                                     // Durant l'exécution de la requête
                                     success: function (response) {
                                         const preview_loaded = response;
-                                        $('#facture-preview').append(preview_loaded);
+                                        $('#facture-preview').html(preview_loaded);
                                     },
                                 });
+                            }
+
+                            // TÉLÉCHARGER LE PDF
+                            async function generatePDF() {
+                                const { jsPDF } = window.jspdf;
+                                const pdf = new jsPDF();
+                                const element = document.querySelector('#facture-preview');
+                                const canvas = await html2canvas(element);
+                                const imgData = canvas.toDataURL('image/png');
+                                pdf.addImage(imgData, 'PNG', 10, 10, 190, canvas.height * 190 / canvas.width);
+                                pdf.save('facture.pdf');
                             }
                         </script>
 
@@ -136,26 +135,7 @@ $pro = verifyPro();
                         </button>
                     </div>
 
-                    <script>
-                        document.getElementById('offre').addEventListener('change', function () {
-                            if (this.value) {
-                                document.getElementById('facture-details').style.display = 'block';
-                            }
-                        });
-
-                        async function generatePDF() {
-                            const { jsPDF } = window.jspdf;
-                            const pdf = new jsPDF();
-                            const element = document.querySelector('#facture-details');
-                            const canvas = await html2canvas(element);
-                            const imgData = canvas.toDataURL('image/png');
-                            pdf.addImage(imgData, 'PNG', 10, 10, 190, canvas.height * 190 / canvas.width);
-                            pdf.save('facture.pdf');
-                        }
-                    </script>
-
                     <?php
-
                     } else {
                         echo "<p>Vous n'avez pas d'offres en ligne.</p>";
                     }
@@ -166,6 +146,8 @@ $pro = verifyPro();
                 echo "La variable de session id_pro n'est pas définie";
             } ?> </div>
 
+
+        <!-- HISTORIQUE DES FACTURES RÉELEMENTS ENVOYÉES & PRÉLEVÉES -->
         <table id='facture-table' class='w-full mt-5 border-collapse border border-gray-300'>
             <thead class='border bg-slate-200'>
                 <tr class="bg-slate-200 text-left">
@@ -185,15 +167,6 @@ $pro = verifyPro();
             </thead>
             <tbody>
                 <?php
-
-
-                // $factures = [
-                //     ['numero' => '2024-FAC-0001', 'nom' => 'Facture 1 - Petite pépite', 'date' => '01/11/2024', 'date_echeance' => '01/02/2025', 'montant' => 100],
-                //     ['numero' => '2024-FAC-0002', 'nom' => 'Facture 2  - Petite pépite', 'date' => '01/10/2024', 'date_echeance' => '01/03/2025', 'montant' => 200],
-                //     ['numero' => '2024-FAC-0003', 'nom' => 'Facture 3  - Petite pépite', 'date' => '01/09/2024', 'date_echeance' => '01/04/2025', 'montant' => 300],
-                //     ['numero' => '2024-FAC-0004', 'nom' => 'Facture 4 - Jet-ski en sous-marin #AD', 'date' => '01/08/2024', 'date_echeance' => '01/05/2025', 'montant' => 400],
-                //     ['numero' => '2024-FAC-0005', 'nom' => 'Facture 5 - Dîner très classe', 'date' => '01/12/2024', 'date_echeance' => '01/01/2025', 'montant' => 500],
-                // ];
                 foreach ($offresDuPro as $offre) {
                     $factures = $factureController->getAllFacturesByIdOffre($offre['id_offre']);
 
@@ -226,7 +199,8 @@ $pro = verifyPro();
                             <td class='border-b p-2'><?php echo $dateEmission->format('d/m/Y'); ?></td>
                             <td class='border-b p-2'><?php echo $dateEcheance->format('d/m/Y'); ?></td>
                             <td class='border-b p-2'>
-                                <?php echo array_sum(array_column($lignes, 'prix_total_ttc')) + array_sum(array_column($options, 'prix_total_ttc')) ?> €
+                                <?php echo array_sum(array_column($lignes, 'prix_total_ttc')) + array_sum(array_column($options, 'prix_total_ttc')) ?>
+                                €
                             </td>
                             <td class='border-b p-2'>
                                 <a href=""><i class="fa-solid fa-eye hover:text-primary"></i></a>
@@ -238,6 +212,7 @@ $pro = verifyPro();
                 ?>
             </tbody>
         </table>
+
         <script>
             function sortTable(n) {
                 const table = document.getElementById("facture-table"); let rows, switching, i, x, y, shouldSwitch,
