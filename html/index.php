@@ -13,7 +13,7 @@
     <script src="/scripts/filtersAndSorts.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
 
-    <title>PACT - Phrase</title>
+    <title>PACT</title>
 
     <script src="/scripts/search.js"></script>
 </head>
