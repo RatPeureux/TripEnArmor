@@ -107,7 +107,9 @@
     </div>
 
     <main class="self-center align-center w-full grow rounded-lg max-w-[1280px] p-2">
-        <h1 class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl mb-4">PACT</h1>
+        <div class="w-full text-center">
+            <a href="/" class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl mb-4">PACT</a>
+        </div>
 
         <div class="searchOn hidden md:flex justify-between text-center items-center mb-2">
             <h1 class="cursor-pointer text-h3 border-b border-secondary hover:text-secondary" id="all">

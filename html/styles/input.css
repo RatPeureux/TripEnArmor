@@ -32,7 +32,8 @@ label:has(+ select[required])::after {
     text-underline-offset: 4px;
 }
 
-#layer-background.active {
+#layer-background.active,
+#layer-background-filtres.active {
     display: block;
     background-color: rgba(0, 0, 0, .20);
     backdrop-filter: blur(5px);

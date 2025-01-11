@@ -2,8 +2,8 @@
     Composant du header pour le pro
     Pour l'ajouter, écrier la balise <div id='header-pro'></div> dans votre code html
 -->
-<header class="z-30 w-full bg-blur/75 backdrop-blur flex items-center p-4 h-20 sticky top-0">
-    <div class="flex w-full items-center relative">
+<header class="z-30 w-full bg-blur/25 backdrop-blur flex items-center p-4 h-20 sticky top-0 border-b border-black">
+    <div class="flex w-full items-center relative mx-auto max-w-[1280px]">
         <!-- Partie gauche -->
         <div class="flex-shrink-0 flex items-center">
             <a onclick="toggleMenu()" class="flex gap-4 items-center hover:text-primary hover:cursor-pointer duration-100">
