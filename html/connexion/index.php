@@ -43,12 +43,12 @@ if (empty($_POST)) { ?>
                     <img class="relative mx-auto -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5 rounded-lg border-2 border-primary" action="" method="POST">
+                <form class="bg-white w-full p-5 rounded-lg border-2 border-primary" action="" method="POST">
                     <p class="pb-3">J'ai un compte Membre</p>
 
                     <!-- Champ pour l'identifiant -->
                     <label class="text-small" for="id">Identifiant</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
                         title="Saisir un de vos identifiants (Pseudonyme, téléphone ou mail)"
                         placeholder="Pseudonyme, téléphone ou mail"
                         value="<?php echo $_SESSION['data_en_cours_connexion']['id'] ?? '' ?>" required>
@@ -56,7 +56,7 @@ if (empty($_POST)) { ?>
                     <!-- Champ pour le mot de passe -->
                     <div class="relative w-full">
                         <label class="text-small" for="mdp">Mot de passe</label>
-                        <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
+                        <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
                             pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
                             title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             value="<?php echo $_SESSION['data_en_cours_connexion']['mdp'] ?? '' ?>" required>
