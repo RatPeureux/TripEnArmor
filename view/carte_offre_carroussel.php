@@ -72,14 +72,14 @@ foreach ($horaires as $jour => $horaire) {
 // Composant dynamique (généré avec les données en php)
 // Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 ?>
-<a class="card <?php if ($option) {
+<a class="card m-3 <?php if ($option) {
 	echo "active rounded-lg";
 } ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
-	<div class='w-[30em] h-full relative bg-base100 rounded-xl flex flex-col'>
+	<div class='relative bg-base100 rounded-xl flex flex-col'>
 		<!-- En-tête -->
 		<div
-			class='en-tete absolute p-4 top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
+			class='en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
 			<h3 class='text-xl text-center font-bold'>
 				<?php echo $titre_offre; ?>
 			</h3>
@@ -168,21 +168,21 @@ foreach ($horaires as $jour => $horaire) {
 
 						$tagsAffiche = rtrim($tagsAffiche, ', ');
 						if ($tags_offre) {
-						?>
+							?>
 							<div class="p-1 rounded-lg bg-secondary self-center w-full">
 								<?php
 								echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
 								?>
 							</div>
-						<?php
+							<?php
 						} else {
-						?>
+							?>
 							<div class="p-1 rounded-lg bg-secondary self-center w-full">
 								<?php
 								echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 								?>
 							</div>
-					<?php
+							<?php
 						}
 					}
 					?>
