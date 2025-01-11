@@ -89,45 +89,52 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
     <!-- Détails pour les jours en ligne -->
     <div class="flex flex-col gap-2">
         <h2 class="text-xl">Jours en ligne</h2>
-        <table class="w-full border-collapse border border-gray-300">
-            <thead class="bg-blue-200">
-                <tr>
-                    <th class="border p-2">Type</th>
-                    <th class="border p-2">Du (inclus)</th>
-                    <th class="border p-2">Au (inclus)</th>
-                    <th class="border p-2">Quantité</th>
-                    <th class="border p-2">Unité</th>
-                    <th class="border p-2">Prix u. HT</th>
-                    <th class="border p-2">Total HT</th>
-                    <th class="border p-2">TVA</th>
-                    <th class="border p-2">Prix u. TTC</th>
-                    <th class="border p-2">Total TTC</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="border p-2"><?php echo htmlspecialchars($type_offre['nom']); ?></td>
-                    
-                    <td class="border p-2"><?php echo 'date-debut' ?></td> 
-                    <td class="border p-2"><?php echo 'date-fin' ?></td>
-                    
-                    <td class="border p-2 text-right"><?php echo 'nb-jours-en-ligne' ?></td>
-                    <td class="border p-2 text-right"><?php echo 'unite' ?></td>
 
-                    <td class="border p-2 text-right"><?php echo 'prix-u-HT' ?> €
-                    <td class="border p-2 text-right"><?php echo 'prix-total-HT' ?> €</td>
-                    
-                    <td class="border p-2 text-right"><?php echo $TVA ?>%</td>
-                    
-                    <td class="border p-2 text-right">
-                        <?php echo 'prix-u-TTC'?> €
-                    </td>
-                    <td class="border p-2 text-right">
-                        <?php echo 'prix-total-TTC'?> €
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <?php if (count($periodes_en_ligne) > 0) { ?>
+            <table class="w-full border-collapse border border-gray-300">
+                <thead class="bg-blue-200">
+                    <tr>
+                        <th class="border p-2">Type</th>
+                        <th class="border p-2">Du (inclus)</th>
+                        <th class="border p-2">Au (inclus)</th>
+                        <th class="border p-2">Quantité</th>
+                        <th class="border p-2">Unité</th>
+                        <th class="border p-2">Prix u. HT</th>
+                        <th class="border p-2">Total HT</th>
+                        <th class="border p-2">TVA</th>
+                        <th class="border p-2">Prix u. TTC</th>
+                        <th class="border p-2">Total TTC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($periodes_en_ligne as $periode_en_ligne) { ?>                
+                        <tr>
+                            <td class="border p-2"><?php echo htmlspecialchars($type_offre['nom']); ?></td>
+                            
+                            <td class="border p-2"><?php echo $periode_en_ligne['date_debut'] ?></td> 
+                            <td class="border p-2"><?php echo $periode_en_ligne['date_fin'] ?></td>
+                            
+                            <td class="border p-2 text-right"><?php echo $periode_en_ligne['date_fin'] ?></td>
+                            <td class="border p-2 text-right"><?php echo 'unite' ?></td>
+
+                            <td class="border p-2 text-right"><?php echo 'prix-u-HT' ?> €
+                            <td class="border p-2 text-right"><?php echo 'prix-total-HT' ?> €</td>
+                            
+                            <td class="border p-2 text-right"><?php echo $TVA ?>%</td>
+                            
+                            <td class="border p-2 text-right">
+                                <?php echo 'prix-u-TTC'?> €
+                            </td>
+                            <td class="border p-2 text-right">
+                                <?php echo 'prix-total-TTC'?> €
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        <?php } else { ?>
+            <p>Aucun jour en ligne pour le mois actuel</p>
+        <?php } ?>
     </div>
 
     <!-- Détails des options -->

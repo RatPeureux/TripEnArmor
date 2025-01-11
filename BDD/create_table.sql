@@ -556,10 +556,11 @@ ALTER TABLE T_Image_Img
 ADD CONSTRAINT fk_image_parc FOREIGN KEY (id_parc) REFERENCES _parc_attraction (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
 ------------------------------------------------------------------------------------------------------- Historique des périodes en ligne pour chaque offre
--- Les date_debut et date_fin sont les dates actuelles par défaut, si aucune valeur n'est donnée
+-- Les date_debut est la date actuelle par défaut, si aucune valeur n'est donnée
 create table _periodes_en_ligne (
     id_offre INT NOT NULL,
     type_offre VARCHAR(255), -- Pas de référence, si les types changent plus tard...
+    prix_ht FLOAT NOT NULL, -- Prix HT du type de l'offre pour 1 jour
     date_debut DATE NOT NULL DEFAULT CURRENT_DATE,
-    date_fin DATE DEFAULT CURRENT_DATE
+    date_fin DATE DEFAULT NULL
 );
