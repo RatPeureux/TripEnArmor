@@ -31,7 +31,7 @@
             -
             <a href="/" class="hover:text-primary">Retour vers la PACT</a>
             -
-            <a href="/pro/TripEnArvor">@2024, TripEnArvor</a>
+            ©<?php echo date("Y");?>, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
         </div>
     </div>
 </footer>

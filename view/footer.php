@@ -29,7 +29,7 @@
             -
             <a href="/pro/connexion" class="hover:text-primary">Vous êtes un professionnel ?</a>
             -
-            @2025, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+            ©<?php echo date("Y");?>, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
         </div>
     </div>
 </footer>
