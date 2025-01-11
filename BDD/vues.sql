@@ -23,16 +23,14 @@ select id_offre, nom
 from _offre
     join _type_offre on _type_offre.id_type_offre = _offre.id_type_offre;
 
--- vue de la facture avec les montants totaux 
+-- vue de la facture avec les montants totaux
 CREATE OR REPLACE VIEW vue_facture_totaux AS
-SELECT 
-    numero AS "Numéro de Facture",
-    SUM(quantite * prix_unitaire_HT) AS "Total HT (â‚¬)",
-    SUM(quantite * prix_unitaire_TTC) AS "Total TTC (â‚¬)"
+SELECT numero AS "Numéro de Facture", SUM(quantite * prix_unitaire_HT) AS "Total HT (â‚¬)", SUM(quantite * prix_unitaire_TTC) AS "Total TTC (â‚¬)"
 FROM _facture
-GROUP BY numero;
+GROUP BY
+    numero;
 
--- -------------------------------------------------------------------- Moyenne des notes pour chaque offre (id_offre)
+--------------------------------------------------------------------- Moyenne des notes pour chaque offre (id_offre)
 CREATE OR REPLACE VIEW vue_moyenne AS
 SELECT _offre.id_offre, AVG(_avis.note), COUNT(_avis.note)
 FROM _offre
@@ -40,23 +38,26 @@ FROM _offre
 GROUP BY
     _offre.id_offre;
 
--- -------------------------------------------------------------------- vue pour connaître les tags d'une offre quelconque (restaurant + autres offres)
+--------------------------------------------------------------------- vue pour connaître les tags d'une offre quelconque (restaurant + autres offres)
 create or replace view vue_offre_tag as
-	-- Les tags pour les offres communes
-	select id_offre, nom
-	from _tag_offre
-	natural join _tag
-	UNION
-	-- Les tags pour les restaurants
-	select id_offre, nom
-	from _tag_restaurant_restauration
-	natural join _tag_restaurant
-	order by id_offre;
+-- Les tags pour les offres communes
+select id_offre, nom
+from _tag_offre
+    natural join _tag
+UNION
+-- Les tags pour les restaurants
+select id_offre, nom
+from
+    _tag_restaurant_restauration
+    natural join _tag_restaurant
+order by id_offre;
 
--- -------------------------------------------------------------------- vue pour connaître les noms de type de repas pour chaque restaurant
+--------------------------------------------------------------------- vue pour connaître les noms de type de repas pour chaque restaurant
 create view vue_restaurant_type_repas as
-select id_offre, nom from _restaurant_type_repas
-natural join _type_repas;
+select id_offre, nom
+from
+    _restaurant_type_repas
+    natural join _type_repas;
 
 ----------------------------- Vue pour connaître les détails d'une souscription de chaque offre dans temps
 create or replace view vue_souscription_offre_option_details as
@@ -76,11 +77,23 @@ join _option on nom_option = nom;
 ------------------------------------ Vue pour connaître les détails des souscriptions de chaque offre durant le mois actuel
 create or replace view vue_souscription_offre_option_details_du_mois as
 select *
-from vue_souscription_offre_option_details_du_mois
+from
+    vue_souscription_offre_option_details_du_mois
 WHERE
-	EXTRACT(YEAR FROM date_lancement) = EXTRACT(YEAR FROM CURRENT_DATE)
-    AND EXTRACT(MONTH FROM date_lancement) = EXTRACT(MONTH FROM CURRENT_DATE);
+    EXTRACT(
+        YEAR
+        FROM date_lancement
+    ) = EXTRACT(
+        YEAR
+        FROM CURRENT_DATE
+    )
+    AND EXTRACT(
+        MONTH
+        FROM date_lancement
+    ) = EXTRACT(
+        MONTH
+        FROM CURRENT_DATE
+    );
 
 ------------------------------------ Vue pour connaître les données d'une facture simulée (preview)
-CREATE or replace view vue_preview_facture as
-...
+CREATE or replace view vue_preview_facture as ...
