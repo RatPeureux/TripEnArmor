@@ -24,6 +24,8 @@ $pro = verifyPro();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+    <!-- Pour les requêtes ajax -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Facture - Professionnel - PACT</title>
 </head>
@@ -78,155 +80,55 @@ $pro = verifyPro();
             $idPro = $_SESSION['id_pro'];
             $factureController = new FactureController;
             // $facture = $factureController->getInfoFacture($numero);
-
+            
             if (isset($_SESSION['id_pro'])) {
-                $stmtOffre = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true AND id_pro = :id_pro");
+                $stmtOffre = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_pro = :id_pro");
                 $stmtOffre->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
+
                 if ($stmtOffre->execute()) {
                     $offresDuPro = $stmtOffre->fetchAll(PDO::FETCH_ASSOC);
 
-                    if (count($offresDuPro) > 0) { ?>
+                    if (count($offresDuPro) > 0) {
+
+                        // Connexion avec la bdd
+                        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+                        ?>
 
                         <h2 class="text-h2">Simuler la facturation d'une offre</h2>
-                        <select name="offre" id="offre">
+
+                        <select name="offre" id="offre" onchange="loadPreview()">
                             <option value="" disabled selected>Choisir une offre</option>
                             <?php
-                            foreach ($offresDuPro as $offre) {
-                                echo "<option value='" . htmlspecialchars($offre['id_offre']) . "'>" . htmlspecialchars($offre['titre']) . "</option>";
+                            foreach ($offresDuPro as $offre) { ?>
+                                <option value="<?php echo htmlspecialchars($offre['id_offre']) ?>">
+                                    <?php echo htmlspecialchars($offre['titre']) ?></option>
+                                <?php
                             }
                             ?>
                         </select>
 
-                        <div id="facture-details" class="border border-black p-5 mt-5 mx-auto max-w-4xl" style="display:none;">
-                            <?php
-                            $TVA = 20;
-                            $stmtPro = $dbh->prepare("SELECT * FROM sae_db._pro_prive WHERE id_compte = :id_pro");
-                            $stmtPro->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
-                            $stmtPro->execute();
-                            $proDetails = $stmtPro->fetch(PDO::FETCH_ASSOC);
+                        <div id="facture-preview"></div>
 
-                            $stmtAdresse = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :id_adresse");
-                            $stmtAdresse->bindParam(':id_adresse', $proDetails['id_adresse'], PDO::PARAM_INT);
-                            $stmtAdresse->execute();
-                            $adresseDetails = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
+                        <script>
+                            function loadPreview() {
+                                // Get the selected value
+                                const id_offre = document.getElementById('offre').value;
 
-                            $stmtTypeOffre = $dbh->prepare("SELECT * FROM sae_db._type_offre WHERE id_type_offre = :id_type_offre");
-                            $stmtTypeOffre->bindParam(':id_type_offre', $offre['id_type_offre'], PDO::PARAM_INT);
-                            $stmtTypeOffre->execute();
-                            $typeOffre = $stmtTypeOffre->fetch(PDO::FETCH_ASSOC);
-                            ?>
-                            <!-- En-tête Entreprise -->
-                            <div class="flex flex-col justify-between">
-                                <div class="flex justify-between w-full">
-                                    <div>
-                                        <h1 class="text-xl font-bold">PACT</h1>
-                                        <p>21 rue Case Nègres<br>97232, Fort-de-France<br>FR</p>
-                                    </div>
-                                </div>
+                                $.ajax({
+                                    url: '/scripts/load_preview.php',
+                                    type: 'GET',
+                                    data: {
+                                        id_offre: id_offre,
+                                    },
 
-                                <!-- Informations Client -->
-                                <div class="flex justify-end">
-                                    <div>
-                                        <h1 class="text-xl font-bold"><?php echo htmlspecialchars($proDetails['nom_pro']); ?></h1>
-                                        <p><?php echo htmlspecialchars($adresseDetails['numero']) . " " . htmlspecialchars($adresseDetails['odonyme']); ?><br><?php echo htmlspecialchars($adresseDetails['code_postal']) ?><br>France
-                                        </p>
-                                        <br>
-                                        <p>SIRET : <?php echo htmlspecialchars($proDetails['num_siren']) ?></p>
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-
-                            <hr>
-                            
-                            <!-- Informations Facture -->
-                            <div class="mt-5">
-                                <h1 class="text-2xl"><?php echo htmlspecialchars($offre['titre']) ?></p>
-                                    <br>
-                                    <h1 class="text-xl">Facture N° <?php echo htmlspecialchars($numero); ?></h1>
-                                    <p>Date d'émission : <?php echo htmlspecialchars($date_emission); ?></p>
-                                    <p>Règlement : Le premier jour de chaque mois </p>
-                            </div>
-
-                            <!-- Tableau de détails -->
-                            <table class="w-full mt-5 border-collapse border border-gray-300">
-                                <thead class="bg-blue-200">
-                                    <tr>
-                                        <th class="border p-2 text-left">Désignation</th>
-                                        <th class="border p-2 text-right">Quantité</th>
-                                        <th class="border p-2 text-right">Unité</th>
-                                        <th class="border p-2 text-right">Prix Unitaire HT</th>
-                                        <th class="border p-2 text-right">Total HT</th>
-                                        <th class="border p-2 text-right">TVA</th>
-                                        <th class="border p-2 text-right">Total TTC</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $uniqueTypes = [];
-                                    if (!in_array($typeOffre['nom'], $uniqueTypes)) {
-                                        if ($typeOffre['nom']) {
-                                            $unite = "jours";
-                                        } else {
-                                            $unite = "semaines";
-                                        }
-                                        $nbJoursEnLigne = 30;
-                                        $uniqueTypes[] = $typeOffre['nom'];
-                                        ?>
-                                        <tr>
-                                            <td class="border p-2"><?php echo htmlspecialchars($typeOffre['nom']); ?></td>
-                                            <td class="border p-2 text-right"><?php echo $nbJoursEnLigne; ?></td>
-                                            <td class="border p-2 text-right"><?php echo $unite ?></td>
-                                            <td class="border p-2 text-right"><?php echo number_format($typeOffre['prix_ht'], 2); ?>€
-                                            </td>
-                                            <td class="border p-2 text-right">
-                                                <?php echo number_format($typeOffre['prix_ht'], 2) * $nbJoursEnLigne; ?>€
-                                            </td>
-                                            <td class="border p-2 text-right"><?php echo $TVA ?>%</td>
-                                            <td class="border p-2 text-right"><?php echo number_format($typeOffre['prix_ttc'], 2) * $nbJoursEnLigne ?>€</td>
-
-                                        </tr>
-                                        <?php
-                                    }
-                                    ?>
-
-                                </tbody>
-                            </table>
-
-                            <!-- Totaux globaux -->
-                            <div class="mt-5 flex justify-end">
-                                <div class="w-1/3">
-                                    <div class="flex justify-between">
-                                        <span>Total HT</span>
-                                        <span><?php echo number_format($typeOffre['prix_ht'], 2) * $nbJoursEnLigne; ?>€</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>TVA (<?php echo $TVA ?>%)</span>
-                                        <span>
-                                            <?php echo (number_format($typeOffre['prix_ht'], 2) * $nbJoursEnLigne) * ($TVA / 100) ?>€</span>
-                                    </div>
-                                    <div class="flex justify-between font-bold">
-                                        <span>Total TTC</span>
-                                        <span><?php echo (number_format($typeOffre['prix_ht'], 2) * $nbJoursEnLigne) * (1 + ($TVA / 100)); ?>€</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <!-- Mentions légales et coordonnées bancaires -->
-                            <div class="mt-10 text-sm">
-                                <p>En cas de retard de paiement, une pénalité de 3 fois le taux d’intérêt légal sera appliquée, à
-                                    laquelle s’ajoutera une indemnité forfaitaire de 40€.</p>
-                                <p>PACT</p>
-                            </div>
-
-                            <!-- Footer -->
-                            <div class="mt-5 text-center text-sm">
-                                <p>SIRET : 123 456 789 00012</p>
-                                <p>Page 1/1</p>
-                            </div>
-                        </div>
+                                    // Durant l'exécution de la requête
+                                    success: function (response) {
+                                        const preview_loaded = response;
+                                        $('#facture-preview').append(preview_loaded);
+                                    },
+                                });
+                            }
+                        </script>
 
                         <button onclick="generatePDF()" class="mt-5 bg-blue-500 text-white p-2 rounded">
                             Télécharger la facture en PDF
@@ -239,10 +141,6 @@ $pro = verifyPro();
                                 document.getElementById('facture-details').style.display = 'block';
                             }
                         });
-
-                        function closePopup() {
-                            document.getElementById('facture-details').style.display = 'none';
-                        }
 
                         async function generatePDF() {
                             const { jsPDF } = window.jspdf;
@@ -280,7 +178,8 @@ $pro = verifyPro();
 </body>
 
 </html>
-        </div>
-        </main>
-    </body>
-    </html>
+</div>
+</main>
+</body>
+
+</html>

@@ -32,13 +32,31 @@ SELECT
 FROM _facture
 GROUP BY numero;
 
--- -------------------------------------------------------------------- Moyenne des notes pour chaque offre (id_offre);
+-- -------------------------------------------------------------------- Moyenne des notes pour chaque offre (id_offre)
 CREATE OR REPLACE VIEW vue_moyenne AS
 SELECT _offre.id_offre, AVG(_avis.note), COUNT(_avis.note)
 FROM _offre
     JOIN _avis ON _avis.id_offre = _offre.id_offre
 GROUP BY
     _offre.id_offre;
+
+-- -------------------------------------------------------------------- vue pour connaître les tags d'une offre quelconque (restaurant + autres offres)
+create or replace view vue_offre_tag as
+	-- Les tags pour les offres communes
+	select id_offre, nom
+	from _tag_offre
+	natural join _tag
+	UNION
+	-- Les tags pour les restaurants
+	select id_offre, nom
+	from _tag_restaurant_restauration
+	natural join _tag_restaurant
+	order by id_offre;
+
+-- -------------------------------------------------------------------- vue pour connaître les noms de type de repas pour chaque restaurant
+create view vue_restaurant_type_repas as
+select id_offre, nom from _restaurant_type_repas
+natural join _type_repas;
 
 ------------------------------- Vue pratique pour visualiser les jours de mise en ligne durant le mois acutel (date_debut & date_fin incluses)
 CREATE OR REPLACE VIEW vue_periodes_en_ligne AS

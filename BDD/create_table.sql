@@ -239,28 +239,35 @@ CREATE TABLE _facture (
     date_echeance DATE NOT NULL
 );
 
--- ------------------------------------------------------------------------------------------------------- Ligne_facture
+-- ------------------------------------------------------------------------------------------------------- Ligne_facture pour les dates de mise en ligne
 CREATE TABLE _ligne_facture_en_ligne (
-    designation VARCHAR(255) NOT NULL,
-    quantite INT NOT NULL,
-    unite VARCHAR(255) NOT NULL,
-    prix_unitaire_ht FLOAT NOT NULL,
-    prix_total_ht FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite) STORED, -- Prix total calculé automatiquement
-    tva INT NOT NULL DEFAULT 20,
-    prix_total_ttc FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite * (1 + tva/100)) STORED, -- Prix total calculé automatiquement
+    type_offre VARCHAR(255) NOT NULL,
+    date_debut DATE NOT NULL,
+    date_fin DATE NOT NULL,
+    quantite INT NOT NULL, -- Nb de jours
+    unite VARCHAR(255) NOT NULL DEFAULT 'jour', -- jour
+    prix_unitaire_ht DECIMAL(5, 2) NOT NULL,
+    prix_total_ht DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ht * quantite)::NUMERIC, 2)) STORED, -- Prix total calculé automatiquement
+    tva DECIMAL(5, 2) NOT NULL GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc / prix_unitaire_ht)::NUMERIC, 2)) STORED,
+    prix_unitaire_ttc DECIMAL(5, 2) NOT NULL,
+    prix_total_ttc DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc * quantite)::NUMERIC, 2)) STORED,
     numero_facture VARCHAR(255) NOT NULL REFERENCES _facture(numero)
-)
+);
 
+-- ------------------------------------------------------------------------------------------------------- Ligne_facture pour les options d'une offre
 CREATE TABLE _ligne_facture_option (
-    designation VARCHAR(255) NOT NULL,
-    quantite INT NOT NULL,
-    unite VARCHAR(255) NOT NULL,
-    prix_unitaire_ht FLOAT NOT NULL,
-    prix_total_ht FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite) STORED, -- Prix total calculé automatiquement
-    tva INT NOT NULL DEFAULT 20,
-    prix_total_ttc FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite * (1 + tva/100)) STORED, -- Prix total calculé automatiquement
+    nom_option VARCHAR(255) NOT NULL,
+    date_debut DATE NOT NULL,
+    date_fin DATE NOT NULL,
+    quantite INT NOT NULL, -- Nb de semaines
+    unite VARCHAR(255) NOT NULL DEFAULT 'semaine', -- semaine
+    prix_unitaire_ht DECIMAL(5, 2) NOT NULL,
+    prix_total_ht DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ht * quantite)::NUMERIC, 2)) STORED, -- Prix total calculé automatiquement
+    tva DECIMAL(5, 2) NOT NULL GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc / prix_unitaire_ht)::NUMERIC, 2)) STORED,
+    prix_unitaire_ttc DECIMAL(5, 2) NOT NULL,
+    prix_total_ttc DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc * quantite)::NUMERIC, 2)) STORED,
     numero_facture VARCHAR(255) NOT NULL REFERENCES _facture(numero)
-)
+);
 
 -- ------------------------------------------------------------------------------------------------------- Logs
 CREATE TABLE _log_changement_status ( -- Maxime
