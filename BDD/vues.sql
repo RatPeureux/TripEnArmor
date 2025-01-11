@@ -59,6 +59,28 @@ from
     _restaurant_type_repas
     natural join _type_repas;
 
+----------------------------- Vue pour connaître les périodes en ligne d'une offre pour le mois actuel
+CREATE OR REPLACE VIEW vue_periodes_en_ligne_du_mois AS
+SELECT
+    id_offre,
+	type_offre,
+    -- Si date_debut est antérieure à date_fin et dans un mois différent, on remplace par le 1er jour du mois de date_fin
+    CASE
+        WHEN date_debut < date_fin
+             AND (EXTRACT(MONTH FROM date_debut) != EXTRACT(MONTH FROM date_fin)
+			 	OR EXTRACT(YEAR FROM date_debut) != EXTRACT(YEAR FROM date_fin))
+        THEN DATE_TRUNC('MONTH', date_fin)::DATE
+        ELSE date_debut
+    END AS date_debut,
+    date_fin
+FROM 
+    _periodes_en_ligne
+WHERE
+	EXTRACT(YEAR FROM date_fin) = EXTRACT(YEAR FROM CURRENT_DATE)
+    AND EXTRACT(MONTH FROM date_fin) = EXTRACT(MONTH FROM CURRENT_DATE)
+ORDER BY 
+    id_offre, date_debut;
+
 ----------------------------- Vue pour connaître les détails d'une souscription de chaque offre dans temps
 create or replace view vue_souscription_offre_option_details as
 select

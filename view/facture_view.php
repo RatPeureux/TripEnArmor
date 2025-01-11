@@ -52,8 +52,9 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
     $type_offre = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
 
-    <!-- En-tête Entreprise -->
+    <!-- En-tête -->
     <div class="flex flex-col justify-between">
+        <!-- LA PACT -->
         <div class="flex justify-between w-full">
             <div>
                 <h1 class="text-xl font-bold">PACT</h1>
@@ -92,8 +93,8 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
             <thead class="bg-blue-200">
                 <tr>
                     <th class="border p-2">Type</th>
-                    <th class="border p-2">Du</th>
-                    <th class="border p-2">Au</th>
+                    <th class="border p-2">Du (inclus)</th>
+                    <th class="border p-2">Au (inclus)</th>
                     <th class="border p-2">Quantité</th>
                     <th class="border p-2">Unité</th>
                     <th class="border p-2">Prix u. HT</th>
