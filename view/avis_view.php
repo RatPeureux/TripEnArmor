@@ -33,7 +33,8 @@ if (!function_exists('to_nom_note')) {
 ?>
 
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
-<div class="avis w-full rounded-lg border border-black <?php echo $is_mon_avis ? 'border-primary border-4' : '' ?> p-2 flex flex-col gap-1">
+<div
+    class="avis w-full rounded-lg border border-black <?php echo $is_mon_avis ? 'border-primary border-4' : '' ?> p-2 flex flex-col gap-1">
     <?php
     // Obtenir la variables regroupant les infos du membre
     $membre = $membreController->getInfosMembre($id_membre);
@@ -72,20 +73,20 @@ if (!function_exists('to_nom_note')) {
 
         <?php
         if (!$is_mon_avis) {
-        ?>
-        <!-- Drapeau de signalement -->
-        <a onclick="confirm('Signaler l\'avis ?')">
-            <i class="fa-solid fa-flag text-h2"></i>
-        </a>
-        <?php
+            ?>
+            <!-- Drapeau de signalement -->
+            <a onclick="confirm('Signaler l\'avis ?')">
+                <i class="fa-solid fa-flag text-h2"></i>
+            </a>
+            <?php
         } else {
-        ?>
-        <!-- Poubelle de suppression d'avis -->
-        <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $avis['id_offre'] ?>"
-            onclick="return confirm('Supprimer votre avis ?')">
-            <i class="fa-solid fa-trash text-h2"></i>
-        </a>
-        <?php
+            ?>
+            <!-- Poubelle de suppression d'avis -->
+            <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $avis['id_offre'] ?>"
+                onclick="return confirm('Supprimer votre avis ?')">
+                <i class="fa-solid fa-trash text-h2"></i>
+            </a>
+            <?php
         }
         ?>
 
@@ -94,7 +95,7 @@ if (!function_exists('to_nom_note')) {
     <!-- Date de publication (2ème ligne) -->
     <?php
     if ($avis['date_publication']) { ?>
-        <p class="italic grow"><?php echo $avis['date_publication'] ?></p>
+        <p class="italic grow"><?php echo date('d/m/Y', strtotime($avis['date_publication'])) ?></p>
         <?php
     }
     ?>
