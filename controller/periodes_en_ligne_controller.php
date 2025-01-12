@@ -16,9 +16,9 @@ class PeriodesEnLigneController
         return $this->model::getAllPeriodesEnLigneByIdOffre($id_offre);
     }
 
-    public function createPeriodeEnLigne($id_offre, $type_offre, $prix_ht)
+    public function createPeriodeEnLigne($id_offre, $type_offre, $prix_ht, $prix_ttc)
     {
-        return $this->model::createPeriodeEnLigne($id_offre, $type_offre, $prix_ht);
+        return $this->model::createPeriodeEnLigne($id_offre, $type_offre, $prix_ht, $prix_ttc);
     }
 
     public function clorePeriodeByIdOffre($id_offre)

@@ -18,6 +18,7 @@ if (isset($_GET['id_offre'])) {
     $next_valeur_en_ligne = $offre['est_en_ligne'] ? 'false' : 'true';
     $type_offre = $offre['nom'];
     $prix_ht = $offre['prix_ht'];
+    $prix_ttc = $offre['prix_ttc'];
 
     // Changer le satus dans la table correspondante
     $stmt = $dbh->prepare("UPDATE sae_db._offre SET est_en_ligne = :next_valeur_en_ligne WHERE id_offre = :id_offre");
@@ -40,7 +41,7 @@ if (isset($_GET['id_offre'])) {
         // Cas de la première création de période en ligne pour cette offre
         if (is_null($last_date_fin)) {
             // Créer nouvelle période en ligne
-            $periodes_en_ligne_controller->createPeriodeEnLigne($id_offre, $type_offre, $prix_ht);
+            $periodes_en_ligne_controller->createPeriodeEnLigne($id_offre, $type_offre, $prix_ht, $prix_ttc);
             return;
         }
 
@@ -51,7 +52,7 @@ if (isset($_GET['id_offre'])) {
         // Savoir si la date est antérieur de deux jours au moins par rapport au jour actuel
         if ($last_date_fin <= $to_compare) {
             // Créer nouvelle période en ligne
-            $periodes_en_ligne_controller->createPeriodeEnLigne($id_offre, $type_offre, $prix_ht);
+            $periodes_en_ligne_controller->createPeriodeEnLigne($id_offre, $type_offre, $prix_ht, $prix_ttc);
         } else {
             // Rouvrir la période en ligne dernièrement close (qui date d'hier au moins)
             $periodes_en_ligne_controller->ouvrirPeriodeByIdOffre($id_offre);

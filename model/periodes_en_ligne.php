@@ -20,16 +20,17 @@ class PeriodesEnLigne extends BDD
         }
     }
 
-    static function createPeriodeEnLigne($id_offre, $type_offre, $prix_ht)
+    static function createPeriodeEnLigne($id_offre, $type_offre, $prix_ht, $prix_ttc)
     {
         self::initBDD();
-            $query = "INSERT INTO sae_db._periodes_en_ligne(id_offre, type_offre, prix_ht)
-                      VALUES (?, ?, ?)";
+            $query = "INSERT INTO sae_db._periodes_en_ligne(id_offre, type_offre, prix_ht, prix_ttc)
+                      VALUES (?, ?, ?, ?)";
 
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $id_offre);
         $stmt->bindParam(2, $type_offre);
         $stmt->bindParam(3, $prix_ht);
+        $stmt->bindParam(4, $prix_ttc);
 
         if ($stmt->execute()) {
             return $stmt->fetch(PDO::FETCH_ASSOC);
