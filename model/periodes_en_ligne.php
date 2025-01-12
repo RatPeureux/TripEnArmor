@@ -20,66 +20,80 @@ class PeriodesEnLigne extends BDD
         }
     }
 
-    static function createPeriodeEnLigne($id_offre, $type_offre, $date_debut = false, $date_fin = false)
+    static function createPeriodeEnLigne($id_offre, $type_offre, $prix_ht)
     {
         self::initBDD();
-        if (!$date_fin) {
-            $query = "INSERT INTO " . self::$nom_table . "";
+            $query = "INSERT INTO sae_db._periodes_en_ligne(id_offre, type_offre, prix_ht)
+                      VALUES (?, ?, ?)";
+
+        $stmt = self::$db->prepare($query);
+        $stmt->bindParam(1, $id_offre);
+        $stmt->bindParam(2, $type_offre);
+        $stmt->bindParam(3, $prix_ht);
+
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
-            $query = "INSERT INTO _periodes_en_ligne(id_offre, type_offre, date_fin)
-                      VALUES (1, 'Premium', NULL)";
-        }
-
-
-        $statement = self::$db->prepare($query);
-        $statement->bindParam(1, $titre);
-        $statement->bindParam(2, $date_experience);
-        $statement->bindParam(3, $id_membre);
-        $statement->bindParam(4, $id_offre);
-        $statement->bindParam(5, $note);
-        $statement->bindParam(6, $contexte_passage);
-        $statement->bindParam(7, $commentaire);
-        $statement->bindParam(8, $id_PeriodesEnLigne_reponse);
-
-        if ($statement->execute()) {
-            return $statement->fetch(PDO::FETCH_ASSOC);
-        } else {
-            echo "ERREUR: Impossible de créer cet PeriodesEnLigne";
-            return false;
-        }
-
-
-    }
-
-    static function updatePeriodesEnLigne($id_PeriodesEnLigne, $titre, $commentaire, $date_experience, $id_membre, $id_offre, $id_PeriodesEnLigne_reponse)
-    {
-        self::initBDD();
-        $query = "UPDATE " . self::$nom_table . " SET titre = ?, commentaire = ?, date_experience = ?, id_membre = ?, id_offre = ?, id_PeriodesEnLigne_reponse = ? WHERE id_PeriodesEnLigne = ? RETURNING id_PeriodesEnLigne";
-        $statement = self::$db->prepare($query);
-        $statement->bindParam(1, $titre);
-        $statement->bindParam(2, $commentaire);
-        $statement->bindParam(3, $date_experience);
-        $statement->bindParam(4, $id_membre);
-        $statement->bindParam(5, $id_offre);
-        $statement->bindParam(6, $id_PeriodesEnLigne_reponse);
-        $statement->bindParam(7, $id_PeriodesEnLigne);
-
-        if ($statement->execute()) {
-            return $statement->fetch(PDO::FETCH_ASSOC);
-        } else {
-            echo "ERREUR: Impossible de mettre à jour cet PeriodesEnLigne";
+            echo "ERREUR: Impossible de créer la période en ligne pour l'offre d'identifiant n°$id_offre";
             return false;
         }
     }
 
-    static function deletePeriodesEnLigne($id_PeriodesEnLigne)
+    static function clorePeriodeByIdOffre($id_offre)
     {
         self::initBDD();
-        $query = "DELETE FROM " . self::$nom_table . " WHERE id_PeriodesEnLigne = ?";
-        $statement = self::$db->prepare($query);
-        $statement->bindParam(1, $id_PeriodesEnLigne);
+        $query = "UPDATE " . self::$nom_table . " SET date_fin = CURRENT_DATE
+                                                WHERE id_offre = ?
+                                                AND date_fin IS NULL";
 
-        return $statement->execute();
+        $stmt = self::$db->prepare($query);
+        $stmt->bindParam(1, $id_offre);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            echo "ERREUR: Impossible de clore la période en cours pour l'offre n°$id_offre";
+            return false;
+        }
     }
 
+    static function ouvrirPeriodeByIdOffre($id_offre) {
+        self::initBDD();
+        $query = "UPDATE " . self::$nom_table . " SET date_fin = NULL
+                                                WHERE id_offre = ?
+                                                AND date_fin = (
+                                                    SELECT MAX(date_fin)
+                                                    FROM sae_db._periodes_en_ligne
+                                                    WHERE id_offre = ?
+                                                )";
+
+        $stmt = self::$db->prepare($query);
+        $stmt->bindParam(1, $id_offre);
+        $stmt->bindParam(2, $id_offre);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            echo "ERREUR: Impossible d'ouvrir la période en cours pour l'offre n°$id_offre";
+            return false;
+        }
+    }
+
+    static function getLastDateFinByIdOffre($id_offre) {
+        self::initBDD();
+        $query = "select date_fin from sae_db._periodes_en_ligne
+                where id_offre = ?
+                order by date_fin IS NULL DESC, date_fin DESC
+                limit 1;";
+
+        $stmt = self::$db->prepare($query);
+        $stmt->bindParam(1, $id_offre);
+
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC)['date_fin'];
+        } else {
+            echo "ERREUR: Impossible d'obtenir la dernière date de fin de période pour l'offr n°$id_offre";
+            return false;
+        }
+    }
 }

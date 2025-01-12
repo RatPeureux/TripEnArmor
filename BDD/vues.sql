@@ -64,20 +64,25 @@ CREATE OR REPLACE VIEW vue_periodes_en_ligne_du_mois AS
 SELECT
     id_offre,
 	type_offre,
+	prix_ht,
     -- Si date_debut est antérieure à date_fin et dans un mois différent, on remplace par le 1er jour du mois de date_fin
     CASE
-        WHEN date_debut < date_fin
-             AND (EXTRACT(MONTH FROM date_debut) != EXTRACT(MONTH FROM date_fin)
-			 	OR EXTRACT(YEAR FROM date_debut) != EXTRACT(YEAR FROM date_fin))
-        THEN DATE_TRUNC('MONTH', date_fin)::DATE
+		WHEN
+			EXTRACT(MONTH FROM date_debut) != EXTRACT(MONTH FROM CURRENT_DATE)
+				OR EXTRACT(YEAR FROM date_debut) != EXTRACT(YEAR FROM CURRENT_DATE)
+        THEN DATE_TRUNC('MONTH', CURRENT_DATE)::DATE
         ELSE date_debut
     END AS date_debut,
     date_fin
 FROM 
     _periodes_en_ligne
 WHERE
-	EXTRACT(YEAR FROM date_fin) = EXTRACT(YEAR FROM CURRENT_DATE)
-    AND EXTRACT(MONTH FROM date_fin) = EXTRACT(MONTH FROM CURRENT_DATE)
+	date_fin IS NULL
+	OR
+	(
+		EXTRACT(YEAR FROM date_fin) = EXTRACT(YEAR FROM CURRENT_DATE)
+	    AND EXTRACT(MONTH FROM date_fin) = EXTRACT(MONTH FROM CURRENT_DATE)
+	)
 ORDER BY 
     id_offre, date_debut;
 
