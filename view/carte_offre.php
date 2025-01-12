@@ -81,7 +81,7 @@ if ($mode_carte == 'membre') {
 		<div class='md:hidden relative bg-base100 rounded-xl flex flex-col'>
 			<!-- En-tête -->
 			<div
-				class='en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
+				class='en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
 				<h3 class='text-xl text-center font-bold'>
 					<?php echo $titre_offre; ?>
 				</h3>
@@ -114,7 +114,6 @@ if ($mode_carte == 'membre') {
 					} ?></p>
 					<p class='text-small'><?php echo $code_postal ?></p>
 				</div>
-				<hr class='h-20 border-black border'>
 				<!-- Description avec les tags-->
 				<div class='description py-2 flex flex-col gap-2 justify-center self-stretch'>
 					<div class='p-1 rounded-lg bg-secondary self-center w-full'>
@@ -193,7 +192,6 @@ if ($mode_carte == 'membre') {
 						<?php echo $resume ?>
 					</p>
 				</div>
-				<hr class='h-20 border-black border'>
 				<!-- Notation et Prix -->
 				<div class='flex flex-col gap-2 justify-center items-center min-w-16'>
 					<?php
@@ -378,7 +376,6 @@ if ($mode_carte == 'membre') {
 					</div>
 					<!-- A droite, en bas -->
 					<div class='self-stretch flex flex-col gap-2'>
-						<hr class='border-black w-full'>
 						<div class='flex justify-around self-stretch'>
 							<!-- Localisation -->
 							<div class='localisation flex gap-2 flex-shrink-0 justify-center items-center'>
@@ -607,7 +604,6 @@ if ($mode_carte == 'membre') {
 
 			<!-- A droite, en bas -->
 			<div class="self-stretch flex flex-col shrink-0 gap-2">
-				<hr class="border-black w-full">
 				<div class="flex justify-around self-stretch">
 					<!-- Localisation -->
 					<div title="Adresse de l'offre"

@@ -79,7 +79,7 @@ foreach ($horaires as $jour => $horaire) {
 	<div class='relative bg-base100 rounded-xl flex flex-col'>
 		<!-- En-tête -->
 		<div
-			class='en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
+			class='en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
 			<h3 class='text-xl text-center font-bold'>
 				<?php echo $titre_offre; ?>
 			</h3>
@@ -112,7 +112,6 @@ foreach ($horaires as $jour => $horaire) {
 				} ?></p>
 				<p class='text-small'><?php echo $code_postal ?></p>
 			</div>
-			<hr class='h-20 border-black border'>
 			<!-- Description avec les tags-->
 			<div class='description py-2 flex flex-col gap-2 justify-center self-stretch'>
 				<div class='p-1 rounded-lg bg-secondary self-center w-full'>
@@ -191,7 +190,6 @@ foreach ($horaires as $jour => $horaire) {
 					<?php echo $resume ?>
 				</p>
 			</div>
-			<hr class='h-20 border-black border'>
 			<!-- Notation et Prix -->
 			<div class='flex flex-col gap-2 justify-center items-center min-w-16'>
 				<?php
