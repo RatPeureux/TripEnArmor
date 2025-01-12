@@ -114,7 +114,7 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
                             <td class="border p-2"><?php echo $periode_en_ligne['date_debut'] ?></td> 
                             <td class="border p-2"><?php echo $periode_en_ligne['date_fin'] ?></td>
                             
-                            <td class="border p-2 text-right"><?php echo $periode_en_ligne['date_fin'] ?></td>
+                            <td class="border p-2 text-right"><?php echo gettype($periode_en_ligne['date_fin']) ?></td>
                             <td class="border p-2 text-right"><?php echo 'unite' ?></td>
 
                             <td class="border p-2 text-right"><?php echo 'prix-u-HT' ?> €

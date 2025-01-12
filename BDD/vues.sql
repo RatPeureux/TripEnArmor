@@ -73,7 +73,8 @@ SELECT
         THEN DATE_TRUNC('MONTH', CURRENT_DATE)::DATE
         ELSE date_debut
     END AS date_debut,
-    date_fin
+    COALESCE(date_fin, CURRENT_DATE) AS date_fin,
+    COALESCE(date_fin, CURRENT_DATE) - date_debut + 1 AS duree
 FROM 
     _periodes_en_ligne
 WHERE
@@ -85,6 +86,8 @@ WHERE
 	)
 ORDER BY 
     id_offre, date_debut;
+
+
 
 ----------------------------- Vue pour connaître les détails d'une souscription de chaque offre dans temps
 create or replace view vue_souscription_offre_option_details as
@@ -121,6 +124,3 @@ WHERE
         MONTH
         FROM CURRENT_DATE
     );
-
------------------------------------- Vue pour connaître les données d'une facture simulée (preview)
-CREATE or replace view vue_preview_facture as ...
