@@ -36,10 +36,10 @@
     <a class="pl-5 py-3 border-black <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>
-    <a class="pl-10 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 3) {
+    <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
     } ?>" href="/offres/a-la-une">À la Une</a>
-    <a class="pl-10 py-3 border-t border-black  <?php if (isset($pagination) && $pagination == 2) {
+    <a class="pl-5 py-3 border-t border-black  <?php if (isset($pagination) && $pagination == 2) {
       echo 'active';
     } ?>" href="/offres">Toutes les offres</a>
   </div>
