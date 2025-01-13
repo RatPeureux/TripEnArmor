@@ -119,7 +119,7 @@ if (!function_exists('chaineVersMot')) {
     }
     ?>
 
-    <main class="mx-10 self-center w-full grow  p-2 max-w-[1280px]">
+    <main class="mx-10 self-center w-full grow p-2 flex">
         <!-- TOUTES LES OFFRES (offre & détails) -->
         <div class="w-full grow tablette p-4 flex flex-col">
 
@@ -179,9 +179,9 @@ if (!function_exists('chaineVersMot')) {
                 </div>
             <?php } ?>
 
-            <div className="w-full h-full border border-primary">
-                <p>Test</p>
-            </div>
+        </div>
+        <div className="w-full h-full border border-primary">
+            <p>Test</p>
         </div>
     </main>
 
