@@ -709,46 +709,82 @@ $pro = verifyPro();
 															class="border border-secondary  p-2 bg-white w-24 w-full" required>
 													</div>
 
-								<div class="w-full justify-between">
-									<!-- Photo principale -->
-									<div class="flex flex-col justify-between w-full">
-										<label for="photo-upload-carte" class="text-nowrap w-full">Photo de la carte :</label>
-										<input type="file" name="photo-upload-carte" id="photo-upload-carte" 
-										class="text-center text-secondary block w-full
-									border-dashed border-2 border-secondary rounded-lg p-2
-									file:mr-5 file:py-3 file:px-10
-									file:
-									file:text-small file:font-bold  file:text-secondary
-									file:border file:border-secondary
-									hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp"
-											required />
-										<?php if (isset($images) && is_array($images) && !empty($images)): ?>
-											<?php foreach ($images as $image): ?>
-												<?php if (is_array($image) && isset($image['type']) && $image['type'] === 'carte'): ?>
-													<p class="mt-2">Fichier sélectionné : <?php echo basename($image['url']); ?></p>
-													<script>
-														document.addEventListener('DOMContentLoaded', function() {
-															document.getElementById('preview-image').src = '<?php echo $image['url']; ?>';
-															document.getElementById('photo-upload-carte').required = false;
-														});
-													</script>
-												<?php endif; ?>
-											<?php endforeach; ?>
-										<?php endif; ?>
-									</div>
+													<div class="w-full justify-between">
+														<!-- Photo principale -->
+														<div class="flex flex-col justify-between w-full">
+															<label for="photo-upload-carte" class="text-nowrap w-full">Photo de la carte :</label>
+															<input type="file" name="photo-upload-carte" id="photo-upload-carte" required
+															class="text-center text-secondary block w-full
+															border-dashed border-2 border-secondary rounded-lg p-2
+															file:mr-5 file:py-3 file:px-10
+															file:text-small file:font-bold  file:text-secondary
+															file:border file:border-secondary
+															hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp" />
 
+															<img id="preview-image" src="#" alt="Preview Image" class="mt-2 w-full h-auto">
+
+															<script>
+																document.getElementById('photo-upload-carte').addEventListener('change', function(event) {
+																	const file = event.target.files[0];
+																	const previewImage = document.getElementById('preview-image');
+																	if (file) {
+																		const reader = new FileReader();
+																		reader.onload = function(e) {
+																			previewImage.src = e.target.result;
+																		};
+																		reader.readAsDataURL(file);
+																	} else {
+																		previewImage.src = '#';
+																	}
+																});
+															</script>
+														</div>
+														<?php
+														$imagePath = '/public/images/offres/' . $offre['id_offre'] . '.jpg';
+														if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
+															echo "<img id='preview-image' src='$imagePath' alt='Preview Image' class='mt-2 w-full h-auto'>";
+														} else {
+															echo "<img id='preview-image' src='#' alt='Preview Image' class='mt-2 w-full h-auto'>";
+														}
+
+														
+														foreach ($images as $image) {
+															if (strpos($image['type'], 'detail-') !== false) {
+																echo "Image de détail existante : " . $image['url'] . "<br>";
+															} else if ($image['type'] === 'carte') {
+																echo "Image de la carte existante : " . $image['url'] . "<br>";
+																echo "<script>
+																	document.getElementById('preview-image').src = '{$image['url']}';
+																	document.getElementById('photo-upload-carte').required = false;
+																</script>";
+															}
+														}
+														
+														foreach ($images as $image) {
+															if (strpos($image['type'], 'detail-') !== false) {
+																echo "Image de détail existante : " . $image['url'] . "<br>";
+															} else if ($image['type'] === 'carte') {
+																echo "Image de la carte existante : " . $image['url'] . "<br>";
+																echo "<script>
+																	document.getElementById('preview-image').src = '{$image['url']}';
+																	document.getElementById('photo-upload-carte').required = false;
+																</script>";
+															}
+														}
+														?>
+
+														?>
 														<!-- Photos détaillée -->
 														<div class="flex flex-col justify-between w-full">
-															<label for="photo-detail[]" class="text-nowrap w-full">Photos de l'offre détaillée:
-															</label>
-															<input type="file" name="photo-detail[]" id="photo-detail[]" class="text-center text-secondary block w-full
-											border-dashed border-2 border-secondary  p-2
-											file:mr-5 file:py-3 file:px-10
-											file:
-											file:text-small file:font-bold  file:text-secondary
-											file:border file:border-secondary
-											hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp"
-																multiple />
+															<label for="photo-detail[]" class="text-nowrap w-full">Photos de l'offre détaillée:</label>
+															<input type="file" name="photo-detail[]" id="photo-detail[]" class="text-center
+															text-secondary block w-full
+															border-dashed border-2 border-secondary rounded-lg p-2
+															file:mr-5 file:py-3 file:px-10
+															file:
+															file:text-small file:font-bold  file:text-secondary
+															file:border file:border-secondary
+															hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp" multiple />
 														</div>
 													</div>
 
@@ -1670,33 +1706,22 @@ $pro = verifyPro();
 
 		<script src="/scripts/tagManager.js"></script>
 		<script>
-			document.addEventListener('DOMContentLoaded', () => {
-				<?php 
-			if ($catOffre[0]['type_offre'] === 'restauration') {
-				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_resto_controller.php';
-				$tagRestaurationController = new TagRestoController();
-				$tags = $tagRestaurationController->getTagResto($offre['id_offre']);
-			} else {
-				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-				$tagController = new TagController();
-				$tags = $tagController->getInfosTag($offre['id_offre']);
-			}
-
-			foreach ($tags as $tag) {
-				echo "document.getElementById('tag-input').value = '".$tag['nom']."'\n";
-			}
-			
-			// Update the preview card with the tags
-			// echo "<script>
-			// 	document.addEventListener('DOMContentLoaded', function() {
-			// 		const tagPreview = document.getElementById('preview-tag-input');
-			// 		const tags = " . json_encode(array_column($tags, 'nom')) . ";
-			// 		tagPreview.textContent = tags.length > 0 ? (tags.join(', ').length > 30 ? tags.join(', ').slice(0, 30) + '...' : tags.join(', ')) : 'recherchez un tag';
-			// 	});
-			// </script>";
-			?>
-			})
-		</script>
+    document.addEventListener('DOMContentLoaded', () => {
+        <?php 
+        if ($catOffre[0]['type_offre'] === 'restauration') {
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_resto_controller.php';
+            $tagRestaurationController = new TagRestoController();
+            $tags = $tagRestaurationController->getTagResto($offre['id_offre']);
+        } else {
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+            $tagController = new TagController();
+            $tags = $tagController->getInfosTag($offre['id_offre']);
+        }
+        ?>
+        const existingTags = <?php echo json_encode($tags); ?>;
+        const tagManager = new TagManager('tag-input', existingTags);
+    });
+</script>
 		<script src="/scripts/priceManager.js"></script>
 		<script src="/scripts/prestationManager.js"></script>
 		<script src="/scripts/optionToggler.js"></script>
