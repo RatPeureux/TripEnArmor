@@ -370,7 +370,6 @@ $pro = verifyPro();
 				$stmt->bindParam(':id_offre', $id_offre);
 				$stmt->bindParam(':id_souscription', $id_souscription);
 				$stmt->bindParam(':nom_option', $option);
-
 				$stmt->execute();
 			}
 
@@ -472,9 +471,9 @@ $pro = verifyPro();
 											if ($typeOffre["prix_ht"] == 0) {
 												echo "0€/jour en ligne";
 											} else { ?>
-												HT <?php echo $typeOffre['prix_ht']; ?>€/jour en ligne<br>
+												HT <?php echo $typeOffre['prix_ht']; ?> €/jour en ligne<br>
 												<span class="text-h2">
-													TTC <?php echo $typeOffre['prix_ttc']; ?>€/jour en ligne
+													TTC <?php echo $typeOffre['prix_ttc']; ?> €/jour en ligne
 												</span>
 											<?php } ?>
 										</h1>
@@ -1194,8 +1193,8 @@ $pro = verifyPro();
 												<label
 													for="<?php echo $nom_option; ?>"><?php echo ucwords($option['nom']); ?><br>
 													<span class="font-normal text-base">HT
-														<?php echo $option['prix_ht']; ?>€/semaine<br>(TTC
-														<?php echo $option['prix_ttc']; ?>€/semaine)</span>
+														<?php echo $option['prix_ht']; ?> €/semaine<br>(TTC
+														<?php echo $option['prix_ttc']; ?> €/semaine)</span>
 												</label>
 											</div>
 										<?php }
