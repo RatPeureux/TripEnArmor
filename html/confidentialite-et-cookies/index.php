@@ -36,7 +36,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             ?>
         </div>
 
-        <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:roundex-lg">
+        <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:">
             <p class="text-h1">Politique de Confidentialité et Cookies</p>
 
             <p class="text-h2">1. Introduction</p>

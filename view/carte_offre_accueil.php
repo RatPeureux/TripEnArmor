@@ -73,7 +73,7 @@ foreach ($horaires as $jour => $horaire) {
 // Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 ?>
 <a class="card <?php if ($option) {
-					echo "active roundex-lg";
+					echo "active ";
 				} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
 	<!-- CARTE VERSION TABLETTE -->
@@ -81,7 +81,7 @@ foreach ($horaires as $jour => $horaire) {
 		<!-- En-tête -->
 		<div
 			class='en-tete absolute opacity-0 top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 group-hover:opacity-100 duration-200'>
-			<h3 class='text-xl text-center font-bolx mb-2'>
+			<h3 class='text-xl text-center  mb-2'>
 				<?php echo $titre_offre; ?>
 			</h3>
 			<div class='flex w-full justify-between px-2'>
@@ -131,11 +131,11 @@ foreach ($horaires as $jour => $horaire) {
 	</div>
 
 	<!-- CARTE VERSION TÉLÉPHONE -->
-	<div class='xl:hidden w-[30em] h-full relative bg-base100 roundex-xl flex flex-col'>
+	<div class='xl:hidden w-[30em] h-full relative bg-base100  flex flex-col'>
 		<!-- En-tête -->
 		<div
 			class='en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2'>
-			<h3 class='text-xl text-center font-bolx mb-2'>
+			<h3 class='text-xl text-center  mb-2'>
 				<?php echo $titre_offre; ?>
 			</h3>
 			<div class='flex w-full justify-between px-2'>
@@ -177,7 +177,7 @@ foreach ($horaires as $jour => $horaire) {
 		$controllerImage = new ImageController();
 		$images = $controllerImage->getImagesOfOffre($id_offre);
 		?>
-		<img class="h-72 w-full roundex-lg object-cover" src='/public/images/<?php if ($images['carte']) {
+		<img class="h-72 w-full  object-cover" src='/public/images/<?php if ($images['carte']) {
 																				echo "offres/" . $images['carte'];
 																			} else {
 																				echo $categorie_offre . '.jpg';

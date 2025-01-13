@@ -116,7 +116,7 @@ try {
 	<!-- Conteneur principal pour le contenu -->
 	<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
 		<div id="header" class="w-full"></div>
-		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 roundex-xl">
+		<div class="min-w-[1280px] max-w-[1280px] flex flex-col items-center justify-center py-8 ">
 			<!-- Lien de retour avec une icône et un titre -->
 			<div class="w-full text-left">
 				<a onclick="history.back()" class="flex content-center space-x-">
@@ -133,14 +133,14 @@ try {
 				class="flex flex-wrap justify-around items-evenly space-y-6 p-6 w-full md:space-y-0 md:flex-nowrap md:space-x-[50px]">
 				<!-- Carte de l'offre gratuite -->
 				<div
-					class="border border-secondary roundex-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white 	md:h-full hidden">
+					class="border border-secondary  flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white 	md:h-full hidden">
 					<input type="radio" name="offer" id="offer1" class="hidden">
 					<label for="offer1"
 						class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
 						<div class="h-full divide-y divide-current">
 							<div>
 								<h1 class="text-h1 leading-none mt-1 text-center">Gratuite</h1>
-								<h1 class="text-center font-bolx">Pour les associations et les organismes publics</h1>
+								<h1 class="text-center ">Pour les associations et les organismes publics</h1>
 							</div>
 							<div>
 								<div class="ml-8">
@@ -158,14 +158,14 @@ try {
 				</div>
 				<!-- Carte de l'offre standard -->
 				<div
-					class="border border-primary roundex-lg flex-col justify-center w-fit text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full">
+					class="border border-primary  flex-col justify-center w-fit text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full">
 					<input type="radio" name="offer" id="offer2" class="hidden">
 					<label for="offer2"
 						class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
 						<div class="h-full divide-y divide-current">
 							<div>
 								<h1 class="text-h1 leading-none mt-1 text-center">Standard</h1>
-								<h1 class="text-center font-bolx">Pour les entreprises et organismes privés</h1>
+								<h1 class="text-center ">Pour les entreprises et organismes privés</h1>
 							</div>
 							<div class="h-full">
 								<div class="ml-8">
@@ -184,14 +184,14 @@ try {
 				</div>
 				<!-- Carte de l'offre premium -->
 				<div
-					class="border border-secondary roundex-lg flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-max">
+					class="border border-secondary  flex-col justify-center w-fit text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-max">
 					<input type="radio" name="offer" id="offer3" class="hidden">
 					<label for="offer3"
 						class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
 						<div class="h-full divide-y divide-current">
 							<div>
 								<h1 class="text-h1 leading-none mt-1 text-center">Premium</h1>
-								<h2 class="text-center font-bolx">Pour les entreprises et organismes privés</h2>
+								<h2 class="text-center ">Pour les entreprises et organismes privés</h2>
 							</div>
 							<div class="h-full">
 								<p class="mt-2 text-small">Standard +</p>
@@ -216,7 +216,7 @@ try {
 						<!-- Titre -->
 						<div class="flex flex-col justify-center w-full">
 							<label for="titre" class="text-nowrap">Titre :</label>
-							<input type="text" id="titre" class="border border-secondary roundex-lg p-2 bg-white w-full"
+							<input type="text" id="titre" class="border border-secondary  p-2 bg-white w-full"
 								name="titre" placeholder="Escapade En Arvor" required>
 						</div>
 
@@ -224,7 +224,7 @@ try {
 						<div class="flex flex-col w-full">
 							<label for="auteur" class="text-nowrap">Auteur :</label>
 							<p id="auteur"
-								class="border border-secondary roundex-lg p-2 bg-gray-200 w-full text-gray-600">
+								class="border border-secondary  p-2 bg-gray-200 w-full text-gray-600">
 								Nom du compte
 							</p>
 						</div>
@@ -234,19 +234,19 @@ try {
 							<label for="user_input_autocomplete_address" class="text-nowrap">Adresse :</label>
 							<input type="text" id="user_input_autocomplete_address"
 								name="user_input_autocomplete_address" placeholder="21, rue de la Paix"
-								class="border border-secondary roundex-lg p-2 bg-white w-full" required>
+								class="border border-secondary  p-2 bg-white w-full" required>
 						</div>
 
 						<div class="justify-between items-center w-full">
 							<label for="locality" class="text-nowrap">Ville :</label>
 							<input id="locality" name="locality"
-								class="border border-secondary roundex-lg p-2 bg-white w-full"
+								class="border border-secondary  p-2 bg-white w-full"
 								pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
 								title="Saisir votre ville" placeholder="Rennes" required>
 
 							<label for="postal_code" class="text-nowrap">Code postal :</label>
 							<input id="postal_code" name="postal_code"
-								class="border border-secondary roundex-lg p-2 bg-white w-24 w-full" placeholder="12345"
+								class="border border-secondary  p-2 bg-white w-24 w-full" placeholder="12345"
 								pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345"
 								value="<?php echo htmlspecialchars($offre['code_postal'] ?? '', ENT_QUOTES); ?>"
 								required>
@@ -257,10 +257,10 @@ try {
 							<div class="flex flex-col justify-between w-full">
 								<label for="photo-upload-carte" class="text-nowrap w-full">Photo de la carte :</label>
 								<input type="file" name="photo-upload-carte" id="photo-upload-carte" class="text-center text-secondary block w-full
-							  border-dashed border-2 border-secondary roundex-lg p-2
+							  border-dashed border-2 border-secondary  p-2
 							  file:mr-5 file:py-3 file:px-10
-							  file:roundex-lg
-							  file:text-small file:font-bolx  file:text-secondary
+							  file:
+							  file:text-small file:  file:text-secondary
 							  file:border file:border-secondary
 							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" required />
 							</div>
@@ -270,10 +270,10 @@ try {
 								<label for="photo-detail" class="text-nowrap w-full">Photos de l'offre détaillée:
 								</label>
 								<input type="file" name="photo-detail" id="photo-detail" class="text-center text-secondary block w-full
-							  border-dashed border-2 border-secondary roundex-lg p-2
+							  border-dashed border-2 border-secondary  p-2
 							  file:mr-5 file:py-3 file:px-10
-							  file:roundex-lg
-							  file:text-small file:font-bolx  file:text-secondary
+							  file:
+							  file:text-small file:  file:text-secondary
 							  file:border file:border-secondary
 							  hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
 							</div>
@@ -283,7 +283,7 @@ try {
 						<div class="flex flex-col items-center w-full max-w-full">
 							<label for="resume" class="text-nowrap w-full">Résumé :</label>
 							<textarea id="resume" name="resume"
-								class="border border-secondary roundex-lg p-2 bg-white w-full" rows="4"
+								class="border border-secondary  p-2 bg-white w-full" rows="4"
 								placeholder="Le résumé visible sur la carte de l'offre." required></textarea>
 
 						</div>
@@ -292,7 +292,7 @@ try {
 						<div class="flex flex-col items-center w-full">
 							<label for="description" class="text-nowrap w-full">Description :</label>
 							<textarea id="description" name="description"
-								class="border border-secondary roundex-lg p-2 bg-white w-full" rows="11"
+								class="border border-secondary  p-2 bg-white w-full" rows="11"
 								placeholder="La description visible dans les détails de l'offre." required></textarea>
 						</div>
 
@@ -300,7 +300,7 @@ try {
 						<div class="flex flex-col justify-between items-center w-full">
 							<label for="accessibilite" class="text-nowrap w-full">Accessibilité :</label>
 							<textarea id="accessibilite" name="accessibilite"
-								class="border border-secondary roundex-lg p-2 bg-white w-full" rows="5"
+								class="border border-secondary  p-2 bg-white w-full" rows="5"
 								placeholder="Une description de l'accessibilité pour les personnes en situation de handicap, visible dans les détails de l'offre."></textarea>
 						</div>
 					</div>
@@ -312,7 +312,7 @@ try {
 						<div class="w-full">
 							<label for="activityType" class="block text-nowrap">Type d'activité:</label>
 							<select id="activityType" name="activityType"
-								class="bg-white text-black py-2 px-4 border border-black roundex-lg w-full" required>
+								class="bg-white text-black py-2 px-4 border border-black  w-full" required>
 								<option value="selection" selected hidden>Quel type d'activité ?</option>
 								<option value="activite" id="activite">Activité</option>
 								<option value="visite" id="visite">Visite</option>
@@ -326,22 +326,22 @@ try {
 							class="flex flex-col w-full optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
 							<label for="tag-input" class="block text-nowrap">Tags :</label>
 							<select type="text" id="tag-input"
-								class="bg-white text-black py-2 px-4 border border-black roundex-lg w-full"
+								class="bg-white text-black py-2 px-4 border border-black  w-full"
 								placeholder="Ajouter un tag...">
 								<option value="" class="hidden" selected>Rechercher un tag</option>
 							</select>
 						</div>
 
 						<div>
-							<div class="tag-container flex flex-wrap p-2 roundex-lg optionActivite hidden"
+							<div class="tag-container flex flex-wrap p-2  optionActivite hidden"
 								id="activiteTags"></div>
-							<div class="tag-container flex flex-wrap p-2 roundex-lg optionVisite hidden"
+							<div class="tag-container flex flex-wrap p-2  optionVisite hidden"
 								id="visiteTags"></div>
-							<div class="tag-container flex flex-wrap p-2 roundex-lg optionSpectacle hidden"
+							<div class="tag-container flex flex-wrap p-2  optionSpectacle hidden"
 								id="spectacleTags"></div>
-							<div class="tag-container flex flex-wrap p-2 roundex-lg optionParcAttraction hidden"
+							<div class="tag-container flex flex-wrap p-2  optionParcAttraction hidden"
 								id="parcAttractionTags"></div>
-							<div class="tag-container flex flex-wrap p-2 roundex-lg optionRestauration hidden"
+							<div class="tag-container flex flex-wrap p-2  optionRestauration hidden"
 								id="restaurationTags"></div>
 						</div>
 
@@ -354,7 +354,7 @@ try {
 								<p>Visite guidée :</p>
 								<input type="checkbox" id="visiteGuidee" value="" class="sr-only peer">
 								<div
-									class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 roundex-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:roundex-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+									class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800  peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after: after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
 								</div>
 							</div>
 						</div>
@@ -365,7 +365,7 @@ try {
 							class="flex justify-start items-center w-full space-x-2 optionActivite optionParcAttraction hidden">
 							<label for="age" class="text-nowrap">Âge requis :</label>
 							<input type="number" id="age" pattern="/d+/" min="0" max="125" name="age"
-								class="border border-secondary roundex-lg p-2 bg-white w-fit text-right">
+								class="border border-secondary  p-2 bg-white w-fit text-right">
 							<p>an(s)</p>
 						</div>
 
@@ -375,10 +375,10 @@ try {
 							class="flex justify-start items-center w-full space-x-1 optionActivite optionVisite optionSpectacle hidden">
 							<label for="duree" class="text-nowrap">Durée :</label>
 							<input type="number" id="duree" pattern="/d+/" min="0" max="23"
-								class="border border-secondary roundex-lg p-2 bg-white w-fit text-right">
+								class="border border-secondary  p-2 bg-white w-fit text-right">
 							<p>h </p>
 							<input type="number" id="minute" pattern="/d+/" min="0" max="59"
-								class="border border-secondary roundex-lg p-2 bg-white w-fit text-right">
+								class="border border-secondary  p-2 bg-white w-fit text-right">
 							<p>min</p>
 						</div>
 
@@ -407,7 +407,7 @@ try {
 						<div class="flex justify-start items-center w-full space-x-2 optionSpectacle hidden">
 							<label for="place" class="text-nowrap">Capacité d'accueil :</label>
 							<input type="number" id="place" pattern="/d+/" onchange="" min="0" name="place"
-								class="border border-secondary roundex-lg p-2 bg-white w-fit text-right">
+								class="border border-secondary  p-2 bg-white w-fit text-right">
 							<p>personnes</p>
 						</div>
 
@@ -416,7 +416,7 @@ try {
 						<div class="flex justify-start items-center w-full space-x-2 optionParcAttraction hidden">
 							<label for="parc-numb" class="text-nowrap">Nombre d'attraction :</label>
 							<input type="number" id="parc-numb" pattern="/d+/" onchange="" min="0"
-								class="border border-secondary roundex-lg p-2 bg-white w-fit text-right">
+								class="border border-secondary  p-2 bg-white w-fit text-right">
 							<p>attractions</p>
 						</div>
 
@@ -425,22 +425,22 @@ try {
 							<p>
 								Langues parlées :
 							</p>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+							<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 								onclick="toggleCheckbox('langueFR')">
 								<label for="langueFR">Français</label>
 								<input type="checkbox" name="langueFR" id="langueFR" class="hidden" checked="true">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+							<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 								onclick="toggleCheckbox('langueEN')">
 								<label for="langueEN">Anglais</label>
 								<input type="checkbox" name="langueEN" id="langueEN" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+							<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 								onclick="toggleCheckbox('langueES')">
 								<label for="langueES">Espagnol</label>
 								<input type="checkbox" name="langueES" id="langueES" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+							<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 								onclick="toggleCheckbox('langueDE')">
 								<label for="langueDE">Allemand</label>
 								<input type="checkbox" name="langueDE" id="langueDE" class="hidden">
@@ -454,27 +454,27 @@ try {
 							<p>
 								Repas servis :
 							</p>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+							<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 								onclick="toggleCheckbox('repasPetitDejeuner')">
 								<label for="repasPetitDejeuner">Petit-déjeuner</label>
 								<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+							<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 								onclick="toggleCheckbox('repasBrunch')">
 								<label for="repasBrunch">Brunch</label>
 								<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+							<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 								onclick="toggleCheckbox('repasDejeuner')">
 								<label for="repasDejeuner">Déjeuner</label>
 								<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+							<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 								onclick="toggleCheckbox('repasDiner')">
 								<label for="repasDiner">Dîner</label>
 								<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
 							</div>
-							<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+							<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 								onclick="toggleCheckbox('repasBoissons')">
 								<label for="repasBoissons">Boissons</label>
 								<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
@@ -486,10 +486,10 @@ try {
 						<div class="flex flex-col justify-between w-full optionParcAttraction hidden">
 							<label for="photo-plan" class="text-nowrap w-full">Plan du parc d'attraction :</label>
 							<input type="file" name="photo-plan" id="photo-plan" class="text-center text-secondary block w-full
-							border-dashed border-2 border-secondary roundex-lg p-2
+							border-dashed border-2 border-secondary  p-2
 							file:mr-5 file:py-3 file:px-10
-							file:roundex-lg
-							file:text-small file:font-bolx  file:text-secondary
+							file:
+							file:text-small file:  file:text-secondary
 							file:border file:border-secondary
 							hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
 						</div>
@@ -518,7 +518,7 @@ try {
 									<tr>
 										<td class="w-full">
 											<input type="text" name="newPrestationName" id="newPrestationName"
-												class="border border-secondary roundex-lg p-2 bg-white w-full">
+												class="border border-secondary  p-2 bg-white w-full">
 										</td>
 										<td class="w-fit group">
 											<input type="checkbox" name="newPrestationInclude" id="newPrestationInclude"
@@ -547,7 +547,7 @@ try {
 											<div class="h-max w-full cursor-pointer flex justify-center items-center"
 												id="addPrestationButton">
 												<svg xmlns="http://www.w3.org/2000/svg"
-													class="fill-secondary roundex-lg border border-transparent hover:border-secondary border-box p-1"
+													class="fill-secondary  border border-transparent hover:border-secondary border-box p-1"
 													width="32" height="32"
 													viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
 													<path
@@ -580,17 +580,17 @@ try {
 									<tr>
 										<td class="w-full">
 											<input type="text" name="newPrixName" id="newPrixName"
-												class="border border-secondary roundex-lg p-2 bg-white w-full">
+												class="border border-secondary  p-2 bg-white w-full">
 										</td>
 										<td class="w-fit">
 											<input type="number" name="newPrixValeur" id="newPrixValeur" min="0"
-												class="border border-secondary roundex-lg p-2 bg-white">
+												class="border border-secondary  p-2 bg-white">
 										</td>
 										<td class="w-fit">
 											<div class="h-max w-full cursor-pointer flex justify-center items-center"
 												id="addPriceButton">
 												<svg xmlns="http://www.w3.org/2000/svg"
-													class="fill-secondary roundex-lg border border-transparent hover:border-secondary border-box p-1"
+													class="fill-secondary  border border-transparent hover:border-secondary border-box p-1"
 													width="32" height="32"
 													viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
 													<path
@@ -614,21 +614,21 @@ try {
 							<div
 								class="flex flex-row mb-4 content-center justify-between items-center text-secondary w-full">
 								<!-- Sans option -->
-								<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+								<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 									id="option-rien-div">
 									<input type="radio" id="option-rien" name="option" value="option-rien"
 										class="hidden" />
 									<label for="option-rien">Sans option</label>
 								</div>
 								<!-- Option en relief -->
-								<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+								<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 									id="option-relief-div">
 									<input type="radio" id="option-relief" name="option" value="option-relief"
 										class="hidden" checked="true" />
 									<label for="option-relief">En Relief (3.99€)</label>
 								</div>
 								<!-- À la Une -->
-								<div class="w-fit p-2 roundex-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bolx"
+								<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 									id="option-a-la-une-div">
 									<input type="radio" id="option-a-la-une" name="option" class="hidden"
 										value="option-a-la-une" />
@@ -641,7 +641,7 @@ try {
 					<div
 						class="w-full flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
 						<input type="submit" value="Créer l'offre" id="submitPart3"
-							class="bg-secondary text-white font-medium py-2 px-4 roundex-lg inline-flex items-center border border-transparent hover:border hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300"
+							class="bg-secondary text-white font-medium py-2 px-4  inline-flex items-center border border-transparent hover:border hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300"
 							disabled="true">
 					</div>
 				</form>
@@ -650,7 +650,7 @@ try {
 					<div class="h-fit w-full">
 						<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 						<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la Une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-						<div class="card active relative bg-base300 roundex-xl flex flex-col w-full" id="card-preview">
+						<div class="card active relative bg-base300  flex flex-col w-full" id="card-preview">
 							<script>
 								// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
 								function toggleCardPreview(option) {
@@ -679,9 +679,9 @@ try {
 							</script>
 							<!-- En tête -->
 							<div
-								class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 roundex-b-lg">
+								class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 ">
 								<!-- Mise à jour du titre en temps réel -->
-								<h3 class="text-center font-bolx" id="preview-titre"></h3>
+								<h3 class="text-center " id="preview-titre"></h3>
 								<script>
 									document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
 										document.getElementById("titre").value
@@ -756,7 +756,7 @@ try {
 								</div>
 							</div>
 							<!-- Image de fond -->
-							<img class="h-48 w-full roundex-t-lg object-cover" src="/public/images/Gina.png"
+							<img class="h-48 w-full  object-cover" src="/public/images/Gina.png"
 								alt="Image promotionnelle de l'offre" id="preview-image" />
 							<script>
 								document
@@ -820,10 +820,10 @@ try {
 								<div class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
 									<div class="p-1 w-full flex justify-center items-center">
 										<!-- <p
-								class="text-white text-center text-small w-full font-bolx"
+								class="text-white text-center text-small w-full "
 							  ></p> -->
 										<!-- Mise à jour du tag en temps réel -->
-										<p class="text-white text-center roundex-lg bg-secondary font-bolx w-fit p-2"
+										<p class="text-white text-center  bg-secondary  w-fit p-2"
 											id="preview-tag-input">
 											Ajouter un tag...
 										</p>

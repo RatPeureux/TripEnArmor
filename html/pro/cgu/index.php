@@ -40,7 +40,7 @@ $pro = verifyPro();?>
     ?>
 
     <div class="self-center  flex justify-center w-full md:max-w-[1280px] p-2">
-        <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:roundex-lg">
+        <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:">
             <p class="text-h1">Conditions Générales d'Utilisation (CGU)</p>
 
             <p class="text-h2">1. Présentation du Site</p>

@@ -340,10 +340,10 @@ session_start();
                     <?php if ($images['details']) { ?>
                         <div class="flex items-center gap-8 justify-center">
                             <a
-                                class="swiper-button-prev group flex justify-center items-center roundex-full !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-prev group flex justify-center items-center  !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
                                 ‹</a>
                             <a
-                                class="swiper-button-next group flex justify-center items-center roundex-full !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-next group flex justify-center items-center  !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
                                 ›</a>
                         </div>
                         <?php
@@ -356,18 +356,18 @@ session_start();
                 <div class="space-y-2 px-2 md:px-0 w-full">
                     <div class="flex flex-col md:flex-row w-full">
                         <div class="flex flex-col md:flex-row">
-                            <h1 class="text-h1 font-bolx"><?php echo $offre['titre'] ?></h1>
+                            <h1 class="text-h1 "><?php echo $offre['titre'] ?></h1>
                             <p class="hidden text-h1 md:flex md:pt-1">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-h1 md:pt-1"><?php echo $nom_pro ?></p>
                         </div>
                     </div>
                     <?php if ($ouvert == true) {
                         ?>
-                        <p class="text-h3 font-bolx text-green-500">Ouvert</p>
+                        <p class="text-h3  text-green-500">Ouvert</p>
                         <?php
                     } else {
                         ?>
-                        <p class="text-h3 font-bolx text-red-500">Fermé</p>
+                        <p class="text-h3  text-red-500">Fermé</p>
                         <?php
                     }
                     ?>
@@ -398,7 +398,7 @@ session_start();
                         $tagsAffiche = rtrim($tagsAffiche, ', ');
                         if ($tags_offre) {
                             ?>
-                            <div class="p-1 roundex-lg bg-secondary self-center w-full">
+                            <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
@@ -406,7 +406,7 @@ session_start();
                             <?php
                         } else {
                             ?>
-                            <div class="p-1 roundex-lg bg-secondary self-center w-full">
+                            <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
@@ -431,7 +431,7 @@ session_start();
                         $tagsAffiche = rtrim($tagsAffiche, ', ');
                         if ($tags_offre) {
                             ?>
-                            <div class="p-1 roundex-lg bg-secondary self-center w-full">
+                            <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
@@ -439,7 +439,7 @@ session_start();
                             <?php
                         } else {
                             ?>
-                            <div class="p-1 roundex-lg bg-secondary self-center w-full">
+                            <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
@@ -456,7 +456,7 @@ session_start();
                         <div class="partie-description flex flex-col basis-1/2 pr-2">
                             <!-- Prix + localisation -->
                             <div class="flex flex-col space-y-2 md:gap-4">
-                                <p class="text-h4 font-bolx">À propos</p>
+                                <p class="text-h4 ">À propos</p>
                                 <div class="flex items-center gap-4 px-2">
                                     <i class="w-6 text-center fa-solid fa-location-dot"></i>
                                     <div class="text-small">
@@ -475,7 +475,7 @@ session_start();
                             </div>
                             <!-- Description détaillée -->
                             <div class="description flex flex-col space-y-2 my-4">
-                                <p class="text-h4 font-bolx">Description</p>
+                                <p class="text-h4 ">Description</p>
                                 <p class="text-justify text-small px-2 prose">
                                     <?php echo $description ?>
                                 </p>
@@ -487,8 +487,8 @@ session_start();
                             <!-- Infos en fonction du type de l'offre -->
                             <a class="">
                                 <div class="flex flex-row justify-between" id="horaire-button">
-                                    <div class="flex font-bolx">
-                                        <p class="text-h4 font-bolx">Horaires&nbsp;</p>
+                                    <div class="flex ">
+                                        <p class="text-h4 ">Horaires&nbsp;</p>
                                     </div>
                                     <p id="horaire-arrow">></p>
                                 </div>
@@ -517,7 +517,7 @@ session_start();
                             </a>
                             <a class="">
                                 <div class="flex flex-row justify-between pt-3" id="compl-button">
-                                    <p class="text-h4 font-bolx ">Informations complémentaires</p>
+                                    <p class="text-h4  ">Informations complémentaires</p>
                                     <p id="compl-arrow">></p>
                                 </div>
                                 <div class="flex flex-col py-3 hidden" id="compl-info">
@@ -627,7 +627,7 @@ session_start();
                                 ?>
                                 <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
-                                        <p class="text-h4 font-bolx">Grille tarifaire</p>
+                                        <p class="text-h4 ">Grille tarifaire</p>
                                         <p id="grille-arrow">></p>
                                     </div>
                                     <div class="hidden text-small py-3" id="grille-info">
@@ -653,7 +653,7 @@ session_start();
                             <div class="mt-5 flex flex-col gap-2">
 
                                 <div class="w-full flex justify-between">
-                                    <h3 class="text-h4 font-bolx">Avis</h3>
+                                    <h3 class="text-h4 ">Avis</h3>
                                     <?php
                                     // Moyenne des notes quand il y en a une
                                     if ($moyenne) { ?>
@@ -709,7 +709,7 @@ session_start();
                                         <div class="flex flex-col gap-2">
                                             <button
                                                 onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                                class="bg-secondary font-bolx text-white roundex-lg p-2 self-end flex items-center gap-2">
+                                                class="bg-secondary  text-white  p-2 self-end flex items-center gap-2">
                                                 <i class="fa-solid fa-pen"></i>
                                                 <p>Rédiger un avis</p>
                                             </button>
@@ -721,18 +721,18 @@ session_start();
                                                 <div>
                                                     <label for="titre">Titre</label>
                                                     <input type="text" name="titre" id="titre" placeholder="Titre de l'avis"
-                                                        class="w-full border border-black roundex-lg p-1" required>
+                                                        class="w-full border border-black  p-1" required>
                                                 </div>
 
                                                 <!-- Commentaire de l'avis -->
                                                 <textarea type="commentaire" name="commentaire" id="commentaire"
                                                     placeholder="Votre commentaire"
-                                                    class="w-full border border-black roundex-lg p-1"></textarea>
+                                                    class="w-full border border-black  p-1"></textarea>
 
                                                 <!-- Note globale donnée (pour toutes les offres) -->
                                                 <div>
                                                     <label for="note_globale">Note globale</label>
-                                                    <select name="note_globale" id="note_globale" class="p-1 roundex-lg" required>
+                                                    <select name="note_globale" id="note_globale" class="p-1 " required>
                                                         <option value="" selected disabled>...</option>
                                                         <option value="0">0</option>
                                                         <option value="0.5">0,5</option>
@@ -753,7 +753,7 @@ session_start();
                                                 if ($categorie_offre == 'restauration') { ?>
                                                     <div>
                                                         <label for="note_ambiance">Ambiance</label>
-                                                        <select name="note_ambiance" id="note_ambiance" class="p-1 roundex-lg"
+                                                        <select name="note_ambiance" id="note_ambiance" class="p-1 "
                                                             required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
@@ -772,7 +772,7 @@ session_start();
 
                                                     <div>
                                                         <label for="note_service">Service</label>
-                                                        <select name="note_service" id="note_service" class="p-1 roundex-lg"
+                                                        <select name="note_service" id="note_service" class="p-1 "
                                                             required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
@@ -791,7 +791,7 @@ session_start();
 
                                                     <div>
                                                         <label for="note_cuisine">Cuisine</label>
-                                                        <select name="note_cuisine" id="note_cuisine" class="p-1 roundex-lg"
+                                                        <select name="note_cuisine" id="note_cuisine" class="p-1 "
                                                             required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
@@ -810,7 +810,7 @@ session_start();
 
                                                     <div>
                                                         <label for="note_rapport">Rapport qualité / prix</label>
-                                                        <select name="note_rapport" id="note_rapport" class="p-1 roundex-lg"
+                                                        <select name="note_rapport" id="note_rapport" class="p-1 "
                                                             required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
@@ -841,7 +841,7 @@ session_start();
                                                 <!-- Contexte de passage -->
                                                 <div>
                                                     <label for="contexte_passage">Contexte de passage</label>
-                                                    <select name="contexte_passage" id="contexte_passage" class="p-1 roundex-lg"
+                                                    <select name="contexte_passage" id="contexte_passage" class="p-1 "
                                                         required>
                                                         <option value="" selected disabled>...</option>
                                                         <option value="en solo">en solo</option>
@@ -861,14 +861,14 @@ session_start();
                                                 <!-- Publier l'avis ou annuler l'écriture -->
                                                 <div class="flex justify-end gap-3 items-center">
                                                     <div onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                                        class="font-bolx text-secondarygit roundex-lg p-2 self-end flex items-center gap-2 border border-secondary">
+                                                        class=" text-secondarygit  p-2 self-end flex items-center gap-2 border border-secondary">
                                                         <p>Annuler</p>
                                                     </div>
 
-                                                    <input type="submit" value="+ Publier" class="bg-secondary text-white font-bolx roundex-lg p-2 self-end">
+                                                    <input type="submit" value="+ Publier" class="bg-secondary text-white   p-2 self-end">
                                                 </div>
 
-                                                <hr class="w-1/2 border border-black self-end my-2 roundex-lg bg-black">
+                                                <hr class="w-1/2 border border-black self-end my-2  bg-black">
                                             </form>
 
                                             <script>
@@ -910,7 +910,7 @@ session_start();
                                     <!-- Symbole de chargement quand les avis chargent -->
                                     <img id="loading-indicator" class="w-8 h-6" style="display: none;"
                                         src="/public/images/loading.gif" alt="Loading...">
-                                    <button class="text-small font-bolx" id="load-more-btn">
+                                    <button class="text-small " id="load-more-btn">
                                         Afficher plus...
                                     </button>
                                 </div>

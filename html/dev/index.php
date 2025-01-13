@@ -74,8 +74,8 @@
                     </a>
                     <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                         onclick="return confirmLogout()">
-                        <div class="border border-primary roundex-lg p-2">
-                            <p class="font-bolx">Se déconnecter</p>
+                        <div class="border border-primary  p-2">
+                            <p class="">Se déconnecter</p>
                         </div>
                     </a>
                 <?php } else { ?>
@@ -84,8 +84,8 @@
                         <i class="text-3xl fa-regular fa-user"></i>
                     </a>
                     <a href="/connexion" class="hidden md:block">
-                        <div class="border border-primary roundex-lg p-2">
-                            <p class="text-nowrap font-bolx">Se connecter</p>
+                        <div class="border border-primary  p-2">
+                            <p class="text-nowrap ">Se connecter</p>
                         </div>
                     </a>
                 <?php } ?>
@@ -95,7 +95,7 @@
 
 
 
-    <main class="self-center align-center text-center w-full grow roundex-lg max-w-[1280px]">
+    <main class="self-center align-center text-center w-full grow  max-w-[1280px]">
         <h1 class="font-cormorant uppercase text-[10rem] tracking-widest text-7xl hidden md:block mb-4">PACT</h1>
 
         <div class="flex justify-between space-x-2 items-center mb-4">
@@ -123,20 +123,20 @@
         <div class="relative flex-1 max-w-full mx-auto mb-8">
             <div class="relative flex items-center">
                 <input type="text" id="search-field" placeholder="Rechercher par tags..."
-                    class="w-full border border-primary p-2 roundex-full h-16 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                    class="w-full border border-primary p-2  h-16 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
                     aria-label="Recherche" autocomplete="off">
                 <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">
                     <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
                 </div>
                 <!-- Bouton de suppression -->
                 <button
-                    class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white roundex-lg px-2 py-1"
+                    class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white  px-2 py-1"
                     id="clear-tags-btn">
                     <i class="text-xl fa-solid fa-times cursor-pointer"></i>
                 </button>
             </div>
             <!-- Dropdown de recherche -->
-            <div class="absolute top-full left-0 right-0 bg-white border border-base200 roundex-lg shadow-md mt-2 hidden z-10"
+            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
                 id="search-menu">
             </div>
         </div>
@@ -145,7 +145,7 @@
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$toutesLesOffres) { ?>
             <div class="md:min-w-full flex flex-col gap-4">
-                <?php echo "<p class='mt-4 font-bolx text-h2'>Il n'existe aucune offre...</p>"; ?>
+                <?php echo "<p class='mt-4  text-h2'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
             <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4" id="no-matches">

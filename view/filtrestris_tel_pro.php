@@ -12,26 +12,26 @@
             <p>Trier par</p>
         </a>
         <!-- DROPDOWN MENU TRIS TÉLÉPHONE -->
-        <div class="hidden md:hidden absolute bottom-[72px] right-2 z-20 bg-white border border-base200 roundex-lg shadow-md max-w-48 p-2 flex flex-col gap-4"
+        <div class="hidden md:hidden absolute bottom-[72px] right-2 z-20 bg-white border border-base200  shadow-md max-w-48 p-2 flex flex-col gap-4"
             id="sort-section-tel">
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-ascending') ? '/pro' : '?sort=note-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-ascending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-ascending') ? '/pro' : '?sort=note-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-ascending') ? '' : ''; ?> hover:text-primary duration-100">
                 <p>Note croissante</p>
             </a>
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-descending') ? '/pro' : '?sort=note-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-descending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-descending') ? '/pro' : '?sort=note-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'note-descending') ? '' : ''; ?> hover:text-primary duration-100">
                 <p>Note décroissante</p>
             </a>
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? '/pro' : '?sort=price-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? '/pro' : '?sort=price-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? '' : ''; ?> hover:text-primary duration-100">
                 <p>Prix croissant</p>
             </a>
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-descending') ? '/pro' : '?sort=price-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'price-descending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
+            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-descending') ? '/pro' : '?sort=price-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'price-descending') ? '' : ''; ?> hover:text-primary duration-100">
                 <p>Prix décroissant</p>
             </a>
             <?php
             if ($pro['data']['type'] === 'prive') { ?>
-                <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? '/pro' : '?sort=type-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
+                <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? '/pro' : '?sort=type-ascending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? '' : ''; ?> hover:text-primary duration-100">
                     <p>Type d'offre de A à Z</p>
                 </a>
-                <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-descending') ? '/pro' : '?sort=type-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'type-descending') ? 'font-bolx' : ''; ?> hover:text-primary duration-100">
+                <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-descending') ? '/pro' : '?sort=type-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'type-descending') ? '' : ''; ?> hover:text-primary duration-100">
                     <p>Type d'offre de Z à A</p>
                 </a>
             <?php } ?>
@@ -106,7 +106,7 @@
                 <div class="developped hidden flex flex-nowrap w-full items-center gap-4" id="developped-f3-tel">
                     <div class="text-nowrap text-small flex items-center gap-2 w-full">
                         <label>Ville ou Code postal</label>
-                        <input id="localisation-tel" type="text" class="w-full border border-base300 roundex-lg p-1 focus:ring-0" />
+                        <input id="localisation-tel" type="text" class="w-full border border-base300  p-1 focus:ring-0" />
                     </div>
                 </div>
             </div>
@@ -118,13 +118,13 @@
                 <div class="developped hidden flex items-center" id="developped-f4-tel">
                     <label class="text-small">Intervalle des prix entre&nbsp;</label>
                     <div class="flex items-center">
-                        <input id="min-note-tel" type="number" value="0" min="0" max="5" step="0.5" class="border border-base300 roundex-lg p-1 text-small text-right w-[39px] focus:ring-0" />
+                        <input id="min-note-tel" type="number" value="0" min="0" max="5" step="0.5" class="border border-base300  p-1 text-small text-right w-[39px] focus:ring-0" />
                         &nbsp;
                         <img src="/public/icones/egg-full.svg" class="mb-1" width="11">
                     </div>
                     <label class="text-small">&nbsp;et&nbsp;</label>
                     <div class="flex items-center">
-                        <input id="max-note-tel" type="number" value="5" min="0" max="5" step="0.5" class="border border-base300 roundex-lg p-1 text-small text-right w-[39px] focus:ring-0" />
+                        <input id="max-note-tel" type="number" value="5" min="0" max="5" step="0.5" class="border border-base300  p-1 text-small text-right w-[39px] focus:ring-0" />
                         &nbsp;
                         <img src="/public/icones/egg-full.svg" class="mb-1" width="11">
                     </div>
@@ -138,11 +138,11 @@
                 <div class="developped text-small hidden flex flex-wrap items-center" id="developped-f5-tel">
                     <div>
                         <label>Offre allant du&nbsp;</label>
-                        <input type="date" class="border border-base300 roundex-lg p-1 text-right mr-4" id="min-date-tel" name="min-date-tel">
+                        <input type="date" class="border border-base300  p-1 text-right mr-4" id="min-date-tel" name="min-date-tel">
                     </div>
                     <div>
                         <label>&nbsp;au&nbsp;</label>
-                        <input type="date" class="border border-base300 roundex-lg p-1 text-right" id="max-date-tel" name="max-date-tel">
+                        <input type="date" class="border border-base300  p-1 text-right" id="max-date-tel" name="max-date-tel">
                     </div>
                 </div>
             </div>
@@ -154,9 +154,9 @@
                 <div class="devellopped hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tel">
                     <div class="flex items-center">
                         <label class="text-small">Intervalle des prix entre&nbsp;</label>
-                        <input id="min-price-tel" type="number" value="0" min="0" max="99" class="w-[44px] border border-base300 roundex-lg p-1 text-small text-right focus:ring-0" />
+                        <input id="min-price-tel" type="number" value="0" min="0" max="99" class="w-[44px] border border-base300  p-1 text-small text-right focus:ring-0" />
                         <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
-                        <input id="max-price-tel" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-base300 roundex-lg p-1 text-small text-right focus:ring-0" />
+                        <input id="max-price-tel" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-base300  p-1 text-small text-right focus:ring-0" />
                         <label class="text-small">&nbsp;€</label>
                     </div>
                     <div class="text-small flex flex-wrap gap-4" id="developped-f2-tel">
@@ -200,7 +200,7 @@
         </div>
     </div>
 
-    <a class="fixed left-0 right-0 bottom-0 roundex bg-primary font-bolx uppercase text-h4 text-white text-center m-2 p-4 cursor-pointer hover:bg-orange-600" onclick="toggleFiltres()">
+    <a class="fixed left-0 right-0 bottom-0  bg-primary  uppercase text-h4 text-white text-center m-2 p-4 cursor-pointer hover:bg-orange-600" onclick="toggleFiltres()">
         Voir les offres
     </a>
 </div>

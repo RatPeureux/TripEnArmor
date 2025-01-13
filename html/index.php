@@ -72,9 +72,9 @@
             </div>
 
             <div class="flex items-center justify-center gap-2">
-                <a class="p-2 hover:bg-base100 roundex-lg" href="/offres/a-la-une">À la Une</a>
+                <a class="p-2 hover:bg-base100 " href="/offres/a-la-une">À la Une</a>
                 <p class="font-thin text-xl text-base200">|</p>
-                <a class="p-2 hover:bg-base100 roundex-lg" href="/offres">Toutes les offres</a>
+                <a class="p-2 hover:bg-base100 " href="/offres">Toutes les offres</a>
             </div>
 
             <!-- Actions Utilisateur -->
@@ -87,8 +87,8 @@
                     </a>
                     <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                         onclick="return confirmLogout()">
-                        <div class="border border-primary roundex-lg p-2">
-                            <p class="font-bolx">Se déconnecter</p>
+                        <div class="border border-primary  p-2">
+                            <p class="">Se déconnecter</p>
                         </div>
                     </a>
                 <?php } else { ?>
@@ -97,8 +97,8 @@
                         <i class="text-3xl fa-regular fa-user"></i>
                     </a>
                     <a href="/connexion" class="hidden md:block">
-                        <div class="border border-primary roundex-lg p-2">
-                            <p class="text-nowrap font-bolx">Se connecter</p>
+                        <div class="border border-primary  p-2">
+                            <p class="text-nowrap ">Se connecter</p>
                         </div>
                     </a>
                 <?php } ?>
@@ -106,7 +106,7 @@
         </header>
     </div>
 
-    <main class="self-center align-center w-full grow roundex-lg max-w-[1280px] p-2">
+    <main class="self-center align-center w-full grow  max-w-[1280px] p-2">
         <h1 class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl mb-4">PACT</h1>
 
         <div class="searchOn hidden md:flex justify-between text-center items-center mb-2">
@@ -145,31 +145,31 @@
         <div class="relative flex-1 max-w-full mx-2 mb-8">
             <div class="relative flex items-center">
                 <input type="text" id="search-field" placeholder="Rechercher par tags..."
-                    class="w-full border border-primary p-2 roundex-full h-12 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                    class="w-full border border-primary p-2  h-12 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
                     aria-label="Recherche" autocomplete="off">
                 <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">
                     <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
                 </div>
                 <!-- Bouton de suppression -->
                 <button
-                    class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white roundex-lg px-2 py-1"
+                    class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white  px-2 py-1"
                     id="clear-tags-btn">
                     <i class="text-xl fa-solid fa-times cursor-pointer"></i>
                 </button>
             </div>
             <!-- Dropdown de recherche -->
-            <div class="absolute top-full left-0 right-0 bg-white border border-base200 roundex-lg shadow-md mt-2 hidden z-10"
+            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
                 id="search-menu">
             </div>
         </div>
 
-        <h1 class="text-h1 font-bolx">Nos meilleures offres</h1>
+        <h1 class="text-h1 ">Nos meilleures offres</h1>
 
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$meilleuresNotes) { ?>
             <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-12">
-                <?php echo "<p class='font-bolx text-h2'>Il n'existe aucune offre...</p>"; ?>
+                <?php echo "<p class=' text-h2'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
             <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-12" id="no-matches">
@@ -224,14 +224,14 @@
         <?php } ?>
 
         <a class="cursor-pointer group" href="/offres/a-la-une">
-            <h1 class="text-h1 font-bolx">À la Une<span class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
+            <h1 class="text-h1 ">À la Une<span class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
         </a>
 
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$aLaUnes) { ?>
             <div class="md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-16">
-                <?php echo "<p class='font-bolx text-h2'>Il n'existe aucune offre...</p>"; ?>
+                <?php echo "<p class=' text-h2'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
             <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-0 md:mb-16" id="no-matches-2">
@@ -342,7 +342,7 @@
                 message.id = 'no-matches-message';
                 const content = document.createElement('p');
                 content.textContent = 'Aucune offre n\'est "À la Une".';
-                message.classList.add('flex', 'justify-center', 'items-center', 'font-bolx', 'text-h2', 'h-72');
+                message.classList.add('flex', 'justify-center', 'items-center', '', 'text-h2', 'h-72');
                 message.appendChild(content);
                 messageContainer.appendChild(message);
                 noMatchesContainer.appendChild(messageContainer);
