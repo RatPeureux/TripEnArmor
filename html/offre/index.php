@@ -355,40 +355,38 @@ session_start();
                 <div class="space-y-2 px-2 md:px-0 w-full">
                     <div class="flex flex-col md:flex-row w-full">
                         <div class="flex flex-col justify-between md:flex-row w-full">
-                            <div className="flex flex-col md:flex-row w-full">
-                                <h1 class="text-h1 "><?php echo $offre['titre'] ?></h1>
-                                <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
-                                <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
+                            <h1 class="text-h1 "><?php echo $offre['titre'] ?></h1>
+                            <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
+                            <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
+                        </div>
+                        <?php
+                        // Moyenne des notes quand il y en a une
+                        if ($moyenne) { ?>
+                            <div class="flex gap-1">
+                                <div class="flex gap-1 shrink-0">
+                                    <?php for ($i = 0; $i < 5; $i++) {
+                                        if ($moyenne > 1) {
+                                            ?>
+                                            <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
+                                            <?php
+                                        } else if ($moyenne > 0) {
+                                            ?>
+                                                <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
+                                            <?php
+                                        } else {
+                                            ?>
+                                                <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                                            <?php
+                                        }
+                                        $moyenne--;
+                                    }
+                                    ?>
+                                </div>
+                                <p class='text-small flex pt-1 items-center'>(<?php echo $nb_avis ?>)</p>
                             </div>
                             <?php
-                            // Moyenne des notes quand il y en a une
-                            if ($moyenne) { ?>
-                                <div class="flex gap-1">
-                                    <div class="flex gap-1 shrink-0">
-                                        <?php for ($i = 0; $i < 5; $i++) {
-                                            if ($moyenne > 1) {
-                                                ?>
-                                                <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-                                                <?php
-                                            } else if ($moyenne > 0) {
-                                                ?>
-                                                    <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
-                                                <?php
-                                            } else {
-                                                ?>
-                                                    <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-                                                <?php
-                                            }
-                                            $moyenne--;
-                                        }
-                                        ?>
-                                    </div>
-                                    <p class='text-small flex pt-1 items-center'>(<?php echo $nb_avis ?>)</p>
-                                </div>
-                                <?php
-                            }
-                            ?>
-                        </div>
+                        }
+                        ?>
                     </div>
                     <?php if ($ouvert == true) {
                         ?>
