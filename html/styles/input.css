@@ -55,6 +55,42 @@ label:has(+ select[required])::after {
     background-color: var(--primary-color) !important;
 }
 
+/* STYLE DES CHECKBOX */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+
+    min-width: 15px;
+    min-height: 15px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #000000;
+    position: relative;
+    display: inline-block;
+}
+
+input[type="checkbox"]:checked {
+    background: #F2771B;
+}
+
+input[type="checkbox"]:checked:before {
+    font-family: FontAwesome;
+    content: '\f00c';
+    display: block;
+    color: #ffffff;
+    font-size: 12.5px;
+    position: absolute;
+    padding-top: 10%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    text-align: center;
+}
+
 /* LOGO WIFI POUR METTRE EN LIGNE / HORS LIGNE UNE OFFRE */
 .toggle-wifi-offline:hover path:last-child {
     visibility: visible;
