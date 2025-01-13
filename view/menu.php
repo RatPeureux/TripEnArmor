@@ -27,12 +27,12 @@
 
 <!-- VERSION TABLETTE OU PLUS (+768px) -->
 <div class="hidden w-52 sticky top-2 md:block bg-white z-20">
-  <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2">
+  <a class="mt-4 mx-2 mb-1 self-end flex items-center justify-center gap-2 cursor-pointer hover:text-primary" id="menu-button" onclick="developpedMenu()">
       <i class="fa-solid fa-bars"></i>
       <p>Menu</p>
   </a>
 
-  <div class="all-items flex flex-col items-stretch border-black border rounded-b-lg rounded-tr-lg">
+  <div class="all-items flex flex-col items-stretch border-black border">
     <a class="pl-5 py-3 border-black <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>
@@ -44,3 +44,16 @@
     } ?>" href="/offres">Toutes les offres</a>
   </div>
 </div>
+
+<script>
+    function developpedMenu() {
+        const menu = document.getElementById('menu-component');
+        const menuButton = document.getElementById('menu-button');
+
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+        } else {
+            menu.classList.add('hidden');
+        }
+    }
+</script>
