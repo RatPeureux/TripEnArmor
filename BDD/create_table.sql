@@ -235,7 +235,7 @@ CREATE TABLE _avis (
 CREATE TABLE _facture (
     numero VARCHAR(255) PRIMARY KEY,
     id_offre INTEGER NOT NULL,
-    date_emission DATE NOT NULL,
+    date_emission DATE NOT NULL
     date_echeance DATE NOT NULL
 );
 
