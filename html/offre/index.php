@@ -296,8 +296,7 @@ session_start();
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
 
                 <!-- CAROUSSEL -->
-                <div
-                    class="w-full h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container">
+                <div class="w-full h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container">
                     <!-- Wrapper -->
                     <?php
                     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
@@ -356,18 +355,18 @@ session_start();
                 <div class="space-y-2 px-2 md:px-0 w-full">
                     <div class="flex flex-col md:flex-row w-full">
                         <div class="flex flex-col md:flex-row">
-                            <h1 class="text-h1 font-bold"><?php echo $offre['titre'] ?></h1>
-                            <p class="hidden text-h1 md:flex md:pt-1">&nbsp;-&nbsp;</p>
-                            <p class="professionnel text-h1 md:pt-1"><?php echo $nom_pro ?></p>
+                            <h1 class="text-h1 "><?php echo $offre['titre'] ?></h1>
+                            <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
+                            <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
                         </div>
                     </div>
                     <?php if ($ouvert == true) {
                         ?>
-                        <p class="text-h3 font-bold text-green-500">Ouvert</p>
+                        <p class="text-h3  text-green-500">Ouvert</p>
                         <?php
                     } else {
                         ?>
-                        <p class="text-h3 font-bold text-red-500">Fermé</p>
+                        <p class="text-h3  text-red-500">Fermé</p>
                         <?php
                     }
                     ?>
@@ -456,7 +455,7 @@ session_start();
                         <div class="partie-description flex flex-col basis-1/2 pr-2">
                             <!-- Prix + localisation -->
                             <div class="flex flex-col space-y-2 md:gap-4">
-                                <p class="text-h4 font-bold">À propos</p>
+                                <p class="text-h4 ">À propos</p>
                                 <div class="flex items-center gap-4 px-2">
                                     <i class="w-6 text-center fa-solid fa-location-dot"></i>
                                     <div class="text-small">
@@ -475,7 +474,7 @@ session_start();
                             </div>
                             <!-- Description détaillée -->
                             <div class="description flex flex-col space-y-2 my-4">
-                                <p class="text-h4 font-bold">Description</p>
+                                <p class="text-h4 ">Description</p>
                                 <p class="text-justify text-small px-2 prose">
                                     <?php echo $description ?>
                                 </p>
@@ -487,12 +486,12 @@ session_start();
                             <!-- Infos en fonction du type de l'offre -->
                             <a class="">
                                 <div class="flex flex-row justify-between" id="horaire-button">
-                                    <div class="flex font-bold">
-                                        <p class="text-h4 font-bold">Horaires&nbsp;</p>
+                                    <div class="flex ">
+                                        <p class="text-h4 ">Horaires&nbsp;</p>
                                     </div>
                                     <p id="horaire-arrow">></p>
                                 </div>
-                                <div class="hidden text-small py-3" id="horaire-info">
+                                <div class="text-small py-3" id="horaire-info">
                                     <?php
                                     foreach ($horaires as $jour => $horaire) {
                                         echo "$jour : ";
@@ -517,10 +516,10 @@ session_start();
                             </a>
                             <a class="">
                                 <div class="flex flex-row justify-between pt-3" id="compl-button">
-                                    <p class="text-h4 font-bold ">Informations complémentaires</p>
+                                    <p class="text-h4">Informations complémentaires</p>
                                     <p id="compl-arrow">></p>
                                 </div>
-                                <div class="flex flex-col py-3 hidden" id="compl-info">
+                                <div class="flex flex-col py-3" id="compl-info">
                                     <?php
                                     switch ($categorie_offre) {
                                         case 'restauration':
@@ -627,7 +626,7 @@ session_start();
                                 ?>
                                 <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
-                                        <p class="text-h4 font-bold">Grille tarifaire</p>
+                                        <p class="text-h4 font-">Grille tarifaire</p>
                                         <p id="grille-arrow">></p>
                                     </div>
                                     <div class="hidden text-small py-3" id="grille-info">
@@ -649,341 +648,338 @@ session_start();
                             }
                             ?>
 
-                            <!-- Partie avis -->
-                            <div class="mt-5 flex flex-col gap-2">
-
-                                <div class="w-full flex justify-between">
-                                    <h3 class="text-h4 font-bold">Avis</h3>
-                                    <?php
-                                    // Moyenne des notes quand il y en a une
-                                    if ($moyenne) { ?>
-                                        <div class="flex gap-1">
-                                            <div class="flex gap-1 shrink-0">
-                                                <?php for ($i = 0; $i < 5; $i++) {
-                                                    if ($moyenne > 1) {
-                                                        ?>
-                                                        <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-                                                        <?php
-                                                    } else if ($moyenne > 0) {
-                                                        ?>
-                                                            <img class="w-3" src="/public/icones/oeuf_moitie.svg"
-                                                                alt="0.5 point de note">
-                                                        <?php
-                                                    } else {
-                                                        ?>
-                                                            <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-                                                        <?php
-                                                    }
-                                                    $moyenne--;
-                                                }
-                                                ?>
-                                            </div>
-                                            <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
-                                </div>
-
-                                <?php
-                                if (isset($_SESSION['id_membre'])) {
-                                    // UTILISATEUR CONNECTÉ, 2 cas :
-                                    // - a déjà écrit un avis, auquel cas on le voit en premier et on peut le modifier
-                                    // - n'a pas déjà écrit d'avis, auquel cas un formulaire de création d'avis apparaît
-                                
-                                    // vérifier si l'utilisateur a écrit un avis
-                                    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
-                                    $avisController = new AvisController;
-                                    $mon_avis = $avisController->getAvisByIdMembreEtOffre($_SESSION['id_membre'], $id_offre);
-                                    if ($mon_avis) { ?>
-                                        <!-- AFFICHER SON AVIS ET POUVOIR LE MODIFIER -->
-                                        <?php
-                                        $id_avis = $mon_avis['id_avis'];
-                                        $id_membre = $_SESSION['id_membre'];
-                                        $mode = 'mon_avis';
-                                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
-                                        ?>
-                                    <?php } else {
-                                        ?>
-                                        <!-- FORMULAIRE DE CRÉATION D'AVIS -->
-                                        <div class="flex flex-col gap-2">
-                                            <button
-                                                onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                                class="bg-secondary font-bold text-white rounded-lg p-2 self-end flex items-center gap-2">
-                                                <i class="fa-solid fa-pen"></i>
-                                                <p>Rédiger un avis</p>
-                                            </button>
-
-                                            <form id="avis_formulaire" action="/scripts/creation_avis.php" method="POST"
-                                                class="hidden flex flex-col gap-4">
-
-                                                <!-- Titre de l'avis -->
-                                                <div>
-                                                    <label for="titre">Titre</label>
-                                                    <input type="text" name="titre" id="titre" placeholder="Titre de l'avis"
-                                                        class="w-full border border-black rounded-lg p-1" required>
-                                                </div>
-
-                                                <!-- Commentaire de l'avis -->
-                                                <textarea type="commentaire" name="commentaire" id="commentaire"
-                                                    placeholder="Votre commentaire"
-                                                    class="w-full border border-black rounded-lg p-1"></textarea>
-
-                                                <!-- Note globale donnée (pour toutes les offres) -->
-                                                <div>
-                                                    <label for="note_globale">Note globale</label>
-                                                    <select name="note_globale" id="note_globale" class="p-1 rounded-lg" required>
-                                                        <option value="" selected disabled>...</option>
-                                                        <option value="0">0</option>
-                                                        <option value="0.5">0,5</option>
-                                                        <option value="1">1</option>
-                                                        <option value="1.5">1,5</option>
-                                                        <option value="2">2</option>
-                                                        <option value="2.5">2,5</option>
-                                                        <option value="3">3</option>
-                                                        <option value="3.5">3,5</option>
-                                                        <option value="4">4</option>
-                                                        <option value="4.5">4,5</option>
-                                                        <option value="5">5</option>
-                                                    </select>
-                                                </div>
-
-                                                <?php
-                                                // Notes additionnelles pour les restaurants
-                                                if ($categorie_offre == 'restauration') { ?>
-                                                    <div>
-                                                        <label for="note_ambiance">Ambiance</label>
-                                                        <select name="note_ambiance" id="note_ambiance" class="p-1 rounded-lg"
-                                                            required>
-                                                            <option value="" selected disabled>...</option>
-                                                            <option value="0">0</option>
-                                                            <option value="0.5">0,5</option>
-                                                            <option value="1">1</option>
-                                                            <option value="1.5">1,5</option>
-                                                            <option value="2">2</option>
-                                                            <option value="2.5">2,5</option>
-                                                            <option value="3">3</option>
-                                                            <option value="3.5">3,5</option>
-                                                            <option value="4">4</option>
-                                                            <option value="4.5">4,5</option>
-                                                            <option value="5">5</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div>
-                                                        <label for="note_service">Service</label>
-                                                        <select name="note_service" id="note_service" class="p-1 rounded-lg"
-                                                            required>
-                                                            <option value="" selected disabled>...</option>
-                                                            <option value="0">0</option>
-                                                            <option value="0.5">0,5</option>
-                                                            <option value="1">1</option>
-                                                            <option value="1.5">1,5</option>
-                                                            <option value="2">2</option>
-                                                            <option value="2.5">2,5</option>
-                                                            <option value="3">3</option>
-                                                            <option value="3.5">3,5</option>
-                                                            <option value="4">4</option>
-                                                            <option value="4.5">4,5</option>
-                                                            <option value="5">5</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div>
-                                                        <label for="note_cuisine">Cuisine</label>
-                                                        <select name="note_cuisine" id="note_cuisine" class="p-1 rounded-lg"
-                                                            required>
-                                                            <option value="" selected disabled>...</option>
-                                                            <option value="0">0</option>
-                                                            <option value="0.5">0,5</option>
-                                                            <option value="1">1</option>
-                                                            <option value="1.5">1,5</option>
-                                                            <option value="2">2</option>
-                                                            <option value="2.5">2,5</option>
-                                                            <option value="3">3</option>
-                                                            <option value="3.5">3,5</option>
-                                                            <option value="4">4</option>
-                                                            <option value="4.5">4,5</option>
-                                                            <option value="5">5</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div>
-                                                        <label for="note_rapport">Rapport qualité / prix</label>
-                                                        <select name="note_rapport" id="note_rapport" class="p-1 rounded-lg"
-                                                            required>
-                                                            <option value="" selected disabled>...</option>
-                                                            <option value="0">0</option>
-                                                            <option value="0.5">0,5</option>
-                                                            <option value="1">1</option>
-                                                            <option value="1.5">1,5</option>
-                                                            <option value="2">2</option>
-                                                            <option value="2.5">2,5</option>
-                                                            <option value="3">3</option>
-                                                            <option value="3.5">3,5</option>
-                                                            <option value="4">4</option>
-                                                            <option value="4.5">4,5</option>
-                                                            <option value="5">5</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <?php
-                                                }
-                                                ?>
-
-                                                <!-- Date de l'expérience -->
-                                                <div>
-                                                    <label for="date_experience">Date de l'expérience</label>
-                                                    <input type="date" name="date_experience" id="date_experience"
-                                                        value="Date de votre expérience" required>
-                                                </div>
-
-                                                <!-- Contexte de passage -->
-                                                <div>
-                                                    <label for="contexte_passage">Contexte de passage</label>
-                                                    <select name="contexte_passage" id="contexte_passage" class="p-1 rounded-lg"
-                                                        required>
-                                                        <option value="" selected disabled>...</option>
-                                                        <option value="en solo">en solo</option>
-                                                        <option value="en couple">en couple</option>
-                                                        <option value="entre amis">entre amis</option>
-                                                        <option value="pour le travail">pour le travail</option>
-                                                        <option value="en famille">en famille</option>
-                                                    </select>
-                                                </div>
-                                                
-                                                <!-- Champs cachés pour transmettre des donées à la création de l'offre -->
-                                                <input type="text" id='id_offre' name='id_offre' hidden
-                                                value="<?php echo $_SESSION['id_offre'] ?>">
-                                                <input type="text" id='id_membre' name='id_membre' hidden
-                                                value="<?php echo $_SESSION['id_membre'] ?>">
-                                                
-                                                <!-- Publier l'avis ou annuler l'écriture -->
-                                                <div class="flex justify-end gap-3 items-center">
-                                                    <div onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                                        class="font-bold text-secondarygit rounded-lg p-2 self-end flex items-center gap-2 border border-secondary">
-                                                        <p>Annuler</p>
-                                                    </div>
-
-                                                    <input type="submit" value="+ Publier" class="bg-secondary text-white font-bold rounded-lg p-2 self-end">
-                                                </div>
-
-                                                <hr class="w-1/2 border border-black self-end my-2 rounded-lg bg-black">
-                                            </form>
-
-                                            <script>
-                                                // Eviter de pouvoir sélectionner un date ultérieure au jour actuel
-                                                function setMaxDate() {
-                                                    const today = new Date();
-                                                    const year = today.getFullYear();
-                                                    const month = String(today.getMonth() + 1).padStart(2, '0');
-                                                    const day = String(today.getDate()).padStart(2, '0');
-                                                    const maxDate = `${year}-${month}-${day}`;
-
-                                                    document.getElementById("date_experience").setAttribute("max", maxDate);
-                                                }
-
-                                                // Call the function when the page loads
-                                                window.onload = setMaxDate;
-                                            </script>
-
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
-
-                                    <?php
-                                    // UTILISATEUR PAS CONNECTÉ
-                                } else if (!isset($_SESSION['id_pro'])) { ?>
-                                        <p class="text-small italic"><a href='/connexion' class="underline">Connectez-vous</a>
-                                            pour rédiger un
-                                            avis</p>
-                                    <?php
-                                }
-                                ?>
-
-                                <!-- Conteneur pour tous les avis -->
-                                <div id="avis-container" class="flex flex-col gap-2 items-center"></div>
-
-                                <!-- Bouton pour charger plus d'avis -->
-                                <div class="flex gap-2 items-center justify-center self-end">
-                                    <!-- Symbole de chargement quand les avis chargent -->
-                                    <img id="loading-indicator" class="w-8 h-6" style="display: none;"
-                                        src="/public/images/loading.gif" alt="Loading...">
-                                    <button class="text-small font-bold" id="load-more-btn">
-                                        Afficher plus...
-                                    </button>
-                                </div>
-
-                            </div>
-
-                            <!-- A garder ici car il y a du PHP -->
-                            <script>
-                                $(document).ready(function () {
-                                    // Paramètres à passer au fichier PHP de chargement des avis
-                                    let idx_avis = 0;
-                                    const id_offre = <?php echo $_SESSION['id_offre'] ?>;
-                                    const id_membre = <?php if (isset($_SESSION['id_membre'])) {
-                                        echo $_SESSION['id_membre'];
-                                    } else {
-                                        echo '-1';
-                                    } ?>;
-
-                                    // Charger les X premiers avis
-                                    loadAvis();
-
-                                    // Ajouter des avis quand le bouton est cliqué
-                                    $('#load-more-btn').click(function () {
-                                        loadAvis();
-                                    });
-
-                                    // Fonction pour charger X avis (en PHP), puis les ajouter à la page via AJAX JS
-                                    function loadAvis() {
-                                        // Afficher le loader pendant le chargement
-                                        $('#loading-indicator').show();
-
-                                        // Désactiver le bouton pendant le chargement
-                                        $('#load-more-btn').prop('disabled', true);
-
-                                        $.ajax({
-                                            url: '/scripts/load_avis.php',
-                                            type: 'GET',
-                                            data: {
-                                                id_offre: id_offre,
-                                                idx_avis: idx_avis,
-                                                id_membre: id_membre
-                                            },
-
-                                            // Durant l'exécution de la requête
-                                            success: function (response) {
-                                                const lesAvisCharges = response;
-                                                if (lesAvisCharges.length > 0) {
-                                                    // Ajouter le contenu HTML généré par loaded avis.
-                                                    $('#avis-container').append(lesAvisCharges);
-
-                                                    // Pour l'éventuel prochain chargement, incrémenter le curseur
-                                                    idx_avis += 3;
-                                                } else {
-                                                    // Ne plus pouvoir cliquer sur le bouton quand il n'y a plus d'avis
-                                                    $('#load-more-btn').prop('disabled', true).text('');
-                                                }
-                                            },
-
-                                            // A la fin, chacher le logo de chargement
-                                            complete: function () {
-                                                // Masquer le loader après la requête
-                                                $('#loading-indicator').hide();
-                                                // Réactiver le bouton après la requête (que ce soit réussi ou non)
-                                                $('#load-more-btn').prop('disabled', false);
-                                            }
-                                        });
-                                    }
-                                });
-                            </script>
                         </div>
                     </div>
+                    <!-- Partie avis -->
+                    <div class="mt-5 flex flex-col gap-2">
+
+                        <div class="w-full flex justify-between">
+                            <h3 class="text-h4 pt-2">Avis</h3>
+                            <?php
+                            // Moyenne des notes quand il y en a une
+                            if ($moyenne) { ?>
+                                <div class="flex gap-1">
+                                    <div class="flex gap-1 shrink-0">
+                                        <?php for ($i = 0; $i < 5; $i++) {
+                                            if ($moyenne > 1) {
+                                                ?>
+                                                <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
+                                                <?php
+                                            } else if ($moyenne > 0) {
+                                                ?>
+                                                    <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
+                                                <?php
+                                            } else {
+                                                ?>
+                                                    <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                                                <?php
+                                            }
+                                            $moyenne--;
+                                        }
+                                        ?>
+                                    </div>
+                                    <p class='text-small flex pt-1 items-center'>(<?php echo $nb_avis ?>)</p>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                        </div>
+
+                        <?php
+                        if (isset($_SESSION['id_membre'])) {
+                            // UTILISATEUR CONNECTÉ, 2 cas :
+                            // - a déjà écrit un avis, auquel cas on le voit en premier et on peut le modifier
+                            // - n'a pas déjà écrit d'avis, auquel cas un formulaire de création d'avis apparaît
+                        
+                            // vérifier si l'utilisateur a écrit un avis
+                            include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+                            $avisController = new AvisController;
+                            $mon_avis = $avisController->getAvisByIdMembreEtOffre($_SESSION['id_membre'], $id_offre);
+                            if ($mon_avis) { ?>
+                                <!-- AFFICHER SON AVIS ET POUVOIR LE MODIFIER -->
+                                <?php
+                                $id_avis = $mon_avis['id_avis'];
+                                $id_membre = $_SESSION['id_membre'];
+                                $mode = 'mon_avis';
+                                include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
+                                ?>
+                            <?php } else {
+                                ?>
+                                <!-- FORMULAIRE DE CRÉATION D'AVIS -->
+                                <div class="flex flex-col gap-2">
+                                    <button onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
+                                        class="bg-secondary  text-white rounded-lg p-2 self-end flex items-center gap-2">
+                                        <i class="fa-solid fa-pen"></i>
+                                        <p>Rédiger un avis</p>
+                                    </button>
+
+                                    <form id="avis_formulaire" action="/scripts/creation_avis.php" method="POST"
+                                        class="hidden flex flex-col gap-4">
+
+                                        <!-- Titre de l'avis -->
+                                        <div>
+                                            <label for="titre">Titre</label>
+                                            <input type="text" name="titre" id="titre" placeholder="Titre de l'avis"
+                                                class="w-full border border-black rounded-lg p-1" required>
+                                        </div>
+
+                                        <!-- Commentaire de l'avis -->
+                                        <textarea type="commentaire" name="commentaire" id="commentaire"
+                                            placeholder="Votre commentaire"
+                                            class="w-full border border-black rounded-lg p-1"></textarea>
+
+                                        <!-- Note globale donnée (pour toutes les offres) -->
+                                        <div>
+                                            <label for="note_globale">Note globale</label>
+                                            <select name="note_globale" id="note_globale" class="p-1 rounded-lg" required>
+                                                <option value="" selected disabled>...</option>
+                                                <option value="0">0</option>
+                                                <option value="0.5">0,5</option>
+                                                <option value="1">1</option>
+                                                <option value="1.5">1,5</option>
+                                                <option value="2">2</option>
+                                                <option value="2.5">2,5</option>
+                                                <option value="3">3</option>
+                                                <option value="3.5">3,5</option>
+                                                <option value="4">4</option>
+                                                <option value="4.5">4,5</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+
+                                        <?php
+                                        // Notes additionnelles pour les restaurants
+                                        if ($categorie_offre == 'restauration') { ?>
+                                            <div>
+                                                <label for="note_ambiance">Ambiance</label>
+                                                <select name="note_ambiance" id="note_ambiance" class="p-1 rounded-lg" required>
+                                                    <option value="" selected disabled>...</option>
+                                                    <option value="0">0</option>
+                                                    <option value="0.5">0,5</option>
+                                                    <option value="1">1</option>
+                                                    <option value="1.5">1,5</option>
+                                                    <option value="2">2</option>
+                                                    <option value="2.5">2,5</option>
+                                                    <option value="3">3</option>
+                                                    <option value="3.5">3,5</option>
+                                                    <option value="4">4</option>
+                                                    <option value="4.5">4,5</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="note_service">Service</label>
+                                                <select name="note_service" id="note_service" class="p-1 rounded-lg" required>
+                                                    <option value="" selected disabled>...</option>
+                                                    <option value="0">0</option>
+                                                    <option value="0.5">0,5</option>
+                                                    <option value="1">1</option>
+                                                    <option value="1.5">1,5</option>
+                                                    <option value="2">2</option>
+                                                    <option value="2.5">2,5</option>
+                                                    <option value="3">3</option>
+                                                    <option value="3.5">3,5</option>
+                                                    <option value="4">4</option>
+                                                    <option value="4.5">4,5</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="note_cuisine">Cuisine</label>
+                                                <select name="note_cuisine" id="note_cuisine" class="p-1 rounded-lg" required>
+                                                    <option value="" selected disabled>...</option>
+                                                    <option value="0">0</option>
+                                                    <option value="0.5">0,5</option>
+                                                    <option value="1">1</option>
+                                                    <option value="1.5">1,5</option>
+                                                    <option value="2">2</option>
+                                                    <option value="2.5">2,5</option>
+                                                    <option value="3">3</option>
+                                                    <option value="3.5">3,5</option>
+                                                    <option value="4">4</option>
+                                                    <option value="4.5">4,5</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="note_rapport">Rapport qualité / prix</label>
+                                                <select name="note_rapport" id="note_rapport" class="p-1 rounded-lg" required>
+                                                    <option value="" selected disabled>...</option>
+                                                    <option value="0">0</option>
+                                                    <option value="0.5">0,5</option>
+                                                    <option value="1">1</option>
+                                                    <option value="1.5">1,5</option>
+                                                    <option value="2">2</option>
+                                                    <option value="2.5">2,5</option>
+                                                    <option value="3">3</option>
+                                                    <option value="3.5">3,5</option>
+                                                    <option value="4">4</option>
+                                                    <option value="4.5">4,5</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+
+                                            <?php
+                                        }
+                                        ?>
+
+                                        <!-- Date de l'expérience -->
+                                        <div>
+                                            <label for="date_experience">Date de l'expérience</label>
+                                            <input type="date" name="date_experience" id="date_experience"
+                                                value="Date de votre expérience" required>
+                                        </div>
+
+                                        <!-- Contexte de passage -->
+                                        <div>
+                                            <label for="contexte_passage">Contexte de passage</label>
+                                            <select name="contexte_passage" id="contexte_passage" class="p-1 rounded-lg"
+                                                required>
+                                                <option value="" selected disabled>...</option>
+                                                <option value="en solo">en solo</option>
+                                                <option value="en couple">en couple</option>
+                                                <option value="entre amis">entre amis</option>
+                                                <option value="pour le travail">pour le travail</option>
+                                                <option value="en famille">en famille</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Champs cachés pour transmettre des donées à la création de l'offre -->
+                                        <input type="text" id='id_offre' name='id_offre' hidden
+                                            value="<?php echo $_SESSION['id_offre'] ?>">
+                                        <input type="text" id='id_membre' name='id_membre' hidden
+                                            value="<?php echo $_SESSION['id_membre'] ?>">
+
+                                        <!-- Publier l'avis ou annuler l'écriture -->
+                                        <div class="flex justify-end gap-3 items-center">
+                                            <div onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
+                                                class=" text-secondarygit rounded-lg p-2 self-end flex items-center gap-2 border border-secondary">
+                                                <p>Annuler</p>
+                                            </div>
+
+                                            <input type="submit" value="+ Publier"
+                                                class="bg-secondary text-white  rounded-lg p-2 self-end">
+                                        </div>
+
+                                        <hr class="w-1/2 border border-black self-end my-2 rounded-lg bg-black">
+                                    </form>
+
+                                    <script>
+                                        // Eviter de pouvoir sélectionner un date ultérieure au jour actuel
+                                        function setMaxDate() {
+                                            const today = new Date();
+                                            const year = today.getFullYear();
+                                            const month = String(today.getMonth() + 1).padStart(2, '0');
+                                            const day = String(today.getDate()).padStart(2, '0');
+                                            const maxDate = `${year}-${month}-${day}`;
+
+                                            document.getElementById("date_experience").setAttribute("max", maxDate);
+                                        }
+
+                                        // Call the function when the page loads
+                                        window.onload = setMaxDate;
+                                    </script>
+
+                                </div>
+                                <?php
+                            }
+                            ?>
+
+                            <?php
+                            // UTILISATEUR PAS CONNECTÉ
+                        } else if (!isset($_SESSION['id_pro'])) { ?>
+                                <p class="text-small italic"><a href='/connexion' class="underline">Connectez-vous</a>
+                                    pour rédiger un
+                                    avis</p>
+                            <?php
+                        }
+                        ?>
+
+                        <!-- Conteneur pour tous les avis -->
+                        <div id="avis-container" class="grid grid-cols-1 gap-12 items-center w-full justify-center">
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour charger plus d'avis -->
+                    <div class="flex gap-2 items-center justify-center self-end">
+                        <!-- Symbole de chargement quand les avis chargent -->
+                        <img id="loading-indicator" class="w-8 h-6" style="display: none;"
+                            src="/public/images/loading.gif" alt="Loading...">
+                        <button class="text-small " id="load-more-btn">
+                            Afficher plus...
+                        </button>
+                    </div>
+
                 </div>
+
+                <!-- A garder ici car il y a du PHP -->
+                <script>
+                    $(document).ready(function () {
+                        // Paramètres à passer au fichier PHP de chargement des avis
+                        let idx_avis = 0;
+                        const id_offre = <?php echo $_SESSION['id_offre'] ?>;
+                        const id_membre = <?php if (isset($_SESSION['id_membre'])) {
+                            echo $_SESSION['id_membre'];
+                        } else {
+                            echo '-1';
+                        } ?>;
+
+                        // Charger les X premiers avis
+                        loadAvis();
+
+                        // Ajouter des avis quand le bouton est cliqué
+                        $('#load-more-btn').click(function () {
+                            loadAvis();
+                        });
+
+                        // Fonction pour charger X avis (en PHP), puis les ajouter à la page via AJAX JS
+                        function loadAvis() {
+                            // Afficher le loader pendant le chargement
+                            $('#loading-indicator').show();
+
+                            // Désactiver le bouton pendant le chargement
+                            $('#load-more-btn').prop('disabled', true);
+
+                            $.ajax({
+                                url: '/scripts/load_avis.php',
+                                type: 'GET',
+                                data: {
+                                    id_offre: id_offre,
+                                    idx_avis: idx_avis,
+                                    id_membre: id_membre
+                                },
+
+                                // Durant l'exécution de la requête
+                                success: function (response) {
+                                    const lesAvisCharges = response;
+                                    if (lesAvisCharges.length > 0) {
+                                        // Ajouter le contenu HTML généré par loaded avis.
+                                        $('#avis-container').append(lesAvisCharges);
+
+                                        // Pour l'éventuel prochain chargement, incrémenter le curseur
+                                        idx_avis += 3;
+                                    } else {
+                                        // Ne plus pouvoir cliquer sur le bouton quand il n'y a plus d'avis
+                                        $('#load-more-btn').prop('disabled', true).text('');
+                                    }
+                                },
+
+                                // A la fin, chacher le logo de chargement
+                                complete: function () {
+                                    // Masquer le loader après la requête
+                                    $('#loading-indicator').hide();
+                                    // Réactiver le bouton après la requête (que ce soit réussi ou non)
+                                    $('#load-more-btn').prop('disabled', false);
+                                }
+                            });
+                        }
+                    });
+                </script>
             </div>
+        </div>
         </div>
     </main>
 
