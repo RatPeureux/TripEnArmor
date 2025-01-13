@@ -32,7 +32,7 @@
     $stmt = $dbh->prepare("
         SELECT o.* 
         FROM sae_db._offre o
-        JOIN sae_db._offre_souscription_option oso ON o.id_offre = oso.id_offre
+        JOIN sae_db._souscription_option oso ON o.id_offre = oso.id_offre
         JOIN sae_db._souscription s ON oso.id_souscription = s.id_souscription
         WHERE o.est_en_ligne = true 
         AND oso.nom_option = 'A la une'
