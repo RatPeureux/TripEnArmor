@@ -121,7 +121,7 @@ if (!function_exists('chaineVersMot')) {
 
     <main class="mx-10 self-center w-full grow p-2 flex">
         <!-- TOUTES LES OFFRES (offre & détails) -->
-        <div class="w-full grow tablette p-4 flex flex-col">
+        <div class="w-full max-w-7xl grow tablette p-4 flex flex-col">
 
             <!-- Conteneur des tags (!!! RECHERCHE) -->
             <div class="flex flex-wrap gap-4" id="tags-container"></div>
