@@ -112,7 +112,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <main class="grow p-4 md:p-2 flex flex-col md:mx-10 md:">
 
                 <!-- Conteneur des tags (!!! RECHERCHE) -->
-                <div class="flex flex-wrap gap-4 mb-4" id="tags-container"></div>
+                <div class="flex flex-wrap gap-4" id="tags-container"></div>
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
@@ -157,7 +157,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel.php'; ?>
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_tris_tel.php'; ?>
     </div>
 
     <!-- FOOTER -->
@@ -165,12 +165,5 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
     ?>
 </body>
-
-<script>
-    // Fonction pour afficher ou masquer un conteneur de filtres
-    function toggleFiltres() {
-        document.querySelector('#filtres')?.classList.toggle('active'); // Alterne la classe 'active'
-    }
-</script>
 
 </html>
