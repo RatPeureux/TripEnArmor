@@ -339,10 +339,10 @@ session_start();
                     <?php if ($images['details']) { ?>
                         <div class="flex items-center gap-8 justify-center">
                             <a
-                                class="swiper-button-prev group flex justify-center items-center  !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-prev group flex justify-center items-center border border-solid  !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
                                 ‹</a>
                             <a
-                                class="swiper-button-next group flex justify-center items-center  !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-next group flex justify-center items-center border border-solid  !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
                                 ›</a>
                         </div>
                         <?php
@@ -363,11 +363,9 @@ session_start();
                     <?php if ($ouvert == true) {
                         ?>
                         <p class="text-h3  text-green-500">Ouvert</p>
-                        <p class="text-h3  text-green-500">Ouvert</p>
                         <?php
                     } else {
                         ?>
-                        <p class="text-h3  text-red-500">Fermé</p>
                         <p class="text-h3  text-red-500">Fermé</p>
                         <?php
                     }
@@ -458,7 +456,6 @@ session_start();
                             <!-- Prix + localisation -->
                             <div class="flex flex-col space-y-2 md:gap-4">
                                 <p class="text-h4 ">À propos</p>
-                                <p class="text-h4 ">À propos</p>
                                 <div class="flex items-center gap-4 px-2">
                                     <i class="w-6 text-center fa-solid fa-location-dot"></i>
                                     <div class="text-small">
@@ -478,7 +475,6 @@ session_start();
                             <!-- Description détaillée -->
                             <div class="description flex flex-col space-y-2 my-4">
                                 <p class="text-h4 ">Description</p>
-                                <p class="text-h4 ">Description</p>
                                 <p class="text-justify text-small px-2 prose">
                                     <?php echo $description ?>
                                 </p>
@@ -490,8 +486,6 @@ session_start();
                             <!-- Infos en fonction du type de l'offre -->
                             <a class="">
                                 <div class="flex flex-row justify-between" id="horaire-button">
-                                    <div class="flex ">
-                                        <p class="text-h4 ">Horaires&nbsp;</p>
                                     <div class="flex ">
                                         <p class="text-h4 ">Horaires&nbsp;</p>
                                     </div>
@@ -632,7 +626,7 @@ session_start();
                                 ?>
                                 <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
-                                        <p class="text-h4 ">Grille tarifaire</p>
+                                        <p class="text-h4 font-">Grille tarifaire</p>
                                         <p id="grille-arrow">></p>
                                     </div>
                                     <div class="hidden text-small py-3" id="grille-info">
@@ -714,7 +708,7 @@ session_start();
                                 <!-- FORMULAIRE DE CRÉATION D'AVIS -->
                                 <div class="flex flex-col gap-2">
                                     <button onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                        class="bg-secondary  text-white rounded-lg p-2 self-end flex items-center gap-2">
+                                        class="bg-secondary  text-white  p-2 self-end flex items-center gap-2">
                                         <i class="fa-solid fa-pen"></i>
                                         <p>Rédiger un avis</p>
                                     </button>
@@ -726,18 +720,17 @@ session_start();
                                         <div>
                                             <label for="titre">Titre</label>
                                             <input type="text" name="titre" id="titre" placeholder="Titre de l'avis"
-                                                class="w-full border border-black rounded-lg p-1" required>
+                                                class="w-full border border-black  p-1" required>
                                         </div>
 
                                         <!-- Commentaire de l'avis -->
                                         <textarea type="commentaire" name="commentaire" id="commentaire"
-                                            placeholder="Votre commentaire"
-                                            class="w-full border border-black rounded-lg p-1"></textarea>
+                                            placeholder="Votre commentaire" class="w-full border border-black  p-1"></textarea>
 
                                         <!-- Note globale donnée (pour toutes les offres) -->
                                         <div>
                                             <label for="note_globale">Note globale</label>
-                                            <select name="note_globale" id="note_globale" class="p-1 rounded-lg" required>
+                                            <select name="note_globale" id="note_globale" class="p-1 " required>
                                                 <option value="" selected disabled>...</option>
                                                 <option value="0">0</option>
                                                 <option value="0.5">0,5</option>
@@ -758,7 +751,7 @@ session_start();
                                         if ($categorie_offre == 'restauration') { ?>
                                             <div>
                                                 <label for="note_ambiance">Ambiance</label>
-                                                <select name="note_ambiance" id="note_ambiance" class="p-1 rounded-lg" required>
+                                                <select name="note_ambiance" id="note_ambiance" class="p-1 " required>
                                                     <option value="" selected disabled>...</option>
                                                     <option value="0">0</option>
                                                     <option value="0.5">0,5</option>
@@ -776,7 +769,7 @@ session_start();
 
                                             <div>
                                                 <label for="note_service">Service</label>
-                                                <select name="note_service" id="note_service" class="p-1 rounded-lg" required>
+                                                <select name="note_service" id="note_service" class="p-1 " required>
                                                     <option value="" selected disabled>...</option>
                                                     <option value="0">0</option>
                                                     <option value="0.5">0,5</option>
@@ -794,7 +787,7 @@ session_start();
 
                                             <div>
                                                 <label for="note_cuisine">Cuisine</label>
-                                                <select name="note_cuisine" id="note_cuisine" class="p-1 rounded-lg" required>
+                                                <select name="note_cuisine" id="note_cuisine" class="p-1 " required>
                                                     <option value="" selected disabled>...</option>
                                                     <option value="0">0</option>
                                                     <option value="0.5">0,5</option>
@@ -812,7 +805,7 @@ session_start();
 
                                             <div>
                                                 <label for="note_rapport">Rapport qualité / prix</label>
-                                                <select name="note_rapport" id="note_rapport" class="p-1 rounded-lg" required>
+                                                <select name="note_rapport" id="note_rapport" class="p-1 " required>
                                                     <option value="" selected disabled>...</option>
                                                     <option value="0">0</option>
                                                     <option value="0.5">0,5</option>
@@ -842,8 +835,7 @@ session_start();
                                         <!-- Contexte de passage -->
                                         <div>
                                             <label for="contexte_passage">Contexte de passage</label>
-                                            <select name="contexte_passage" id="contexte_passage" class="p-1 rounded-lg"
-                                                required>
+                                            <select name="contexte_passage" id="contexte_passage" class="p-1 " required>
                                                 <option value="" selected disabled>...</option>
                                                 <option value="en solo">en solo</option>
                                                 <option value="en couple">en couple</option>
@@ -862,16 +854,16 @@ session_start();
                                         <!-- Publier l'avis ou annuler l'écriture -->
                                         <div class="flex justify-end gap-3 items-center">
                                             <div onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                                class=" text-secondarygit rounded-lg p-2 self-end flex items-center gap-2 border border-secondary">
+                                                class=" text-secondarygit  p-2 self-end flex items-center gap-2 border border-secondary">
                                                 <p>Annuler</p>
                                             </div>
 
                                             <input type="submit" value="+ Publier"
-                                                class="bg-secondary text-white  rounded-lg p-2 self-end">
+                                                class="bg-secondary text-white   p-2 self-end">
                                         </div>
 
-                                                <hr class="w-1/2 border border-black self-end my-2 rounded-lg bg-black">
-                                            </form>
+                                        <hr class="w-1/2 border border-black self-end my-2  bg-black">
+                                    </form>
 
                                     <script>
                                         // Eviter de pouvoir sélectionner un date ultérieure au jour actuel
