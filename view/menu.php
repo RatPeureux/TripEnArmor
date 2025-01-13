@@ -27,7 +27,7 @@
 
 <!-- VERSION TABLETTE OU PLUS (+768px) -->
 <div class="hidden w-52 sticky top-2 md:block bg-white z-20">
-  <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2">
+  <a class="mt-4 mx-2 mb-1 self-end flex items-center justify-center gap-2 cursor-pointer hover:text-primary" id="menu-button" onclick="developpedMenu()">
       <i class="fa-solid fa-bars"></i>
       <p>Menu</p>
   </a>
@@ -44,3 +44,16 @@
     } ?>" href="/offres">Toutes les offres</a>
   </div>
 </div>
+
+<script>
+    function developpedMenu() {
+        const menu = document.getElementById('menu-component');
+        const menuButton = document.getElementById('menu-button');
+
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+        } else {
+            menu.classList.add('hidden');
+        }
+    }
+</script>

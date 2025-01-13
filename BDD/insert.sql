@@ -30,7 +30,7 @@ _tarif_public,
 _langue,
 _visite_langue,
 _avis,
-_offre_souscription_option,
+_souscription,
 _facture,
 _horaire
 RESTART IDENTITY CASCADE;
@@ -600,69 +600,23 @@ INSERT INTO
 VALUES (4, '2024-01-01'),
     (4, '2024-02-01');
 
+-- Insertion de souscriptions à options pour l'offre 1 (Aziza)
 INSERT INTO
-    _offre_souscription_option (
+    _souscription (
         id_offre,
-        id_souscription,
         nom_option,
-        date_association
+        prix_ht,
+        prix_ttc,
+        date_lancement,
+        nb_semaines
     )
-VALUES
-    -- Offre 1 (Le Gourmet) avec Souscription 1 et Option "A la une"
-    (
+VALUES (
         1,
-        1,
-        'A la une',
-        '2024-01-15'
-    ),
-    -- Offre 1 (Le Gourmet) avec Souscription 2 et Option "En relief"
-    (
-        1,
-        2,
-        'En relief',
-        '2024-02-20'
-    ),
-    -- Offre 2 (Le Bateau Ivre) avec Souscription 1 et Option "A la une"
-    (
-        2,
-        1,
-        'A la une',
-        '2024-03-05'
-    ),
-    -- Offre 2 (Le Bateau Ivre) avec Souscription 2 et Option "En relief"
-    (
-        2,
-        2,
-        'En relief',
-        '2024-04-10'
-    ),
-    -- Offre 3 (Randonnée en forêt) avec Souscription 1 et Option "A la une"
-    (
-        3,
-        1,
-        'A la une',
-        '2024-01-12'
-    ),
-    -- Offre 4 (Kayak sur la rivière) avec Souscription 2 et Option "En relief"
-    (
+        'Premium',
+        3.34,
         4,
-        2,
-        'En relief',
-        '2024-02-18'
-    ),
-    -- Offre 5 (Spectacle de magie) avec Souscription 1 et Option "A la une"
-    (
-        5,
-        1,
-        'A la une',
-        '2024-03-12'
-    ),
-    -- Offre 6 (Concert acoustique en plein air) avec Souscription 2 et Option "En relief"
-    (
-        6,
-        2,
-        'En relief',
-        '2024-04-22'
+        '2025-01-13',
+        3
     );
 
 -- Insertion de plusieurs lignes pour chaque facture

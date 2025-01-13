@@ -1,91 +1,86 @@
 <?php
-	require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-	// Vérifier si l'ID de l'offre est passé et est un entier
-	if (isset($_GET['offre-id']) && is_numeric($_GET['offre-id'])) {
-		$id_offre = (int) $_GET['offre-id'];
-	} else {
-		die("ID d'offre invalide.");
-	}
+// Vérifier si l'ID de l'offre est passé et est un entier
+if (isset($_GET['offre-id']) && is_numeric($_GET['offre-id'])) {
+	$id_offre = (int) $_GET['offre-id'];
+} else {
+	die("ID d'offre invalide.");
+}
 
-	$sql = "SELECT o.*, a.code_postal, a.ville, a.numero, a.odonyme 
+$sql = "SELECT o.*, a.code_postal, a.ville, a.numero, a.odonyme 
             FROM sae_db._offre o 
             JOIN sae_db._adresse a ON o.id_adresse = a.id_adresse 
             WHERE o.id_offre = :id_offre";
 
-	$stmt = $dbh->prepare($sql);
-	$stmt->bindParam(':id_offre', $id_offre, PDO::PARAM_INT); // Spécifiez le type pour être sûr
-	$stmt->execute();
+$stmt = $dbh->prepare($sql);
+$stmt->bindParam(':id_offre', $id_offre, PDO::PARAM_INT); // Spécifiez le type pour être sûr
+$stmt->execute();
 
-	$offre = $stmt->fetch(PDO::FETCH_ASSOC);
+$offre = $stmt->fetch(PDO::FETCH_ASSOC);
 
-	// Vérifiez que l'offre existe
-	if (!$offre) {
-		die("Offre non trouvée.");
-	}
+// Vérifiez que l'offre existe
+if (!$offre) {
+	die("Offre non trouvée.");
+}
 
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		$titre = isset($_POST['titre']);
-		$code = isset($_POST['postal_code']);
-		$ville = isset($_POST['ville']);
-		$description = isset($_POST['description']);
-		$resume = isset($_POST['resume']);
-		$age = isset($_POST['age']);
-		$prix = isset($_POST['prix']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$titre = isset($_POST['titre']);
+	$code = isset($_POST['postal_code']);
+	$ville = isset($_POST['ville']);
+	$description = isset($_POST['description']);
+	$resume = isset($_POST['resume']);
+	$age = isset($_POST['age']);
+	$prix = isset($_POST['prix']);
 
-		if ($code && $ville && $description && $resume && $titre && $age) {
-			// Mettre à jour l'adresse
-			$stmtAdresseOffre = $dbh->prepare("UPDATE sae_db._adresse 
+	if ($code && $ville && $description && $resume && $titre && $age) {
+		// Mettre à jour l'adresse
+		$stmtAdresseOffre = $dbh->prepare("UPDATE sae_db._adresse 
                 SET adresse_postale = :adresse, code_postal = :code, ville = :ville 
                 WHERE id_adresse = (SELECT id_adresse FROM sae_db.Offre WHERE id_offre = :id_offre)
             ");
-			$stmtAdresseOffre->bindParam(':ville', $ville);
-			$stmtAdresseOffre->bindParam(':adresse', $adresse);
-			$stmtAdresseOffre->bindParam(':code', $code);
-			$stmtAdresseOffre->bindParam(':id_offre', $id_offre);
+		$stmtAdresseOffre->bindParam(':ville', $ville);
+		$stmtAdresseOffre->bindParam(':adresse', $adresse);
+		$stmtAdresseOffre->bindParam(':code', $code);
+		$stmtAdresseOffre->bindParam(':id_offre', $id_offre);
 
-			if ($stmtAdresseOffre->execute()) {
-				$dateMiseAJour = date('Y-m-d H:i:s');
+		if ($stmtAdresseOffre->execute()) {
+			$dateMiseAJour = date('Y-m-d H:i:s');
 
-				// Mettre à jour l'offre
-				$stmtOffre = $dbh->prepare("UPDATE sae_db._offre 
+			// Mettre à jour l'offre
+			$stmtOffre = $dbh->prepare("UPDATE sae_db._offre 
                     SET description_offre = :description, resume_offre = :resume, prix_mini = :prix, date_mise_a_jour = :date_mise_a_jour 
                     WHERE id_offre = :id_offre
                 ");
-				$stmtOffre->bindParam(':description', $description);
-				$stmtOffre->bindParam(':resume', $resume);
-				$stmtOffre->bindParam(':id_offre', $id_offre);
-				$stmtOffre->bindParam(':date_mise_a_jour', $dateMiseAJour);
-				$stmtOffre->bindParam(':prix', $prix);
+			$stmtOffre->bindParam(':description', $description);
+			$stmtOffre->bindParam(':resume', $resume);
+			$stmtOffre->bindParam(':id_offre', $id_offre);
+			$stmtOffre->bindParam(':date_mise_a_jour', $dateMiseAJour);
+			$stmtOffre->bindParam(':prix', $prix);
 
-				if ($stmtOffre->execute()) {
-					$stmtTarifPublic = $dbh->prepare("UPDATE sae_db._tarif_Public 
+			if ($stmtOffre->execute()) {
+				$stmtTarifPublic = $dbh->prepare("UPDATE sae_db._tarif_Public 
                         SET titre = :titre, age_min = :age_min, age_max = :age_max 
                         WHERE id_offre = :id_offre
                     ");
-					$stmtTarifPublic->bindParam(':titre', $titre);
-					$stmtTarifPublic->bindParam(':age_min', $age);
-					$stmtTarifPublic->bindParam(':age_max', $age);
-					$stmtTarifPublic->bindParam(':id_offre', $id_offre);
+				$stmtTarifPublic->bindParam(':titre', $titre);
+				$stmtTarifPublic->bindParam(':age_min', $age);
+				$stmtTarifPublic->bindParam(':age_max', $age);
+				$stmtTarifPublic->bindParam(':id_offre', $id_offre);
 
-					if ($stmtTarifPublic->execute()) {
-						header("Location: /pro");
-						exit;
-					} else {
-						echo "Erreur lors de la mise à jour dans la table Tarif_Public : " . implode(", ", $stmtTarifPublic->errorInfo());
-					}
+				if ($stmtTarifPublic->execute()) {
+					header("Location: /pro");
+					exit;
 				} else {
-					echo "Erreur lors de la mise à jour de l'offre : " . implode(", ", $stmtOffre->errorInfo());
+					echo "Erreur lors de la mise à jour dans la table Tarif_Public : " . implode(", ", $stmtTarifPublic->errorInfo());
 				}
 			} else {
-				echo "Erreur lors de la mise à jour de l'adresse : " . implode(", ", $stmtAdresseOffre->errorInfo());
+				echo "Erreur lors de la mise à jour de l'offre : " . implode(", ", $stmtOffre->errorInfo());
 			}
 		} else {
-			echo "Tous les champs obligatoires doivent être remplis.";
+			echo "Erreur lors de la mise à jour de l'adresse : " . implode(", ", $stmtAdresseOffre->errorInfo());
 		}
 	}
-} catch (PDOException $e) {
-	echo "Erreur de connexion ou de requête : " . $e->getMessage();
 }
 ?>
 
@@ -221,8 +216,7 @@
 						<!-- Auteur -->
 						<div class="flex flex-col w-full">
 							<label for="auteur" class="text-nowrap">Auteur :</label>
-							<p id="auteur"
-								class="border border-secondary  p-2 bg-gray-200 w-full text-gray-600">
+							<p id="auteur" class="border border-secondary  p-2 bg-gray-200 w-full text-gray-600">
 								Nom du compte
 							</p>
 						</div>
@@ -237,8 +231,7 @@
 
 						<div class="justify-between items-center w-full">
 							<label for="locality" class="text-nowrap">Ville :</label>
-							<input id="locality" name="locality"
-								class="border border-secondary  p-2 bg-white w-full"
+							<input id="locality" name="locality" class="border border-secondary  p-2 bg-white w-full"
 								pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
 								title="Saisir votre ville" placeholder="Rennes" required>
 
@@ -280,9 +273,8 @@
 						<!-- Résumé -->
 						<div class="flex flex-col items-center w-full max-w-full">
 							<label for="resume" class="text-nowrap w-full">Résumé :</label>
-							<textarea id="resume" name="resume"
-								class="border border-secondary  p-2 bg-white w-full" rows="4"
-								placeholder="Le résumé visible sur la carte de l'offre." required></textarea>
+							<textarea id="resume" name="resume" class="border border-secondary  p-2 bg-white w-full"
+								rows="4" placeholder="Le résumé visible sur la carte de l'offre." required></textarea>
 
 						</div>
 
@@ -331,12 +323,11 @@
 						</div>
 
 						<div>
-							<div class="tag-container flex flex-wrap p-2  optionActivite hidden"
-								id="activiteTags"></div>
-							<div class="tag-container flex flex-wrap p-2  optionVisite hidden"
-								id="visiteTags"></div>
-							<div class="tag-container flex flex-wrap p-2  optionSpectacle hidden"
-								id="spectacleTags"></div>
+							<div class="tag-container flex flex-wrap p-2  optionActivite hidden" id="activiteTags">
+							</div>
+							<div class="tag-container flex flex-wrap p-2  optionVisite hidden" id="visiteTags"></div>
+							<div class="tag-container flex flex-wrap p-2  optionSpectacle hidden" id="spectacleTags">
+							</div>
 							<div class="tag-container flex flex-wrap p-2  optionParcAttraction hidden"
 								id="parcAttractionTags"></div>
 							<div class="tag-container flex flex-wrap p-2  optionRestauration hidden"
