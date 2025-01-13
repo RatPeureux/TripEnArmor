@@ -47,7 +47,19 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     }
 
     // Obtenez l'ensemble des offres avec le tri approprié
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true $sort_order");
+    
+    $stmt = $dbh->prepare("
+        SELECT o.* 
+        FROM sae_db._offre o
+        JOIN sae_db._offre_souscription_option oso ON o.id_offre = oso.id_offre
+        JOIN sae_db._souscription s ON oso.id_souscription = s.id_souscription
+        WHERE o.est_en_ligne = true 
+        AND oso.nom_option = 'A la une'
+        AND (s.date_annulation IS NULL OR CURRENT_DATE < s.date_annulation)
+        AND CURRENT_DATE <= s.date_lancement + (s.nb_semaines * INTERVAL '1 week')
+        AND CURRENT_DATE >= s.date_lancement
+        $sort_order
+    ");
     $stmt->execute();
     $aLaUnes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -112,7 +124,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <main class="grow p-4 md:p-2 flex flex-col md:mx-10 md:">
 
                 <!-- Conteneur des tags (!!! RECHERCHE) -->
-                <div class="flex flex-wrap gap-4 mb-4" id="tags-container"></div>
+                <div class="flex flex-wrap gap-4" id="tags-container"></div>
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
@@ -157,7 +169,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel.php'; ?>
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_tris_tel.php'; ?>
     </div>
 
     <!-- FOOTER -->
@@ -165,50 +177,5 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
     ?>
 </body>
-
-<script>
-    // Fonction pour afficher ou masquer un conteneur de filtres
-    function toggleFiltres() {
-        document.querySelector('#filtres')?.classList.toggle('active'); // Alterne la classe 'active'
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        // N'affiche que les offres "À la Une"
-        const offres = document.querySelectorAll('.card');
-        let anyVisible = false; // Variable pour suivre si une offre est visible
-
-        offres?.forEach((offre) => {
-            // Vérifie si l'offre contient la classe 'active'
-            if (offre.classList.contains('active')) {
-                anyVisible = true; // Marque qu'une offre est visible
-                offre.classList.remove('hidden'); // Affiche l'offre
-            } else {
-                offre.classList.add('hidden'); // Masque l'offre
-            }
-        });
-
-        // Vérifie si aucune offre n'est visible
-        const noMatchesContainer = document.querySelector('#no-matches');
-        if (!noMatchesContainer) {
-            console.error('Le conteneur #no-matches est introuvable.');
-            return;
-        }
-
-        const noMatchesMessage = document.getElementById('no-matches-message');
-        if (!anyVisible) {
-            if (!noMatchesMessage) {
-                // Crée et ajoute un élément de message si non présent
-                const message = document.createElement('div');
-                message.id = 'no-matches-message';
-                message.textContent = 'Aucune offre n\'est "À la Une".';
-                message.classList.add('mt-4', '', 'text-h2');
-                noMatchesContainer.appendChild(message); // Ajouter dans le conteneur des offres
-            }
-        } else {
-            // Supprime le message si des offres sont visibles
-            noMatchesMessage?.remove();
-        }
-    });
-</script>
 
 </html>

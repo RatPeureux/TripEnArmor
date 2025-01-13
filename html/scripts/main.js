@@ -1,5 +1,6 @@
 // Import utilitaries
 import { } from './toggleMenu.js';
+import { } from './toggleFiltres.js';
 import { } from './confirmLogout.js';
 import { } from './confirmDelete.js';
 import { } from './formats.js';
