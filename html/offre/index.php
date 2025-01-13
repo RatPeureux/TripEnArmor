@@ -355,7 +355,7 @@ session_start();
                 <div class="space-y-2 px-2 md:px-0 w-full">
                     <div class="flex flex-col md:flex-row w-full">
                         <div class="flex flex-col justify-between md:flex-row">
-                            <div className="flex flex-col md:flex-row">
+                            <div className="flex flex-col md:flex-row w-full">
                                 <h1 class="text-h1 "><?php echo $offre['titre'] ?></h1>
                                 <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
                                 <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
@@ -530,7 +530,7 @@ session_start();
                                                 $horaire[$key] = substr($value, 0, -3);
                                             }
                                         }
-                                        if (!isset($horaire['ouverture'])) {
+                                        if (!is($horaire['ouverture'])) {
                                             echo "Fermé <br>";
                                         } else {
                                             if (!isset($horaire['pause_debut'])) {
