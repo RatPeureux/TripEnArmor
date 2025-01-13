@@ -178,6 +178,10 @@ if (!function_exists('chaineVersMot')) {
                     } ?>
                 </div>
             <?php } ?>
+
+            <div className="w-full h-full border border-primary">
+                <p>Test</p>
+            </div>
         </div>
     </main>
 
