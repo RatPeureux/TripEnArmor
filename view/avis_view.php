@@ -34,7 +34,7 @@ if (!function_exists('to_nom_note')) {
 
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
 <div
-    class="avis w-full  border border-black <?php echo $is_mon_avis ? 'border-primary border-4' : '' ?> p-2 flex flex-col gap-1">
+    class="avis w-full   <?php echo $is_mon_avis ? 'border-primary border-4' : '' ?> p-2 flex flex-col gap-1">
     <?php
     // Obtenir la variables regroupant les infos du membre
     $membre = $membreController->getInfosMembre($id_membre);
@@ -43,12 +43,47 @@ if (!function_exists('to_nom_note')) {
     ?>
 
     <!-- Première ligne du haut -->
-    <div class="flex gap-3 items-center">
-        <!-- Prénom, nom -->
-        <p><?php echo $membre['pseudo'] ?></p>
+    <div class="flex gap-3 items-center text-small">
+        <div class="flex">
+            <!-- Prénom, nom -->
+            <?php
+            if ($avis['titre']) { ?>
+                <p><?php echo $avis['titre'] ?>&nbsp;</p>
+                <?php
+            }
+            ?>
+            <p class="text-gray-600">de</p>
+            <!-- // Titre de l'avis s'il y en a un -->
+            <p class="text-gray-600">&nbsp;<?php echo $membre['pseudo'] ?></p>
+            <!-- Date de publication (2ème ligne) -->
+            <?php
+            if ($avis['date_publication']) { ?>
+                <?php
+                $date_publication = new DateTime($avis['date_publication']);
+                $now = new DateTime();
+                $interval = $date_publication->diff($now);
 
-        <!-- Note sur 5 -->
-        <div class="flex gap-1 grow shrink-0">
+                if ($interval->y > 0) {
+                    $time_ago = $interval->y . ' an' . ($interval->y > 1 ? 's' : '');
+                } elseif ($interval->m > 0) {
+                    $time_ago = $interval->m . ' mois';
+                } elseif ($interval->d > 7) {
+                    $weeks = floor($interval->d / 7);
+                    $time_ago = $weeks . ' semaine' . ($weeks > 1 ? 's' : '');
+                } elseif ($interval->d > 0) {
+                    $time_ago = $interval->d . ' jour' . ($interval->d > 1 ? 's' : '');
+                } else {
+                    $time_ago = 'aujourd\'hui';
+                }
+                ?>
+                <p class="grow text-gray-600 text-small">
+                    &nbsp;<?php echo ($time_ago == 'aujourd\'hui') ? $time_ago : 'il y a ' . $time_ago ?></p>
+                <?php
+            }
+            ?>
+        </div>
+        <!-- TAB PC Note sur 5 -->
+        <div class="flex gap-1 grow shrink-0 text-small hidden md:flex">
             <?php
             // Note s'il y en a une
             $note = floatval($avis['note']);
@@ -70,41 +105,57 @@ if (!function_exists('to_nom_note')) {
             }
             ?>
         </div>
-
-        <?php
-        if (!$is_mon_avis) {
-            ?>
-            <!-- Drapeau de signalement -->
-            <a onclick="confirm('Signaler l\'avis ?')">
-                <i class="fa-solid fa-flag text-h2"></i>
-            </a>
+        <div class="self-end ml-auto">
             <?php
-        } else {
+            if (!$is_mon_avis) {
+                ?>
+                <!-- Drapeau de signalement -->
+                <a onclick="confirm('Signaler l\'avis ?')">
+                    <i class="fa-regular fa-flag text-h3"></i>
+                </a>
+                <?php
+            } else {
+                ?>
+                <!-- Poubelle de suppression d'avis -->
+                <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $avis['id_offre'] ?>"
+                    onclick="return confirm('Supprimer votre avis ?')">
+                    <i class="fa-solid fa-trash text-h2"></i>
+                </a>
+                <?php
+            }
             ?>
-            <!-- Poubelle de suppression d'avis -->
-            <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $avis['id_offre'] ?>"
-                onclick="return confirm('Supprimer votre avis ?')">
-                <i class="fa-solid fa-trash text-h2"></i>
-            </a>
-            <?php
-        }
-        ?>
-
+        </div>
     </div>
 
-    <!-- Date de publication (2ème ligne) -->
-    <?php
-    if ($avis['date_publication']) { ?>
-        <p class="italic grow"><?php echo date('d/m/Y', strtotime($avis['date_publication'])) ?></p>
+    <!-- TEL Note sur 5 -->
+    <div class="flex gap-1 grow shrink-0 text-small md:hidden">
         <?php
-    }
-    ?>
+        // Note s'il y en a une
+        $note = floatval($avis['note']);
+        for ($i = 0; $i < 5; $i++) {
+            if ($note >= 1) {
+                ?>
+                <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
+                <?php
+            } else if ($note > 0) {
+                ?>
+                    <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
+                <?php
+            } else {
+                ?>
+                    <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                <?php
+            }
+            $note--;
+        }
+        ?>
+    </div>
 
     <!-- Notes complémentaires d'un restaurant) -->
     <?php
     // Notes pour les restaurants
     if ($restauration) { ?>
-        <div class='flex justify-around flex-wrap'>
+        <div class='flex md:flex-row flex-col justify-between flex-wrap'>
             <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
             $stmt = $dbh->prepare("SELECT * FROM sae_db._avis_restauration_note WHERE id_avis = :id_avis AND id_restauration = :id_restauration");
             $stmt->bindParam(":id_avis", $id_avis);
@@ -114,33 +165,11 @@ if (!function_exists('to_nom_note')) {
 
             foreach (['note_ambiance', 'note_service', 'note_cuisine', 'rapport_qualite_prix'] as $nom_note) {
                 ?>
+                <div class='flex text-small'>
+                    <p class="text-gray-600"><?php echo ucfirst(to_nom_note(nom_attribut_note: $nom_note)) ?> :&nbsp;</p>
+                    <p><?php echo $notes_restauration[$nom_note] ?></p>
 
-                <div class='flex flex-col items-center shrink-0'>
-                    <div class="flex gap-1">
-                        <?php
-                        $note = isset($notes_restauration[$nom_note]) ? floatval($notes_restauration[$nom_note]) : 2.5;
-                        for ($i = 0; $i < 5; $i++) {
-                            if ($note >= 1) {
-                                ?>
-                                <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-                                <?php
-                            } else if ($note > 0) {
-                                ?>
-                                    <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
-                                <?php
-                            } else {
-                                ?>
-                                    <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-                                <?php
-                            }
-                            $note--;
-                        }
-                        ?>
-                    </div>
-
-                    <p class='italic'><?php print_r(to_nom_note($nom_note)) ?></p>
                 </div>
-
                 <?php
             } ?>
         </div>
@@ -152,37 +181,37 @@ if (!function_exists('to_nom_note')) {
     <?php
     if ($avis['date_experience']) { ?>
         <div class="flex justify-start gap-3">
-            <p class="italic">Vécu le
-                <?php echo $avis['date_experience'] ?>,
+            <p class="text-gray-600 text-small">Vécu le
+                <?php
+                $date_experience = date('d/m/Y', strtotime($avis['date_experience']));
+                $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
+                echo $formatter->format(new DateTime($avis['date_experience']));
+                ?>,
                 <?php echo (isset($avis['contexte_passage'])) ? $avis['contexte_passage'] : '' ?>
+                <?php
+                setlocale(LC_TIME, 'fr_FR.UTF-8');
+                ?>
             </p>
         </div>
         <?php
     }
     ?>
 
-    <div class="flex items-center justify-between">
-        <?php
-        // Titre de l'avis s'il y en a un
-        if ($avis['titre']) { ?>
-            <p class="text-h4 "><?php echo $avis['titre'] ?></p>
-        <?php }
-        ?>
-
-        <div class="flex gap-4">
-            <i class="cursor-pointer fa-regular fa-thumbs-up text-h2" id="tup-<?php echo $id_avis ?>"></i>
-            <i class="cursor-pointer fa-regular fa-thumbs-down text-h2" id="tdown-<?php echo $id_avis ?>"></i>
-        </div>
-    </div>
 
     <?php
     // Commentaire de l'avis s'il y en a un
     if ($avis['commentaire']) { ?>
-        <p><?php echo $avis['commentaire'] ?></p>
+        <div class="flex flex-col gap-2">
+            <p class="text-small text-justify"><?php echo $avis['commentaire'] ?></p>
+            <div class="flex flex-row-reverse gap-4 ">
+                <i class="cursor-pointer fa-regular fa-thumbs-down text-h3" id="tdown-<?php echo $id_avis ?>"></i>
+                <i class="cursor-pointer fa-regular fa-thumbs-up text-h3" id="tup-<?php echo $id_avis ?>"></i>
+            </div>
+        </div>
     <?php }
     ?>
+    <hr>
 </div>
-
 <script>
     const thumbsUp = document.getElementById("tup-<?php echo $id_avis ?>");
     const thumbsDown = document.getElementById("tdown-<?php echo $id_avis ?>");
