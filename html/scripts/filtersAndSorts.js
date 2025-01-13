@@ -366,7 +366,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 message.id = 'no-matches-message';
                 message.textContent = 'Aucune offre ne correspond à vos critères.';
                 message.classList.add('mt-4');
-                message.classList.add('');
                 message.classList.add('text-h2');
                 document.querySelector('#no-matches').appendChild(message); // Ajouter dans le conteneur des offres
             }

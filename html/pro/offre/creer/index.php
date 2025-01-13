@@ -269,7 +269,6 @@ $pro = verifyPro();
 						exit;
 					}
 				}
-				// echo "Images de détail insérées.<br>";
 			}
 
 			if ($activityType === 'parc_attraction') {
@@ -326,7 +325,6 @@ $pro = verifyPro();
 
 					$activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
 				}
-				// echo "Prestations insérées.<br>";
 			}
 
 			// Insérer les horaires dans la base de données
@@ -336,7 +334,6 @@ $pro = verifyPro();
 			foreach ($horaires as $key => $jour) {
 				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 			}
-			// echo"Horaires insérés.<br>";
 	
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';

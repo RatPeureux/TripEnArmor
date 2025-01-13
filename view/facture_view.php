@@ -30,10 +30,18 @@ $stmt->bindParam(':id_offre', $id_offre);
 $stmt->execute();
 $periodes_en_ligne = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt = $dbh->prepare("SELECT * FROM sae_db.vue_souscription_offre_option_details_du_mois WHERE id_offre = :id_offre");
+// totaux pour les périodes
+$HT_total_periodes = 0.00;
+$TTC_total_periodes = 0.00;
+
+$stmt = $dbh->prepare("SELECT * FROM sae_db.vue_souscription_offre_option_details_du_mois WHERE id_offre = :id_offre AND est_remboursee = false");
 $stmt->bindParam(':id_offre', $id_offre);
 $stmt->execute();
 $options_details = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// totaux pour les souscriptions
+$HT_total_souscriptions = 0.00;
+$TTC_total_souscriptions = 0.00;
 
 // Dates et numéro de facture
 $date_emission = date('d/m/Y');
@@ -43,7 +51,6 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
 <!-- FACTURE AVEC TOUS LES DETAILS -->
 <div id="facture-details" class="border border-black p-5 flex flex-col mx-auto my-5 gap-5 max-w-4xl">
     <?php
-    $TVA = 20;
     $numero = "2024-FAC-0001";
     ?>
 
@@ -89,43 +96,46 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
             <table class="w-full border-collapse border border-gray-300">
                 <thead class="bg-blue-200">
                     <tr>
-                        <th class="border p-2">Type</th>
-                        <th class="border p-2">Du<p class="text-small"> (inclus)</p>
+                        <th class="border p-2 text-center">Type</th>
+                        <th class="border p-2 text-center">Du<p class="text-small"> (inclus)</p>
                         </th>
-                        <th class="border p-2">Au<p class="text-small"> (inclus)</p>
+                        <th class="border p-2 text-center">Au<p class="text-small"> (inclus)</p>
                         </th>
-                        <th class="border p-2">Qte</th>
-                        <th class="border p-2">Unité</th>
-                        <th class="border p-2">Prix uni. HT</th>
-                        <th class="border p-2">Total HT</th>
-                        <th class="border p-2">TVA</th>
-                        <th class="border p-2">Prix uni. TTC</th>
-                        <th class="border p-2">Total TTC</th>
+                        <th class="border p-2 text-center">Qte</th>
+                        <th class="border p-2 text-center">Unité</th>
+                        <th class="border p-2 text-center">Prix uni. HT</th>
+                        <th class="border p-2 text-center">Total HT</th>
+                        <th class="border p-2 text-center">TVA</th>
+                        <th class="border p-2 text-center">Prix uni. TTC</th>
+                        <th class="border p-2 text-center">Total TTC</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($periodes_en_ligne as $periode_en_ligne) { ?>
+                    <?php foreach ($periodes_en_ligne as $periode_en_ligne) {
+                        $HT_total_periodes += $periode_en_ligne['prix_ht_total'];
+                        $TTC_total_periodes += $periode_en_ligne['prix_ttc_total'];
+                        ?>
                         <tr class="text-center">
-                            <td class="border p-2"><?php echo htmlspecialchars($periode_en_ligne['type_offre']); ?></td>
+                            <td class="border p-2 text-center"><?php echo htmlspecialchars($periode_en_ligne['type_offre']); ?></td>
 
-                            <td class="border p-2">
+                            <td class="border p-2 text-center">
                                 <?php echo DateTime::createFromFormat('Y-m-d', $periode_en_ligne['date_debut'])->format('d/m/y') ?>
                             </td>
-                            <td class="border p-2">
+                            <td class="border p-2 text-center">
                                 <?php echo DateTime::createFromFormat('Y-m-d', $periode_en_ligne['date_fin'])->format('d/m/y') ?>
                             </td>
 
-                            <td class="border p-2 text-right"><?php echo $periode_en_ligne['duree'] ?></td>
-                            <td class="border p-2 text-right"><?php echo 'jour' ?></td>
+                            <td class="border p-2 text-center"><?php echo $periode_en_ligne['duree'] ?></td>
+                            <td class="border p-2 text-center"><?php echo 'jour' ?></td>
 
-                            <td class="border p-2 text-right"><?php echo $periode_en_ligne['prix_ht'] ?> € </td>
-                            <td class="border p-2 text-right"><?php echo $periode_en_ligne['prix_ht_total'] ?> €</td>
+                            <td class="border p-2 text-center"><?php echo $periode_en_ligne['prix_ht'] ?> € </td>
+                            <td class="border p-2 text-center"><?php echo $periode_en_ligne['prix_ht_total'] ?> €</td>
 
                             <!-- TVA -->
-                            <td class="border p-2 text-right"><?php echo $periode_en_ligne['tva'] ?>%</td>
+                            <td class="border p-2 text-center"><?php echo $periode_en_ligne['tva'] ?>%</td>
 
-                            <td class="border p-2 text-right"><?php echo $periode_en_ligne['prix_ttc'] ?> €</td>
-                            <td class="border p-2 text-right">
+                            <td class="border p-2 text-center"><?php echo $periode_en_ligne['prix_ttc'] ?> €</td>
+                            <td class="border p-2 text-center">
                                 <?php echo $periode_en_ligne['prix_ttc_total'] ?> €
                             </td>
                         </tr>
@@ -144,38 +154,46 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
         <?php if (count($options_details) > 0) { ?>
             <table class="w-full border-collapse border border-gray-300">
                 <thead class="bg-blue-200">
-                    <tr>
-                        <th class="border p-2">Nom</th>
-                        <th class="border p-2">Du<p class="text-small"> (inclus)</p>
+                    <tr class="text-center">
+                        <th class="border p-2 text-center">Nom</th>
+                        <th class="border p-2 text-center">Du<p class="text-small"> (inclus)</p>
                         </th>
-                        <th class="border p-2">Au<p class="text-small"> (inclus)</p>
+                        <th class="border p-2 text-center">Au<p class="text-small"> (inclus)</p>
                         </th>
-                        <th class="border p-2">Qte</th>
-                        <th class="border p-2">Unité</th>
-                        <th class="border p-2">Prix uni. HT</th>
-                        <th class="border p-2">Total HT</th>
-                        <th class="border p-2">TVA</th>
-                        <th class="border p-2">Prix uni. TTC</th>
-                        <th class="border p-2">Total TTC</th>
+                        <th class="border p-2 text-center">Qte</th>
+                        <th class="border p-2 text-center">Unité</th>
+                        <th class="border p-2 text-center">Prix uni. HT</th>
+                        <th class="border p-2 text-center">Total HT</th>
+                        <th class="border p-2 text-center">TVA</th>
+                        <th class="border p-2 text-center">Prix uni. TTC</th>
+                        <th class="border p-2 text-center">Total TTC</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($options_details as $option_details) {
+                        $HT_total_souscriptions += $option_details['prix_ht_total'];
+                        $TTC_total_souscriptions += $option_details['prix_ttc_total'];
                         ?>
                         <tr>
-                            <td class="border p-2"><?php echo htmlspecialchars($option_details['nom_option']); ?></td>
+                            <td class="border p-2 text-center"><?php echo htmlspecialchars($option_details['nom_option']); ?></td>
+
+                            <td class="border p-2 text-center">
+                                <?php echo DateTime::createFromFormat('Y-m-d', $option_details['date_lancement'])->format('d/m/y') ?>
+                            </td>
+                            <td class="border p-2 text-center">
+                                <?php echo DateTime::createFromFormat('Y-m-d', $option_details['date_fin'])->format('d/m/y') ?>
+                            </td>
+
+                            <td class="border p-2 text-center"><?php echo htmlspecialchars($option_details['nb_semaines']); ?></td>
+                            <td class="border p-2 text-center"><?php echo 'semaine' ?></td>
+
+                            <td class="border p-2 text-center"><?php echo $option_details['prix_ht'] ?> €</td>
+                            <td class="border p-2 text-center"><?php echo $option_details['prix_ht_total'] ?> €</td>
+
+                            <td class="border p-2 text-center"><?php echo $option_details['tva'] ?>%</td>
                             
-                            <td class="border p-2 text-right"><?php echo DateTime::createFromFormat('Y-m-d', $option_details['date_lancement'])->format('d/m/y') ?></td>
-                            <td class="border p-2 text-right"><?php echo DateTime::createFromFormat('Y-m-d', $option_details['date_fin'])->format('d/m/y') ?></td>
-
-                            <td class="border p-2"><?php echo htmlspecialchars($option_details['nb_semaines']); ?></td>
-                            <td class="border p-2 text-right"><?php echo 'semaine' ?></td>
-
-                            <td class="border p-2 text-right"><?php echo $option_details['prix_ht'] ?> €</td>
-                            <td class="border p-2 text-right"><?php echo $option_details['prix_ht_total'] ?> €</td>
-                            <td class="border p-2 text-right"><?php echo $option_details['tva'] ?>%</td>
-                            <td class="border p-2 text-right"><?php echo $option_details['prix_ttc'] ?> €</td>
-                            <td class="border p-2 text-right"><?php echo $option_details['prix_ttc_total'] ?> €</td>
+                            <td class="border p-2 text-center"><?php echo $option_details['prix_ttc'] ?> €</td>
+                            <td class="border p-2 text-center"><?php echo $option_details['prix_ttc_total'] ?> €</td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -190,17 +208,11 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
         <div class="w-1/3">
             <div class="flex justify-between">
                 <span>Total HT</span>
-                <span><?php echo number_format($type_offre['prix_ht'], 2) * $nbJoursEnLigne; ?> €</span>
-            </div>
-            <div class="flex justify-between">
-                <span>TVA (<?php echo $TVA ?>%)</span>
-                <span>
-                    <?php echo (number_format($type_offre['prix_ht'], 2) * $nbJoursEnLigne) * ($TVA / 100) ?> €</span>
+                <span><?php echo $HT_total_periodes + $HT_total_souscriptions ?> €</span>
             </div>
             <div class="flex justify-between font-bold">
                 <span>Total TTC</span>
-                <span><?php echo (number_format($type_offre['prix_ht'], 2) * $nbJoursEnLigne) * (1 + ($TVA / 100)); ?>
-                    €</span>
+                <span><?php echo $TTC_total_periodes + $TTC_total_souscriptions ?> €</span>
             </div>
         </div>
     </div>

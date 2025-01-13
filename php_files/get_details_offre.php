@@ -170,7 +170,7 @@ $souscription_controller = new SouscriptionController();
 $souscriptions_options = $souscription_controller->getAllSouscriptionsByIdOffre($id_offre);
 
 $option = false;
-foreach($souscription_options as $souscription) {
+foreach($souscriptions_options as $souscription) {
     // $souscription est un tableau associatif avec une clé "date_lancement" et une clé "nb_semaines". Il faudrait calculer si une option est actuellement active. Si oui, on met la variable $option à true.
     $date_lancement = new DateTime($souscription['date_lancement']);
     $date_fin = clone $date_lancement;
