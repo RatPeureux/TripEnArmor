@@ -47,17 +47,13 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     }
 
     // Obtenez l'ensemble des offres avec le tri approprié
-    
     $stmt = $dbh->prepare("
-        SELECT o.* 
-        FROM sae_db._offre o
-        JOIN sae_db._offre_souscription_option oso ON o.id_offre = oso.id_offre
-        JOIN sae_db._souscription s ON oso.id_souscription = s.id_souscription
-        WHERE o.est_en_ligne = true 
-        AND oso.nom_option = 'A la une'
-        AND (s.date_annulation IS NULL OR CURRENT_DATE < s.date_annulation)
-        AND CURRENT_DATE <= s.date_lancement + (s.nb_semaines * INTERVAL '1 week')
-        AND CURRENT_DATE >= s.date_lancement
+        select *
+        from sae_db._souscription natural join sae_db._offre
+        where option = 'option-a-la-une'
+        AND (date_annulation IS NULL OR CURRENT_DATE < date_annulation)
+        AND CURRENT_DATE <= date_lancement + (nb_semaines * INTERVAL '1 week')
+        AND CURRENT_DATE >= date_lancement 
         $sort_order
     ");
     $stmt->execute();

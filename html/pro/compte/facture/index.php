@@ -95,11 +95,17 @@ $pro = verifyPro();
                             <option value="2">Autre offre</option>
                         </select>
 
+                        <!-- Logo de chargement de preview -->
+                        <img id="loading-indicator" style="display: none;" src="/public/images/loading.gif" alt="Loading...">
+                        <!-- Contenu de la preview -->
                         <div id="facture-preview"></div>
 
                         <script>
                             // AFFICHER LA PREVIEW D'UNE FACTURE QUAND OFFRE SÉLECTIONNÉE
                             function loadPreview() {
+                                // Afficher le loader pendant le chargement
+                                $('#loading-indicator').show();
+
                                 const id_offre = document.getElementById('offre').value;
                                 $('#facture-preview').html('');
 
@@ -115,6 +121,12 @@ $pro = verifyPro();
                                         const preview_loaded = response;
                                         $('#facture-preview').html(preview_loaded);
                                     },
+                                    
+                                    // A la fin, chacher le logo de chargement
+                                    complete: function () {
+                                        // Masquer le loader après la requête
+                                        $('#loading-indicator').hide();
+                                    }
                                 });
                             }
 
