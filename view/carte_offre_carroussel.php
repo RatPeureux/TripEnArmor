@@ -73,14 +73,14 @@ foreach ($horaires as $jour => $horaire) {
 // Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 ?>
 <a class="card <?php if ($option) {
-	echo "active rounded-lg";
+	echo "active ";
 } ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
-	<div class='w-[30em] h-full relative bg-base100 rounded-xl flex flex-col'>
+	<div class='w-[30em] h-full relative bg-base100  flex flex-col'>
 		<!-- En-tête -->
 		<div
-			class='en-tete absolute p-4 top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg'>
-			<h3 class='text-xl text-center font-bold'>
+			class='en-tete absolute p-4 top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 '>
+			<h3 class='text-xl text-center '>
 				<?php echo $titre_offre; ?>
 			</h3>
 			<div class='flex w-full justify-between px-2'>
@@ -94,7 +94,7 @@ foreach ($horaires as $jour => $horaire) {
 		$controllerImage = new ImageController();
 		$images = $controllerImage->getImagesOfOffre($id_offre);
 		?>
-		<img class="h-48 w-full rounded-t-lg object-cover" src='/public/images/<?php if ($images['carte']) {
+		<img class="h-48 w-full  object-cover" src='/public/images/<?php if ($images['carte']) {
 			echo "offres/" . $images['carte'];
 		} else {
 			echo $categorie_offre . '.jpg';
@@ -115,7 +115,7 @@ foreach ($horaires as $jour => $horaire) {
 			<hr class='h-20 border-black border'>
 			<!-- Description avec les tags-->
 			<div class='description py-2 flex flex-col gap-2 justify-center self-stretch'>
-				<div class='p-1 rounded-lg bg-secondary self-center w-full'>
+				<div class='p-1  bg-secondary self-center w-full'>
 					<?php
 					if ($categorie_offre != 'restauration') {
 						require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
@@ -136,7 +136,7 @@ foreach ($horaires as $jour => $horaire) {
 						$tagsAffiche = rtrim($tagsAffiche, ', ');
 						if ($tags_offre) {
 							?>
-							<div class="p-1 rounded-lg bg-secondary self-center w-full">
+							<div class="p-1  bg-secondary self-center w-full">
 								<?php
 								echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
 								?>
@@ -144,7 +144,7 @@ foreach ($horaires as $jour => $horaire) {
 							<?php
 						} else {
 							?>
-							<div class="p-1 rounded-lg bg-secondary self-center w-full">
+							<div class="p-1  bg-secondary self-center w-full">
 								<?php
 								echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 								?>
@@ -169,7 +169,7 @@ foreach ($horaires as $jour => $horaire) {
 						$tagsAffiche = rtrim($tagsAffiche, ', ');
 						if ($tags_offre) {
 						?>
-							<div class="p-1 rounded-lg bg-secondary self-center w-full">
+							<div class="p-1  bg-secondary self-center w-full">
 								<?php
 								echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
 								?>
@@ -177,7 +177,7 @@ foreach ($horaires as $jour => $horaire) {
 						<?php
 						} else {
 						?>
-							<div class="p-1 rounded-lg bg-secondary self-center w-full">
+							<div class="p-1  bg-secondary self-center w-full">
 								<?php
 								echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 								?>

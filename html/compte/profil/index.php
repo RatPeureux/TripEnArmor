@@ -69,11 +69,11 @@ $membre = verifyMember();
 
                     <label class="text-h3" for="pseudo">Nom d'utilisateur</label>
                     <input value="<?php echo $membre['pseudo'] ?>"
-                        class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
+                        class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 " type="text"
                         id="pseudo" name="pseudo">
 
                     <input type="submit" id="save" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4  text-small text-white bg-primary  border border-transparent"
                         disabled>
                     </input>
                 </form>
@@ -83,7 +83,7 @@ $membre = verifyMember();
 
                 <div class="max-w-[23rem] mx-auto">
                     <a href="/compte/profil/avis"
-                        class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+                        class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
                         <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
                         <div class="w-full">
                             <p class="text-h2">Avis</p>

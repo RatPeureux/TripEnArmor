@@ -339,10 +339,10 @@ session_start();
                     <?php if ($images['details']) { ?>
                         <div class="flex items-center gap-8 justify-center">
                             <a
-                                class="swiper-button-prev group flex justify-center items-center border border-solid rounded-full !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-prev group flex justify-center items-center  !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
                                 ‹</a>
                             <a
-                                class="swiper-button-next group flex justify-center items-center border border-solid rounded-full !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-next group flex justify-center items-center  !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
                                 ›</a>
                         </div>
                         <?php
@@ -363,9 +363,11 @@ session_start();
                     <?php if ($ouvert == true) {
                         ?>
                         <p class="text-h3  text-green-500">Ouvert</p>
+                        <p class="text-h3  text-green-500">Ouvert</p>
                         <?php
                     } else {
                         ?>
+                        <p class="text-h3  text-red-500">Fermé</p>
                         <p class="text-h3  text-red-500">Fermé</p>
                         <?php
                     }
@@ -397,7 +399,7 @@ session_start();
                         $tagsAffiche = rtrim($tagsAffiche, ', ');
                         if ($tags_offre) {
                             ?>
-                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                            <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
@@ -405,7 +407,7 @@ session_start();
                             <?php
                         } else {
                             ?>
-                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                            <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
@@ -430,7 +432,7 @@ session_start();
                         $tagsAffiche = rtrim($tagsAffiche, ', ');
                         if ($tags_offre) {
                             ?>
-                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                            <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
@@ -438,7 +440,7 @@ session_start();
                             <?php
                         } else {
                             ?>
-                            <div class="p-1 rounded-lg bg-secondary self-center w-full">
+                            <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
@@ -455,6 +457,7 @@ session_start();
                         <div class="partie-description flex flex-col basis-1/2 pr-2">
                             <!-- Prix + localisation -->
                             <div class="flex flex-col space-y-2 md:gap-4">
+                                <p class="text-h4 ">À propos</p>
                                 <p class="text-h4 ">À propos</p>
                                 <div class="flex items-center gap-4 px-2">
                                     <i class="w-6 text-center fa-solid fa-location-dot"></i>
@@ -475,6 +478,7 @@ session_start();
                             <!-- Description détaillée -->
                             <div class="description flex flex-col space-y-2 my-4">
                                 <p class="text-h4 ">Description</p>
+                                <p class="text-h4 ">Description</p>
                                 <p class="text-justify text-small px-2 prose">
                                     <?php echo $description ?>
                                 </p>
@@ -486,6 +490,8 @@ session_start();
                             <!-- Infos en fonction du type de l'offre -->
                             <a class="">
                                 <div class="flex flex-row justify-between" id="horaire-button">
+                                    <div class="flex ">
+                                        <p class="text-h4 ">Horaires&nbsp;</p>
                                     <div class="flex ">
                                         <p class="text-h4 ">Horaires&nbsp;</p>
                                     </div>
@@ -626,7 +632,7 @@ session_start();
                                 ?>
                                 <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
-                                        <p class="text-h4 font-">Grille tarifaire</p>
+                                        <p class="text-h4 ">Grille tarifaire</p>
                                         <p id="grille-arrow">></p>
                                     </div>
                                     <div class="hidden text-small py-3" id="grille-info">
@@ -864,8 +870,8 @@ session_start();
                                                 class="bg-secondary text-white  rounded-lg p-2 self-end">
                                         </div>
 
-                                        <hr class="w-1/2 border border-black self-end my-2 rounded-lg bg-black">
-                                    </form>
+                                                <hr class="w-1/2 border border-black self-end my-2 rounded-lg bg-black">
+                                            </form>
 
                                     <script>
                                         // Eviter de pouvoir sélectionner un date ultérieure au jour actuel

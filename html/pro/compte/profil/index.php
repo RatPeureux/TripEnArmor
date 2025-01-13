@@ -115,11 +115,11 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                     for="nom"><?php if ($pro['data']['type'] == 'prive') { ?>Dénomination<?php } else { ?>Nom
                         de l'organisation<?php } ?></label>
                 <input value="<?php echo $pro['nom_pro'] ?>"
-                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="nom"
+                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 " type="text" id="nom"
                     name="nom">
 
                 <input type="submit" id="save1" value="Enregistrer les modifications"
-                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4  text-small text-white bg-primary  border border-transparent"
                     disabled>
                 </input>
             </form>
@@ -129,32 +129,32 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
             <form action="" class="flex flex-col" method="post">
                 <label class="text-h3" for="adresse">Adresse postale</label>
                 <input value="<?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] ?>"
-                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text" id="adresse"
+                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 " type="text" id="adresse"
                     name="adresse">
 
                 <label class=" text-h3" for="complement">Complément adresse postale</label>
                 <input value="<?php echo $adresse['complement'] ?>"
-                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg" type="text"
+                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 " type="text"
                     id="complement" name="complement">
 
                 <div class=" flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-32">
                         <label class="text-h3" for="postal_code">Code postal</label>
                         <input id="postal_code" name="postal_code" value="<?php echo $adresse['code_postal'] ?>"
-                            class="border-2 border-secondary p-2 text-right bg-white max-w-32 h-12 mb-3 rounded-lg"
+                            class="border-2 border-secondary p-2 text-right bg-white max-w-32 h-12 mb-3 "
                             pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345">
                     </div>
                     <div class="w-full">
                         <label class="text-h3" for="locality">Ville</label>
                         <input id="locality" name="locality" value="<?php echo $adresse['ville'] ?>"
-                            class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 rounded-lg"
+                            class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 "
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
                             title="Saisir votre ville" placeholder="Rennes">
                     </div>
                 </div>
 
                 <input type="submit" id="save2" value="Enregistrer les modifications"
-                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4 font-bold text-small text-white bg-primary rounded-lg border border-transparent"
+                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4  text-small text-white bg-primary  border border-transparent"
                     disabled>
                 </input>
             </form>
@@ -163,7 +163,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
             <div class="max-w-[23rem] mx-auto">
                 <a href="/pro/compte/profil/avis"
-                    class="cursor-pointer w-full rounded-lg shadow-custom space-x-8 flex items-center px-8 py-4">
+                    class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
                     <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
                     <div class="w-full">
                         <p class="text-h2">Avis</p>
