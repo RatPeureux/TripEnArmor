@@ -354,7 +354,7 @@ session_start();
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="space-y-2 px-2 md:px-0 w-full">
                     <div class="flex flex-col md:flex-row w-full">
-                        <div class="flex flex-col justify-between md:flex-row w-full">
+                        <div class="flex flex-col justify-between md:flex-row w-fit">
                             <h1 class="text-h1 "><?php echo $offre['titre'] ?></h1>
                             <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
