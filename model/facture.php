@@ -30,6 +30,21 @@ class Facture extends BDD
         }
     }
 
+    static function getAllFactures() {
+        self::initBDD();
+        // Requête SQL pour sélectionner une facture par son ID
+        $query = "SELECT * FROM " . self::$nom_table;
+        $stmt = self::$db->prepare($query);
+
+        // Exécute la requête et retourne les résultats ou une erreur
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR : Impossible d'obtenir toutes les factures en une fois";
+            return -1;
+        }
+    }
+
     static function getAllFacturesByIdOffre($id_offre)
     {
         self::initBDD();
