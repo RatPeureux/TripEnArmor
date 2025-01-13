@@ -530,7 +530,7 @@ session_start();
                                                 $horaire[$key] = substr($value, 0, -3);
                                             }
                                         }
-                                        if (!is($horaire['ouverture'])) {
+                                        if (!isset($horaire['ouverture'])) {
                                             echo "Fermé <br>";
                                         } else {
                                             if (!isset($horaire['pause_debut'])) {
