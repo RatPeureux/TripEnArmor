@@ -352,16 +352,16 @@ session_start();
                                                 <?php for ($i = 0; $i < 5; $i++) {
                                                     if ($moyenne > 1) {
                                                         ?>
-                                                        <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
+                                                        <img class="w-5" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
                                                         <?php
                                                     } else if ($moyenne > 0) {
                                                         ?>
-                                                            <img class="w-3" src="/public/icones/oeuf_moitie.svg"
+                                                            <img class="w-5" src="/public/icones/oeuf_moitie.svg"
                                                                 alt="0.5 point de note">
                                                         <?php
                                                     } else {
                                                         ?>
-                                                            <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                                                            <img class="w-5" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
                                                         <?php
                                                     }
                                                     $moyenne--;
