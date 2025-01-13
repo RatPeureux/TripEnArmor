@@ -512,7 +512,7 @@ if ($mode_carte == 'membre') {
 						}
 						?>
 						<!-- modifier l'offre -->
-						<a title="Modifier l'offre" class="hidden">
+						<a title="Modifier l'offre" href="/pro/offre/modifier/index.php?id_offre=<?php echo $id_offre ?>">
 							<i class="fa-solid fa-gear text-secondary text-h1 hover:text-primary duration-100"></i>
 						</a>
 						<!-- détails de l'offre -->

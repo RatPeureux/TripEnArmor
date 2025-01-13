@@ -27,18 +27,18 @@ $catOffre = $catOffreController->getOffreCategorie($offre['id_offre']);
 echo "<pre>";
 var_dump($catOffre[0]['type_offre']);
 echo "</pre>";
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-$tagController = new TagController();
-$tags = $tagController->getInfosTag($offre['id_offre']);
-echo "<pre>";
-var_dump($tags);
-echo "</pre>";
-// require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_resto_controller.php';
-// $tagRestoController = new TagRestoController();
-// $tagsResto = $tagRestoController->getTagResto($offre['id_offre']);
+// require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+// $tagController = new TagController();
+// $allTags = $tagController->getInfosTag($offre['id_offre']);
 // echo "<pre>";
-// var_dump($tagsResto);
+// var_dump($tags);
 // echo "</pre>";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_resto_controller.php';
+$tagRestoController = new TagRestoController();
+$tagsResto = $tagRestoController->getTagResto($offre['id_offre']);
+echo "<pre>";
+var_dump($tagsResto);
+echo "</pre>";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
 $horaireController = new HoraireController();
 $horaires = $horaireController->getHorairesOfOffre($offre['id_offre']);
@@ -63,6 +63,12 @@ $repasNoms = array_map(function($repas) {
 
 echo "<pre>";
 var_dump($repasNoms);
+echo "</pre>";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+$imageController = new ImageController();
+$images = $imageController->getImagesOfOffre($offre['id_offre']);
+echo "<pre>";
+var_dump($images);
 echo "</pre>";
 $pro = verifyPro();
 ?>
@@ -342,6 +348,19 @@ $pro = verifyPro();
 				// echo "Images de détail insérées.<br>";
 			}
 
+			//$existingImages = $imageController->getImagesOfOffre($offre['id_offre']);
+			foreach ($images as $image) {
+				if (strpos($image['type'], 'detail-') !== false) {
+					echo "Image de détail existante : " . $image['url'] . "<br>";
+				} else if ($image['type'] === 'carte') {
+					echo "Image de la carte existante : " . $image['url'] . "<br>";
+					echo "<script>
+						document.getElementById('preview-image').src = '{$image['url']}';
+						document.getElementById('photo-upload-carte').required = false;
+					</script>";
+				}
+			}
+
 			if ($activityType === 'parc_attraction') {
 				if (!$imageController->uploadImage($id_offre, 'plan', $_FILES['photo-plan']['tmp_name'], explode('/', $_FILES['photo-plan']['type'])[1])) {
 					echo "Erreur lors de l'upload de l'image du plan.";
@@ -459,14 +478,14 @@ $pro = verifyPro();
 			<div id="menu-pro">
 				<?php
 				$pagination = 2;
-				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/menu-pro.php';
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu-pro.php';
 				?>
 			</div>
 
 			<div class="w-full">
 				<!-- Inclusion du header -->
 				<?php
-				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/header-pro.php';
+				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header-pro.php';
 				?>
 			</div>
 
@@ -685,9 +704,9 @@ $pro = verifyPro();
 								<div class="w-full justify-between">
 									<!-- Photo principale -->
 									<div class="flex flex-col justify-between w-full">
-										<label for="photo-upload-carte" class="text-nowrap w-full">Photo de la carte
-											:</label>
-										<input type="file" name="photo-upload-carte" id="photo-upload-carte" class="text-center text-secondary block w-full
+										<label for="photo-upload-carte" class="text-nowrap w-full">Photo de la carte :</label>
+										<input type="file" name="photo-upload-carte" id="photo-upload-carte" 
+										class="text-center text-secondary block w-full
 									border-dashed border-2 border-secondary rounded-lg p-2
 									file:mr-5 file:py-3 file:px-10
 									file:rounded-lg
@@ -695,6 +714,19 @@ $pro = verifyPro();
 									file:border file:border-secondary
 									hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp"
 											required />
+										<?php if (isset($images) && is_array($images) && !empty($images)): ?>
+											<?php foreach ($images as $image): ?>
+												<?php if (is_array($image) && isset($image['type']) && $image['type'] === 'carte'): ?>
+													<p class="mt-2">Fichier sélectionné : <?php echo basename($image['url']); ?></p>
+													<script>
+														document.addEventListener('DOMContentLoaded', function() {
+															document.getElementById('preview-image').src = '<?php echo $image['url']; ?>';
+															document.getElementById('photo-upload-carte').required = false;
+														});
+													</script>
+												<?php endif; ?>
+											<?php endforeach; ?>
+										<?php endif; ?>
 									</div>
 
 									<!-- Photos détaillée -->
@@ -763,32 +795,6 @@ $pro = verifyPro();
 										id="spectacleTags"></div>
 									<div class="tag-container flex flex-wrap p-2 rounded-lg optionParcAttraction hidden"
 										id="parcAttractionTags"></div>
-									<?php 
-									if ($activityType === 'restauration') {
-										require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_resto_controller.php';
-										$tagRestaurationController = new TagRestoController();
-										if ($activityType === 'restauration') {
-											require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_resto_controller.php';
-											$tagRestaurationController = new TagRestoController();
-											$tags = $tagRestaurationController->getTagResto($offre['id_offre']);
-											print_r($tags);
-										} else {
-											require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-											$tagController = new TagController();
-											$tags = $tagController->getInfosTag($offre['id_offre']);
-											print_r($tags);
-										}
-
-										foreach ($tags as $tag) {
-											echo "<div class='tag-item'>{$tag['nom']}</div>";
-										}
-										$tags = $tagRestaurationController->getTagsRestaurant($offre['id_offre']);
-									} else {
-										require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-										$tagController = new TagController();
-										$tags = $tagController->getInfosTag($offre['id_offre']);
-									}
-									?>
 									<div class="tag-container flex flex-wrap p-2 rounded-lg optionRestauration hidden"
 										id="restaurationTags"></div>
 								</div>
@@ -1531,13 +1537,13 @@ $pro = verifyPro();
 													document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
 												document
 													.getElementById("locality")
-													.addEventListener("input", function () {
+													.addEventListener("input",  () => {
 														document.getElementById(
 															"preview-locality"
 														).textContent =
-															document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder;
+															document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
 													});
-											</script>
+											</script> 
 											<!-- Mise à jour du code postal en temps réel -->
 											<p class="text-small" id="preview-postal_code"></p>
 											<script>
@@ -1566,7 +1572,6 @@ $pro = verifyPro();
 												<!-- Mise à jour du tag en temps réel -->
 												<p class="text-white text-center rounded-lg bg-secondary font-bold w-fit p-2"
 													id="preview-tag-input">
-													<php print_r($tags); ?>
 												</p>
 												<script>
 													function refreshTagPreview() {
@@ -1577,7 +1582,7 @@ $pro = verifyPro();
 														document.querySelectorAll('.tag-container')?.forEach(container => {
 															if (!container.classList.contains('hidden')) {
 																const tags = Array.from(container.children).map(tag => tag.childNodes[0].nodeValue).join(', ');
-																tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags) : "Ajouter un tag...";
+																tagPreview.textContent = tags !== '' ? (tags.length > 30 ? tags.slice(0, 30) + "..." : tags) : "recherchez un tag";
 															}
 														});
 													}
@@ -1647,12 +1652,40 @@ $pro = verifyPro();
 			<!-- FOOTER -->
 			<div class="w-full">
 				<?php
-				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/components/footer-pro.php';
+				include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer-pro.php';
 				?>
 			</div>
 		</div>
 
 		<script src="/scripts/tagManager.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				<?php 
+			if ($catOffre[0]['type_offre'] === 'restauration') {
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_resto_controller.php';
+				$tagRestaurationController = new TagRestoController();
+				$tags = $tagRestaurationController->getTagResto($offre['id_offre']);
+			} else {
+				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+				$tagController = new TagController();
+				$tags = $tagController->getInfosTag($offre['id_offre']);
+			}
+
+			foreach ($tags as $tag) {
+				echo "document.getElementById('tag-input').value = '".$tag['nom']."'\n";
+			}
+			
+			// Update the preview card with the tags
+			// echo "<script>
+			// 	document.addEventListener('DOMContentLoaded', function() {
+			// 		const tagPreview = document.getElementById('preview-tag-input');
+			// 		const tags = " . json_encode(array_column($tags, 'nom')) . ";
+			// 		tagPreview.textContent = tags.length > 0 ? (tags.join(', ').length > 30 ? tags.join(', ').slice(0, 30) + '...' : tags.join(', ')) : 'recherchez un tag';
+			// 	});
+			// </script>";
+			?>
+			})
+		</script>
 		<script src="/scripts/priceManager.js"></script>
 		<script src="/scripts/prestationManager.js"></script>
 		<script src="/scripts/optionToggler.js"></script>
