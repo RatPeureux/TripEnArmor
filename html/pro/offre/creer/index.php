@@ -104,10 +104,6 @@ $pro = verifyPro();
 		$duree_option = $_POST['duration'] ?? [];
 		$debut_option = $_POST['start_date'] ?? [];
 
-		// echo "Option : " . $option . "<br>";
-		// echo "Durée option : " . $duree_option . "<br>";
-		// echo "Debut option : " . $debut_option . "<br>";
-
 		// Récupérer d'autres valeurs
 	
 
@@ -358,23 +354,16 @@ $pro = verifyPro();
 	
 			// Insérer les options dans la base de données
 			if ($option == "A la une" || $option == "En relief") {
-				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-				$stmt = $dbh->prepare("INSERT INTO sae_db._souscription (nb_semaines, date_lancement) VALUES (:nb_semaines, :date_lancement) RETURNING id_souscription");
-				$stmt->bindParam(':nb_semaines', $duree_option);
-				$stmt->bindParam(':date_lancement', $debut_option);
-				$stmt->execute();
-				
-				$id_souscription = $stmt->fetch(PDO::FETCH_ASSOC)['id_souscription'];
+				$prix_ht = $option == "A la une" ? 8.34 : 16.68;
+				$prix_ttc = $option == "A la une" ? 10.00 : 20.00;
 
-				$stmt = $dbh->prepare("INSERT INTO sae_db._offre_souscription_option (id_offre, id_souscription, nom_option) VALUES (:id_offre, :id_souscription, :nom_option)");
-				$stmt->bindParam(':id_offre', $id_offre);
-				$stmt->bindParam(':id_souscription', $id_souscription);
-				$stmt->bindParam(':nom_option', $option);
-
-				$stmt->execute();
+				require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/souscription_controller.php";
+				$souscription_controller = new SouscriptionController();
+				$souscription_controller->createSouscription($id_offre, $option, $prix_ht, $prix_ttc, $debut_option, $duree_option);
 			}
 
 			header('location: /pro');
+
 		} catch (Exception $e) {
 			echo "Erreur lors de l'insertion : " . $e->getMessage();
 			BDD::rollbackTransaction();
@@ -472,9 +461,9 @@ $pro = verifyPro();
 											if ($typeOffre["prix_ht"] == 0) {
 												echo "0€/jour en ligne";
 											} else { ?>
-												HT <?php echo $typeOffre['prix_ht']; ?>€/jour en ligne<br>
+												HT <?php echo $typeOffre['prix_ht']; ?> €/jour en ligne<br>
 												<span class="text-h2">
-													TTC <?php echo $typeOffre['prix_ttc']; ?>€/jour en ligne
+													TTC <?php echo $typeOffre['prix_ttc']; ?> €/jour en ligne
 												</span>
 											<?php } ?>
 										</h1>
@@ -1194,8 +1183,8 @@ $pro = verifyPro();
 												<label
 													for="<?php echo $nom_option; ?>"><?php echo ucwords($option['nom']); ?><br>
 													<span class="font-normal text-base">HT
-														<?php echo $option['prix_ht']; ?>€/semaine<br>(TTC
-														<?php echo $option['prix_ttc']; ?>€/semaine)</span>
+														<?php echo $option['prix_ht']; ?> €/semaine<br>(TTC
+														<?php echo $option['prix_ttc']; ?> €/semaine)</span>
 												</label>
 											</div>
 										<?php }

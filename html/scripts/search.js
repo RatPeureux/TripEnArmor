@@ -20,44 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
         applySearch(); // Met à jour le filtre lorsque les tags changent
     }
 
-    // Assurez-vous que le conteneur des tags existe
-    function ensureTagsContainerExists() {
-        if (!tagsContainer) {
-            const searchQuery = encodeURIComponent(searchInput.value.trim());
-            let redirectUrl = `/offres?search=${searchQuery}`;
-            console.log(redirectUrl);
-
-            let category = null;
-
-            if (searchInput.placeholder.includes("des")) {
-                if (searchInput.placeholder.includes("restaurant")) {
-                    category = "restauration";
-                } else if (searchInput.placeholder.includes("spectacle")) {
-                    category = "spectacle";
-                } else if (searchInput.placeholder.includes("activite")) {
-                    category = "activite";
-                } else if (searchInput.placeholder.includes("visite")) {
-                    category = "visite";
-                } else if (searchInput.placeholder.includes("attraction")) {
-                    category = "parc_attraction";
-                }
-
-                if (category) {
-                    redirectUrl += `&category=${encodeURIComponent(category)}`;
-                }
-            }
-
-            if (window.location.href.includes("pro")) {
-                redirectUrl = `/pro?search=${searchQuery}`;
-                if (category) {
-                    redirectUrl += `&category=${encodeURIComponent(category)}`;
-                }
-            }
-
-            window.location.href = redirectUrl;
-        }
-    }
-
     // Vérifiez les paramètres de recherche dans l'URL
     function checkForSearchParams() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -117,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const tag = document.createElement("div");
         tag.className =
-            "flex items-center gap-2 bg-secondary text-white px-3 py-1 ";
+            "flex items-center gap-2 bg-secondary text-white px-3 py-1 mb-4";
         tag.innerHTML = `<span>${text}</span><i class="fa-solid fa-times cursor-pointer"></i>`;
 
         tag.querySelector("i")?.addEventListener("click", () => {
@@ -156,78 +118,138 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Tags culturels et cuisine
-    const culturalTags = [
+    // Liste combinée des tags
+    const allTags = [
         'Culturel', 'Patrimoine', 'Histoire', 'Urbain', 'Nature', 
         'Plein air', 'Sport', 'Nautique', 'Gastronomie', 'Musée', 
         'Atelier', 'Musique', 'Famille', 'Cinéma', 'Cirque', 
-        'Son et lumière', 'Humour'
+        'Son et lumière', 'Humour', 'Française', 'Fruits de mer', 
+        'Asiatique', 'Indienne', 'Italienne', 'Gastronomique', 
+        'Restauration rapide', 'Crêperie', 'Exotique'
     ];
 
-    const cuisineTags = [
-        'Française', 'Fruits de mer', 'Asiatique', 'Indienne', 
-        'Italienne', 'Gastronomique', 'Restauration rapide', 
-        'Crêperie'
-    ];
+    // Vérifie la présence du tags-container
+    function isTagsContainerAvailable() {
+        return !!tagsContainer;
+    }
 
-    // ... (rest of the script)
-
-    // Met à jour le menu déroulant
     function updateDropdown(value) {
         dropdownMenu.innerHTML = "";
         if (value.trim() !== "") {
-            // Ajouter une suggestion basée sur l'entrée utilisateur
-            const relatedTags = [...culturalTags, ...cuisineTags].filter(tag =>
-                tag.toLowerCase().includes(value.toLowerCase())
+            const lastCommaIndex = value.lastIndexOf(',');
+            const currentSearchTerm = lastCommaIndex !== -1 ? value.substring(lastCommaIndex + 1).trim() : value.trim();
+            
+            const relatedTags = allTags.filter(tag =>
+                tag.toLowerCase().includes(currentSearchTerm.toLowerCase())
             );
-
-            // Suggestions basées sur l'entrée utilisateur
-            relatedTags.forEach((tag) => {
-                const item = document.createElement("div");
-                item.className = "p-3 cursor-pointer hover:bg-base100";
-                item.textContent = tag;
-                item.setAttribute("tabindex", "0");
-                item.addEventListener("click", () => {
-                    addTag(tag);
-                    searchInput.value = "";
-                    dropdownMenu.classList.add("hidden");
+    
+            // Récupérer les tags déjà ajoutés pour éviter les doublons
+            const existingTags = tagsContainer ? Array.from(tagsContainer.children).map(tag =>
+                tag.querySelector("span")?.textContent.trim()
+            ) : [];
+    
+            // Filtrer les tags déjà existants et ceux dans le champ de recherche
+            const currentInputTags = value.split(',').map(tag => tag.trim());
+            const filteredTags = relatedTags.filter(tag => 
+                !existingTags.includes(tag) && !currentInputTags.includes(tag)
+            );
+    
+            if (filteredTags.length > 0) {
+                filteredTags.forEach((tag) => {
+                    const item = document.createElement("div");
+                    item.className = "p-3 cursor-pointer hover:bg-base100";
+                    item.textContent = tag;
+                    item.setAttribute("tabindex", "0");
+    
+                    const handleSelection = () => {
+                        let currentText = searchInput.value;
+                        const lastCommaIndex = currentText.lastIndexOf(',');
+    
+                        if (lastCommaIndex !== -1) {
+                            currentText = currentText.slice(0, lastCommaIndex + 1) + ' ';
+                        } else {
+                            currentText = ''; // Si aucune virgule, on démarre un nouveau texte
+                        }
+    
+                        currentText += `${tag}, `;  // Ajoute le tag avec une virgule
+                        searchInput.value = currentText; // Met à jour le champ de recherche
+                        searchInput.focus(); // Repositionne le curseur
+                        dropdownMenu.classList.add("hidden"); // Masque le dropdown
+                    };
+    
+                    item.addEventListener("click", handleSelection);
+                    item.addEventListener("keydown", (e) => {
+                        if (e.key === "Enter") {
+                            handleSelection();
+                        }
+                    });
+    
+                    dropdownMenu.appendChild(item);
                 });
-                dropdownMenu.appendChild(item);
-            });
-
-            // Suggestions textuelles générales
-            const suggestionsText = document.createElement("div");
-            suggestionsText.className =
-                "p-3 text-gray-500 text-sm bg-base100 border-t border-base200 cursor-default select-none";
-            suggestionsText.textContent =
-                "À savoir : Utiliser des virgules permet d'ajouter plusieurs tags d'un coup.";
-            suggestionsText.setAttribute("tabindex", "-1");
-            dropdownMenu.appendChild(suggestionsText);
-
-            if (dropdownMenu.children.length === 1) {
-                dropdownMenu.classList.add("hidden");
             } else {
-                dropdownMenu.classList.remove("hidden");
+                const noMatchMessage = document.createElement("div");
+                noMatchMessage.className = "p-3 text-rouge-logo text-sm bg-base100 cursor-default select-none";
+                noMatchMessage.textContent = "Aucun tag correspondant.";
+                dropdownMenu.appendChild(noMatchMessage);
             }
+    
+            const separatorInfo = document.createElement("div");
+            separatorInfo.className = "p-3 text-gray-500 text-sm bg-base100 cursor-default select-none border-t border-base300";
+            separatorInfo.textContent = "À savoir : Utiliser des virgules permet d'ajouter plusieurs tags d'un coup.";
+            dropdownMenu.appendChild(separatorInfo);
+    
+            dropdownMenu.classList.toggle("hidden", dropdownMenu.children.length === 0);
+        } else {
+            dropdownMenu.classList.add("hidden");
         }
     }
+
+    // Redirige vers une page avec le tag sélectionné
+    function redirectToSearch(tag) {
+        const searchQuery = encodeURIComponent(tag.trim());
+        let redirectUrl = `/offres?search=${searchQuery}`;
+
+        if (searchInput.placeholder.includes("des")) {
+            if (searchInput.placeholder.includes("restaurant")) {
+                redirectUrl += "&category=restauration";
+            } else if (searchInput.placeholder.includes("spectacle")) {
+                redirectUrl += "&category=spectacle";
+            } else if (searchInput.placeholder.includes("activité")) {
+                redirectUrl += "&category=activite";
+            } else if (searchInput.placeholder.includes("visite")) {
+                redirectUrl += "&category=visite";
+            } else if (searchInput.placeholder.includes("attraction")) {
+                redirectUrl += "&category=parc_attraction";
+            }
+        }
+
+        if (window.location.href.includes("pro")) {
+            redirectUrl = `/pro?search=${searchQuery}`;
+        }
+
+        window.location.href = redirectUrl;
+    }
+
+    searchBtn.addEventListener("click", () => validateInput());
+
+    searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            validateInput();
+        }
+    });
 
     // Navigation avec les flèches
     searchInput.addEventListener("keydown", (e) => {
         if (e.key === "ArrowDown") {
             e.preventDefault();
-            dropdownMenu.querySelector('[tabindex="0"]')?.focus();
+            const firstItem = dropdownMenu.querySelector('[tabindex="0"]');
+            if (firstItem) {
+                firstItem.focus();
+            }
         } else if (e.key === "Enter") {
             e.preventDefault();
-            const activeElement = document.activeElement;
-            if (
-                activeElement &&
-                activeElement.getAttribute("tabindex") === "0"
-            ) {
-                addMultipleTags(activeElement.textContent.trim());
-                searchInput.value = "";
-                dropdownMenu.classList.add("hidden");
-            }
+            validateInput();
         }
     });
 
@@ -236,45 +258,43 @@ document.addEventListener("DOMContentLoaded", function () {
             dropdownMenu.querySelectorAll('[tabindex="0"]')
         );
         const activeElement = document.activeElement;
-        const currentIndex = focusableItems?.indexOf(activeElement);
+        const currentIndex = focusableItems.indexOf(activeElement);
 
         if (e.key === "ArrowDown") {
             e.preventDefault();
-            const nextIndex = (currentIndex + 1) % focusableItems?.length;
+            const nextIndex = (currentIndex + 1) % focusableItems.length;
             focusableItems[nextIndex]?.focus();
         } else if (e.key === "ArrowUp") {
             e.preventDefault();
             if (currentIndex === 0) {
+                // Si on est sur le premier élément, on remet le focus sur le champ de recherche
                 searchInput.focus();
             } else {
-                const prevIndex =
-                    (currentIndex - 1 + focusableItems?.length) %
-                    focusableItems?.length;
+                const prevIndex = (currentIndex - 1 + focusableItems.length) % focusableItems.length;
                 focusableItems[prevIndex]?.focus();
             }
         } else if (e.key === "Enter") {
             e.preventDefault();
-            if (
-                activeElement &&
-                activeElement.getAttribute("tabindex") === "0"
-            ) {
-                addMultipleTags(activeElement.textContent.trim());
-                searchInput.value = "";
-                dropdownMenu.classList.add("hidden");
+            if (activeElement && activeElement.getAttribute("tabindex") === "0") {
+                // Ajoute le tag au champ de recherche
+                const selectedTag = activeElement.textContent.trim();
+                handleSelection(selectedTag);
             }
         }
     });
 
-    function removeRecentTag(tag) {
-        recentTags = recentTags.filter((t) => t !== tag);
-    }
-
+    // Gestion de la validation de l'entrée
     function validateInput() {
-        ensureTagsContainerExists();
-        if (searchInput.value.trim() !== "") {
-            addMultipleTags(searchInput.value.trim());
-            searchInput.value = "";
-            dropdownMenu.classList.add("hidden");
+        const value = searchInput.value.trim();
+        if (value !== "") {
+            if (isTagsContainerAvailable()) {
+                addMultipleTags(value);
+                // Vider le champ de recherche uniquement ici
+                searchInput.value = ""; 
+                dropdownMenu.classList.add("hidden");
+            } else {
+                redirectToSearch(value);
+            }
         }
     }
 

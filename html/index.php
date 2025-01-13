@@ -27,7 +27,18 @@
     // Obtenez l'ensemble des offres à la une avec le tri approprié
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true");
     $stmt->execute();
-    $aLaUnes = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    $stmt = $dbh->prepare("
+        select *
+        from sae_db._souscription natural join sae_db._offre
+        where option = 'option-a-la-une'
+        AND (date_annulation IS NULL OR CURRENT_DATE < date_annulation)
+        AND CURRENT_DATE <= date_lancement + (nb_semaines * INTERVAL '1 week')
+        AND CURRENT_DATE >= date_lancement
+    ");
+    $stmt->execute();
+    $aLaUnes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Récupérer toutes les moyennes en une seule requête
     $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
@@ -43,7 +54,7 @@
     $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
         $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
         return $offre;
-    }, $aLaUnes);
+    }, $toutesLesOffres);
 
     usort($offresAvecNotes, function ($a, $b) {
         return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
@@ -107,7 +118,9 @@
     </div>
 
     <main class="self-center align-center w-full grow  max-w-[1280px] p-2">
-        <h1 class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl mb-4">PACT</h1>
+        <div class="w-full text-center">
+            <a href="/" class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl mb-4">PACT</a>
+        </div>
 
         <div class="searchOn hidden md:flex justify-between text-center items-center mb-2">
             <h1 class="cursor-pointer text-h3 border-b border-secondary hover:text-secondary" id="all">
@@ -342,7 +355,7 @@
                 message.id = 'no-matches-message';
                 const content = document.createElement('p');
                 content.textContent = 'Aucune offre n\'est "À la Une".';
-                message.classList.add('flex', 'justify-center', 'items-center', '', 'text-h2', 'h-72');
+                message.classList.add('flex', 'justify-center', 'items-center', 'text-h2', 'h-72');
                 message.appendChild(content);
                 messageContainer.appendChild(message);
                 noMatchesContainer.appendChild(messageContainer);

@@ -124,7 +124,7 @@ if (!function_exists('chaineVersMot')) {
         <div class="w-full grow tablette p-4 flex flex-col">
 
             <!-- Conteneur des tags (!!! RECHERCHE) -->
-            <div class="flex flex-wrap gap-4  mb-4" id="tags-container"></div>
+            <div class="flex flex-wrap gap-4" id="tags-container"></div>
 
             <div class="w-full flex justify-between items-end mb-2">
                 <div class="flex items-center gap-4">
@@ -140,13 +140,13 @@ if (!function_exists('chaineVersMot')) {
                 </div>
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
-                <div class="hidden md:flex gap-4">
+                <div class="hidden md:flex justify-center items-center gap-4">
                     <a class="flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
                         <i class="text xl fa-solid fa-filter"></i>
                         <p>Filtrer</p>
                     </a>
-                    |
-                    <a class="self-end flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
+                    <p class="font-thin text-xl text-base200">|</p>
+                    <a class="flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
                         <i class="text xl fa-solid fa-sort"></i>
                         <p>Trier par</p>
                     </a>
@@ -155,7 +155,7 @@ if (!function_exists('chaineVersMot')) {
 
             <!-- Inclusion des interfaces de filtres/tris (tablette et +) -->
             <?php
-            include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tab_pro.php';
+            include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_tris_tab_pro.php';
             ?>
 
             <?php
@@ -183,7 +183,7 @@ if (!function_exists('chaineVersMot')) {
 
     <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtrestris_tel_pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_tris_tel_pro.php';
     ?>
 
     <!-- FOOTER -->
@@ -191,12 +191,4 @@ if (!function_exists('chaineVersMot')) {
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
 </body>
-
-<script>
-    // Fonction pour afficher ou masquer un conteneur de filtres
-    function toggleFiltres() {
-        document.querySelector('#filtres')?.classList.toggle('active'); // Alterne la classe 'active'
-    }
-</script>
-
 </html>

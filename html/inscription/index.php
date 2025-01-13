@@ -50,7 +50,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <img class="relative mx-auto mt-8 -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
 
-                <form class="bg-base100 w-full p-5  border-2 border-primary" action="" method="POST"
+                <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST"
                     onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Membre</p>
 
@@ -58,13 +58,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <div class="flex flex-nowrap space-x-3 mb-1.5">
                         <div class="w-full">
                             <label class="text-small" for="prenom">Prénom</label>
-                            <input class="p-2 bg-white w-full h-12 " type="text" id="prenom" name="prenom"
+                            <input class="p-2 bg-base100 w-full h-12" type="text" id="prenom" name="prenom"
                                 title="Saisir votre prénom (max 50 caractères)"
                                 value="<?php echo $_SESSION['data_en_cours_inscription']['prenom'] ?? '' ?>" required>
                         </div>
                         <div class="w-full">
                             <label class="text-small" for="nom">Nom</label>
-                            <input class="p-2 bg-white w-full h-12 " type="text" id="nom" name="nom"
+                            <input class="p-2 bg-base100 w-full h-12" type="text" id="nom" name="nom"
                                 title="Saisir votre nom (max 50 caractères)"
                                 value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" required>
                         </div>
@@ -72,7 +72,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                     <!-- Champ pour l'adresse mail -->
                     <label class="text-small" for="mail">Adresse mail</label>
-                    <input class="p-2 bg-white w-full h-12 mb-1.5 " type="mail" id="mail" name="mail"
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="mail" id="mail" name="mail"
                         title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" required>
                     <!-- Message d'erreur pour l'adresse mail -->
@@ -81,7 +81,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Champ pour le mot de passe -->
                     <div class="relative w-full">
                         <label class="text-small" for="mdp">Mot de passe</label>
-                        <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 " type="password" id="mdp" name="mdp"
+                        <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="mdp" name="mdp"
                             pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
@@ -93,7 +93,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Champ pour confirmer le mot de passe -->
                     <div class="relative w-full">
                         <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
-                        <input class="p-2 pr-12 bg-white w-full h-12 mb-1.5 " type="password" id="confMdp"
+                        <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="confMdp"
                             name="confMdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
                             title="Confirmer le mot de passe saisit ci-dessus"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
@@ -234,20 +234,20 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <img class="relative mx-auto mt-8 -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
             </a>
 
-            <form class="mb-4 bg-base100 w-full p-5  border-2 border-primary" action="" method="POST">
+            <form class="mb-4 bg-white w-full p-5 border-2 border-primary" action="" method="POST">
                 <p class="pb-3">Dites-nous en plus !</p>
 
                 <!-- Champs pour le prénom et le nom (en lecture seule) -->
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-full">
                         <label class="text-small" for="prenom">Prénom</label>
-                        <input class="p-2 bg-white w-full h-12 " type="text" id="prenom" name="prenom"
+                        <input class="p-2 bg-base100 w-full h-12" type="text" id="prenom" name="prenom"
                             title="Saisir votre prénom (max 50 caractères)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['prenom'] ?? '' ?>" readonly>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="nom">Nom</label>
-                        <input class="p-2 bg-white w-full h-12 " type="text" id="nom" name="nom"
+                        <input class="p-2 bg-base100 w-full h-12" type="text" id="nom" name="nom"
                             title="Saisir votre nom (max 50 caractères)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" readonly>
                     </div>
@@ -255,12 +255,12 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <!-- Champ pour l'adresse mail (en lecture seule) -->
                 <label class="text-small" for="mail">Adresse mail</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 " type="email" id="mail" name="mail"
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="email" id="mail" name="mail"
                     title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" readonly>
                 <!-- Champ pour le pseudonyme -->
                 <label class="text-small" for="pseudo">Pseudonyme</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 " type="text" id="pseudo" name="pseudo"
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="pseudo" name="pseudo"
                     title="Saisir un pseudonyme"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['pseudo'] ?? '' ?>" required>
                 <!-- Message d'erreur pour le pseudonyme déjà utilisé -->
@@ -273,26 +273,26 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <!-- Champs pour l'adresse -->
                 <label class="text-small" for="adresse">Adresse</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 " type="text" id="user_input_autocomplete_address"
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="user_input_autocomplete_address"
                     name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs" title="Saisir votre adresse"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?? '' ?>"
                     required>
 
                 <label class="text-small" for="complement">Complément d'adresse</label>
-                <input class="p-2 bg-white w-full h-12 mb-1.5 " type="text" id="complement" name="complement"
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="complement" name="complement"
                     placeholder="Bâtiment A, Appartement 5" title="Saisir un complément d'adresse ?"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?? '' ?>">
 
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-28">
                         <label class="text-small" for="postal_code">Code postal</label>
-                        <input class="text-right p-2 bg-white w-28 h-12 " id="postal_code" name="postal_code"
+                        <input class="text-right p-2 bg-base100 w-28 h-12" id="postal_code" name="postal_code"
                             pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['postal_code'] ?? '' ?>" required>
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="locality">Ville</label>
-                        <input class="p-2 bg-white w-full h-12 " id="locality" name="locality"
+                        <input class="p-2 bg-base100 w-full h-12" id="locality" name="locality"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir votre ville"
                             placeholder="Rennes"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['locality'] ?? '' ?>" required>
@@ -302,7 +302,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <!-- Champ pour le numéro de téléphone -->
                 <div class="w-full flex flex-col">
                     <label class="text-small" for="num_tel">Téléphone</label>
-                    <input class="text-center p-2 bg-white w-36 h-12 mb-3 " id="num_tel" name="num_tel"
+                    <input class="text-center p-2 bg-base100 w-36 h-12 mb-3" id="num_tel" name="num_tel"
                         pattern="^0\d( \d{2}){4}" title="Le numéro doit commencer par un 0 et comporter 10 chiffres"
                         placeholder="01 23 45 67 89"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?? '' ?>" required>
