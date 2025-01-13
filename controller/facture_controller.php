@@ -26,6 +26,10 @@ class FactureController
         return $result;
     }
 
+    public function getAllFactures() {
+        return $this->model::getAllFactures();
+    }
+
     public function getAllFacturesByIdOffre($id_offre)
     {
         return $this->model::getAllFacturesByIdOffre($id_offre);

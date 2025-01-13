@@ -164,13 +164,13 @@ if ($categorie_offre == 'restauration') {
     }
 }
 
-$stmt = $dbh->prepare("SELECT date_lancement, nb_semaines FROM sae_db._offre_souscription_option as offre_souscription_option INNER JOIN sae_db._souscription as souscription ON offre_souscription_option.id_souscription = souscription.id_souscription WHERE id_offre = :id_offre");
-$stmt->bindParam(':id_offre', $id_offre);
-$stmt->execute();
+// Souscriptions d'options de l'offre
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/souscription_controller.php';
+$souscription_controller = new SouscriptionController();
+$souscriptions_options = $souscription_controller->getAllSouscriptionsByIdOffre($id_offre);
 
-$souscription_options = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $option = false;
-foreach( $souscription_options as $souscription) {
+foreach($souscription_options as $souscription) {
     // $souscription est un tableau associatif avec une clé "date_lancement" et une clé "nb_semaines". Il faudrait calculer si une option est actuellement active. Si oui, on met la variable $option à true.
     $date_lancement = new DateTime($souscription['date_lancement']);
     $date_fin = clone $date_lancement;

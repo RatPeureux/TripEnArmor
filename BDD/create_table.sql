@@ -17,7 +17,7 @@ CREATE SCHEMA sae_db;
 
 SET SCHEMA 'sae_db';
 
--- ------------------------------------------------------------------------------------------------------- Adresse
+-------------------------------------------------------------------------------------------------------- Adresse
 -- Table Adresse
 CREATE TABLE _adresse ( -- Léo -- Léo
     id_adresse SERIAL PRIMARY KEY,
@@ -27,7 +27,7 @@ CREATE TABLE _adresse ( -- Léo -- Léo
     odonyme VARCHAR(255) NOT NULL,
     complement VARCHAR(255)
 );
--- ------------------------------------------------------------------------------------------------------- Comptes
+-------------------------------------------------------------------------------------------------------- Comptes
 -- ARCHITECTURE DES TABLES CI-DESSOUS :
 -- _compte (abstract)
 --     _membre
@@ -61,7 +61,7 @@ CREATE TABLE _pro_public ( -- Antoine -- Antoine
     type_orga VARCHAR(255) NOT NULL
 ) INHERITS (_professionnel);
 
--- ------------------------------------------------------------------------------------------------------- RIB
+-------------------------------------------------------------------------------------------------------- RIB
 -- Table RIB
 CREATE TABLE _RIB (
     id_rib SERIAL PRIMARY KEY,
@@ -70,7 +70,7 @@ CREATE TABLE _RIB (
     numero_compte VARCHAR(255) NOT NULL,
     cle VARCHAR(255) NOT NULL
 );
--- ------------------------------------------------------------------------------------------------------- TAG
+-------------------------------------------------------------------------------------------------------- TAG
 
 CREATE TABLE _pro_prive ( -- Antoine
     num_siren VARCHAR(255) UNIQUE NOT NULL,
@@ -121,31 +121,13 @@ ADD CONSTRAINT fk_pro_prive_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse
 ALTER TABLE _pro_prive
 ADD CONSTRAINT fk_pro_prive_rib FOREIGN KEY (id_rib) REFERENCES _rib (id_rib) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- TAG
--- Table TAG
-
+-------------------------------------------------------------------------------------------------------- TAG
 CREATE TABLE _tag ( -- Antoine
     id_tag SERIAL PRIMARY KEY,
     nom_tag VARCHAR(255) NOT NULL
 );
--- ------------------------------------------------------------------------------------------------------- Option
-CREATE TABLE _option (
-    nom VARCHAR(50) PRIMARY KEY NOT NULL, -- A la une ou En relief
-    prix_ht FLOAT NOT NULL,
-    prix_ttc FLOAT, -- déduit par prix_unitaire*nb_semaines
-    prix_unitaire FLOAT
 
-
-);
--- ------------------------------------------------------------------------------------------------------- Souscription
-CREATE TABLE _souscription (
-    id_souscription SERIAL PRIMARY KEY,
-    nb_semaines INTEGER NOT NULL,
-    date_lancement DATE NOT NULL,
-    date_annulation DATE,
-    CONSTRAINT check_lundi_lancement CHECK (EXTRACT(DOW FROM date_lancement) = 1)
-);
--- ------------------------------------------------------------------------------------------------------- Offre
+-------------------------------------------------------------------------------------------------------- Offre
 -- Table _type_offre (gratuite OU standard OU premium)
 -- Antoine
 create table _type_offre (
@@ -186,20 +168,11 @@ ADD CONSTRAINT fk_offre_type_offre FOREIGN KEY (id_type_offre) REFERENCES _type_
 ALTER TABLE _offre
 ADD CONSTRAINT fk_offre_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- Relation ternaire entre Offre, Souscription et Option
--- Création de la table de relation ternaire entre _offre, _souscription et _option
-CREATE TABLE _offre_souscription_option (
-    id_offre INTEGER NOT NULL,
-    id_souscription INTEGER NOT NULL,
-    nom_option VARCHAR(50) NOT NULL,
-    date_association DATE NOT NULL DEFAULT CURRENT_DATE,
-    PRIMARY KEY (
-        id_offre,
-        id_souscription,
-        nom_option
-    ),
-    FOREIGN KEY (id_souscription) REFERENCES _souscription (id_souscription) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
-    FOREIGN KEY (nom_option) REFERENCES _option (nom) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+-------------------------------------------------------------------------------------------------------- Option
+CREATE TABLE _option (
+    nom VARCHAR(50) PRIMARY KEY NOT NULL, -- A la une ou En relief
+    prix_ht FLOAT NOT NULL,
+    prix_ttc FLOAT
 );
 
 --  ------------------------------------------------------------------------------------------------------ TAGs Offre
@@ -213,7 +186,7 @@ CREATE TABLE _tag_offre (
 ALTER TABLE _tag_offre
 ADD CONSTRAINT fk_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- Avis
+-------------------------------------------------------------------------------------------------------- Avis
 
 -- Création de la table _avis
 CREATE TABLE _avis (
@@ -231,45 +204,51 @@ CREATE TABLE _avis (
     CONSTRAINT unique_avis_per_member UNIQUE (id_membre, id_offre)
 );
 
--- ------------------------------------------------------------------------------------------------------- Facture
+-------------------------------------------------------------------------------------------------------- Facture
 CREATE TABLE _facture (
     numero VARCHAR(255) PRIMARY KEY,
     id_offre INTEGER NOT NULL,
-    date_emission DATE NOT NULL
-    date_echeance DATE NOT NULL
+    date_emission DATE NOT NULL date_echeance DATE NOT NULL
 );
 
--- ------------------------------------------------------------------------------------------------------- Ligne_facture
+-------------------------------------------------------------------------------------------------------- Ligne_facture pour les dates de mise en ligne
 CREATE TABLE _ligne_facture_en_ligne (
-    designation VARCHAR(255) NOT NULL,
-    quantite INT NOT NULL,
-    unite VARCHAR(255) NOT NULL,
-    prix_unitaire_ht FLOAT NOT NULL,
-    prix_total_ht FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite) STORED, -- Prix total calculé automatiquement
-    tva INT NOT NULL DEFAULT 20,
-    prix_total_ttc FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite * (1 + tva/100)) STORED, -- Prix total calculé automatiquement
+    type_offre VARCHAR(255) NOT NULL,
+    date_debut DATE NOT NULL,
+    date_fin DATE NOT NULL,
+    quantite INT NOT NULL, -- Nb de jours
+    unite VARCHAR(255) NOT NULL DEFAULT 'jour', -- jour
+    prix_unitaire_ht DECIMAL(5, 2) NOT NULL,
+    prix_total_ht DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ht * quantite)::NUMERIC, 2)) STORED, -- Prix total calculé automatiquement
+    tva DECIMAL(5, 2) NOT NULL GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc / prix_unitaire_ht)::NUMERIC - 1, 2)*100) STORED;
+    prix_unitaire_ttc DECIMAL(5, 2) NOT NULL,
+    prix_total_ttc DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc * quantite)::NUMERIC, 2)) STORED,
     numero_facture VARCHAR(255) NOT NULL REFERENCES _facture(numero)
-)
+);
 
+-------------------------------------------------------------------------------------------------------- Ligne_facture pour les options d'une offre
 CREATE TABLE _ligne_facture_option (
-    designation VARCHAR(255) NOT NULL,
-    quantite INT NOT NULL,
-    unite VARCHAR(255) NOT NULL,
-    prix_unitaire_ht FLOAT NOT NULL,
-    prix_total_ht FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite) STORED, -- Prix total calculé automatiquement
-    tva INT NOT NULL DEFAULT 20,
-    prix_total_ttc FLOAT GENERATED ALWAYS AS (prix_unitaire_ht * quantite * (1 + tva/100)) STORED, -- Prix total calculé automatiquement
+    nom_option VARCHAR(255) NOT NULL,
+    date_debut DATE NOT NULL,
+    date_fin DATE NOT NULL,
+    quantite INT NOT NULL, -- Nb de semaines
+    unite VARCHAR(255) NOT NULL DEFAULT 'semaine', -- semaine
+    prix_unitaire_ht DECIMAL(5, 2) NOT NULL,
+    prix_total_ht DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ht * quantite)::NUMERIC, 2)) STORED, -- Prix total calculé automatiquement
+    tva DECIMAL(5, 2) NOT NULL GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc / prix_unitaire_ht)::NUMERIC - 1, 2)*100) STORED;
+    prix_unitaire_ttc DECIMAL(5, 2) NOT NULL,
+    prix_total_ttc DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc * quantite)::NUMERIC, 2)) STORED,
     numero_facture VARCHAR(255) NOT NULL REFERENCES _facture(numero)
-)
+);
 
--- ------------------------------------------------------------------------------------------------------- Logs
+-------------------------------------------------------------------------------------------------------- Logs
 CREATE TABLE _log_changement_status ( -- Maxime
     id SERIAL PRIMARY KEY,
     id_offre INTEGER NOT NULL,
     date_changement DATE NOT NULL
 );
 
--- ------------------------------------------------------------------------------------------------------- Restaurants
+-------------------------------------------------------------------------------------------------------- Restaurants
 -- Type de repas 'petit dej' 'diner' etc...
 create table _type_repas ( -- Baptiste
     id_type_repas SERIAL PRIMARY KEY,
@@ -326,7 +305,7 @@ ADD CONSTRAINT fk_tag_restaurant_restauration_offre FOREIGN KEY (id_offre) REFER
 ALTER TABLE _tag_restaurant_restauration
 ADD CONSTRAINT fk_tag_restaurant_restauration_tag FOREIGN KEY (id_tag_restaurant) REFERENCES _tag_restaurant (id_tag_restaurant) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- Activités
+-------------------------------------------------------------------------------------------------------- Activités
 -- Table _activite (hérite de _offre)
 -- (MVC) Léo
 CREATE TABLE _activite (
@@ -345,7 +324,7 @@ ADD CONSTRAINT fk_activite_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse 
 ALTER TABLE _activite
 ADD CONSTRAINT fk_activite_type_offre FOREIGN KEY (id_type_offre) REFERENCES _type_offre (id_type_offre) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- TAG Activité
+-------------------------------------------------------------------------------------------------------- TAG Activité
 create table _tag_activite ( -- Maxime
     id_offre SERIAL REFERENCES _activite (id_offre) DEFERRABLE INITIALLY IMMEDIATE,
     id_tag SERIAL REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE,
@@ -358,7 +337,7 @@ ADD CONSTRAINT fk_tag_activite_offre FOREIGN KEY (id_offre) REFERENCES _activite
 ALTER TABLE _tag_activite
 ADD CONSTRAINT fk_tag_activite_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- Spectacles
+-------------------------------------------------------------------------------------------------------- Spectacles
 -- Table _spectacle (hérite de _offre)
 CREATE TABLE _spectacle (capacite INTEGER, duree TIME) INHERITS (_offre);
 -- Rajout des contraintes perdues pour _spectacle à cause de l'héritage
@@ -371,7 +350,7 @@ ADD CONSTRAINT fk_spectacle_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse
 ALTER TABLE _spectacle
 ADD CONSTRAINT fk_spectacle_type_offre FOREIGN KEY (id_type_offre) REFERENCES _type_offre (id_type_offre) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- TAG Spectacles
+-------------------------------------------------------------------------------------------------------- TAG Spectacles
 create table _tag_spectacle ( -- Maxime
     id_offre SERIAL REFERENCES _spectacle (id_offre) DEFERRABLE INITIALLY IMMEDIATE,
     id_tag SERIAL REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE,
@@ -384,7 +363,7 @@ ADD CONSTRAINT fk_tag_spectacle_offre FOREIGN KEY (id_offre) REFERENCES _spectac
 ALTER TABLE _tag_spectacle
 ADD CONSTRAINT fk_tag_spectacle_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- Visites
+-------------------------------------------------------------------------------------------------------- Visites
 -- Table _visite (hérite de _offre)
 -- (MVC) Léo
 CREATE TABLE _visite (
@@ -419,7 +398,7 @@ ADD CONSTRAINT fk_visite_langue_offre FOREIGN KEY (id_offre) REFERENCES _visite 
 ALTER TABLE _visite_langue
 ADD CONSTRAINT fk_visite_langue_langue FOREIGN KEY (id_langue) REFERENCES _langue (id_langue) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- TAG Visites
+-------------------------------------------------------------------------------------------------------- TAG Visites
 create table _tag_visite ( -- Maxime
     id_offre SERIAL REFERENCES _visite (id_offre) DEFERRABLE INITIALLY IMMEDIATE,
     id_tag SERIAL REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE,
@@ -432,7 +411,7 @@ ADD CONSTRAINT fk_tag_visite_offre FOREIGN KEY (id_offre) REFERENCES _visite (id
 ALTER TABLE _tag_visite
 ADD CONSTRAINT fk_tag_visite_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- Parcs d'attractions
+-------------------------------------------------------------------------------------------------------- Parcs d'attractions
 -- Table _parc_attraction (hérite de _offre)
 CREATE TABLE _parc_attraction ( -- (MVC) Léo
     nb_attractions INTEGER,
@@ -449,7 +428,7 @@ ADD CONSTRAINT fk_parc_attraction_adresse FOREIGN KEY (id_adresse) REFERENCES _a
 ALTER TABLE _parc_attraction
 ADD CONSTRAINT fk_parc_attraction_type_offre FOREIGN KEY (id_type_offre) REFERENCES _type_offre (id_type_offre) DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- TAG Parcs
+-------------------------------------------------------------------------------------------------------- TAG Parcs
 create table _tag_parc_attraction ( -- Maxime
     id_offre SERIAL REFERENCES _parc_attraction (id_offre) DEFERRABLE INITIALLY IMMEDIATE,
     id_tag SERIAL REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE,
@@ -462,7 +441,7 @@ ADD CONSTRAINT fk_tag_parc_attraction_offre FOREIGN KEY (id_offre) REFERENCES _p
 ALTER TABLE _tag_parc_attraction
 ADD CONSTRAINT fk_tag_parc_attraction_tag FOREIGN KEY (id_tag) REFERENCES _tag (id_tag) DEFERRABLE INITIALLY IMMEDIATE;
 
--- -------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
 -- Table Horaire
 CREATE TABLE _horaire ( -- Antoine
     id_horaire SERIAL PRIMARY KEY,
@@ -474,7 +453,7 @@ CREATE TABLE _horaire ( -- Antoine
     id_offre INTEGER NOT NULL
 );
 
--- ------------------------------------------------------------------------------------------------------- Tarif Publique
+-------------------------------------------------------------------------------------------------------- Tarif Publique
 -- Table TARIF public
 CREATE TABLE _tarif_public ( -- Baptiste
     id_tarif SERIAL PRIMARY KEY,
@@ -483,9 +462,7 @@ CREATE TABLE _tarif_public ( -- Baptiste
     id_offre INTEGER NOT NULL
 );
 
--- ------------------------------------------------------------------------------------------------------- Tarif Facture
-
--- ------------------------------------------------------------------------------------------------------- Table ternaire restauration avis et note détaillée
+-------------------------------------------------------------------------------------------------------- Table ternaire restauration avis et note détaillée
 CREATE TABLE _avis_restauration_note (
     id_avis INT REFERENCES _avis (id_avis) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
     id_restauration INT REFERENCES _restauration (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
@@ -502,7 +479,7 @@ ADD CONSTRAINT fk_avis_restauration_note_avis FOREIGN KEY (id_avis) REFERENCES _
 ALTER TABLE _avis_restauration_note
 ADD CONSTRAINT fk_avis_restauration_note_restauration FOREIGN KEY (id_restauration) REFERENCES _restauration (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- Prestations
+-------------------------------------------------------------------------------------------------------- Prestations
 CREATE TABLE _prestation ( -- Prestations des activités
     id_prestation SERIAL PRIMARY KEY,
     id_offre INT,
@@ -513,14 +490,14 @@ CREATE TABLE _prestation ( -- Prestations des activités
 ALTER TABLE _prestation
 ADD CONSTRAINT fk_prestation_activite FOREIGN KEY (id_offre) REFERENCES _activite (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
--- ------------------------------------------------------------------------------------------------------- Liaison prestation et activité     **** Prestation à revoir, ça ne marche pas ****
+-------------------------------------------------------------------------------------------------------- Liaison prestation et activité
 CREATE TABLE _activite_prestation (
     id_activite INTEGER NOT NULL REFERENCES _activite (id_offre),
     id_prestation INTEGER NOT NULL REFERENCES _prestation (id_prestation),
     PRIMARY KEY (id_activite, id_prestation)
 );
--- ------------------------------------------------------------------------------------------------------- Images
--- Table T_IMAGE_IMG
+
+-------------------------------------------------------------------------------------------------------- Images
 CREATE TABLE t_image_img (
     -- IMG = IMaGe
     img_path VARCHAR(255) PRIMARY KEY,
@@ -548,30 +525,33 @@ ADD CONSTRAINT fk_image_offre FOREIGN KEY (id_offre) REFERENCES _offre (id_offre
 ALTER TABLE T_Image_Img
 ADD CONSTRAINT fk_image_parc FOREIGN KEY (id_parc) REFERENCES _parc_attraction (id_offre) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
--- Sécurité --------------------------------------------------------------
+------------------------------------------------------------------------------------------------------- Historique des périodes en ligne pour chaque offre
+-- Les date_debut est la date actuelle par défaut, si aucune valeur n'est donnée
+create table _periodes_en_ligne (
+    id_offre INT NOT NULL,
+    type_offre VARCHAR(255), -- Pas de référence, si les types changent plus tard...
+    prix_ht FLOAT NOT NULL, -- Prix HT du type de l'offre pour 1 jour
+    prix_ttc FLOAT NOT NULL,
+    date_debut DATE NOT NULL DEFAULT CURRENT_DATE,
+    date_fin DATE DEFAULT NULL
+);
 
-/*
--- créer une sécurité sur la table _offre
-ALTER TABLE _offre ENABLE ROW LEVEL SECURITY;
--- créer une politique RLS (les professionnels uniquement peuvent accéder à leur offre=
-CREATE POLICY offre_filter_pro ON _offre
-USING (id_pro = current_setting('app.current_professional')::INTEGER);
--- créer une politique RLS (les visiteurs peuvent accéder à toutes les offres)
-CREATE POLICY offre_filter_visiteur ON _offre
-FOR SELECT -- Uniquement sur le select
-USING (current_setting('app.current_professional', true) IS NULL);
--- créer politique RLS sur l'insertion
-CREATE POLICY offre_insert_pro ON _offre
-FOR INSERT
-WITH CHECK (id_pro = current_setting('app.current_professional')::INTEGER);
--- créer politique RLS sur la mise à jour
-CREATE POLICY offre_update_pro ON _offre
-FOR UPDATE
-USING (id_pro = current_setting('app.current_professional')::INTEGER);
--- créer politique RLS sur la supression
-CREATE POLICY offre_delete_pro ON _offre
-FOR DELETE
-USING (id_pro = current_setting('app.current_professional')::INTEGER);
--- assure que même les supers utilisateurs respectent la politique de sécurité
-ALTER TABLE _offre FORCE ROW LEVEL SECURITY;
-*/
+-------------------------------------------------------------------------------------------------------- Souscription
+CREATE TABLE _souscription (
+    id_souscription SERIAL PRIMARY KEY,
+    id_offre INTEGER NOT NULL,
+    nom_option VARCHAR(50) NOT NULL,
+    prix_ht FLOAT NOT NULL, -- Prix HT du type de l'offre pour 1 jour
+    prix_ttc FLOAT NOT NULL,
+    tva DECIMAL(5, 2) NOT NULL GENERATED ALWAYS AS (ROUND((prix_ttc / prix_ht)::NUMERIC - 1, 2)*100) STORED,
+    date_association DATE NOT NULL DEFAULT CURRENT_DATE,
+    date_lancement DATE NOT NULL,
+    date_annulation DATE DEFAULT NULL,
+    CONSTRAINT check_lundi_lancement CHECK (
+        EXTRACT(
+            DOW
+            FROM date_lancement
+        ) = 1
+    ),
+    nb_semaines INTEGER NOT NULL
+);

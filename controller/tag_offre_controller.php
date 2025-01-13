@@ -13,17 +13,13 @@ class TagOffreController
 
     public function getTagsByIdOffre($id_offre)
     {
-        // Example of use case of the controller : Check if the id_offre is in the database
-
         $tags = $this->model::getTagsByIdOffre($id_offre);
-
         return $tags;
     }
 
     public function getOffresByIdTag($id_tag)
     {
         $tags = $this->model::getOffresByIdTag($id_tag);
-
         return $tags;
     }
 
