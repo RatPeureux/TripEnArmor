@@ -1,6 +1,4 @@
 <?php
-try {
-	// Connexion à la base de données
 	require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 	// Vérifier si l'ID de l'offre est passé et est un entier
