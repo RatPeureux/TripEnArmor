@@ -48,7 +48,7 @@ $pro = verifyPro();?>
         <div class="flex flex-col items-center justify-center">
             <h1 class="font-cormorant text-[10rem]">404</h1>
             <p>Ce n'est pas la page que vous recherchez.</p>
-            <img src="/public/images/404.gif" class="mt-10 mb-28 m-auto rounded-lg" alt="tottereau" width="250">
+            <img src="/public/images/404.gif" class="mt-10 mb-28 m-auto " alt="tottereau" width="250">
         </div>
     </main>
 

@@ -71,12 +71,12 @@ label:has(+ select[required])::after {
 
 ::-webkit-scrollbar-track {
     background: #ffffff; /* Background color of the scrollbar track */
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 10px; /*  corners */
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: #0a0035; /* Color of the scrollbar thumb */
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 10px; /*  corners */
     border: 5px solid #ffffff; /* Padding around the thumb to match the track */
 }
 

@@ -34,7 +34,7 @@ if (!function_exists('to_nom_note')) {
 
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
 <div
-    class="avis w-full rounded-lg border border-black <?php echo $is_mon_avis ? 'border-primary border-4' : '' ?> p-2 flex flex-col gap-1">
+    class="avis w-full  border border-black <?php echo $is_mon_avis ? 'border-primary border-4' : '' ?> p-2 flex flex-col gap-1">
     <?php
     // Obtenir la variables regroupant les infos du membre
     $membre = $membreController->getInfosMembre($id_membre);
@@ -165,7 +165,7 @@ if (!function_exists('to_nom_note')) {
         <?php
         // Titre de l'avis s'il y en a un
         if ($avis['titre']) { ?>
-            <p class="text-h4 font-bold"><?php echo $avis['titre'] ?></p>
+            <p class="text-h4 "><?php echo $avis['titre'] ?></p>
         <?php }
         ?>
 
