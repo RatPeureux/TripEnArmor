@@ -32,7 +32,7 @@
       <p>Menu</p>
   </a>
 
-  <div class="all-items flex flex-col items-stretch border-black border rounded-b-lg rounded-tr-lg">
+  <div class="all-items flex flex-col items-stretch border-black border">
     <a class="pl-5 py-3 border-black <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>
