@@ -50,7 +50,7 @@ unset($_SESSION['data_en_cours_inscription']);
         <div class="m-auto text-center">
             <h1 class="font-cormorant text-[10rem]">401</h1>
             <p>Vous ne pouvez pas accéder à cette page.</p>
-            <img src="/public/images/401.gif" class="mt-10 mb-28 rounded-lg m-auto" alt="tottereau" width="250">
+            <img src="/public/images/401.gif" class="mt-10 mb-28  m-auto" alt="tottereau" width="250">
         </div>
     </main>
 

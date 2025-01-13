@@ -121,14 +121,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 ?>
             </div>
 
-            <main class="grow p-4 md:p-2 flex flex-col md:mx-10 md:rounded-lg">
+            <main class="grow p-4 md:p-2 flex flex-col md:mx-10 md:">
 
                 <!-- Conteneur des tags (!!! RECHERCHE) -->
                 <div class="flex flex-wrap gap-4" id="tags-container"></div>
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
-                    <h1 class="text-h1 font-bold">À la Une</h1>
+                    <h1 class="text-h1 ">À la Une</h1>
 
                     <div class="hidden md:flex gap-4">
                         <a class="self-end flex items-center gap-2 hover:text-primary duration-100"
@@ -148,7 +148,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
                 if (!$aLaUnes) { ?>
                     <div class="md:min-w-full flex flex-col gap-4">
-                        <?php echo "<p class='mt-4 font-bold text-h2'>Il n'existe aucune offre...</p>"; ?>
+                        <?php echo "<p class='mt-4  text-h2'>Il n'existe aucune offre...</p>"; ?>
                     </div>
                 <?php } else { ?>
                     <div class="md:min-w-full flex flex-col gap-4" id="no-matches">

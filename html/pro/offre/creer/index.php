@@ -404,7 +404,7 @@ $pro = verifyPro();
 				?>
 			</div>
 
-			<div class="grow w-full max-w-[1280px] mt-20 flex flex-col items-center justify-center p-2 rounded-xl">
+			<div class="grow w-full max-w-[1280px] mt-20 flex flex-col items-center justify-center p-2 ">
 				<!-- Lien de retour avec une icône et un titre -->
 				<div class="w-full flex">
 					<h1 class="text-h1">Création d'offre</h1>
@@ -433,14 +433,14 @@ $pro = verifyPro();
 							} else if ($typeOffre['id_type_offre'] == 2) { // Premium
 								$avantages[] = "Possibilité de remplir une grille tarifaire";
 								$avantages[] = "Possibilité de souscrire aux options “À la Une” et “En relief”";
-								$avantages[] = "<span class='font-bold'>Mise sur liste noire de 3 commentaires<span>";
+								$avantages[] = "<span class=''>Mise sur liste noire de 3 commentaires<span>";
 							} else if ($typeOffre['id_type_offre'] == 3) { // Standard
-								$avantages[] = "<span class='font-bold'>Possibilité de remplir une grille tarifaire<span>";
-								$avantages[] = "<span class='font-bold'>Possibilité de souscrire aux options “À la Une” et “En relief”<span>";
+								$avantages[] = "<span class=''>Possibilité de remplir une grille tarifaire<span>";
+								$avantages[] = "<span class=''>Possibilité de souscrire aux options “À la Une” et “En relief”<span>";
 							}
 							?>
 							<div
-								class="border border-<?php echo $cardColor; ?> rounded-lg flex-col justify-center w-full text-<?php echo $cardColor; ?> p-4 has-[:checked]:bg-<?php echo $cardColor; ?> has-[:checked]:text-white md:h-full <?php echo $cardVisible; ?>">
+								class="border border-<?php echo $cardColor; ?>  flex-col justify-center w-full text-<?php echo $cardColor; ?> p-4 has-[:checked]:bg-<?php echo $cardColor; ?> has-[:checked]:text-white md:h-full <?php echo $cardVisible; ?>">
 								<input type="radio" name="type_offre" id="type_offre_<?php echo $typeOffre['id_type_offre']; ?>"
 									value="<?php echo $typeOffre['id_type_offre']; ?>" class="hidden">
 								<label for="type_offre_<?php echo $typeOffre['id_type_offre']; ?>"
@@ -450,7 +450,7 @@ $pro = verifyPro();
 											<h1 class="text-h1 leading-none mt-1 text-center">
 												<?php echo ucfirst($typeOffre['nom']) ?>
 											</h1>
-											<h1 class="text-center font-bold">
+											<h1 class="text-center ">
 												<?php echo $subTitle ?>
 											</h1>
 										</div>
@@ -484,7 +484,7 @@ $pro = verifyPro();
 							<?php
 						} ?>
 
-						<!-- <div class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "prive") {
+						<!-- <div class="border border-secondary  flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "prive") {
 							echo "hidden";
 						} ?>">
 							<input type="radio" name="type_offre" id="type_offre_1" value="1" class="hidden">
@@ -493,7 +493,7 @@ $pro = verifyPro();
 								<div class="h-full divide-y divide-current">
 									<div>
 										<h1 class="text-h1 leading-none mt-1 text-center">Gratuite</h1>
-										<h1 class="text-center font-bold">Pour les associations et les organismes publics
+										<h1 class="text-center ">Pour les associations et les organismes publics
 										</h1>
 									</div>
 									<div>
@@ -510,7 +510,7 @@ $pro = verifyPro();
 								</div>
 							</label>
 						</div>
-						<div class="border border-primary rounded-lg flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
+						<div class="border border-primary  flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
 							echo "hidden";
 						} ?>">
 							<input type="radio" name="type_offre" id="type_offre_2" value="2" class="hidden">
@@ -519,7 +519,7 @@ $pro = verifyPro();
 								<div class="h-full divide-y divide-current">
 									<div>
 										<h1 class="text-h1 leading-none mt-1 text-center">Standard</h1>
-										<h1 class="text-center font-bold">Pour les entreprises et organismes privés</h1>
+										<h1 class="text-center ">Pour les entreprises et organismes privés</h1>
 									</div>
 									<div class="h-full">
 										<div class="ml-8">
@@ -536,7 +536,7 @@ $pro = verifyPro();
 								</div>
 							</label>
 						</div>
-						<div class="border border-secondary rounded-lg flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
+						<div class="border border-secondary  flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
 							echo "hidden";
 						} ?>">
 							<input type="radio" name="type_offre" id="type_offre_3" value="3" class="hidden">
@@ -545,10 +545,10 @@ $pro = verifyPro();
 								<div class="h-full divide-y divide-current">
 									<div>
 										<h1 class="text-h1 leading-none mt-1 text-center">Premium</h1>
-										<h2 class="text-center font-bold">Pour les entreprises et organismes privés</h2>
+										<h2 class="text-center ">Pour les entreprises et organismes privés</h2>
 									</div>
 									<div class="h-full">
-										<p class="mt-2 text-small font-bold">Standard +</p>
+										<p class="mt-2 text-small ">Standard +</p>
 										<div class="ml-8">
 											<ul class="list-disc text-left text-small">
 												<li>Mise sur liste noire de 3 commentaires</li>
@@ -571,7 +571,7 @@ $pro = verifyPro();
 								<div class="flex flex-col justify-center w-full">
 									<label for="titre" class="text-nowrap">Titre :</label>
 									<input type="text" id="titre"
-										class="border border-secondary rounded-lg p-2 bg-white w-full" name="titre"
+										class="border border-secondary  p-2 bg-white w-full" name="titre"
 										placeholder="Escapade En Arvor" required>
 								</div>
 
@@ -579,7 +579,7 @@ $pro = verifyPro();
 								<div class="flex flex-col w-full">
 									<label for="auteur" class="text-nowrap">Auteur :</label>
 									<p id="auteur"
-										class="border border-secondary rounded-lg p-2 bg-gray-200 w-full text-gray-600">
+										class="border border-secondary  p-2 bg-gray-200 w-full text-gray-600">
 										<?php
 										if ($pro) {
 											echo $pro['nom_pro'];
@@ -594,7 +594,7 @@ $pro = verifyPro();
 									<label for="user_input_autocomplete_address" class="text-nowrap">Adresse :</label>
 									<input type="text" id="user_input_autocomplete_address"
 										name="user_input_autocomplete_address" placeholder="21, rue de la Paix"
-										class="border border-secondary rounded-lg p-2 bg-white w-full" required>
+										class="border border-secondary  p-2 bg-white w-full" required>
 								</div>
 
 								<div class="justify-between items-center w-full">
@@ -602,13 +602,13 @@ $pro = verifyPro();
 									<input id="locality" name="locality" type="text"
 										pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
 										title="Saisir votre ville" placeholder="Rennes"
-										class="border border-secondary rounded-lg p-2 bg-white w-full" required>
+										class="border border-secondary  p-2 bg-white w-full" required>
 
 									<label for="postal_code" class="text-nowrap">Code postal :</label>
 									<input id="postal_code" name="postal_code" type="number"
 										pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345"
 										placeholder="12345"
-										class="border border-secondary rounded-lg p-2 bg-white w-24 w-full" required>
+										class="border border-secondary  p-2 bg-white w-24 w-full" required>
 								</div>
 
 								<div class="w-full justify-between">
@@ -617,10 +617,10 @@ $pro = verifyPro();
 										<label for="photo-upload-carte" class="text-nowrap w-full">Photo de la carte
 											:</label>
 										<input type="file" name="photo-upload-carte" id="photo-upload-carte" class="text-center text-secondary block w-full
-									border-dashed border-2 border-secondary rounded-lg p-2
+									border-dashed border-2 border-secondary  p-2
 									file:mr-5 file:py-3 file:px-10
-									file:rounded-lg
-									file:text-small file:font-bold  file:text-secondary
+									file:
+									file:text-small file:  file:text-secondary
 									file:border file:border-secondary
 									hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp"
 											required />
@@ -631,10 +631,10 @@ $pro = verifyPro();
 										<label for="photo-detail[]" class="text-nowrap w-full">Photos de l'offre détaillée:
 										</label>
 										<input type="file" name="photo-detail[]" id="photo-detail[]" class="text-center text-secondary block w-full
-											border-dashed border-2 border-secondary rounded-lg p-2
+											border-dashed border-2 border-secondary  p-2
 											file:mr-5 file:py-3 file:px-10
-											file:rounded-lg
-											file:text-small file:font-bold  file:text-secondary
+											file:
+											file:text-small file:  file:text-secondary
 											file:border file:border-secondary
 											hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp"
 											multiple />
@@ -645,7 +645,7 @@ $pro = verifyPro();
 								<div class="flex flex-col items-center w-full max-w-full">
 									<label for="resume" class="text-nowrap w-full">Résumé :</label>
 									<textarea id="resume" name="resume"
-										class="border border-secondary rounded-lg p-2 bg-white w-full" rows="4"
+										class="border border-secondary  p-2 bg-white w-full" rows="4"
 										placeholder="Le résumé visible sur la carte de l'offre." required></textarea>
 
 								</div>
@@ -654,7 +654,7 @@ $pro = verifyPro();
 								<div class="flex flex-col items-center w-full">
 									<label for="description" class="text-nowrap w-full">Description :</label>
 									<textarea id="description" name="description"
-										class="border border-secondary rounded-lg p-2 bg-white w-full" rows="11"
+										class="border border-secondary  p-2 bg-white w-full" rows="11"
 										placeholder="La description visible dans les détails de l'offre."
 										required></textarea>
 								</div>
@@ -663,7 +663,7 @@ $pro = verifyPro();
 								<div class="flex flex-col justify-between items-center w-full">
 									<label for="accessibilite" class="text-nowrap w-full">Accessibilité :</label>
 									<textarea id="accessibilite" name="accessibilite"
-										class="border border-secondary rounded-lg p-2 bg-white w-full" rows="5"
+										class="border border-secondary  p-2 bg-white w-full" rows="5"
 										placeholder="Une description de l'accessibilité pour les personnes en situation de handicap, visible dans les détails de l'offre."></textarea>
 								</div>
 							</div>
@@ -674,7 +674,7 @@ $pro = verifyPro();
 								<div class="w-full">
 									<label for="activityType" class="block text-nowrap">Type d'activité:</label>
 									<select id="activityType" name="activityType"
-										class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full"
+										class="bg-white text-black py-2 px-4 border border-black  w-full"
 										required>
 										<option value="selection" selected hidden>Quel type d'activité ?</option>
 										<option value="activite" id="activite">Activité</option>
@@ -689,22 +689,22 @@ $pro = verifyPro();
 									class="flex flex-col w-full optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
 									<label for="tag-input" class="block text-nowrap">Tags :</label>
 									<select type="text" id="tag-input"
-										class="bg-white text-black py-2 px-4 border border-black rounded-lg w-full"
+										class="bg-white text-black py-2 px-4 border border-black  w-full"
 										placeholder="Ajouter un tag...">
 										<option value="" class="hidden" selected>Rechercher un tag</option>
 									</select>
 								</div>
 
 								<div>
-									<div class="tag-container flex flex-wrap p-2 rounded-lg optionActivite hidden"
+									<div class="tag-container flex flex-wrap p-2  optionActivite hidden"
 										id="activiteTags"></div>
-									<div class="tag-container flex flex-wrap p-2 rounded-lg optionVisite hidden"
+									<div class="tag-container flex flex-wrap p-2  optionVisite hidden"
 										id="visiteTags"></div>
-									<div class="tag-container flex flex-wrap p-2 rounded-lg optionSpectacle hidden"
+									<div class="tag-container flex flex-wrap p-2  optionSpectacle hidden"
 										id="spectacleTags"></div>
-									<div class="tag-container flex flex-wrap p-2 rounded-lg optionParcAttraction hidden"
+									<div class="tag-container flex flex-wrap p-2  optionParcAttraction hidden"
 										id="parcAttractionTags"></div>
-									<div class="tag-container flex flex-wrap p-2 rounded-lg optionRestauration hidden"
+									<div class="tag-container flex flex-wrap p-2  optionRestauration hidden"
 										id="restaurationTags"></div>
 								</div>
 
@@ -716,7 +716,7 @@ $pro = verifyPro();
 										<p>Visite guidée :</p>
 										<input type="checkbox" name="guide" id="guide" class="sr-only peer">
 										<div
-											class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+											class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800  peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after: after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
 										</div>
 										<div class="space-x-2 w-fit flex items-center invisible peer-checked:visible">
 											<p>
@@ -729,7 +729,7 @@ $pro = verifyPro();
 											$langues = $langueController->getInfosAllLangues();
 
 											foreach ($langues as $langue) { ?>
-												<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+												<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 													onclick="toggleCheckbox('<?php echo 'langue' . $langue['id_langue']; ?>')">
 													<label
 														for="<?php echo 'langue' . $langue['id_langue']; ?>"><?php echo $langue['nom']; ?></label>
@@ -748,7 +748,7 @@ $pro = verifyPro();
 									class="flex justify-start items-center w-full space-x-2 optionActivite optionParcAttraction hidden">
 									<label for="age" class="text-nowrap">Âge requis :</label>
 									<input type="number" id="age" pattern="/d+/" min="0" max="125" name="age"
-										class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+										class="border border-secondary  p-2 bg-white w-fit text-right">
 									<p>an(s)</p>
 								</div>
 
@@ -758,10 +758,10 @@ $pro = verifyPro();
 									class="flex justify-start items-center w-full space-x-1 optionActivite optionVisite optionSpectacle hidden">
 									<label for="duree" class="text-nowrap">Durée :</label>
 									<input type="number" name="hours" id="duree" pattern="/d+/" min="0" max="23"
-										class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+										class="border border-secondary  p-2 bg-white w-fit text-right">
 									<p>h </p>
 									<input type="number" name="minutes" id="minute" pattern="/d+/" min="0" max="59"
-										class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+										class="border border-secondary  p-2 bg-white w-fit text-right">
 									<p>min</p>
 								</div>
 
@@ -790,7 +790,7 @@ $pro = verifyPro();
 								<div class="flex justify-start items-center w-full space-x-2 optionSpectacle hidden">
 									<label for="capacite" class="text-nowrap">Capacité d'accueil :</label>
 									<input type="number" name="capacite" id="capacite" pattern="/d+/" onchange="" min="0"
-										class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+										class="border border-secondary  p-2 bg-white w-fit text-right">
 									<p>personnes</p>
 								</div>
 
@@ -800,7 +800,7 @@ $pro = verifyPro();
 									<label for="nb_attractions" class="text-nowrap">Nombre d'attraction :</label>
 									<input type="number" name="nb_attractions" id="nb_attractions" pattern="/d+/"
 										onchange="" min="0"
-										class="border border-secondary rounded-lg p-2 bg-white w-fit text-right">
+										class="border border-secondary  p-2 bg-white w-fit text-right">
 									<p>attractions</p>
 								</div>
 
@@ -809,28 +809,28 @@ $pro = verifyPro();
 									<p>
 										Repas servis :
 									</p>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 										onclick="toggleCheckbox('repasPetitDejeuner')">
 										<label for="repasPetitDejeuner">Petit-déjeuner</label>
 										<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner"
 											class="hidden">
 									</div>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 										onclick="toggleCheckbox('repasBrunch')">
 										<label for="repasBrunch">Brunch</label>
 										<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
 									</div>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 										onclick="toggleCheckbox('repasDejeuner')">
 										<label for="repasDejeuner">Déjeuner</label>
 										<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
 									</div>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 										onclick="toggleCheckbox('repasDiner')">
 										<label for="repasDiner">Dîner</label>
 										<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
 									</div>
-									<div class="w-fit p-2 rounded-full border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold"
+									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
 										onclick="toggleCheckbox('repasBoissons')">
 										<label for="repasBoissons">Boissons</label>
 										<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
@@ -842,10 +842,10 @@ $pro = verifyPro();
 								<div class="flex flex-col justify-between w-full optionParcAttraction hidden">
 									<label for="photo-plan" class="text-nowrap w-full">Plan du parc d'attraction :</label>
 									<input type="file" name="photo-plan" id="photo-plan" class="text-center text-secondary block w-full
-							border-dashed border-2 border-secondary rounded-lg p-2
+							border-dashed border-2 border-secondary  p-2
 							file:mr-5 file:py-3 file:px-10
-							file:rounded-lg
-							file:text-small file:font-bold  file:text-secondary
+							file:
+							file:text-small file:  file:text-secondary
 							file:border file:border-secondary
 							hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
 								</div>
@@ -874,7 +874,7 @@ $pro = verifyPro();
 											<tr>
 												<td class="w-full">
 													<input type="text" id="newPrestationName"
-														class="border border-secondary rounded-lg p-2 bg-white w-full">
+														class="border border-secondary  p-2 bg-white w-full">
 												</td>
 												<td class="w-fit group">
 													<input type="checkbox" id="newPrestationInclude" class="hidden peer">
@@ -902,7 +902,7 @@ $pro = verifyPro();
 													<div class="h-max w-full cursor-pointer flex justify-center items-center"
 														id="addPrestationButton">
 														<svg xmlns="http://www.w3.org/2000/svg"
-															class="fill-secondary rounded-lg border border-transparent hover:border-secondary border-box p-1"
+															class="fill-secondary  border border-transparent hover:border-secondary border-box p-1"
 															width="32" height="32"
 															viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
 															<path
@@ -953,37 +953,37 @@ $pro = verifyPro();
 													<td class="relative">
 														<input type="time" name="horaires[lundi][ouverture]"
 															id="horaires[lundi][ouverture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[mardi][ouverture]"
 															id="horaires[mardi][ouverture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[mercredi][ouverture]"
 															id="horaires[mercredi][ouverture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[jeudi][ouverture]"
 															id="horaires[jeudi][ouverture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[vendredi][ouverture]"
 															id="horaires[vendredi][ouverture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[samedi][ouverture]"
 															id="horaires[samedi][ouverture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[dimanche][ouverture]"
 															id="horaires[dimanche][ouverture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 												</tr>
 												<tr>
@@ -993,37 +993,37 @@ $pro = verifyPro();
 													<td class="relative">
 														<input type="time" name="horaires[lundi][pause]"
 															id="horaires[lundi][pause]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[mardi][pause]"
 															id="horaires[mardi][pause]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[mercredi][pause]"
 															id="horaires[mercredi][pause]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[jeudi][pause]"
 															id="horaires[jeudi][pause]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[vendredi][pause]"
 															id="horaires[vendredi][pause]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[samedi][pause]"
 															id="horaires[samedi][pause]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[dimanche][pause]"
 															id="horaires[dimanche][pause]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 												</tr>
 												<tr>
@@ -1033,37 +1033,37 @@ $pro = verifyPro();
 													<td class="relative">
 														<input type="time" name="horaires[lundi][reprise]"
 															id="horaires[lundi][reprise]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[mardi][reprise]"
 															id="horaires[mardi][reprise]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[mercredi][reprise]"
 															id="horaires[mercredi][reprise]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[jeudi][reprise]"
 															id="horaires[jeudi][reprise]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[vendredi][reprise]"
 															id="horaires[vendredi][reprise]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[samedi][reprise]"
 															id="horaires[samedi][reprise]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[dimanche][reprise]"
 															id="horaires[dimanche][reprise]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 												</tr>
 												<tr>
@@ -1073,43 +1073,43 @@ $pro = verifyPro();
 													<td class="relative">
 														<input type="time" name="horaires[lundi][fermeture]"
 															id="horaires[lundi][fermeture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[mardi][fermeture]"
 															id="horaires[mardi][fermeture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[mercredi][fermeture]"
 															id="horaires[mercredi][fermeture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[jeudi][fermeture]"
 															id="horaires[jeudi][fermeture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[vendredi][fermeture]"
 															id="horaires[vendredi][fermeture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[samedi][fermeture]"
 															id="horaires[samedi][fermeture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 													<td class="relative">
 														<input type="time" name="horaires[dimanche][fermeture]"
 															id="horaires[dimanche][fermeture]"
-															class="border border-secondary rounded-lg p-2 bg-white mx-auto block">
+															class="border border-secondary  p-2 bg-white mx-auto block">
 													</td>
 												</tr>
 											</tbody>
 										</table>
 										<p>
-											<span class="font-bold">Pro Tip :</span> Lorsque vous remplissez les horaires du
+											<span class="">Pro Tip :</span> Lorsque vous remplissez les horaires du
 											lundi, elles mettent à jour les horaires des autres jours de la semaine.
 										</p>
 									</div>
@@ -1137,17 +1137,17 @@ $pro = verifyPro();
 											<tr>
 												<td class="w-full">
 													<input type="text" id="newPrixName"
-														class="border border-secondary rounded-lg p-2 bg-white w-full">
+														class="border border-secondary  p-2 bg-white w-full">
 												</td>
 												<td class="w-fit">
 													<input type="number" id="newPrixValeur" min="0"
-														class="border border-secondary rounded-lg p-2 bg-white">
+														class="border border-secondary  p-2 bg-white">
 												</td>
 												<td class="w-fit">
 													<div class="h-max w-full cursor-pointer flex justify-center items-center"
 														id="addPriceButton">
 														<svg xmlns="http://www.w3.org/2000/svg"
-															class="fill-secondary rounded-lg border border-transparent hover:border-secondary border-box p-1"
+															class="fill-secondary  border border-transparent hover:border-secondary border-box p-1"
 															width="32" height="32"
 															viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
 															<path
@@ -1172,7 +1172,7 @@ $pro = verifyPro();
 									<div
 										class="flex flex-row mb-4 content-center justify-between items-center text-secondary w-full">
 										<!-- Sans option -->
-										<div class="w-fit p-2 rounded-lg border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold text-lg"
+										<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white  text-lg"
 											id="option-rien-div">
 											<input type="radio" id="option-rien" name="option" value="1" class="hidden"
 												checked="true" />
@@ -1187,7 +1187,7 @@ $pro = verifyPro();
 										foreach ($options as $option) {
 											$nom_option = str_contains($option['nom'], 'relief') ? "option-relief" : "option-a-la-une";
 											?>
-											<div class="w-fit p-2 rounded-lg border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold text-center text-lg"
+											<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white  text-center text-lg"
 												id="<?php echo $nom_option; ?>-div">
 												<input type="radio" id="<?php echo $nom_option; ?>" name="option"
 													value="<?php echo $option['nom']; ?>" class="hidden" />
@@ -1206,7 +1206,7 @@ $pro = verifyPro();
 										<div class="flex flex-col justify-center w-full">
 											<label for="start_date" class="text-nowrap">Début de la souscription :</label>
 											<input type="date" id="start_date" name="start_date"
-												class="border border-secondary rounded-lg p-2 bg-white w-min" required
+												class="border border-secondary  p-2 bg-white w-min" required
 												oninput="validateMonday(this)">
 											<script>
 												function validateMonday(input) {
@@ -1236,7 +1236,7 @@ $pro = verifyPro();
 										<div class="flex flex-col justify-center w-full">
 											<label for="duration" class="text-nowrap">Durée de la souscription :</label>
 											<input type="number" id="duration" name="duration" min="1" max="4" value="1"
-												class="border border-secondary rounded-lg p-2 bg-white w-min" required>
+												class="border border-secondary  p-2 bg-white w-min" required>
 											<script>
 
 												document.getElementById('duration').addEventListener('change', function (event) {
@@ -1259,7 +1259,7 @@ $pro = verifyPro();
 							<div
 								class="w-full flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
 								<input type="submit" value="Créer l'offre" id="submitPart3"
-									class="bg-secondary text-white font-medium py-2 px-4 rounded-lg inline-flex items-center border border-transparent hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300"
+									class="bg-secondary text-white font-medium py-2 px-4  inline-flex items-center border border-transparent hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300"
 									disabled="true">
 							</div>
 						</div>
@@ -1269,7 +1269,7 @@ $pro = verifyPro();
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la Une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-								<div class="card active relative bg-base300 rounded-xl flex flex-col w-full"
+								<div class="card active relative bg-base300  flex flex-col w-full"
 									id="card-preview">
 									<script>
 										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
@@ -1303,9 +1303,9 @@ $pro = verifyPro();
 									</script>
 									<!-- En tête -->
 									<div
-										class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 rounded-b-lg">
+										class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 ">
 										<!-- Mise à jour du titre en temps réel -->
-										<h3 class="text-center font-bold" id="preview-titre"></h3>
+										<h3 class="text-center " id="preview-titre"></h3>
 										<script>
 											document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
 												document.getElementById("titre").value
@@ -1380,7 +1380,7 @@ $pro = verifyPro();
 										</div>
 									</div>
 									<!-- Image de fond -->
-									<img class="h-48 w-full rounded-t-lg object-cover" src="/public/images/image-test.png"
+									<img class="h-48 w-full  object-cover" src="/public/images/image-test.png"
 										alt="Image promotionnelle de l'offre" id="preview-image" />
 									<script>
 										document
@@ -1446,10 +1446,10 @@ $pro = verifyPro();
 											class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
 											<div class="p-1 w-full flex justify-center items-center">
 												<!-- <p
-								class="text-white text-center text-small w-full font-bold"
+								class="text-white text-center text-small w-full "
 							  ></p> -->
 												<!-- Mise à jour du tag en temps réel -->
-												<p class="text-white text-center rounded-lg bg-secondary font-bold w-fit p-2"
+												<p class="text-white text-center  bg-secondary  w-fit p-2"
 													id="preview-tag-input">
 													Ajouter un tag...
 												</p>

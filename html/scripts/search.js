@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const tag = document.createElement("div");
         tag.className =
-            "flex items-center gap-2 bg-secondary text-white px-3 py-1 rounded-full mb-4";
+            "flex items-center gap-2 bg-secondary text-white px-3 py-1 mb-4";
         tag.innerHTML = `<span>${text}</span><i class="fa-solid fa-times cursor-pointer"></i>`;
 
         tag.querySelector("i")?.addEventListener("click", () => {
@@ -357,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 message.id = 'no-matches-message';
                 message.textContent = 'Aucune offre ne possède les tags recherchés.';
                 message.classList.add('mt-4');
-                message.classList.add('font-bold');
+                message.classList.add('');
                 message.classList.add('text-h2');
                 document.querySelector('#no-matches')?.appendChild(message); // Ajouter dans le conteneur des offres
             }

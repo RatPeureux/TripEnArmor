@@ -16,7 +16,7 @@
             -
             <a href="/" class="hover:text-primary">Retour vers la PACT</a>
         </div>
-        @2025, <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+        ©<?php echo date("Y"); ?>, <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
     </div>
     <!-- Format téléphone -->
     <div class="text-center block sm:hidden">
@@ -31,7 +31,7 @@
             -
             <a href="/" class="hover:text-primary">Retour vers la PACT</a>
             -
-            ©<?php echo date("Y");?>, <a href="/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+            ©<?php echo date("Y");?>, <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
         </div>
     </div>
 </footer>

@@ -86,12 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <img class="relative mx-auto -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
             </a>
 
-            <form class="bg-white w-full p-5 rounded-lg border-2 border-secondary" action="" method="POST">
+            <form class="bg-white w-full p-5 border-2 border-secondary" action="" method="POST">
                 <p class="pb-3">J'ai un compte Professionnel</p>
 
                 <!-- Champ pour l'identifiant -->
                 <label class="text-small" for="id">Identifiant</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="text" id="id" name="id"
+                <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="id" name="id"
                     placeholder="Nom, téléphone ou mail"
                     title="Saisir un de vos identifiants (Dénomination, téléphone, mail)"
                     value="<?php echo $_SESSION['data_en_cours_connexion']['id'] ?? '' ?>" required>
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- Champ pour le mot de passe -->
                 <div class="relative w-full">
                     <label class="text-small" for="mdp">Mot de passe</label>
-                    <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5 rounded-lg" type="password" id="mdp" name="mdp"
+                    <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="mdp" name="mdp"
                         pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
                         title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                         value="<?php echo $_SESSION['data_en_cours_connexion']['mdp'] ?? '' ?>" required>
@@ -114,16 +114,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Bouton de connexion -->
                 <input type="submit" value="Me connecter"
-                    class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white font-bold rounded-lg inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                    class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                 <!-- Liens pour mot de passe oublié et création de compte -->
                 <div class="flex items-center flex-nowrap h-12 space-x-1.5">
                     <a
-                        class="text-small text-center w-full text-wrap bg-transparent text-secondary underline font-bold focus:scale-[0.97]">
+                        class="text-small text-center w-full text-wrap bg-transparent text-secondary underline  focus:scale-[0.97]">
                         Mot de passe oublié ?
                     </a>
                     <a href="/pro/inscription"
-                        class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-secondary font-bold rounded-lg inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
+                        class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-secondary   inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
                         Créer un compte
                     </a>
                 </div>

@@ -33,7 +33,7 @@
         <p>Menu</p>
     </a>
 
-    <div class="hidden w-52 border-black border rounded-b-lg rounded-tr-lg z-25" id="menu-component">
+    <div class="hidden w-52 border-black border z-25" id="menu-component">
         <div class="all-items flex flex-col items-stretch">
             <a class="pl-5 py-3 border-black <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';
@@ -41,7 +41,7 @@
             <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 2) {
                 echo 'active';
             } ?>" href="/offres/a-la-une">À la Une</a>
-            <a class="pl-5 py-3 border-t border-black rounded-b-lg <?php if (isset($pagination) && $pagination == 3) {
+            <a class="pl-5 py-3 border-t border-black  <?php if (isset($pagination) && $pagination == 3) {
                 echo 'active';
             } ?>" href="/offres">Toutes les offres</a>
         </div>
@@ -52,7 +52,7 @@
         <p>Filtrer</p>
     </a>
     
-    <div class="hidden w-52 border-black border rounded-b-lg rounded-tr-lg z-25" id="filtre-component">
+    <div class="hidden w-52 border-black border z-25" id="filtre-component">
         <div class="flex flex-col w-full p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f1-tab">
                 <p>Catégorie</p>
@@ -109,7 +109,7 @@
             </div>
             <div class="alldevelopped hidden flex flex-col w-full" id="developped-f3-tab">
                 <label class="text-small">Ville ou Code postal</label>
-                <input id="localisation-tab" type="text" class="w-full border border-black rounded-lg p-1 focus:ring-0" />
+                <input id="localisation-tab" type="text" class="w-full border border-black p-1 focus:ring-0" />
             </div>
         </div>
         <div class="flex flex-col w-full border-t border-black p-3 gap-4">
@@ -121,13 +121,13 @@
                 <label class="text-small">Intervalle des prix entre :&nbsp;</label>
                 <div class="flex items-center">
                     <div class="flex items-center">
-                        <input id="min-note-tab" type="number" value="0" min="0" max="5" step="0.5" class="border border-black rounded-lg p-1 text-small text-right w-[39px] focus:ring-0" />
+                        <input id="min-note-tab" type="number" value="0" min="0" max="5" step="0.5" class="border border-black p-1 text-small text-right w-[39px] focus:ring-0" />
                         &nbsp;
                         <img src="/public/icones/egg-full.svg" class="mb-1" width="11">
                     </div>
                     <label class="text-small">&nbsp;et&nbsp;</label>
                     <div class="flex items-center">
-                        <input id="max-note-tab" type="number" value="5" min="0" max="5" step="0.5" class="border border-black rounded-lg p-1 text-small text-right w-[39px] focus:ring-0" />
+                        <input id="max-note-tab" type="number" value="5" min="0" max="5" step="0.5" class="border border-black p-1 text-small text-right w-[39px] focus:ring-0" />
                         &nbsp;
                         <img src="/public/icones/egg-full.svg" class="mb-1" width="11">
                     </div>
@@ -142,12 +142,12 @@
             <div class="alldevelopped text-small hidden flex flex-wrap items-center" id="developped-f5-tab">
                 <div>
                     <label>Offre allant du&nbsp;</label>
-                    <input type="date" class="border border-black rounded-lg p-1 text-right mr-4" id="min-date-tab" name="min-date-tab">
+                    <input type="date" class="border border-black p-1 text-right mr-4" id="min-date-tab" name="min-date-tab">
                     &nbsp;
                 </div>
                 <div>
                     <label>au&nbsp;</label>
-                    <input type="date" class="border border-black rounded-lg p-1 text-right" id="max-date-tab" name="max-date-tab">
+                    <input type="date" class="border border-black p-1 text-right" id="max-date-tab" name="max-date-tab">
                 </div>
             </div>
         </div>
@@ -160,9 +160,9 @@
                 <div class="flex flex-col">
                     <label class="text-small">Intervalle des prix entre :&nbsp;</label>
                     <div class="flex items-center">
-                        <input id="min-price-tab" type="number" value="0" min="0" max="99" class="w-[44px] border border-black rounded-lg p-1 text-small text-right focus:ring-0" />
+                        <input id="min-price-tab" type="number" value="0" min="0" max="99" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0" />
                         <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
-                        <input id="max-price-tab" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-black rounded-lg p-1 text-small text-right focus:ring-0" />
+                        <input id="max-price-tab" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0" />
                         <label class="text-small">&nbsp;€</label>
                     </div>
                 </div>
