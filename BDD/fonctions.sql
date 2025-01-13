@@ -251,6 +251,15 @@ DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW
 EXECUTE FUNCTION check_fk_offre();
 
+-- trigger pour fk vers offre dans la table _souscription
+DROP TRIGGER IF EXISTS deferred_fk_offre_souscription ON sae_db._souscription;
+
+CREATE CONSTRAINT TRIGGER deferred_fk_offre_souscription
+AFTER INSERT OR UPDATE ON sae_db._souscription
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW
+EXECUTE FUNCTION check_fk_offre();
+
 -- trigger pour vérifier les id de la table activite
 CREATE OR REPLACE TRIGGER fk_activite_professionnel BEFORE
 INSERT

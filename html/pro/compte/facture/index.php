@@ -1,8 +1,8 @@
 <?php
 session_start();
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 $pro = verifyPro();
 ?>
@@ -145,7 +145,6 @@ $pro = verifyPro();
             } else {
                 echo "La variable de session id_pro n'est pas définie";
             } ?> </div>
-
 
         <!-- HISTORIQUE DES FACTURES RÉELEMENTS ENVOYÉES & PRÉLEVÉES -->
         <table id='facture-table' class='w-full mt-5 border-collapse border border-gray-300'>

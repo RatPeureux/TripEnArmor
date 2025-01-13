@@ -122,32 +122,11 @@ ALTER TABLE _pro_prive
 ADD CONSTRAINT fk_pro_prive_rib FOREIGN KEY (id_rib) REFERENCES _rib (id_rib) DEFERRABLE INITIALLY IMMEDIATE;
 
 -------------------------------------------------------------------------------------------------------- TAG
--- Table TAG
-
 CREATE TABLE _tag ( -- Antoine
     id_tag SERIAL PRIMARY KEY,
     nom_tag VARCHAR(255) NOT NULL
 );
--------------------------------------------------------------------------------------------------------- Option
-CREATE TABLE _option (
-    nom VARCHAR(50) PRIMARY KEY NOT NULL, -- A la une ou En relief
-    prix_ht FLOAT NOT NULL,
-    prix_ttc FLOAT, -- déduit par prix_unitaire*nb_semaines
-    prix_unitaire FLOAT
-);
--------------------------------------------------------------------------------------------------------- Souscription
-CREATE TABLE _souscription (
-    id_souscription SERIAL PRIMARY KEY,
-    nb_semaines INTEGER NOT NULL,
-    date_lancement DATE NOT NULL,
-    date_annulation DATE,
-    CONSTRAINT check_lundi_lancement CHECK (
-        EXTRACT(
-            DOW
-            FROM date_lancement
-        ) = 1
-    )
-);
+
 -------------------------------------------------------------------------------------------------------- Offre
 -- Table _type_offre (gratuite OU standard OU premium)
 -- Antoine
@@ -189,20 +168,11 @@ ADD CONSTRAINT fk_offre_type_offre FOREIGN KEY (id_type_offre) REFERENCES _type_
 ALTER TABLE _offre
 ADD CONSTRAINT fk_offre_adresse FOREIGN KEY (id_adresse) REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE;
 
--------------------------------------------------------------------------------------------------------- Relation ternaire entre Offre, Souscription et Option
--- Création de la table de relation ternaire entre _offre, _souscription et _option
-CREATE TABLE _offre_souscription_option (
-    id_offre INTEGER NOT NULL,
-    id_souscription INTEGER NOT NULL,
-    nom_option VARCHAR(50) NOT NULL,
-    date_association DATE NOT NULL DEFAULT CURRENT_DATE,
-    PRIMARY KEY (
-        id_offre,
-        id_souscription,
-        nom_option
-    ),
-    FOREIGN KEY (id_souscription) REFERENCES _souscription (id_souscription) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
-    FOREIGN KEY (nom_option) REFERENCES _option (nom) ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+-------------------------------------------------------------------------------------------------------- Option
+CREATE TABLE _option (
+    nom VARCHAR(50) PRIMARY KEY NOT NULL, -- A la une ou En relief
+    prix_ht FLOAT NOT NULL,
+    prix_ttc FLOAT
 );
 
 --  ------------------------------------------------------------------------------------------------------ TAGs Offre
@@ -564,4 +534,24 @@ create table _periodes_en_ligne (
     prix_ttc FLOAT NOT NULL,
     date_debut DATE NOT NULL DEFAULT CURRENT_DATE,
     date_fin DATE DEFAULT NULL
+);
+
+-------------------------------------------------------------------------------------------------------- Souscription
+CREATE TABLE _souscription (
+    id_souscription SERIAL PRIMARY KEY,
+    id_offre INTEGER NOT NULL,
+    nom_option VARCHAR(50) NOT NULL,
+    prix_ht FLOAT NOT NULL, -- Prix HT du type de l'offre pour 1 jour
+    prix_ttc FLOAT NOT NULL,
+    tva DECIMAL(5, 2) NOT NULL GENERATED ALWAYS AS (ROUND((prix_ttc / prix_ht)::NUMERIC - 1, 2)*100) STORED,
+    date_association DATE NOT NULL DEFAULT CURRENT_DATE,
+    date_lancement DATE NOT NULL,
+    date_annulation DATE DEFAULT NULL,
+    CONSTRAINT check_lundi_lancement CHECK (
+        EXTRACT(
+            DOW
+            FROM date_lancement
+        ) = 1
+    ),
+    nb_semaines INTEGER NOT NULL
 );

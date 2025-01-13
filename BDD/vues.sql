@@ -100,21 +100,19 @@ create or replace view vue_souscription_offre_option_details as
 select
 	*,
 	(date_lancement + (nb_semaines * INTERVAL '1 week'))::DATE AS date_fin,
-	(nb_semaines * prix_ht) as prix_ht_total,
-	(nb_semaines * prix_ttc) as prix_ttc_total,
+	ROUND((nb_semaines * prix_ht)::NUMERIC, 2) AS prix_ht_total,
+	ROUND((nb_semaines * prix_ttc)::NUMERIC, 2) AS prix_ttc_total,
 	CASE
         WHEN date_annulation IS NOT NULL AND date_annulation < date_lancement THEN true
         ELSE false
     END AS est_remboursee
-from _offre_souscription_option
-natural join _souscription
-join _option on nom_option = nom;
+from _souscription;
 
 ------------------------------------ Vue pour connaître les détails des souscriptions de chaque offre durant le mois actuel
 create or replace view vue_souscription_offre_option_details_du_mois as
 select *
 from
-    vue_souscription_offre_option_details_du_mois
+    vue_souscription_offre_option_details
 WHERE
     EXTRACT(
         YEAR

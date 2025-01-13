@@ -19,6 +19,11 @@ $stmt->bindParam(':id_pro', $id_pro);
 $stmt->execute();
 $pro_details = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$stmtAdresse = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :id_adresse");
+$stmtAdresse->bindParam(':id_adresse', $pro_details['id_adresse'], PDO::PARAM_INT);
+$stmtAdresse->execute();
+$adresse_details = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
+
 // Les paiements liés à l'offre
 $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_periodes_en_ligne_du_mois WHERE id_offre = :id_offre");
 $stmt->bindParam(':id_offre', $id_offre);
@@ -40,16 +45,6 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
     <?php
     $TVA = 20;
     $numero = "2024-FAC-0001";
-
-    $stmtAdresse = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :id_adresse");
-    $stmtAdresse->bindParam(':id_adresse', $pro_details['id_adresse'], PDO::PARAM_INT);
-    $stmtAdresse->execute();
-    $adresse_details = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
-
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._type_offre WHERE id_type_offre = :id_type_offre");
-    $stmt->bindParam(':id_type_offre', $offre['id_type_offre'], PDO::PARAM_INT);
-    $stmt->execute();
-    $type_offre = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
 
     <!-- En-tête -->
@@ -193,7 +188,6 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
             <p>Aucune souscription à une option pour le mois actuel</p>
         <?php } ?>
     </div>
-
 
     <!-- Totaux globaux -->
     <div class="flex justify-end">

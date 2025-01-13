@@ -370,7 +370,6 @@ $pro = verifyPro();
 				$stmt->bindParam(':id_offre', $id_offre);
 				$stmt->bindParam(':id_souscription', $id_souscription);
 				$stmt->bindParam(':nom_option', $option);
-
 				$stmt->execute();
 			}
 
