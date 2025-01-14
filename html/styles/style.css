@@ -1052,6 +1052,10 @@ video {
   max-height: 400px;
 }
 
+.max-h-\[70px\] {
+  max-height: 70px;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
