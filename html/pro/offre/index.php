@@ -292,13 +292,6 @@ session_start();
     <main class="w-full grow flex items-start justify-center p-2 grow">
         <div class="flex justify-center w-full md:max-w-[1280px]">
 
-            <!-- PARTIE GAUCHE (menu) -->
-            <div id="menu">
-                <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
-                ?>
-            </div>
-
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
 
