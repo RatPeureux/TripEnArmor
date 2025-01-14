@@ -189,7 +189,7 @@ if (!function_exists('chaineVersMot')) {
                 <!-- Titre, Nom auteur, Note, Description, Date de publication, Date de passsage, lien vers l'offre -->
                 <div class="w-full flex justify-between items-center">
                     <h3 class="text-xl text-gray-600"><span class="text-black">Titre</span> posté par
-                        <span>Auteur</span>
+                        <span class="text-black">Auteur</span>
                     </h3>
                     <div class="h-6 w-24 bg-primary">
                         Note
