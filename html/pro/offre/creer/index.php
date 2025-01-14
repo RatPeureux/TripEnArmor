@@ -630,7 +630,7 @@ $pro = verifyPro();
 										placeholder="Une description de l'accessibilité pour les personnes en situation de handicap, visible dans les détails de l'offre."></textarea>
 								</div>
 							</div>
-							<div class="w-full flex flex-col justify-center items-center space-y-4 part2 hidden">
+							<div class="w-full flex flex-col justify-center items-center space-y-4 part2 hidden pt-4">
 								<h2 class="w-full text-h2 text-secondary">Informations supplémentaires</h2>
 
 								<!-- Sélection du type d'activité -->
