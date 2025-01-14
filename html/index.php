@@ -25,7 +25,7 @@
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true");
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
     $stmt = $dbh->prepare("
         select *
         from sae_db._souscription natural join sae_db._offre
@@ -114,9 +114,13 @@
         </header>
     </div>
 
-    <main class="self-center align-center w-full grow  max-w-[1280px] px-2 pb-2">
-        <div class="w-full text-center mb-2">
-            <a href="/" class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl mb-4">PACT</a>
+    <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
+        <div class="w-full flex justify-center gap-10 text-center mb-2">
+            <img src="public/images/plumeGN.png" alt=""
+                class="h-full hidden md:flex max-h-[170px] space-x-2 pb-1 -rotate-[20deg]">
+            <a href="/"
+                class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl ml-8 mb-4">PACT</a>
+            <img src="public/images/plumeDN.png" alt="" class="h-full max-h-[170px] hidden md:flex pb-1 rotate-[20deg]">
         </div>
 
         <div class="searchOn hidden md:flex justify-between text-center items-center mb-2">
@@ -141,7 +145,8 @@
         </div>
 
         <div class="searchOn text-center md:hidden mb-2">
-            <select class="text-center text-h3 bg-white border-b border-secondary p-1 cursor-pointer focus:outline-none" id="search-category">
+            <select class="text-center text-h3 bg-white border-b border-secondary p-1 cursor-pointer focus:outline-none"
+                id="search-category">
                 <option class="text-left" value="all">Tout rechercher</option>
                 <option class="text-left" value="restaurants">Restaurants</option>
                 <option class="text-left" value="spectacles">Spectacles</option>
@@ -161,15 +166,13 @@
                     <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
                 </div>
                 <!-- Bouton de suppression -->
-                <button
-                    class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white  px-2 py-1"
+                <button class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white  px-2 py-1"
                     id="clear-tags-btn">
                     <i class="text-xl fa-solid fa-times cursor-pointer"></i>
                 </button>
             </div>
             <!-- Dropdown de recherche -->
-            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
-                id="search-menu">
+            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10" id="search-menu">
             </div>
         </div>
 
@@ -231,7 +234,7 @@
 
                         if ($categorie && isset($categorie['type_offre'])) {
                             $typeOffre = $categorie['type_offre'];
-    
+
                             // Ajouter l'offre dans la catégorie correspondante si elle n'est pas encore définie
                             if (array_key_exists($typeOffre, $categoriesOrdre) && $categoriesOrdre[$typeOffre] === null) {
                                 $categoriesOrdre[$typeOffre] = $offre;
@@ -242,7 +245,7 @@
 
                 // Reconstituer $temp dans l'ordre des catégories
                 $temp = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-
+            
                 $meilleuresNotes = $temp;
 
                 $iOffres = 0;

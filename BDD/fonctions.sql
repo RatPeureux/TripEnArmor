@@ -206,15 +206,6 @@ DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW
 EXECUTE FUNCTION check_fk_offre();
 
--- trigger pour vérifier les id de la table offre pour offre souscription option
-DROP TRIGGER IF EXISTS deferred_fk_offre_souscription_option ON sae_db._offre_souscription_option;
-
-CREATE CONSTRAINT TRIGGER deferred_fk_offre_souscription_option
-AFTER INSERT OR UPDATE ON sae_db._offre_souscription_option
-DEFERRABLE INITIALLY DEFERRED
-FOR EACH ROW
-EXECUTE FUNCTION check_fk_offre();
-
 -- trigger pour vérifier les id de la table offre pour tag offre
 DROP TRIGGER IF EXISTS deferred_fk_offre_tag_offre ON sae_db._tag_offre;
 
@@ -247,15 +238,6 @@ DROP TRIGGER IF EXISTS deferred_fk_offre_periodes_en_ligne ON sae_db._periodes_e
 
 CREATE CONSTRAINT TRIGGER deferred_fk_offre_periodes_en_ligne
 AFTER INSERT OR UPDATE ON sae_db._periodes_en_ligne
-DEFERRABLE INITIALLY DEFERRED
-FOR EACH ROW
-EXECUTE FUNCTION check_fk_offre();
-
--- trigger pour fk vers offre dans la table _souscription
-DROP TRIGGER IF EXISTS deferred_fk_offre_souscription ON sae_db._souscription;
-
-CREATE CONSTRAINT TRIGGER deferred_fk_offre_souscription
-AFTER INSERT OR UPDATE ON sae_db._souscription
 DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW
 EXECUTE FUNCTION check_fk_offre();
