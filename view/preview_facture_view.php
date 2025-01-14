@@ -49,7 +49,7 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
 ?>
 
 <!-- FACTURE AVEC TOUS LES DETAILS -->
-<div id="facture-details" class="border border-black p-5 flex flex-col mx-auto my-5 gap-5 max-w-4xl">
+<div id="facture-details" class="border border-black p-5 flex flex-col gap-5 max-w-4xl">
 
     <!-- En-tête -->
     <div class="flex flex-col justify-between">
