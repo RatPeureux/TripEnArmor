@@ -11,7 +11,7 @@ if ($avis && count($avis) !== 0) {
     foreach ($avis as $avi) {
         // print_r($avi);
         ?>
-        <div class="h-full p-2">
+        <div class="h-full p-2 hover:bg-gray-100">
             <!-- lien vers l'offre -->
             <a href='/scripts/go_to_details_pro.php?id_offre=<?php echo $avi['id_offre'] ?>'>
                 <div class="w-full flex justify-between items-center">

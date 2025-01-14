@@ -2398,6 +2398,11 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(10 0 53 / 0.9);
 }
 
+.hover\:bg-gray-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:fill-\[\#00350D\]:hover {
   fill: #00350D;
 }
