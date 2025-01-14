@@ -186,7 +186,7 @@ if (!function_exists('chaineVersMot')) {
                 Notifications
             </h2>
             <?php
-            require dirname($_SERVER['DOCUMENT_ROOT']) . '/model/notification_view.php';
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/notification_view.php';
             ?>
         </div>
     </main>
