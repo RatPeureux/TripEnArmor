@@ -1406,7 +1406,7 @@ $pro = verifyPro();
 													const postalCode = document.getElementById("postal_code").value;
 													document.getElementById("preview-locality").textContent = locality ? locality : document.getElementById("locality").placeholder;
 													document.getElementById("preview-postal_code").textContent = postalCode ? postalCode : document.getElementById("postal_code").placeholder;
-												}, 500);
+												}, 100);
 												// const previewLocality = document.getElementById("preview-locality");
 												// const previewPostalCode = document.getElementById("preview-postal_code");
 												// const locality = document.getElementById("locality");
