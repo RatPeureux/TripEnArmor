@@ -1280,6 +1280,14 @@ video {
   flex-basis: 75%;
 }
 
+.basis-8\/12 {
+  flex-basis: 66.666667%;
+}
+
+.basis-4\/12 {
+  flex-basis: 33.333333%;
+}
+
 .table-auto {
   table-layout: auto;
 }
