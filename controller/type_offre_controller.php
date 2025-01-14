@@ -15,10 +15,13 @@ class TypeOffreController
 
     public function getInfosTypeOffre($id)
     {
+        $this->model::log("Les informations du type d'offre $id ont été lues.");
         return $this->model::getTypeOffreById($id);
     }
 
-    public function getAllTypeOffre() {
+    public function getAllTypeOffre()
+    {
+        $this->model::log("Les informations de tous les types d'offre ont été lues.");
         return $this->model::getAllTypeOffre();
     }
 }
