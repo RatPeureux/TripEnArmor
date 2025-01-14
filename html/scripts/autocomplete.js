@@ -44,7 +44,7 @@ function fillInAddress() {
     document.querySelector("#locality").value = locality; // Remplit le champ de ville
     document.getElementById('preview-locality').textContent = locality;
     document.querySelector("#postal_code").value = postalCode; // Remplit le champ de code postal
-    document.getElementById('preview-postal-code').textContent = postalCode;
+    document.getElementById('preview-postal_code').textContent = postalCode;
 }
 
 google.maps.event.addDomListener(window, 'load', function () {
