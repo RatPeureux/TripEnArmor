@@ -34,7 +34,9 @@ class Avis extends BDD
         $tousMesAvis = [];
         foreach ($toutesMesOffres as $offre) {
             print_r($offre);
-            $tousMesAvis = array_merge($tousMesAvis, self::getAvisByIdOffre($offre['id_offre']));
+            $avis = self::getAvisByIdOffre($offre['id_offre']);
+            print_r($avis);
+            $tousMesAvis = array_merge($tousMesAvis, $avis);
         }
 
         print_r($tousMesAvis);
