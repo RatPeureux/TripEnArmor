@@ -13,7 +13,7 @@ class FactureController
     }
 
     public function getFactureByNumero($numero_facture)
-    {        
+    {
         $this->model::log("Les informations de la facture $numero_facture ont été lues.");
         return $this->model::getFactureByNumero($numero_facture);
     }
@@ -48,7 +48,7 @@ class FactureController
                 $date_echeance == false ? $facture["date_echeance"] : $date_echeance,
                 $date_emission == false ? $facture["date_emission"] : $date_emission,
             );
-            $this->model::log("Les informations de la facture $numero ont été modifiées.");
+            $this->model::log("Les informations de la facture $numero_facture ont été modifiées.");
             return $updatedFacture;
         }
     }
