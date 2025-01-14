@@ -210,29 +210,45 @@ if (!function_exists('to_nom_note')) {
     ?>
     <hr>
 </div>
-<script>
-    const thumbsUp = document.getElementById("tup-<?php echo $id_avis ?>");
-    const thumbsDown = document.getElementById("tdown-<?php echo $id_avis ?>");
 
-    thumbsUp.addEventListener("click", function () {
-        thumbsUp.classList.toggle("fa-regular");
-        thumbsUp.classList.toggle("fa-solid");
-        thumbsUp.classList.toggle("text-secondary");
-        if (thumbsDown.classList.contains("fa-solid")) {
-            thumbsDown.classList.toggle("fa-regular");
-            thumbsDown.classList.toggle("fa-solid");
-            thumbsDown.classList.toggle("text-rouge-logo");
-        }
-    });
+<?php if ($membre) { ?>
+    <script>
+        const thumbsUp = document.getElementById("tup-<?php echo $id_avis ?>");
+        const thumbsDown = document.getElementById("tdown-<?php echo $id_avis ?>");
 
-    thumbsDown.addEventListener("click", function () {
-        thumbsDown.classList.toggle("fa-regular");
-        thumbsDown.classList.toggle("fa-solid");
-        thumbsDown.classList.toggle("text-rouge-logo");
-        if (thumbsUp.classList.contains("fa-solid")) {
+        thumbsUp.addEventListener("click", function () {
             thumbsUp.classList.toggle("fa-regular");
             thumbsUp.classList.toggle("fa-solid");
             thumbsUp.classList.toggle("text-secondary");
-        }
-    });
-</script>
+            if (thumbsDown.classList.contains("fa-solid")) {
+                thumbsDown.classList.toggle("fa-regular");
+                thumbsDown.classList.toggle("fa-solid");
+                thumbsDown.classList.toggle("text-rouge-logo");
+            }
+        });
+
+        thumbsDown.addEventListener("click", function () {
+            thumbsDown.classList.toggle("fa-regular");
+            thumbsDown.classList.toggle("fa-solid");
+            thumbsDown.classList.toggle("text-rouge-logo");
+            if (thumbsUp.classList.contains("fa-solid")) {
+                thumbsUp.classList.toggle("fa-regular");
+                thumbsUp.classList.toggle("fa-solid");
+                thumbsUp.classList.toggle("text-secondary");
+            }
+        });
+    </script>
+<?php } else { ?>
+    <script>
+        const thumbsUp = document.getElementById("tup-<?php echo $id_avis ?>");
+        const thumbsDown = document.getElementById("tdown-<?php echo $id_avis ?>");
+
+        thumbsUp.addEventListener("click", function () {
+            window.location.href = "/connexion";
+        });
+
+        thumbsDown.addEventListener("click", function () {
+            window.location.href = "/connexion";
+        });
+    </script>
+<?php } ?>

@@ -63,7 +63,7 @@
 
     <div class="w-full flex flex-col justify-center items-center">
 
-        <header class="flex justify-between items-center z-30 w-full h-20 top-0 mx-auto max-w-[1280px] px-4">
+        <header class="flex justify-between items-center z-30 w-full h-16 top-0 mx-auto max-w-[1280px] px-4">
             <div class="flex items-center justify-between">
                 <!-- Menu Burger pour les petits écrans -->
                 <div class="flex items-center gap-4 md:hidden">
@@ -114,8 +114,8 @@
         </header>
     </div>
 
-    <main class="self-center align-center w-full grow justify-between max-w-[1280px] p-2">
-        <div class="w-full flex justify-center gap-10 text-center">
+    <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
+        <div class="w-full flex justify-center gap-10 text-center mb-2">
             <img src="public/images/plumeGN.png" alt=""
                 class="h-full hidden md:flex max-h-[170px] space-x-2 pb-1 -rotate-[20deg]">
             <a href="/"
@@ -177,6 +177,28 @@
             </div>
         </div>
 
+        <a class="cursor-pointer group" href="/offres/a-la-une">
+            <h1 class="text-h1 ">À la Une<span class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
+        </a>
+
+        <?php
+        // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
+        if (!$aLaUnes) { ?>
+            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-16">
+                <?php echo "<p class=' text-h2'>Il n'existe aucune offre...</p>"; ?>
+            </div>
+        <?php } else { ?>
+            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-0 md:mb-16" id="no-matches-2">
+                <?php $i = 0;
+                foreach ($aLaUnes as $offre) {
+                    if ($i > -1) {
+                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
+                        $i++;
+                    }
+                } ?>
+            </div>
+        <?php } ?>
+
         <h1 class="text-h1 ">Nos meilleures offres</h1>
 
         <?php
@@ -233,29 +255,6 @@
                         require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
                     }
                     $iOffres++;
-                } ?>
-            </div>
-        <?php } ?>
-
-        <a class="cursor-pointer group" href="/offres/a-la-une">
-            <h1 class="text-h1 ">À la Une<span
-                    class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
-        </a>
-
-        <?php
-        // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
-        if (!$aLaUnes) { ?>
-            <div class="md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-16">
-                <?php echo "<p class=' text-h2'>Il n'existe aucune offre...</p>"; ?>
-            </div>
-        <?php } else { ?>
-            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-0 md:mb-16" id="no-matches-2">
-                <?php $i = 0;
-                foreach ($aLaUnes as $offre) {
-                    if ($i > -1) {
-                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_carroussel.php';
-                        $i++;
-                    }
                 } ?>
             </div>
         <?php } ?>
@@ -357,7 +356,7 @@
                 message.id = 'no-matches-message';
                 const content = document.createElement('p');
                 content.textContent = 'Aucune offre n\'est "À la Une".';
-                message.classList.add('flex', 'justify-center', 'items-center', 'text-h2', 'h-72');
+                message.classList.add('flex', 'justify-center', 'items-center', 'text-h2', 'h-[27rem]');
                 message.appendChild(content);
                 messageContainer.appendChild(message);
                 noMatchesContainer.appendChild(messageContainer);
