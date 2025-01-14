@@ -2719,6 +2719,12 @@ input[type="checkbox"]:checked:before {
   }
 }
 
+@media (min-width: 1536px) {
+  .\32xl\:flex-row {
+    flex-direction: row;
+  }
+}
+
 .peer:checked ~ .rtl\:peer-checked\:after\:-translate-x-full:where([dir="rtl"], [dir="rtl"] *)::after {
   content: var(--tw-content);
   --tw-translate-x: -100%;
