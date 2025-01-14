@@ -56,9 +56,7 @@ class Avis extends BDD
         $statement->bindParam(1, $idOffre);
 
         if ($statement->execute()) {
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            print_r($result);
-            return $result
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         } else {
             echo "ERREUR: Impossible d'obtenir cet avis";
             return false;
