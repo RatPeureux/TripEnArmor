@@ -1407,33 +1407,33 @@ $pro = verifyPro();
 													document.getElementById("preview-locality").textContent = locality ? locality : document.getElementById("locality").placeholder;
 													document.getElementById("preview-postal_code").textContent = postalCode ? postalCode : document.getElementById("postal_code").placeholder;
 												}, 500);
-												const previewLocality = document.getElementById("preview-locality");
-												const previewPostalCode = document.getElementById("preview-postal_code");
-												const locality = document.getElementById("locality");
-												const postalCode = document.getElementById("postal_code");
+												// const previewLocality = document.getElementById("preview-locality");
+												// const previewPostalCode = document.getElementById("preview-postal_code");
+												// const locality = document.getElementById("locality");
+												// const postalCode = document.getElementById("postal_code");
 
-												previewLocality.textContent = locality.value ? locality.value : locality.placeholder
-												previewPostalCode.textContent = postalCode.value ? postalCode.value : postalCode.placeholder
+												// previewLocality.textContent = locality.value ? locality.value : locality.placeholder
+												// previewPostalCode.textContent = postalCode.value ? postalCode.value : postalCode.placeholder
 
-												document.getElementById("user_input_autocomplete_address")
-													.addEventListener("input", function () {
-														previewLocality.textContent =
-															locality.value ? locality.value : locality.placeholder;
-														previewPostalCode.textContent =
-															postalCode.value ? postalCode.value : postalCode.placeholder;
-													})
+												// document.getElementById("user_input_autocomplete_address")
+												// 	.addEventListener("input", function () {
+												// 		previewLocality.textContent =
+												// 			locality.value ? locality.value : locality.placeholder;
+												// 		previewPostalCode.textContent =
+												// 			postalCode.value ? postalCode.value : postalCode.placeholder;
+												// 	})
 
-												locality.addEventListener("input", function () {
-													console.log(locality);
-													previewLocality.textContent =
-														locality.value ? locality.value : locality.placeholder;
-												});
+												// locality.addEventListener("input", function () {
+												// 	console.log(locality);
+												// 	previewLocality.textContent =
+												// 		locality.value ? locality.value : locality.placeholder;
+												// });
 
-												postalCode.addEventListener("input", function () {
-													console.log(postalCode);
-													previewPostalCode.textContent =
-														postalCode.value ? postalCode.value : postalCode.placeholder;
-												});
+												// postalCode.addEventListener("input", function () {
+												// 	console.log(postalCode);
+												// 	previewPostalCode.textContent =
+												// 		postalCode.value ? postalCode.value : postalCode.placeholder;
+												// });
 											</script>
 										</div>
 										<!-- Résumé de l'offre -->
