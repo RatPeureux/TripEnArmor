@@ -1015,26 +1015,31 @@ session_start();
         setupToggle('compl-arrow', 'compl-button', 'compl-info');
         setupToggle('grille-arrow', 'grille-button', 'grille-info');
 
-        function toggleThumbs(thumbUp, thumbDown) {
+        function toggleThumbs(thumbUp, thumbDown, id_avis) {
             thumbUp.addEventListener("click", function () {
-                thumbUp.classList.toggle("fa-regular");
-                thumbUp.classList.toggle("fa-solid");
-                thumbUp.classList.toggle("text-secondary");
-                if (thumbDown.classList.contains("fa-solid")) {
-                    thumbDown.classList.toggle("fa-regular");
-                    thumbDown.classList.toggle("fa-solid");
-                    thumbDown.classList.toggle("text-rouge-logo");
+                if (thumbUp.classList.contains("fa-solid")) {
+                    window.location.href = "/scripts/thumb.php?id_avis=" + id_avis +"&action=null";
+                } else {
+                    if (thumbDown.classList.contains("fa-solid")) {
+                        window.location.href = "/scripts/thumb.php?id_avis=" + id_avis +"&action=upTOdown";
+                    } else {
+                        window.location.href = "/scripts/thumb.php?id_avis=" + id_avis +"&action=up";
+                    }
                 }
             });
 
             thumbDown.addEventListener("click", function () {
-                thumbDown.classList.toggle("fa-regular");
-                thumbDown.classList.toggle("fa-solid");
-                thumbDown.classList.toggle("text-rouge-logo");
-                if (thumbUp.classList.contains("fa-solid")) {
-                    thumbUp.classList.toggle("fa-regular");
-                    thumbUp.classList.toggle("fa-solid");
-                    thumbUp.classList.toggle("text-secondary");
+                console.log("id_avis:", id_avis);
+                console.log("thumbDown classes:", thumbDown.classList);
+                console.log("thumbUp classes:", thumbUp.classList);
+                if (thumbDown.classList.contains("fa-solid")) {
+                    window.location.href = "/scripts/thumb.php?id_avis=" + id_avis +"&action=null";
+                } else {
+                    if (thumbUp.classList.contains("fa-solid")) {
+                        window.location.href = "/scripts/thumb.php?id_avis=" + id_avis +"&action=downTOup";
+                    } else {
+                        window.location.href = "/scripts/thumb.php?id_avis=" + id_avis +"&action=down";
+                    }
                 }
             });
         }

@@ -191,26 +191,48 @@ if (!function_exists('to_nom_note')) {
                 ?>
             </p>
         </div>
-        <?php
-    }
-    ?>
+    <?php }
 
-    <!-- Commentaire de l'avis s'il y en a un -->
-    <div class="flex flex-col gap-2">
-        <p class="text-small text-justify"><?php echo $avis['commentaire'] ?></p>
+    if (isset($_SESSION['id_membre'])) {    
+        $query = "SELECT type_de_reaction FROM _avis_reactions WHERE id_avis = ? AND id_membre = ?";
+
+        $statement = self::$db->prepare($query);
+        $statement->bindParam(1, $id_avis);
+        $statement->bindValue(2, $_SESSION['id_membre']);
+    
+        if ($statement->execute()) {
+            $reaction = $statement->fetch(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR : Impossible d'obtenir cette réaction";
+            return -1;
+        }
+        ?>
         <div class="flex flex-row-reverse gap-4 ">
-            <i class="cursor-pointer fa-regular fa-thumbs-down text-h2 mt-1" id="tdown-<?php echo $id_avis ?>"></i>
-            <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1" id="tup-<?php echo $id_avis ?>"></i>
+            <?php if ($reaction['type_de_reaction'] == true) { ?>
+                <i class="cursor-pointer fa-regular fa-thumbs-down text-h2 mt-1" id="thumb-down-<?php echo $id_avis ?>"></i>
+                <i class="cursor-pointer fa-solid fa-thumbs-up text-h2 mb-1 text-secondary" id="thumb-up-<?php echo $id_avis ?>"></i>
+            <?php } else { ?>
+                <i class="cursor-pointer fa-solid fa-thumbs-down text-h2 mt-1 text-rouge-logo" id="thumb-down-<?php echo $id_avis ?>"></i>
+                <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1" id="thumb-up-<?php echo $id_avis ?>"></i>
+            <?php } ?>
         </div>
-    </div>
-    <hr>
+    <?php } else { ?>
+        <div class="flex flex-row-reverse gap-4 ">
+            <a href="/connexion">
+                <i class="cursor-pointer fa-regular fa-thumbs-down text-h2 mt-1"></i>
+            </a>
+            <a href="/connexion">
+                <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1"></i>
+            </a>
+        </div>
+    <?php } ?>
 </div>
 
-<?php if (true) { ?>
+<?php if ($_SESSION['id_membre']) { ?>
     <script>
-        const thumbUp<?php echo $id_avis ?> = document.getElementById("tup-<?php echo $id_avis ?>");
-        const thumbDown<?php echo $id_avis ?> = document.getElementById("tdown-<?php echo $id_avis ?>");
+        const thumbUp<?php echo $id_avis ?> = document.getElementById("thumb-up-<?php echo $id_avis ?>");
+        const thumbDown<?php echo $id_avis ?> = document.getElementById("thumb-down-<?php echo $id_avis ?>");
 
-        toggleThumbs(thumbUp<?php echo $id_avis ?>, thumbDown<?php echo $id_avis ?>);
+        toggleThumbs(thumbUp<?php echo $id_avis ?>, thumbDown<?php echo $id_avis ?>, $id_avis);
     </script>
-<?php }
+<?php } ?>
