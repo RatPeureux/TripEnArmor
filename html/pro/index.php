@@ -186,15 +186,20 @@ if (!function_exists('chaineVersMot')) {
                 Notifications
             </h2>
             <div class="h-full p-2">
-                <!-- Titre, Nom auteur, Note, Description, Date de publication, Date de passsage, lien vers l'offre -->
+                <!-- lien vers l'offre -->
                 <div class="w-full flex justify-between items-center">
-                    <h3 class="text-xl text-gray-600"><span class="text-black">Titre</span> posté par
-                        <span class="text-black">Auteur</span>
+                    <h3 class="text-gray-600"><span class="text-black">Titre</span> posté par
+                        <span class="text-black">Auteur</span> Il y a <span class="text-black">Date de publication</span>
                     </h3>
                     <div class="h-6 w-24 bg-primary">
                         Note
                     </div>
                 </div>
+                <p>Vécu le Date de passage</p>
+                <p>
+                    Description
+                </p>
+                <hr/>
             </div>
         </div>
     </main>
