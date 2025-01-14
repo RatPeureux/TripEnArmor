@@ -958,10 +958,6 @@ video {
   display: block;
 }
 
-.inline-block {
-  display: inline-block;
-}
-
 .flex {
   display: flex;
 }
@@ -1054,10 +1050,6 @@ video {
 
 .max-h-\[400px\] {
   max-height: 400px;
-}
-
-.max-h-\[70px\] {
-  max-height: 70px;
 }
 
 .min-h-screen {
@@ -1171,10 +1163,6 @@ video {
   width: min-content;
 }
 
-.w-\[80rem\] {
-  width: 80rem;
-}
-
 .min-w-16 {
   min-width: 4rem;
 }
@@ -1190,10 +1178,6 @@ video {
 .min-w-max {
   min-width: -moz-max-content;
   min-width: max-content;
-}
-
-.min-w-0 {
-  min-width: 0px;
 }
 
 .max-w-32 {
@@ -1214,10 +1198,6 @@ video {
 
 .max-w-4xl {
   max-width: 56rem;
-}
-
-.max-w-7xl {
-  max-width: 80rem;
 }
 
 .max-w-80 {
@@ -1272,10 +1252,6 @@ video {
   flex-shrink: 0;
 }
 
-.flex-shrink {
-  flex-shrink: 1;
-}
-
 .shrink-0 {
   flex-shrink: 0;
 }
@@ -1286,22 +1262,6 @@ video {
 
 .basis-1\/2 {
   flex-basis: 50%;
-}
-
-.basis-3\/12 {
-  flex-basis: 25%;
-}
-
-.basis-9\/12 {
-  flex-basis: 75%;
-}
-
-.basis-8\/12 {
-  flex-basis: 66.666667%;
-}
-
-.basis-4\/12 {
-  flex-basis: 33.333333%;
 }
 
 .table-auto {
@@ -1767,11 +1727,6 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
-.bg-gray-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(107 114 128 / var(--tw-bg-opacity, 1));
-}
-
 .fill-secondary {
   fill: #0a0035;
 }
@@ -2094,11 +2049,6 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
-.text-gray-700 {
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity, 1));
 }
 
 .underline {
@@ -2696,11 +2646,6 @@ input[type="checkbox"]:checked:before {
 }
 
 @media (min-width: 1280px) {
-  .xl\:mx-auto {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   .xl\:block {
     display: block;
   }
@@ -2709,24 +2654,8 @@ input[type="checkbox"]:checked:before {
     display: none;
   }
 
-  .xl\:w-full {
-    width: 100%;
-  }
-
-  .xl\:w-\[80rem\] {
-    width: 80rem;
-  }
-
   .xl\:max-w-7xl {
     max-width: 80rem;
-  }
-
-  .xl\:flex-row {
-    flex-direction: row;
-  }
-
-  .xl\:flex-col {
-    flex-direction: column;
   }
 
   .xl\:opacity-0 {
@@ -2743,16 +2672,8 @@ input[type="checkbox"]:checked:before {
     align-items: flex-start;
   }
 
-  .\32xl\:items-center {
-    align-items: center;
-  }
-
   .\32xl\:justify-start {
     justify-content: flex-start;
-  }
-
-  .\32xl\:justify-center {
-    justify-content: center;
   }
 
   .\32xl\:gap-4 {
