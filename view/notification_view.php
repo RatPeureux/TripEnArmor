@@ -6,6 +6,8 @@ $avisController = new avisController();
 $avis = $avisController->getAvisByIdPro($_SESSION['id_pro']);
 
 if ($avis && count($avis) !== 0) {
+    foreach($avis as $avi) {
+        print_r($avi);
 ?>
 <div class="h-full p-2">
     <!-- lien vers l'offre -->
@@ -24,10 +26,10 @@ if ($avis && count($avis) !== 0) {
     <hr />
 </div>
 <?php
-} else {
+}} else {
 ?>
 <div class="h-full p-2">
-    <p class="text-xl">
+    <p class="text-xl text-center">
         Vous n'avez aucune notification.
     </p>
 </div>
