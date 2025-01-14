@@ -196,12 +196,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
         $imageController = new ImageController();
 
-        // *** CARTE
+        // *** CARTE Parc Attraction
         if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
             echo "Erreur lors de l'upload de l'image de la carte.";
             BDD::rollbackTransaction();
             exit;
+        }
 
+        if (!$imageController->uploadImage($id_offre, 'carte-resto', $_FILES['photo-resto']['tmp_name'], explode('/', $_FILES['photo-resto']['type'])[1])) {
+            echo "Erreur lors de l'upload de l'image de la carte du restaurant.";
+            BDD::rollbackTransaction();
+            exit;   
         }
 
         // *** DETAIL

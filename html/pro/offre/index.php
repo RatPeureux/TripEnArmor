@@ -509,13 +509,21 @@ session_start();
                                     switch ($categorie_offre) {
                                         case 'restauration':
 
-                                            // VALEUR TEST CAR PAS DANS LA BDD
-                                    
                                             ?>
                                             <div class="text-small flex flex-row">
                                                 <p class="text-small">Repas servis&nbsp:&nbsp</p>
                                                 <p><?php echo $tags_type_repas ?></p>
                                             </div>
+                                            <?php
+                                            if ($images) {
+                                                ?>
+                                                <img src="/public/images/offres/<?php echo $images['carte-resto']; ?>" alt="">
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <p class="text-small">Aucune carte pour le restaurant.</p>
+                                                <?php
+                                            } ?>
                                             <?php
                                             break;
 
@@ -716,8 +724,7 @@ session_start();
                                                 <!-- Note globale donnée (pour toutes les offres) -->
                                                 <div>
                                                     <label for="note_globale">Note globale</label>
-                                                    <select name="note_globale" id="note_globale" class="p-1 "
-                                                        required>
+                                                    <select name="note_globale" id="note_globale" class="p-1 " required>
                                                         <option value="" selected disabled>...</option>
                                                         <option value="0">0</option>
                                                         <option value="0.5">0,5</option>
@@ -738,8 +745,7 @@ session_start();
                                                 if ($categorie_offre == 'restauration') { ?>
                                                     <div>
                                                         <label for="note_ambiance">Ambiance</label>
-                                                        <select name="note_ambiance" id="note_ambiance" class="p-1 "
-                                                            required>
+                                                        <select name="note_ambiance" id="note_ambiance" class="p-1 " required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
                                                             <option value="0.5">0,5</option>
@@ -757,8 +763,7 @@ session_start();
 
                                                     <div>
                                                         <label for="note_service">Service</label>
-                                                        <select name="note_service" id="note_service" class="p-1 "
-                                                            required>
+                                                        <select name="note_service" id="note_service" class="p-1 " required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
                                                             <option value="0.5">0,5</option>
@@ -776,8 +781,7 @@ session_start();
 
                                                     <div>
                                                         <label for="note_cuisine">Cuisine</label>
-                                                        <select name="note_cuisine" id="note_cuisine" class="p-1 "
-                                                            required>
+                                                        <select name="note_cuisine" id="note_cuisine" class="p-1 " required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
                                                             <option value="0.5">0,5</option>
@@ -795,8 +799,7 @@ session_start();
 
                                                     <div>
                                                         <label for="note_rapport">Rapport qualité / prix</label>
-                                                        <select name="note_rapport" id="note_rapport" class="p-1 "
-                                                            required>
+                                                        <select name="note_rapport" id="note_rapport" class="p-1 " required>
                                                             <option value="" selected disabled>...</option>
                                                             <option value="0">0</option>
                                                             <option value="0.5">0,5</option>
@@ -826,8 +829,7 @@ session_start();
                                                 <!-- Contexte de passage -->
                                                 <div>
                                                     <label for="contexte_passage">Contexte de passage</label>
-                                                    <select name="contexte_passage" id="contexte_passage" class="p-1 "
-                                                        required>
+                                                    <select name="contexte_passage" id="contexte_passage" class="p-1 " required>
                                                         <option value="" selected disabled>...</option>
                                                         <option value="en solo">en solo</option>
                                                         <option value="en couple">en couple</option>
