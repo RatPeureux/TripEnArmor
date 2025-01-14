@@ -2678,6 +2678,18 @@ input[type="checkbox"]:checked:before {
     display: none;
   }
 
+  .xl\:max-w-7xl {
+    max-width: 80rem;
+  }
+
+  .xl\:flex-row {
+    flex-direction: row;
+  }
+
+  .xl\:flex-col {
+    flex-direction: column;
+  }
+
   .xl\:opacity-0 {
     opacity: 0;
   }
