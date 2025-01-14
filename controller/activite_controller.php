@@ -14,6 +14,8 @@ class ActiviteController
     {
         $activite = $this->model::getAllActivite();
 
+        $this->model::log("Toutes les activités ont été lues.");
+
         return $activite;
     }
 
@@ -35,6 +37,8 @@ class ActiviteController
             "prestations" => $activite["prestations"]
         ];
 
+        $this->model::log("Les informations de l'activité $id ont été lues.");
+
         return $res;
     }
 
@@ -42,13 +46,15 @@ class ActiviteController
     {
         $activite = $this->model::createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations);
 
+        $this->model::log("Une nouvelle activité a été créée.");
+
         return $activite;
     }
 
     public function updateActivite($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $duree = false, $age_requis = false, $prestations = false)
     {
         if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $duree === false && $age_requis === false && $prestations === false) {
-            echo "ERREUR : Aucun champ à modifier";
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $activite = $this->model::getActiviteById($id);
@@ -68,6 +74,7 @@ class ActiviteController
                 $prestations !== false ? $prestations : $activite["prestations"]
             );
 
+            $this->model::log("L'activité $id a été modifiée.");
             return $res;
         }
     }
@@ -76,6 +83,7 @@ class ActiviteController
     {
         $activite = $this->model::deleteActivite($id);
 
+        $this->model::log("L'activité $id a été supprimée.");
         return $activite;
     }
 
@@ -98,6 +106,7 @@ class ActiviteController
             $activite["prestations"]
         );
 
+        $this->model::log("L'activité $id a été mise en ligne.");
         return $res;
     }
 }

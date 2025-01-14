@@ -256,10 +256,12 @@ $pro = verifyPro();
 				// echo "Image du plan insérée.<br>";
 			}
 
-			if (!$imageController->uploadImage($id_offre, 'carte-resto', $_FILES['photo-resto']['tmp_name'], explode('/', $_FILES['photo-resto']['type'])[1])) {
-				echo "Erreur lors de l'upload de l'image de la carte du restaurant.";
-				BDD::rollbackTransaction();
-				exit;
+			if ($activityType === 'restauration') {
+				if (!$imageController->uploadImage($id_offre, 'photo-resto', $_FILES['photo-resto']['tmp_name'], explode('/', $_FILES['photo-resto']['type'])[1])) {
+					echo "Erreur lors de l'upload de l'image de la carte du restaurant.";
+					BDD::rollbackTransaction();
+					exit;
+				}
 			}
 
 			if ($activityType === 'visite' && $avec_guide) {

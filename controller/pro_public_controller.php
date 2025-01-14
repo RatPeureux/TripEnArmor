@@ -13,11 +13,15 @@ class ProPublicController
     public function createProPublic($email, $mdp, $tel, $adresseId, $nom_pro, $type_orga)
     {
         $proPublicID = $this->model::createProPublic($email, $mdp, $tel, $adresseId, $nom_pro, $type_orga);
+
+        $this->model::log("Un professionnel public a été créé.");
         return $proPublicID;
     }
     public function getInfosProPublic($id)
     {
         $result = $this->model::getProPublicById($id);
+
+        $this->model::log("Les informations du professionnel public $id ont été lues.");
         return $result;
     }
 
@@ -28,9 +32,11 @@ class ProPublicController
         if ($proPrive) {
             $result = $proPrive["mdp_hash"];
         } else {
+            $this->model::log("Le mot de passe du professionnel public $id n'a pas été trouvé.");
             return false;
         }
 
+        $this->model::log("Le mot de passe du professionnel public $id a été lu.");
         return $result;
     }
 
@@ -39,7 +45,7 @@ class ProPublicController
     public function updateProPublic($id, $email = false, $mdp = false, $tel = false, $adresseId = false, $nom_pro = false, $type_orga = false)
     {
         if ($email === false && $mdp === false && $tel === false && $adresseId === false && $nom_pro === false && $type_orga === false) {
-            echo "ERREUR: Aucun champ à modifier";
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $proPublic = $this->model::getProPublicById($id);
@@ -53,6 +59,7 @@ class ProPublicController
                 $nom_pro !== false ? $nom_pro : $proPublic["nom_pro"],
                 $type_orga !== false ? $type_orga : $proPublic["type_orga"]
             );
+            $this->model::log("Les informations du professionnel public $id ont été modifiées.");
             return $updatedProPublicId;
         }
     }
@@ -61,6 +68,7 @@ class ProPublicController
     {
         $proPublic = $this->model::deleteProPublic($id);
 
+        $this->model::log("Le professionnel public $id a été supprimé.");
         return $proPublic;
     }
 }

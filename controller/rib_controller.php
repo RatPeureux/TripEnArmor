@@ -22,6 +22,7 @@ class RibController
             "cle" => $rib["cle"]
         ];
 
+        $this->model::log("Les informations du rib $id ont été lues.");
         return $res;
     }
 
@@ -29,13 +30,14 @@ class RibController
     {
         $rib = $this->model::createRib($code_banque, $code_guichet, $numero_compte, $cle);
 
+        $this->model::log("Un rib a été créé.");
         return $rib;
     }
 
     public function updateRib($id, $code_banque = false, $code_guichet = false, $numero_compte = false, $cle = false)
     {
         if ($code_guichet === false && $numero_compte === false && $cle === false) {
-            echo "ERREUR : Aucun champ à modifier";
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $rib = $this->model::getRibById($id);
@@ -48,6 +50,7 @@ class RibController
                 $cle !== false ? $cle : $rib["cle"]
             );
 
+            $this->model::log("Les informations du rib $id ont été modifiées.");
             return $res;
         }
     }
@@ -56,6 +59,7 @@ class RibController
     {
         $rib = $this->model::deleteRib($id);
 
+        $this->model::log("Le rib $id a été supprimé.");
         return $rib;
     }
 }

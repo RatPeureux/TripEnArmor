@@ -14,10 +14,13 @@ class FactureController
 
     public function getFactureByNumero($numero_facture)
     {
+        $this->model::log("Les informations de la facture $numero_facture ont été lues.");
         return $this->model::getFactureByNumero($numero_facture);
     }
 
-    public function getAllFactures() {
+    public function getAllFactures()
+    {
+        $this->model::log("Toutes les factures ont été lues.");
         return $this->model::getAllFactures();
     }
 
@@ -28,13 +31,14 @@ class FactureController
 
     public function createFacture($date_echeance, $date_emission, $id_offre)
     {
+        $this->model::log("Une facture a été créée.");
         return $this->model::createFacture($date_echeance, $date_emission, $id_offre);
     }
 
     public function updateFacture($numero_facture, $date_echeance, $date_emission)
     {
         if ($date_echeance === false && $date_emission === false) {
-            echo "ERREUR: Aucun champ à modifier";
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $facture = $this->model::getFactureByNumero($numero_facture);
@@ -44,6 +48,7 @@ class FactureController
                 $date_echeance == false ? $facture["date_echeance"] : $date_echeance,
                 $date_emission == false ? $facture["date_emission"] : $date_emission,
             );
+            $this->model::log("Les informations de la facture $numero_facture ont été modifiées.");
             return $updatedFacture;
         }
     }
