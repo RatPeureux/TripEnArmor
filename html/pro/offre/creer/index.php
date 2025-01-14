@@ -1410,7 +1410,7 @@ $pro = verifyPro();
 												previewPostalCode.textContent = postalCode.value ? postalCode.value : postalCode.placeholder
 
 												document.getElementById("user_input_autocomplete_address")
-													.addEventListener("Input", function () {
+													.addEventListener("input", function () {
 														previewLocality.textContent =
 															locality.value ? locality.value : locality.placeholder;
 														previewPostalCode.textContent =

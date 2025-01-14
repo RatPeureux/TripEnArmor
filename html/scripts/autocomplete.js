@@ -40,16 +40,9 @@ function fillInAddress() {
     }
 
     // Remplir les informations dansl les champs
-    console.log("In fillInAddress");
     document.querySelector("#user_input_autocomplete_address").value = address1.trim(); // Remplit le champ d'adresse
     document.querySelector("#locality").value = locality; // Remplit le champ de ville
-    console.log(document.getElementById('preview-locality'))
-    document.getElementById('preview-locality').innerHTML = locality;
-    console.log(document.getElementById('preview-locality'))
     document.querySelector("#postal_code").value = postalCode; // Remplit le champ de code postal
-    console.log(document.getElementById('postal_code'))
-    document.getElementById('preview-postal_code').textContent = postalCode;
-    console.log(document.getElementById('postal_code'))
 }
 
 google.maps.event.addDomListener(window, 'load', function () {
