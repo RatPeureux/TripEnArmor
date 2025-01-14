@@ -14,6 +14,8 @@ class ActiviteController
     {
         $activite = $this->model::getAllActivite();
 
+        $this->model::log("Toutes les activités ont été lues.");
+
         return $activite;
     }
 
@@ -35,12 +37,16 @@ class ActiviteController
             "prestations" => $activite["prestations"]
         ];
 
+        $this->model::log("Les informations de l'activité $id ont été lues.");
+
         return $res;
     }
 
     public function createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations)
     {
         $activite = $this->model::createActivite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $age_requis, $prestations);
+
+        $this->model::log("Une nouvelle activité a été créée.");
 
         return $activite;
     }
@@ -68,6 +74,7 @@ class ActiviteController
                 $prestations !== false ? $prestations : $activite["prestations"]
             );
 
+            $this->model::log("L'activité $id a été modifiée.");
             return $res;
         }
     }
@@ -76,6 +83,7 @@ class ActiviteController
     {
         $activite = $this->model::deleteActivite($id);
 
+        $this->model::log("L'activité $id a été supprimée.");
         return $activite;
     }
 
@@ -98,6 +106,7 @@ class ActiviteController
             $activite["prestations"]
         );
 
+        $this->model::log("L'activité $id a été mise en ligne.");
         return $res;
     }
 }

@@ -115,7 +115,7 @@
     </div>
 
     <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
-        <div class="w-full flex justify-center gap-10 text-center mb-2">
+        <div class="w-full flex justify-center gap-10 text-center">
             <img src="public/images/plumeGN.png" alt=""
                 class="h-full hidden md:flex max-h-[170px] space-x-2 pb-1 -rotate-[20deg]">
             <a href="/"
@@ -178,7 +178,8 @@
         </div>
 
         <a class="cursor-pointer group" href="/offres/a-la-une">
-            <h1 class="text-h1 ">À la Une<span class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
+            <h1 class="text-h1 ">À la Une<span
+                    class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
         </a>
 
         <?php
