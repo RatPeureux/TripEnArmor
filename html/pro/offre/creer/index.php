@@ -1405,7 +1405,7 @@ $pro = verifyPro();
 													document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
 												document
 													.getElementById("locality")
-													.addEventListener("input", function () {
+													.addEventListener("change", function () {
 														document.getElementById(
 															"preview-locality"
 														).textContent =
@@ -1421,7 +1421,7 @@ $pro = verifyPro();
 													document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder
 												document
 													.getElementById("postal_code")
-													.addEventListener("input", function () {
+													.addEventListener("change", function () {
 														document.getElementById(
 															"preview-postal_code"
 														).textContent =
