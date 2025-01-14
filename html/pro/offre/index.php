@@ -324,10 +324,10 @@ session_start();
                     <?php if ($images['details']) { ?>
                         <div class="flex items-center gap-8 justify-center">
                             <a
-                                class="swiper-button-prev group flex justify-center items-center border border-solid  !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
                                 ‹</a>
                             <a
-                                class="swiper-button-next group flex justify-center items-center border border-solid  !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
                                 ›</a>
                         </div>
                         <?php
@@ -338,12 +338,41 @@ session_start();
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="space-y-2 px-2 md:px-0 w-full">
-                    <div class="flex flex-col md:flex-row w-full">
+                    <div class="flex flex-col justify-between md:flex-row w-full">
                         <div class="flex flex-col md:flex-row">
                             <h1 class="text-h1 "><?php echo $offre['titre'] ?></h1>
                             <p class="hidden text-h1 md:flex md:pt-1">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-h1 md:pt-1"><?php echo $nom_pro ?></p>
                         </div>
+                        <?php
+                                    // Moyenne des notes quand il y en a une
+                                    if ($moyenne) { ?>
+                                        <div class="flex gap-1">
+                                            <div class="flex gap-1 shrink-0">
+                                                <?php for ($i = 0; $i < 5; $i++) {
+                                                    if ($moyenne > 1) {
+                                                        ?>
+                                                        <img class="w-4" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
+                                                        <?php
+                                                    } else if ($moyenne > 0) {
+                                                        ?>
+                                                            <img class="w-4" src="/public/icones/oeuf_moitie.svg"
+                                                                alt="0.5 point de note">
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                            <img class="w-4" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                                                        <?php
+                                                    }
+                                                    $moyenne--;
+                                                }
+                                                ?>
+                                            </div>
+                                            <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
                     </div>
                     <?php if ($ouvert == true) {
                         ?>
@@ -638,35 +667,6 @@ session_start();
 
                                 <div class="w-full flex justify-between">
                                     <h3 class="text-h4 ">Avis</h3>
-                                    <?php
-                                    // Moyenne des notes quand il y en a une
-                                    if ($moyenne) { ?>
-                                        <div class="flex gap-1">
-                                            <div class="flex gap-1 shrink-0">
-                                                <?php for ($i = 0; $i < 5; $i++) {
-                                                    if ($moyenne > 1) {
-                                                        ?>
-                                                        <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-                                                        <?php
-                                                    } else if ($moyenne > 0) {
-                                                        ?>
-                                                            <img class="w-3" src="/public/icones/oeuf_moitie.svg"
-                                                                alt="0.5 point de note">
-                                                        <?php
-                                                    } else {
-                                                        ?>
-                                                            <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-                                                        <?php
-                                                    }
-                                                    $moyenne--;
-                                                }
-                                                ?>
-                                            </div>
-                                            <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
                                 </div>
 
                                 <?php
