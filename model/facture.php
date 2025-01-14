@@ -11,21 +11,21 @@ class Facture extends BDD
      * @param int $id L'identifiant de la facture à récupérer.
      * @return array|int Retourne un tableau contenant les données de la facture ou -1 en cas d'erreur.
      */
-    static function getFactureById($numero)
+    static function getFactureByNumero($numero_facture)
     {
         self::initBDD();
         // Requête SQL pour sélectionner une facture par son ID
-        $query = "SELECT * FROM " . self::$nom_table . " WHERE numero = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE numero_facture = ?";
 
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
-        $statement->bindParam(1, var: $numero);
+        $statement->bindParam(1, var: $numero_facture);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+            return $statement->fetch(PDO::FETCH_ASSOC);
         } else {
-            echo "ERREUR : Impossible d'obtenir cette facture";
+            echo "ERREUR : Impossible d'obtenir la facture avec le numéro $numero_facture";
             return -1;
         }
     }
@@ -59,7 +59,7 @@ class Facture extends BDD
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            echo "ERREUR : Impossible d'obtenir cette facture";
+            echo "ERREUR : Impossible d'obtenir les factures de l'offre d'identifiant n°$id_offre";
             return -1;
         }
     }
@@ -81,7 +81,7 @@ class Facture extends BDD
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['numero'];
+            return $statement->fetch(PDO::FETCH_ASSOC)['numero'];
         } else {
             echo "ERREUR : Impossible de créer la facture";
             return -1;
