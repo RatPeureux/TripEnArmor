@@ -20,7 +20,7 @@ if ($avis && count($avis) !== 0) {
         <div class="flex justify-end">
             <?php
             // Note s'il y en a une
-            $note = floatval($avis['note']);
+            $note = floatval($avi['note']);
             for ($i = 0; $i < 5; $i++) {
                 if ($note >= 1) {
                     ?>
