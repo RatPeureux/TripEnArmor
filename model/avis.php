@@ -24,7 +24,7 @@ class Avis extends BDD
     {
         self::initBDD();
         // Obtenir l'ensembre des offres du professionnel identifié
-        $stmt = self::$db->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro");
+        $stmt = self::$db->prepare("SELECT id_offre FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro");
         $stmt->bindParam(':id_pro', $id_pro);
         $stmt->execute();
         $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -33,6 +33,7 @@ class Avis extends BDD
 
         $tousMesAvis = [];
         foreach ($toutesMesOffres as $offre) {
+            print_r($offre);
             $tousMesAvis = array_merge($tousMesAvis, self::getAvisByIdOffre($offre['id_offre']));
         }
 
@@ -48,13 +49,16 @@ class Avis extends BDD
 
     static function getAvisByIdOffre($idOffre)
     {
+        print_r($idOffre);
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $idOffre);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            print_r($result);
+            return $result
         } else {
             echo "ERREUR: Impossible d'obtenir cet avis";
             return false;
