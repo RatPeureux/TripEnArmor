@@ -54,7 +54,7 @@ class ActiviteController
     public function updateActivite($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $duree = false, $age_requis = false, $prestations = false)
     {
         if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $duree === false && $age_requis === false && $prestations === false) {
-            echo "ERREUR : Aucun champ à modifier";
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $activite = $this->model::getActiviteById($id);
