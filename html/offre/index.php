@@ -532,6 +532,17 @@ session_start();
                                                 <p><?php echo $tags_type_repas ?></p>
                                             </div>
                                             <?php
+                                            if ($images) {
+                                                ?>
+                                                <img src="/public/images/offres/<?php echo $images['carte-resto']; ?>" alt=""
+                                                    class="max-h-[400px] max-w-[350px] md:max-w-[500px]">
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <p class="text-small">Aucune carte pour le restaurant.</p>
+                                                <?php
+                                            } ?>
+                                            <?php
                                             break;
 
                                         case 'activite':
