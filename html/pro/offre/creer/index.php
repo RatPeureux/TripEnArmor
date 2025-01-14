@@ -1401,43 +1401,31 @@ $pro = verifyPro();
 											<!-- Mise à jour du code postal en temps réel -->
 											<p class="text-small" id="preview-postal_code"></p>
 											<script>
-												document.getElementById(
-													"preview-locality"
-												).textContent =
-													document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
-												document.getElementById(
-													"preview-postal_code"
-												).textContent =
-													document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder
+												const previewLocality = document.getElementById("preview-locality");
+												const previewPostalCode = document.getElementById("preview-postal_code");
+												const locality = document.getElementById("locality");
+												const postalCode = document.getElementById("postal_code");
+
+												previewLocality.textContent = locality.value ? locality.value : locality.placeholder
+												previewPostalCode.textContent = postalCode.value ? postalCode.value : postalCode.placeholder
 
 												document.getElementById("user_input_autocomplete_address")
-												.addEventListener("change", function () {
-														document.getElementById(
-															"preview-locality"
-														).textContent =
-															document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder;
-														document.getElementById(
-															"preview-postal_code"
-														).textContent =
-															document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder;
-												})
+													.addEventListener("change", function () {
+														previewLocality.textContent =
+															locality.value ? locality.value : locality.placeholder;
+														previewPostalCode.textContent =
+															postalCode.value ? postalCode.value : postalCode.placeholder;
+													})
 
-												document
-													.getElementById("locality")
-													.addEventListener("change", function () {
-														document.getElementById(
-															"preview-locality"
-														).textContent =
-															document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder;
-													});
-												document
-													.getElementById("postal_code")
-													.addEventListener("change", function () {
-														document.getElementById(
-															"preview-postal_code"
-														).textContent =
-															document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder;
-													});
+												locality.addEventListener("change", function () {
+													previewLocality.textContent =
+														locality.value ? locality.value : locality.placeholder;
+												});
+
+												postalCode.addEventListener("change", function () {
+													previewPostalCode.textContent =
+														postalCode.value ? postalCode.value : postalCode.placeholder;
+												});
 											</script>
 										</div>
 										<!-- Résumé de l'offre -->
