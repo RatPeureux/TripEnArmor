@@ -119,7 +119,7 @@ if (!function_exists('chaineVersMot')) {
     }
     ?>
 
-    <main class="mx-10 self-center w-full grow p-2 flex flex-col 2xl:flex-row gap-4">
+    <main class="mx-10 self-center w-full grow p-2 flex flex-col 2xl:flex-row 2xl:gap-4">
         <!-- TOUTES LES OFFRES (offre & détails) -->
         <div class=" w-full xl:max-w-7xl flex-shrink-0 grow tablette p-4 flex flex-col">
 

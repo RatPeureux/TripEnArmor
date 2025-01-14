@@ -2723,6 +2723,10 @@ input[type="checkbox"]:checked:before {
   .\32xl\:flex-row {
     flex-direction: row;
   }
+
+  .\32xl\:gap-4 {
+    gap: 1rem;
+  }
 }
 
 .peer:checked ~ .rtl\:peer-checked\:after\:-translate-x-full:where([dir="rtl"], [dir="rtl"] *)::after {
