@@ -21,6 +21,7 @@ class LangueController
             "nom" => $langue["nom"]
         ];
 
+        $this->model::log("Les informations de la langue $id ont été lues.");
         return $result;
     }
 
@@ -33,10 +34,13 @@ class LangueController
             "nom" => $langue["nom"]
         ];
 
+        $this->model::log("Les informations de la langue $name ont été lues.");
         return $result;
     }
 
-    public function getInfosAllLangues() {
+    public function getInfosAllLangues()
+    {
+        $this->model::log("Toutes les langues ont été lues.");
         return $this->model::getLangues();
     }
 }

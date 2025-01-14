@@ -25,6 +25,7 @@ class TarifPublicController
             ];
         }
 
+        $this->model::log("Les tarifs de l'offre $id_offre ont été lus.");
         return $result;
     }
 
@@ -38,19 +39,21 @@ class TarifPublicController
             "id_offre" => $tarifPublic["id_offre"],
         ];
 
+        $this->model::log("Les informations du tarif $id ont été lues.");
         return $result;
     }
 
     public function createTarifPublic($titre_tarif, $prix, $id_offre)
     {
         $tarifPublicID = $this->model::createTarifPublic($titre_tarif, $prix, $id_offre);
+        $this->model::log("Un tarif public a été créé.");
         return $tarifPublicID;
     }
 
     public function updateTarifPublic($id, $titre_tarif = false, $prix = false, $id_offre = false)
     {
         if ($titre_tarif === false && $prix === false && $id_offre === false) {
-            echo "ERREUR: Aucun champ à modifier";
+            $this->model::log("Aucune information à mettre à jour.");
             return -1;
         } else {
             $tarifPublic = $this->model::getTarifPublicById($id);
@@ -61,6 +64,7 @@ class TarifPublicController
                 $prix !== false ? $prix : $tarifPublic["prix"],
                 $id_offre !== false ? $id_offre : $tarifPublic["id_offre"]
             );
+            $this->model::log("Les informations du tarif $id ont été mises à jour.");
             return $updatedTarifPublicId;
         }
     }

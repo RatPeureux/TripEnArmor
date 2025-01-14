@@ -14,6 +14,8 @@ class RestaurationController
     public function getInfosRestauration($id)
     {
         $result = $this->model::getRestaurationById($id);
+
+        $this->model::log("Les informations de la restauration $id ont été lues.");
         return $result;
     }
 
@@ -35,13 +37,14 @@ class RestaurationController
         }
         $restauration = $this->model::createRestauration($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix);
 
+        $this->model::log("Une restauration a été créée.");
         return $restauration;
     }
 
     public function updateRestauration($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $gamme_prix = false, $id_type_repas = false)
     {
         if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $gamme_prix === false && $id_type_repas === false) {
-            echo "ERREUR : Aucun champ à modifier";
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $restauration = $this->model::getRestaurationById($id);
@@ -60,6 +63,7 @@ class RestaurationController
                 $id_type_repas !== false ? $id_type_repas : $restauration["id_type_repas"]
             );
 
+            $this->model::log("Les informations de la restauration $id ont été modifiées.");
             return $res;
         }
     }
@@ -68,6 +72,7 @@ class RestaurationController
     {
         $restauration = $this->model::deleteRestauration($id);
 
+        $this->model::log("La restauration $id a été supprimée.");
         return $restauration;
     }
 
@@ -89,6 +94,7 @@ class RestaurationController
             $restauration["id_type_repas"]
         );
 
+        $this->model::log("Les informations de la restauration $id ont été modifiées.");
         return $res;
     }
 }

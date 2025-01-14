@@ -42,4 +42,10 @@ abstract class BDD
     {
         self::$db->rollBack();
     }
+
+    static public function log($message)
+    {
+        $timestamp = date('Y-m-d H:i:s');
+        file_put_contents(dirname($_SERVER['DOCUMENT_ROOT']) . '/traitement.log', "[$timestamp] : $message" . PHP_EOL, FILE_APPEND);
+    }
 }

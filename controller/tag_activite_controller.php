@@ -21,6 +21,7 @@ class TagActiviteController
             "id_tag" => $tag["id_tag"]
         ];
 
+        $this->model::log("Les informations du tag $id ont été lues.");
         return $res;
     }
 }

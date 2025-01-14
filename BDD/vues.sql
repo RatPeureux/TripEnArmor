@@ -23,13 +23,6 @@ select id_offre, nom
 from _offre
     join _type_offre on _type_offre.id_type_offre = _offre.id_type_offre;
 
--- vue de la facture avec les montants totaux
-CREATE OR REPLACE VIEW vue_facture_totaux AS
-SELECT numero AS "Numéro de Facture", SUM(quantite * prix_unitaire_HT) AS "Total HT (â‚¬)", SUM(quantite * prix_unitaire_TTC) AS "Total TTC (â‚¬)"
-FROM _facture
-GROUP BY
-    numero;
-
 --------------------------------------------------------------------- Moyenne des notes pour chaque offre (id_offre)
 CREATE OR REPLACE VIEW vue_moyenne AS
 SELECT _offre.id_offre, AVG(_avis.note), COUNT(_avis.note)

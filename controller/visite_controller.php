@@ -28,19 +28,21 @@ class VisiteController
             "avec_guide" => $visite["avec_guide"]
         ];
 
+        $this->model::log("Les informations de la visite $id ont été lues.");
         return $res;
     }
 
     public function createVisite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $avec_guide)
     {
         $visite = $this->model::createVisite($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $duree, $avec_guide);
+        $this->model::log("La visite $visite a été créée.");
         return $visite;
     }
 
     public function updateVisite($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $duree = false, $avec_guide = false)
     {
         if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $duree === false && $avec_guide === false) {
-            echo "ERREUR : Aucun champ à modifier";
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $visite = $this->model::getVisiteById($id);
@@ -59,6 +61,7 @@ class VisiteController
                 $avec_guide !== false ? $avec_guide : $visite["avec_guide"]
             );
 
+            $this->model::log("Les informations de la visite $id ont été modifiées.");
             return $res;
         }
     }
@@ -67,6 +70,7 @@ class VisiteController
     {
         $visite = $this->model::deleteVisite($id);
 
+        $this->model::log("La visite $id a été supprimée.");
         return $visite;
     }
 
@@ -88,6 +92,7 @@ class VisiteController
             $visite["avec_guide"]
         );
 
+        $this->model::log("La visite $id a été mise en ligne.");
         return $res;
     }
 }
