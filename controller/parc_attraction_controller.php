@@ -28,6 +28,7 @@ class ParcAttractionController
             "age_requis" => $parc_attraction["age_requis"]
         ];
 
+        $this->model::log("Les informations du parc d'attraction $id ont été lues.");
         return $res;
     }
 
@@ -35,13 +36,14 @@ class ParcAttractionController
     {
         $parc_attraction = $this->model::createParcAttraction($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age_requis);
 
+        $this->model::log("Un parc d'attraction a été créé.");
         return $parc_attraction;
     }
 
     public function updateParcAttraction($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $nb_attractions = false, $age_requis = false)
     {
         if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $nb_attractions === false && $age_requis === false) {
-            echo "ERREUR : Aucun champ à modifier";
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $parc_attraction = $this->model::getParcAttractionById($id);
@@ -60,6 +62,7 @@ class ParcAttractionController
                 $age_requis !== false ? $age_requis : $parc_attraction["age_requis"]
             );
 
+            $this->model::log("Les informations du parc d'attraction $id ont été modifiées.");
             return $res;
         }
     }
@@ -68,6 +71,7 @@ class ParcAttractionController
     {
         $parc_attraction = $this->model::deleteParcAttraction($id);
 
+        $this->model::log("Le parc d'attraction $id a été supprimé.");
         return $parc_attraction;
     }
 
@@ -89,6 +93,7 @@ class ParcAttractionController
             $parc_attraction["age_requis"]
         );
 
+        $this->model::log("Le parc d'attraction $id a été mis en ligne.");
         return $res;
     }
 }
