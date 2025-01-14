@@ -2686,6 +2686,10 @@ input[type="checkbox"]:checked:before {
     width: 100%;
   }
 
+  .xl\:w-\[80rem\] {
+    width: 80rem;
+  }
+
   .xl\:max-w-7xl {
     max-width: 80rem;
   }
