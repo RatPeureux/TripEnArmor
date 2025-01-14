@@ -12,18 +12,9 @@ class FactureController
         $this->model = 'Facture';
     }
 
-    public function getFacture($numero)
+    public function getFactureByNumero($numero_facture)
     {
-        $facture = $this->model::getFactureById($numero);
-
-        $result = [
-            "id_offre" => $facture["id_offre"],
-            "numero" => $facture["numero"],
-            "date_emission" => $facture["date_emission"],
-            "date_echeance" => $facture["date_echeance"],
-        ];
-
-        return $result;
+        return $this->model::getFactureByNumero($numero_facture);
     }
 
     public function getAllFactures() {
@@ -37,23 +28,21 @@ class FactureController
 
     public function createFacture($date_echeance, $date_emission, $id_offre)
     {
-        $factureID = $this->model::createFacture($date_echeance, $date_emission, $id_offre);
-        return $factureID;
+        return $this->model::createFacture($date_echeance, $date_emission, $id_offre);
     }
 
-    public function updateFacture($numero, $date_echeance, $date_emission, $id_offre)
+    public function updateFacture($numero_facture, $date_echeance, $date_emission)
     {
         if ($date_echeance === false && $date_emission === false) {
             echo "ERREUR: Aucun champ à modifier";
             return -1;
         } else {
-            $facture = $this->model::getFactureById($numero);
+            $facture = $this->model::getFactureByNumero($numero_facture);
 
             $updatedFacture = $this->model::updateFacture(
-                $numero,
+                $numero_facture,
                 $date_echeance == false ? $facture["date_echeance"] : $date_echeance,
                 $date_emission == false ? $facture["date_emission"] : $date_emission,
-                $id_offre == false ? $facture["id_offre"] : $id_offre
             );
             return $updatedFacture;
         }

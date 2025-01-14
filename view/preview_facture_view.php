@@ -1,35 +1,11 @@
 <!-- 
     POUR UTILISER LA VUE, définir les variables suivantes avant de l'appeler
-    $numero_facture
+    $id_offre
 -->
 
 <?php
 // CHARGER LES INFORAMTIONS DE LA FACTURE
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-// Les différentes lignes de la facture
-$stmt = $dbh->prepare("SELECT id_offre FROM sae_db._facture WHERE numero_facture = ?");
-$stmt->bindParam(1, $numero_facture);
-$stmt->execute();
-$id_offre = $stmt->fetch()['id_offre'];
-
-$stmt = $dbh->prepare("SELECT * FROM sae_db._facture NATURAL JOIN sae_db._ligne_facture_en_ligne WHERE numero_facture = ?");
-$stmt->bindParam(1, $numero_facture);
-$stmt->execute();
-$lignes_facture_en_ligne = $stmt->fetchAll();
-
-// totaux pour les périodes
-$HT_total_periodes = 0.00;
-$TTC_total_periodes = 0.00;
-
-$stmt = $dbh->prepare("SELECT * FROM sae_db._facture NATURAL JOIN sae_db._ligne_facture_option WHERE numero_facture = ?");
-$stmt->bindParam(1, $numero_facture);
-$stmt->execute();
-$lignes_facture_option = $stmt->fetchAll();
-
-// totaux pour les souscriptions
-$HT_total_souscriptions = 0.00;
-$TTC_total_souscriptions = 0.00;
 
 // L'offre et le pro concerné
 $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
@@ -47,10 +23,33 @@ $stmtAdresse = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :
 $stmtAdresse->bindParam(':id_adresse', $pro_details['id_adresse'], PDO::PARAM_INT);
 $stmtAdresse->execute();
 $adresse_details = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
+
+// Les paiements liés à l'offre
+$stmt = $dbh->prepare("SELECT * FROM sae_db.vue_periodes_en_ligne_du_mois WHERE id_offre = :id_offre");
+$stmt->bindParam(':id_offre', $id_offre);
+$stmt->execute();
+$periodes_en_ligne = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// totaux pour les périodes
+$HT_total_periodes = 0.00;
+$TTC_total_periodes = 0.00;
+
+$stmt = $dbh->prepare("SELECT * FROM sae_db.vue_souscription_offre_option_details_du_mois WHERE id_offre = :id_offre AND est_remboursee = false");
+$stmt->bindParam(':id_offre', $id_offre);
+$stmt->execute();
+$options_details = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// totaux pour les souscriptions
+$HT_total_souscriptions = 0.00;
+$TTC_total_souscriptions = 0.00;
+
+// Dates et numéro de facture
+$date_emission = date('d/m/Y');
+$date_echeance = date('01/m/Y', strtotime('first day of next month'));
 ?>
 
 <!-- FACTURE AVEC TOUS LES DETAILS -->
-<div id="facture-details" class="bg-white border border-black p-5 flex flex-col mx-auto my-5 gap-5 max-w-4xl">
+<div id="facture-details" class="border border-black p-5 flex flex-col mx-auto my-5 gap-5 max-w-4xl">
 
     <!-- En-tête -->
     <div class="flex flex-col justify-between">
@@ -90,7 +89,7 @@ $adresse_details = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
     <div class="flex flex-col gap-2">
         <h2 class="text-xl">Jours en ligne</h2>
 
-        <?php if (count($lignes_facture_en_ligne) > 0) { ?>
+        <?php if (count($periodes_en_ligne) > 0) { ?>
             <table class="w-full border-collapse border border-gray-300">
                 <thead class="bg-blue-200">
                     <tr>
@@ -109,40 +108,39 @@ $adresse_details = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($lignes_facture_en_ligne as $ligne_facture_en_ligne) {
-                        $HT_total_periodes += $ligne_facture_en_ligne['prix_total_ht'];
-                        $TTC_total_periodes += $ligne_facture_en_ligne['prix_total_ttc'];
+                    <?php foreach ($periodes_en_ligne as $periode_en_ligne) {
+                        $HT_total_periodes += $periode_en_ligne['prix_ht_total'];
+                        $TTC_total_periodes += $periode_en_ligne['prix_ttc_total'];
                         ?>
                         <tr class="text-center">
-                            <td class="border p-2 text-center">
-                                <?php echo htmlspecialchars($ligne_facture_en_ligne['type_offre']); ?></td>
+                            <td class="border p-2 text-center"><?php echo htmlspecialchars($periode_en_ligne['type_offre']); ?></td>
 
                             <td class="border p-2 text-center">
-                                <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_en_ligne['date_debut'])->format('d/m/y') ?>
+                                <?php echo DateTime::createFromFormat('Y-m-d', $periode_en_ligne['date_debut'])->format('d/m/y') ?>
                             </td>
                             <td class="border p-2 text-center">
-                                <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_en_ligne['date_fin'])->format('d/m/y') ?>
+                                <?php echo DateTime::createFromFormat('Y-m-d', $periode_en_ligne['date_fin'])->format('d/m/y') ?>
                             </td>
 
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['quantite'] ?></td>
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['unite'] ?></td>
+                            <td class="border p-2 text-center"><?php echo $periode_en_ligne['duree'] ?></td>
+                            <td class="border p-2 text-center"><?php echo 'jour' ?></td>
 
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['prix_unitaire_ht'] ?> € </td>
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['prix_total_ht'] ?> €</td>
+                            <td class="border p-2 text-center"><?php echo $periode_en_ligne['prix_ht'] ?> € </td>
+                            <td class="border p-2 text-center"><?php echo $periode_en_ligne['prix_ht_total'] ?> €</td>
 
                             <!-- TVA -->
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['tva'] ?>%</td>
+                            <td class="border p-2 text-center"><?php echo $periode_en_ligne['tva'] ?>%</td>
 
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['prix_unitaire_ttc'] ?> €</td>
+                            <td class="border p-2 text-center"><?php echo $periode_en_ligne['prix_ttc'] ?> €</td>
                             <td class="border p-2 text-center">
-                                <?php echo $ligne_facture_en_ligne['prix_total_ttc'] ?> €
+                                <?php echo $periode_en_ligne['prix_ttc_total'] ?> €
                             </td>
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
         <?php } else { ?>
-            <p>Aucun jour en ligne</p>
+            <p>Aucun jour en ligne pour le mois actuel</p>
         <?php } ?>
     </div>
 
@@ -150,7 +148,7 @@ $adresse_details = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
     <div class="flex flex-col gap-2">
         <h2 class="text-xl">Options</h2>
 
-        <?php if (count($lignes_facture_option) > 0) { ?>
+        <?php if (count($options_details) > 0) { ?>
             <table class="w-full border-collapse border border-gray-300">
                 <thead class="bg-blue-200">
                     <tr class="text-center">
@@ -169,38 +167,36 @@ $adresse_details = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($lignes_facture_option as $ligne_facture_option) {
-                        $HT_total_souscriptions += $ligne_facture_option['prix_total_ht'];
-                        $TTC_total_souscriptions += $ligne_facture_option['prix_total_ttc'];
+                    <?php foreach ($options_details as $option_details) {
+                        $HT_total_souscriptions += $option_details['prix_ht_total'];
+                        $TTC_total_souscriptions += $option_details['prix_ttc_total'];
                         ?>
                         <tr>
-                            <td class="border p-2 text-center"><?php echo htmlspecialchars($ligne_facture_option['nom_option']); ?>
-                            </td>
+                            <td class="border p-2 text-center"><?php echo htmlspecialchars($option_details['nom_option']); ?></td>
 
                             <td class="border p-2 text-center">
-                                <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_option['date_debut'])->format('d/m/y') ?>
+                                <?php echo DateTime::createFromFormat('Y-m-d', $option_details['date_lancement'])->format('d/m/y') ?>
                             </td>
                             <td class="border p-2 text-center">
-                                <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_option['date_fin'])->format('d/m/y') ?>
+                                <?php echo DateTime::createFromFormat('Y-m-d', $option_details['date_fin'])->format('d/m/y') ?>
                             </td>
 
-                            <td class="border p-2 text-center"><?php echo htmlspecialchars($ligne_facture_option['quantite']); ?>
-                            </td>
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['unite'] ?></td>
+                            <td class="border p-2 text-center"><?php echo htmlspecialchars($option_details['nb_semaines']); ?></td>
+                            <td class="border p-2 text-center"><?php echo 'semaine' ?></td>
 
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_unitaire_ht'] ?> €</td>
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_total_ht'] ?> €</td>
+                            <td class="border p-2 text-center"><?php echo $option_details['prix_ht'] ?> €</td>
+                            <td class="border p-2 text-center"><?php echo $option_details['prix_ht_total'] ?> €</td>
 
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['tva'] ?>%</td>
-
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_unitaire_ttc'] ?> €</td>
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_total_ttc'] ?> €</td>
+                            <td class="border p-2 text-center"><?php echo $option_details['tva'] ?>%</td>
+                            
+                            <td class="border p-2 text-center"><?php echo $option_details['prix_ttc'] ?> €</td>
+                            <td class="border p-2 text-center"><?php echo $option_details['prix_ttc_total'] ?> €</td>
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
         <?php } else { ?>
-            <p>Aucune souscription</p>
+            <p>Aucune souscription à une option pour le mois actuel</p>
         <?php } ?>
     </div>
 
