@@ -3,11 +3,9 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.p
 
 $avisController = new avisController();
 
-print_r($_SESSION);
-
 $avis = $avisController->getAvisByIdPro($_SESSION['id_pro']);
 
-if (count($avis) !== 0) {
+if ($avis && count($avis) !== 0) {
 ?>
 <div class="h-full p-2">
     <!-- lien vers l'offre -->
