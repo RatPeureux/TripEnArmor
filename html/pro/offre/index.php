@@ -360,34 +360,33 @@ session_start();
                             <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
                         </div>
                         <?php
-                                    // Moyenne des notes quand il y en a une
-                                    if ($moyenne) { ?>
-                                        <div class="flex gap-1">
-                                            <div class="flex gap-1 shrink-0">
-                                                <?php for ($i = 0; $i < 5; $i++) {
-                                                    if ($moyenne > 1) {
-                                                        ?>
-                                                        <img class="w-4" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-                                                        <?php
-                                                    } else if ($moyenne > 0) {
-                                                        ?>
-                                                            <img class="w-4" src="/public/icones/oeuf_moitie.svg"
-                                                                alt="0.5 point de note">
-                                                        <?php
-                                                    } else {
-                                                        ?>
-                                                            <img class="w-4" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-                                                        <?php
-                                                    }
-                                                    $moyenne--;
-                                                }
-                                                ?>
-                                            </div>
-                                            <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
-                                        </div>
-                                        <?php
+                        // Moyenne des notes quand il y en a une
+                        if ($moyenne) { ?>
+                            <div class="flex gap-1">
+                                <div class="flex gap-1 shrink-0">
+                                    <?php for ($i = 0; $i < 5; $i++) {
+                                        if ($moyenne > 1) {
+                                            ?>
+                                            <img class="w-4" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
+                                            <?php
+                                        } else if ($moyenne > 0) {
+                                            ?>
+                                                <img class="w-4" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
+                                            <?php
+                                        } else {
+                                            ?>
+                                                <img class="w-4" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                                            <?php
+                                        }
+                                        $moyenne--;
                                     }
                                     ?>
+                                </div>
+                                <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </div>
                     <?php if ($ouvert == true) {
                         ?>
@@ -1021,9 +1020,11 @@ session_start();
     </main>
 
     <!-- FOOTER -->
-    <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
-    ?>
+    <div class="w-full">
+        <?php
+        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+        ?>
+    </div>
 
     <script>
         // Configurer les flèches pour faire des dropdown menu stylés

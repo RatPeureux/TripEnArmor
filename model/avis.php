@@ -24,7 +24,7 @@ class Avis extends BDD
     {
         self::initBDD();
         // Obtenir l'ensembre des offres du professionnel identifié
-        $stmt = self::$db->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro");
+        $stmt = self::$db->prepare("SELECT id_offre FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro");
         $stmt->bindParam(':id_pro', $id_pro);
         $stmt->execute();
         $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);

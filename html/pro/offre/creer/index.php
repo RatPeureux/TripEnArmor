@@ -132,7 +132,7 @@ $pro = verifyPro();
 				BDD::rollbackTransaction();
 				exit;
 			}
-	
+
 			// Insérer l'offre dans la base de données
 			$prixMin = calculerPrixMin($prices);
 			$id_offre;
@@ -204,7 +204,7 @@ $pro = verifyPro();
 					BDD::rollbackTransaction();
 					exit;
 			}
-	
+
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
@@ -315,7 +315,7 @@ $pro = verifyPro();
 			foreach ($horaires as $key => $jour) {
 				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 			}
-	
+
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
 			$tarifController = new TarifPublicController();
