@@ -7,9 +7,8 @@ print_r($_SESSION);
 
 $avis = $avisController->getAvisByIdPro($_SESSION['id_pro']);
 
-print_r($avis);
+if (count($avis) !== 0) {
 ?>
-
 <div class="h-full p-2">
     <!-- lien vers l'offre -->
     <div class="w-full flex justify-between items-center">
@@ -26,3 +25,13 @@ print_r($avis);
     </p>
     <hr />
 </div>
+<?php
+} else {
+?>
+<div class="h-full p-2">
+    <p class="text-xl">
+        Vous n'avez aucune notification.
+    </p>
+</div>
+<?php
+}?>

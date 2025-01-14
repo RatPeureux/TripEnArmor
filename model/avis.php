@@ -29,17 +29,10 @@ class Avis extends BDD
         $stmt->execute();
         $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        print_r($toutesMesOffres);
-
         $tousMesAvis = [];
         foreach ($toutesMesOffres as $offre) {
-            print_r($offre['id_offre']);
-            $avis = self::getAvisByIdOffre($offre['id_offre']);
-            print_r($avis);
-            $tousMesAvis = array_merge($tousMesAvis, $avis);
+            $tousMesAvis = array_merge($tousMesAvis, self::getAvisByIdOffre($offre['id_offre']));
         }
-
-        print_r($tousMesAvis);
 
         if ($tousMesAvis) {
             return $tousMesAvis;
@@ -51,7 +44,6 @@ class Avis extends BDD
 
     static function getAvisByIdOffre($idOffre)
     {
-        print_r($idOffre);
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ?";
         $statement = self::$db->prepare($query);
