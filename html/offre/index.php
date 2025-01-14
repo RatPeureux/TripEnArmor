@@ -311,12 +311,6 @@ session_start();
                                 echo $categorie_offre . '.jpg';
                             } ?>' alt="image de slider">
                         </div>
-                        <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
-                                echo "offres/" . $images['carte'];
-                            } else {
-                                echo $categorie_offre . '.jpg';
-                            } ?>' alt="image de slider">
                         </div>
                         <?php
                         if ($images['details']) {
