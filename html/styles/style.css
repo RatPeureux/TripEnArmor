@@ -2686,6 +2686,11 @@ input[type="checkbox"]:checked:before {
 }
 
 @media (min-width: 1280px) {
+  .xl\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .xl\:block {
     display: block;
   }
@@ -2722,6 +2727,10 @@ input[type="checkbox"]:checked:before {
 @media (min-width: 1536px) {
   .\32xl\:flex-row {
     flex-direction: row;
+  }
+
+  .\32xl\:items-center {
+    align-items: center;
   }
 
   .\32xl\:gap-4 {
