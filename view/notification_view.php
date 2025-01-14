@@ -3,6 +3,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.p
 
 $avisController = new avisController();
 
+print_r($_SESSION);
+
 $avis = $avisController->getAvisByIdPro($_SESSION['id_pro']);
 
 print_r($avis);
