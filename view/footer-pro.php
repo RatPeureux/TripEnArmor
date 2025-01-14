@@ -2,43 +2,6 @@
     Composant du footer pour le pro
     Pour l'ajouter, écrier la balise <div id='footer'></div> dans votre code html
 -->
-<footer class="bg-secondary flex flex-col items-center text-white justify-center p-8 pb-16 md:pb-8">
-    <!-- Format ordinateur et tablette -->
-    <div class="text-center hidden sm:block">
-        <div>
-            <a href="/pro/pro/mentions" class="hover:text-primary">Mentions légales</a>
-            -
-            <a href="/pro/pro/cgu" class="hover:text-primary">CGU</a>
-            -
-            <a href="/pro/pro/cgv" class="hover:text-primary">CGV</a>
-            -
-            <a href="mailto:pact.tripenarvor@gmail.com" class="hover:text-primary">Contacter le support</a>
-            -
-            <a href="/pro/" class="hover:text-primary">Retour vers la PACT</a>
-        </div>
-        ©<?php echo date("Y"); ?>, <a href="/pro/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
-    </div>
-    <!-- Format téléphone -->
-    <div class="text-center block sm:hidden">
-        <div>
-            <a href="/pro/pro/mentions" class="hover:text-primary">Mentions légales</a>
-            -
-            <a href="/pro/pro/cgu" class="hover:text-primary">CGU</a>
-            -
-            <a href="/pro/pro/cgv" class="hover:text-primary">CGV</a>
-            -
-            <a href="mailto:pact.tripenarvor@gmail.com" class="hover:text-primary">Contacter le support</a>
-            -
-            <a href="/pro/" class="hover:text-primary">Retour vers la PACT</a>
-            -
-            ©<?php echo date("Y");?>, <a href="/pro/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
-        </div>
-    </div>
-</footer><!-- 
-    Composant du footer pour les visiteurs / membres
-    Pour l'ajouter, écrier la balise <div id='footer'></div> dans votre code html
-    (responsive)
--->
 <footer class="bg-secondary text-white p-8 pb-16 md:pb-8">
     <div class="mx-auto max-w-[1280px] flex flex-col justify-center items-center">
         <div class="hidden md:flex w-full items-center items-end justify-between">
@@ -74,6 +37,7 @@
                 <div class="flex flex-col md:hidden items-center justify-center">
                     <a href="/pro/mentions" class="hover:text-primary">Mentions légales</a>
                     <a href="/pro/cgu" class="hover:text-primary">Conditions générales d'utilisation</a>
+                    <a href="/pro/cgv" class="hover:text-primary">Conditions générales de ventes</a>
                     <a href="/pro/cgu" class="hover:text-primary">Politique en matière de cookies</a>
                 </div>
 
