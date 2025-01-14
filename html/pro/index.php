@@ -180,10 +180,13 @@ if (!function_exists('chaineVersMot')) {
             <?php } ?>
 
         </div>
-        <div class="w-full h-full xl:max-w-7xl grow border border-primary">
+        <div class="w-full h-full xl:max-w-7xl grow p-4 flex flex-col">
             <h2 class="text-h2">
                 Notifications
             </h2>
+            <div class="h-full bg-gray-500" >
+
+            </div>
         </div>
     </main>
 
