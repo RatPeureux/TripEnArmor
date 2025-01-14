@@ -8,53 +8,58 @@ $membreController = new MembreController();
 $avis = $avisController->getAvisByIdPro($_SESSION['id_pro']);
 
 if ($avis && count($avis) !== 0) {
-    foreach($avis as $avi) {
+    foreach ($avis as $avi) {
         // print_r($avi);
-?>
-<div class="h-full p-2">
-    <!-- lien vers l'offre -->
-    <div class="w-full flex justify-between items-center">
-        <h3 class="text-gray-600"><span class="text-black"><?php echo $avi['titre']; ?></span> posté par
-            <span class="text-black"><?php echo $membreController->getInfosMembre($avi['id_membre'])['pseudo']; ?></span> Il y a <span class="text-black"><?php echo $avi['date_publication']; ?></span>
-        </h3>
-        <div class="flex justify-end">
-            <?php
-            // Note s'il y en a une
-            $note = floatval($avi['note']);
-            for ($i = 0; $i < 5; $i++) {
-                if ($note >= 1) {
-                    ?>
-                    <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-                    <?php
-                } else if ($note > 0) {
-                    ?>
-                        <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
-                    <?php
-                } else {
-                    ?>
-                        <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-                    <?php
-                }
-                $note--;
-            }
-            ?>
-        </div>
-    </div>
-    <p>Vécu le <?php echo $avi['date_experience']; ?></p>
-    <p>
-        <?php
-            echo $avi['commentaire']
         ?>
-    </p>
-    <hr />
-</div>
-<?php
-}} else {
-?>
-<div class="h-full p-2">
-    <p class="text-xl text-center">
-        Vous n'avez aucune notification.
-    </p>
-</div>
-<?php
-}?>
+        <div class="h-full p-2">
+            <!-- lien vers l'offre -->
+            <a href='/scripts/go_to_details_pro.php?id_offre=<?php echo $avi['id_offre'] ?>'>
+                <div class="w-full flex justify-between items-center">
+                    <h3 class="text-gray-600"><span class="text-black"><?php echo $avi['titre']; ?></span> posté par
+                        <span
+                            class="text-black"><?php echo $membreController->getInfosMembre($avi['id_membre'])['pseudo']; ?></span>
+                        Il y a <span class="text-black"><?php echo $avi['date_publication']; ?></span>
+                    </h3>
+                    <div class="flex justify-end">
+                        <?php
+                        // Note s'il y en a une
+                        $note = floatval($avi['note']);
+                        for ($i = 0; $i < 5; $i++) {
+                            if ($note >= 1) {
+                                ?>
+                                <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
+                                <?php
+                            } else if ($note > 0) {
+                                ?>
+                                    <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
+                                <?php
+                            } else {
+                                ?>
+                                    <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                                <?php
+                            }
+                            $note--;
+                        }
+                        ?>
+                    </div>
+                </div>
+                <p>Vécu le <?php echo $avi['date_experience']; ?></p>
+                <p>
+                    <?php
+                    echo $avi['commentaire']
+                        ?>
+                </p>
+                <hr />
+            </a>
+        </div>
+        <?php
+    }
+} else {
+    ?>
+    <div class="h-full p-2">
+        <p class="text-xl text-center">
+            Vous n'avez aucune notification.
+        </p>
+    </div>
+    <?php
+} ?>
