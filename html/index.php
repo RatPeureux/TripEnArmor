@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/input.css">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/styles/config.js"></script>
+    <link rel="stylesheet" href="/styles/style.css">
 
     <script src="/scripts/filtersAndSorts.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
@@ -28,7 +25,7 @@
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true");
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
     $stmt = $dbh->prepare("
         select *
         from sae_db._souscription natural join sae_db._offre
@@ -66,7 +63,7 @@
 
     <div class="w-full flex flex-col justify-center items-center">
 
-        <header class="flex justify-between items-center z-30 w-full h-20 top-0 mx-auto max-w-[1280px] px-4">
+        <header class="flex justify-between items-center z-30 w-full h-16 top-0 mx-auto max-w-[1280px] px-4">
             <div class="flex items-center justify-between">
                 <!-- Menu Burger pour les petits écrans -->
                 <div class="flex items-center gap-4 md:hidden">
@@ -117,9 +114,13 @@
         </header>
     </div>
 
-    <main class="self-center align-center w-full grow  max-w-[1280px] p-2">
-        <div class="w-full text-center">
-            <a href="/" class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl mb-4">PACT</a>
+    <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
+        <div class="w-full flex justify-center gap-10 text-center mb-2">
+            <img src="public/images/plumeGN.png" alt=""
+                class="h-full hidden md:flex max-h-[170px] space-x-2 pb-1 -rotate-[20deg]">
+            <a href="/"
+                class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl ml-8 mb-4">PACT</a>
+            <img src="public/images/plumeDN.png" alt="" class="h-full max-h-[170px] hidden md:flex pb-1 rotate-[20deg]">
         </div>
 
         <div class="searchOn hidden md:flex justify-between text-center items-center mb-2">
@@ -144,7 +145,8 @@
         </div>
 
         <div class="searchOn text-center md:hidden mb-2">
-            <select class="text-center text-h3 bg-white border-b border-secondary p-1 cursor-pointer focus:outline-none" id="search-category">
+            <select class="text-center text-h3 bg-white border-b border-secondary p-1 cursor-pointer focus:outline-none"
+                id="search-category">
                 <option class="text-left" value="all">Tout rechercher</option>
                 <option class="text-left" value="restaurants">Restaurants</option>
                 <option class="text-left" value="spectacles">Spectacles</option>
@@ -164,8 +166,7 @@
                     <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
                 </div>
                 <!-- Bouton de suppression -->
-                <button
-                    class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white  px-2 py-1"
+                <button class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white  px-2 py-1"
                     id="clear-tags-btn">
                     <i class="text-xl fa-solid fa-times cursor-pointer"></i>
                 </button>
@@ -174,6 +175,28 @@
             <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10" id="search-menu">
             </div>
         </div>
+
+        <a class="cursor-pointer group" href="/offres/a-la-une">
+            <h1 class="text-h1 ">À la Une<span class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
+        </a>
+
+        <?php
+        // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
+        if (!$aLaUnes) { ?>
+            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-16">
+                <?php echo "<p class=' text-h2'>Il n'existe aucune offre...</p>"; ?>
+            </div>
+        <?php } else { ?>
+            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-0 md:mb-16" id="no-matches-2">
+                <?php $i = 0;
+                foreach ($aLaUnes as $offre) {
+                    if ($i > -1) {
+                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
+                        $i++;
+                    }
+                } ?>
+            </div>
+        <?php } ?>
 
         <h1 class="text-h1 ">Nos meilleures offres</h1>
 
@@ -211,7 +234,7 @@
 
                         if ($categorie && isset($categorie['type_offre'])) {
                             $typeOffre = $categorie['type_offre'];
-    
+
                             // Ajouter l'offre dans la catégorie correspondante si elle n'est pas encore définie
                             if (array_key_exists($typeOffre, $categoriesOrdre) && $categoriesOrdre[$typeOffre] === null) {
                                 $categoriesOrdre[$typeOffre] = $offre;
@@ -222,7 +245,7 @@
 
                 // Reconstituer $temp dans l'ordre des catégories
                 $temp = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-
+            
                 $meilleuresNotes = $temp;
 
                 $iOffres = 0;
@@ -231,28 +254,6 @@
                         require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
                     }
                     $iOffres++;
-                } ?>
-            </div>
-        <?php } ?>
-
-        <a class="cursor-pointer group" href="/offres/a-la-une">
-            <h1 class="text-h1 ">À la Une<span class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
-        </a>
-
-        <?php
-        // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
-        if (!$aLaUnes) { ?>
-            <div class="md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-16">
-                <?php echo "<p class=' text-h2'>Il n'existe aucune offre...</p>"; ?>
-            </div>
-        <?php } else { ?>
-            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-0 md:mb-16" id="no-matches-2">
-                <?php $i = 0;
-                foreach ($aLaUnes as $offre) {
-                    if ($i > -1) {
-                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_carroussel.php';
-                        $i++;
-                    }
                 } ?>
             </div>
         <?php } ?>
@@ -354,7 +355,7 @@
                 message.id = 'no-matches-message';
                 const content = document.createElement('p');
                 content.textContent = 'Aucune offre n\'est "À la Une".';
-                message.classList.add('flex', 'justify-center', 'items-center', 'text-h2', 'h-72');
+                message.classList.add('flex', 'justify-center', 'items-center', 'text-h2', 'h-[27rem]');
                 message.appendChild(content);
                 messageContainer.appendChild(message);
                 noMatchesContainer.appendChild(messageContainer);

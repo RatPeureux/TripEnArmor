@@ -235,13 +235,7 @@ $pro = verifyPro();
 			// Insérer les images dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
 			$imageController = new ImageController();
-
-			// *** CARTE
-			if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
-				echo "Erreur lors de l'upload de l'image de la carte.";
-				BDD::rollbackTransaction();
-				exit;
-			}
+			// echo"Image de la carte insérée.<br>";
 	
 			// *** DETAIL
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
@@ -259,6 +253,13 @@ $pro = verifyPro();
 					BDD::rollbackTransaction();
 					exit;
 				}
+				// echo "Image du plan insérée.<br>";
+			}
+
+			if (!$imageController->uploadImage($id_offre, 'carte-resto', $_FILES['photo-resto']['tmp_name'], explode('/', $_FILES['photo-resto']['type'])[1])) {
+				echo "Erreur lors de l'upload de l'image de la carte du restaurant.";
+				BDD::rollbackTransaction();
+				exit;
 			}
 
 			if ($activityType === 'visite' && $avec_guide) {
@@ -324,7 +325,7 @@ $pro = verifyPro();
 				$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
 			}
 			BDD::commitTransaction();
-	
+
 			// Insérer les options dans la base de données
 			if ($option == "A la une" || $option == "En relief") {
 				$prix_ht = $option == "A la une" ? 8.34 : 16.68;
@@ -532,16 +533,14 @@ $pro = verifyPro();
 								<!-- Titre -->
 								<div class="flex flex-col justify-center w-full">
 									<label for="titre" class="text-nowrap">Titre :</label>
-									<input type="text" id="titre"
-										class="border border-secondary  p-2 bg-white w-full" name="titre"
-										placeholder="Escapade En Arvor" required>
+									<input type="text" id="titre" class="border border-secondary  p-2 bg-white w-full"
+										name="titre" placeholder="Escapade En Arvor" required>
 								</div>
 
 								<!-- Auteur -->
 								<div class="flex flex-col w-full">
 									<label for="auteur" class="text-nowrap">Auteur :</label>
-									<p id="auteur"
-										class="border border-secondary  p-2 bg-gray-200 w-full text-gray-600">
+									<p id="auteur" class="border border-secondary  p-2 bg-gray-200 w-full text-gray-600">
 										<?php
 										if ($pro) {
 											echo $pro['nom_pro'];
@@ -566,14 +565,14 @@ $pro = verifyPro();
 										title="Saisir votre ville" placeholder="Rennes"
 										class="border border-secondary  p-2 bg-white w-full" required>
 
-									<label for="postal_code" class="text-nowrap">Code postal :</label>
+									<label for="postal_code" class="text-nowrap mt-2">Code postal :</label>
 									<input id="postal_code" name="postal_code" type="number"
 										pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345"
-										placeholder="12345"
-										class="border border-secondary  p-2 bg-white w-24 w-full" required>
+										placeholder="12345" class="border border-secondary p-2 mt-2 bg-white w-24 w-full"
+										required>
 								</div>
 
-								<div class="w-full justify-between">
+								<div class="w-full justify-between space-y-4">
 									<!-- Photo principale -->
 									<div class="flex flex-col justify-between w-full">
 										<label for="photo-upload-carte" class="text-nowrap w-full">Photo de la carte
@@ -606,9 +605,9 @@ $pro = verifyPro();
 								<!-- Résumé -->
 								<div class="flex flex-col items-center w-full max-w-full">
 									<label for="resume" class="text-nowrap w-full">Résumé :</label>
-									<textarea id="resume" name="resume"
-										class="border border-secondary  p-2 bg-white w-full" rows="4"
-										placeholder="Le résumé visible sur la carte de l'offre." required></textarea>
+									<textarea id="resume" name="resume" class="border border-secondary  p-2 bg-white w-full"
+										rows="4" placeholder="Le résumé visible sur la carte de l'offre."
+										required></textarea>
 
 								</div>
 
@@ -636,8 +635,7 @@ $pro = verifyPro();
 								<div class="w-full">
 									<label for="activityType" class="block text-nowrap">Type d'activité:</label>
 									<select id="activityType" name="activityType"
-										class="bg-white text-black py-2 px-4 border border-black  w-full"
-										required>
+										class="bg-white text-black py-2 px-4 border border-black  w-full" required>
 										<option value="selection" selected hidden>Quel type d'activité ?</option>
 										<option value="activite" id="activite">Activité</option>
 										<option value="visite" id="visite">Visite</option>
@@ -658,10 +656,10 @@ $pro = verifyPro();
 								</div>
 
 								<div>
-									<div class="tag-container flex flex-wrap p-2  optionActivite hidden"
-										id="activiteTags"></div>
-									<div class="tag-container flex flex-wrap p-2  optionVisite hidden"
-										id="visiteTags"></div>
+									<div class="tag-container flex flex-wrap p-2  optionActivite hidden" id="activiteTags">
+									</div>
+									<div class="tag-container flex flex-wrap p-2  optionVisite hidden" id="visiteTags">
+									</div>
 									<div class="tag-container flex flex-wrap p-2  optionSpectacle hidden"
 										id="spectacleTags"></div>
 									<div class="tag-container flex flex-wrap p-2  optionParcAttraction hidden"
@@ -761,8 +759,7 @@ $pro = verifyPro();
 								<div class="flex justify-start items-center w-full space-x-2 optionParcAttraction hidden">
 									<label for="nb_attractions" class="text-nowrap">Nombre d'attraction :</label>
 									<input type="number" name="nb_attractions" id="nb_attractions" pattern="/d+/"
-										onchange="" min="0"
-										class="border border-secondary  p-2 bg-white w-fit text-right">
+										onchange="" min="0" class="border border-secondary  p-2 bg-white w-fit text-right">
 									<p>attractions</p>
 								</div>
 
@@ -804,6 +801,18 @@ $pro = verifyPro();
 								<div class="flex flex-col justify-between w-full optionParcAttraction hidden">
 									<label for="photo-plan" class="text-nowrap w-full">Plan du parc d'attraction :</label>
 									<input type="file" name="photo-plan" id="photo-plan" class="text-center text-secondary block w-full
+							border-dashed border-2 border-secondary  p-2
+							file:mr-5 file:py-3 file:px-10
+							file:f
+							file:text-small file:  file:text-secondary
+							file:border file:border-secondary
+							hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
+								</div>
+
+								<!-- Carte du restaurant -->
+								<div class="flex flex-col justify-between w-full optionRestauration hidden">
+									<label for="photo-resto" class="text-nowrap w-full">Carte du restaurant :</label>
+									<input type="file" name="photo-resto" id="photo-resto" class="text-center text-secondary block w-full
 							border-dashed border-2 border-secondary  p-2
 							file:mr-5 file:py-3 file:px-10
 							file:
@@ -1162,13 +1171,30 @@ $pro = verifyPro();
 											</div>
 										<?php }
 										?>
+										<script>
+											console.log("In script")
+											document.getElementById('option-rien').addEventListener('change', function () {
+												console.log('In change')
+												if (document.getElementById('option-rien').checked === 'true') {
+													console.log("Checked")
+													document.getElementById('duration').removeAttribute('required');
+													document.getElementById('start_date').removeAttribute('required');
+												} else {
+													console.log("Not checked")
+													document.getElementById('duration').setAttribute('required', 'required');
+													document.getElementById('start_date').setAttribute('required', 'required');
+												}
+												console.log("end change")
+											});
+											console.log("end of script")
+										</script>
 									</div>
 
 									<div class="flex items-start hidden" id="option-data">
 										<div class="flex flex-col justify-center w-full">
 											<label for="start_date" class="text-nowrap">Début de la souscription :</label>
 											<input type="date" id="start_date" name="start_date"
-												class="border border-secondary  p-2 bg-white w-min" required
+												class="border border-secondary  p-2 bg-white w-min"
 												oninput="validateMonday(this)">
 											<script>
 												function validateMonday(input) {
@@ -1198,7 +1224,7 @@ $pro = verifyPro();
 										<div class="flex flex-col justify-center w-full">
 											<label for="duration" class="text-nowrap">Durée de la souscription :</label>
 											<input type="number" id="duration" name="duration" min="1" max="4" value="1"
-												class="border border-secondary  p-2 bg-white w-min" required>
+												class="border border-secondary  p-2 bg-white w-min">
 											<script>
 
 												document.getElementById('duration').addEventListener('change', function (event) {
@@ -1231,8 +1257,7 @@ $pro = verifyPro();
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la Une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-								<div class="card active relative bg-base300  flex flex-col w-full"
-									id="card-preview">
+								<div class="card active relative bg-base300  flex flex-col w-full" id="card-preview">
 									<script>
 										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
 										function toggleCardPreview(option) {

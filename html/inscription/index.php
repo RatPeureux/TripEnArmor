@@ -316,7 +316,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 ?>
 
                 <!-- Choix d'acceptation des termes et conditions -->
-                <div class="mb-1.5 text-small flex items-start">
+                <div class="mb-1.5 text-small flex items-start gap-1">
                     <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer" required>
                     <label for="termes">J’accepte les <span onclick="toggleCGU()" class="underline cursor-pointer">Conditions générales d'utilisation</span> et je confirme avoir lu la <span onclick="togglePolitique()" class="underline cursor-pointer">Politique de confidentialité et d'utilisation des cookies</span>.</label>
                 </div>

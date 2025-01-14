@@ -339,10 +339,10 @@ session_start();
                     <?php if ($images['details']) { ?>
                         <div class="flex items-center gap-8 justify-center">
                             <a
-                                class="swiper-button-prev group flex justify-center items-center border border-solid  !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
                                 ‹</a>
                             <a
-                                class="swiper-button-next group flex justify-center items-center border border-solid  !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
                                 ›</a>
                         </div>
                         <?php
@@ -353,12 +353,40 @@ session_start();
 
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="space-y-2 px-2 md:px-0 w-full">
-                    <div class="flex flex-col md:flex-row w-full">
-                        <div class="flex flex-col md:flex-row">
+                    <div class="flex flex-col justify-between md:flex-row w-full">
+                        <div class="flex flex-col md:flex-row w-fit">
                             <h1 class="text-h1 "><?php echo $offre['titre'] ?></h1>
                             <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
                         </div>
+                        <?php
+                        // Moyenne des notes quand il y en a une
+                        if ($moyenne) { ?>
+                            <div class="flex gap-1">
+                                <div class="flex gap-1 shrink-0">
+                                    <?php for ($i = 0; $i < 5; $i++) {
+                                        if ($moyenne > 1) {
+                                            ?>
+                                            <img class="w-4" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
+                                            <?php
+                                        } else if ($moyenne > 0) {
+                                            ?>
+                                                <img class="w-4" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
+                                            <?php
+                                        } else {
+                                            ?>
+                                                <img class="w-4" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                                            <?php
+                                        }
+                                        $moyenne--;
+                                    }
+                                    ?>
+                                </div>
+                                <p class='text-small flex pt-1 items-center'>(<?php echo $nb_avis ?>)</p>
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </div>
                     <?php if ($ouvert == true) {
                         ?>
@@ -491,7 +519,7 @@ session_start();
                                     </div>
                                     <p id="horaire-arrow">></p>
                                 </div>
-                                <div class="text-small py-3" id="horaire-info">
+                                <div class="text-small py-3 px-2" id="horaire-info">
                                     <?php
                                     foreach ($horaires as $jour => $horaire) {
                                         echo "$jour : ";
@@ -519,7 +547,7 @@ session_start();
                                     <p class="text-h4">Informations complémentaires</p>
                                     <p id="compl-arrow">></p>
                                 </div>
-                                <div class="flex flex-col py-3" id="compl-info">
+                                <div class="flex flex-col py-3 px-2" id="compl-info">
                                     <?php
                                     switch ($categorie_offre) {
                                         case 'restauration':
@@ -527,10 +555,21 @@ session_start();
                                             // VALEUR TEST CAR PAS DANS LA BDD
                                     
                                             ?>
-                                            <div class="text-small flex flex-row">
+                                            <div class="text-small flex flex-col md:flex-row">
                                                 <p class="text-small">Repas servis&nbsp:&nbsp</p>
                                                 <p><?php echo $tags_type_repas ?></p>
                                             </div>
+                                            <?php
+                                            if ($images) {
+                                                ?>
+                                                <img src="/public/images/offres/<?php echo $images['carte-resto']; ?>" alt=""
+                                                    class="max-h-[400px] max-w-[350px] md:max-w-[500px]">
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <p class="text-small">Aucune carte pour le restaurant.</p>
+                                                <?php
+                                            } ?>
                                             <?php
                                             break;
 
@@ -626,10 +665,10 @@ session_start();
                                 ?>
                                 <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
-                                        <p class="text-h4 font-">Grille tarifaire</p>
+                                        <p class="text-h4">Grille tarifaire</p>
                                         <p id="grille-arrow">></p>
                                     </div>
-                                    <div class="hidden text-small py-3" id="grille-info">
+                                    <div class="text-small py-3 px-2" id="grille-info">
                                         <?php
                                         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
                                         $controllerTarifPublic = new TarifPublicController();
@@ -652,37 +691,8 @@ session_start();
                     </div>
                     <!-- Partie avis -->
                     <div class="mt-5 flex flex-col gap-2">
-
                         <div class="w-full flex justify-between">
                             <h3 class="text-h4 pt-2">Avis</h3>
-                            <?php
-                            // Moyenne des notes quand il y en a une
-                            if ($moyenne) { ?>
-                                <div class="flex gap-1">
-                                    <div class="flex gap-1 shrink-0">
-                                        <?php for ($i = 0; $i < 5; $i++) {
-                                            if ($moyenne > 1) {
-                                                ?>
-                                                <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-                                                <?php
-                                            } else if ($moyenne > 0) {
-                                                ?>
-                                                    <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
-                                                <?php
-                                            } else {
-                                                ?>
-                                                    <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-                                                <?php
-                                            }
-                                            $moyenne--;
-                                        }
-                                        ?>
-                                    </div>
-                                    <p class='text-small flex pt-1 items-center'>(<?php echo $nb_avis ?>)</p>
-                                </div>
-                                <?php
-                            }
-                            ?>
                         </div>
 
                         <?php

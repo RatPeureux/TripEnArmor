@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let matchesLocalisation = false;
             if (city && code) {
-                matchesLocalisation = filterState.localisation === '' || filterState.localisation.includes(code) || filterState.localisation.includes(city);
+                matchesLocalisation = filterState.localisation === '' || code.includes(filterState.localisation) || city.includes(filterState.localisation);
             }
 
             let matchesNote = (filterState.note[0] === '0' && filterState.note[1] === '5');

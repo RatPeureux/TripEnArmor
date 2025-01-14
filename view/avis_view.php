@@ -33,8 +33,7 @@ if (!function_exists('to_nom_note')) {
 ?>
 
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
-<div
-    class="avis w-full   <?php echo $is_mon_avis ? 'border-primary border-4' : '' ?> p-2 flex flex-col gap-1">
+<div class="avis w-full   <?php echo $is_mon_avis ? 'border-primary border-4' : '' ?> p-2 flex flex-col gap-1">
     <?php
     // Obtenir la variables regroupant les infos du membre
     $membre = $membreController->getInfosMembre($id_membre);
@@ -48,13 +47,13 @@ if (!function_exists('to_nom_note')) {
             <!-- Prénom, nom -->
             <?php
             if ($avis['titre']) { ?>
-                <p><?php echo $avis['titre'] ?>&nbsp;</p>
+                <p class="font-medium"><?php echo $avis['titre'] ?>&nbsp;</p>
                 <?php
             }
             ?>
-            <p class="text-gray-600">de</p>
+            <p class="text-gray-500">de</p>
             <!-- // Titre de l'avis s'il y en a un -->
-            <p class="text-gray-600">&nbsp;<?php echo $membre['pseudo'] ?></p>
+            <p class="text-gray-500">&nbsp;<?php echo $membre['pseudo'] ?></p>
             <!-- Date de publication (2ème ligne) -->
             <?php
             if ($avis['date_publication']) { ?>
@@ -76,7 +75,7 @@ if (!function_exists('to_nom_note')) {
                     $time_ago = 'aujourd\'hui';
                 }
                 ?>
-                <p class="grow text-gray-600 text-small">
+                <p class="grow text-gray-500 text-small">
                     &nbsp;<?php echo ($time_ago == 'aujourd\'hui') ? $time_ago : 'il y a ' . $time_ago ?></p>
                 <?php
             }
@@ -166,8 +165,8 @@ if (!function_exists('to_nom_note')) {
             foreach (['note_ambiance', 'note_service', 'note_cuisine', 'rapport_qualite_prix'] as $nom_note) {
                 ?>
                 <div class='flex text-small'>
-                    <p class="text-gray-600"><?php echo ucfirst(to_nom_note(nom_attribut_note: $nom_note)) ?> :&nbsp;</p>
-                    <p><?php echo $notes_restauration[$nom_note] ?></p>
+                    <p class="text-gray-500"><?php echo ucfirst(to_nom_note(nom_attribut_note: $nom_note)) ?> :&nbsp;</p>
+                    <p><?php echo $notes_restauration[$nom_note] ?>/5</p>
 
                 </div>
                 <?php
@@ -181,11 +180,10 @@ if (!function_exists('to_nom_note')) {
     <?php
     if ($avis['date_experience']) { ?>
         <div class="flex justify-start gap-3">
-            <p class="text-gray-600 text-small">Vécu le
+            <p class="text-gray-500 text-small">Vécu le
                 <?php
                 $date_experience = date('d/m/Y', strtotime($avis['date_experience']));
-                $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
-                echo $formatter->format(new DateTime($avis['date_experience']));
+                echo $date_experience;
                 ?>,
                 <?php echo (isset($avis['contexte_passage'])) ? $avis['contexte_passage'] : '' ?>
                 <?php
@@ -212,29 +210,45 @@ if (!function_exists('to_nom_note')) {
     ?>
     <hr>
 </div>
-<script>
-    const thumbsUp = document.getElementById("tup-<?php echo $id_avis ?>");
-    const thumbsDown = document.getElementById("tdown-<?php echo $id_avis ?>");
 
-    thumbsUp.addEventListener("click", function () {
-        thumbsUp.classList.toggle("fa-regular");
-        thumbsUp.classList.toggle("fa-solid");
-        thumbsUp.classList.toggle("text-secondary");
-        if (thumbsDown.classList.contains("fa-solid")) {
-            thumbsDown.classList.toggle("fa-regular");
-            thumbsDown.classList.toggle("fa-solid");
-            thumbsDown.classList.toggle("text-rouge-logo");
-        }
-    });
+<?php if ($membre) { ?>
+    <script>
+        const thumbsUp = document.getElementById("tup-<?php echo $id_avis ?>");
+        const thumbsDown = document.getElementById("tdown-<?php echo $id_avis ?>");
 
-    thumbsDown.addEventListener("click", function () {
-        thumbsDown.classList.toggle("fa-regular");
-        thumbsDown.classList.toggle("fa-solid");
-        thumbsDown.classList.toggle("text-rouge-logo");
-        if (thumbsUp.classList.contains("fa-solid")) {
+        thumbsUp.addEventListener("click", function () {
             thumbsUp.classList.toggle("fa-regular");
             thumbsUp.classList.toggle("fa-solid");
             thumbsUp.classList.toggle("text-secondary");
-        }
-    });
-</script>
+            if (thumbsDown.classList.contains("fa-solid")) {
+                thumbsDown.classList.toggle("fa-regular");
+                thumbsDown.classList.toggle("fa-solid");
+                thumbsDown.classList.toggle("text-rouge-logo");
+            }
+        });
+
+        thumbsDown.addEventListener("click", function () {
+            thumbsDown.classList.toggle("fa-regular");
+            thumbsDown.classList.toggle("fa-solid");
+            thumbsDown.classList.toggle("text-rouge-logo");
+            if (thumbsUp.classList.contains("fa-solid")) {
+                thumbsUp.classList.toggle("fa-regular");
+                thumbsUp.classList.toggle("fa-solid");
+                thumbsUp.classList.toggle("text-secondary");
+            }
+        });
+    </script>
+<?php } else { ?>
+    <script>
+        const thumbsUp = document.getElementById("tup-<?php echo $id_avis ?>");
+        const thumbsDown = document.getElementById("tdown-<?php echo $id_avis ?>");
+
+        thumbsUp.addEventListener("click", function () {
+            window.location.href = "/connexion";
+        });
+
+        thumbsDown.addEventListener("click", function () {
+            window.location.href = "/connexion";
+        });
+    </script>
+<?php } ?>
