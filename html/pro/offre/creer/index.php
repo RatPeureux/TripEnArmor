@@ -731,7 +731,7 @@ $pro = verifyPro();
 								<!-- Restauration -->
 								<div class="flex justify-start items-center w-full space-x-4 optionRestauration hidden">
 									<label for="gamme" class="text-nowrap">Gamme de prix :</label>
-									<div class="flex  space-x-2">
+									<div class="flex space-x-4">
 										<div>
 											<input type="radio" id="€" name="gamme2prix" value="€" />
 											<label for="€">€<br/>&lt;25€</label>
