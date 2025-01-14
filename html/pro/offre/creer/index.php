@@ -734,15 +734,15 @@ $pro = verifyPro();
 									<div class="flex  space-x-2">
 										<div>
 											<input type="radio" id="€" name="gamme2prix" value="€" />
-											<label for="€">€ &lt;25€</label>
+											<label for="€">€<br/>&lt;25€</label>
 										</div>
 										<div>
 											<input type="radio" id="€€" name="gamme2prix" value="€€" checked />
-											<label for="€€">€€ &lt;40€</label>
+											<label for="€€">€€<br/>&lt;40€</label>
 										</div>
 										<div>
 											<input type="radio" id="€€€" name="gamme2prix" value="€€€" />
-											<label for="€€€">€€€ &gt;40€</label>
+											<label for="€€€">€€€<br/>&gt;40€</label>
 										</div>
 									</div>
 								</div>
