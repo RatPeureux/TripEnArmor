@@ -119,9 +119,9 @@ if (!function_exists('chaineVersMot')) {
     }
     ?>
 
-    <main class="mx-10 self-center w-full grow p-2 flex flex-col xl:flex-row">
+    <main class="mx-10 self-center w-full grow p-2">
         <!-- TOUTES LES OFFRES (offre & détails) -->
-        <div class="w-full min-w-7xl max-w-7xl grow tablette p-4 flex flex-col">
+        <div class="w-full max-w-7xl grow tablette p-4 flex flex-col">
 
             <!-- Conteneur des tags (!!! RECHERCHE) -->
             <div class="flex flex-wrap gap-4" id="tags-container"></div>
@@ -180,7 +180,7 @@ if (!function_exists('chaineVersMot')) {
             <?php } ?>
 
         </div>
-        <div class="w-full h-full border border-primary">
+        <div class="inline-block w-full h-full border border-primary">
             <h2 class="text-h2">
                 Notifications
             </h2>
