@@ -6,32 +6,96 @@
     <!-- Format ordinateur et tablette -->
     <div class="text-center hidden sm:block">
         <div>
-            <a href="/pro/mentions" class="hover:text-primary">Mentions légales</a>
+            <a href="/pro/pro/mentions" class="hover:text-primary">Mentions légales</a>
             -
-            <a href="/pro/cgu" class="hover:text-primary">CGU</a>
+            <a href="/pro/pro/cgu" class="hover:text-primary">CGU</a>
             -
-            <a href="/pro/cgv" class="hover:text-primary">CGV</a>
+            <a href="/pro/pro/cgv" class="hover:text-primary">CGV</a>
             -
             <a href="mailto:pact.tripenarvor@gmail.com" class="hover:text-primary">Contacter le support</a>
             -
-            <a href="/" class="hover:text-primary">Retour vers la PACT</a>
+            <a href="/pro/" class="hover:text-primary">Retour vers la PACT</a>
         </div>
-        ©<?php echo date("Y"); ?>, <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+        ©<?php echo date("Y"); ?>, <a href="/pro/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
     </div>
     <!-- Format téléphone -->
     <div class="text-center block sm:hidden">
         <div>
-            <a href="/pro/mentions" class="hover:text-primary">Mentions légales</a>
+            <a href="/pro/pro/mentions" class="hover:text-primary">Mentions légales</a>
             -
-            <a href="/pro/cgu" class="hover:text-primary">CGU</a>
+            <a href="/pro/pro/cgu" class="hover:text-primary">CGU</a>
             -
-            <a href="/pro/cgv" class="hover:text-primary">CGV</a>
+            <a href="/pro/pro/cgv" class="hover:text-primary">CGV</a>
             -
             <a href="mailto:pact.tripenarvor@gmail.com" class="hover:text-primary">Contacter le support</a>
             -
-            <a href="/" class="hover:text-primary">Retour vers la PACT</a>
+            <a href="/pro/" class="hover:text-primary">Retour vers la PACT</a>
             -
-            ©<?php echo date("Y");?>, <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+            ©<?php echo date("Y");?>, <a href="/pro/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+        </div>
+    </div>
+</footer><!-- 
+    Composant du footer pour les visiteurs / membres
+    Pour l'ajouter, écrier la balise <div id='footer'></div> dans votre code html
+    (responsive)
+-->
+<footer class="bg-secondary text-white p-8 pb-16 md:pb-8">
+    <div class="mx-auto max-w-[1280px] flex flex-col justify-center items-center">
+        <div class="hidden md:flex w-full items-center items-end justify-between">
+            <a href="/pro/" class="self-start flex items-center gap-2">
+                <img src="/public/icones/logo-footer.svg" alt="[img] Logo">
+                <h1 class="font-cormorant text-white uppercase text-PACT">PACT</h1>
+            </a>
+
+            <a href="/" class="hover:text-primary">Retourner vers la PACT</a>
+        </div>
+
+        <div class="md:hidden w-full flex flex-col items-center justify-center items-end justify-between">
+            <a href="/pro/" class="mx-auto self-start flex items-center gap-2">
+                <img src="/public/icones/logo-footer.svg" alt="[img] Logo">
+                <h1 class="font-cormorant text-white uppercase text-PACT">PACT</h1>
+            </a>
+
+            <a href="/" class="hover:text-primary">Retourner vers la PACT</a>
+        </div>
+
+        <div class="w-full flex flex-col gap-8 mt-4">
+            <div class="w-full flex items-center justify-between flex-col md:flex-row gap-4">
+                <div class="hidden md:flex">
+                    <a href="/pro/mentions" class="hover:text-primary">Mentions légales</a>
+                    ,&nbsp;
+                    <a href="/pro/cgu" class="hover:text-primary">Conditions générales d'utilisation</a>
+                    ,&nbsp;
+                    <a href="/pro/cgv" class="hover:text-primary">Conditions générales de ventes</a>
+                    ,&nbsp;
+                    <a href="/pro/cgu" class="hover:text-primary">Politique en matière de cookies</a>
+                </div>
+
+                <div class="flex flex-col md:hidden items-center justify-center">
+                    <a href="/pro/mentions" class="hover:text-primary">Mentions légales</a>
+                    <a href="/pro/cgu" class="hover:text-primary">Conditions générales d'utilisation</a>
+                    <a href="/pro/cgu" class="hover:text-primary">Politique en matière de cookies</a>
+                </div>
+
+                <a href="mailto:pact.tripenarvor@gmail.com" class="hover:text-primary">Contacter le support</a>
+            </div>
+
+            <div class="w-full flex items-center justify-between flex-col md:flex-row gap-4">
+                <div class="hidden md:block">
+                    ©<?php echo date("Y"); ?> <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>, Association Loi 1901 Tous droits réservés
+                </div>
+
+                <div class="flex flex-col md:hidden items-center justify-center">
+                    <div>
+                        ©<?php echo date("Y"); ?> <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+                    </div>
+                    Association Loi 1901 Tous droits réservés
+                </div>
+
+                <div>
+                    Offres de Bretagne
+                </div>
+            </div>
         </div>
     </div>
 </footer>
