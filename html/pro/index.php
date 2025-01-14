@@ -181,12 +181,20 @@ if (!function_exists('chaineVersMot')) {
             <?php } ?>
 
         </div>
-        <div class="w-full h-full xl:max-w-7xl grow p-4 flex flex-col">
+        <div class="w-full h-full xl:max-w-7xl grow p-4">
             <h2 class="text-4xl">
                 Notifications
             </h2>
-            <div class="h-full bg-gray-500">
-                test
+            <div class="h-full p-2">
+                <!-- Titre, Nom auteur, Note, Description, Date de publication, Date de passsage, lien vers l'offre -->
+                <div class="w-full flex justify-between items-center">
+                    <h3 class="text-xl text-gray-600"><span class="text-black">Titre</span> posté par
+                        <span>Auteur</span>
+                    </h3>
+                    <div class="h-6 w-24 bg-primary">
+                        Note
+                    </div>
+                </div>
             </div>
         </div>
     </main>
