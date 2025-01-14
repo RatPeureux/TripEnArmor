@@ -1410,20 +1410,20 @@ $pro = verifyPro();
 												previewPostalCode.textContent = postalCode.value ? postalCode.value : postalCode.placeholder
 
 												document.getElementById("user_input_autocomplete_address")
-													.addEventListener("change", function () {
+													.addEventListener("Input", function () {
 														previewLocality.textContent =
 															locality.value ? locality.value : locality.placeholder;
 														previewPostalCode.textContent =
 															postalCode.value ? postalCode.value : postalCode.placeholder;
 													})
 
-												locality.addEventListener("change", function () {
+												locality.addEventListener("input", function () {
 													console.log(locality);
 													previewLocality.textContent =
 														locality.value ? locality.value : locality.placeholder;
 												});
 
-												postalCode.addEventListener("change", function () {
+												postalCode.addEventListener("input", function () {
 													console.log(postalCode);
 													previewPostalCode.textContent =
 														postalCode.value ? postalCode.value : postalCode.placeholder;
