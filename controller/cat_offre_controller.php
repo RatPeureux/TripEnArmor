@@ -13,6 +13,7 @@ class CatOffreController
     public function getOffreCategorie($id_cat_offre)
     {
         $offre = $this->model::getOffreCategorie($id_cat_offre);
+        $this->model::log("Les offres de la catégorie $id_cat_offre ont été lues.");
         return $offre;
     }
 }

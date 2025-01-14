@@ -16,6 +16,7 @@ class RestaurationTypeRepasController
     {
         $typesRepas = $this->model::getTypesRepasBydIdRestaurant($id_offre);
 
+        $this->model::log("Les types de repas de l'offre $id_offre ont été lus.");
         return $typesRepas;
     }
 
@@ -27,15 +28,17 @@ class RestaurationTypeRepasController
             "id_offre" => $restaurants["id_offre"],
         ];
 
+        $this->model::log("Les restaurants du type de repas $id_type_repas ont été lus.");
         return $result;
     }
 
     public function linkRestaurantAndTypeRepas($id_offre, $id_type_repas)
     {
         if ($this->model::checkIfLinkExists($id_offre, $id_type_repas)) {
-            echo "The link already exists";
+            $this->model::log("Le lien existe déjà.");
             return -1;
         } else {
+            $this->model::log("Le lien a été créé.");
             return $this->model::createRestaurantTypeRepas($id_offre, $id_type_repas);
         }
     }
@@ -43,9 +46,10 @@ class RestaurationTypeRepasController
     public function unlinkRestaurantAndTypeRepas($id_offre, $id_type_repas)
     {
         if ($this->model::checkIfLinkExists($id_offre, $id_type_repas)) {
+            $this->model::log("The link has been deleted.");
             return $this->model::deleteRestaurantTypeRepas($id_offre, $id_type_repas);
         } else {
-            echo "The link does not exist";
+            $this->model::log("The link does not exist.");
             return false;
         }
     }

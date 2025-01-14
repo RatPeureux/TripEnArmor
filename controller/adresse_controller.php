@@ -23,6 +23,7 @@ class AdresseController
             "complement" => $adresse["complement"]
         ];
 
+        $this->model::log("Les informations de l'adresse $id ont été lues.");
         return $res;
     }
 
@@ -30,13 +31,14 @@ class AdresseController
     {
         $adresse = $this->model::createAdresse($code_postal, $ville, $numero, $odonyme, $complement);
 
+        $this->model::log("Une adresse a été créée.");
         return $adresse;
     }
 
     public function updateAdresse($id, $code_postal = false, $ville = false, $numero = null, $odonyme = null, $complement = null)
     {
         if ($ville === false && $numero === false && $odonyme === false && $complement === false) {
-            echo "ERREUR : Aucun champ à modifier";
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $adresse = $this->model::getAdresseById($id);
@@ -58,6 +60,7 @@ class AdresseController
     {
         $adresse = $this->model::deleteAdresse($id);
 
+        $this->model::log("L'adresse $id a été supprimée.");
         return $adresse;
     }
 }
