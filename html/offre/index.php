@@ -519,7 +519,7 @@ session_start();
                                     </div>
                                     <p id="horaire-arrow">></p>
                                 </div>
-                                <div class="text-small py-3" id="horaire-info">
+                                <div class="text-small py-3 px-2" id="horaire-info">
                                     <?php
                                     foreach ($horaires as $jour => $horaire) {
                                         echo "$jour : ";
@@ -547,7 +547,7 @@ session_start();
                                     <p class="text-h4">Informations complémentaires</p>
                                     <p id="compl-arrow">></p>
                                 </div>
-                                <div class="flex flex-col py-3" id="compl-info">
+                                <div class="flex flex-col py-3 px-2" id="compl-info">
                                     <?php
                                     switch ($categorie_offre) {
                                         case 'restauration':
@@ -555,10 +555,21 @@ session_start();
                                             // VALEUR TEST CAR PAS DANS LA BDD
                                     
                                             ?>
-                                            <div class="text-small flex flex-row">
+                                            <div class="text-small flex flex-col md:flex-row">
                                                 <p class="text-small">Repas servis&nbsp:&nbsp</p>
                                                 <p><?php echo $tags_type_repas ?></p>
                                             </div>
+                                            <?php
+                                            if ($images) {
+                                                ?>
+                                                <img src="/public/images/offres/<?php echo $images['carte-resto']; ?>" alt=""
+                                                    class="max-h-[400px] max-w-[350px] md:max-w-[500px]">
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <p class="text-small">Aucune carte pour le restaurant.</p>
+                                                <?php
+                                            } ?>
                                             <?php
                                             break;
 
@@ -654,10 +665,10 @@ session_start();
                                 ?>
                                 <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
-                                        <p class="text-h4 font-">Grille tarifaire</p>
+                                        <p class="text-h4">Grille tarifaire</p>
                                         <p id="grille-arrow">></p>
                                     </div>
-                                    <div class="hidden text-small py-3" id="grille-info">
+                                    <div class="text-small py-3 px-2" id="grille-info">
                                         <?php
                                         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
                                         $controllerTarifPublic = new TarifPublicController();
@@ -680,7 +691,6 @@ session_start();
                     </div>
                     <!-- Partie avis -->
                     <div class="mt-5 flex flex-col gap-2">
-
                         <div class="w-full flex justify-between">
                             <h3 class="text-h4 pt-2">Avis</h3>
                         </div>

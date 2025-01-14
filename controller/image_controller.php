@@ -13,6 +13,7 @@ class ImageController
         $result = [
             "carte" => false,
             "plan" => false,
+            "carte-resto" => false,
             "details" => false
         ];
         $allImages = scandir($this->uploadDir);
@@ -27,6 +28,8 @@ class ImageController
                         $result["carte"] = $image;
                     } else if ($subparts[1] == "plan") {
                         $result["plan"] = $image;
+                    } else if ($subparts[1] == "carte-resto") {
+                        $result["carte-resto"] = $image;
                     } else {
                         if ($result["details"] === false) {
                             $result["details"] = [];
@@ -45,7 +48,9 @@ class ImageController
         if (!file_exists($this->uploadDir)) {
             mkdir($this->uploadDir, 0777, true);
         }
+        echo $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension;
         $result = move_uploaded_file($actual_path, $this->uploadDir . $id_offre . "_" . $champ . '.' . $extension);
+        echo $result;
         return $result;
     }
 }

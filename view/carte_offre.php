@@ -80,8 +80,7 @@ if ($mode_carte == 'membre') {
 		<!-- CARTE VERSION TÉLÉPHONE -->
 		<div class='md:hidden relative bg-base100  flex flex-col'>
 			<!-- En-tête -->
-			<div
-				class='en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 '>
+			<div class='en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 '>
 				<h3 class='text-xl text-center'>
 					<?php echo $titre_offre; ?>
 				</h3>
@@ -217,7 +216,7 @@ if ($mode_carte == 'membre') {
 								$n--;
 							}
 							?>
-							<!-- <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p> -->
+							<p class='text-small flex items-center pt-1'>(<?php echo $nb_avis ?>)</p>
 						</div>
 						<?php
 					}
@@ -280,17 +279,17 @@ if ($mode_carte == 'membre') {
 										}
 										?>
 									</div>
-									<p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+									<p class='text-small flex items-cente pt-1'>(<?php echo $nb_avis ?>)</p>
 								</div>
 								<?php
 							}
 							?>
 						</div>
-						<div class='flex'>
-							<p class='text-small'><?php echo $pro['nom_pro'] ?></p>
-							<p class='categorie text-small tablette'><?php echo ', ' . chaineVersMot($categorie_offre); ?>
-							</p>
-						</div>
+						<p class='categorie text-small tablette'><?php echo chaineVersMot($categorie_offre); ?></p>
+						<p class='text-small'><?php echo $pro['nom_pro'] ?></p>
+						<p class="text-small <?php echo ($ouvert) ? "text-green-500" : "text-red-500"; ?> ">
+							<?php echo ($ouvert) ? "Ouvert" : "Fermé"; ?>
+						</p>
 					</div>
 
 					<!-- Description + tags -->
@@ -462,7 +461,7 @@ if ($mode_carte == 'membre') {
 								}
 								?>
 							</div>
-							<p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+							<p class='text-small flex items-center pt-1'>(<?php echo $nb_avis ?>)</p>
 						</div>
 						<?php
 					}
@@ -627,7 +626,7 @@ if ($mode_carte == 'membre') {
 
 					<!-- Avis & date de mise à jour -->
 					<div class="flex flex-col items-center justify-around hidden">
-						<div class="flex italic justify-start gap-4">
+						<div class="flex justify-start gap-4">
 							<!-- Non vus -->
 							<a title="Avis non consultés" class="hover:text-primary">
 								<i class=" fa-solid fa-exclamation text-rouge-logo"></i>
@@ -650,7 +649,7 @@ if ($mode_carte == 'membre') {
 					<div class="flex justify-between text-small">
 						<div class="flex items-center justify-arround">
 							<i class="fa-solid fa-rotate text-xl"></i>
-							<p class="italic">Modifiée le <?php echo $date_mise_a_jour ?></p>
+							<p class="">Modifiée le <?php echo $date_mise_a_jour ?></p>
 						</div>
 					</div>
 
