@@ -185,70 +185,9 @@ if (!function_exists('chaineVersMot')) {
             <h2 class="text-4xl">
                 Notifications
             </h2>
-            <div class="h-full p-2">
-                <!-- lien vers l'offre -->
-                <div class="w-full flex justify-between items-center">
-                    <h3 class="text-gray-600"><span class="text-black">Titre</span> posté par
-                        <span class="text-black">Auteur</span> Il y a <span class="text-black">Date de publication</span>
-                    </h3>
-                    <div class="h-6 w-24 bg-primary">
-                        Note
-                    </div>
-                </div>
-                <p>Vécu le Date de passage</p>
-                <p>
-                    Description
-                </p>
-                <hr/>
-            </div>
-            <div class="h-full p-2">
-                <!-- lien vers l'offre -->
-                <div class="w-full flex justify-between items-center">
-                    <h3 class="text-gray-600"><span class="text-black">Titre</span> posté par
-                        <span class="text-black">Auteur</span> Il y a <span class="text-black">Date de publication</span>
-                    </h3>
-                    <div class="h-6 w-24 bg-primary">
-                        Note
-                    </div>
-                </div>
-                <p>Vécu le Date de passage</p>
-                <p>
-                    Description
-                </p>
-                <hr/>
-            </div>
-            <div class="h-full p-2">
-                <!-- lien vers l'offre -->
-                <div class="w-full flex justify-between items-center">
-                    <h3 class="text-gray-600"><span class="text-black">Titre</span> posté par
-                        <span class="text-black">Auteur</span> Il y a <span class="text-black">Date de publication</span>
-                    </h3>
-                    <div class="h-6 w-24 bg-primary">
-                        Note
-                    </div>
-                </div>
-                <p>Vécu le Date de passage</p>
-                <p>
-                    Description
-                </p>
-                <hr/>
-            </div>
-            <div class="h-full p-2">
-                <!-- lien vers l'offre -->
-                <div class="w-full flex justify-between items-center">
-                    <h3 class="text-gray-600"><span class="text-black">Titre</span> posté par
-                        <span class="text-black">Auteur</span> Il y a <span class="text-black">Date de publication</span>
-                    </h3>
-                    <div class="h-6 w-24 bg-primary">
-                        Note
-                    </div>
-                </div>
-                <p>Vécu le Date de passage</p>
-                <p>
-                    Description
-                </p>
-                <hr/>
-            </div>
+            <?php
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '/model/notification_view.php';
+            ?>
         </div>
     </main>
 
