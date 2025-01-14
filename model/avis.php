@@ -29,10 +29,14 @@ class Avis extends BDD
         $stmt->execute();
         $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        print_r($toutesMesOffres);
+
         $tousMesAvis = [];
         foreach ($toutesMesOffres as $offre) {
             $tousMesAvis = array_merge($tousMesAvis, self::getAvisByIdOffre($offre['id_offre']));
         }
+
+        print_r($tousMesAvis);
 
         if ($tousMesAvis) {
             return $tousMesAvis;
