@@ -119,7 +119,8 @@ if (!function_exists('chaineVersMot')) {
     }
     ?>
 
-    <main class="mx-10 self-center w-full grow p-2 flex flex-col justify-center items-center 2xl:flex-row 2xl:gap-4 2xl:justify-start 2xl:items-start">
+    <main
+        class="mx-10 self-center w-full grow p-2 flex flex-col justify-center items-center 2xl:flex-row 2xl:gap-4 2xl:justify-start 2xl:items-start">
         <!-- TOUTES LES OFFRES (offre & détails) -->
         <div class="w-full xl:max-w-7xl flex-shrink-0 grow tablette p-4 flex flex-col">
 
@@ -181,11 +182,11 @@ if (!function_exists('chaineVersMot')) {
 
         </div>
         <div class="w-full h-full xl:max-w-7xl grow p-4 flex flex-col">
-            <h2 class="text-h2">
+            <h2 class="text-4xl">
                 Notifications
             </h2>
-            <div class="h-full bg-gray-500" >
-
+            <div class="h-full bg-gray-500">
+                test
             </div>
         </div>
     </main>
@@ -200,4 +201,5 @@ if (!function_exists('chaineVersMot')) {
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
 </body>
+
 </html>
