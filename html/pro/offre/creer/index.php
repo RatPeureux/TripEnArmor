@@ -1258,7 +1258,7 @@ $pro = verifyPro();
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la Une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-								<div class="card active relative bg-base300  flex flex-col w-full"
+								<div class="card active relative bg-white flex flex-col w-full"
 									id="card-preview">
 									<script>
 										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
@@ -1292,7 +1292,7 @@ $pro = verifyPro();
 									</script>
 									<!-- En tête -->
 									<div
-										class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 ">
+										class="en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 ">
 										<!-- Mise à jour du titre en temps réel -->
 										<h3 class="text-center " id="preview-titre"></h3>
 										<script>
@@ -1429,7 +1429,6 @@ $pro = verifyPro();
 													});
 											</script>
 										</div>
-										<hr class="h-20 border-black border" />
 										<!-- Résumé de l'offre -->
 										<div
 											class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
@@ -1480,7 +1479,6 @@ $pro = verifyPro();
 													});
 											</script>
 										</div>
-										<hr class="h-20 border-black border" />
 										<!-- Notation et Prix -->
 										<div
 											class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
