@@ -2729,8 +2729,20 @@ input[type="checkbox"]:checked:before {
     flex-direction: row;
   }
 
+  .\32xl\:items-start {
+    align-items: flex-start;
+  }
+
   .\32xl\:items-center {
     align-items: center;
+  }
+
+  .\32xl\:justify-start {
+    justify-content: flex-start;
+  }
+
+  .\32xl\:justify-center {
+    justify-content: center;
   }
 
   .\32xl\:gap-4 {
