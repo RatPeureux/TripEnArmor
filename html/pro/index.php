@@ -183,7 +183,7 @@ if (!function_exists('chaineVersMot')) {
 
     <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_tris_tel_pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_tris_tab_pro.php';
     ?>
 
     <!-- FOOTER -->

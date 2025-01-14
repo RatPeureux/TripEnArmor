@@ -14,8 +14,8 @@ class ModifierOffreController {
         return $offre;
     }
 
-    public function updateOffre($id, $titre, $description, $prix_mini, $prix_max, $id_type_offre, $id_pro) {
-        $updatedOffreId = $this->model::updateOffre($id, $titre, $description, $prix_mini, $prix_max, $id_type_offre, $id_pro);
+    public function updateOffre($id, $titre, $description, $resume, $prix_mini, $date_creation, $date_mise_a_jour, $date_suppression, $est_en_ligne, $id_type_offre, $id_pro, $id_adresse, $option, $accessibilite) {
+        $updatedOffreId = $this->model::updateOffre($id, $titre, $description, $resume, $prix_mini, $date_creation, $date_mise_a_jour, $date_suppression, $est_en_ligne, $id_type_offre, $id_pro, $id_adresse, $option, $accessibilite);
         return $updatedOffreId;
     }
 }

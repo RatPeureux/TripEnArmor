@@ -3,55 +3,88 @@ session_start();
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/modifier_offre_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
-$modifier_offre = new ModifierOffreController();
-$offre = $modifier_offre->getOffreById($_GET['id_offre']);
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_offre_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/cat_offre_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_resto_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_restaurant_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+
+$modifier_offre_controller = new ModifierOffreController();
+
+// Récupération de l'offre
+$id_offre = $_GET['id_offre'] ?? null;
+if ($id_offre === null) {
+	die('ID de l\'offre manquant.');
+}
+
+$offre = $modifier_offre_controller->getOffreById($id_offre);
+if (!$offre) {
+	die('Offre introuvable.');
+}
+
+$titre = $offre['titre'];
+$description = $_POST['description'] ?? $offre['description'];
+$resume = $_POST['resume'] ?? $offre['resume'];
+$prix_mini = $_POST['prix_mini'] ?? $offre['prix_mini'];
+$date_creation = $offre['date_creation']; // La date de création ne change pas
+$date_mise_a_jour = date('Y-m-d H:i:s'); // Mettre à jour automatiquement
+$date_suppression = $_POST['date_suppression'] ?? $offre['date_suppression'];
+$est_en_ligne = isset($_POST['est_en_ligne']) ? 1 : 0;
+$id_type_offre = $_POST['id_type_offre'] ?? $offre['id_type_offre'];
+$id_pro = $_SESSION['id_pro'] ?? $offre['id_pro'];
+$id_adresse = $_POST['id_adresse'] ?? $offre['id_adresse'];
+$option = $_POST['option'] ?? $offre['option'];
+$accessibilite = $_POST['accessibilite'] ?? $offre['accessibilite'];
+
+// Mise à jour de l'offre
+$modifier_offre_controller->updateOffre(
+	$id_offre, $titre, $description, $resume, $prix_mini, $date_creation,
+	$date_mise_a_jour, $date_suppression, $est_en_ligne, $id_type_offre,
+	$id_pro, $id_adresse, $option, $accessibilite
+);
+
+$adresseController = new AdresseController();
+$adresse = $adresseController->getInfosAdresse($offre['id_adresse']);
+$adresseController->updateAdresse($id_adresse, $adresse['code_postal'], $adresse['ville'], $adresse['numero'], $adresse['odonyme'], $adresse['complement']);
+
+// Redirection pour éviter une resoumission
+header("Location: /pro/");
+exit;
+
 $nom_table = "sae_db.vue_offre_tag";
 echo "<pre>";
 var_dump($offre);
 echo "</pre>";
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
-$adresseController = new AdresseController();
-$adresse = $adresseController->getInfosAdresse($offre['id_adresse']);
 echo "<pre>";
 var_dump($adresse);
 echo "</pre>";
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_offre_controller.php';
+
 $typeOffreController = new TypeOffreController();
 $typesOffres = $typeOffreController->getInfosTypeOffre($offre['id_type_offre']);
 echo "<pre>";
 var_dump($typesOffres);
 echo "</pre>";
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/cat_offre_controller.php';
+
 $catOffreController = new CatOffreController();
 $catOffre = $catOffreController->getOffreCategorie($offre['id_offre']);
 echo "<pre>";
 var_dump($catOffre[0]['type_offre']);
 echo "</pre>";
-// require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-// $tagController = new TagController();
-// $allTags = $tagController->getInfosTag($offre['id_offre']);
-// echo "<pre>";
-// var_dump($tags);
-// echo "</pre>";
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_resto_controller.php';
+
 $tagRestoController = new TagRestoController();
 $tagsResto = $tagRestoController->getTagResto($offre['id_offre']);
 echo "<pre>";
 var_dump($tagsResto);
 echo "</pre>";
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+
 $horaireController = new HoraireController();
 $horaires = $horaireController->getHorairesOfOffre($offre['id_offre']);
 echo "<pre>";
 var_dump($horaires);
 echo "</pre>";
-// require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
-// $typeRepasController = new TypeRepasController();
-// $typesRepas = $typeRepasController->getInfoTypeRepas($offre['id_offre']);
-// echo "<pre>";
-// var_dump($typesRepas);
-// echo "</pre>";
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_restaurant_controller.php';
+
 $typeRepasRestaurantController = new TypeRepasRestaurantController();
 $typesRepasRestaurant = $typeRepasRestaurantController->getTypeRepasRestaurant($offre['id_offre']);
 echo "<pre>";
@@ -64,12 +97,13 @@ $repasNoms = array_map(function ($repas) {
 echo "<pre>";
 var_dump($repasNoms);
 echo "</pre>";
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+
 $imageController = new ImageController();
 $images = $imageController->getImagesOfOffre($offre['id_offre']);
 echo "<pre>";
-var_dump($images);
+var_dump($images['carte']);
 echo "</pre>";
+
 $pro = verifyPro();
 ?>
 
@@ -668,8 +702,10 @@ $pro = verifyPro();
 													<div class="flex flex-col justify-center w-full">
 														<label for="titre" class="text-nowrap">Titre : </label>
 														<input type="text" id="titre"
-															class="border border-secondary  p-2 bg-white w-full" name="titre"
-															value="<?php print_r($offre['titre']); ?>" required>
+															class="border border-secondary p-2 bg-white w-full"
+															name="titre"
+															value="<?php echo htmlspecialchars($offre['titre']); ?>" 
+															required>
 													</div>
 
 													<!-- Auteur -->
@@ -712,71 +748,19 @@ $pro = verifyPro();
 													<div class="w-full justify-between">
 														<!-- Photo principale -->
 														<div class="flex flex-col justify-between w-full">
-															<label for="photo-upload-carte" class="text-nowrap w-full">Photo de la carte :</label>
-															<input type="file" name="photo-upload-carte" id="photo-upload-carte" required
+															<label for="photo-upload-carte" class="text-nowrap w-full">Changer la photo de la carte :</label>
+															<input value="<?php var_dump($images['carte'])?>" type="file" name="photo-upload-carte" id="photo-upload-carte"
 															class="text-center text-secondary block w-full
 															border-dashed border-2 border-secondary rounded-lg p-2
 															file:mr-5 file:py-3 file:px-10
 															file:text-small file:font-bold  file:text-secondary
 															file:border file:border-secondary
-															hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp" />
+															hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg,.jpeg,.webp"/>
 
-															<img id="preview-image" src="#" alt="Preview Image" class="mt-2 w-full h-auto">
-
-															<script>
-																document.getElementById('photo-upload-carte').addEventListener('change', function(event) {
-																	const file = event.target.files[0];
-																	const previewImage = document.getElementById('preview-image');
-																	if (file) {
-																		const reader = new FileReader();
-																		reader.onload = function(e) {
-																			previewImage.src = e.target.result;
-																		};
-																		reader.readAsDataURL(file);
-																	} else {
-																		previewImage.src = '#';
-																	}
-																});
-															</script>
 														</div>
-														<?php
-														$imagePath = '/public/images/offres/' . $offre['id_offre'] . '.jpg';
-														if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
-															echo "<img id='preview-image' src='$imagePath' alt='Preview Image' class='mt-2 w-full h-auto'>";
-														} else {
-															echo "<img id='preview-image' src='#' alt='Preview Image' class='mt-2 w-full h-auto'>";
-														}
-
-														
-														foreach ($images as $image) {
-															if (strpos($image['type'], 'detail-') !== false) {
-																echo "Image de détail existante : " . $image['url'] . "<br>";
-															} else if ($image['type'] === 'carte') {
-																echo "Image de la carte existante : " . $image['url'] . "<br>";
-																echo "<script>
-																	document.getElementById('preview-image').src = '{$image['url']}';
-																	document.getElementById('photo-upload-carte').required = false;
-																</script>";
-															}
-														}
-														
-														foreach ($images as $image) {
-															if (strpos($image['type'], 'detail-') !== false) {
-																echo "Image de détail existante : " . $image['url'] . "<br>";
-															} else if ($image['type'] === 'carte') {
-																echo "Image de la carte existante : " . $image['url'] . "<br>";
-																echo "<script>
-																	document.getElementById('preview-image').src = '{$image['url']}';
-																	document.getElementById('photo-upload-carte').required = false;
-																</script>";
-															}
-														}
-														?>
-
-														?>
 														<!-- Photos détaillée -->
 														<div class="flex flex-col justify-between w-full">
-															<label for="photo-detail[]" class="text-nowrap w-full">Photos de l'offre détaillée:</label>
+															<label for="photo-detail[]" class="text-nowrap w-full">Changer les photos de l'offre détaillée:</label>
 															<input type="file" name="photo-detail[]" id="photo-detail[]" class="text-center
 															text-secondary block w-full
 															border-dashed border-2 border-secondary rounded-lg p-2
@@ -1423,13 +1407,13 @@ $pro = verifyPro();
 														</div>
 													</div>
 												</div>
-												<!-- Créer l'offre -->
-												<div
-													class="w-full flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
-													<input type="submit" value="Créer l'offre" id="submitPart3"
-														class="bg-secondary text-white font-medium py-2 px-4  inline-flex items-center border border-transparent hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300"
-														disabled="true">
-												</div>
+												<!-- Modifier l'offre -->
+												<form action="/modifier-offre" method="POST">
+													<div class="w-full flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
+														<button type="submit" class="bg-secondary text-white font-medium py-2 px-4 inline-flex items-center border border-transparent hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300">Modifier l'offre</button>
+													</div>
+												</form>
+
 											</div>
 											<!-- Mettre la preview à droite du fleuve -->
 											<div
@@ -1548,7 +1532,7 @@ $pro = verifyPro();
 															</div>
 														</div>
 														<!-- Image de fond -->
-														<img class="h-48 w-full  object-cover" src="/public/images/image-test.png"
+														<img class="h-48 w-full  object-cover" src="/public/images/offres/<?php echo $images['carte']; ?>"
 															alt="Image promotionnelle de l'offre" id="preview-image" />
 														<script>
 															document
