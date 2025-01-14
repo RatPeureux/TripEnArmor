@@ -311,7 +311,6 @@ session_start();
                                 echo $categorie_offre . '.jpg';
                             } ?>' alt="image de slider">
                         </div>
-                        </div>
                         <?php
                         if ($images['details']) {
                             foreach ($images['details'] as $image) {
