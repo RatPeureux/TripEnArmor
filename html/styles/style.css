@@ -1167,6 +1167,10 @@ video {
   width: min-content;
 }
 
+.w-\[80rem\] {
+  width: 80rem;
+}
+
 .min-w-16 {
   min-width: 4rem;
 }
@@ -2676,6 +2680,10 @@ input[type="checkbox"]:checked:before {
 
   .xl\:hidden {
     display: none;
+  }
+
+  .xl\:w-full {
+    width: 100%;
   }
 
   .xl\:max-w-7xl {
