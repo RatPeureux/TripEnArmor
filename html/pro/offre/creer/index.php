@@ -1401,31 +1401,33 @@ $pro = verifyPro();
 											<!-- Mise à jour du code postal en temps réel -->
 											<p class="text-small" id="preview-postal_code"></p>
 											<script>
-												// const previewLocality = document.getElementById("preview-locality");
-												// const previewPostalCode = document.getElementById("preview-postal_code");
-												// const locality = document.getElementById("locality");
-												// const postalCode = document.getElementById("postal_code");
+												const previewLocality = document.getElementById("preview-locality");
+												const previewPostalCode = document.getElementById("preview-postal_code");
+												const locality = document.getElementById("locality");
+												const postalCode = document.getElementById("postal_code");
 
-												// previewLocality.textContent = locality.value ? locality.value : locality.placeholder
-												// previewPostalCode.textContent = postalCode.value ? postalCode.value : postalCode.placeholder
+												previewLocality.textContent = locality.value ? locality.value : locality.placeholder
+												previewPostalCode.textContent = postalCode.value ? postalCode.value : postalCode.placeholder
 
-												// document.getElementById("user_input_autocomplete_address")
-												// 	.addEventListener("change", function () {
-												// 		previewLocality.textContent =
-												// 			locality.value ? locality.value : locality.placeholder;
-												// 		previewPostalCode.textContent =
-												// 			postalCode.value ? postalCode.value : postalCode.placeholder;
-												// 	})
+												document.getElementById("user_input_autocomplete_address")
+													.addEventListener("change", function () {
+														previewLocality.textContent =
+															locality.value ? locality.value : locality.placeholder;
+														previewPostalCode.textContent =
+															postalCode.value ? postalCode.value : postalCode.placeholder;
+													})
 
-												// locality.addEventListener("change", function () {
-												// 	previewLocality.textContent =
-												// 		locality.value ? locality.value : locality.placeholder;
-												// });
+												locality.addEventListener("change", function () {
+													console.log(locality);
+													previewLocality.textContent =
+														locality.value ? locality.value : locality.placeholder;
+												});
 
-												// postalCode.addEventListener("change", function () {
-												// 	previewPostalCode.textContent =
-												// 		postalCode.value ? postalCode.value : postalCode.placeholder;
-												// });
+												postalCode.addEventListener("change", function () {
+													console.log(postalCode);
+													previewPostalCode.textContent =
+														postalCode.value ? postalCode.value : postalCode.placeholder;
+												});
 											</script>
 										</div>
 										<!-- Résumé de l'offre -->
