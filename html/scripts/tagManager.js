@@ -11,7 +11,7 @@ const cuisineTags = [
 ];
 
 class TagManager {
-    constructor(inputId) {
+    constructor(inputId, existingTags = []) {
         this.tagInput = document.getElementById(inputId);
         this.tagContainer = {
             removeChild(activityType, child) {
@@ -45,25 +45,41 @@ class TagManager {
             "restauration" : []
         }; // Pour stocker les tags ajoutés sous forme de dictionnaire
 
-        this.init();
+        this.init(existingTags);
     }
 
-    init() {
+    init(existingTags) {
+        console.log("Initialisation du gestionnaire de tags");
         for (const key in this.tagContainer) {
             if (typeof this.tagContainer[key] === 'string') {
                 this.tagContainer[key].classList.add('hidden');
             }
-        };
+        }
+
+        this.changeAvailableTags(document.getElementById('activityType').value);
+        console.log(document.getElementById('activityType').value); 
+        console.log(this.tagInput);
 
         this.tagInput.addEventListener('change', () => {
+            console.log("Changement de valeur");
             const tag = this.tagInput.value;
+            console.log(`Tag sélectionné: ${tag}`);
             const activityType = document.getElementById('activityType').value;
+            console.log(`Type d'activité: ${activityType}`);
             this.addTag(tag, activityType);
             this.tagInput.value = '';
         });
 
         document.getElementById('activityType').addEventListener('change', (event) => {
+            console.log("Changement de type d'activité");
             this.changeAvailableTags(event.target.value);
+        });
+
+        // Initialize with existing tags
+        existingTags.forEach(tag => {
+            const tagName = typeof tag === 'object' ? tag.nom : tag;
+            const activityType = document.getElementById('activityType').value;
+            this.addTag(tagName, activityType);
         });
     }
 
@@ -99,10 +115,12 @@ class TagManager {
         limitedTags.forEach(tag => {
             const listItem = document.createElement('option');
 
-            listItem.value = tag;
-            listItem.append(tag);
+            const tagName = typeof tag === 'object' ? tag.nom : tag;
+
+            listItem.value = tagName;
+            listItem.append(tagName);
             listItem.classList.add('suggestion-item', 'p-2', 'cursor-pointer', 'hover:bg-gray-200');
-            listItem.setAttribute('data-tag', tag);
+            listItem.setAttribute('data-tag', tagName);
 
             this.tagInput.appendChild(listItem);
         });
@@ -113,44 +131,35 @@ class TagManager {
             alert("Ce tag a déjà été ajouté.");
             return;
         }
-    
+
         // Ajout d'un champ caché pour le tag dans le formulaire
         const form = document.getElementById('formulaire');
-    
+
         const hiddenTagInput = document.createElement('input');
         hiddenTagInput.type = 'hidden';
         hiddenTagInput.name = `tags[${activityType}][]`;  // Stocker chaque tag selon le type d'activité
         hiddenTagInput.value = tag;
         form.appendChild(hiddenTagInput);
-    
+
         // Création du tag visuel dans l'interface
         const tagDiv = document.createElement('div');
         tagDiv.textContent = tag;
         tagDiv.classList.add('bg-secondary', 'text-white', 'py-1', 'px-3', 'mr-2', 'flex', 'items-center');
-    
+
         const removeBtn = document.createElement('span');
         removeBtn.textContent = 'X';
         removeBtn.classList.add('remove-tag', 'ml-8', 'cursor-pointer');
         removeBtn.onclick = () => {
             // Suppression du tag visuel
             this.tagContainer.removeChild(activityType, tagDiv);
+            // Suppression du tag de la liste des tags ajoutés
             this.addedTags.delete(tag);
-    
-            // Supprimer le champ caché correspondant
-            form.removeChild(hiddenTagInput);
-    
-            this.updateSuggestionList();
         };
-    
+
         tagDiv.appendChild(removeBtn);
         this.tagContainer[activityType].appendChild(tagDiv);
-        this.addedTags[activityType].push(tag);
-        this.updateSuggestionList();
-    }
-    
-}
 
-// Initialisation des tags
-document.addEventListener('DOMContentLoaded', () => {
-    new TagManager('tag-input', 'suggestion-list');
-});
+        // Ajouter le tag à la liste des tags ajoutés
+        this.addedTags[activityType].push(tag);
+    }
+}
