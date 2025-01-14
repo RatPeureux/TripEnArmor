@@ -1398,11 +1398,30 @@ $pro = verifyPro();
 											<i class="fa-solid fa-location-dot"></i>
 											<!-- Mise à jour de la ville en temps réel -->
 											<p class="text-small" id="preview-locality"></p>
+											<!-- Mise à jour du code postal en temps réel -->
+											<p class="text-small" id="preview-postal_code"></p>
 											<script>
 												document.getElementById(
 													"preview-locality"
 												).textContent =
 													document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
+												document.getElementById(
+													"preview-postal_code"
+												).textContent =
+													document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder
+
+												document.getElementById("user_input_autocomplete_address")
+												.addEventListener("change", function () {
+														document.getElementById(
+															"preview-locality"
+														).textContent =
+															document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder;
+														document.getElementById(
+															"preview-postal_code"
+														).textContent =
+															document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder;
+												})
+
 												document
 													.getElementById("locality")
 													.addEventListener("change", function () {
@@ -1411,14 +1430,6 @@ $pro = verifyPro();
 														).textContent =
 															document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder;
 													});
-											</script>
-											<!-- Mise à jour du code postal en temps réel -->
-											<p class="text-small" id="preview-postal_code"></p>
-											<script>
-												document.getElementById(
-													"preview-postal_code"
-												).textContent =
-													document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder
 												document
 													.getElementById("postal_code")
 													.addEventListener("change", function () {
