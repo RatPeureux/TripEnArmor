@@ -145,28 +145,4 @@ $pro = verifyPro();
 
     // Initialisation du toggle pour le bouton et la section
     setupToggle('sort-button', 'sort-section');
-
-    function toggleThumbs(thumbUp, thumbDown) {
-        thumbUp.addEventListener("click", function () {
-            thumbUp.classList.toggle("fa-regular");
-            thumbUp.classList.toggle("fa-solid");
-            thumbUp.classList.toggle("text-secondary");
-            if (thumbDown.classList.contains("fa-solid")) {
-                thumbDown.classList.toggle("fa-regular");
-                thumbDown.classList.toggle("fa-solid");
-                thumbDown.classList.toggle("text-rouge-logo");
-            }
-        });
-
-        thumbDown.addEventListener("click", function () {
-            thumbDown.classList.toggle("fa-regular");
-            thumbDown.classList.toggle("fa-solid");
-            thumbDown.classList.toggle("text-rouge-logo");
-            if (thumbUp.classList.contains("fa-solid")) {
-                thumbUp.classList.toggle("fa-regular");
-                thumbUp.classList.toggle("fa-solid");
-                thumbUp.classList.toggle("text-secondary");
-            }
-        });
-    }
 </script>

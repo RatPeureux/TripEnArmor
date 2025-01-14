@@ -193,6 +193,8 @@ if (!function_exists('to_nom_note')) {
         </div>
     <?php }
 
+    session_start();
+
     if (isset($_SESSION['id_membre'])) {    
         $query = "SELECT type_de_reaction FROM _avis_reactions WHERE id_avis = ? AND id_membre = ?";
 
@@ -208,12 +210,29 @@ if (!function_exists('to_nom_note')) {
         }
         ?>
         <div class="flex flex-row-reverse gap-4 ">
-            <?php if ($reaction['type_de_reaction'] == true) { ?>
-                <i class="cursor-pointer fa-regular fa-thumbs-down text-h2 mt-1" id="thumb-down-<?php echo $id_avis ?>"></i>
-                <i class="cursor-pointer fa-solid fa-thumbs-up text-h2 mb-1 text-secondary" id="thumb-up-<?php echo $id_avis ?>"></i>
+            <?php if ($reaction) { ?>
+                <?php if ($reaction['type_de_reaction'] == true) { ?>
+                    <a href="/scripts/thumb.php?id_avis= <?php echo $id_avis;?> &action=upTOdown">
+                        <i class="cursor-pointer fa-regular fa-thumbs-down text-h2 mt-1"></i>
+                    </a>
+                    <a href="/scripts/thumb.php?id_avis= <?php echo $id_avis;?> &action=null">
+                        <i class="cursor-pointer fa-solid fa-thumbs-up text-h2 mb-1 text-secondary"></i>
+                    </a>
+                <?php } else { ?>
+                    <a href="/scripts/thumb.php?id_avis= <?php echo $id_avis;?> &action=null">
+                        <i class="cursor-pointer fa-solid fa-thumbs-down text-h2 mt-1 text-rouge-logo"></i>
+                    </a>
+                    <a href="/scripts/thumb.php?id_avis= <?php echo $id_avis;?> &action=downTOup">
+                        <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1"></i>
+                    </a>
+                <?php } ?>
             <?php } else { ?>
-                <i class="cursor-pointer fa-solid fa-thumbs-down text-h2 mt-1 text-rouge-logo" id="thumb-down-<?php echo $id_avis ?>"></i>
-                <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1" id="thumb-up-<?php echo $id_avis ?>"></i>
+                <a href="/scripts/thumb.php?id_avis= <?php echo $id_avis;?> &action=down">
+                    <i class="cursor-pointer fa-regular fa-thumbs-down text-h2 mt-1"></i>
+                </a>
+                <a href="/scripts/thumb.php?id_avis= <?php echo $id_avis;?> &action=up">
+                    <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1"></i>
+                </a>
             <?php } ?>
         </div>
     <?php } else { ?>
@@ -227,12 +246,3 @@ if (!function_exists('to_nom_note')) {
         </div>
     <?php } ?>
 </div>
-
-<?php if ($_SESSION['id_membre']) { ?>
-    <script>
-        const thumbUp<?php echo $id_avis ?> = document.getElementById("thumb-up-<?php echo $id_avis ?>");
-        const thumbDown<?php echo $id_avis ?> = document.getElementById("thumb-down-<?php echo $id_avis ?>");
-
-        toggleThumbs(thumbUp<?php echo $id_avis ?>, thumbDown<?php echo $id_avis ?>, $id_avis);
-    </script>
-<?php } ?>
