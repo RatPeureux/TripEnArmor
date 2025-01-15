@@ -26,13 +26,13 @@
 <div id="layer-background" onclick="toggleMenu()" class="hidden fixed w-full h-full top-0 left-0 z-40"></div>
 
 <!-- VERSION TABLETTE OU PLUS (+768px) -->
-<div class="hidden w-52 sticky top-2 md:block bg-white z-20">
+<div class="w-52 sticky top-2 md:block bg-white z-20">
   <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2 cursor-pointer hover:text-primary" id="menu-button" onclick="developpedMenu()">
       <i class="fa-solid fa-bars"></i>
       <p>Menu</p>
   </a>
 
-  <div class="hidden all-items flex flex-col items-stretch border-black border" id="menu-component">
+  <div class="all-items flex flex-col items-stretch border-black border" id="menu-component">
     <a class="pl-5 py-3 border-black <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>

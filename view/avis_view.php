@@ -146,7 +146,7 @@ if (!function_exists('to_nom_note')) {
                 <!-- Poubelle de suppression d'avis -->
                 <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $avis['id_offre'] ?>"
                     onclick="return confirm('Supprimer votre avis ?')">
-                    <i class="fa-solid fa-trash text-h2"></i>
+                    <i class="fa-solid fa-trash text-h3"></i>
                 </a>
                 <?php
             }
@@ -218,10 +218,8 @@ if (!function_exists('to_nom_note')) {
                 ?>
             </p>
         </div>
-        <?php
-    }
-    ?>
-
+    <?php } ?>
+  
     <!-- Commentaire de l'avis s'il y en a un -->
     <div class="flex flex-col gap-2">
         <p class="text-justify"><?php echo $avis['commentaire'] ?></p>
@@ -259,12 +257,62 @@ if (!function_exists('to_nom_note')) {
 
     <hr>
 </div>
+<?php
 
-<?php if (true) { ?>
-    <script>
-        const thumbUp<?php echo $id_avis ?> = document.getElementById("tup-<?php echo $id_avis ?>");
-        const thumbDown<?php echo $id_avis ?> = document.getElementById("tdown-<?php echo $id_avis ?>");
+    session_start();
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-        toggleThumbs(thumbUp<?php echo $id_avis ?>, thumbDown<?php echo $id_avis ?>);
-    </script>
-<?php }
+    $statement = $dbh->prepare("SELECT * FROM sae_db.vue_avis_reaction_counter WHERE id_avis = ?");
+    $statement->bindParam(1, $id_avis);
+    $statement->execute();
+    $nb_reactions = $statement->fetch(PDO::FETCH_ASSOC); ?>
+    
+    <div class="flex flex-row-reverse gap-3 items-center">
+        <?php if (isset($_SESSION['id_pro'])) { ?>
+            <p class="font-bold w-2 text-center"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0;?> </p>
+            <i class="fa-regular fa-thumbs-down text-h2 mt-1 text-rouge-logo" onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
+            <p class="font-bold w-2 text-center"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0;?> </p>
+            <i class="fa-regular fa-thumbs-up text-h2 mb-1 text-secondary" onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
+        <?php } else if (isset($_SESSION['id_membre'])) {
+            $query = "SELECT type_de_reaction FROM sae_db._avis_reactions WHERE id_avis = ? AND id_membre = ?";
+            $statement = $dbh->prepare($query);
+            $statement->bindParam(1, $id_avis);
+            $statement->bindParam(2, $_SESSION['id_membre']);
+            
+            if ($statement->execute()) {
+                $reaction = $statement->fetch(PDO::FETCH_ASSOC);
+            } else {
+                echo "ERREUR : Impossible d'obtenir cette réaction";
+                return -1;
+            }
+            
+            if ($reaction) { ?>
+                <?php if ($reaction['type_de_reaction'] == true) { ?>
+                    <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0;?> </p>
+                    <i class="cursor-pointer fa-regular fa-thumbs-down text-h2 mt-1" id="thumb-down-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
+                    <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0;?> </p>
+                    <i class="cursor-pointer fa-solid fa-thumbs-up text-h2 mb-1 text-secondary" id="thumb-up-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
+                <?php } else { ?>
+                    <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0;?> </p>
+                    <i class="cursor-pointer fa-solid fa-thumbs-down text-h2 mt-1 text-rouge-logo" id="thumb-down-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'downTOnull')"></i>
+                    <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0;?> </p>
+                    <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1" id="thumb-up-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'downTOup')"></i>
+                <?php } ?>
+            <?php } else { ?>
+                <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0;?> </p>
+                <i class="cursor-pointer fa-regular fa-thumbs-down text-h2 mt-1" id="thumb-down-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'down')"></i>
+                <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0;?> </p>
+                <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1" id="thumb-up-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'up')"></i>
+            <?php } ?>
+        <?php } else { ?>
+            <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0;?> </p>
+            <a href="/connexion">
+                <i class="cursor-pointer fa-regular fa-thumbs-down text-h2 mt-1"></i>
+            </a>
+            <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0;?> </p>
+            <a href="/connexion">
+                <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1"></i>
+            </a>
+        <?php } ?>
+    </div>
+</div>
