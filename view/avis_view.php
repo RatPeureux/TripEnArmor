@@ -242,7 +242,7 @@ if (!function_exists('to_nom_note')) {
             <i class="fa-regular fa-thumbs-down text-h2 mt-1 text-rouge-logo"
                 onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
             <p class="font-bold w-2 text-center"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?> </p>
-            <i class="fa-regular fa-thumbs-down rotate-180 text-h2 mb-1 text-secondary"
+            <i class="fa-regular fa-thumbs-up text-h2 mb-1 text-secondary"
                 onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
         <?php } else if (isset($_SESSION['id_membre'])) {
             $query = "SELECT type_de_reaction FROM sae_db._avis_reactions WHERE id_avis = ? AND id_membre = ?";
@@ -267,7 +267,7 @@ if (!function_exists('to_nom_note')) {
                         <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
                         <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
                         </p>
-                        <i class="cursor-pointer fa-solid fa-thumbs-down rotate-180 text-h2 mb-1 text-secondary"
+                        <i class="cursor-pointer fa-solid fa-thumbs-up text-h2 mb-1 text-secondary"
                             id="thumb-up-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
                 <?php } else { ?>
                         <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
@@ -278,7 +278,7 @@ if (!function_exists('to_nom_note')) {
                         <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
                         <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
                         </p>
-                        <i class="cursor-pointer fa-regular fa-thumbs-down rotate-180 text-h2 mb-1" id="thumb-up-<?php echo $id_avis; ?>"
+                        <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1" id="thumb-up-<?php echo $id_avis; ?>"
                             onclick="sendReaction(<?php echo $id_avis; ?>, 'downTOup')"></i>
                 <?php } ?>
             <?php } else { ?>
@@ -290,7 +290,7 @@ if (!function_exists('to_nom_note')) {
                     <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
                     <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
                     </p>
-                    <i class="cursor-pointer fa-regular fa-thumbs-down rotate-180 text-h2 mb-1" id="thumb-up-<?php echo $id_avis; ?>"
+                    <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1" id="thumb-up-<?php echo $id_avis; ?>"
                         onclick="sendReaction(<?php echo $id_avis; ?>, 'up')"></i>
             <?php } ?>
         <?php } else { ?>
@@ -304,7 +304,7 @@ if (!function_exists('to_nom_note')) {
                 <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
                 </p>
                 <a href="/connexion">
-                    <i class="cursor-pointer fa-regular fa-thumbs-down rotate-180 text-h2 mb-1"></i>
+                    <i class="cursor-pointer fa-regular fa-thumbs-up text-h2 mb-1"></i>
                 </a>
         <?php } ?>
     </div>
