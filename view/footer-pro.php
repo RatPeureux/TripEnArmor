@@ -3,7 +3,7 @@
     Pour l'ajouter, écrier la balise <div id='footer'></div> dans votre code html
 -->
 <footer class="bg-secondary text-white p-8 pb-16 md:pb-8">
-    <div class="mx-auto max-w-[1280px] flex flex-col justify-center items-center">
+    <div class="mx-auto flex flex-col justify-center items-center">
         <div class="hidden md:flex w-full items-center items-end justify-between">
             <a href="/pro/" class="self-start flex items-center gap-2">
                 <img src="/public/icones/logo-footer.svg" alt="[img] Logo">
