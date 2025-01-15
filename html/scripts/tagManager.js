@@ -163,3 +163,7 @@ class TagManager {
         this.addedTags[activityType].push(tag);
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tagManager = new TagManager('tagInput', tags);
+})
