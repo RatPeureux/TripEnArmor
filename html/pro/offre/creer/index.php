@@ -1532,6 +1532,9 @@ $pro = verifyPro();
 		</div>
 
 		<script src="/scripts/tagManager.js"></script>
+		<script>
+			const tagManager = new TagManager('tag-input', []);
+		</script>
 		<script src="/scripts/priceManager.js"></script>
 		<script src="/scripts/prestationManager.js"></script>
 		<script src="/scripts/optionToggler.js"></script>
