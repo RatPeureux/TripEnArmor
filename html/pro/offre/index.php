@@ -359,6 +359,7 @@ session_start();
                             <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
                         </div>
+                        $temp = $moyenne;
                         <?php
                         // Moyenne des notes quand il y en a une
                         if ($moyenne) { ?>
@@ -694,6 +695,7 @@ session_start();
                         <div class="w-full flex justify-between">
                             <h3 class="text-h4 pt-2">Avis</h3>
                             <?php
+                            $moyenne = $temp;
                             // Moyenne des notes quand il y en a une
                             if ($moyenne) { ?>
                                 <div class="flex gap-1">
@@ -716,7 +718,7 @@ session_start();
                                         }
                                         ?>
                                     </div>
-                                    <p class='text-small flex pt-1 items-center'>(<?php echo $nb_avis ?>)</p>
+                                    <p class='text-small flex items-center'>(<?php echo $nb_avis ?>)</p>
                                 </div>
                                 <?php
                             }
@@ -1044,30 +1046,6 @@ session_start();
         setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
         setupToggle('compl-arrow', 'compl-button', 'compl-info');
         setupToggle('grille-arrow', 'grille-button', 'grille-info');
-
-        function toggleThumbs(thumbUp, thumbDown) {
-            thumbUp.addEventListener("click", function () {
-                thumbUp.classList.toggle("fa-regular");
-                thumbUp.classList.toggle("fa-solid");
-                thumbUp.classList.toggle("text-secondary");
-                if (thumbDown.classList.contains("fa-solid")) {
-                    thumbDown.classList.toggle("fa-regular");
-                    thumbDown.classList.toggle("fa-solid");
-                    thumbDown.classList.toggle("text-rouge-logo");
-                }
-            });
-
-            thumbDown.addEventListener("click", function () {
-                thumbDown.classList.toggle("fa-regular");
-                thumbDown.classList.toggle("fa-solid");
-                thumbDown.classList.toggle("text-rouge-logo");
-                if (thumbUp.classList.contains("fa-solid")) {
-                    thumbUp.classList.toggle("fa-regular");
-                    thumbUp.classList.toggle("fa-solid");
-                    thumbUp.classList.toggle("text-secondary");
-                }
-            });
-        }
     </script>
 </body>
 

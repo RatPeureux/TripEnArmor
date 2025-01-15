@@ -7,11 +7,14 @@
 // CHARGER LES INFORAMTIONS DE LA FACTURE
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-// Les différentes lignes de la facture
-$stmt = $dbh->prepare("SELECT id_offre FROM sae_db._facture WHERE numero_facture = ?");
+// La facture
+$stmt = $dbh->prepare("SELECT * FROM sae_db._facture WHERE numero_facture = ?");
 $stmt->bindParam(1, $numero_facture);
 $stmt->execute();
-$id_offre = $stmt->fetch()['id_offre'];
+$facture = $stmt->fetch();
+
+// Les différentes lignes de la facture
+$id_offre = $facture['id_offre'];
 
 $stmt = $dbh->prepare("SELECT * FROM sae_db._facture NATURAL JOIN sae_db._ligne_facture_en_ligne WHERE numero_facture = ?");
 $stmt->bindParam(1, $numero_facture);
@@ -47,6 +50,13 @@ $stmtAdresse = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :
 $stmtAdresse->bindParam(':id_adresse', $pro_details['id_adresse'], PDO::PARAM_INT);
 $stmtAdresse->execute();
 $adresse_details = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
+
+// Dates et numéro de facture
+$date_emission = new DateTime($facture['date_emission']);
+$date_emission = $date_emission->format('d/m/Y');
+
+$date_echeance = new DateTime($facture['date_echeance']);
+$date_echeance = $date_echeance->format('d/m/Y');
 ?>
 
 <!-- FACTURE AVEC TOUS LES DETAILS -->
@@ -81,9 +91,9 @@ $adresse_details = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
     <div>
         <h1 class="text-2xl"><?php echo htmlspecialchars($offre['titre']) ?></h1>
         <br>
-        <h1 class="text-xl">Facture N° <?php echo "2025-XXXX-XXXX"; ?></h1>
-        <p>Date d'émission : <?php echo htmlspecialchars($date_emission); ?></p>
-        <p>Règlement : Le <?php echo $date_echeance ?> </p>
+        <h1 class="text-xl">Facture N° <?php echo htmlspecialchars($numero_facture) ?></h1>
+        <p>Date d'émission : <?php echo htmlspecialchars($date_emission) ?></p>
+        <p>Règlement : Le <?php echo htmlspecialchars($date_echeance) ?> </p>
     </div>
 
     <!-- Détails pour les jours en ligne -->
@@ -221,7 +231,7 @@ $adresse_details = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
     <hr>
 
     <!-- Mentions légales et coordonnées bancaires -->
-    <div class="mt-10 text-sm text-center mt-10">
+    <div class="mt-10 text-sm text-center">
         <p>En cas de retard de paiement, une pénalité de 3 fois le taux d’intérêt légal sera appliquée, à
             laquelle s’ajoutera une indemnité forfaitaire de 40€.</p>
         <p>PACT</p>
