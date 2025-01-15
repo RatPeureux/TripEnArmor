@@ -50,6 +50,13 @@ if (!function_exists('to_nom_note')) {
 
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
     $pro_can_answer = (isConnectedAsPro() && $id_pro_must_have == $_SESSION['id_pro']) ? true : false;
+
+    // Vérifier si celui qui consulte l'avis est le pro lié à l'offre correspondant à l'avis -> mettre l'attribut est_lu à true
+    if ($pro_can_answer) {
+        $stmt = $dbh->prepare("UPDATE sae_db._avis SET est_lu = TRUE WHERE id_avis = ?");
+        $stmt->bindParam(1, $id_avis);
+        $stmt->execute();
+    }
     ?>
 
     <!-- Première ligne du haut -->
@@ -234,12 +241,19 @@ if (!function_exists('to_nom_note')) {
         </div>
     <!-- Sinon formulaire de reponse pour le pro s'il est bien connecté -->
     <?php } else if ($pro_can_answer) { ?>
-        <div class="p-4">
+        <div class="p-4 flex flex-col gap-2 justify-start">
             <!-- Bouton de rédaction de réponse -->
-            <a class="p-1 hover:cursor-pointer self-start border border-primary" onclick="this.closest('div').querySelector('textarea').classList.toggle('hidden')">Répondre</a>
+            <div class="flex gap-4 items-center">
+                <a class="p-1 hover:cursor-pointer self-start border border-primary" onclick="document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden')">Répondre</a>
+                <i class="fa-regular fa-paper-plane hover:cursor-pointer" title="Envoyer" onclick="
+                    let content = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value;
+                    let encodedContent = encodeURIComponent(content);
+                    window.location.href = '/scripts/send_reponse.php?id_avis=<?php echo $id_avis ?>&reponse=' + encodedContent;">
+                </i>
+            </div>
     
             <!-- Champ de rédaction -->
-            <textarea id="formulaire-reponse-avis-<?php echo $id_avis ?>" class="hidden"></textarea>
+            <textarea id="formulaire-reponse-avis-<?php echo $id_avis ?>" class="hidden border border-gris"></textarea>
         </div>
     <?php } ?>
 
