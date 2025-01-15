@@ -1,80 +1,64 @@
 <?php
+session_start();
+header('Content-Type: application/json');
+
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-$id_membre = $_SESSION['id_membre'];
-$id_avis = $_GET['id_avis'];
-$action = $_GET['action'];
+$id_membre = $_SESSION['id_membre'] ?? null;
+$id_avis = $_GET['id_avis'] ?? null;
+$action = $_GET['action'] ?? null;
 
-if ($action == 'up' || $action == 'down') {
-    // Requête SQL pour insérer une nouvelle réaction
-    $query = "INSERT INTO " . "_avis_reactions" . " (id_membre, id_avis, type_de_reaction) VALUES (?, ?, ?)";
-    
-    // Prépare la requête SQL
-    $statement = self::$dbh->prepare($query);
-    $statement->bindParam(1, $id_membre);
-    $statement->bindParam(2, $id_avis);
-    if ($action == 'up') {
-        $statement->bindParam(3, true);
-    } else {
-        $statement->bindParam(3, false);
-    }
-    
-    // Exécute la requête et retourne les résultats ou une erreur
-    if ($statement->execute()) {
-        return $statement->fetch(PDO::FETCH_ASSOC);
-    } else {
-        echo "ERREUR : Impossible de créer la réaction";
-        return -1;
-    }
+if (!$id_membre || !$id_avis || !$action) {
+    echo json_encode(['success' => false, 'message' => 'Paramètres manquants']);
+    exit;
 }
 
-if ($action == 'upTOdown' || $action == 'downTOup') {
-    // Requête SQL pour insérer une nouvelle réaction
-    $query = "UPDATE " . "_avis_reactions" . " SET type_de_reaction = ? WHERE id_membre = ? AND id_avis = ?";
-    
-    // Prépare la requête SQL
-    $statement = self::$dbh->prepare($query);
-    if ($action == 'upTOdown') {
-        $statement->bindParam(1, false);
+try {
+    if ($action == 'up' || $action == 'down') {
+        $query = "INSERT INTO sae_db._avis_reactions (id_membre, id_avis, type_de_reaction) VALUES (?, ?, ?)";
+        
+        $statement = $dbh->prepare($query);
+        $type_de_reaction = ($action == 'up');
+        
+        $statement->bindParam(1, $id_membre);
+        $statement->bindParam(2, $id_avis);
+        $statement->bindParam(3, $type_de_reaction, PDO::PARAM_BOOL);
+        
+        if ($statement->execute()) {
+            echo json_encode(['success' => true, 'message' => 'Réaction ajoutée']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Erreur lors de l’ajout de la réaction']);
+        }
+    } elseif ($action == 'upTOdown' || $action == 'downTOup') {
+        $query = "UPDATE sae_db._avis_reactions SET type_de_reaction = ? WHERE id_membre = ? AND id_avis = ?";
+        
+        $statement = $dbh->prepare($query);
+        $type_de_reaction = ($action == 'downTOup');
+        
+        $statement->bindParam(1, $type_de_reaction, PDO::PARAM_BOOL);
+        $statement->bindParam(2, $id_membre);
+        $statement->bindParam(3, $id_avis);
+        
+        if ($statement->execute()) {
+            echo json_encode(['success' => true, 'message' => 'Réaction mise à jour']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Erreur lors de la mise à jour de la réaction']);
+        }
+    } elseif ($action == 'upTOnull' || $action == 'downTOnull') {
+        $query = "DELETE FROM sae_db._avis_reactions WHERE id_membre = ? AND id_avis = ?";
+        
+        $statement = $dbh->prepare($query);
+        $statement->bindParam(1, $id_membre);
+        $statement->bindParam(2, $id_avis);
+        
+        if ($statement->execute()) {
+            echo json_encode(['success' => true, 'message' => 'Réaction supprimée']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression de la réaction']);
+        }
     } else {
-        $statement->bindParam(1, true);
+        echo json_encode(['success' => false, 'message' => 'Action inconnue']);
     }
-    $statement->bindParam(2, $id_membre);
-    $statement->bindParam(3, $id_avis);
-    
-    // Exécute la requête et retourne les résultats ou une erreur
-    if ($statement->execute()) {
-        return $statement->fetch(PDO::FETCH_ASSOC);
-    } else {
-        echo "ERREUR : Impossible de modifier la réaction";
-        return -1;
-    }
-}
-
-if ($action == 'null') {
-    // Requête SQL pour insérer une nouvelle réaction
-    $query = "DELETE FROM " . "_avis_reactions" . " WHERE id_membre = ? AND id_avis = ?";
-    
-    // Prépare la requête SQL
-    $statement = self::$dbh->prepare($query);
-    $statement->bindParam(1, $id_membre);
-    $statement->bindParam(2, $id_avis);
-    
-    // Exécute la requête et retourne les résultats ou une erreur
-    if ($statement->execute()) {
-        return $statement->fetch(PDO::FETCH_ASSOC);
-    } else {
-        echo "ERREUR : Impossible de supprimer la réaction";
-        return -1;
-    }
-}
-
-if (isset($_SERVER['HTTP_REFERER'])) {
-    // Revenir à la page sur laquelle on était
-    header("Location: " . $_SERVER['HTTP_REFERER']);
-    exit();
-} else {
-    // Si il est impossible de connaître la page précédente, alors revenir sur la page de l'offre où il y avait l'avis
-    header("location: /offre?id=$id_offre");
-    exit();
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'message' => 'Erreur interne : ' . $e->getMessage()]);
 }

@@ -33,7 +33,7 @@
         <p>Menu</p>
     </a>
 
-    <div class="hidden w-52 border-black border z-25" id="menu-component">
+    <div class="w-52 border-black border z-25" id="menu-component">
         <div class="all-items flex flex-col items-stretch">
             <a class="pl-5 py-3 border-black <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';

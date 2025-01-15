@@ -359,6 +359,7 @@ session_start();
                             <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
                         </div>
+                        $temp = $moyenne;
                         <?php
                         // Moyenne des notes quand il y en a une
                         if ($moyenne) { ?>
@@ -694,6 +695,7 @@ session_start();
                         <div class="w-full flex justify-between">
                             <h3 class="text-h4 pt-2">Avis</h3>
                             <?php
+                            $moyenne = $temp;
                             // Moyenne des notes quand il y en a une
                             if ($moyenne) { ?>
                                 <div class="flex gap-1">
@@ -716,7 +718,7 @@ session_start();
                                         }
                                         ?>
                                     </div>
-                                    <p class='text-small flex pt-1 items-center'>(<?php echo $nb_avis ?>)</p>
+                                    <p class='text-small flex items-center'>(<?php echo $nb_avis ?>)</p>
                                 </div>
                                 <?php
                             }

@@ -115,7 +115,7 @@ if ($mode_carte == 'membre') {
 				</div>
 				<!-- Description avec les tags-->
 				<div class='description py-2 flex flex-col gap-2 justify-center self-stretch'>
-					<div class='p-1  bg-secondary self-center w-full'>
+					<div class='p-1 bg-secondary self-center w-full'>
 						<?php
 						if ($categorie_offre != 'restauration') {
 							require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';

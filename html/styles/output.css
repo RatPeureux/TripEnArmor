@@ -1216,10 +1216,6 @@ video {
   max-width: 56rem;
 }
 
-.max-w-7xl {
-  max-width: 80rem;
-}
-
 .max-w-80 {
   max-width: 20rem;
 }
@@ -1282,14 +1278,6 @@ video {
 
 .basis-1\/2 {
   flex-basis: 50%;
-}
-
-.basis-3\/12 {
-  flex-basis: 25%;
-}
-
-.basis-9\/12 {
-  flex-basis: 75%;
 }
 
 .table-auto {
@@ -2204,6 +2192,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
+  z-index: 0;
   background: #F2771B;
 }
 
@@ -2406,6 +2395,11 @@ input[type="checkbox"]:checked:before {
 .hover\:bg-base100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(241 243 244 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-gray-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-orange-600:hover {
@@ -2674,8 +2668,30 @@ input[type="checkbox"]:checked:before {
     display: none;
   }
 
+  .xl\:max-w-7xl {
+    max-width: 80rem;
+  }
+
   .xl\:opacity-0 {
     opacity: 0;
+  }
+}
+
+@media (min-width: 1536px) {
+  .\32xl\:flex-row {
+    flex-direction: row;
+  }
+
+  .\32xl\:items-start {
+    align-items: flex-start;
+  }
+
+  .\32xl\:justify-start {
+    justify-content: flex-start;
+  }
+
+  .\32xl\:gap-4 {
+    gap: 1rem;
   }
 }
 
