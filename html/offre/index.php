@@ -311,13 +311,6 @@ session_start();
                                 echo $categorie_offre . '.jpg';
                             } ?>' alt="image de slider">
                         </div>
-                        <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
-                                echo "offres/" . $images['carte'];
-                            } else {
-                                echo $categorie_offre . '.jpg';
-                            } ?>' alt="image de slider">
-                        </div>
                         <?php
                         if ($images['details']) {
                             foreach ($images['details'] as $image) {
@@ -1014,6 +1007,30 @@ session_start();
         setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
         setupToggle('compl-arrow', 'compl-button', 'compl-info');
         setupToggle('grille-arrow', 'grille-button', 'grille-info');
+
+        function toggleThumbs(thumbUp, thumbDown) {
+            thumbUp.addEventListener("click", function () {
+                thumbUp.classList.toggle("fa-regular");
+                thumbUp.classList.toggle("fa-solid");
+                thumbUp.classList.toggle("text-secondary");
+                if (thumbDown.classList.contains("fa-solid")) {
+                    thumbDown.classList.toggle("fa-regular");
+                    thumbDown.classList.toggle("fa-solid");
+                    thumbDown.classList.toggle("text-rouge-logo");
+                }
+            });
+
+            thumbDown.addEventListener("click", function () {
+                thumbDown.classList.toggle("fa-regular");
+                thumbDown.classList.toggle("fa-solid");
+                thumbDown.classList.toggle("text-rouge-logo");
+                if (thumbUp.classList.contains("fa-solid")) {
+                    thumbUp.classList.toggle("fa-regular");
+                    thumbUp.classList.toggle("fa-solid");
+                    thumbUp.classList.toggle("text-secondary");
+                }
+            });
+        }
     </script>
 </body>
 

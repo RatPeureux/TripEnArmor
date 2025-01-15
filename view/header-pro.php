@@ -3,7 +3,7 @@
     Pour l'ajouter, écrier la balise <div id='header-pro'></div> dans votre code html
 -->
 <header class="w-full bg-white flex items-center px-4 h-16">
-    <div class="flex w-full items-center relative mx-auto max-w-[1280px]">
+    <div class="flex w-full items-center relative mx-auto">
         <!-- Partie gauche -->
         <div class="flex-shrink-0 flex items-center">
             <a onclick="toggleMenu()" class="flex gap-4 items-center hover:text-primary hover:cursor-pointer duration-100">

@@ -15,6 +15,7 @@ class TypeRepasRestaurantController
     {
         $typeRepasRestaurant = $this->model::getTypeRepasRestaurantById($id);
 
+        $this->model::log("Les informations du type de repas $id ont été lues.");
         return $typeRepasRestaurant;
     }
 
@@ -23,9 +24,11 @@ class TypeRepasRestaurantController
         $typeRepasRestaurant = $this->model::getTypesRepasRestaurantByName($name);
 
         if (count($typeRepasRestaurant) == 0) {
+            $this->model::log("Les informations du type de repas $name n'ont pas été lues.");
             return false;
         }
 
+        $this->model::log("Les informations du type de repas $name ont été lues.");
         return $typeRepasRestaurant;
     }
 
@@ -33,13 +36,14 @@ class TypeRepasRestaurantController
     {
         $typeRepasRestaurantID = $this->model::createTypeRepasRestaurant($nom_type_repas)[0]['id_type_repas_restaurant'];
 
+        $this->model::log("Un type de repas a été créé.");
         return $typeRepasRestaurantID;
     }
 
     public function updateTypeRepasRestaurant($id, $nom_type_repas = false)
     {
         if ($nom_type_repas === false) {
-            echo "ERREUR: Aucun champ à modifier";
+            $this->model::log("Le type de repas $id n'a pas été mis à jour.");
             return -1;
         } else {
             $typeRepasRestaurant = $this->model::getTypeRepasRestaurantById($id);
@@ -48,6 +52,7 @@ class TypeRepasRestaurantController
                 $id,
                 $nom_type_repas !== false ? $nom_type_repas : $typeRepasRestaurant["nom_type_repas"]
             );
+            $this->model::log("Les informations du type de repas $id ont été mises à jour.");
             return $updatedTypeRepasRestaurantId;
         }
     }

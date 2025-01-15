@@ -10,31 +10,37 @@ class AvisController
         $result = $this->model::getAvisByIdOffre($idOffre);
 
         if ($result) {
+            $this->model::log("Les avis de l'offre $idOffre ont été lus.");
             return $result;
         } else {
+            $this->model::log("Aucun avis trouvé pour l'offre $idOffre.");
             return -1;
         }
     }
 
     public function getAvisByIdMembre($idMembre)
     {
+        $this->model::log("Les avis du membre $idMembre ont été lus.");
         return $this->model::getAvisByIdMembre($idMembre);
     }
 
     public function getAvisByIdPro($id_pro)
     {
+        $this->model::log("Les avis du pro $id_pro ont été lus.");
         return $this->model::getAvisByIdPro($id_pro);
     }
 
     public function getAvisById($idAvis)
     {
         $result = $this->model::getAvisById($idAvis);
+        $this->model::log("L'avis $idAvis a été lu.");
         return $result;
     }
 
     public function getAvisByIdMembreEtOffre($idMembre, $idOffre)
     {
         $result = $this->model::getAvisByIdMembreEtOffre($idMembre, $idOffre);
+        $this->model::log("L'avis du membre $idMembre pour l'offre $idOffre a été lu.");
         return $result;
     }
 
@@ -43,9 +49,10 @@ class AvisController
         $resultatSQL = $this->model::createAvis($titre, $date_experience, $id_membre, $id_offre, $note, $contexte_passage, $commentaire, $id_avis_reponse);
 
         if ($resultatSQL) {
+            $this->model::log("Un avis a été créé.");
             return $resultatSQL;
         } else {
-            echo "ERREUR: Impossible de créer l'avis";
+            $this->model::log("Impossible de créer l'avis.");
             return -1;
         }
     }
@@ -54,7 +61,7 @@ class AvisController
     {
         $avisInitial = $this->model::getAvisById($id_avis);
         if (!$avisInitial) {
-            echo "ERREUR: Avis inexistant";
+            $this->model::log("L'avis $id_avis n'existe pas.");
             return -1;
         }
 
@@ -68,9 +75,10 @@ class AvisController
         );
 
         if ($resultatSQL) {
+            $this->model::log("Une réponse a été créée.");
             return $resultatSQL;
         } else {
-            echo "ERREUR: Impossible de créer la réponse";
+            $this->model::log("Impossible de créer la réponse.");
             return -1;
         }
     }
@@ -78,7 +86,7 @@ class AvisController
     public function updateAvis($id, $titre = false, $commentaire = false, $date_experience = false, $id_pro = false, $id_offre = false, $id_avis_reponse = false)
     {
         if ($titre === false && $commentaire === false && $date_experience === false && $id_pro === false && $id_offre === false && $id_avis_reponse === false) {
-            echo "ERREUR: Aucun champ à modifier";
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $avis = $this->model::getAvisById($id);
@@ -94,9 +102,10 @@ class AvisController
             );
 
             if ($updated_id_avis !== false) {
+                $this->model::log("L'avis $id a été mis à jour.");
                 return $updated_id_avis;
             } else {
-                echo "ERREUR: Impossible de mettre à jour l'avis";
+                $this->model::log("Impossible de mettre à jour l'avis.");
                 return -1;
             }
         }
@@ -105,9 +114,10 @@ class AvisController
     public function deleteAvis($id)
     {
         if ($this->model::deleteAvis($id)) {
+            $this->model::log("L'avis $id a été supprimé.");
             return 0;
         } else {
-            echo "ERREUR: Impossible de supprimer l'avis";
+            $this->model::log("Impossible de supprimer l'avis $id.");
             return -1;
         }
     }

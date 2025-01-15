@@ -132,7 +132,7 @@ $pro = verifyPro();
 				BDD::rollbackTransaction();
 				exit;
 			}
-	
+
 			// Insérer l'offre dans la base de données
 			$prixMin = calculerPrixMin($prices);
 			$id_offre;
@@ -204,7 +204,7 @@ $pro = verifyPro();
 					BDD::rollbackTransaction();
 					exit;
 			}
-	
+
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
@@ -256,10 +256,12 @@ $pro = verifyPro();
 				// echo "Image du plan insérée.<br>";
 			}
 
-			if (!$imageController->uploadImage($id_offre, 'carte-resto', $_FILES['photo-resto']['tmp_name'], explode('/', $_FILES['photo-resto']['type'])[1])) {
-				echo "Erreur lors de l'upload de l'image de la carte du restaurant.";
-				BDD::rollbackTransaction();
-				exit;
+			if ($activityType === 'restauration') {
+				if (!$imageController->uploadImage($id_offre, 'photo-resto', $_FILES['photo-resto']['tmp_name'], explode('/', $_FILES['photo-resto']['type'])[1])) {
+					echo "Erreur lors de l'upload de l'image de la carte du restaurant.";
+					BDD::rollbackTransaction();
+					exit;
+				}
 			}
 
 			if ($activityType === 'visite' && $avec_guide) {
@@ -313,7 +315,7 @@ $pro = verifyPro();
 			foreach ($horaires as $key => $jour) {
 				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 			}
-	
+
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
 			$tarifController = new TarifPublicController();
@@ -1257,7 +1259,7 @@ $pro = verifyPro();
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la Une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-								<div class="card active relative bg-base300  flex flex-col w-full" id="card-preview">
+								<div class="card active relative bg-white flex flex-col w-full" id="card-preview">
 									<script>
 										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
 										function toggleCardPreview(option) {
@@ -1290,7 +1292,7 @@ $pro = verifyPro();
 									</script>
 									<!-- En tête -->
 									<div
-										class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 ">
+										class="en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 ">
 										<!-- Mise à jour du titre en temps réel -->
 										<h3 class="text-center " id="preview-titre"></h3>
 										<script>
@@ -1427,7 +1429,6 @@ $pro = verifyPro();
 													});
 											</script>
 										</div>
-										<hr class="h-20 border-black border" />
 										<!-- Résumé de l'offre -->
 										<div
 											class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
@@ -1478,7 +1479,6 @@ $pro = verifyPro();
 													});
 											</script>
 										</div>
-										<hr class="h-20 border-black border" />
 										<!-- Notation et Prix -->
 										<div
 											class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
