@@ -1364,7 +1364,7 @@ $pro = verifyPro();
 										</div>
 									</div>
 									<!-- Image de fond -->
-									<img class="h-48 w-full  object-cover" src="/public/images/image-test.png" id="preview-image" />
+									<img class="h-48 w-full object-cover" src="/public/images/image-test.png" id="preview-image" />
 									<script>
 										document
 											.getElementById("photo-upload-carte")
