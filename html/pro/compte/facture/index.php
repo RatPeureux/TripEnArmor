@@ -314,7 +314,8 @@ $pro = verifyPro();
 
                 const imgData = canvas.toDataURL('image/png');
                 pdf.addImage(imgData, 'PNG', 10, 10, 190, canvas.height * 190 / canvas.width);
-                pdf.save('facture.pdf');
+                let nom_facture = 'facture_<?php echo date('d/m/y') ?>_PACT_<?php echo $pro['nom_pro'] ?>';
+                pdf.save(nom_facture);
 
                 // Fermer l'affichage de la facture car ce n'est pas l'objectif lors du téléchargement
                 closeFacture();

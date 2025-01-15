@@ -1,6 +1,6 @@
 <!-- 
-    POUR APPELER LA VUE MON_AVIS, DÉFINIR LES VARIABLES SUIVANTES EN AMONT :
-    - $id_avisavis_view
+    POUR APPELER LA VUE AVIS, DÉFINIR LES VARIABLES SUIVANTES EN AMONT :
+    - $id_avis
     - $id_membre
     - $mode         : soit 'avis', soit 'mon_avis' pour un affichage différent
 -->
@@ -109,9 +109,19 @@ if (!function_exists('to_nom_note')) {
             if (!$is_mon_avis) {
                 ?>
                 <!-- Drapeau de signalement -->
-                <a onclick="confirm('Signaler l\'avis ?')">
-                    <i class="fa-regular fa-flag text-h3"></i>
-                </a>
+                <i class="fa-regular fa-flag text-h3 hover:text-primary hover:cursor-pointer"
+                    onclick="document.getElementById('pop-up-signalement-<?php echo $id_avis ?>').classList.remove('hidden')"></i>
+                <div id="pop-up-signalement-<?php echo $id_avis ?>"
+                    class="z-30 fixed top-0 left-0 h-full w-full flex hidden items-center justify-center">
+                    <!-- Background blur -->
+                    <div class="fixed top-0 left-0 w-full h-full bg-blur/25 backdrop-blur"
+                        onclick="document.getElementById('pop-up-signalement-<?php echo $id_avis ?>').classList.add('hidden');">
+                    </div>
+                    <!-- La pop-up (vue)-->
+                    <?php
+                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/pop_up_signalement_view.php';
+                    ?>
+                </div>
                 <?php
             } else {
                 ?>
@@ -213,8 +223,8 @@ if (!function_exists('to_nom_note')) {
 
 <?php if ($membre) { ?>
     <script>
-        const thumbsUp = document.getElementById("tup-<?php echo $id_avis ?>");
-        const thumbsDown = document.getElementById("tdown-<?php echo $id_avis ?>");
+        let thumbsUp = document.getElementById("tup-<?php echo $id_avis ?>");
+        let thumbsDown = document.getElementById("tdown-<?php echo $id_avis ?>");
 
         thumbsUp.addEventListener("click", function () {
             thumbsUp.classList.toggle("fa-regular");

@@ -217,7 +217,7 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
     <hr>
 
     <!-- Mentions légales et coordonnées bancaires -->
-    <div class="mt-10 text-sm text-center mt-10">
+    <div class="text-sm text-center mt-10">
         <p>En cas de retard de paiement, une pénalité de 3 fois le taux d’intérêt légal sera appliquée, à
             laquelle s’ajoutera une indemnité forfaitaire de 40€.</p>
         <p>PACT</p>

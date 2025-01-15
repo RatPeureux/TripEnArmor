@@ -536,7 +536,7 @@ create table _periodes_en_ligne (
     date_fin DATE DEFAULT NULL
 );
 
--------------------------------------------------------------------------------------------------------- Souscription
+-------------------------------------------------------------------------------------------------------- Souscription à certaines options
 CREATE TABLE _souscription (
     id_souscription SERIAL PRIMARY KEY,
     id_offre INTEGER NOT NULL,
