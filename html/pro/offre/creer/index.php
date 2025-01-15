@@ -770,24 +770,24 @@ $pro = verifyPro();
 									<p>
 										Repas servis :
 									</p>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary" onclick="toggleCheckbox('repasPetitDejeuner')">
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasPetitDejeuner')">
 										<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner"
 											class="hidden">
 										<label for="repasPetitDejeuner">Petit-déjeuner</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary" onclick="toggleCheckbox('repasBrunch')">
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasBrunch')">
 										<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
 										<label for="repasBrunch">Brunch</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary" onclick="toggleCheckbox('repasDejeuner')">
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasDejeuner')">
 										<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
 										<label for="repasDejeuner">Déjeuner</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary" onclick="toggleCheckbox('repasDiner')">
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasDiner')">
 										<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
 										<label for="repasDiner">Dîner</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary" onclick="toggleCheckbox('repasBoissons')">
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasBoissons')">
 										<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
 										<label for="repasBoissons">Boissons</label>
 									</div>
@@ -870,7 +870,7 @@ $pro = verifyPro();
 													<div class="h-max w-full cursor-pointer flex justify-center items-center"
 														id="addPrestationButton">
 														<svg xmlns="http://www.w3.org/2000/svg"
-															class="fill-secondary  border border-transparent hover:border-secondary border-box p-1"
+															class="fill-secondary  border border-transparent border-box p-1"
 															width="32" height="32"
 															viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
 															<path
