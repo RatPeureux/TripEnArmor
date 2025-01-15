@@ -1,7 +1,4 @@
 BDD/.~lock.Dictionnaire_SAE.xlsx#
-
-tailwindcss
-
 traitement.log
 
 .DS_Store
@@ -9,6 +6,7 @@ traitement.log
 .env
 
 .vscode
+tailwindcss
 
 /vendor
 

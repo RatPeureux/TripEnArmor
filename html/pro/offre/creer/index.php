@@ -630,7 +630,7 @@ $pro = verifyPro();
 										placeholder="Une description de l'accessibilité pour les personnes en situation de handicap, visible dans les détails de l'offre."></textarea>
 								</div>
 							</div>
-							<div class="w-full flex flex-col justify-center items-center space-y-4 part2 hidden">
+							<div class="w-full flex flex-col justify-center items-center space-y-4 part2 hidden pt-4">
 								<h2 class="w-full text-h2 text-secondary">Informations supplémentaires</h2>
 
 								<!-- Sélection du type d'activité -->
@@ -691,12 +691,12 @@ $pro = verifyPro();
 											$langues = $langueController->getInfosAllLangues();
 
 											foreach ($langues as $langue) { ?>
-												<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
+												<div class="w-fit p-2  border border-transparent hover:border-secondary"
 													onclick="toggleCheckbox('<?php echo 'langue' . $langue['id_langue']; ?>')">
-													<label
-														for="<?php echo 'langue' . $langue['id_langue']; ?>"><?php echo $langue['nom']; ?></label>
 													<input type="checkbox" name="<?php echo 'langue' . $langue['id_langue']; ?>"
 														id="<?php echo 'langue' . $langue['id_langue']; ?>" class="hidden">
+													<label
+														for="<?php echo 'langue' . $langue['id_langue']; ?>"><?php echo $langue['nom']; ?></label>
 												</div>
 											<?php }
 											?>
@@ -731,18 +731,18 @@ $pro = verifyPro();
 								<!-- Restauration -->
 								<div class="flex justify-start items-center w-full space-x-4 optionRestauration hidden">
 									<label for="gamme" class="text-nowrap">Gamme de prix :</label>
-									<div class="flex  space-x-2">
+									<div class="flex space-x-6">
 										<div>
 											<input type="radio" id="€" name="gamme2prix" value="€" />
-											<label for="€">€</label>
+											<label for="€">€ (&lt;25€)</label>
 										</div>
 										<div>
 											<input type="radio" id="€€" name="gamme2prix" value="€€" checked />
-											<label for="€€">€€</label>
+											<label for="€€">€€  (&lt;40€)</label>
 										</div>
 										<div>
 											<input type="radio" id="€€€" name="gamme2prix" value="€€€" />
-											<label for="€€€">€€€</label>
+											<label for="€€€">€€€  (&gt;40€)</label>
 										</div>
 									</div>
 								</div>
@@ -770,31 +770,26 @@ $pro = verifyPro();
 									<p>
 										Repas servis :
 									</p>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasPetitDejeuner')">
-										<label for="repasPetitDejeuner">Petit-déjeuner</label>
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasPetitDejeuner')">
 										<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner"
 											class="hidden">
+										<label for="repasPetitDejeuner">Petit-déjeuner</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasBrunch')">
-										<label for="repasBrunch">Brunch</label>
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasBrunch')">
 										<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
+										<label for="repasBrunch">Brunch</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasDejeuner')">
-										<label for="repasDejeuner">Déjeuner</label>
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasDejeuner')">
 										<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
+										<label for="repasDejeuner">Déjeuner</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasDiner')">
-										<label for="repasDiner">Dîner</label>
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasDiner')">
 										<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
+										<label for="repasDiner">Dîner</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasBoissons')">
-										<label for="repasBoissons">Boissons</label>
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasBoissons')">
 										<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
+										<label for="repasBoissons">Boissons</label>
 									</div>
 								</div>
 
@@ -875,7 +870,7 @@ $pro = verifyPro();
 													<div class="h-max w-full cursor-pointer flex justify-center items-center"
 														id="addPrestationButton">
 														<svg xmlns="http://www.w3.org/2000/svg"
-															class="fill-secondary  border border-transparent hover:border-secondary border-box p-1"
+															class="fill-secondary  border border-transparent border-box p-1"
 															width="32" height="32"
 															viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
 															<path
@@ -1259,7 +1254,7 @@ $pro = verifyPro();
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la Une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-								<div class="card active relative bg-white flex flex-col w-full" id="card-preview">
+								<div class="card active relative bg-base100 flex flex-col w-full" id="card-preview">
 									<script>
 										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
 										function toggleCardPreview(option) {
@@ -1369,8 +1364,7 @@ $pro = verifyPro();
 										</div>
 									</div>
 									<!-- Image de fond -->
-									<img class="h-48 w-full  object-cover" src="/public/images/image-test.png"
-										alt="Image promotionnelle de l'offre" id="preview-image" />
+									<img class="h-48 w-full object-cover" src="/public/images/image-test.png" id="preview-image" />
 									<script>
 										document
 											.getElementById("photo-upload-carte")
@@ -1398,35 +1392,42 @@ $pro = verifyPro();
 											<i class="fa-solid fa-location-dot"></i>
 											<!-- Mise à jour de la ville en temps réel -->
 											<p class="text-small" id="preview-locality"></p>
-											<script>
-												document.getElementById(
-													"preview-locality"
-												).textContent =
-													document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
-												document
-													.getElementById("locality")
-													.addEventListener("input", function () {
-														document.getElementById(
-															"preview-locality"
-														).textContent =
-															document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder;
-													});
-											</script>
 											<!-- Mise à jour du code postal en temps réel -->
 											<p class="text-small" id="preview-postal_code"></p>
 											<script>
-												document.getElementById(
-													"preview-postal_code"
-												).textContent =
-													document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder
-												document
-													.getElementById("postal_code")
-													.addEventListener("input", function () {
-														document.getElementById(
-															"preview-postal_code"
-														).textContent =
-															document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder;
-													});
+												setInterval(function() {
+													const locality = document.getElementById("locality").value;
+													const postalCode = document.getElementById("postal_code").value;
+													document.getElementById("preview-locality").textContent = locality ? locality : document.getElementById("locality").placeholder;
+													document.getElementById("preview-postal_code").textContent = postalCode ? postalCode : document.getElementById("postal_code").placeholder;
+												}, 100);
+												// const previewLocality = document.getElementById("preview-locality");
+												// const previewPostalCode = document.getElementById("preview-postal_code");
+												// const locality = document.getElementById("locality");
+												// const postalCode = document.getElementById("postal_code");
+
+												// previewLocality.textContent = locality.value ? locality.value : locality.placeholder
+												// previewPostalCode.textContent = postalCode.value ? postalCode.value : postalCode.placeholder
+
+												// document.getElementById("user_input_autocomplete_address")
+												// 	.addEventListener("input", function () {
+												// 		previewLocality.textContent =
+												// 			locality.value ? locality.value : locality.placeholder;
+												// 		previewPostalCode.textContent =
+												// 			postalCode.value ? postalCode.value : postalCode.placeholder;
+												// 	})
+
+												// locality.addEventListener("input", function () {
+												// 	console.log(locality);
+												// 	previewLocality.textContent =
+												// 		locality.value ? locality.value : locality.placeholder;
+												// });
+
+												// postalCode.addEventListener("input", function () {
+												// 	console.log(postalCode);
+												// 	previewPostalCode.textContent =
+												// 		postalCode.value ? postalCode.value : postalCode.placeholder;
+												// });
 											</script>
 										</div>
 										<!-- Résumé de l'offre -->
@@ -1525,6 +1526,9 @@ $pro = verifyPro();
 		</div>
 
 		<script src="/scripts/tagManager.js"></script>
+		<script>
+			const tagManager = new TagManager('tag-input', []);
+		</script>
 		<script src="/scripts/priceManager.js"></script>
 		<script src="/scripts/prestationManager.js"></script>
 		<script src="/scripts/optionToggler.js"></script>
