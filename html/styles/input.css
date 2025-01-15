@@ -57,7 +57,7 @@ label:has(+ select[required])::after {
 }
 
 /* Checkboxs */
-input[type="checkbox"]:not([class*="checkboxHidden"]) {
+input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -72,11 +72,11 @@ input[type="checkbox"]:not([class*="checkboxHidden"]) {
     display: inline-block;
 }
 
-input[type="checkbox"]:not([class*="checkboxHidden"]):checked {
+input[type="checkbox"]:checked {
     background: #F2771B;
 }
 
-input[type="checkbox"]:not([class*="checkboxHidden"]):checked:before {
+input[type="checkbox"]:checked:before {
     font-family: FontAwesome;
     content: '\f00c';
     display: block;

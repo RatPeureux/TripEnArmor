@@ -676,7 +676,7 @@ $pro = verifyPro();
 								<div class="flex justify-between items-center w-full space-x-2 optionVisite hidden">
 									<div class="inline-flex items-center space-x-4" onclick="toggleCheckbox('guide')">
 										<p>Visite guidée :</p>
-										<input type="checkbox" name="guide" id="guide" class="sr-only peer checkboxHidden">
+										<input type="checkbox" name="guide" id="guide" class="sr-only peer">
 										<div
 											class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800  peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after: after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
 										</div>
@@ -691,12 +691,12 @@ $pro = verifyPro();
 											$langues = $langueController->getInfosAllLangues();
 
 											foreach ($langues as $langue) { ?>
-												<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
+												<div class="w-fit p-2  border border-transparent hover:border-secondary"
 													onclick="toggleCheckbox('<?php echo 'langue' . $langue['id_langue']; ?>')">
+													<input type="checkbox" name="<?php echo 'langue' . $langue['id_langue']; ?>"
+														id="<?php echo 'langue' . $langue['id_langue']; ?>" class="hidden">
 													<label
 														for="<?php echo 'langue' . $langue['id_langue']; ?>"><?php echo $langue['nom']; ?></label>
-													<input type="checkbox" name="<?php echo 'langue' . $langue['id_langue']; ?>"
-														id="<?php echo 'langue' . $langue['id_langue']; ?>" class="hidden checkboxHidden">
 												</div>
 											<?php }
 											?>
@@ -770,31 +770,26 @@ $pro = verifyPro();
 									<p>
 										Repas servis :
 									</p>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasPetitDejeuner')">
-										<label for="repasPetitDejeuner">Petit-déjeuner</label>
-										<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner checkboxHidden"
+									<div class="w-fit p-2  border border-transparent hover:border-secondary" onclick="toggleCheckbox('repasPetitDejeuner')">
+										<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner"
 											class="hidden">
+										<label for="repasPetitDejeuner">Petit-déjeuner</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasBrunch')">
+									<div class="w-fit p-2  border border-transparent hover:border-secondary" onclick="toggleCheckbox('repasBrunch')">
+										<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
 										<label for="repasBrunch">Brunch</label>
-										<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden checkboxHidden">
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasDejeuner')">
+									<div class="w-fit p-2  border border-transparent hover:border-secondary" onclick="toggleCheckbox('repasDejeuner')">
+										<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
 										<label for="repasDejeuner">Déjeuner</label>
-										<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden checkboxHidden">
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasDiner')">
+									<div class="w-fit p-2  border border-transparent hover:border-secondary" onclick="toggleCheckbox('repasDiner')">
+										<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
 										<label for="repasDiner">Dîner</label>
-										<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden checkboxHidden">
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasBoissons')">
+									<div class="w-fit p-2  border border-transparent hover:border-secondary" onclick="toggleCheckbox('repasBoissons')">
+										<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
 										<label for="repasBoissons">Boissons</label>
-										<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden checkboxHidden">
 									</div>
 								</div>
 
@@ -850,7 +845,7 @@ $pro = verifyPro();
 														class="border border-secondary  p-2 bg-white w-full">
 												</td>
 												<td class="w-fit group">
-													<input type="checkbox" id="newPrestationInclude" class="hidden peer checkboxHidden">
+													<input type="checkbox" id="newPrestationInclude" class="hidden peer">
 													<label for="newPrestationInclude"
 														class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
 														<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
