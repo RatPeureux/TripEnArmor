@@ -1254,7 +1254,7 @@ $pro = verifyPro();
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la Une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-								<div class="card active relative bg-white flex flex-col w-full" id="card-preview">
+								<div class="card active relative bg-base100 flex flex-col w-full" id="card-preview">
 									<script>
 										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
 										function toggleCardPreview(option) {
