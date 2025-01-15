@@ -1,12 +1,19 @@
 BDD/.~lock.Dictionnaire_SAE.xlsx#
+
 tailwindcss
+
+traitement.log
+
 .DS_Store
 
 .env
+
 .vscode
 
 /vendor
+
 composer.lock
+
 /html/public/images/offres/
 
 /check_new_commit.*
