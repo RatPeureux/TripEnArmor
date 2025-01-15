@@ -242,7 +242,7 @@ if (!function_exists('to_nom_note')) {
             <i class="fa-regular fa-thumbs-down text-h2 mt-1 text-rouge-logo"
                 onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
             <p class="font-bold w-2 text-center"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?> </p>
-            <i class="fa-regular fa-thumbs-up text-h2 mb-1 text-secondary"
+            <i class="fa-regular fa-thumbs-down rotate-180 text-h2 mb-1 text-secondary"
                 onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
         <?php } else if (isset($_SESSION['id_membre'])) {
             $query = "SELECT type_de_reaction FROM sae_db._avis_reactions WHERE id_avis = ? AND id_membre = ?";
