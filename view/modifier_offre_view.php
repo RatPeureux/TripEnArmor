@@ -240,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
 
-	<title>Création d'offre - Professionnel - PACT</title>
+	<title>Modification d'offre - Professionnel - PACT</title>
 </head>
 
 <body>
