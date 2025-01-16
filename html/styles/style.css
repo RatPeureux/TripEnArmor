@@ -1761,6 +1761,10 @@ video {
   fill: #fff;
 }
 
+.fill-rouge-logo {
+  fill: #EA4335;
+}
+
 .stroke-black {
   stroke: #000;
 }

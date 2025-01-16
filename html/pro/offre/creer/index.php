@@ -843,7 +843,7 @@ $pro = verifyPro();
 												<td class="w-fit group">
 													<input type="checkbox" id="newPrestationInclude" class="hidden peer">
 													<label for="newPrestationInclude"
-														class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
+														class="h-max w-full cursor-pointer flex justify-center items-center fill-rouge-logo peer-checked:hidden">
 														<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
 															viewBox="0 0 32 32" fill="none" stroke="currentcardColor"
 															stroke-width="2.5" stroke-linecap="round"
