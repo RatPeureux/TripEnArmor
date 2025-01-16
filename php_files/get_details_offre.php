@@ -10,8 +10,7 @@ $result = [
     "email" => "",
     "tel" => "",
     "id_adresse" => "",
-    "data" => [
-    ]
+    "data" => []
 ];
 $proController = new ProPriveController();
 $pro = $proController->getInfosProPrive($id_pro);
@@ -52,6 +51,8 @@ if (isset($_SESSION['id_pro'])) {
     }
 } else {
     if (!$est_en_ligne) {
+        echo $id_offre;
+        echo $est_en_ligne;
         header('location: /401');
         exit();
     }
