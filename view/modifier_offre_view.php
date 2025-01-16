@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (!empty($_FILES['photo-upload-carte']['tmp_name'])) {
 		if (!$imagesController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
 			echo "Erreur lors de l'upload de l'image de la carte.";
-			var_dump($_FILES['photo-upload-carte']);
+			var_dump($_FILES);
 			BDD::rollbackTransaction();
 			exit;
 		}
