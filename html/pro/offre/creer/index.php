@@ -1526,6 +1526,9 @@ $pro = verifyPro();
 			const tagManager = new TagManager('tag-input', []);
 		</script>
 		<script src="/scripts/priceManager.js"></script>
+		<script>
+			const priceManager = new PriceManager('grilleTarifaire', []);
+		</script>
 		<script src="/scripts/prestationManager.js"></script>
 		<script src="/scripts/optionToggler.js"></script>
 		<script>
