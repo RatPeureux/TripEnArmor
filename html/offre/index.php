@@ -29,11 +29,6 @@ session_start();
 
 <body class="flex flex-col">
 
-    <!-- Inclusion du header -->
-    <?php
-    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
-    ?>
-
     <?php
     $id_offre = $_SESSION['id_offre'];
     if (isset($_SESSION['id_membre'])) {
@@ -96,10 +91,27 @@ session_start();
 
     // Obtenir l'ensemble des informations de l'offre
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
-    $stmt->bindParam(':id_offre', $id_offre);
+    if (isset($_GET['détails']) && $_GET['détails'] !== '') {
+        $stmt->bindParam(':id_offre', $_GET['détails']);
+    } else {
+        header('location: /401');
+        exit();
+    }
+
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
+
+    if (empty($offre)) {
+        header('location: /401');
+        exit();
+    }
+
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php'; ?>
+
+    <!-- Inclusion du header -->
+    <?php
+    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+
     switch ($categorie_offre) {
         case 'restauration':
 
