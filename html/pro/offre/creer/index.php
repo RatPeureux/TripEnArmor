@@ -129,12 +129,10 @@ $pro = verifyPro();
 			$adresseController = new AdresseController();
 			$id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
 			if (!$id_adresse) {
-				// echo "Erreur lors de la création de l'adresse.";
 				BDD::rollbackTransaction();
 				exit;
 			}
-			// echo"Adresse insérée.<br>";
-	
+
 			// Insérer l'offre dans la base de données
 			$prixMin = calculerPrixMin($prices);
 			$id_offre;
@@ -146,11 +144,9 @@ $pro = verifyPro();
 					$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
 
 					if ($id_offre < 0) { // Cas d'erreur
-						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo "Activité insérée.<br>";
 					break;
 
 				case 'visite':
@@ -160,11 +156,9 @@ $pro = verifyPro();
 					$id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
 
 					if ($id_offre < 0) {
-						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo "Visite insérée<br>";
 					break;
 
 				case 'spectacle':
@@ -175,11 +169,9 @@ $pro = verifyPro();
 					$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $dureeFormatted);
 
 					if ($id_offre < 0) {
-						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo "Spectacle inséré<br>";
 					break;
 
 				case 'parc_attraction':
@@ -190,11 +182,9 @@ $pro = verifyPro();
 					$id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
 
 					if ($id_offre < 0) {
-						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo "Parc d'attraction inséré<br>";
 					break;
 
 				case 'restauration':
@@ -205,20 +195,16 @@ $pro = verifyPro();
 					$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix);
 
 					if ($id_offre < 0) {
-						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo "Restauration insérée<br>";
 					break;
 
 				default:
-					// echo "Aucune activité sélectionnée";
 					BDD::rollbackTransaction();
 					exit;
 			}
-			// echo"new id_offre : " . $id_offre . "<br>";
-	
+
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
@@ -233,7 +219,6 @@ $pro = verifyPro();
 
 					$tagRestaurationRestaurantController->linkRestaurationAndTag($id_offre, $tag_id);
 				}
-				// echo "Tags Restaurant inséré<br>";
 			} else {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
 				$tagController = new TagController();
@@ -245,31 +230,21 @@ $pro = verifyPro();
 					$tag_id = $tags_id ? $tags_id[0]['id_tag'] : $tagController->createTag($tag);
 					$tagOffreController->linkOffreAndTag($id_offre, $tag_id);
 				}
-				// echo "Tags insérés.<br>";
 			}
 
 			// Insérer les images dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
 			$imageController = new ImageController();
-
-			// *** CARTE
-			if (!$imageController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
-				echo "Erreur lors de l'upload de l'image de la carte.";
-				BDD::rollbackTransaction();
-				exit;
-			}
 			// echo"Image de la carte insérée.<br>";
 	
 			// *** DETAIL
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
 					if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
-						// echo "Erreur lors de l'upload de l'image de détail.";
 						BDD::rollbackTransaction();
 						exit;
 					}
 				}
-				// echo "Images de détail insérées.<br>";
 			}
 
 			if ($activityType === 'parc_attraction') {
@@ -279,6 +254,14 @@ $pro = verifyPro();
 					exit;
 				}
 				// echo "Image du plan insérée.<br>";
+			}
+
+			if ($activityType === 'restauration') {
+				if (!$imageController->uploadImage($id_offre, 'photo-resto', $_FILES['photo-resto']['tmp_name'], explode('/', $_FILES['photo-resto']['type'])[1])) {
+					echo "Erreur lors de l'upload de l'image de la carte du restaurant.";
+					BDD::rollbackTransaction();
+					exit;
+				}
 			}
 
 			if ($activityType === 'visite' && $avec_guide) {
@@ -291,11 +274,9 @@ $pro = verifyPro();
 				for ($i = 1; $i < count($langueController->getInfosAllLangues()) + 1; $i++) { // foreach ($langues as $langue => $isIncluded) {
 					$isIncluded = $_POST['langue' . $i] ?? "on";
 					if ($isIncluded) {
-						// echo "Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
 						$visiteLangueController->linkVisiteAndLangue($id_offre, $i);
 					}
 				}
-				// echo "Langues insérées.<br>";
 			} elseif ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
 				$typeRepasController = new TypeRepasController();
@@ -311,7 +292,6 @@ $pro = verifyPro();
 						$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
 					}
 				}
-				// echo "Types de repas insérés.<br>";
 			} elseif ($activityType === 'activite') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_controller.php';
 				$prestationController = new PrestationController();
@@ -326,7 +306,6 @@ $pro = verifyPro();
 
 					$activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
 				}
-				// echo "Prestations insérées.<br>";
 			}
 
 			// Insérer les horaires dans la base de données
@@ -336,22 +315,19 @@ $pro = verifyPro();
 			foreach ($horaires as $key => $jour) {
 				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 			}
-			// echo"Horaires insérés.<br>";
-	
+
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
 			$tarifController = new TarifPublicController();
 			foreach ($prices as $price) {
 				if (!isset($price['name']) || !isset($price['value'])) {
-					// echo "Erreur : données de prix invalides.";
 					continue;
 				}
 
 				$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
 			}
-			// echo"Prix insérés.<br>";
 			BDD::commitTransaction();
-	
+
 			// Insérer les options dans la base de données
 			if ($option == "A la une" || $option == "En relief") {
 				$prix_ht = $option == "A la une" ? 8.34 : 16.68;
@@ -559,16 +535,14 @@ $pro = verifyPro();
 								<!-- Titre -->
 								<div class="flex flex-col justify-center w-full">
 									<label for="titre" class="text-nowrap">Titre :</label>
-									<input type="text" id="titre"
-										class="border border-secondary  p-2 bg-white w-full" name="titre"
-										placeholder="Escapade En Arvor" required>
+									<input type="text" id="titre" class="border border-secondary  p-2 bg-white w-full"
+										name="titre" placeholder="Escapade En Arvor" required>
 								</div>
 
 								<!-- Auteur -->
 								<div class="flex flex-col w-full">
 									<label for="auteur" class="text-nowrap">Auteur :</label>
-									<p id="auteur"
-										class="border border-secondary  p-2 bg-gray-200 w-full text-gray-600">
+									<p id="auteur" class="border border-secondary  p-2 bg-gray-200 w-full text-gray-600">
 										<?php
 										if ($pro) {
 											echo $pro['nom_pro'];
@@ -593,14 +567,14 @@ $pro = verifyPro();
 										title="Saisir votre ville" placeholder="Rennes"
 										class="border border-secondary  p-2 bg-white w-full" required>
 
-									<label for="postal_code" class="text-nowrap">Code postal :</label>
+									<label for="postal_code" class="text-nowrap mt-2">Code postal :</label>
 									<input id="postal_code" name="postal_code" type="number"
 										pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345"
-										placeholder="12345"
-										class="border border-secondary  p-2 bg-white w-24 w-full" required>
+										placeholder="12345" class="border border-secondary p-2 mt-2 bg-white w-24 w-full"
+										required>
 								</div>
 
-								<div class="w-full justify-between">
+								<div class="w-full justify-between space-y-4">
 									<!-- Photo principale -->
 									<div class="flex flex-col justify-between w-full">
 										<label for="photo-upload-carte" class="text-nowrap w-full">Photo de la carte
@@ -633,9 +607,9 @@ $pro = verifyPro();
 								<!-- Résumé -->
 								<div class="flex flex-col items-center w-full max-w-full">
 									<label for="resume" class="text-nowrap w-full">Résumé :</label>
-									<textarea id="resume" name="resume"
-										class="border border-secondary  p-2 bg-white w-full" rows="4"
-										placeholder="Le résumé visible sur la carte de l'offre." required></textarea>
+									<textarea id="resume" name="resume" class="border border-secondary  p-2 bg-white w-full"
+										rows="4" placeholder="Le résumé visible sur la carte de l'offre."
+										required></textarea>
 
 								</div>
 
@@ -656,15 +630,14 @@ $pro = verifyPro();
 										placeholder="Une description de l'accessibilité pour les personnes en situation de handicap, visible dans les détails de l'offre."></textarea>
 								</div>
 							</div>
-							<div class="w-full flex flex-col justify-center items-center space-y-4 part2 hidden">
+							<div class="w-full flex flex-col justify-center items-center space-y-4 part2 hidden pt-4">
 								<h2 class="w-full text-h2 text-secondary">Informations supplémentaires</h2>
 
 								<!-- Sélection du type d'activité -->
 								<div class="w-full">
 									<label for="activityType" class="block text-nowrap">Type d'activité:</label>
 									<select id="activityType" name="activityType"
-										class="bg-white text-black py-2 px-4 border border-black  w-full"
-										required>
+										class="bg-white text-black py-2 px-4 border border-black  w-full" required>
 										<option value="selection" selected hidden>Quel type d'activité ?</option>
 										<option value="activite" id="activite">Activité</option>
 										<option value="visite" id="visite">Visite</option>
@@ -685,10 +658,10 @@ $pro = verifyPro();
 								</div>
 
 								<div>
-									<div class="tag-container flex flex-wrap p-2  optionActivite hidden"
-										id="activiteTags"></div>
-									<div class="tag-container flex flex-wrap p-2  optionVisite hidden"
-										id="visiteTags"></div>
+									<div class="tag-container flex flex-wrap p-2  optionActivite hidden" id="activiteTags">
+									</div>
+									<div class="tag-container flex flex-wrap p-2  optionVisite hidden" id="visiteTags">
+									</div>
 									<div class="tag-container flex flex-wrap p-2  optionSpectacle hidden"
 										id="spectacleTags"></div>
 									<div class="tag-container flex flex-wrap p-2  optionParcAttraction hidden"
@@ -718,12 +691,12 @@ $pro = verifyPro();
 											$langues = $langueController->getInfosAllLangues();
 
 											foreach ($langues as $langue) { ?>
-												<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
+												<div class="w-fit p-2  border border-transparent hover:border-secondary"
 													onclick="toggleCheckbox('<?php echo 'langue' . $langue['id_langue']; ?>')">
-													<label
-														for="<?php echo 'langue' . $langue['id_langue']; ?>"><?php echo $langue['nom']; ?></label>
 													<input type="checkbox" name="<?php echo 'langue' . $langue['id_langue']; ?>"
 														id="<?php echo 'langue' . $langue['id_langue']; ?>" class="hidden">
+													<label
+														for="<?php echo 'langue' . $langue['id_langue']; ?>"><?php echo $langue['nom']; ?></label>
 												</div>
 											<?php }
 											?>
@@ -758,18 +731,18 @@ $pro = verifyPro();
 								<!-- Restauration -->
 								<div class="flex justify-start items-center w-full space-x-4 optionRestauration hidden">
 									<label for="gamme" class="text-nowrap">Gamme de prix :</label>
-									<div class="flex  space-x-2">
+									<div class="flex space-x-6">
 										<div>
 											<input type="radio" id="€" name="gamme2prix" value="€" />
-											<label for="€">€</label>
+											<label for="€">€ (&lt;25€)</label>
 										</div>
 										<div>
 											<input type="radio" id="€€" name="gamme2prix" value="€€" checked />
-											<label for="€€">€€</label>
+											<label for="€€">€€  (&lt;40€)</label>
 										</div>
 										<div>
 											<input type="radio" id="€€€" name="gamme2prix" value="€€€" />
-											<label for="€€€">€€€</label>
+											<label for="€€€">€€€  (&gt;40€)</label>
 										</div>
 									</div>
 								</div>
@@ -788,8 +761,7 @@ $pro = verifyPro();
 								<div class="flex justify-start items-center w-full space-x-2 optionParcAttraction hidden">
 									<label for="nb_attractions" class="text-nowrap">Nombre d'attraction :</label>
 									<input type="number" name="nb_attractions" id="nb_attractions" pattern="/d+/"
-										onchange="" min="0"
-										class="border border-secondary  p-2 bg-white w-fit text-right">
+										onchange="" min="0" class="border border-secondary  p-2 bg-white w-fit text-right">
 									<p>attractions</p>
 								</div>
 
@@ -798,31 +770,26 @@ $pro = verifyPro();
 									<p>
 										Repas servis :
 									</p>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasPetitDejeuner')">
-										<label for="repasPetitDejeuner">Petit-déjeuner</label>
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasPetitDejeuner')">
 										<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner"
 											class="hidden">
+										<label for="repasPetitDejeuner">Petit-déjeuner</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasBrunch')">
-										<label for="repasBrunch">Brunch</label>
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasBrunch')">
 										<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden">
+										<label for="repasBrunch">Brunch</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasDejeuner')">
-										<label for="repasDejeuner">Déjeuner</label>
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasDejeuner')">
 										<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
+										<label for="repasDejeuner">Déjeuner</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasDiner')">
-										<label for="repasDiner">Dîner</label>
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasDiner')">
 										<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
+										<label for="repasDiner">Dîner</label>
 									</div>
-									<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white "
-										onclick="toggleCheckbox('repasBoissons')">
-										<label for="repasBoissons">Boissons</label>
+									<div class="w-fit p-2  border border-transparent" onclick="toggleCheckbox('repasBoissons')">
 										<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
+										<label for="repasBoissons">Boissons</label>
 									</div>
 								</div>
 
@@ -831,6 +798,18 @@ $pro = verifyPro();
 								<div class="flex flex-col justify-between w-full optionParcAttraction hidden">
 									<label for="photo-plan" class="text-nowrap w-full">Plan du parc d'attraction :</label>
 									<input type="file" name="photo-plan" id="photo-plan" class="text-center text-secondary block w-full
+							border-dashed border-2 border-secondary  p-2
+							file:mr-5 file:py-3 file:px-10
+							file:f
+							file:text-small file:  file:text-secondary
+							file:border file:border-secondary
+							hover:file:cursor-pointer hover:file:bg-secondary hover:file:text-white" accept=".svg,.png,.jpg" />
+								</div>
+
+								<!-- Carte du restaurant -->
+								<div class="flex flex-col justify-between w-full optionRestauration hidden">
+									<label for="photo-resto" class="text-nowrap w-full">Carte du restaurant :</label>
+									<input type="file" name="photo-resto" id="photo-resto" class="text-center text-secondary block w-full
 							border-dashed border-2 border-secondary  p-2
 							file:mr-5 file:py-3 file:px-10
 							file:
@@ -891,7 +870,7 @@ $pro = verifyPro();
 													<div class="h-max w-full cursor-pointer flex justify-center items-center"
 														id="addPrestationButton">
 														<svg xmlns="http://www.w3.org/2000/svg"
-															class="fill-secondary  border border-transparent hover:border-secondary border-box p-1"
+															class="fill-secondary  border border-transparent border-box p-1"
 															width="32" height="32"
 															viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
 															<path
@@ -1189,13 +1168,30 @@ $pro = verifyPro();
 											</div>
 										<?php }
 										?>
+										<script>
+											console.log("In script")
+											document.getElementById('option-rien').addEventListener('change', function () {
+												console.log('In change')
+												if (document.getElementById('option-rien').checked === 'true') {
+													console.log("Checked")
+													document.getElementById('duration').removeAttribute('required');
+													document.getElementById('start_date').removeAttribute('required');
+												} else {
+													console.log("Not checked")
+													document.getElementById('duration').setAttribute('required', 'required');
+													document.getElementById('start_date').setAttribute('required', 'required');
+												}
+												console.log("end change")
+											});
+											console.log("end of script")
+										</script>
 									</div>
 
 									<div class="flex items-start hidden" id="option-data">
 										<div class="flex flex-col justify-center w-full">
 											<label for="start_date" class="text-nowrap">Début de la souscription :</label>
 											<input type="date" id="start_date" name="start_date"
-												class="border border-secondary  p-2 bg-white w-min" required
+												class="border border-secondary  p-2 bg-white w-min"
 												oninput="validateMonday(this)">
 											<script>
 												function validateMonday(input) {
@@ -1225,7 +1221,7 @@ $pro = verifyPro();
 										<div class="flex flex-col justify-center w-full">
 											<label for="duration" class="text-nowrap">Durée de la souscription :</label>
 											<input type="number" id="duration" name="duration" min="1" max="4" value="1"
-												class="border border-secondary  p-2 bg-white w-min" required>
+												class="border border-secondary  p-2 bg-white w-min">
 											<script>
 
 												document.getElementById('duration').addEventListener('change', function (event) {
@@ -1258,8 +1254,7 @@ $pro = verifyPro();
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la Une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-								<div class="card active relative bg-base300  flex flex-col w-full"
-									id="card-preview">
+								<div class="card active relative bg-base100 flex flex-col w-full" id="card-preview">
 									<script>
 										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
 										function toggleCardPreview(option) {
@@ -1292,7 +1287,7 @@ $pro = verifyPro();
 									</script>
 									<!-- En tête -->
 									<div
-										class="en-tete absolute top-0 w-72 max-w-full bg-blur/75 backdrop-blur left-1/2 -translate-x-1/2 ">
+										class="en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 ">
 										<!-- Mise à jour du titre en temps réel -->
 										<h3 class="text-center " id="preview-titre"></h3>
 										<script>
@@ -1369,8 +1364,7 @@ $pro = verifyPro();
 										</div>
 									</div>
 									<!-- Image de fond -->
-									<img class="h-48 w-full  object-cover" src="/public/images/image-test.png"
-										alt="Image promotionnelle de l'offre" id="preview-image" />
+									<img class="h-48 w-full object-cover" src="/public/images/image-test.png" id="preview-image" />
 									<script>
 										document
 											.getElementById("photo-upload-carte")
@@ -1398,38 +1392,44 @@ $pro = verifyPro();
 											<i class="fa-solid fa-location-dot"></i>
 											<!-- Mise à jour de la ville en temps réel -->
 											<p class="text-small" id="preview-locality"></p>
-											<script>
-												document.getElementById(
-													"preview-locality"
-												).textContent =
-													document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
-												document
-													.getElementById("locality")
-													.addEventListener("input", function () {
-														document.getElementById(
-															"preview-locality"
-														).textContent =
-															document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder;
-													});
-											</script>
 											<!-- Mise à jour du code postal en temps réel -->
 											<p class="text-small" id="preview-postal_code"></p>
 											<script>
-												document.getElementById(
-													"preview-postal_code"
-												).textContent =
-													document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder
-												document
-													.getElementById("postal_code")
-													.addEventListener("input", function () {
-														document.getElementById(
-															"preview-postal_code"
-														).textContent =
-															document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder;
-													});
+												setInterval(function() {
+													const locality = document.getElementById("locality").value;
+													const postalCode = document.getElementById("postal_code").value;
+													document.getElementById("preview-locality").textContent = locality ? locality : document.getElementById("locality").placeholder;
+													document.getElementById("preview-postal_code").textContent = postalCode ? postalCode : document.getElementById("postal_code").placeholder;
+												}, 100);
+												// const previewLocality = document.getElementById("preview-locality");
+												// const previewPostalCode = document.getElementById("preview-postal_code");
+												// const locality = document.getElementById("locality");
+												// const postalCode = document.getElementById("postal_code");
+
+												// previewLocality.textContent = locality.value ? locality.value : locality.placeholder
+												// previewPostalCode.textContent = postalCode.value ? postalCode.value : postalCode.placeholder
+
+												// document.getElementById("user_input_autocomplete_address")
+												// 	.addEventListener("input", function () {
+												// 		previewLocality.textContent =
+												// 			locality.value ? locality.value : locality.placeholder;
+												// 		previewPostalCode.textContent =
+												// 			postalCode.value ? postalCode.value : postalCode.placeholder;
+												// 	})
+
+												// locality.addEventListener("input", function () {
+												// 	console.log(locality);
+												// 	previewLocality.textContent =
+												// 		locality.value ? locality.value : locality.placeholder;
+												// });
+
+												// postalCode.addEventListener("input", function () {
+												// 	console.log(postalCode);
+												// 	previewPostalCode.textContent =
+												// 		postalCode.value ? postalCode.value : postalCode.placeholder;
+												// });
 											</script>
 										</div>
-										<hr class="h-20 border-black border" />
 										<!-- Résumé de l'offre -->
 										<div
 											class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
@@ -1480,7 +1480,6 @@ $pro = verifyPro();
 													});
 											</script>
 										</div>
-										<hr class="h-20 border-black border" />
 										<!-- Notation et Prix -->
 										<div
 											class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
@@ -1527,6 +1526,9 @@ $pro = verifyPro();
 		</div>
 
 		<script src="/scripts/tagManager.js"></script>
+		<script>
+			const tagManager = new TagManager('tag-input', []);
+		</script>
 		<script src="/scripts/priceManager.js"></script>
 		<script src="/scripts/prestationManager.js"></script>
 		<script src="/scripts/optionToggler.js"></script>

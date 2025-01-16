@@ -15,6 +15,7 @@ class TypeRepasRestaurantController
     {
         $typeRepasRestaurant = $this->model::getTypeRepasRestaurantById($id);
 
+        $this->model::log("Les informations du type de repas $id ont été lues.");
         return $typeRepasRestaurant;
     }
 
@@ -51,6 +52,7 @@ class TypeRepasRestaurantController
                 $id,
                 $nom_type_repas !== false ? $nom_type_repas : $typeRepasRestaurant["nom_type_repas"]
             );
+            $this->model::log("Les informations du type de repas $id ont été mises à jour.");
             return $updatedTypeRepasRestaurantId;
         }
     }

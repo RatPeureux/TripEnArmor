@@ -28,12 +28,12 @@
 <!-- VERSION TABLETTE OU PLUS (+768px) -->
  
 <div class="sticky top-2 hidden md:block flex flex-col min-w-52 h-[80.5vh] scroll-hidden overflow-x-hidden overflow-y-auto">
-    <a class="mt-4 mx-2 mb-1 self-end flex items-center justify-center gap-2 cursor-pointer hover:text-primary" id="menu-button" onclick="developpedMenu()">
+    <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2 cursor-pointer hover:text-primary" id="menu-button" onclick="developpedMenu()">
         <i class="fa-solid fa-bars"></i>
         <p>Menu</p>
     </a>
 
-    <div class="hidden w-52 border-black border z-25" id="menu-component">
+    <div class="w-52 border-black border z-25" id="menu-component">
         <div class="all-items flex flex-col items-stretch">
             <a class="pl-5 py-3 border-black <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';
@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <a class="mt-4 mx-2 mb-1 self-end flex items-center justify-center gap-2 cursor-pointer hover:text-primary" id="filtre-button" onclick="developpedFiltre()">
+    <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2 cursor-pointer hover:text-primary" id="filtre-button" onclick="developpedFiltre()">
         <i class="text xl fa-solid fa-filter"></i>
         <p>Filtrer</p>
     </a>

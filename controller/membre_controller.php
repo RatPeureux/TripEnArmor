@@ -14,12 +14,16 @@ class MembreController
     public function createMembre($email, $mdp, $tel, $adresseId, $pseudo, $prenom, $nom)
     {
         $membreID = $this->model::createCompte($email, $mdp, $tel, $adresseId, $pseudo, $prenom, $nom);
+
+        $this->model::log("Un membre a été créé.");
         return $membreID;
     }
 
     public function getInfosMembre($id)
     {
         $membre = $this->model::getMembreById($id);
+
+        $this->model::log("Les informations du membre $id ont été lues.");
         return $membre;
     }
 
@@ -30,16 +34,18 @@ class MembreController
         if ($membre) {
             $result = $membre["mdp_hash"];
         } else {
+            $this->model::log("Le mot de passe du membre $id n'a pas été trouvé.");
             return false;
         }
 
+        $this->model::log("Le mot de passe du membre $id a été lu.");
         return $result;
     }
 
     public function updateMembre($id, $email = false, $mdp = false, $tel = false, $adresseId = false, $pseudo = false, $prenom = false, $nom = false)
     {
         if ($email === false && $mdp === false && $tel === false && $adresseId === false && $pseudo === false && $prenom === false && $nom === false) {
-            echo "ERREUR: Aucun champ à modifier";
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $membre = $this->model::getMembreById($id);
@@ -54,6 +60,8 @@ class MembreController
                 $prenom !== false ? $prenom : $membre["prenom"],
                 $nom !== false ? $nom : $membre["nom"]
             );
+
+            $this->model::log("Les informations du membre $id ont été modifiées.");
             return $updatedMembreId;
         }
     }
@@ -62,6 +70,7 @@ class MembreController
     {
         $membre = $this->model::deleteMembre($id);
 
+        $this->model::log("Le membre $id a été supprimé.");
         return $membre;
     }
 }

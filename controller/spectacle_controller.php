@@ -28,6 +28,7 @@ class SpectacleController
             "duree" => $spectacle["duree"]
         ];
 
+        $this->model::log("Les informations du spectacle $id ont été lues.");
         return $res;
     }
 
@@ -35,13 +36,14 @@ class SpectacleController
     {
         $spectacle = $this->model::createSpectacle($description, $resume, $prix_mini, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $duree);
 
+        $this->model::log("Un spectacle a été créé.");
         return $spectacle;
     }
 
     public function updateSpectacle($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $capacite = false, $duree = false)
     {
-        if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $capacite === false && $duree === false) {
-            echo "ERREUR : Aucun champ à modifier";
+        if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $capacite === false && $avec_guide === false) {
+            $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
             $spectacle = $this->model::getSpectacleById($id);
@@ -60,6 +62,7 @@ class SpectacleController
                 $avec_guide !== false ? $avec_guide : $spectacle["avec_guide"]
             );
 
+            $this->model::log("Les informations du spectacle $id ont été modifiées.");
             return $res;
         }
     }
@@ -68,6 +71,7 @@ class SpectacleController
     {
         $spectacle = $this->model::deleteSpectacle($id);
 
+        $this->model::log("Le spectacle $id a été supprimé.");
         return $spectacle;
     }
 
@@ -89,6 +93,7 @@ class SpectacleController
             $spectacle["avec_guide"]
         );
 
+        $this->model::log("Les informations du spectacle $id ont été modifiées.");
         return $res;
     }
 }

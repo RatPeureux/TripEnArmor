@@ -1,126 +1,185 @@
+/* STYLE GLOBAL */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Style global */
 :root {
-    --primary-color: #F2771B;
-    --secondary-color: #0a0035;
+  --primary-color: #f2771b;
+  --secondary-color: #0a0035;
 }
 
 label:has(+ input[required]:not([type="checkbox"]))::after,
 label:has(+ textarea[required])::after,
 label:has(+ select[required])::after {
-    content: " *";
-    color: red;
+  content: " *";
+  color: red;
 }
 
-/* ACTIVATION DU MENU */
-#menu>.active,
-#menu-pro>.active,
+/* Activation des menus */
+#menu > .active,
+#menu-pro > .active,
 #filtres.active,
 #cgu.active,
 #politique.active,
 #mentions.active {
-    --tw-translate-x: 0%;
+  --tw-translate-x: 0%;
 }
 
 #menu a.active,
 #menu-pro a.active {
-    text-decoration: underline;
-    text-decoration-color: var(--primary-color);
-    text-underline-offset: 4px;
+  text-decoration: underline;
+  text-decoration-color: var(--primary-color);
+  text-underline-offset: 4px;
 }
 
 #layer-background.active,
 #layer-background-filtres.active {
-    display: block;
-    background-color: rgba(0, 0, 0, .20);
-    backdrop-filter: blur(5px);
+  display: block;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
 }
 
-/* CARTES DES OFFRES */
-.card.active, .card .active {
-    box-shadow: 0 0 8px 3px var(--secondary-color);
+/* Cartes des offres */
+.card.active .infos,
+.card .active {
+  background: var(--secondary-color);
+  color: white;
 }
 
-/* SLIDER D'IMAGES (détails d'une offre) */
+.card.active .tags,
+.card .active {
+  background: white;
+  color: black;
+}
+
+/* .card.active .notes,
+.card .active {
+  background: white;
+  color: black;
+  padding: 0.25em;
+} */
+
+/* .card.active h3,
+.card .active h3 {
+  color: var(--primary-color);
+} */
+
+/* Slider d'images (détails d'une offre) */
 .swiper-pagination-bullet {
-    background-color: white !important;
-    opacity: 1 !important;
-    border: 1px black solid;
+  background-color: white !important;
+  opacity: 1 !important;
+  border: 1px black solid;
 }
 
 .swiper-pagination-bullet-active {
-    background-color: var(--primary-color) !important;
+  background-color: var(--primary-color) !important;
 }
 
-/* LOGO WIFI POUR METTRE EN LIGNE / HORS LIGNE UNE OFFRE */
+/* Checkboxs */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+
+  min-width: 15px;
+  min-height: 15px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #000000;
+  position: relative;
+  display: inline-block;
+}
+
+input[type="checkbox"]:checked {
+  z-index: 0;
+  background: #f2771b;
+}
+
+input[type="checkbox"]:checked:before {
+  font-family: FontAwesome;
+  content: "\f00c";
+  display: block;
+  color: #ffffff;
+  font-size: 12.5px;
+  position: absolute;
+  padding-top: 10%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  text-align: center;
+}
+
+/* Icône Wi-Fi -> En ligne/Hors ligne */
 .toggle-wifi-offline:hover path:last-child {
-    visibility: visible;
+  visibility: visible;
 }
 
 .toggle-wifi-online:hover path:last-child {
-    visibility: hidden;
-    display: none;
+  visibility: hidden;
+  display: none;
 }
 
-/* SCORLLBAR  */
+/* Scrollbar  */
 ::-webkit-scrollbar {
-    width: 15px; /* Width of the scrollbar */
+  width: 15px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #ffffff; /* Background color of the scrollbar track */
-    border-radius: 10px; /*  corners */
+  background: #ffffff;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #0a0035; /* Color of the scrollbar thumb */
-    border-radius: 10px; /*  corners */
-    border: 5px solid #ffffff; /* Padding around the thumb to match the track */
+  background-color: #0a0035;
+  border-radius: 10px;
+  border: 5px solid #ffffff;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #222222; /* Darker color when hovering over the thumb */
+  background-color: #222222;
 }
 
-/* MENU DE GAUCHE M TABLLETTE */
-/* Masquer la scrollbar */
+/* Masquer la scrollbar des menus tablette (Menus de gauche) */
+
 .scroll-hidden::-webkit-scrollbar {
-    display: none; /* Chrome, Safari et Edge */
+  display: none;
 }
 
 .scroll-hidden {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
+/* Police */
+
 @layer base {
-    @font-face {
-        font-family: 'Cormorant-Bold';
-        src: url(/public/polices/cormorant-webfont.woff2) format('woff2');
-        src: url(/public/polices/cormorant-webfont.woff) format('woff');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "Cormorant-Bold";
+    src: url(/public/polices/cormorant-webfont.woff2) format("woff2");
+    src: url(/public/polices/cormorant-webfont.woff) format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
-    @font-face {
-        font-family: 'Poppins';
-        src: url(/public/polices/poppins-webfont.woff2) format('woff2');
-        src: url(/public/polices/poppins-webfont.woff) format('woff');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "Poppins";
+    src: url(/public/polices/poppins-webfont.woff2) format("woff2");
+    src: url(/public/polices/poppins-webfont.woff) format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
-    @font-face {
-        font-family: 'Poppins';
-        src: url(/public/polices/Poppins-Bold.woff2) format('woff2');
-        src: url(/public/polices/Poppins-Bold.woff) format('woff');
-        font-weight: 700;
-        font-style: normal;
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "Poppins";
+    src: url(/public/polices/Poppins-Bold.woff2) format("woff2");
+    src: url(/public/polices/Poppins-Bold.woff) format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
 }

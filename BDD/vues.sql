@@ -23,13 +23,6 @@ select id_offre, nom
 from _offre
     join _type_offre on _type_offre.id_type_offre = _offre.id_type_offre;
 
--- vue de la facture avec les montants totaux
-CREATE OR REPLACE VIEW vue_facture_totaux AS
-SELECT numero AS "Numéro de Facture", SUM(quantite * prix_unitaire_HT) AS "Total HT (â‚¬)", SUM(quantite * prix_unitaire_TTC) AS "Total TTC (â‚¬)"
-FROM _facture
-GROUP BY
-    numero;
-
 --------------------------------------------------------------------- Moyenne des notes pour chaque offre (id_offre)
 CREATE OR REPLACE VIEW vue_moyenne AS
 SELECT _offre.id_offre, AVG(_avis.note), COUNT(_avis.note)
@@ -128,3 +121,46 @@ WHERE
         MONTH
         FROM CURRENT_DATE
     );
+
+------------------------------------ Vue pour connaître le nombre total de like / dislikes par avis
+CREATE OR REPLACE VIEW sae_db.vue_avis_reaction_counter
+ AS
+ SELECT id_avis,
+    count(
+        CASE
+            WHEN type_de_reaction = true THEN 1
+            ELSE NULL::integer
+        END) AS nb_likes,
+    count(
+        CASE
+            WHEN type_de_reaction = false THEN 1
+            ELSE NULL::integer
+        END) AS nb_dislikes
+   FROM sae_db._avis_reactions
+  GROUP BY id_avis;
+
+
+------------------------------------ Vue pour connaître les totaux TTC des offres pour le mois actuel
+CREATE OR REPLACE VIEW vue_totaux_ttc_offre AS
+WITH totaux_periodes AS (
+    SELECT
+        id_offre,
+        SUM(prix_ttc_total) AS total_periode
+    FROM
+        vue_periodes_en_ligne_du_mois
+    GROUP BY
+        id_offre
+)
+SELECT
+    COALESCE(v.id_offre, tp.id_offre) AS id_offre,  -- On sélectionne l'id_offre, qu'il vienne de l'une ou l'autre vue
+    COALESCE(tp.total_periode, 0) AS total_periode,  -- Remplacement de NULL par 0 pour total_periode
+    COALESCE(SUM(v.prix_ttc_total), 0) AS total_souscription,  -- Remplacement de NULL par 0 pour total_souscription
+	COALESCE(tp.total_periode, 0) + COALESCE(SUM(v.prix_ttc_total), 0) as total_ttc
+FROM
+    vue_souscription_offre_option_details_du_mois v
+FULL JOIN
+    totaux_periodes tp ON v.id_offre = tp.id_offre
+GROUP BY
+    COALESCE(v.id_offre, tp.id_offre), tp.total_periode;
+
+

@@ -119,9 +119,10 @@ if (!function_exists('chaineVersMot')) {
     }
     ?>
 
-    <main class="mx-10 self-center w-full grow  p-2 max-w-[1280px]">
+    <main
+        class="mx-10 self-center w-full grow p-2 flex flex-col justify-center items-center 2xl:flex-row 2xl:gap-4 2xl:justify-start 2xl:items-start">
         <!-- TOUTES LES OFFRES (offre & détails) -->
-        <div class="w-full grow tablette p-4 flex flex-col">
+        <div class="w-full xl:max-w-7xl flex-shrink-0 grow tablette p-4 flex flex-col">
 
             <!-- Conteneur des tags (!!! RECHERCHE) -->
             <div class="flex flex-wrap gap-4" id="tags-container"></div>
@@ -178,6 +179,24 @@ if (!function_exists('chaineVersMot')) {
                     } ?>
                 </div>
             <?php } ?>
+
+        </div>
+        <div class="w-full h-full xl:max-w-7xl grow p-4">
+            <div class="flex 2xl:flex-col min-[1760px]:flex-row justify-between items-center">
+                <h2 class="text-4xl">
+                    Notifications
+                </h2>
+
+                <form action="/scripts/mark_all_as_read.php" method="POST" class="underline cursor-pointer">
+                    <input type="hidden" name="id_pro" value="<?php echo $_SESSION['id_pro']; ?>">
+                    <button type="submit">
+                        Marquer tout comme lu
+                    </button>
+                </form>
+            </div>
+            <?php
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/notification_view.php';
+            ?>
         </div>
     </main>
 
@@ -191,4 +210,5 @@ if (!function_exists('chaineVersMot')) {
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
 </body>
+
 </html>

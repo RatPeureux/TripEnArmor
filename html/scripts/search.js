@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const tag = document.createElement("div");
         tag.className =
-            "flex items-center gap-2 bg-secondary text-white px-3 py-1 mb-4";
+            "flex items-center gap-2 bg-secondary text-white px-2 py-1 mb-4";
         tag.innerHTML = `<span>${text}</span><i class="fa-solid fa-times cursor-pointer"></i>`;
 
         tag.querySelector("i")?.addEventListener("click", () => {
@@ -109,15 +109,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Met à jour les tags récents
-    function updateRecentTags(tag) {
-        recentTags = recentTags.filter((t) => t !== tag);
-        recentTags.unshift(tag);
-        if (recentTags.length > 3) {
-            recentTags.pop();
-        }
-    }
-
     // Liste combinée des tags
     const allTags = [
         'Culturel', 'Patrimoine', 'Histoire', 'Urbain', 'Nature', 
@@ -142,48 +133,46 @@ document.addEventListener("DOMContentLoaded", function () {
             const relatedTags = allTags.filter(tag =>
                 tag.toLowerCase().includes(currentSearchTerm.toLowerCase())
             );
-    
-            // Récupérer les tags déjà ajoutés pour éviter les doublons
+
             const existingTags = tagsContainer ? Array.from(tagsContainer.children).map(tag =>
                 tag.querySelector("span")?.textContent.trim()
             ) : [];
-    
-            // Filtrer les tags déjà existants et ceux dans le champ de recherche
-            const currentInputTags = value.split(',').map(tag => tag.trim());
-            const filteredTags = relatedTags.filter(tag => 
-                !existingTags.includes(tag) && !currentInputTags.includes(tag)
+
+            // Filtrer les tags déjà ajoutés uniquement pour éviter les doublons dans la liste déroulante
+            const filteredTags = relatedTags.filter(tag =>
+                !existingTags.includes(tag)
             );
-    
+
             if (filteredTags.length > 0) {
                 filteredTags.forEach((tag) => {
                     const item = document.createElement("div");
                     item.className = "p-3 cursor-pointer hover:bg-base100";
                     item.textContent = tag;
                     item.setAttribute("tabindex", "0");
-    
+
                     const handleSelection = () => {
                         let currentText = searchInput.value;
                         const lastCommaIndex = currentText.lastIndexOf(',');
-    
+
                         if (lastCommaIndex !== -1) {
                             currentText = currentText.slice(0, lastCommaIndex + 1) + ' ';
                         } else {
-                            currentText = ''; // Si aucune virgule, on démarre un nouveau texte
+                            currentText = ''; 
                         }
-    
-                        currentText += `${tag}, `;  // Ajoute le tag avec une virgule
-                        searchInput.value = currentText; // Met à jour le champ de recherche
-                        searchInput.focus(); // Repositionne le curseur
-                        dropdownMenu.classList.add("hidden"); // Masque le dropdown
+
+                        currentText += `${tag}, `;
+                        searchInput.value = currentText.trim(); // Met à jour le champ de recherche
+                        searchInput.focus();
+                        dropdownMenu.classList.add("hidden");
                     };
-    
+
                     item.addEventListener("click", handleSelection);
                     item.addEventListener("keydown", (e) => {
                         if (e.key === "Enter") {
                             handleSelection();
                         }
                     });
-    
+
                     dropdownMenu.appendChild(item);
                 });
             } else {
@@ -192,12 +181,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 noMatchMessage.textContent = "Aucun tag correspondant.";
                 dropdownMenu.appendChild(noMatchMessage);
             }
-    
+
             const separatorInfo = document.createElement("div");
             separatorInfo.className = "p-3 text-gray-500 text-sm bg-base100 cursor-default select-none border-t border-base300";
             separatorInfo.textContent = "À savoir : Utiliser des virgules permet d'ajouter plusieurs tags d'un coup.";
             dropdownMenu.appendChild(separatorInfo);
-    
+
             dropdownMenu.classList.toggle("hidden", dropdownMenu.children.length === 0);
         } else {
             dropdownMenu.classList.add("hidden");
@@ -228,6 +217,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         window.location.href = redirectUrl;
+    }
+
+    // Met à jour les tags récents
+    function updateRecentTags(tag) {
+        recentTags = recentTags.filter((t) => t !== tag);
+        recentTags.unshift(tag);
+        if (recentTags.length > 3) {
+            recentTags.pop();
+        }
     }
 
     searchBtn.addEventListener("click", () => validateInput());
@@ -341,10 +339,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Appliquer les filtres croisés
             if (matchesTag) {
-                offre.classList.remove('!hidden');
+                offre.classList.remove('hidden');
                 anyVisible = true; // Au moins une offre est visible
             } else {
-                offre.classList.add('!hidden');
+                offre.classList.add('hidden');
             }
         });
 
@@ -357,7 +355,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 message.id = 'no-matches-message';
                 message.textContent = 'Aucune offre ne possède les tags recherchés.';
                 message.classList.add('mt-4');
-                message.classList.add('');
                 message.classList.add('text-h2');
                 document.querySelector('#no-matches')?.appendChild(message); // Ajouter dans le conteneur des offres
             }

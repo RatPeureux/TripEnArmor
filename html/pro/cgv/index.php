@@ -18,10 +18,7 @@ $pro = verifyPro();?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/input.css">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/styles/config.js"></script>
+    <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js" defer=""></script>
 
     <title>Conditions générales de vente (CGV) - Professionnel - PACT</title>
@@ -43,14 +40,14 @@ $pro = verifyPro();?>
         <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:">
             <p class="text-h1">Conditions Générales de Vente (CGV)</p>
 
-            <p class="text-h2">1. Préambule</p>
+            <p class="text-h2 underline">1. Préambule</p>
             <p>
                 Les présentes Conditions Générales de Vente (CGV) définissent les modalités de facturation et de paiement pour
                 l'utilisation des services proposés par ce site (<a href="/" class="underline">fnoc.ventsdouest.dev</a>). Toute souscription à un service
                 implique l'acceptation pleine et entière des présentes CGV, disponibles en permanence sur la PACT.
             </p>
 
-            <p class="text-h2">2. Facturation des Offres</p>
+            <p class="text-h2 underline">2. Facturation des Offres</p>
 
             <p class="text-h3">2.1 Modalités générales</p>
             <p>
@@ -67,7 +64,7 @@ $pro = verifyPro();?>
                 <li>Une même journée ne peut pas être facturée deux fois si l’Offre a été mise « hors ligne » puis remise « en ligne » au cours de cette même journée.</li>
             </ul>
 
-            <p class="text-h2">3. Facturation des Options</p>
+            <p class="text-h2 underline">3. Facturation des Options</p>
 
             <p class="text-h3">3.1 Modalités générales</p>
             <p>
@@ -84,26 +81,26 @@ $pro = verifyPro();?>
                 <li>Après la date de lancement, une option peut être annulée mais reste intégralement facturée.</li>
             </ul>
 
-            <p class="text-h2">4. Montants Prévisionnels</p>
+            <p class="text-h2 underline">4. Montants Prévisionnels</p>
             <p>
                 Les montants totaux prévisionnels des Offres et options à facturer pour le mois en cours sont visibles 
                 en permanence dans le Back Office pour le Professionnel. Ces montants sont calculés selon les règles 
                 définies dans les présentes CGV.
             </p>
 
-            <p class="text-h2">5. Paiements</p>
+            <p class="text-h2 underline">5. Paiements</p>
             <p>
                 Les paiements doivent être effectués conformément aux modalités indiquées sur les factures émises. En cas 
                 de retard ou de non-paiement, le Site se réserve le droit de suspendre l’accès aux services souscrits.
             </p>
 
-            <p class="text-h2">6. Modifications des CGV</p>
+            <p class="text-h2 underline">6. Modifications des CGV</p>
             <p>
                 Le Site se réserve le droit de modifier les présentes CGV à tout moment. Les nouvelles conditions seront applicables 
                 dès leur publication en ligne. Il est conseillé aux Professionnels de consulter régulièrement ces CGV.
             </p>
 
-            <p class="text-h2">7. Loi Applicable et Juridiction</p>
+            <p class="text-h2 underline">7. Loi Applicable et Juridiction</p>
             <p>
                 Les présentes CGV sont régies par le droit français. En cas de litige, les tribunaux compétents seront ceux du ressort 
                 de Lannion.

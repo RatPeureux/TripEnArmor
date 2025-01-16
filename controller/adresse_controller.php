@@ -28,32 +28,27 @@ class AdresseController
        ];
 
 
-       return $res;
-   }
-
+        $this->model::log("Les informations de l'adresse $id ont été lues.");
+        return $res;
+    }
 
    public function createAdresse($code_postal, $ville, $numero, $odonyme, $complement)
    {
        $adresse = $this->model::createAdresse($code_postal, $ville, $numero, $odonyme, $complement);
 
 
-       return $adresse;
-   }
+        $this->model::log("Une adresse a été créée.");
+        return $adresse;
+    }
 
-
-   public function updateAdresse($id, $code_postal = false, $ville = false, $numero = null, $odonyme = null, $complement = null)
-{
-   if ($ville === false && $numero === false && $odonyme === false && $complement === false && $code_postal === false) {
-       echo "ERREUR : Aucun champ à modifier";
-       return -1;
-   }
-
-
-   try {
-       $adresse = $this->model::getAdresseById($id);
-       if (!$adresse) {
-           throw new Exception("Adresse introuvable pour l'ID : $id.");
-       }
+    public function updateAdresse($id, $code_postal = false, $ville = false, $numero = null, $odonyme = null, $complement = null)
+    {
+        if ($ville === false && $numero === false && $odonyme === false && $complement === false) {
+            $this->model::log("Aucune information n'a été modifiée.");
+            return -1;
+        } else {
+            $adresse = $this->model::getAdresseById($id);
+        }
 
 
        $res = $this->model::updateAdresse(
@@ -73,12 +68,6 @@ class AdresseController
 
        echo "Mise à jour réussie.";
        return $res;
-
-
-   } catch (Exception $e) {
-       echo "Erreur : " . $e->getMessage();
-       return -1;
-   }
 }
 
 
@@ -89,7 +78,8 @@ class AdresseController
        $adresse = $this->model::deleteAdresse($id);
 
 
-       return $adresse;
-   }
+        $this->model::log("L'adresse $id a été supprimée.");
+        return $adresse;
+    }
 }
 

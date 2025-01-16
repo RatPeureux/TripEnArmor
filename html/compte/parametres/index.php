@@ -92,10 +92,7 @@ $membre = verifyMember();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/input.css">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/styles/config.js"></script>
+    <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -208,9 +205,9 @@ $membre = verifyMember();
                         disabled>
                     </input>
 
-                    <hr class="mb-8">
+                    <hr class="hidden mb-8">
 
-                    <a href="/scripts/delete.php" onclick="return confirmDelete()"
+                    <a href="/scripts/delete.php" class="hidden" onclick="return confirmDelete()"
                         class="mx-auto max-w-[23rem] w-full h-12 p-1  text-small text-center text-wrap text-rouge-logo bg-transparent  flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
                         Supprimer mon compte
                     </a>
