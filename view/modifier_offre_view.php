@@ -833,7 +833,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 										<input value="<?php var_dump($images['carte']) ?>" type="file"
 											name="photo-upload-carte" id="photo-upload-carte"
 											class="text-center text-secondary block w-full
-															border-dashed border-2 border-secondary rounded-lg p-2
+															border-dashed border-2 border-secondary p-2
 															file:mr-5 file:py-3 file:px-10
 															file:text-small file:font-bold  file:text-secondary
 															file:border file:border-secondary
@@ -847,7 +847,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 										<input type="file" name="photo-detail[]" id="photo-detail[]"
 											class="text-center
 															text-secondary block w-full
-															border-dashed border-2 border-secondary rounded-lg p-2
+															border-dashed border-2 border-secondary p-2
 															file:mr-5 file:py-3 file:px-10
 															file:
 															file:text-small file:font-bold  file:text-secondary
@@ -904,15 +904,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 								<!-- Conteneurs des tags pour chaque type d'activité -->
 								<div>
-									<div class="tag-container flex flex-wrap p-2 rounded-lg optionActivite hidden"
+									<div class="tag-container flex flex-wrap p-2 optionActivite hidden"
 										id="activiteTags"></div>
-									<div class="tag-container flex flex-wrap p-2 rounded-lg optionVisite hidden"
+									<div class="tag-container flex flex-wrap p-2 optionVisite hidden"
 										id="visiteTags"></div>
-									<div class="tag-container flex flex-wrap p-2 rounded-lg optionSpectacle hidden"
+									<div class="tag-container flex flex-wrap p-2 optionSpectacle hidden"
 										id="spectacleTags"></div>
-									<div class="tag-container flex flex-wrap p-2 rounded-lg optionParcAttraction hidden"
+									<div class="tag-container flex flex-wrap p-2 optionParcAttraction hidden"
 										id="parcAttractionTags"></div>
-									<div class="tag-container flex flex-wrap p-2 rounded-lg optionRestauration hidden"
+									<div class="tag-container flex flex-wrap p-2 optionRestauration hidden"
 										id="restaurationTags"></div>
 								</div>
 
@@ -1504,7 +1504,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-								<div class="card active relative bg-base300  flex flex-col w-full" id="card-preview">
+								<div class="card relative bg-base300  flex flex-col w-full" id="card-preview">
 									<script>
 										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
 										function toggleCardPreview(option) {
@@ -1678,7 +1678,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 								class="text-white text-center text-small w-full font-bold"
 							  ></p> -->
 												<!-- Mise à jour du tag en temps réel -->
-												<p class="tags text-white text-center rounded-lg bg-secondary font-bold w-fit p-2"
+												<p class="tags text-white text-center bg-secondary font-bold w-fit p-2"
 													id="preview-tag-input">
 												</p>
 												<script>
