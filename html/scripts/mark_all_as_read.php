@@ -1,10 +1,10 @@
 <?php
 
-if (isset($_POST['id_pro'])) {
+if (isset($_GET['id_pro'])) {
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
     $avisController = new AvisController();
 
-    $avisController->marquerTousLesAvisCommeLus($_POST['id_pro']);
+    $avisController->marquerTousLesAvisCommeLus($_GET['id_pro']);
 
     echo "Tous les avis ont été marqués comme lus.";
 
