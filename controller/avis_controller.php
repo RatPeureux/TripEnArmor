@@ -30,6 +30,12 @@ class AvisController
         return $this->model::getAvisByIdPro($id_pro);
     }
 
+    public function getAvisNonVusByIdPro($id_pro)
+    {
+        $this->model::log("Les avis non vus du pro $id_pro ont été lus.");
+        return $this->model::getAvisNonVusByIdPro($id_pro);
+    }
+
     public function getAvisById($idAvis)
     {
         $result = $this->model::getAvisById($idAvis);
