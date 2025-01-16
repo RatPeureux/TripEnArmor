@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -249,7 +253,7 @@
 
                 // Reconstituer $temp dans l'ordre des catégories
                 $temp = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-            
+
                 $meilleuresNotes = $temp;
 
                 $iOffres = 0;
