@@ -139,6 +139,28 @@ CREATE OR REPLACE VIEW sae_db.vue_avis_reaction_counter
    FROM sae_db._avis_reactions
   GROUP BY id_avis;
 
-ALTER TABLE sae_db.vue_avis_reaction_counter
-    OWNER TO sae;
+
+------------------------------------ Vue pour connaître les totaux TTC des offres pour le mois actuel
+CREATE OR REPLACE VIEW vue_totaux_ttc_offre AS
+WITH totaux_periodes AS (
+    SELECT
+        id_offre,
+        SUM(prix_ttc_total) AS total_periode
+    FROM
+        vue_periodes_en_ligne_du_mois
+    GROUP BY
+        id_offre
+)
+SELECT
+    COALESCE(v.id_offre, tp.id_offre) AS id_offre,  -- On sélectionne l'id_offre, qu'il vienne de l'une ou l'autre vue
+    COALESCE(tp.total_periode, 0) AS total_periode,  -- Remplacement de NULL par 0 pour total_periode
+    COALESCE(SUM(v.prix_ttc_total), 0) AS total_souscription,  -- Remplacement de NULL par 0 pour total_souscription
+	COALESCE(tp.total_periode, 0) + COALESCE(SUM(v.prix_ttc_total), 0) as total_ttc
+FROM
+    vue_souscription_offre_option_details_du_mois v
+FULL JOIN
+    totaux_periodes tp ON v.id_offre = tp.id_offre
+GROUP BY
+    COALESCE(v.id_offre, tp.id_offre), tp.total_periode;
+
 
