@@ -57,9 +57,15 @@ label:has(+ select[required])::after {
 .card .active #info_pro {
   border-color: white;
 }
+
 .card.active hr,
 .card .active hr {
   border-color: white;
+}
+
+.card.active #wifi_to_offline,
+.card .active #wifi_to_offline {
+  fill: white;
 }
 
 /* .card.active .notes,
