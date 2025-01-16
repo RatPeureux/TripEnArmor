@@ -245,6 +245,7 @@ $pro = verifyPro();
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
 					if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
 						echo "Erreur lors de l'upload de l'image détaillée.";
+						var_dump($_FILES['photo-detail']);
 						BDD::rollbackTransaction();
 						exit;
 					}
