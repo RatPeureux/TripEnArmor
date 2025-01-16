@@ -19,7 +19,7 @@
 </form>
 
 <script>
-    document.getElementById("formulaire-signalement-<?php echo $id_avis ?>").addEventListener("submit", function (event) {
+    document.getElementById("formulaire-signalement-<?php echo $id_avis ?>").addEventListener("submit", function(event) {
         event.preventDefault();
 
         const motif = document.getElementById("motif").value;
@@ -29,11 +29,15 @@
         const url = `/scripts/signaler.php?motif=${encodeURIComponent(motif)}&commentaireSignalement=${encodeURIComponent(commentaireSignalement)}&dateTime=${encodeURIComponent(dateTime)}&id_avis=<?php echo $id_avis ?>`;
 
         fetch(url, {
-            method: "GET",
-        })
+                method: "GET",
+            })
             .then(response => response.json())
             .then(data => {
-                alert(data.message); // Affiche l'alerte avec le message
+                if (data.message) {
+                    alert(data.message);
+                } else if (data.error) {
+                    alert(data.error)
+                }
                 document.getElementById('pop-up-signalement-<?php echo $id_avis ?>').classList.add('hidden'); // Ajoute un log après l'alerte
             })
             .catch(error => {
