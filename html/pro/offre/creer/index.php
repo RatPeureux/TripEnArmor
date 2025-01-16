@@ -12,11 +12,7 @@ $pro = verifyPro();
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<link rel="icon" type="image" href="/public/images/favicon.png">
-
-	<link rel="stylesheet" href="/styles/input.css">
-
-	<script src="https://cdn.tailwindcss.com"></script>
-	<script src="/styles/config.js"></script>
+    <link rel="stylesheet" href="/styles/style.css">
 	<script type="module" src="/scripts/main.js" defer></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
@@ -847,9 +843,9 @@ $pro = verifyPro();
 												<td class="w-fit group">
 													<input type="checkbox" id="newPrestationInclude" class="hidden peer">
 													<label for="newPrestationInclude"
-														class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
+														class="h-max w-full cursor-pointer flex justify-center items-center stroke-rouge-logo peer-checked:hidden">
 														<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-															viewBox="0 0 32 32" fill="none" stroke="currentcardColor"
+															viewBox="0 0 32 32" fill="none"
 															stroke-width="2.5" stroke-linecap="round"
 															stroke-linejoin="round" class="lucide lucide-square-x">
 															<rect width="28" height="28" x="2" y="2" rx="4" ry="4" />

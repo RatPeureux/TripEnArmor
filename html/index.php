@@ -19,6 +19,7 @@
 
     <?php
     // Connexion avec la bdd
+    session_start();
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Obtenez l'ensemble des offres à la une avec le tri approprié
