@@ -30,6 +30,18 @@ class AvisController
         return $this->model::getAvisByIdPro($id_pro);
     }
 
+    public function getAvisNonVusByIdPro($id_pro)
+    {
+        $this->model::log("Les avis non vus du pro $id_pro ont été lus.");
+        return $this->model::getAvisNonVusByIdPro($id_pro);
+    }
+
+    public function marquerTousLesAvisCommeLus($id_pro)
+    {
+        $this->model::log("Tous les avis du pro $id_pro ont été marqués comme lus.");
+        return $this->model::marquerTousLesAvisCommeLus($id_pro);
+    }
+
     public function getAvisById($idAvis)
     {
         $result = $this->model::getAvisById($idAvis);
@@ -44,9 +56,9 @@ class AvisController
         return $result;
     }
 
-    public function createAvis($titre, $date_experience, $id_membre, $id_offre, $note, $contexte_passage, $commentaire = null, $id_avis_reponse = null)
+    public function createAvis($titre, $date_experience, $id_membre, $id_offre, $note, $contexte_passage, $commentaire = null)
     {
-        $resultatSQL = $this->model::createAvis($titre, $date_experience, $id_membre, $id_offre, $note, $contexte_passage, $commentaire, $id_avis_reponse);
+        $resultatSQL = $this->model::createAvis($titre, $date_experience, $id_membre, $id_offre, $note, $contexte_passage, $commentaire);
 
         if ($resultatSQL) {
             $this->model::log("Un avis a été créé.");
@@ -83,9 +95,9 @@ class AvisController
         }
     }
 
-    public function updateAvis($id, $titre = false, $commentaire = false, $date_experience = false, $id_pro = false, $id_offre = false, $id_avis_reponse = false)
+    public function updateAvis($id, $titre = false, $commentaire = false, $date_experience = false, $id_pro = false, $id_offre = false)
     {
-        if ($titre === false && $commentaire === false && $date_experience === false && $id_pro === false && $id_offre === false && $id_avis_reponse === false) {
+        if ($titre === false && $commentaire === false && $date_experience === false && $id_pro === false && $id_offre === false) {
             $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
@@ -97,8 +109,7 @@ class AvisController
                 $commentaire !== false ? $commentaire : $avis["commentaire"],
                 $date_experience !== false ? $date_experience : $avis["date_experience"],
                 $id_pro !== false ? $id_pro : $avis["id_pro"],
-                $id_offre !== false ? $id_offre : $avis["id_offre"],
-                $id_avis_reponse !== false ? $id_avis_reponse : $avis["id_avis_reponse"]
+                $id_offre !== false ? $id_offre : $avis["id_offre"]
             );
 
             if ($updated_id_avis !== false) {

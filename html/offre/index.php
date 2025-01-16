@@ -369,8 +369,8 @@ session_start();
                             <div class="flex gap-1">
                                 <div class="flex gap-1 shrink-0">
                                     <?php for ($i = 0; $i < 5; $i++) {
-                                        if ($moyenne > 1) {
-                                    ?>
+                                        if ($moyenne >= 1) {
+                                            ?>
                                             <img class="w-4" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
                                         <?php
                                         } else if ($moyenne > 0) {
@@ -704,8 +704,8 @@ session_start();
                                 <div class="flex gap-1">
                                     <div class="flex gap-1 shrink-0">
                                         <?php for ($i = 0; $i < 5; $i++) {
-                                            if ($moyenne > 1) {
-                                        ?>
+                                            if ($moyenne >= 1) {
+                                                ?>
                                                 <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
                                             <?php
                                             } else if ($moyenne > 0) {
@@ -773,7 +773,7 @@ session_start();
                                         <!-- Note globale donnée (pour toutes les offres) -->
                                         <div>
                                             <label for="note_globale">Note globale</label>
-                                            <select name="note_globale" id="note_globale" class="p-1 " required>
+                                            <select name="note_globale" id="note_globale" class="p-1 py-2 " required>
                                                 <option value="" selected disabled>...</option>
                                                 <option value="0">0</option>
                                                 <option value="0.5">0,5</option>
@@ -794,7 +794,7 @@ session_start();
                                         if ($categorie_offre == 'restauration') { ?>
                                             <div>
                                                 <label for="note_ambiance">Ambiance</label>
-                                                <select name="note_ambiance" id="note_ambiance" class="p-1 " required>
+                                                <select name="note_ambiance" id="note_ambiance" class="p-1 py-2 " required>
                                                     <option value="" selected disabled>...</option>
                                                     <option value="0">0</option>
                                                     <option value="0.5">0,5</option>
@@ -812,7 +812,7 @@ session_start();
 
                                             <div>
                                                 <label for="note_service">Service</label>
-                                                <select name="note_service" id="note_service" class="p-1 " required>
+                                                <select name="note_service" id="note_service" class="p-1 py-2 " required>
                                                     <option value="" selected disabled>...</option>
                                                     <option value="0">0</option>
                                                     <option value="0.5">0,5</option>
@@ -830,7 +830,7 @@ session_start();
 
                                             <div>
                                                 <label for="note_cuisine">Cuisine</label>
-                                                <select name="note_cuisine" id="note_cuisine" class="p-1 " required>
+                                                <select name="note_cuisine" id="note_cuisine" class="p-1 py-2 " required>
                                                     <option value="" selected disabled>...</option>
                                                     <option value="0">0</option>
                                                     <option value="0.5">0,5</option>
@@ -848,7 +848,7 @@ session_start();
 
                                             <div>
                                                 <label for="note_rapport">Rapport qualité / prix</label>
-                                                <select name="note_rapport" id="note_rapport" class="p-1 " required>
+                                                <select name="note_rapport" id="note_rapport" class="p-1 py-2 " required>
                                                     <option value="" selected disabled>...</option>
                                                     <option value="0">0</option>
                                                     <option value="0.5">0,5</option>
@@ -878,7 +878,7 @@ session_start();
                                         <!-- Contexte de passage -->
                                         <div>
                                             <label for="contexte_passage">Contexte de passage</label>
-                                            <select name="contexte_passage" id="contexte_passage" class="p-1 " required>
+                                            <select name="contexte_passage" id="contexte_passage" class="p-1 py-2 " required>
                                                 <option value="" selected disabled>...</option>
                                                 <option value="en solo">en solo</option>
                                                 <option value="en couple">en couple</option>
