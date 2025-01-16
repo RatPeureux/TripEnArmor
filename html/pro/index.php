@@ -25,8 +25,7 @@ if (!function_exists('chaineVersMot')) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/input.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles/style.css">
     <script src="/styles/config.js"></script>
 
     <script src="/scripts/filtersAndSortsPro.js"></script>
