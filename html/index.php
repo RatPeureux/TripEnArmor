@@ -89,8 +89,9 @@
 
             <!-- Actions Utilisateur -->
             <div class="flex items-center gap-4">
-                <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-                print_r($_SESSION);
+                <?php
+                session_start();
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                 if (isConnectedAsMember()) { ?>
                     <!-- Si connecté -->
                     <a href="/compte">
