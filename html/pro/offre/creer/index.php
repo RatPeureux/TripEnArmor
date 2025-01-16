@@ -1428,8 +1428,8 @@ $pro = verifyPro();
 										</div>
 										<!-- Résumé de l'offre -->
 										<div
-											class="tags description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
-											<div class="p-1 w-full flex justify-center items-center">
+											class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
+											<div class="tags p-1 w-full flex justify-center items-center">
 												<!-- <p
 								class="text-white text-center text-small w-full "
 							  ></p> -->
