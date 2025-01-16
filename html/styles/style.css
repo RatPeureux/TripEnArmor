@@ -2201,7 +2201,7 @@ label:has(+ select[required])::after {
 
 .card.active #wifi,
 .card .active #wifi {
-  color: white;
+  fill: white;
 }
 
 /* .card.active .notes,
