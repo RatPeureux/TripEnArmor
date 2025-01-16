@@ -194,7 +194,6 @@ if (!function_exists('to_nom_note')) {
                 <div class='flex'>
                     <p class="text-gray-500"><?php echo ucfirst(to_nom_note(nom_attribut_note: $nom_note)) ?> :&nbsp;</p>
                     <p><?php echo $notes_restauration[$nom_note] ?>/5</p>
-
                 </div>
             <?php
             } ?>
@@ -232,7 +231,7 @@ if (!function_exists('to_nom_note')) {
                 <!-- Bouton pour afficher la réponse -->
                 <div class="flex gap-2 hover:cursor-pointer" onclick="this.querySelector('i').classList.toggle('rotate-90'); document.getElementById('reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden');">
                     <i class="fa-solid fa-angle-right"></i>
-                    <p><?php echo $pro_can_answer ? 'Votre réponse' : 'Votre réponse' ?></p>
+                    <p><?php echo $pro_can_answer ? 'Réponse du pro' : 'Votre réponse' ?></p>
                 </div>
                 <!-- Bouton pour supprimer la réponse si connecté avec bon compte pro -->
                 <?php
