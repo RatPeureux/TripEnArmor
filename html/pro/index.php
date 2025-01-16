@@ -175,7 +175,7 @@
                     </h2>
 
                     <form action="/scripts/mark_all_as_read.php" class="underline cursor-pointer">
-                        <input type="hidden" name="id_pro" value="<?php echo $pro['id_compte']; ?>">
+                        <input type="hidden" name="id_pro" value="<?php echo $_SESSION['id_pro']; ?>">
                         <button type="submit">
                             Marquer tout comme lu
                         </button>
