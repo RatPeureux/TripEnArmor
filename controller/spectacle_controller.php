@@ -38,9 +38,9 @@ class SpectacleController
         return $spectacle;
     }
 
-    public function updateSpectacle($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $capacite = false, $avec_guide = false)
+    public function updateSpectacle($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $capacite = false, $duree = false)
     {
-        if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $capacite === false && $avec_guide === false) {
+        if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $capacite === false && $duree === false) {
             echo "ERREUR : Aucun champ à modifier";
             return -1;
         } else {
