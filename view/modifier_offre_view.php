@@ -1660,12 +1660,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     	<!-- Résumé de l'offre -->
                                     	<div
                                         	class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
-                                        	<div class="tags p-1 w-full flex justify-center items-center">
+                                        	<div class="p-1 w-full flex justify-center items-center">
                                             	<!-- <p
                             	class="text-white text-center text-small w-full font-bold"
                           	></p> -->
                                             	<!-- Mise à jour du tag en temps réel -->
-                                            	<p class="text-white text-center rounded-lg bg-secondary font-bold w-fit p-2"
+                                            	<p class="tags text-white text-center rounded-lg bg-secondary font-bold w-fit p-2"
                                                 	id="preview-tag-input">
                                             	</p>
                                             	<script>
