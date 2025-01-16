@@ -359,8 +359,8 @@ session_start();
                             <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
                         </div>
-                        $temp = $moyenne;
                         <?php
+                        $temp = $moyenne;
                         // Moyenne des notes quand il y en a une
                         if ($moyenne) { ?>
                             <div class="flex gap-1">
