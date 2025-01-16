@@ -194,16 +194,17 @@ if (!function_exists('chaineVersMot')) {
                 </p>
                 <script>
                     function markAllAsRead() {
-                        window.location.href = '/scripts/mark_all_as_read.php?id_pro=<?php echo $_SESSION['id_pro']; ?>';
-                        // fetch('/scripts/mark_all_as_read.php', {
-                        //     method: 'POST',
-                        //     headers: {
-                        //         'Content-Type': 'application/json'
-                        //     },
-                        //     body: JSON.stringify({
-                        //         id_pro: <?php echo $_SESSION['id_pro']; ?>
-                        //     })
-                        // })
+                        fetch('/scripts/mark_all_as_read.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                id_pro: <?php echo $_SESSION['id_pro']; ?>
+                            })
+                        }).then(response => {
+                            window.location.reload();
+                        })
                     }
                 </script>
             </div>
