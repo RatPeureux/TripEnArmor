@@ -187,7 +187,7 @@ if (!function_exists('chaineVersMot')) {
                     Notifications
                 </h2>
 
-                <p class="underline">
+                <p class="underline cursor-pointer">
                     <a onclick="markAllAsRead()">
                         Marquer tout comme lu
                     </a>
