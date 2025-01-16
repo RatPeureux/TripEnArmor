@@ -18,7 +18,6 @@
 <body class="flex flex-col min-h-screen">
 
     <?php
-    session_start();
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
@@ -90,7 +89,6 @@
             <!-- Actions Utilisateur -->
             <div class="flex items-center gap-4">
                 <?php
-                session_start();
                 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                 if (isConnectedAsMember()) { ?>
                     <!-- Si connecté -->
