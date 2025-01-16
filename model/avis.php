@@ -77,6 +77,7 @@ class Avis extends BDD
 
         if ($tousMesAvis) {
             foreach ($tousMesAvis as $avi) {
+                echo "Marquer l'avis " . $avi['id_avis'] . " comme lu.<br>";
                 $query = "UPDATE " . self::$nom_table . " SET est_lu = true WHERE id_avis = ?";
                 $statement = self::$db->prepare($query);
                 $statement->bindParam(1, $avi['id_avis']);

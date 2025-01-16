@@ -202,9 +202,7 @@ if (!function_exists('chaineVersMot')) {
                             body: JSON.stringify({
                                 id_pro: <?php echo $_SESSION['id_pro']; ?>
                             })
-                        }).then(() => {
-                            console.log(<?php echo $_SESSION['id_pro']; ?>)
-                        });
+                        })
                     }
                 </script>
             </div>

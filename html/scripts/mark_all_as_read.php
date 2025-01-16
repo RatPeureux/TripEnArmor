@@ -5,4 +5,8 @@ if (isset($_POST['id_pro'])) {
     $avisController = new AvisController();
 
     $avisController->marquerTousLesAvisCommeLus($_POST['id_pro']);
+
+    echo "Tous les avis ont été marqués comme lus.";
+
+    header("Location: /pro/");
 }
