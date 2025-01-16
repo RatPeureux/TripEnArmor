@@ -200,6 +200,8 @@ CREATE TABLE _avis (
     id_membre INT NOT NULL, -- compte de l'utilisateur  |
     id_offre INT NOT NULL, -- Offre à laquelle est lié l'avis
     id_avis_reponse INT REFERENCES _avis (id_avis), -- id de l'avis de la réponse du pro
+    reponse TEXT DEFAULT NULL,
+    est_lu BOOLEAN NOT NULL DEFAULT FALSE,
     -- Contrainte pour empêcher plusieurs avis initiaux d'un même membre sur une offre
     CONSTRAINT unique_avis_per_member UNIQUE (id_membre, id_offre)
 );
@@ -536,7 +538,7 @@ create table _periodes_en_ligne (
     date_fin DATE DEFAULT NULL
 );
 
--------------------------------------------------------------------------------------------------------- Souscription
+-------------------------------------------------------------------------------------------------------- Souscription à certaines options
 CREATE TABLE _souscription (
     id_souscription SERIAL PRIMARY KEY,
     id_offre INTEGER NOT NULL,

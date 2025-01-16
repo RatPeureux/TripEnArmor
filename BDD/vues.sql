@@ -121,3 +121,24 @@ WHERE
         MONTH
         FROM CURRENT_DATE
     );
+
+------------------------------------ Vue pour connaître le nombre total de like / dislikes par avis
+CREATE OR REPLACE VIEW sae_db.vue_avis_reaction_counter
+ AS
+ SELECT id_avis,
+    count(
+        CASE
+            WHEN type_de_reaction = true THEN 1
+            ELSE NULL::integer
+        END) AS nb_likes,
+    count(
+        CASE
+            WHEN type_de_reaction = false THEN 1
+            ELSE NULL::integer
+        END) AS nb_dislikes
+   FROM sae_db._avis_reactions
+  GROUP BY id_avis;
+
+ALTER TABLE sae_db.vue_avis_reaction_counter
+    OWNER TO sae;
+
