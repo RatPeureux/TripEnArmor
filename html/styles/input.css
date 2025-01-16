@@ -52,9 +52,14 @@ label:has(+ select[required])::after {
   color: black;
 }
 
-.card.active #wifi,
-.card .active #wifi {
+.card.active #wifi_to_offline,
+.card .active #wifi_to_offline {
   fill: white;
+}
+
+.card.active #wifi_to_online,
+.card .active #wifi_to_online {
+  fill: #EA4335;
 }
 
 /* .card.active .notes,

@@ -26,7 +26,6 @@ if (!function_exists('chaineVersMot')) {
 
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-    <script src="/styles/config.js"></script>
 
     <script src="/scripts/filtersAndSortsPro.js"></script>
     <script type="module" src="/scripts/main.js"></script>
