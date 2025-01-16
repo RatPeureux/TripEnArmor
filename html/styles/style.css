@@ -1601,10 +1601,6 @@ video {
   overflow-wrap: break-word;
 }
 
-.rounded-lg {
-  border-radius: 0.5rem;
-}
-
 .border {
   border-width: 1px;
 }
@@ -1757,12 +1753,12 @@ video {
   fill: #0a0035;
 }
 
-.fill-white {
-  fill: #fff;
-}
-
 .stroke-black {
   stroke: #000;
+}
+
+.stroke-rouge-logo {
+  stroke: #EA4335;
 }
 
 .object-cover {
@@ -2201,6 +2197,16 @@ label:has(+ select[required])::after {
 .card .active {
   background: white;
   color: black;
+}
+
+.card.active #info_pro,
+.card .active #info_pro {
+  border-color: white;
+}
+
+.card.active hr,
+.card .active hr {
+  border-color: white;
 }
 
 /* .card.active .notes,
