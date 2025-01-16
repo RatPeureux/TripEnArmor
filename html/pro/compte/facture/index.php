@@ -1,8 +1,6 @@
 <?php
 session_start();
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 $pro = verifyPro();
 ?>
 
@@ -27,7 +25,6 @@ $pro = verifyPro();
     <title>Facture - Professionnel - PACT</title>
 </head>
 
-
 <body class="min-h-screen flex flex-col">
 
     <!-- Inclusion du menu -->
@@ -40,6 +37,60 @@ $pro = verifyPro();
     <!-- Inclusion du header -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+    ?>
+
+    <?php
+    // OBTENIR TOUTES LES OFFRES DU PRO
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    $stmtOffre = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_pro = :id_pro");
+    $stmtOffre->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
+
+    if ($stmtOffre->execute()) {
+        $offresDuPro = $stmtOffre->fetchAll(PDO::FETCH_ASSOC);
+
+        // Requête pour obtenir tous totaux des offres ttc () + montant total calculé
+        $queryTotaux = "SELECT * FROM sae_db.vue_totaux_ttc_offre WHERE id_offre = NULL";
+        $queryTitres = "SELECT id_offre, titre FROM sae_db._offre WHERE id_offre = NULL";
+        foreach ($offresDuPro as $offre) {
+            $queryTotaux = $queryTotaux . " OR id_offre = ?";
+            $queryTitres = $queryTitres . " OR id_offre = ?";
+        }
+        $stmtTotaux = $dbh->prepare($queryTotaux);
+        $stmtTitres = $dbh->prepare($queryTitres);
+        foreach ($offresDuPro as $idx => $offre) {
+            $stmtTotaux->bindParam($idx + 1, $offre['id_offre']);
+            $stmtTitres->bindParam($idx + 1, $offre['id_offre']);
+        }
+
+        if ($stmtTotaux->execute()) {
+            $all_totaux_ttc = $stmtTotaux->fetchAll();
+        } else {
+            echo "Erreur lors du chargement de vos totaux prévisionnels";
+        }
+
+        if ($stmtTitres->execute()) {
+            $all_titres_tmp = $stmtTitres->fetchAll();
+            // Reformatter le tableau pour avoir id_offre comme clé
+            $all_titres = [];
+            foreach ($all_titres_tmp as $titre) {
+                $all_titres[$titre['id_offre']] = [
+                    'titre' => $titre['titre']
+                ];
+            }
+        } else {
+            echo "Erreur lors du chargement du nom de vos offres";
+        }
+
+        // Somme du total de chaque offre
+        $sommeTotauxTTC = array_reduce($all_totaux_ttc, function ($carry, $item) {
+            return $carry + $item['total_ttc'];
+        }, 0);
+        $sommeTotauxTTC = number_format($sommeTotauxTTC, 2, '.', '');
+
+    } else {
+        echo "Erreur lors de la récupération de vos offres";
+        exit();
+    }
     ?>
 
     <!-- Partie principale de la page -->
@@ -56,8 +107,45 @@ $pro = verifyPro();
 
         <!-- Montants totaux prévisionnels -->
         <div>
-            <h3 class="text-h3">Montants totaux prévisionnels</h3>
+            <h2 class="text-h2">Montants prévisionnels du mois (TTC)</h2>
+            <div class="flex flex-col justify-start px-5">
+                <!-- Affichage du total avec effet de défilement -->
+                <h1 id="montantTotal" class="text-h1 font-bold">0 €</h1>
+                <ul>
+                    <?php
+                    if ($all_totaux_ttc) {
+                        foreach ($all_totaux_ttc as $total) {
+                            ?>
+                            <li><?php echo $all_titres[$total['id_offre']]['titre'] . " : " . $total['total_ttc'] ?> €</li>
+                            <?php
+                        }
+                    }
+                    ?>
+                </ul>
+            </div>
         </div>
+
+        <script>
+            // Fonction pour faire défiler le total
+            function updateAmount(element, targetValue) {
+                let currentValue = 0;
+                const increment = targetValue / 50; // Ajuster la vitesse de défilement ici
+                const interval = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= targetValue) {
+                        clearInterval(interval);
+                        currentValue = targetValue;
+                    }
+                    element.innerText = currentValue.toFixed(2) + ' €'; // Affichage du montant formaté
+                }, 20);
+            }
+
+            // Chargement de la page -> déclencher le défilement des chiffres
+            document.addEventListener("DOMContentLoaded", function () {
+                const montantElement = document.getElementById('montantTotal');
+                updateAmount(montantElement, <?php echo $sommeTotauxTTC ?>);
+            });
+        </script>
 
         <!-- Prévisualiser une facture pour une offre -->
         <?php
@@ -65,105 +153,91 @@ $pro = verifyPro();
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/facture_controller.php';
         $factureController = new FactureController();
 
-        if (isset($_SESSION['id_pro'])) {
-            $stmtOffre = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_pro = :id_pro");
-            $stmtOffre->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
-
-            if ($stmtOffre->execute()) {
-                $offresDuPro = $stmtOffre->fetchAll(PDO::FETCH_ASSOC);
-
-                if (count($offresDuPro) > 0) { ?>
-
-                    <div class="flex gap-5 items-center">
-                        <h3 class="text-h3">Simuler la facturation d'une offre</h3>
-                        <select name="offre" id="offre" onchange="loadPreview()" class="p-2 border border-primary bg-transparent">
-                            <option value="" disabled selected>Choisir une offre</option>
-                            <?php
-                            foreach ($offresDuPro as $offre) { ?>
-                                <option value="<?php echo htmlspecialchars($offre['id_offre']) ?>">
-                                    <?php echo htmlspecialchars($offre['titre']) ?>
-                                </option>
-                                <?php
-                            }
-                            ?>
-                            <option value="2">Autre offre</option>
-                        </select>
-                        <button id="preview-dl-button" onclick="generatePDF(document.querySelector('#facture-preview'))"
-                            class="bg-slate-200 text-white p-2 rounded">
-                            Télécharger la facture en PDF
-                        </button>
-                        <!-- Logo de chargement de preview -->
-                        <img id="loading-indicator" style="display: none;" class="w-8" src="/public/images/loading.gif"
-                            alt="Loading...">
-                    </div>
-
-                    <!-- Contenu de la preview -->
-                    <div id="facture-preview" class="self-center">
-                    </div>
-
-                    <script>
-                        // AFFICHER LA PREVIEW D'UNE FACTURE QUAND OFFRE SÉLECTIONNÉE
-                        function loadPreview() {
-                            // Afficher le loader pendant le chargement
-                            $('#loading-indicator').show();
-
-                            const id_offre = document.getElementById('offre').value;
-                            $('#facture-preview').html('');
-
-                            toggleDownloadButton();
-
-                            $.ajax({
-                                url: '/scripts/load_preview.php',
-                                type: 'GET',
-                                data: {
-                                    id_offre: id_offre,
-                                },
-
-                                // Durant l'exécution de la requête
-                                success: function (response) {
-                                    const preview_loaded = response;
-                                    $('#facture-preview').html(preview_loaded);
-                                },
-
-                                // A la fin, chacher le logo de chargement
-                                complete: function () {
-                                    // Masquer le loader après la requête
-                                    $('#loading-indicator').hide();
-                                    toggleDownloadButton();
-                                }
-                            });
-                        }
-
-                        // ACTUALISER L'ÉTAT DU BOUTON TÉLÉCHARGER EN FONCTION DU CONTENU DE LA PREVIEW
-                        function toggleDownloadButton() {
-                            const previewContent = document.getElementById('facture-preview').innerHTML.trim();
-                            const downloadButton = document.getElementById('preview-dl-button');
-
-                            if (previewContent === "") {
-                                downloadButton.disabled = true;
-                                downloadButton.classList.remove('!bg-primary');  // Couleur grise
-                                downloadButton.style.cursor = "not-allowed";  // Changer le curseur pour indiquer que c'est désactivé
-                            } else {
-                                downloadButton.disabled = false;
-                                downloadButton.classList.add('!bg-primary');  // Couleur primaire
-                                downloadButton.style.cursor = "pointer";  // Rétablir le curseur normal
-                            }
-                        }
-
-                        // Initialiser l'état du bouton au démarrage (au cas où il y a déjà un contenu)
-                        document.addEventListener('DOMContentLoaded', toggleDownloadButton);
-                    </script>
-                    </div>
-
+        if (count($offresDuPro) > 0) { ?>
+            <div class="flex gap-5 items-center">
+                <h3 class="text-h3">Simuler la facturation d'une offre</h3>
+                <select name="offre" id="offre" onchange="loadPreview()" class="p-2 border border-primary bg-transparent">
+                    <option value="" disabled selected>Choisir une offre</option>
                     <?php
-                } else {
-                    echo "<p>Vous n'avez pas d'offres en ligne.</p>";
+                    foreach ($offresDuPro as $offre) { ?>
+                        <option value="<?php echo htmlspecialchars($offre['id_offre']) ?>">
+                            <?php echo htmlspecialchars($offre['titre']) ?>
+                        </option>
+                        <?php
+                    }
+                    ?>
+                    <option value="2">Autre offre</option>
+                </select>
+                <button id="preview-dl-button" onclick="generatePDF(document.querySelector('#facture-preview'))"
+                    class="bg-slate-200 text-white p-2">
+                    Télécharger la facture en PDF
+                </button>
+                <!-- Logo de chargement de preview -->
+                <img id="loading-indicator" style="display: none;" class="w-8" src="/public/images/loading.gif"
+                    alt="Loading...">
+            </div>
+
+            <!-- Contenu de la preview -->
+            <div id="facture-preview" class="self-center">
+            </div>
+
+            <script>
+                // AFFICHER LA PREVIEW D'UNE FACTURE QUAND OFFRE SÉLECTIONNÉE
+                function loadPreview() {
+                    // Afficher le loader pendant le chargement
+                    $('#loading-indicator').show();
+
+                    const id_offre = document.getElementById('offre').value;
+                    $('#facture-preview').html('');
+
+                    toggleDownloadButton();
+
+                    $.ajax({
+                        url: '/scripts/load_preview.php',
+                        type: 'GET',
+                        data: {
+                            id_offre: id_offre,
+                        },
+
+                        // Durant l'exécution de la requête
+                        success: function (response) {
+                            const preview_loaded = response;
+                            $('#facture-preview').html(preview_loaded);
+                        },
+
+                        // A la fin, chacher le logo de chargement
+                        complete: function () {
+                            // Masquer le loader après la requête
+                            $('#loading-indicator').hide();
+                            toggleDownloadButton();
+                        }
+                    });
                 }
-            } else {
-                echo "Erreur lors de l'exécution de la requête";
-            }
+
+                // ACTUALISER L'ÉTAT DU BOUTON TÉLÉCHARGER EN FONCTION DU CONTENU DE LA PREVIEW
+                function toggleDownloadButton() {
+                    const previewContent = document.getElementById('facture-preview').innerHTML.trim();
+                    const downloadButton = document.getElementById('preview-dl-button');
+
+                    if (previewContent === "") {
+                        downloadButton.disabled = true;
+                        downloadButton.classList.remove('!bg-primary');  // Couleur grise
+                        downloadButton.style.cursor = "not-allowed";  // Changer le curseur pour indiquer que c'est désactivé
+                    } else {
+                        downloadButton.disabled = false;
+                        downloadButton.classList.add('!bg-primary');  // Couleur primaire
+                        downloadButton.style.cursor = "pointer";  // Rétablir le curseur normal
+                    }
+                }
+
+                // Initialiser l'état du bouton au démarrage (au cas où il y a déjà un contenu)
+                document.addEventListener('DOMContentLoaded', toggleDownloadButton);
+            </script>
+            </div>
+
+            <?php
         } else {
-            echo "La variable de session id_pro n'est pas définie";
+            echo "<p>Vous n'avez pas d'offres en ligne.</p>";
         } ?>
 
         <!-- HISTORIQUE DES FACTURES RÉELEMENTS ENVOYÉES & PRÉLEVÉES -->

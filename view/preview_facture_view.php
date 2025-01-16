@@ -57,7 +57,7 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
         <div class="flex justify-between w-full">
             <div>
                 <h1 class="text-xl font-bold">PACT</h1>
-                <p>21 rue Case Nègres<br>97232, Fort-de-France<br>FR</p>
+                <p>2 Place de l'École <br>29670, Henvic, Bretagne<br>FR</p>
             </div>
         </div>
 
@@ -113,7 +113,8 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
                         $TTC_total_periodes += $periode_en_ligne['prix_ttc_total'];
                         ?>
                         <tr class="text-center">
-                            <td class="border p-2 text-center"><?php echo htmlspecialchars($periode_en_ligne['type_offre']); ?></td>
+                            <td class="border p-2 text-center"><?php echo htmlspecialchars($periode_en_ligne['type_offre']); ?>
+                            </td>
 
                             <td class="border p-2 text-center">
                                 <?php echo DateTime::createFromFormat('Y-m-d', $periode_en_ligne['date_debut'])->format('d/m/y') ?>
@@ -172,7 +173,8 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
                         $TTC_total_souscriptions += $option_details['prix_ttc_total'];
                         ?>
                         <tr>
-                            <td class="border p-2 text-center"><?php echo htmlspecialchars($option_details['nom_option']); ?></td>
+                            <td class="border p-2 text-center"><?php echo htmlspecialchars($option_details['nom_option']); ?>
+                            </td>
 
                             <td class="border p-2 text-center">
                                 <?php echo DateTime::createFromFormat('Y-m-d', $option_details['date_lancement'])->format('d/m/y') ?>
@@ -181,14 +183,15 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
                                 <?php echo DateTime::createFromFormat('Y-m-d', $option_details['date_fin'])->format('d/m/y') ?>
                             </td>
 
-                            <td class="border p-2 text-center"><?php echo htmlspecialchars($option_details['nb_semaines']); ?></td>
+                            <td class="border p-2 text-center"><?php echo htmlspecialchars($option_details['nb_semaines']); ?>
+                            </td>
                             <td class="border p-2 text-center"><?php echo 'semaine' ?></td>
 
                             <td class="border p-2 text-center"><?php echo $option_details['prix_ht'] ?> €</td>
                             <td class="border p-2 text-center"><?php echo $option_details['prix_ht_total'] ?> €</td>
 
                             <td class="border p-2 text-center"><?php echo $option_details['tva'] ?>%</td>
-                            
+
                             <td class="border p-2 text-center"><?php echo $option_details['prix_ttc'] ?> €</td>
                             <td class="border p-2 text-center"><?php echo $option_details['prix_ttc_total'] ?> €</td>
                         </tr>
@@ -209,7 +212,8 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
             </div>
             <div class="flex justify-between font-bold">
                 <span>Total TTC</span>
-                <span><?php echo $TTC_total_periodes + $TTC_total_souscriptions ?> €</span>
+                <span><?php echo number_format($TTC_total_periodes + $TTC_total_souscriptions, 2, ',', ' ') ?>
+                    €</span>
             </div>
         </div>
     </div>
