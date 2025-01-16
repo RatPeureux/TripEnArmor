@@ -18,8 +18,8 @@
 <body class="flex flex-col min-h-screen">
 
     <?php
-    // Connexion avec la bdd
     session_start();
+    // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Obtenez l'ensemble des offres à la une avec le tri approprié
@@ -90,6 +90,7 @@
             <!-- Actions Utilisateur -->
             <div class="flex items-center gap-4">
                 <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+                print_r($_SESSION);
                 if (isConnectedAsMember()) { ?>
                     <!-- Si connecté -->
                     <a href="/compte">
