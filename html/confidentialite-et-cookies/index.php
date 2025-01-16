@@ -9,6 +9,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <title>Politique de confidentialité et d'utilisation des cookies - PACT</title>
 </head>
+
 <body class="min-h-screen flex flex-col justify-between">
     <!-- Inclusion du header -->
     <?php
@@ -38,7 +40,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
             <p class="text-h2 underline">Introduction</p>
             <p>
-                Cette politique complète nos <a href="/cgu.php" class="underline">Conditions Générales d'Utilisation</a> 
+                Cette politique complète nos <a href="/cgu.php" class="underline">Conditions Générales d'Utilisation</a>
                 et nos <a href="/mentions_legales.php" class="underline">Mentions Légales</a>. Elle décrit en détail
                 comment nous collectons, utilisons et protégeons vos données personnelles et notre gestion des cookies.
             </p>
@@ -47,48 +49,51 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <p>
                 Conformément aux Mentions Légales, le responsable du traitement est :<br>
                 <strong>Nom :</strong> FNOC<br>
-                <strong>Adresse :</strong> 21 rue Case Nègres, Place d'Armes, Le Lamentin, 97232, Martinique<br>
+                <strong>Adresse :</strong> 2 Place de l'École, 29670, Henvic, Bretagne<br>
                 <strong>Contact :</strong> contact@pact.com
             </p>
-            
+
             <p class="text-h2 underline">Données Collectées : Membre</p>
             <p>
                 Nous collectons des données personnelles nécessaires au fonctionnement du site, notamment :
-                <ul class="list-disc list-inside">
-                    <li><strong>Données fournies directement :</strong> Nom, Prénom, Adresse mail, Adresse postale, Numéro de téléphone.</li>
-                    <li><strong>Données collectées automatiquement :</strong> Cookies.</li>
-                </ul>
+            <ul class="list-disc list-inside">
+                <li><strong>Données fournies directement :</strong> Nom, Prénom, Adresse mail, Adresse postale, Numéro
+                    de téléphone.</li>
+                <li><strong>Données collectées automatiquement :</strong> Cookies.</li>
+            </ul>
             </p>
 
             <p class="text-h2 underline">Finalités et Conservation</p>
             <p>
-                Les données sont utilisées conformément à la section « Finalité du traitement » des 
+                Les données sont utilisées conformément à la section « Finalité du traitement » des
                 <a href="/cgu.php" class="underline">CGU</a>. La durée de conservation varie selon la finalité :
-                <ul class="list-disc list-inside">
-                    <li>Données utilisateurs : jusqu'à la suppression du compte ou après 3 ans d'inactivité.</li>
-                    <li>Données analytiques : 13 mois pour les cookies.</li>
-                </ul>
-                Consultez la section sur vos <strong>Droits des Utilisateurs</strong> ci-dessous pour demander la suppression de vos données.
+            <ul class="list-disc list-inside">
+                <li>Données utilisateurs : jusqu'à la suppression du compte ou après 3 ans d'inactivité.</li>
+                <li>Données analytiques : 13 mois pour les cookies.</li>
+            </ul>
+            Consultez la section sur vos <strong>Droits des Utilisateurs</strong> ci-dessous pour demander la
+            suppression de vos données.
             </p>
 
             <p class="text-h2 underline">Vos Droits</p>
             <p>
                 En tant qu'utilisateur, vous disposez des droits suivants :
-                <ul class="list-disc list-inside">
-                    <li>Droit d'accès, rectification ou suppression de vos données,</li>
-                    <li>Droit à la portabilité et d'opposition au traitement,</li>
-                    <li>Réclamation auprès de l'autorité compétente (CNIL),</li>
-                </ul>
-                Pour exercer vos droits, contactez-nous : <a href="mailto:benoit.tottereau@univ-rennes.fr" class="underline">dpo@pact.com</a>.
+            <ul class="list-disc list-inside">
+                <li>Droit d'accès, rectification ou suppression de vos données,</li>
+                <li>Droit à la portabilité et d'opposition au traitement,</li>
+                <li>Réclamation auprès de l'autorité compétente (CNIL),</li>
+            </ul>
+            Pour exercer vos droits, contactez-nous : <a href="mailto:benoit.tottereau@univ-rennes.fr"
+                class="underline">dpo@pact.com</a>.
             </p>
 
             <p class="text-h2 underline">Cookies</p>
             <p>
                 Ce site utilise des cookies pour :
-                <ul class="list-disc list-inside">
-                    <li>Améliorer l'expérience utilisateur,</li>
-                </ul>
-                Vous pouvez consulter la liste des cookies utilisés ci-dessous.
+            <ul class="list-disc list-inside">
+                <li>Améliorer l'expérience utilisateur,</li>
+            </ul>
+            Vous pouvez consulter la liste des cookies utilisés ci-dessous.
             </p>
 
             <p class="text-h2 underline">Liste des Cookies Utilisés</p>
@@ -114,14 +119,15 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <p class="text-h2 underline">Gestion des Cookies</p>
             <p>
                 Vous pouvez gérer vos préférences en matière de cookies :
-                <ul class="list-disc list-inside">
-                    <li>En modifiant les paramètres de votre navigateur.</li>
-                </ul>
+            <ul class="list-disc list-inside">
+                <li>En modifiant les paramètres de votre navigateur.</li>
+            </ul>
             </p>
 
             <p class="text-h2 underline">Modifications</p>
             <p>
-                Nous nous réservons le droit de modifier cette politique à tout moment. Les mises à jour seront publiées sur cette page.
+                Nous nous réservons le droit de modifier cette politique à tout moment. Les mises à jour seront publiées
+                sur cette page.
             </p>
         </main>
     </div>
@@ -130,6 +136,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
     ?>
-    
+
 </body>
+
 </html>

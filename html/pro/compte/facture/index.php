@@ -89,7 +89,7 @@ $pro = verifyPro();
                             <option value="2">Autre offre</option>
                         </select>
                         <button id="preview-dl-button" onclick="generatePDF(document.querySelector('#facture-preview'))"
-                            class="bg-slate-200 text-white p-2 rounded">
+                            class="bg-slate-200 text-white p-2">
                             Télécharger la facture en PDF
                         </button>
                         <!-- Logo de chargement de preview -->

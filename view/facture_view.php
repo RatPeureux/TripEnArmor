@@ -68,10 +68,9 @@ $date_echeance = $date_echeance->format('d/m/Y');
         <div class="flex justify-between w-full">
             <div>
                 <h1 class="text-xl font-bold">PACT</h1>
-                <p>21 rue Case Nègres<br>97232, Fort-de-France<br>FR</p>
+                <p>2 Place de l'École, <br>29670, Henvic, Bretagne<br>FR</p>
             </div>
         </div>
-
         <!-- Informations du pro -->
         <div class="flex justify-end">
             <div>
@@ -125,7 +124,8 @@ $date_echeance = $date_echeance->format('d/m/Y');
                         ?>
                         <tr class="text-center">
                             <td class="border p-2 text-center">
-                                <?php echo htmlspecialchars($ligne_facture_en_ligne['type_offre']); ?></td>
+                                <?php echo htmlspecialchars($ligne_facture_en_ligne['type_offre']); ?>
+                            </td>
 
                             <td class="border p-2 text-center">
                                 <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_en_ligne['date_debut'])->format('d/m/y') ?>
@@ -184,7 +184,8 @@ $date_echeance = $date_echeance->format('d/m/Y');
                         $TTC_total_souscriptions += $ligne_facture_option['prix_total_ttc'];
                         ?>
                         <tr>
-                            <td class="border p-2 text-center"><?php echo htmlspecialchars($ligne_facture_option['nom_option']); ?>
+                            <td class="border p-2 text-center">
+                                <?php echo htmlspecialchars($ligne_facture_option['nom_option']); ?>
                             </td>
 
                             <td class="border p-2 text-center">
@@ -194,7 +195,8 @@ $date_echeance = $date_echeance->format('d/m/Y');
                                 <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_option['date_fin'])->format('d/m/y') ?>
                             </td>
 
-                            <td class="border p-2 text-center"><?php echo htmlspecialchars($ligne_facture_option['quantite']); ?>
+                            <td class="border p-2 text-center">
+                                <?php echo htmlspecialchars($ligne_facture_option['quantite']); ?>
                             </td>
                             <td class="border p-2 text-center"><?php echo $ligne_facture_option['unite'] ?></td>
 
@@ -223,7 +225,8 @@ $date_echeance = $date_echeance->format('d/m/Y');
             </div>
             <div class="flex justify-between font-bold">
                 <span>Total TTC</span>
-                <span><?php echo $TTC_total_periodes + $TTC_total_souscriptions ?> €</span>
+                <span><?php echo number_format($TTC_total_periodes + $TTC_total_souscriptions, 2, ',', ' ') ?>
+                    €</span>
             </div>
         </div>
     </div>
