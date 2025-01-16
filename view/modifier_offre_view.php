@@ -16,7 +16,6 @@ $pro = verifyPro();
 
 // Récupération de l'ID de l'offre
 $id_offre = $_GET['id_offre'];
-echo "ID de l'offre : " . $id_offre . "<br>";
 if (!$id_offre) {
 	die('Erreur : ID de l\'offre manquant.');
 }
@@ -95,6 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		"Dîner" => $_POST["repasDiner"] ?? "off",
 		"Boissons" => $_POST["repasBoissons"] ?? "off",
 	];
+
+	$horaires = $_POST['horaires'] ?? [];
+		var_dump($horaires);
 
 
 
@@ -180,6 +182,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				echo "Aucun type de repas sélectionné.";
 			}
 		}
+
+		$query = "SELECT * FROM sae_db._horaire WHERE id_offre = ?";
+		$stmt = $dbh->prepare($query);
+		$stmt->bindParam(1, $id_offre);
+		$stmt->execute();
+		$horaires2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$query = "INSERT INTO sae_db._horaire (jour, ouverture, fermeture, pause, reprise, id_offre) VALUES (?, ?, ?, ?, ?, ?)";
+		$stmt = $dbh->prepare($query);
+		$stmt->bindParam(6, $id_offre);
+
 
 		
 
