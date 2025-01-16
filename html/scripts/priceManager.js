@@ -1,5 +1,5 @@
 class PriceManager {
-    constructor(inputId) {
+    constructor(inputId, existingPrices = []) {
         this.priceInput = document.getElementById(inputId);
         this.pricesContainer = {
             removePrice(price, name) {
@@ -18,10 +18,10 @@ class PriceManager {
             ],
         };
 
-        this.init();
+        this.init(existingPrices);
     }
 
-    init() {
+    init(existingPrices) {
         this.updateTarifs();
 
         // Ajouter un prix
@@ -45,6 +45,11 @@ class PriceManager {
         const form = document.getElementById('formulaire');
         form.addEventListener('submit', (e) => {
             this.addPricesToForm();
+        });
+
+        // Ajouter les prix existants
+        existingPrices.forEach(price => {
+            this.pricesContainer.addPricesToForm(price.value, price.name);
         });
     }
 
@@ -120,9 +125,9 @@ class PriceManager {
             form.appendChild(hiddenValue);
         });
     }
-}
 
-// Initialisation des tags
-document.addEventListener('DOMContentLoaded', () => {
-    new PriceManager('grilleTarifaire');
-});
+    // recupere les prix
+    getPrices() {
+        return this.pricesContainer["prices"];
+    }
+}

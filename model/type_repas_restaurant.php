@@ -63,14 +63,14 @@ class TypeRepasRestaurant extends BDD
         } else {
             $typeRepas = self::getTypeRepasRestaurantById($id);
 
-            $query = "UPDATE " . self::$nom_table . " SET nom = ? WHERE id_type_repas_restaurant = ? RETURNING id_type_repas_restaurant";
+            $query = "UPDATE " . self::$nom_table . " SET nom = ? WHERE id_offre = ? RETURNING id_offre";
 
             $stmt = self::$db->prepare($query);
             $stmt->bindParam(1, $nom_type_repas );
             $stmt->bindParam(2, $id);
 
             if ($stmt->execute()) {
-                return $stmt->fetchAll(PDO::FETCH_ASSOC)[0]["id_type_repas_restaurant"];
+                return $stmt->fetchAll(PDO::FETCH_ASSOC)[0]["id_offre"];
             } else {
                 echo "ERREUR : Impossible de mettre à jour le type de repas";
                 return -1;

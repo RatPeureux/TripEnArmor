@@ -40,7 +40,7 @@ class SpectacleController
         return $spectacle;
     }
 
-    public function updateSpectacle($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $capacite = false, $avec_guide = false)
+    public function updateSpectacle($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $capacite = false, $duree = false)
     {
         if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $capacite === false && $avec_guide === false) {
             $this->model::log("Aucune information n'a été modifiée.");

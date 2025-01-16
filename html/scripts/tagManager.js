@@ -76,11 +76,13 @@ class TagManager {
         });
 
         // Initialize with existing tags
-        existingTags.forEach(tag => {
-            const tagName = typeof tag === 'object' ? tag.nom : tag;
-            const activityType = document.getElementById('activityType').value;
-            this.addTag(tagName, activityType);
-        });
+        if (existingTags.length > 0) {
+            existingTags.forEach(tag => {
+                const tagName = typeof tag === 'object' ? tag.nom : tag;
+                const activityType = document.getElementById('activityType').value;
+                this.addTag(tagName, activityType);
+            });
+        }
     }
 
     changeAvailableTags(activityType) {
