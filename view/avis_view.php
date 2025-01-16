@@ -122,14 +122,6 @@ if (!function_exists('to_nom_note')) {
             }
             ?>
         </div>
-        <?php
-        echo "AAAAAAAAAAAAAAAAa";
-        print_r(value: $_SESSION);
-        if (isset($_SESSION['id_pro'])) { ?>
-            <div>
-                <? print_r($avis) ?>
-            </div>
-        <?php } ?>
         <div class="self-end ml-auto">
             <?php
             if (!$is_mon_avis) {
