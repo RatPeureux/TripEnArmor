@@ -56,6 +56,10 @@ label:has(+ select[required])::after {
 .card .active #info_pro {
   border-color: white;
 }
+.card.active hr,
+.card .active hr {
+  border-color: white;
+}
 
 /* .card.active .notes,
 .card .active {
