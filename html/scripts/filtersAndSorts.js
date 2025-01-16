@@ -152,8 +152,8 @@ document.addEventListener("DOMContentLoaded", function () {
             updateBounds();
         });
 
-        rightInput.addEventListener('input', () => {
-            if (parseFloat(rightInput.value) < parseFloat(leftInput.value)) {
+        rightInput?.addEventListener('input', () => {
+            if (parseFloat(rightInput?.value) < parseFloat(leftInput?.value)) {
                 rightInput.value = leftInput.value; // Ajuste la valeur si nécessaire
             }
             updateBounds();
@@ -365,10 +365,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (tags) {
                 matchesTag = filterState.tags.length === 0 || filterState.tags.every(tag => tags?.includes(tag));
             }
-
-            console.log(offre);
-
-            console.log(matchesCategory, matchesAvailability, matchesLocalisation, matchesNote, matchesPrice, matchesTag);
 
             // Appliquer les filtres croisés
             if (matchesCategory && matchesAvailability && matchesLocalisation && matchesNote && matchesPrice && matchesTag) {
