@@ -1757,6 +1757,10 @@ video {
   fill: #0a0035;
 }
 
+.fill-white {
+  fill: #fff;
+}
+
 .stroke-black {
   stroke: #000;
 }
@@ -2199,11 +2203,6 @@ label:has(+ select[required])::after {
   color: black;
 }
 
-.card.active #wifi_to_offline,
-.card .active #wifi_to_offline {
-  fill: white;
-}
-
 /* .card.active .notes,
 .card .active {
   background: white;
@@ -2471,10 +2470,6 @@ input[type="checkbox"]:checked:before {
 
 .hover\:bg-secondary\/90:hover {
   background-color: rgb(10 0 53 / 0.9);
-}
-
-.hover\:fill-\[\#00350D\]:hover {
-  fill: #00350D;
 }
 
 .hover\:fill-\[\#EA4335\]:hover {
