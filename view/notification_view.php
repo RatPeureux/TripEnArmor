@@ -18,7 +18,8 @@ if ($avis && count($avis) !== 0) {
                     <h3 class="text-gray-600"><span class="text-black"><?php echo $avi['titre']; ?></span> posté par
                         <span
                             class="text-black"><?php echo $membreController->getInfosMembre($avi['id_membre'])['pseudo']; ?></span>
-                        Il y a <span class="text-black"><?php echo $avi['date_publication']; ?></span>
+                        Il y a <span class="text-black">
+                            <?php echo (new DateTime($avi['date_publication']))->format('d/m/Y'); ?></span>
                     </h3>
                     <div class="flex justify-end">
                         <?php
@@ -43,7 +44,7 @@ if ($avis && count($avis) !== 0) {
                         ?>
                     </div>
                 </div>
-                <p>Vécu le <?php echo $avi['date_experience']; ?></p>
+                <p>Vécu le <?php echo (new DateTime($avi['date_experience']))->format('d/m/Y'); ?></p>
                 <p>
                     <?php
                     echo $avi['commentaire']

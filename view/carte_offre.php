@@ -649,7 +649,13 @@ if ($mode_carte == 'membre') {
 					<div class="flex justify-between text-small">
 						<div class="flex items-center justify-arround">
 							<i class="fa-solid fa-rotate text-xl"></i>
-							<p class="">Modifiée le <?php echo $date_mise_a_jour ?></p>
+							<p class="">Modifiée le <?php
+							if (isset($date_mise_a_jour)) {
+								echo $date_mise_a_jour;
+							} else {
+								echo $date_publication;
+							} ?>
+							</p>
 						</div>
 					</div>
 
@@ -661,8 +667,30 @@ if ($mode_carte == 'membre') {
 						<div class="flex items-center gap-2">
 							<i class="fa-solid fa-gears text-xl"></i>
 							<div>
-								<p>‘A la Une’ 10/09/24-17/09/24</p>
-								<p>‘En relief' 10/09/24-17/09/24</p>
+								<?php
+								// Options de l'offre
+								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/souscription_controller.php';
+								$controllerSouscription = new SouscriptionController();
+								$souscription = $controllerSouscription->getAllSouscriptionsByIdOffre($id_offre);
+
+								if (isset($souscription[0])) {
+									$date_lancement = DateTime::createFromFormat('Y-m-d', $souscription[0]['date_lancement']);
+									$date_lancement_formatted = $date_lancement->format('d/m/Y');
+									$date_fin = $date_lancement->modify('+' . $souscription[0]['nb_semaines'] . ' weeks')->format('d/m/Y');
+									echo $souscription[0]["nom_option"];
+									?>
+									<p>
+										<?php echo $souscritpion[0]["nom_option"] ?>
+									</p>
+									<p>
+										<?php echo $date_lancement_formatted ?> -
+										<?php echo $date_fin; ?>
+									</p>
+									<?php
+								} else {
+									echo "Aucune option";
+								}
+								?>
 							</div>
 						</div>
 					</div>
