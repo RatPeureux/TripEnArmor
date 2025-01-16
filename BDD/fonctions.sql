@@ -318,7 +318,7 @@ BEGIN
 	FROM sea_db.type_repas
 	WHERE nom = NEW.nom;
 
-	DELETE FROM _restaurant_type_repas
+	DELETE FROM sae_db._restaurant_type_repas
 	WHERE id_type_repas = id_type_actuel AND id_offre = OLD.id_offre;
 	INSERT INTO _restaurant_type_repas
 	VALUES (OLD.id_offre, id_type_nouveau);
