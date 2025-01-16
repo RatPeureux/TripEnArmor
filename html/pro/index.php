@@ -182,7 +182,7 @@ if (!function_exists('chaineVersMot')) {
 
         </div>
         <div class="w-full h-full xl:max-w-7xl grow p-4">
-            <div class="flex flex-col xl:flex-row justify-between">
+            <div class="flex 2xl:flex-col min-[1700px]:flex-row justify-between items-center">
                 <h2 class="text-4xl">
                     Notifications
                 </h2>
