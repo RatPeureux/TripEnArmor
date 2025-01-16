@@ -18,11 +18,6 @@
 <body class="flex flex-col min-h-screen">
 
     <?php
-    session_start();
-    var_dump($_SESSION);
-    if (!$_SESSION["test"]) {
-        $_SESSION["test"] = "test";
-    }
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
