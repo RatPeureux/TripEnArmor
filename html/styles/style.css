@@ -2204,11 +2204,6 @@ label:has(+ select[required])::after {
   fill: white;
 }
 
-.card.active #wifi_to_online,
-.card .active #wifi_to_online {
-  fill: #EA4335;
-}
-
 /* .card.active .notes,
 .card .active {
   background: white;
@@ -2484,6 +2479,10 @@ input[type="checkbox"]:checked:before {
 
 .hover\:fill-\[\#EA4335\]:hover {
   fill: #EA4335;
+}
+
+.hover\:fill-white:hover {
+  fill: #fff;
 }
 
 .hover\:\!stroke-primary:hover {
