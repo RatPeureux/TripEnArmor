@@ -1737,40 +1737,16 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
-.fill-\[\#EA4335\] {
-  fill: #EA4335;
-}
-
-.fill-primary {
-  fill: #F2771B;
-}
-
-.fill-secondary {
-  fill: #0a0035;
-}
-
-.fill-\[\] {
-  fill: ;
-}
-
-.fill-\[\#\] {
-  fill: #;
-}
-
 .fill-\[\#070\] {
   fill: #070;
 }
 
-.fill-\[\#075\] {
-  fill: #075;
+.fill-\[\#EA4335\] {
+  fill: #EA4335;
 }
 
-.fill-\[\#575\] {
-  fill: #575;
-}
-
-.fill-\[\#175\] {
-  fill: #175;
+.fill-secondary {
+  fill: #0a0035;
 }
 
 .stroke-black {
@@ -2234,11 +2210,6 @@ label:has(+ select[required])::after {
   border-color: white;
 }
 
-.card.active #wifi_to_offline,
-.card .active #wifi_to_offline {
-  fill: white;
-}
-
 /* .card.active .notes,
 .card .active {
   background: white;
@@ -2508,20 +2479,12 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(10 0 53 / 0.9);
 }
 
-.hover\:fill-\[\#EA4335\]:hover {
-  fill: #EA4335;
-}
-
-.hover\:fill-white:hover {
-  fill: #fff;
-}
-
-.hover\:fill-\[white\]:hover {
-  fill: white;
-}
-
 .hover\:fill-\[\#070\]:hover {
   fill: #070;
+}
+
+.hover\:fill-\[\#EA4335\]:hover {
+  fill: #EA4335;
 }
 
 .hover\:\!stroke-primary:hover {
