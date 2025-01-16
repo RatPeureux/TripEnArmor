@@ -49,9 +49,9 @@ if ($avis && count($avis) !== 0) {
                     echo $avi['commentaire']
                         ?>
                 </p>
-                <hr />
             </a>
         </div>
+        <hr class="mt-1" />
         <?php
     }
 } else {
