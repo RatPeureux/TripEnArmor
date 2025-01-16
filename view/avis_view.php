@@ -122,7 +122,9 @@ if (!function_exists('to_nom_note')) {
             }
             ?>
         </div>
-        <?php if (isset($_SESSION['id_pro'])) { ?>
+        <?php
+        print_r($_SESSION['id_pro']);
+        if (isset($_SESSION['id_pro'])) { ?>
             <div>
                 <? print_r($avis) ?>
             </div>
