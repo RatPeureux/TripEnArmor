@@ -87,7 +87,7 @@ session_start();
     if (isset($_GET['détails']) && $_GET['détails'] !== '') {
         $stmt->bindParam(':id_offre', $_GET['détails']);
     } else {
-        header('location: /pro/401');
+        header('location: /pro/404');
         exit();
     }
     
@@ -95,7 +95,7 @@ session_start();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (empty($offre)) {
-        header('location: /pro/401');
+        header('location: /pro/404');
         exit();
     }
     
