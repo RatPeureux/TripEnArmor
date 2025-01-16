@@ -228,9 +228,9 @@ if (!function_exists('to_nom_note')) {
     <!-- Réponse du pro s'il y en a une -->
     <?php if (!is_null($avis['reponse'])) { ?>
         <div class="p-4">
-            <div class="flex gap-8 items-center text-gris hover:cursor-pointer">
+            <div class="flex gap-8 items-center text-gris">
                 <!-- Bouton pour afficher la réponse -->
-                <div class="flex gap-2" onclick="this.querySelector('i').classList.toggle('rotate-90'); document.getElementById('reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden');">
+                <div class="flex gap-2 hover:cursor-pointer" onclick="this.querySelector('i').classList.toggle('rotate-90'); document.getElementById('reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden');">
                     <i class="fa-solid fa-angle-right"></i>
                     <p><?php echo $pro_can_answer ? 'Votre réponse' : 'Votre réponse' ?></p>
                 </div>
