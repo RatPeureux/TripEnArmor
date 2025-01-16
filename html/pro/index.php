@@ -27,7 +27,6 @@ if (!function_exists('chaineVersMot')) {
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
 
-    <script src="/scripts/filtersAndSortsPro.js"></script>
     <script type="module" src="/scripts/main.js"></script>
 
     <title>Mes offres - Professionnel - PACT</title>
@@ -52,21 +51,8 @@ if (!function_exists('chaineVersMot')) {
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-    $sort_order = '';
-    if (isset($_GET['sort'])) {
-        if ($_GET['sort'] == 'price-ascending') {
-            $sort_order = 'ORDER BY prix_mini ASC';
-        } elseif ($_GET['sort'] == 'price-descending') {
-            $sort_order = 'ORDER BY prix_mini DESC';
-        } else if ($_GET['sort'] == 'type-ascending') {
-            $sort_order = 'ORDER BY id_type_offre ASC';
-        } elseif ($_GET['sort'] == 'type-descending') {
-            $sort_order = 'ORDER BY id_type_offre DESC';
-        }
-    }
-
     // Obtenir l'ensembre des offres du professionnel identifié
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro $sort_order");
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro");
     $stmt->bindParam(':id_pro', $pro['id_compte']);
     $stmt->execute();
     $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);

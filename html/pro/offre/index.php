@@ -365,17 +365,17 @@ session_start();
                             <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
                         </div>
                         <?php
-                        $temp = $moyenne;
                         // Moyenne des notes quand il y en a une
-                        if ($moyenne) { ?>
+                        if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) { 
+                            $n = $moyenne?>
                             <div class="flex gap-1">
                                 <div class="flex gap-1 shrink-0">
                                     <?php for ($i = 0; $i < 5; $i++) {
-                                        if ($moyenne >= 1) {
+                                        if ($n >= 1) {
                                             ?>
                                             <img class="w-4" src="/public/icones/egg-full.svg" alt="1 point de note">
                                         <?php
-                                        } else if ($moyenne > 0) {
+                                        } else if ($n > 0) {
                                         ?>
                                             <img class="w-4" src="/public/icones/egg-half.svg" alt="0.5 point de note">
                                         <?php
@@ -384,7 +384,7 @@ session_start();
                                             <img class="w-4" src="/public/icones/egg-empty.svg" alt="0 point de note">
                                     <?php
                                         }
-                                        $moyenne--;
+                                        $n--;
                                     }
                                     ?>
                                 </div>
@@ -700,17 +700,17 @@ session_start();
                         <div class="w-full flex justify-between">
                             <h3 class="text-h4 pt-2">Avis</h3>
                             <?php
-                            $moyenne = $temp;
                             // Moyenne des notes quand il y en a une
-                            if ($moyenne) { ?>
+                            if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) { 
+                                $n = $moyenne?>
                                 <div class="flex gap-1">
                                     <div class="flex gap-1 shrink-0">
                                         <?php for ($i = 0; $i < 5; $i++) {
-                                            if ($moyenne >= 1) {
+                                            if ($n >= 1) {
                                                 ?>
                                                 <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
                                             <?php
-                                            } else if ($moyenne > 0) {
+                                            } else if ($n > 0) {
                                             ?>
                                                 <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
                                             <?php
@@ -719,7 +719,7 @@ session_start();
                                                 <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
                                         <?php
                                             }
-                                            $moyenne--;
+                                            $n--;
                                         }
                                         ?>
                                     </div>
