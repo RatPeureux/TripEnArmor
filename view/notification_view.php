@@ -5,7 +5,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller
 $avisController = new avisController();
 $membreController = new MembreController();
 
-$avis = $avisController->getAvisByIdPro($_SESSION['id_pro']);
+$avis = $avisController->getAvisNonVusByIdPro($_SESSION['id_pro']);
 
 if ($avis && count($avis) !== 0) {
     foreach ($avis as $avi) {
@@ -58,7 +58,7 @@ if ($avis && count($avis) !== 0) {
     ?>
     <div class="h-full p-2">
         <p class="text-xl text-center">
-            Vous n'avez aucune notification.
+            Vous n'avez aucune nouvelle notification.
         </p>
     </div>
     <?php
