@@ -1659,7 +1659,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     	<hr class="h-20 border-black border" />
                                     	<!-- Résumé de l'offre -->
                                     	<div
-                                        	class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
+                                        	class="tags description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
                                         	<div class="p-1 w-full flex justify-center items-center">
                                             	<!-- <p
                             	class="text-white text-center text-small w-full font-bold"
