@@ -39,13 +39,47 @@ class Avis extends BDD
         } else {
             return false;
         }
+    }
 
+    static function getAvisNonVusByIdPro($id_pro)
+    {
+        self::initBDD();
+        // Obtenir l'ensembre des offres du professionnel identifié
+        $stmt = self::$db->prepare("SELECT id_offre FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro");
+        $stmt->bindParam(':id_pro', $id_pro);
+        $stmt->execute();
+        $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $tousMesAvis = [];
+        foreach ($toutesMesOffres as $offre) {
+            $tousMesAvis = array_merge($tousMesAvis, self::getAvisNonVusByIdOffre($offre['id_offre']));
+        }
+
+        if ($tousMesAvis) {
+            return $tousMesAvis;
+        } else {
+            return false;
+        }
     }
 
     static function getAvisByIdOffre($idOffre)
     {
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ?";
+        $statement = self::$db->prepare($query);
+        $statement->bindParam(1, $idOffre);
+
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            echo "ERREUR: Impossible d'obtenir cet avis";
+            return false;
+        }
+    }
+
+    static function getAvisNonVusByIdOffre($idOffre) {
+        self::initBDD();
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ? AND est_lu = false";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $idOffre);
 
