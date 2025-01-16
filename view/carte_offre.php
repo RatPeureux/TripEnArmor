@@ -622,7 +622,7 @@ if ($mode_carte == 'membre') {
 				</div>
 
 				<!-- Infos supplémentaires pour le pro -->
-				<div class="border border-black p-1  flex justify-around">
+				<div id="info_pro" class="border border-black p-1 flex justify-around">
 
 					<!-- Avis & date de mise à jour -->
 					<div class="flex flex-col items-center justify-around hidden">
