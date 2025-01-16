@@ -6,6 +6,7 @@
 :root {
   --primary-color: #f2771b;
   --secondary-color: #0a0035;
+  --base100-color: #f1f3f4;
 }
 
 label:has(+ input[required]:not([type="checkbox"]))::after,
@@ -48,7 +49,7 @@ label:has(+ select[required])::after {
 
 .card.active .tags,
 .card .active {
-  background: white;
+  background: var(--base100-color);
   color: black;
 }
 

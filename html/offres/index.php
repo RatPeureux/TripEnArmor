@@ -48,19 +48,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $prix_mini_max = 0;
-
-    foreach ($toutesLesOffres as $offre) {
-        $prix_mini = $offre['prix_mini'];
-        if ($prix_mini !== null && $prix_mini !== '') {
-            if ($prix_mini_max === 0) {
-                $prix_mini_max = $prix_mini;
-            } else {
-                $prix_mini_max = max($prix_mini_max, $prix_mini);
-            }
-        }
-    }
-
     if (isset($_GET['sort'])) {
         // Récupérer toutes les moyennes en une seule requête
         $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
@@ -81,42 +68,78 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         // Effectuer le tri
         if ($_GET['sort'] === 'note-ascending') {
             usort($offresAvecNotes, function ($a, $b) {
-                $noteA = $a['note_moyenne'];
-                $noteB = $b['note_moyenne'];
-            
-                if (is_null($noteA) && is_null($noteB)) {
+                if (is_null($a['note_moyenne']) && is_null($b['note_moyenne'])) {
                     return 0;
                 }
-                if (is_null($noteA)) {
+                if (is_null($a['note_moyenne'])) {
                     return 1;
                 }
-                if (is_null($noteB)) {
+                if (is_null($b['note_moyenne'])) {
                     return -1;
                 }
             
-                return $noteA <=> $noteB;
+                return $a['note_moyenne'] <=> $b['note_moyenne'];
             });
+
+            // Réassigner les offres triées
+            $toutesLesOffres = $offresAvecNotes;
         } else if ($_GET['sort'] === 'note-descending') {
             usort($offresAvecNotes, function ($a, $b) {
-                $noteA = $a['note_moyenne'];
-                $noteB = $b['note_moyenne'];
-            
-                if (is_null($noteA) && is_null($noteB)) {
+                if (is_null($a['note_moyenne']) && is_null($b['note_moyenne'])) {
                     return 0;
                 }
-                if (is_null($noteA)) {
+                if (is_null($a['note_moyenne'])) {
                     return 1;
                 }
-                if (is_null($noteB)) {
+                if (is_null($b['note_moyenne'])) {
                     return -1;
                 }
             
-                return $noteB <=> $noteA;
+                return $b['note_moyenne'] <=> $a['note_moyenne'];
+            });
+
+            // Réassigner les offres triées
+            $toutesLesOffres = $offresAvecNotes;
+        } else if ($_GET['sort'] == 'price-ascending') {
+            usort($toutesLesOffres, function ($a, $b) {
+                if (is_null($a['prix_mini']) && is_null($b['prix_mini'])) {
+                    return 0;
+                }
+                if (is_null($a['prix_mini'])) {
+                    return -1;
+                }
+                if (is_null($b['prix_mini'])) {
+                    return 1;
+                }
+                return $a['prix_mini'] <=> $b['prix_mini'];
+            });
+        } else if ($_GET['sort'] == 'price-descending') {
+            usort($toutesLesOffres, function ($a, $b) {
+                if (is_null($a['prix_mini']) && is_null($b['prix_mini'])) {
+                    return 0;
+                }
+                if (is_null($a['prix_mini'])) {
+                    return -1;
+                }
+                if (is_null($b['prix_mini'])) {
+                    return 1;
+                }
+                return $b['prix_mini'] <=> $a['prix_mini'];
             });
         }
+    }
 
-        // Réassigner les offres triées
-        $toutesLesOffres = $offresAvecNotes;
+    $prix_mini_max = 0;
+
+    foreach ($toutesLesOffres as $offre) {
+        $prix_mini = $offre['prix_mini'];
+        if ($prix_mini !== null && $prix_mini !== '') {
+            if ($prix_mini_max === 0) {
+                $prix_mini_max = $prix_mini;
+            } else {
+                $prix_mini_max = max($prix_mini_max, $prix_mini);
+            }
+        }
     }
     ?>
 
