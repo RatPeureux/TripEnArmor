@@ -1,4 +1,4 @@
-<form?php
+<?php
 session_start();
 
 // Enlever les informations gardées lors de l'étape de connexion quand on reveint à la page (retour en arrière)
