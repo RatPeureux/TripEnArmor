@@ -166,9 +166,6 @@ foreach ($horaires as $jour => $horaire) {
 					</div>
 					<?php
 				} else { ?>
-					<script>
-					   console.log("caca");
-					</script>
 					<p class='text-lg '><?php echo $pro['nom_pro'] ?></p>
 				<?php } ?>
 				<p class='categorie text-lg'><?php echo chaineVersMot($categorie_offre) ?></p>

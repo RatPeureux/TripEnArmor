@@ -235,7 +235,7 @@ INSERT INTO
         nom_pro,
         id_rib
     )
-VALUES ( -- Caca123-
+VALUES (
         1,
         'leobleas@gmail.com',
         '$2y$10$SKmv1CW9n.OBcF.N.lx/3.iCpIIx7Z4ov5AqM246/21dUlp7flzm2',

@@ -50,4 +50,4 @@
     </div>
 </header>
 
-<script src="/scripts/search.js"></script>
+<script src="/scripts/filtersAndSortsPro.js"></script>

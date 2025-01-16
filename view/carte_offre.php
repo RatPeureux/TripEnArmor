@@ -195,7 +195,7 @@ if ($mode_carte == 'membre') {
 				<div class='flex flex-col gap-2 justify-center items-center min-w-16'>
 					<?php
 					// Moyenne des notes quand il y en a une
-					if ($moyenne) {
+					if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
 						$n = $moyenne;
 						?>
 						<div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne; ?>">
@@ -261,7 +261,7 @@ if ($mode_carte == 'membre') {
 							</h3>
 							<?php
 							// Moyenne des notes quand il y en a une
-							if ($moyenne) {
+							if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
 								$n = $moyenne;
 								?>
 								<div class="notes flex gap-1">
@@ -449,7 +449,7 @@ if ($mode_carte == 'membre') {
 
 					<?php
 					// Moyenne des notes quand il y en a une
-					if ($moyenne) {
+					if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
 						$n = $moyenne;
 						?>
 						<div class="flex gap-1 self-end">
@@ -537,9 +537,9 @@ if ($mode_carte == 'membre') {
 				</div>
 
 				<!-- A droite, au milieu : description avec éventuels tags -->
-				<div class=" description py-2 flex flex-col gap-2 w-full">
-					<div class="flex justify-center relative">
-						<div class="p-2  bg-secondary self-center w-full">
+				<div class="description py-2 flex flex-col gap-2 w-full">
+					<div class="tags flex justify-center relative">
+						<div class="tags p-2  bg-secondary self-center w-full">
 							<?php
 							if ($categorie_offre != 'restauration') {
 								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
@@ -594,7 +594,7 @@ if ($mode_carte == 'membre') {
 								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								if ($tags_offre) {
 									?>
-									<div class="p-1  bg-secondary self-center w-full">
+									<div class="tags p-1  bg-secondary self-center w-full">
 										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
 										?>
@@ -602,7 +602,7 @@ if ($mode_carte == 'membre') {
 									<?php
 								} else {
 									?>
-									<div class="p-1  bg-secondary self-center w-full">
+									<div class="tags p-1 bg-secondary self-center w-full">
 										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 										?>
@@ -665,9 +665,9 @@ if ($mode_carte == 'membre') {
 
 					<!-- Dates de mise à jour -->
 					<div class="flex justify-between text-small">
-						<div class="flex items-center justify-arround">
+						<div class="flex items-center justify-arround gap-1">
 							<i class="fa-solid fa-rotate text-xl"></i>
-							<p class="">Modifiée le <?php
+							<p>Modifiée le <?php
 							if (isset($date_mise_a_jour)) {
 								echo $date_mise_a_jour;
 							} else {
