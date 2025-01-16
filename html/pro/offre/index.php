@@ -71,8 +71,7 @@ session_start();
         "email" => "",
         "tel" => "",
         "id_adresse" => "",
-        "data" => [
-        ]
+        "data" => []
     ];
     $proController = new ProPriveController();
 
@@ -89,7 +88,6 @@ session_start();
         $result["id_adresse"] = $proAuth["id_adresse"];
         $result["data"]["type_orga"] = $proAuth["type_orga"];
         $result["data"]["type"] = "public";
-
     } else {
         $result["id_compte"] = $proAuth["id_compte"];
         $result["nom_pro"] = $proAuth["nom_pro"];
@@ -306,27 +304,27 @@ session_start();
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
                             <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
-                                echo "offres/" . $images['carte'];
-                            } else {
-                                echo $categorie_offre . '.jpg';
-                            } ?>' alt="image de slider">
+                                                                                            echo "offres/" . $images['carte'];
+                                                                                        } else {
+                                                                                            echo $categorie_offre . '.jpg';
+                                                                                        } ?>' alt="image de slider">
                         </div>
                         <div class="swiper-slide !w-full">
                             <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
-                                echo "offres/" . $images['carte'];
-                            } else {
-                                echo $categorie_offre . '.jpg';
-                            } ?>' alt="image de slider">
+                                                                                            echo "offres/" . $images['carte'];
+                                                                                        } else {
+                                                                                            echo $categorie_offre . '.jpg';
+                                                                                        } ?>' alt="image de slider">
                         </div>
                         <?php
                         if ($images['details']) {
                             foreach ($images['details'] as $image) {
-                                ?>
+                        ?>
                                 <div class="swiper-slide !w-full">
                                     <img class="object-cover w-full h-full"
                                         src='/public/images/<?php echo "offres/" . $image; ?>' alt="image de slider">
                                 </div>
-                                <?php
+                        <?php
                             }
                         }
                         ?>
@@ -345,7 +343,7 @@ session_start();
                                 class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
                                 ›</a>
                         </div>
-                        <?php
+                    <?php
                     }
                     ?>
                 </div>
@@ -367,17 +365,17 @@ session_start();
                                 <div class="flex gap-1 shrink-0">
                                     <?php for ($i = 0; $i < 5; $i++) {
                                         if ($moyenne > 1) {
-                                            ?>
+                                    ?>
                                             <img class="w-4" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-                                            <?php
+                                        <?php
                                         } else if ($moyenne > 0) {
-                                            ?>
-                                                <img class="w-4" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
-                                            <?php
+                                        ?>
+                                            <img class="w-4" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
+                                        <?php
                                         } else {
-                                            ?>
-                                                <img class="w-4" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-                                            <?php
+                                        ?>
+                                            <img class="w-4" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                                    <?php
                                         }
                                         $moyenne--;
                                     }
@@ -385,18 +383,18 @@ session_start();
                                 </div>
                                 <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
                             </div>
-                            <?php
+                        <?php
                         }
                         ?>
                     </div>
                     <?php if ($ouvert == true) {
-                        ?>
+                    ?>
                         <p class="text-h3  text-green-500">Ouvert</p>
-                        <?php
+                    <?php
                     } else {
-                        ?>
+                    ?>
                         <p class="text-h3  text-red-500">Fermé</p>
-                        <?php
+                    <?php
                     }
                     ?>
                     <div class="w-full">
@@ -425,21 +423,21 @@ session_start();
 
                         $tagsAffiche = rtrim($tagsAffiche, ', ');
                         if ($tags_offre) {
-                            ?>
+                    ?>
                             <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
                             </div>
-                            <?php
+                        <?php
                         } else {
-                            ?>
+                        ?>
                             <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
                             </div>
-                            <?php
+                        <?php
                         }
                     } else {
                         require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
@@ -458,21 +456,21 @@ session_start();
 
                         $tagsAffiche = rtrim($tagsAffiche, ', ');
                         if ($tags_offre) {
-                            ?>
+                        ?>
                             <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
                                 ?>
                             </div>
-                            <?php
+                        <?php
                         } else {
-                            ?>
+                        ?>
                             <div class="p-1  bg-secondary self-center w-full">
                                 <?php
                                 echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
                                 ?>
                             </div>
-                            <?php
+                    <?php
                         }
                     }
                     ?>
@@ -492,7 +490,7 @@ session_start();
                                         <p>
                                             <?php
                                             echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement']
-                                                ?>
+                                            ?>
                                         </p>
                                     </div>
                                 </div>
@@ -554,28 +552,28 @@ session_start();
                                         case 'restauration':
 
                                             // VALEUR TEST CAR PAS DANS LA BDD
-                                    
-                                            ?>
+
+                                    ?>
                                             <div class="text-small flex flex-col md:flex-row">
                                                 <p class="text-small">Repas servis&nbsp:&nbsp</p>
                                                 <p><?php echo $tags_type_repas ?></p>
                                             </div>
                                             <?php
                                             if ($images) {
-                                                ?>
+                                            ?>
                                                 <img src="/public/images/offres/<?php echo $images['carte-resto']; ?>" alt=""
                                                     class="max-h-[400px] max-w-[350px] md:max-w-[500px]">
-                                                <?php
-                                            } else {
-                                                ?>
-                                                <p class="text-small">Aucune carte pour le restaurant.</p>
-                                                <?php
-                                            } ?>
                                             <?php
+                                            } else {
+                                            ?>
+                                                <p class="text-small">Aucune carte pour le restaurant.</p>
+                                            <?php
+                                            } ?>
+                                        <?php
                                             break;
 
                                         case 'activite':
-                                            ?>
+                                        ?>
                                             <div class="text-small flex flex-row">
                                                 <p>Durée&nbsp:&nbsp</p>
                                                 <p><?php echo $duree_act ?></p>
@@ -592,11 +590,11 @@ session_start();
                                                 } ?>
                                             </div>
 
-                                            <?php
+                                        <?php
                                             break;
 
                                         case 'parc_attraction':
-                                            ?>
+                                        ?>
                                             <div class="text-small flex flex-row">
                                                 <p>Âge requis&nbsp:&nbsp</p>
                                                 <p><?php echo $age_requis_pa ?></p>
@@ -608,19 +606,19 @@ session_start();
                                             </div>
                                             <?php
                                             if ($images) {
-                                                ?>
+                                            ?>
                                                 <img src="/public/images/offres/<?php echo $images['plan']; ?>" alt="">
-                                                <?php
-                                            } else {
-                                                ?>
-                                                <p class="text-small">Aucun plan</p>
-                                                <?php
-                                            } ?>
                                             <?php
+                                            } else {
+                                            ?>
+                                                <p class="text-small">Aucun plan</p>
+                                            <?php
+                                            } ?>
+                                        <?php
                                             break;
 
                                         case 'visite':
-                                            ?>
+                                        ?>
                                             <div class="text-small flex flex-row">
                                                 <p>Durée&nbsp:&nbsp</p>
                                                 <p><?php echo $duree_vis ?></p>
@@ -635,11 +633,11 @@ session_start();
                                                     </p>
                                                 </div>
                                             <?php } ?>
-                                            <?php
+                                        <?php
                                             break;
 
                                         case 'spectacle':
-                                            ?>
+                                        ?>
                                             <div class="text-small flex flex-row">
                                                 <p>Durée&nbsp:&nbsp</p>
                                                 <p><?php echo $duree_spec ?></p>
@@ -649,13 +647,13 @@ session_start();
                                                 <p><?php echo $capacite ?></p>
                                                 <p>&nbsppersonnes</p>
                                             </div>
-                                            <?php
+                                        <?php
                                             break;
 
                                         default:
-                                            ?>
+                                        ?>
                                             <p class="text-small">Aucune informations complémentaires à afficher.</p>
-                                            <?php
+                                    <?php
                                             break;
                                     }
                                     ?>
@@ -663,7 +661,7 @@ session_start();
                             </a>
                             <?php
                             if ($categorie_offre != 'restauration' && $proAuth['type_orga'] != 'public') {
-                                ?>
+                            ?>
                                 <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
                                         <p class="text-h4">Grille tarifaire</p>
@@ -675,16 +673,16 @@ session_start();
                                         $controllerTarifPublic = new TarifPublicController();
                                         $tarifs = $controllerTarifPublic->getTarifsByIdOffre($id_offre);
                                         foreach ($tarifs as $tarif) {
-                                            ?>
+                                        ?>
 
                                             <?php echo $tarif['titre'] ?> :&nbsp;
                                             <?php echo $tarif['prix'] ?> € <br>
-                                            <?php
+                                        <?php
                                         }
                                         ?>
                                     </div>
                                 </a>
-                                <?php
+                            <?php
                             }
                             ?>
 
@@ -702,17 +700,17 @@ session_start();
                                     <div class="flex gap-1 shrink-0">
                                         <?php for ($i = 0; $i < 5; $i++) {
                                             if ($moyenne > 1) {
-                                                ?>
+                                        ?>
                                                 <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-                                                <?php
+                                            <?php
                                             } else if ($moyenne > 0) {
-                                                ?>
-                                                    <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
-                                                <?php
+                                            ?>
+                                                <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
+                                            <?php
                                             } else {
-                                                ?>
-                                                    <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-                                                <?php
+                                            ?>
+                                                <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                                        <?php
                                             }
                                             $moyenne--;
                                         }
@@ -720,7 +718,7 @@ session_start();
                                     </div>
                                     <p class='text-small flex items-center'>(<?php echo $nb_avis ?>)</p>
                                 </div>
-                                <?php
+                            <?php
                             }
                             ?>
                         </div>
@@ -730,7 +728,7 @@ session_start();
                             // UTILISATEUR CONNECTÉ, 2 cas :
                             // - a déjà écrit un avis, auquel cas on le voit en premier et on peut le modifier
                             // - n'a pas déjà écrit d'avis, auquel cas un formulaire de création d'avis apparaît
-                        
+
                             // vérifier si l'utilisateur a écrit un avis
                             include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
                             $avisController = new AvisController;
@@ -744,7 +742,7 @@ session_start();
                                 include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
                                 ?>
                             <?php } else {
-                                ?>
+                            ?>
                                 <!-- FORMULAIRE DE CRÉATION D'AVIS -->
                                 <div class="flex flex-col gap-2">
                                     <button onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
@@ -861,7 +859,7 @@ session_start();
                                                 </select>
                                             </div>
 
-                                            <?php
+                                        <?php
                                         }
                                         ?>
 
@@ -922,17 +920,17 @@ session_start();
                                     </script>
 
                                 </div>
-                                <?php
+                            <?php
                             }
                             ?>
 
-                            <?php
+                        <?php
                             // UTILISATEUR PAS CONNECTÉ
                         } else if (!isset($_SESSION['id_pro'])) { ?>
-                                <p class="text-small italic"><a href='/connexion' class="underline">Connectez-vous</a>
-                                    pour rédiger un
-                                    avis</p>
-                            <?php
+                            <p class="text-small italic"><a href='/connexion' class="underline">Connectez-vous</a>
+                                pour rédiger un
+                                avis</p>
+                        <?php
                         }
                         ?>
 
@@ -947,7 +945,7 @@ session_start();
                         <img id="loading-indicator" class="w-8 h-6" style="display: none;"
                             src="/public/images/loading.gif" alt="Loading...">
                         <button class="text-small " id="load-more-btn">
-                            Afficher plus...
+                            Afficher plus
                         </button>
                     </div>
 
@@ -955,21 +953,21 @@ session_start();
 
                 <!-- A garder ici car il y a du PHP -->
                 <script>
-                    $(document).ready(function () {
+                    $(document).ready(function() {
                         // Paramètres à passer au fichier PHP de chargement des avis
                         let idx_avis = 0;
                         const id_offre = <?php echo $_SESSION['id_offre'] ?>;
                         const id_membre = <?php if (isset($_SESSION['id_membre'])) {
-                            echo $_SESSION['id_membre'];
-                        } else {
-                            echo '-1';
-                        } ?>;
+                                                echo $_SESSION['id_membre'];
+                                            } else {
+                                                echo '-1';
+                                            } ?>;
 
                         // Charger les X premiers avis
                         loadAvis();
 
                         // Ajouter des avis quand le bouton est cliqué
-                        $('#load-more-btn').click(function () {
+                        $('#load-more-btn').click(function() {
                             loadAvis();
                         });
 
@@ -991,7 +989,7 @@ session_start();
                                 },
 
                                 // Durant l'exécution de la requête
-                                success: function (response) {
+                                success: function(response) {
                                     const lesAvisCharges = response;
                                     if (lesAvisCharges.length > 0) {
                                         // Ajouter le contenu HTML généré par loaded avis.
@@ -1006,7 +1004,7 @@ session_start();
                                 },
 
                                 // A la fin, chacher le logo de chargement
-                                complete: function () {
+                                complete: function() {
                                     // Masquer le loader après la requête
                                     $('#loading-indicator').hide();
                                     // Réactiver le bouton après la requête (que ce soit réussi ou non)
@@ -1036,7 +1034,7 @@ session_start();
             const info = document.getElementById(infoID);
 
             if (button) {
-                button.addEventListener('click', function (event) {
+                button.addEventListener('click', function(event) {
                     event.preventDefault();
                     arrow.classList.toggle('rotate-90');
                     info.classList.toggle('hidden');
