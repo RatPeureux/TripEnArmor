@@ -47,7 +47,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     $stmt = $dbh->prepare("
         select *
         from sae_db._souscription natural join sae_db._offre
-        where option = 'option-a-la-une'
+        where nom_option = 'A la une'
         AND (date_annulation IS NULL OR CURRENT_DATE < date_annulation)
         AND CURRENT_DATE <= date_lancement + (nb_semaines * INTERVAL '1 week')
         AND CURRENT_DATE >= date_lancement 

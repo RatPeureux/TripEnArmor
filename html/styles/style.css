@@ -1187,10 +1187,6 @@ video {
   width: min-content;
 }
 
-.w-10 {
-  width: 2.5rem;
-}
-
 .min-w-16 {
   min-width: 4rem;
 }
@@ -2467,10 +2463,6 @@ input[type="checkbox"]:checked:before {
   fill: #EA4335;
 }
 
-.hover\:stroke-primary:hover {
-  stroke: #F2771B;
-}
-
 .hover\:\!stroke-primary:hover {
   stroke: #F2771B !important;
 }
@@ -2540,27 +2532,6 @@ input[type="checkbox"]:checked:before {
 .disabled\:bg-gray-300:disabled {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
-}
-
-.group:hover .group-hover\:fill-black {
-  fill: #000;
-}
-
-.group:hover .group-hover\:stroke-red-500 {
-  stroke: #ef4444;
-}
-
-.group:hover .group-hover\:stroke-primary {
-  stroke: #F2771B;
-}
-
-.group:hover .group-hover\:stroke-orange-500 {
-  stroke: #f97316;
-}
-
-.group:hover .group-hover\:text-amber-500 {
-  --tw-text-opacity: 1;
-  color: rgb(245 158 11 / var(--tw-text-opacity, 1));
 }
 
 .group:hover .group-hover\:opacity-100 {
