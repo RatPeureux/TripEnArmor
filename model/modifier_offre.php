@@ -23,10 +23,10 @@ class ModifierOffre extends BDD {
         }
     }
 
-    static function updateOffre($id, $titre, $description, $resume, $prix_mini, $date_creation, $date_mise_a_jour, $date_suppression, $est_en_ligne, $id_type_offre, $id_pro, $id_adresse, $option, $accessibilite) {
+    static function updateOffre($id, $titre, $description, $resume, $prix_mini, $date_creation, $date_mise_a_jour, $date_suppression, $est_en_ligne, $id_type_offre, $id_pro, $id_adresse, $accessibilite) {
         self::initBDD();
         // Requête SQL pour mettre à jour une offre
-        $query = "UPDATE " . self::$nom_table ." SET titre = ?, description = ?, resume = ?, prix_mini = ?, date_creation = ?, date_mise_a_jour = ?, date_suppression = ?, est_en_ligne = ?, id_type_offre = ?, id_pro = ?, id_adresse = ?, option = ?, accessibilite = ? WHERE id_offre = ?";
+        $query = "UPDATE " . self::$nom_table ." SET titre = ?, description = ?, resume = ?, prix_mini = ?, date_creation = ?, date_mise_a_jour = ?, date_suppression = ?, est_en_ligne = ?, id_type_offre = ?, id_pro = ?, id_adresse = ?, accessibilite = ? WHERE id_offre = ?";
         
         // Vérifie si l'id_adresse existe dans la table _adresse
         $checkQuery = "SELECT COUNT(*) FROM sae_db._adresse WHERE id_adresse = ?";
@@ -51,9 +51,8 @@ class ModifierOffre extends BDD {
         $statement->bindParam(9, $id_type_offre);
         $statement->bindParam(10, $id_pro);
         $statement->bindParam(11, $id_adresse);
-        $statement->bindParam(12, $option);
-        $statement->bindParam(13, $accessibilite);
-        $statement->bindParam(14, $id);
+        $statement->bindParam(12, $accessibilite);
+        $statement->bindParam(13, $id);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {

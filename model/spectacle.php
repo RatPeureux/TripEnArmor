@@ -6,14 +6,13 @@ class Spectacle extends BDD
 {
     static private $nom_table = "sae_db._spectacle";
 
-    static function getSpectacleById($id, $online = true)
+    static function getSpectacleById($id)
     {
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ? AND est_en_ligne = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ?";
 
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
-        $statement->bindValue(2, $online);
 
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC)[0];

@@ -2,7 +2,7 @@
 session_start();
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/modifier_offre_controller.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_offre_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/cat_offre_controller.php';
@@ -11,10 +11,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controlle
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_restaurant_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
 $pro = verifyPro();
 
-var_dump($pro);
 
 // Récupération de l'ID de l'offre
 $id_offre = $_GET['id_offre'];
@@ -34,10 +32,7 @@ if (!$offre) {
 // Récupération des informations annexes (debug)
 $typeOffreController = new TypeOffreController();
 $typesOffres = $typeOffreController->getInfosTypeOffre($offre['id_type_offre']);
-// echo "<pre>";
-// echo "Types d'offres : ";
-// var_dump($typesOffres);
-// echo "</pre>";
+
 
 $catOffreController = new CatOffreController();
 $catOffre = $catOffreController->getOffreCategorie($offre['id_offre']);
@@ -45,7 +40,6 @@ $catOffre = $catOffreController->getOffreCategorie($offre['id_offre']);
 $tagRestoController = new TagRestoController();
 $tagsResto = $tagRestoController->getTagResto($offre['id_offre']);
 foreach ($tagsResto as $tag) {
-	// echo $tag['nom'] . "<br>";
 }
 
 $horaireController = new HoraireController();
@@ -57,48 +51,16 @@ $repasNoms = array_map(function ($repas) {
 	return $repas['nom'];
 }, $typesRepasRestaurant);
 
-// var_dump("les types de repas : " . $repasNoms);
 
 $imagesController = new ImageController();
 $images = $imagesController->getImagesOfOffre($offre['id_offre']);
 
 $tagOffreController = new TagOffreController();
 $tagsOffre = $tagOffreController->getTagsByIdOffre($offre['id_offre']);
-// var_dump($tagsOffre);
 
 $adresseController = new AdresseController();
 $adresse = $adresseController->getInfosAdresse($offre['id_adresse']);
 $odonyme = $_POST['user_input_autocomplete_address'] ?? $adresse['odonyme'];
-
-$spectacleController = new SpectacleController();
-$spectacle = $spectacleController->getInfosSpectacle($offre['id_offre']);
-echo "<pre>";
-var_dump($spectacle);
-echo "</pre>";
-
-	// var_dump("test : " . $odonyme);
-// Debugging des informations
-// echo "<pre>";
-// echo "Offre : ";
-// var_dump($offre);
-// echo "Adresse : ";
-// var_dump($adresse);
-// echo "Types d'offres : ";
-// var_dump($typesOffres);
-// echo "Catégorie d'offre : ";
-// var_dump($catOffre[0]['type_offre']);
-// echo "Tags resto : ";
-// var_dump($tagsResto);
-// echo "Horaires : ";
-// var_dump($horaires);
-// echo "Types repas restaurant : ";
-// var_dump($typesRepasRestaurant);
-// echo "Images de l'offre : ";
-// var_dump($images['carte']);
-// echo "</pre>";
-// echo "<pre>";
-// var_dump($offre);
-// echo "</pre>";
 if (!$adresse) {
 	echo "ERREUR : Adresse introuvable.";
 	return -1;
@@ -125,26 +87,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$ville = $_POST['locality'] ?? $adresse['ville'];
 	$numero = $_POST['numero'] ?? $adresse['numero'];
 	$odonyme = $_POST['user_input_autocomplete_address'] ?? $adresse['odonyme'];
-	// var_dump("test : " . $odonyme);
 	$complement = $_POST['complement'] ?? $adresse['complement'];
 	$typesRepas = [
-		"Petit déjeuner" => $_POST["repasPetitDejeuner"] ?? "on",
-		"Brunch" => $_POST["repasBrunch"] ?? "on",
-		"Déjeuner" => $_POST["repasDejeuner"] ?? "on",
-		"Dîner" => $_POST["repasDiner"] ?? "on",
-		"Boissons" => $_POST["repasBoissons"] ?? "on",
+		"Petit déjeuner" => $_POST["repasPetitDejeuner"] ?? "off",
+		"Brunch" => $_POST["repasBrunch"] ?? "off",
+		"Déjeuner" => $_POST["repasDejeuner"] ?? "off",
+		"Dîner" => $_POST["repasDiner"] ?? "off",
+		"Boissons" => $_POST["repasBoissons"] ?? "off",
 	];
 
-	// Debug : Vérification des variables d'adresse
-	// var_dump($offre['id_adresse'], $code_postal, $ville, $numero, $odonyme, $complement);
 
 
-	try {
+
     	// Mise à jour des informations de l'offre
     	$modifier_offre_controller->updateOffre(
         	$id_offre, $titre, $description, $resume, $prix_mini, $offre['date_creation'],
         	$date_mise_a_jour, $date_suppression, $est_en_ligne, $id_type_offre,
-        	$id_pro, $id_adresse, $option, $accessibilite
+        	$id_pro, $id_adresse, $accessibilite
     	);
 
     	// Mise à jour de l'adresse
@@ -177,39 +136,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 		// Instanciation du contrôleur
-		$typeRepasRestaurantController = new TypeRepasRestaurantController();
+		$query = "SELECT * FROM sae_db.vue_restaurant_type_repas WHERE id_offre = ?";
+		$stmt = $dbh->prepare($query);
+		$stmt->bindParam(1, $id_offre);
+		$stmt->execute();
+		$typesRepas2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 		// Vérifiez que l'offre est de type restauration et que l'ID de l'offre est défini
-		if ($catOffre[0]['type_offre'] === 'restauration' && isset($id_offre)) {
+		// L'ID de l'offre et les types de repas sélectionnés
 
-			// Mise à jour des types de repas pour l'offre
+		if ($catOffre[0]['type_offre'] === 'restauration' && isset($id_offre)) {
+			// Vérifier si des types de repas sont envoyés
 			if (!empty($typesRepas)) {
 				echo "Restauration<br>";
-				var_dump($typesRepas);
 
-				// Appel au contrôleur pour mettre à jour les types de repas associés à l'offre
-				if ($typeRepasRestaurantController->updateTypeRepasRestaurant($id_offre, $typesRepas)) {
-					var_dump($typesRepas);
-					echo "Les types de repas ont été mis à jour avec succès.";
-				} else {
-					var_dump($typesRepas);
-					echo "Erreur lors de la mise à jour des types de repas.";
+				// Appel au contrôleur pour ajouter les types de repas associés à l'offre
+				foreach ($typesRepas as $nom_type_repas => $estActive) {
+					if($estActive == 'on'){
+						$query = "DELETE FROM sae_db.vue_restaurant_type_repas WHERE id_offre = ? AND nom = ?";
+						$stmt = $dbh->prepare($query);
+						$stmt->bindParam(1, $id_offre);
+						$stmt->bindParam(2, $nom_type_repas);
+						if ($stmt->execute()) {
+							echo "Type de repas supprimé.<br>";
+						} else {
+							echo "Erreur lors de la suppression du type de repas.";
+						}
+						$query = "INSERT INTO sae_db.vue_restaurant_type_repas (id_offre, nom) VALUES (?, ?)";
+						$stmt = $dbh->prepare($query);
+						$stmt->bindParam(1, $id_offre);
+						$stmt->bindParam(2, $nom_type_repas);
+						if ($stmt->execute()) {
+							echo "Type de repas inséré.<br>";
+						} else {
+							echo "Erreur lors de l'insertion du type de repas.";
+						}
+					}
+					
+
 				}
 			} else {
-				echo "Aucun repas sélectionné.";
+				echo "Aucun type de repas sélectionné.";
 			}
 		}
+
 		
 
 		header('Location: /pro');
 		exit;
-		
-
-
-    	
-	} catch (Exception $e) {
-    	$error = 'Erreur lors de la mise à jour : ' . htmlspecialchars($e->getMessage());
-	}
+	
 }
 
 
@@ -300,14 +276,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         	"Espagnol" => $_POST["langueES"] ?? "on",
         	"Allemand" => $_POST["langueDE"] ?? "on"
     	]; // VISITE
-    	$typesRepas = [
-        	"Petit déjeuner" => $_POST["repasPetitDejeuner"] ?? "on",
-        	"Brunch" => $_POST["repasBrunch"] ?? "on",
-        	"Déjeuner" => $_POST["repasDejeuner"] ?? "on",
-        	"Dîner" => $_POST["repasDiner"] ?? "on",
-        	"Boissons" => $_POST["repasBoissons"] ?? "on",
-    	];
-    	var_dump($typesRepas);
     	$nb_attractions = (int) $_POST['nb_attractions'] ?? 0; // PARC_ATTRACTION
     	$prices = $_POST['prices'] ?? [];
     	$tags = $_POST['tags'][$activityType] ?? [];
@@ -1038,27 +1006,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 														<div class="w-fit p-2 border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasPetitDejeuner')">
 															<label for="repasPetitDejeuner">Petit-déjeuner</label>
-															<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner" class="hidden-checkbox" <?php echo in_array('Petit déjeuner', $repasNoms) ? 'checked' : ''; ?>>
+															<input type="checkbox" name="repasPetitDejeuner" id="repasPetitDejeuner" class="hidden-checkbox" <?php echo in_array('Petit déjeuner', $repasNoms) ? 'checked' : ''; ?> hidden>
 														</div>
 
 														<div class="w-fit p-2 border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBrunch')">
 															<label for="repasBrunch">Brunch</label>
-															<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden-checkbox" <?php echo in_array('Brunch', $repasNoms) ? 'checked' : ''; ?>>
+															<input type="checkbox" name="repasBrunch" id="repasBrunch" class="hidden-checkbox" <?php echo in_array('Brunch', $repasNoms) ? 'checked' : ''; ?> hidden >
 														</div>
 
 														<div class="w-fit p-2 border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDejeuner')">
 															<label for="repasDejeuner">Déjeuner</label>
-															<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden-checkbox" <?php echo in_array('Déjeuner', $repasNoms) ? 'checked' : ''; ?>>
+															<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden-checkbox" <?php echo in_array('Déjeuner', $repasNoms) ? 'checked' : ''; ?> hidden>
 														</div>
 
 														<div class="w-fit p-2 border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasDiner')">
 															<label for="repasDiner">Dîner</label>
-															<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden-checkbox" <?php echo in_array('Dîner', $repasNoms) ? 'checked' : ''; ?>>
+															<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden-checkbox" <?php echo in_array('Dîner', $repasNoms) ? 'checked' : ''; ?> hidden >
 														</div>
 
 														<div class="w-fit p-2 border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold" onclick="toggleCheckbox('repasBoissons')">
 															<label for="repasBoissons">Boissons</label>
-															<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden-checkbox" <?php echo in_array('Boissons', $repasNoms) ? 'checked' : ''; ?>>
+															<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden-checkbox" <?php echo in_array('Boissons', $repasNoms) ? 'checked' : ''; ?> hidden >
 														</div>
 													</div>
                                                 	<!-- Plan du parc d'attraction -->
@@ -1460,7 +1428,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                         	<div class="flex flex-col justify-center w-full">
                                                             	<label for="start_date" class="text-nowrap">Début de la souscription :</label>
                                                             	<input type="date" id="start_date" name="start_date"
-                                                                	class="border border-secondary  p-2 bg-white w-min" required
+                                                                	class="border border-secondary  p-2 bg-white w-min"
                                                                 	oninput="validateMonday(this)">
                                                             	<script>
                                                                 	function validateMonday(input) {
@@ -1490,7 +1458,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                         	<div class="flex flex-col justify-center w-full">
                                                             	<label for="duration" class="text-nowrap">Durée de la souscription :</label>
                                                             	<input type="number" id="duration" name="duration" min="1" max="4" value="1"
-                                                                	class="border border-secondary  p-2 bg-white w-min" required>
+                                                                	class="border border-secondary  p-2 bg-white w-min">
                                                             	<script>
 
                                                                 	document.getElementById('duration').addEventListener('change', function (event) {
