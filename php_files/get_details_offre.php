@@ -78,11 +78,15 @@ $categorie_offre = $stmt->fetch(PDO::FETCH_ASSOC)['type_offre'];
 // Obtenir les dates
 $est_en_ligne = $offre['est_en_ligne'];
 $date_mise_a_jour = $offre['date_mise_a_jour'];
-if (isset($date_mise_a_jour) && $date_mise_a_jour) {
+if (isset($date_mise_a_jour)) {
     $date_mise_a_jour = new DateTime($date_mise_a_jour);
-    $date_mise_a_jour = $date_mise_a_jour->format('d/m/Y');
+    $date_mise_a_jour = $date_mise_a_jour->format(format: 'd/m/Y');
 }
-
+$date_publication = $offre['date_creation'];
+if (isset($date_publication)) {
+    $date_publication = new DateTime($date_publication);
+    $date_publication = $date_publication->format(format: 'd/m/Y');
+}
 
 // Obtenir le type de l'offre (gratuit, standard, premium)
 $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_type WHERE id_offre = :id_offre");
@@ -183,7 +187,7 @@ $souscription_controller = new SouscriptionController();
 $souscriptions_options = $souscription_controller->getAllSouscriptionsByIdOffre($id_offre);
 
 $option = false;
-foreach($souscriptions_options as $souscription) {
+foreach ($souscriptions_options as $souscription) {
     // $souscription est un tableau associatif avec une clé "date_lancement" et une clé "nb_semaines". Il faudrait calculer si une option est actuellement active. Si oui, on met la variable $option à true.
     $date_lancement = new DateTime($souscription['date_lancement']);
     $date_fin = clone $date_lancement;
