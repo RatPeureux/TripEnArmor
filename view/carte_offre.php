@@ -201,17 +201,23 @@ if ($mode_carte == 'membre') {
 						<div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne; ?>">
 							<?php for ($i = 0; $i < 5; $i++) {
 								if ($n > 1) {
-									?>
-									<img class="w-2" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-									<?php
+									if ($option) { ?>
+											<img class="w-2" src="/public/icones/egg-full-white.svg" alt="1 point de note">
+									<?php } else { ?>
+											<img class="w-2" src="/public/icones/egg-full.svg" alt="1 point de note">
+									<?php }
 								} else if ($n > 0) {
-									?>
-										<img class="w-2" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
-									<?php
+									if ($option) { ?>
+											<img class="w-2" src="/public/icones/egg-half-white.svg" alt="1 point de note">
+									<?php } else { ?>
+											<img class="w-2" src="/public/icones/egg-half.svg" alt="1 point de note">
+									<?php }
 								} else {
-									?>
-										<img class="w-2" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-									<?php
+									if ($option) { ?>
+											<img class="w-2" src="/public/icones/egg-empty-white.svg" alt="1 point de note">
+									<?php } else { ?>
+											<img class="w-2" src="/public/icones/egg-empty.svg" alt="1 point de note">
+									<?php }
 								}
 								$n--;
 							}
@@ -262,17 +268,23 @@ if ($mode_carte == 'membre') {
 									<div class="note flex gap-1 shrink-0" title="<?php echo $moyenne; ?>">
 										<?php for ($i = 0; $i < 5; $i++) {
 											if ($n > 1) {
-												?>
-												<img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-												<?php
+												if ($option) { ?>
+													<img class="w-2" src="/public/icones/egg-full-white.svg" alt="1 point de note">
+												<?php } else { ?>
+													<img class="w-2" src="/public/icones/egg-full.svg" alt="1 point de note">
+												<?php }
 											} else if ($n > 0) {
-												?>
-													<img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
-												<?php
+												if ($option) { ?>
+													<img class="w-2" src="/public/icones/egg-half-white.svg" alt="1 point de note">
+												<?php } else { ?>
+													<img class="w-2" src="/public/icones/egg-half.svg" alt="1 point de note">
+												<?php }
 											} else {
-												?>
-													<img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-												<?php
+												if ($option) { ?>
+													<img class="w-2" src="/public/icones/egg-empty-white.svg" alt="1 point de note">
+												<?php } else { ?>
+													<img class="w-2" src="/public/icones/egg-empty.svg" alt="1 point de note">
+												<?php }
 											}
 											$n--;
 										}
@@ -444,17 +456,23 @@ if ($mode_carte == 'membre') {
 							<div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne; ?>">
 								<?php for ($i = 0; $i < 5; $i++) {
 									if ($n > 1) {
-										?>
-										<img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
-										<?php
+										if ($option) { ?>
+											 <img class="w-2" src="/public/icones/egg-full-white.svg" alt="1 point de note">
+										<?php } else { ?>
+											 <img class="w-2" src="/public/icones/egg-full.svg" alt="1 point de note">
+										<?php }
 									} else if ($n > 0) {
-										?>
-											<img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
-										<?php
+										if ($option) { ?>
+											 <img class="w-2" src="/public/icones/egg-half-white.svg" alt="1 point de note">
+										<?php } else { ?>
+											 <img class="w-2" src="/public/icones/egg-half.svg" alt="1 point de note">
+										<?php }
 									} else {
-										?>
-											<img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
-										<?php
+										if ($option) { ?>
+											 <img class="w-2" src="/public/icones/egg-empty-white.svg" alt="1 point de note">
+										<?php } else { ?>
+											 <img class="w-2" src="/public/icones/egg-empty.svg" alt="1 point de note">
+										<?php }
 									}
 									$n--;
 								}
