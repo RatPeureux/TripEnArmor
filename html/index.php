@@ -18,6 +18,10 @@
 <body class="flex flex-col min-h-screen">
 
     <?php
+    session_start();
+    if (!$_SESSION["test"]) {
+        $_SESSION["test"] = "test";
+    }
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
@@ -174,7 +178,8 @@
                 </button>
             </div>
             <!-- Dropdown de recherche -->
-            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10" id="search-menu">
+            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
+                id="search-menu">
             </div>
         </div>
 
@@ -248,7 +253,7 @@
 
                 // Reconstituer $temp dans l'ordre des catégories
                 $temp = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-
+            
                 $meilleuresNotes = $temp;
 
                 $iOffres = 0;
