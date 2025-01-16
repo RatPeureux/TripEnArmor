@@ -18,7 +18,7 @@ $id_offre = isset($_POST['id_offre']) ? intval($_POST['id_offre']) : null;
 
 // Créer l'avis dans la BDD
 if ($titre && isset($note) && $date_experience && $id_membre && $id_offre) {
-    $id_avis_inserted = $avisController->createAvis($titre, $date_experience, $id_membre, $id_offre, floatval($note), $contexte_passage, $commentaire, null)['id_avis'];
+    $id_avis_inserted = $avisController->createAvis($titre, $date_experience, $id_membre, $id_offre, floatval($note), $contexte_passage, $commentaire)['id_avis'];
 }
 
 // Si c'est pour un restaurant, prendre les notes supplémentaires

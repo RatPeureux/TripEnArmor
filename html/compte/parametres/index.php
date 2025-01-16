@@ -205,9 +205,9 @@ $membre = verifyMember();
                         disabled>
                     </input>
 
-                    <hr class="mb-8">
+                    <hr class="hidden mb-8">
 
-                    <a href="/scripts/delete.php" onclick="return confirmDelete()"
+                    <a href="/scripts/delete.php" class="hidden" onclick="return confirmDelete()"
                         class="mx-auto max-w-[23rem] w-full h-12 p-1  text-small text-center text-wrap text-rouge-logo bg-transparent  flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
                         Supprimer mon compte
                     </a>

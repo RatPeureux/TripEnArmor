@@ -199,7 +199,6 @@ CREATE TABLE _avis (
     contexte_passage VARCHAR(255) NOT NULL,
     id_membre INT NOT NULL, -- compte de l'utilisateur  |
     id_offre INT NOT NULL, -- Offre à laquelle est lié l'avis
-    id_avis_reponse INT REFERENCES _avis (id_avis), -- id de l'avis de la réponse du pro
     reponse TEXT DEFAULT NULL,
     est_lu BOOLEAN NOT NULL DEFAULT FALSE,
     -- Contrainte pour empêcher plusieurs avis initiaux d'un même membre sur une offre

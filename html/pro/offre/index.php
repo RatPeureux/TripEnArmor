@@ -29,18 +29,6 @@ session_start();
 
 <body class="flex flex-col">
 
-    <!-- Inclusion du menu -->
-    <div id="menu-pro">
-        <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
-        ?>
-    </div>
-
-    <!-- Inclusion du header -->
-    <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
-    ?>
-
     <?php
     $id_offre = $_SESSION['id_offre'];
     if (isset($_SESSION['id_membre'])) {
@@ -101,10 +89,34 @@ session_start();
 
     // Obtenir l'ensemble des informations de l'offre
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
-    $stmt->bindParam(':id_offre', $id_offre);
+    if (isset($_GET['détails']) && $_GET['détails'] !== '') {
+        $stmt->bindParam(':id_offre', $_GET['détails']);
+    } else {
+        header('location: /pro/401');
+        exit();
+    }
+    
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
+
+    if (empty($offre)) {
+        header('location: /pro/401');
+        exit();
+    }
+    
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php'; ?>
+
+    <!-- Inclusion du menu -->
+    <div id="menu-pro">
+        <?php
+        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
+        ?>
+    </div>
+
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+
     switch ($categorie_offre) {
         case 'restauration':
 
@@ -357,15 +369,15 @@ session_start();
                             <p class="hidden text-h1 md:flex">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-h1"><?php echo $nom_pro ?></p>
                         </div>
-                        $temp = $moyenne;
                         <?php
+                        $temp = $moyenne;
                         // Moyenne des notes quand il y en a une
                         if ($moyenne) { ?>
                             <div class="flex gap-1">
                                 <div class="flex gap-1 shrink-0">
                                     <?php for ($i = 0; $i < 5; $i++) {
-                                        if ($moyenne > 1) {
-                                    ?>
+                                        if ($moyenne >= 1) {
+                                            ?>
                                             <img class="w-4" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
                                         <?php
                                         } else if ($moyenne > 0) {
@@ -699,8 +711,8 @@ session_start();
                                 <div class="flex gap-1">
                                     <div class="flex gap-1 shrink-0">
                                         <?php for ($i = 0; $i < 5; $i++) {
-                                            if ($moyenne > 1) {
-                                        ?>
+                                            if ($moyenne >= 1) {
+                                                ?>
                                                 <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
                                             <?php
                                             } else if ($moyenne > 0) {

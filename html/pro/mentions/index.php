@@ -9,10 +9,11 @@ unset($_SESSION['data_en_cours_inscription']);
 
 // Vérifier si le pro est bien connecté
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-$pro = verifyPro();?>
+$pro = verifyPro(); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +24,7 @@ $pro = verifyPro();?>
 
     <title>Mentions - Professionnel - PACT</title>
 </head>
+
 <body class="min-h-screen flex flex-col justify-between">
 
     <div id="menu-pro">
@@ -32,7 +34,7 @@ $pro = verifyPro();?>
     </div>
 
     <!-- Inclusion du header -->
-    <?php 
+    <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
     ?>
 
@@ -44,7 +46,7 @@ $pro = verifyPro();?>
             <p>
                 <strong>Nom du site :</strong> PACT<br>
                 <strong>Nom de l'éditeur :</strong> FNOC<br>
-                <strong>Adresse :</strong> 21 rue Case Nègres, Place d'Armes, Le Lamentin 97232, Martinique<br>
+                <strong>Adresse :</strong> 2 Place de l'École, 29670, Henvic, Bretagne<br>
                 <strong>Contact :</strong> Tél. +33 1 23 45 67 89<br>
                 <strong>Numéro SIRET :</strong> 123 456 789 00012<br>
                 <strong>RCS :</strong> 123 456 789 RCS FORT-DE-FRANCE
@@ -66,24 +68,29 @@ $pro = verifyPro();?>
 
             <p class="text-h2 underline">Propriété Intellectuelle</p>
             <p>
-                Tous les contenus présents sur ce site (textes, images, vidéos, logos, etc.) sont protégés par le droit de la propriété intellectuelle.
+                Tous les contenus présents sur ce site (textes, images, vidéos, logos, etc.) sont protégés par le droit
+                de la propriété intellectuelle.
                 Toute reproduction ou utilisation non autorisée est interdite.
             </p>
 
             <p class="text-h2 underline">Données Personnelles et RGPD</p>
             <p>
-                Conformément au RGPD, les données collectées via ce site sont utilisées uniquement dans le cadre de son fonctionnement.
-                Consultez notre <a href="/pro/confidentialite-et-cookies" class="underline">Politique de Confidentialité</a> pour en savoir plus.
+                Conformément au RGPD, les données collectées via ce site sont utilisées uniquement dans le cadre de son
+                fonctionnement.
+                Consultez notre <a href="/pro/confidentialite-et-cookies" class="underline">Politique de
+                    Confidentialité</a> pour en savoir plus.
             </p>
 
             <p class="text-h2 underline">Cookies</p>
             <p>
-                Ce site utilise des cookies obligatoires pour améliorer l'expérience utilisateur. Vous pouvez gérer vos préférences en matière de cookies via la bannière dédiée affichée lors de votre première visite.
+                Ce site utilise des cookies obligatoires pour améliorer l'expérience utilisateur. Vous pouvez gérer vos
+                préférences en matière de cookies via la bannière dédiée affichée lors de votre première visite.
             </p>
 
             <p class="text-h2 underline">Loi Applicable et Juridiction</p>
             <p>
-                Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux compétents seront ceux du ressort de Lannion.
+                Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux
+                compétents seront ceux du ressort de Lannion.
             </p>
         </main>
     </div>
@@ -92,7 +99,7 @@ $pro = verifyPro();?>
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
-    
+
 </body>
 
 </html>

@@ -182,9 +182,18 @@ if (!function_exists('chaineVersMot')) {
 
         </div>
         <div class="w-full h-full xl:max-w-7xl grow p-4">
-            <h2 class="text-4xl">
-                Notifications
-            </h2>
+            <div class="flex 2xl:flex-col min-[1760px]:flex-row justify-between items-center">
+                <h2 class="text-4xl">
+                    Notifications
+                </h2>
+
+                <form action="/scripts/mark_all_as_read.php" method="POST" class="underline cursor-pointer">
+                    <input type="hidden" name="id_pro" value="<?php echo $_SESSION['id_pro']; ?>">
+                    <button type="submit">
+                        Marquer tout comme lu
+                    </button>
+                </form>
+            </div>
             <?php
             require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/notification_view.php';
             ?>
