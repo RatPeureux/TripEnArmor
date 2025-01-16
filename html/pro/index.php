@@ -1,4 +1,4 @@
-<?php
+<form?php
 session_start();
 
 // Enlever les informations gardées lors de l'étape de connexion quand on reveint à la page (retour en arrière)
@@ -187,26 +187,12 @@ if (!function_exists('chaineVersMot')) {
                     Notifications
                 </h2>
 
-                <p class="underline cursor-pointer">
-                    <a onclick="markAllAsRead()">
+                <form action="/scripts/mark_all_as_read.php" class="underline cursor-pointer">
+                    <input type="hidden" name="id_pro" value="<?php echo $_SESSION['id_pro']; ?>">
+                    <button type="submit">
                         Marquer tout comme lu
-                    </a>
-                </p>
-                <script>
-                    function markAllAsRead() {
-                        fetch('/scripts/mark_all_as_read.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                id_pro: <?php echo $_SESSION['id_pro']; ?>
-                            })
-                        }).then(response => {
-                            window.location.reload();
-                        })
-                    }
-                </script>
+                    </button>
+                </form>
             </div>
             <?php
             require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/notification_view.php';
