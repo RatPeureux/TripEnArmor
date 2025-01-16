@@ -34,7 +34,7 @@ class TypeRepasRestaurantController
 
     public function createTypeRepasRestaurant($nom_type_repas)
     {
-        $typeRepasRestaurantID = $this->model::createTypeRepasRestaurant($nom_type_repas)[0]['id_type_repas_restaurant'];
+        $typeRepasRestaurantID = $this->model::createTypeRepasRestaurant($nom_type_repas)[0]['id_type_repas'];
 
         $this->model::log("Un type de repas a été créé.");
         return $typeRepasRestaurantID;
