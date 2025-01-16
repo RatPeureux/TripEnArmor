@@ -125,7 +125,8 @@ $pro = verifyPro();
 			$adresseController = new AdresseController();
 			$id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
 			if (!$id_adresse) {
-				BDD::rollbackTransaction();
+				echo "Erreur lors de l'insertion de l'adresse.";
+				BDD::²Transaction();
 				exit;
 			}
 
@@ -140,6 +141,7 @@ $pro = verifyPro();
 					$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
 
 					if ($id_offre < 0) { // Cas d'erreur
+						echo "Erreur lors de l'insertion de l'activité.";
 						BDD::rollbackTransaction();
 						exit;
 					}
@@ -152,6 +154,7 @@ $pro = verifyPro();
 					$id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
 
 					if ($id_offre < 0) {
+						echo "Erreur lors de l'insertion de la visite.";
 						BDD::rollbackTransaction();
 						exit;
 					}
@@ -165,6 +168,7 @@ $pro = verifyPro();
 					$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $dureeFormatted);
 
 					if ($id_offre < 0) {
+						echo "Erreur lors de l'insertion du spectacle.";
 						BDD::rollbackTransaction();
 						exit;
 					}
@@ -178,6 +182,7 @@ $pro = verifyPro();
 					$id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
 
 					if ($id_offre < 0) {
+						echo "Erreur lors de l'insertion du parc d'attraction.";
 						BDD::rollbackTransaction();
 						exit;
 					}
@@ -191,12 +196,14 @@ $pro = verifyPro();
 					$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix);
 
 					if ($id_offre < 0) {
+						echo "Erreur lors de l'insertion de la restauration.";
 						BDD::rollbackTransaction();
 						exit;
 					}
 					break;
 
 				default:
+					echo "Type d'activité inconnu.";
 					BDD::rollbackTransaction();
 					exit;
 			}
@@ -237,6 +244,7 @@ $pro = verifyPro();
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
 					if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
+						echo "Erreur lors de l'upload de l'image détaillée.";
 						BDD::rollbackTransaction();
 						exit;
 					}
@@ -322,6 +330,7 @@ $pro = verifyPro();
 
 				$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
 			}
+
 			BDD::commitTransaction();
 
 			// Insérer les options dans la base de données
