@@ -58,8 +58,8 @@ $pro = verifyPro();
         $stmtTotaux = $dbh->prepare($queryTotaux);
         $stmtTitres = $dbh->prepare($queryTitres);
         foreach ($offresDuPro as $idx => $offre) {
-            $stmtTotaux->bindParam($idx+1, $offre['id_offre']);
-            $stmtTitres->bindParam($idx+1, $offre['id_offre']);
+            $stmtTotaux->bindParam($idx + 1, $offre['id_offre']);
+            $stmtTitres->bindParam($idx + 1, $offre['id_offre']);
         }
 
         if ($stmtTotaux->execute()) {
@@ -82,7 +82,7 @@ $pro = verifyPro();
         }
 
         // Somme du total de chaque offre
-        $sommeTotauxTTC = array_reduce($all_totaux_ttc, function($carry, $item) {
+        $sommeTotauxTTC = array_reduce($all_totaux_ttc, function ($carry, $item) {
             return $carry + $item['total_ttc'];
         }, 0);
         $sommeTotauxTTC = number_format($sommeTotauxTTC, 2, '.', '');
@@ -107,45 +107,45 @@ $pro = verifyPro();
 
         <!-- Montants totaux prévisionnels -->
         <div>
-        <h2 class="text-h2">Montants prévisionnels du mois (TTC)</h2>
-        <div class="flex flex-col justify-start px-5">
-            <!-- Affichage du total avec effet de défilement -->
-            <h1 id="montantTotal" class="text-h1 font-bold">0 €</h1>
-            <ul>
-                <?php
-                if ($all_totaux_ttc) {
-                    foreach ($all_totaux_ttc as $total) {
-                        ?>
-                        <li><?php echo $all_titres[$total['id_offre']]['titre'] . " : " . $total['total_ttc'] ?> €</li>
-                        <?php
+            <h2 class="text-h2">Montants prévisionnels du mois (TTC)</h2>
+            <div class="flex flex-col justify-start px-5">
+                <!-- Affichage du total avec effet de défilement -->
+                <h1 id="montantTotal" class="text-h1 font-bold">0 €</h1>
+                <ul>
+                    <?php
+                    if ($all_totaux_ttc) {
+                        foreach ($all_totaux_ttc as $total) {
+                            ?>
+                            <li><?php echo $all_titres[$total['id_offre']]['titre'] . " : " . $total['total_ttc'] ?> €</li>
+                            <?php
+                        }
                     }
-                }
-                ?>
-            </ul>
+                    ?>
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <script>
-        // Fonction pour faire défiler le total
-        function updateAmount(element, targetValue) {
-            let currentValue = 0;
-            const increment = targetValue / 50; // Ajuster la vitesse de défilement ici
-            const interval = setInterval(() => {
-                currentValue += increment;
-                if (currentValue >= targetValue) {
-                    clearInterval(interval);
-                    currentValue = targetValue;
-                }
-                element.innerText = currentValue.toFixed(2) + ' €'; // Affichage du montant formaté
-            }, 20);
-        }
+        <script>
+            // Fonction pour faire défiler le total
+            function updateAmount(element, targetValue) {
+                let currentValue = 0;
+                const increment = targetValue / 50; // Ajuster la vitesse de défilement ici
+                const interval = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= targetValue) {
+                        clearInterval(interval);
+                        currentValue = targetValue;
+                    }
+                    element.innerText = currentValue.toFixed(2) + ' €'; // Affichage du montant formaté
+                }, 20);
+            }
 
-        // Chargement de la page -> déclencher le défilement des chiffres
-        document.addEventListener("DOMContentLoaded", function () {
-            const montantElement = document.getElementById('montantTotal');
-            updateAmount(montantElement, <?php echo $sommeTotauxTTC ?>);
-        });
-    </script>
+            // Chargement de la page -> déclencher le défilement des chiffres
+            document.addEventListener("DOMContentLoaded", function () {
+                const montantElement = document.getElementById('montantTotal');
+                updateAmount(montantElement, <?php echo $sommeTotauxTTC ?>);
+            });
+        </script>
 
         <!-- Prévisualiser une facture pour une offre -->
         <?php
@@ -169,7 +169,7 @@ $pro = verifyPro();
                     <option value="2">Autre offre</option>
                 </select>
                 <button id="preview-dl-button" onclick="generatePDF(document.querySelector('#facture-preview'))"
-                    class="bg-slate-200 text-white p-2 rounded">
+                    class="bg-slate-200 text-white p-2">
                     Télécharger la facture en PDF
                 </button>
                 <!-- Logo de chargement de preview -->
