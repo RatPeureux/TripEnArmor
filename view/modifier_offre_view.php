@@ -13,10 +13,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
 $pro = verifyPro();
 
-
 // Récupération de l'ID de l'offre
 $id_offre = $_GET['id_offre'];
-echo "ID de l'offre : " . $id_offre . "<br>";
 if (!$id_offre) {
 	die('Erreur : ID de l\'offre manquant.');
 }
@@ -27,7 +25,6 @@ $offre = $modifier_offre_controller->getOffreById($_GET['id_offre']);
 if (!$offre) {
 	die('Erreur : Offre introuvable.');
 }
-
 
 // Récupération des informations annexes (debug)
 $typeOffreController = new TypeOffreController();
@@ -74,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$resume = $_POST['resume'] ?? $offre['resume'];
 	$prix_mini = $_POST['prix_mini'] ?? $offre['prix_mini'];
 	$date_suppression = $_POST['date_suppression'] ?? $offre['date_suppression'];
-	$est_en_ligne = isset($_POST['est_en_ligne']) ? 1 : 0;
+	$est_en_ligne = 0;
 	$id_type_offre = $_POST['id_type_offre'] ?? $offre['id_type_offre'];
 	$id_pro = $_SESSION['id_pro'] ?? $offre['id_pro'];
 	$id_adresse = $_POST['id_adresse'] ?? $offre['id_adresse'];
@@ -96,8 +93,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		"Boissons" => $_POST["repasBoissons"] ?? "off",
 	];
 
+	// Mise à jour des informations de l'offre
+	$modifier_offre_controller->updateOffre(
+		$id_offre,
+		$titre,
+		$description,
+		$resume,
+		$prix_mini,
+		$offre['date_creation'],
+		$date_mise_a_jour,
+		$date_suppression,
+		$est_en_ligne,
+		$id_type_offre,
+		$id_pro,
+		$id_adresse,
+		$accessibilite
+	);
 
+	// Mise à jour de l'adresse
+	if (!empty($id_adresse)) {
+		$adresseController->updateAdresse($offre['id_adresse'], $code_postal, $ville, $numero, $odonyme, $complement);
+	} else {
+		throw new Exception('L\'identifiant de l\'adresse est manquant');
+	}
 
+	if (!empty($_FILES['photo-upload-carte']['tmp_name'])) {
+		if (!$imagesController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
+			echo "Erreur lors de l'upload de l'image de la carte.";
+			var_dump($_FILES);
+			BDD::rollbackTransaction();
+			exit;
+		}
+	}
 
 	// Mise à jour des informations de l'offre
 	$modifier_offre_controller->updateOffre(
@@ -183,15 +210,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						echo "Erreur lors de l'insertion du type de repas.";
 					}
 				}
-
-
 			}
 		} else {
 			echo "Aucun type de repas sélectionné.";
 		}
 	}
-
-
 
 	header('Location: /pro');
 	exit;

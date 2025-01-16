@@ -152,8 +152,8 @@ document.addEventListener("DOMContentLoaded", function () {
             updateBounds();
         });
 
-        rightInput?.addEventListener('input', () => {
-            if (parseFloat(rightInput?.value) < parseFloat(leftInput?.value)) {
+        rightInput.addEventListener('input', () => {
+            if (parseFloat(rightInput.value) < parseFloat(leftInput.value)) {
                 rightInput.value = leftInput.value; // Ajuste la valeur si nécessaire
             }
             updateBounds();

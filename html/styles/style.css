@@ -706,10 +706,6 @@ video {
   top: 50% !important;
 }
 
-.-top-8 {
-  top: -2rem;
-}
-
 .bottom-0 {
   bottom: 0px;
 }
@@ -780,10 +776,6 @@ video {
 
 .m-1 {
   margin: 0.25rem;
-}
-
-.m-3 {
-  margin: 0.75rem;
 }
 
 .m-4 {
@@ -928,10 +920,6 @@ video {
 
 .mt-5 {
   margin-top: 1.25rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
 }
 
 .line-clamp-1 {
@@ -1601,6 +1589,10 @@ video {
   overflow-wrap: break-word;
 }
 
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
 .border {
   border-width: 1px;
 }
@@ -1745,6 +1737,10 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
+.fill-\[\#070\] {
+  fill: #070;
+}
+
 .fill-\[\#EA4335\] {
   fill: #EA4335;
 }
@@ -1873,6 +1869,10 @@ video {
 
 .pt-1 {
   padding-top: 0.25rem;
+}
+
+.pt-12 {
+  padding-top: 3rem;
 }
 
 .pt-2 {
@@ -2150,6 +2150,7 @@ video {
 :root {
   --primary-color: #f2771b;
   --secondary-color: #0a0035;
+  --base100-color: #f1f3f4;
 }
 
 label:has(+ input[required]:not([type="checkbox"]))::after,
@@ -2174,7 +2175,7 @@ label:has(+ select[required])::after {
 #menu-pro a.active {
   text-decoration: underline;
   text-decoration-color: var(--primary-color);
-  text-underline-offset: 4px;
+  text-underline-offset: 6px;
 }
 
 #layer-background.active,
@@ -2195,7 +2196,7 @@ label:has(+ select[required])::after {
 
 .card.active .tags,
 .card .active {
-  background: white;
+  background: var(--base100-color);
   color: black;
 }
 
@@ -2478,12 +2479,12 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(10 0 53 / 0.9);
 }
 
-.hover\:fill-\[\#EA4335\]:hover {
-  fill: #EA4335;
+.hover\:fill-\[\#070\]:hover {
+  fill: #070;
 }
 
-.hover\:fill-white:hover {
-  fill: #fff;
+.hover\:fill-\[\#EA4335\]:hover {
+  fill: #EA4335;
 }
 
 .hover\:\!stroke-primary:hover {
@@ -2624,6 +2625,10 @@ input[type="checkbox"]:checked:before {
 @media (min-width: 640px) {
   .sm\:w-96 {
     width: 24rem;
+  }
+
+  .sm\:pt-0 {
+    padding-top: 0px;
   }
 }
 

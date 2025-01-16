@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Connexion avec la bdd
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
