@@ -26,7 +26,7 @@
 <div id="layer-background" onclick="toggleMenu()" class="hidden fixed w-full h-full top-0 left-0 z-40"></div>
 
 <!-- VERSION TABLETTE OU PLUS (+768px) -->
-<div class="w-52 sticky top-2 md:block bg-white z-20">
+<div class="hidden w-52 sticky top-2 md:block bg-white z-20">
   <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2 cursor-pointer hover:text-primary" id="menu-button" onclick="developpedMenu()">
       <i class="fa-solid fa-bars"></i>
       <p>Menu</p>

@@ -96,7 +96,7 @@
                     <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                         onclick="return confirmLogout()">
                         <div class="border border-primary  p-2">
-                            <p class="">Se déconnecter</p>
+                            <p>Se déconnecter</p>
                         </div>
                     </a>
                 <?php } else { ?>
@@ -106,7 +106,7 @@
                     </a>
                     <a href="/connexion" class="hidden md:block">
                         <div class="border border-primary  p-2">
-                            <p class="text-nowrap ">Se connecter</p>
+                            <p>Se connecter</p>
                         </div>
                     </a>
                 <?php } ?>
