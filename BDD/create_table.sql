@@ -207,9 +207,10 @@ CREATE TABLE _avis (
 
 -------------------------------------------------------------------------------------------------------- Facture
 CREATE TABLE _facture (
-    numero VARCHAR(255) PRIMARY KEY,
-    id_offre INTEGER NOT NULL,
-    date_emission DATE NOT NULL date_echeance DATE NOT NULL
+    numero_facture VARCHAR(255) PRIMARY KEY,
+    id_offre integer NOT NULL,
+    date_emission date NOT NULL DEFAULT CURRENT_DATE,
+    date_echeance date NOT NULL DEFAULT (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH')
 );
 
 -------------------------------------------------------------------------------------------------------- Ligne_facture pour les dates de mise en ligne
@@ -221,10 +222,10 @@ CREATE TABLE _ligne_facture_en_ligne (
     unite VARCHAR(255) NOT NULL DEFAULT 'jour', -- jour
     prix_unitaire_ht DECIMAL(5, 2) NOT NULL,
     prix_total_ht DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ht * quantite)::NUMERIC, 2)) STORED, -- Prix total calculé automatiquement
-    tva DECIMAL(5, 2) NOT NULL GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc / prix_unitaire_ht)::NUMERIC - 1, 2)*100) STORED;
+    tva DECIMAL(5, 2) NOT NULL GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc / prix_unitaire_ht)::NUMERIC - 1, 2)*100) STORED,
     prix_unitaire_ttc DECIMAL(5, 2) NOT NULL,
     prix_total_ttc DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc * quantite)::NUMERIC, 2)) STORED,
-    numero_facture VARCHAR(255) NOT NULL REFERENCES _facture(numero)
+    numero_facture VARCHAR(255) NOT NULL REFERENCES _facture(numero_facture)
 );
 
 -------------------------------------------------------------------------------------------------------- Ligne_facture pour les options d'une offre
@@ -236,10 +237,10 @@ CREATE TABLE _ligne_facture_option (
     unite VARCHAR(255) NOT NULL DEFAULT 'semaine', -- semaine
     prix_unitaire_ht DECIMAL(5, 2) NOT NULL,
     prix_total_ht DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ht * quantite)::NUMERIC, 2)) STORED, -- Prix total calculé automatiquement
-    tva DECIMAL(5, 2) NOT NULL GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc / prix_unitaire_ht)::NUMERIC - 1, 2)*100) STORED;
+    tva DECIMAL(5, 2) NOT NULL GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc / prix_unitaire_ht)::NUMERIC - 1, 2)*100) STORED,
     prix_unitaire_ttc DECIMAL(5, 2) NOT NULL,
     prix_total_ttc DECIMAL(5, 2) GENERATED ALWAYS AS (ROUND((prix_unitaire_ttc * quantite)::NUMERIC, 2)) STORED,
-    numero_facture VARCHAR(255) NOT NULL REFERENCES _facture(numero)
+    numero_facture VARCHAR(255) NOT NULL REFERENCES _facture(numero_facture)
 );
 
 -------------------------------------------------------------------------------------------------------- Logs
@@ -531,8 +532,8 @@ ADD CONSTRAINT fk_image_parc FOREIGN KEY (id_parc) REFERENCES _parc_attraction (
 create table _periodes_en_ligne (
     id_offre INT NOT NULL,
     type_offre VARCHAR(255), -- Pas de référence, si les types changent plus tard...
-    prix_ht FLOAT NOT NULL, -- Prix HT du type de l'offre pour 1 jour
-    prix_ttc FLOAT NOT NULL,
+    prix_ht DECIMAL(5, 2) NOT NULL, -- Prix HT du type de l'offre pour 1 jour
+    prix_ttc DECIMAL(5, 2) NOT NULL,
     date_debut DATE NOT NULL DEFAULT CURRENT_DATE,
     date_fin DATE DEFAULT NULL
 );
@@ -542,8 +543,8 @@ CREATE TABLE _souscription (
     id_souscription SERIAL PRIMARY KEY,
     id_offre INTEGER NOT NULL,
     nom_option VARCHAR(50) NOT NULL,
-    prix_ht FLOAT NOT NULL, -- Prix HT du type de l'offre pour 1 jour
-    prix_ttc FLOAT NOT NULL,
+    prix_ht DECIMAL(5, 2) NOT NULL, -- Prix HT du type de l'offre pour 1 jour
+    prix_ttc DECIMAL(5, 2) NOT NULL,
     tva DECIMAL(5, 2) NOT NULL GENERATED ALWAYS AS (ROUND((prix_ttc / prix_ht)::NUMERIC - 1, 2)*100) STORED,
     date_association DATE NOT NULL DEFAULT CURRENT_DATE,
     date_lancement DATE NOT NULL,

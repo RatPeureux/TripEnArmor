@@ -3,7 +3,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php
 session_start();
 function isConnectedAsMember(): bool
 {
-    var_dump($_SESSION);
     return isset($_SESSION['id_membre']);
 }
 

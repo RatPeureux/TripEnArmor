@@ -135,21 +135,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Mettre à jour les limites à chaque modification
         function updateBounds() {
-            leftInput.max = rightInput.value; // Le max de gauche est la valeur de droite
-            rightInput.min = leftInput.value; // Le min de droite est la valeur de gauche
+            leftInput?.max = rightInput.value; // Le max de gauche est la valeur de droite
+            rightInput.min = leftInput?.value; // Le min de droite est la valeur de gauche
         }
 
         // Ajouter des écouteurs pour détecter les changements
-        leftInput.addEventListener('input', () => {
-            if (parseFloat(leftInput.value) > parseFloat(rightInput.value)) {
-                leftInput.value = rightInput.value; // Ajuste la valeur si nécessaire
+        leftInput?.addEventListener('input', () => {
+            if (parseFloat(leftInput?.value) > parseFloat(rightInput.value)) {
+                leftInput?.value = rightInput.value; // Ajuste la valeur si nécessaire
             }
             updateBounds();
         });
 
         rightInput.addEventListener('input', () => {
-            if (parseFloat(rightInput.value) < parseFloat(leftInput.value)) {
-                rightInput.value = leftInput.value; // Ajuste la valeur si nécessaire
+            if (parseFloat(rightInput.value) < parseFloat(leftInput?.value)) {
+                rightInput.value = leftInput?.value; // Ajuste la valeur si nécessaire
             }
             updateBounds();
         });

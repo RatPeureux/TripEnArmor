@@ -19,7 +19,6 @@
 
     <?php
     // Connexion avec la bdd
-    session_start();
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Obtenez l'ensemble des offres à la une avec le tri approprié
@@ -89,7 +88,8 @@
 
             <!-- Actions Utilisateur -->
             <div class="flex items-center gap-4">
-                <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+                <?php
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                 if (isConnectedAsMember()) { ?>
                     <!-- Si connecté -->
                     <a href="/compte">
@@ -174,7 +174,8 @@
                 </button>
             </div>
             <!-- Dropdown de recherche -->
-            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10" id="search-menu">
+            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
+                id="search-menu">
             </div>
         </div>
 
@@ -248,7 +249,7 @@
 
                 // Reconstituer $temp dans l'ordre des catégories
                 $temp = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-
+            
                 $meilleuresNotes = $temp;
 
                 $iOffres = 0;
