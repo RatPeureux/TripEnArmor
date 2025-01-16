@@ -1642,18 +1642,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         	<!-- Mise à jour du code postal en temps réel -->
                                         	<p class="text-small" id="preview-postal_code"></p>
                                         	<script>
-                                            	document.getElementById(
-                                                	"preview-postal_code"
-                                            	).textContent =
-                                                	document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder
-                                            	document
-                                                	.getElementById("postal_code")
-                                                	.addEventListener("input", function () {
-                                                    	document.getElementById(
-                                                        	"preview-postal_code"
-                                                    	).textContent =
-                                                        	document.getElementById("postal_code").value ? document.getElementById("postal_code").value : document.getElementById("postal_code").placeholder;
-                                                	});
+												setInterval(function() {
+													const locality = document.getElementById("locality").value;
+													const postalCode = document.getElementById("postal_code").value;
+													document.getElementById("preview-locality").textContent = locality ? locality : document.getElementById("locality").placeholder;
+													document.getElementById("preview-postal_code").textContent = postalCode ? postalCode : document.getElementById("postal_code").placeholder;
+												}, 100);
                                         	</script>
                                     	</div>
                                     	<hr class="h-20 border-black border" />
