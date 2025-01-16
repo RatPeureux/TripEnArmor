@@ -5,4 +5,6 @@ if (isset($_POST['id_pro'])) {
     $avisController = new AvisController();
 
     $avisController->marquerTousLesAvisCommeLus($_POST['id_pro']);
+
+    echo json_encode(['success' => true]);
 }
