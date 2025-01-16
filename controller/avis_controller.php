@@ -36,6 +36,12 @@ class AvisController
         return $this->model::getAvisNonVusByIdPro($id_pro);
     }
 
+    public function marquerTousLesAvisCommeLus($id_pro)
+    {
+        $this->model::log("Tous les avis du pro $id_pro ont été marqués comme lus.");
+        return $this->model::marquerTousLesAvisCommeLus($id_pro);
+    }
+
     public function getAvisById($idAvis)
     {
         $result = $this->model::getAvisById($idAvis);

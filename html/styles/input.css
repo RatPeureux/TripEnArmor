@@ -44,9 +44,9 @@ label:has(+ select[required])::after {
     box-shadow: 0 0 8px 3px var(--secondary-color);
 }
 
-.card.active, .card .active h3 (
+.card.active, .card .active h3 {
     color: var(--primary-color);
-)
+}
 
 /* Slider d'images (détails d'une offre) */
 .swiper-pagination-bullet {

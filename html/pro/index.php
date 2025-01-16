@@ -182,14 +182,31 @@ if (!function_exists('chaineVersMot')) {
 
         </div>
         <div class="w-full h-full xl:max-w-7xl grow p-4">
-            <div class="flex 2xl:flex-col min-[1750px]:flex-row justify-between items-center">
+            <div class="flex 2xl:flex-col min-[1760px]:flex-row justify-between items-center">
                 <h2 class="text-4xl">
                     Notifications
                 </h2>
 
                 <p class="underline">
-                    Marquer tout comme lu
+                    <a onclick="markAllAsRead()">
+                        Marquer tout comme lu
+                    </a>
                 </p>
+                <script>
+                    function markAllAsRead() {
+                        fetch('/scripts/mark_all_as_read.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                id_pro: <?php echo $_SESSION['id_pro']; ?>
+                            })
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                    }
+                </script>
             </div>
             <?php
             require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/notification_view.php';
