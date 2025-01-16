@@ -1769,6 +1769,10 @@ video {
   stroke: #000;
 }
 
+.stroke-rouge-logo {
+  stroke: #EA4335;
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
