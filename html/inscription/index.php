@@ -37,20 +37,16 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
-        <!-- Icône pour revenir à la page précédente -->
-        <i onclick="history.back()" class="fixed top-[27px] fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
-
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <a href="/" class="w-full">
-                    <img class="relative mx-auto mt-8 -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
+                <a href="/">
+                    <img src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
+                
+                <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se créer un compte PACT</h2>
 
-                <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST"
-                    onsubmit="return validateForm()">
-                    <p class="pb-3">Je créé un compte Membre</p>
-
+                <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST" onsubmit="return validateForm()">
                     <!-- Champs pour le prénom et le nom -->
                     <div class="flex flex-nowrap space-x-3 mb-1.5">
                         <div class="w-full">
@@ -220,18 +216,16 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/fiches_inscription.php';
         ?>
 
-        <!-- Icône pour revenir à la page précédente -->
-        <i onclick="history.back()" class="fixed top-[27px] fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
+        <!-- Logo de l'application -->
+        <a href="/" class="absolute left-0 top-0 p-4">
+            <img src="/public/icones/logo.svg" alt="moine" width="81">
+        </a>
 
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
-            <!-- Logo de l'application -->
-            <a href="/" class="w-full">
-                <img class="relative mx-auto mt-8 -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
-            </a>
+            
+            <h2 class="mx-auto text-center text-h2 pt-12 sm:pt-0 my-4">Dites-nous en plus !</h2>
 
             <form class="mb-4 bg-white w-full p-5 border-2 border-primary" action="" method="POST">
-                <p class="pb-3">Dites-nous en plus !</p>
-
                 <!-- Champs pour le prénom et le nom (en lecture seule) -->
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-full">

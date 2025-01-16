@@ -69,6 +69,7 @@ if ($moyenne) {
     $moyenne = floatval($moyenne['avg']);
 }
 
+
 // Obtenir la catégorie de l'offre
 $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_categorie WHERE id_offre = :id_offre");
 $stmt->bindParam(':id_offre', $id_offre);

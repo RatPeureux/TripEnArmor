@@ -41,5 +41,5 @@ if ($id_avis_inserted && $note_ambiance) {
 }
 
 if (isset($id_avis_inserted)) {
-    header('Location: /offre');
+    header('Location: /offre?détails=' . $id_offre);
 }

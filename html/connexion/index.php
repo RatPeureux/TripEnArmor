@@ -30,18 +30,16 @@ if (empty($_POST)) { ?>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
-        <!-- Icône pour revenir à la page précédente -->
-        <i onclick="history.back()" class="fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
-
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
-                <a href="/" class="w-full">
-                    <img class="relative mx-auto -top-8" src="/public/icones/logo.svg" alt="moine" width="108">
+                <a href="/">
+                    <img src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
-
+            
+                <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se connecter à la PACT</h2>
+                
                 <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST">
-                    <p class="pb-3">J'ai un compte Membre</p>
 
                     <!-- Champ pour l'identifiant -->
                     <label class="text-small" for="id">Identifiant</label>

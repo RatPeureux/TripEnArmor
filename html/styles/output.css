@@ -555,25 +555,11 @@ video {
 }
 
 @font-face {
-  font-family: 'Cormorant-Bold';
+  font-family: "Cormorant-Bold";
 
-  src: url(/public/polices/cormorant-webfont.woff2) format('woff2');
+  src: url(/public/polices/cormorant-webfont.woff2) format("woff2");
 
-  src: url(/public/polices/cormorant-webfont.woff) format('woff');
-
-  font-weight: normal;
-
-  font-style: normal;
-
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Poppins';
-
-  src: url(/public/polices/poppins-webfont.woff2) format('woff2');
-
-  src: url(/public/polices/poppins-webfont.woff) format('woff');
+  src: url(/public/polices/cormorant-webfont.woff) format("woff");
 
   font-weight: normal;
 
@@ -583,11 +569,25 @@ video {
 }
 
 @font-face {
-  font-family: 'Poppins';
+  font-family: "Poppins";
 
-  src: url(/public/polices/Poppins-Bold.woff2) format('woff2');
+  src: url(/public/polices/poppins-webfont.woff2) format("woff2");
 
-  src: url(/public/polices/Poppins-Bold.woff) format('woff');
+  src: url(/public/polices/poppins-webfont.woff) format("woff");
+
+  font-weight: normal;
+
+  font-style: normal;
+
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+
+  src: url(/public/polices/Poppins-Bold.woff2) format("woff2");
+
+  src: url(/public/polices/Poppins-Bold.woff) format("woff");
 
   font-weight: 700;
 
@@ -704,10 +704,6 @@ video {
 
 .\!top-1\/2 {
   top: 50% !important;
-}
-
-.-top-8 {
-  top: -2rem;
 }
 
 .bottom-0 {
@@ -928,10 +924,6 @@ video {
 
 .mt-5 {
   margin-top: 1.25rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
 }
 
 .line-clamp-1 {
@@ -1605,10 +1597,6 @@ video {
   overflow-wrap: break-word;
 }
 
-.rounded {
-  border-radius: 0.25rem;
-}
-
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -1619,10 +1607,6 @@ video {
 
 .border-2 {
   border-width: 2px;
-}
-
-.border-4 {
-  border-width: 4px;
 }
 
 .border-b {
@@ -1765,6 +1749,10 @@ video {
   fill: #0a0035;
 }
 
+.stroke-black {
+  stroke: #000;
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -1877,6 +1865,10 @@ video {
 
 .pt-1 {
   padding-top: 0.25rem;
+}
+
+.pt-12 {
+  padding-top: 3rem;
 }
 
 .pt-2 {
@@ -2152,7 +2144,7 @@ video {
 }
 
 :root {
-  --primary-color: #F2771B;
+  --primary-color: #f2771b;
   --secondary-color: #0a0035;
 }
 
@@ -2165,8 +2157,8 @@ label:has(+ select[required])::after {
 
 /* Activation des menus */
 
-#menu>.active,
-#menu-pro>.active,
+#menu > .active,
+#menu-pro > .active,
 #filtres.active,
 #cgu.active,
 #politique.active,
@@ -2184,22 +2176,39 @@ label:has(+ select[required])::after {
 #layer-background.active,
 #layer-background-filtres.active {
   display: block;
-  background-color: rgba(0, 0, 0, .20);
+  background-color: rgba(0, 0, 0, 0.2);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
 }
 
 /* Cartes des offres */
 
-.card.active, .card .active {
-  box-shadow: 0 0 8px 3px var(--secondary-color);
+.card.active .infos,
+.card .active {
+  background: var(--secondary-color);
+  color: white;
 }
 
-.card.active, .card .active h3 (
-    color: var(--primary-color);
-)
+.card.active .tags,
+.card .active {
+  background: white;
+  color: black;
+}
+
+/* .card.active .notes,
+.card .active {
+  background: white;
+  color: black;
+  padding: 0.25em;
+} */
+
+/* .card.active h3,
+.card .active h3 {
+  color: var(--primary-color);
+} */
 
 /* Slider d'images (détails d'une offre) */
+
 .swiper-pagination-bullet {
   background-color: white !important;
   opacity: 1 !important;
@@ -2228,12 +2237,12 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked {
   z-index: 0;
-  background: #F2771B;
+  background: #f2771b;
 }
 
 input[type="checkbox"]:checked:before {
   font-family: FontAwesome;
-  content: '\f00c';
+  content: "\f00c";
   display: block;
   color: #ffffff;
   font-size: 12.5px;
@@ -2463,6 +2472,10 @@ input[type="checkbox"]:checked:before {
   fill: #EA4335;
 }
 
+.hover\:\!stroke-primary:hover {
+  stroke: #F2771B !important;
+}
+
 .hover\:text-primary:hover {
   --tw-text-opacity: 1;
   color: rgb(242 119 27 / var(--tw-text-opacity, 1));
@@ -2598,6 +2611,10 @@ input[type="checkbox"]:checked:before {
   .sm\:w-96 {
     width: 24rem;
   }
+
+  .sm\:pt-0 {
+    padding-top: 0px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -2717,6 +2734,10 @@ input[type="checkbox"]:checked:before {
     flex-direction: row;
   }
 
+  .\32xl\:flex-col {
+    flex-direction: column;
+  }
+
   .\32xl\:items-start {
     align-items: flex-start;
   }
@@ -2727,6 +2748,12 @@ input[type="checkbox"]:checked:before {
 
   .\32xl\:gap-4 {
     gap: 1rem;
+  }
+}
+
+@media (min-width: 1760px) {
+  .min-\[1760px\]\:flex-row {
+    flex-direction: row;
   }
 }
 
