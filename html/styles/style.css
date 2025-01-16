@@ -555,25 +555,11 @@ video {
 }
 
 @font-face {
-  font-family: 'Cormorant-Bold';
+  font-family: "Cormorant-Bold";
 
-  src: url(/public/polices/cormorant-webfont.woff2) format('woff2');
+  src: url(/public/polices/cormorant-webfont.woff2) format("woff2");
 
-  src: url(/public/polices/cormorant-webfont.woff) format('woff');
-
-  font-weight: normal;
-
-  font-style: normal;
-
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Poppins';
-
-  src: url(/public/polices/poppins-webfont.woff2) format('woff2');
-
-  src: url(/public/polices/poppins-webfont.woff) format('woff');
+  src: url(/public/polices/cormorant-webfont.woff) format("woff");
 
   font-weight: normal;
 
@@ -583,11 +569,25 @@ video {
 }
 
 @font-face {
-  font-family: 'Poppins';
+  font-family: "Poppins";
 
-  src: url(/public/polices/Poppins-Bold.woff2) format('woff2');
+  src: url(/public/polices/poppins-webfont.woff2) format("woff2");
 
-  src: url(/public/polices/Poppins-Bold.woff) format('woff');
+  src: url(/public/polices/poppins-webfont.woff) format("woff");
+
+  font-weight: normal;
+
+  font-style: normal;
+
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+
+  src: url(/public/polices/Poppins-Bold.woff2) format("woff2");
+
+  src: url(/public/polices/Poppins-Bold.woff) format("woff");
 
   font-weight: 700;
 
@@ -1228,10 +1228,6 @@ video {
   max-width: 56rem;
 }
 
-.max-w-7xl {
-  max-width: 80rem;
-}
-
 .max-w-80 {
   max-width: 20rem;
 }
@@ -1294,14 +1290,6 @@ video {
 
 .basis-1\/2 {
   flex-basis: 50%;
-}
-
-.basis-3\/12 {
-  flex-basis: 25%;
-}
-
-.basis-9\/12 {
-  flex-basis: 75%;
 }
 
 .table-auto {
@@ -1387,6 +1375,10 @@ video {
 
 .flex-row {
   flex-direction: row;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
 }
 
 .flex-col {
@@ -1517,6 +1509,12 @@ video {
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.space-x-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(2rem * var(--tw-space-x-reverse));
@@ -1539,12 +1537,6 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
-}
-
-.space-x-6 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .divide-y > :not([hidden]) ~ :not([hidden]) {
@@ -1613,10 +1605,6 @@ video {
   overflow-wrap: break-word;
 }
 
-.rounded {
-  border-radius: 0.25rem;
-}
-
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -1649,10 +1637,6 @@ video {
   border-style: dashed;
 }
 
-.border-none {
-  border-style: none;
-}
-
 .border-base200 {
   --tw-border-opacity: 1;
   border-color: rgb(224 224 224 / var(--tw-border-opacity));
@@ -1678,6 +1662,11 @@ video {
   border-color: rgb(107 114 128 / var(--tw-border-opacity));
 }
 
+.border-gris {
+  --tw-border-opacity: 1;
+  border-color: rgb(130 130 130 / var(--tw-border-opacity));
+}
+
 .border-primary {
   --tw-border-opacity: 1;
   border-color: rgb(242 119 27 / var(--tw-border-opacity));
@@ -1700,11 +1689,6 @@ video {
 
 .border-transparent {
   border-color: transparent;
-}
-
-.border-gris {
-  --tw-border-opacity: 1;
-  border-color: rgb(130 130 130 / var(--tw-border-opacity, 1));
 }
 
 .\!bg-primary {
@@ -2074,7 +2058,7 @@ video {
 
 .text-gris {
   --tw-text-opacity: 1;
-  color: rgb(130 130 130 / var(--tw-text-opacity, 1));
+  color: rgb(130 130 130 / var(--tw-text-opacity));
 }
 
 .text-primary {
@@ -2159,8 +2143,12 @@ video {
   transition-duration: 200ms;
 }
 
+.duration-300 {
+  transition-duration: 300ms;
+}
+
 :root {
-  --primary-color: #F2771B;
+  --primary-color: #f2771b;
   --secondary-color: #0a0035;
 }
 
@@ -2173,8 +2161,8 @@ label:has(+ select[required])::after {
 
 /* Activation des menus */
 
-#menu>.active,
-#menu-pro>.active,
+#menu > .active,
+#menu-pro > .active,
 #filtres.active,
 #cgu.active,
 #politique.active,
@@ -2192,16 +2180,36 @@ label:has(+ select[required])::after {
 #layer-background.active,
 #layer-background-filtres.active {
   display: block;
-  background-color: rgba(0, 0, 0, .20);
+  background-color: rgba(0, 0, 0, 0.2);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
 }
 
 /* Cartes des offres */
 
-.card.active, .card .active {
-  box-shadow: 0 0 8px 3px var(--secondary-color);
+.card.active .infos,
+.card .active {
+  background: var(--secondary-color);
+  color: white;
 }
+
+.card.active .tags,
+.card .active {
+  background: white;
+  color: black;
+}
+
+/* .card.active .notes,
+.card .active {
+  background: white;
+  color: black;
+  padding: 0.25em;
+} */
+
+/* .card.active h3,
+.card .active h3 {
+  color: var(--primary-color);
+} */
 
 /* Slider d'images (détails d'une offre) */
 
@@ -2232,12 +2240,13 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-  background: #F2771B;
+  z-index: 0;
+  background: #f2771b;
 }
 
 input[type="checkbox"]:checked:before {
   font-family: FontAwesome;
-  content: '\f00c';
+  content: "\f00c";
   display: block;
   color: #ffffff;
   font-size: 12.5px;
@@ -2394,13 +2403,13 @@ input[type="checkbox"]:checked:before {
   content: var(--tw-content);
 }
 
-.hover\:cursor-pointer:hover {
-  cursor: pointer;
+.hover\:rotate-\[24deg\]:hover {
+  --tw-rotate: 24deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.hover\:border-y-2:hover {
-  border-top-width: 2px;
-  border-bottom-width: 2px;
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
 }
 
 .hover\:border-orange-600:hover {
@@ -2436,6 +2445,11 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(241 243 244 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-gray-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-orange-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(234 88 12 / var(--tw-bg-opacity));
@@ -2452,11 +2466,6 @@ input[type="checkbox"]:checked:before {
 
 .hover\:bg-secondary\/90:hover {
   background-color: rgb(10 0 53 / 0.9);
-}
-
-.hover\:bg-gray-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
 .hover\:fill-\[\#00350D\]:hover {
@@ -2599,14 +2608,6 @@ input[type="checkbox"]:checked:before {
 }
 
 @media (min-width: 640px) {
-  .sm\:block {
-    display: block;
-  }
-
-  .sm\:hidden {
-    display: none;
-  }
-
   .sm\:w-96 {
     width: 24rem;
   }
