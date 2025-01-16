@@ -1589,6 +1589,10 @@ video {
   overflow-wrap: break-word;
 }
 
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
 .border {
   border-width: 1px;
 }
@@ -1735,6 +1739,10 @@ video {
 
 .fill-\[\#EA4335\] {
   fill: #EA4335;
+}
+
+.fill-primary {
+  fill: #F2771B;
 }
 
 .fill-secondary {
@@ -2200,6 +2208,11 @@ label:has(+ select[required])::after {
 .card.active hr,
 .card .active hr {
   border-color: white;
+}
+
+.card.active #wifi_to_offline,
+.card .active #wifi_to_offline {
+  fill: white;
 }
 
 /* .card.active .notes,
