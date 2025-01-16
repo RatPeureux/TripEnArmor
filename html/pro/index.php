@@ -182,9 +182,15 @@ if (!function_exists('chaineVersMot')) {
 
         </div>
         <div class="w-full h-full xl:max-w-7xl grow p-4">
-            <h2 class="text-4xl">
-                Notifications
-            </h2>
+            <div class="flex flex-col xl:flex-row justify-between">
+                <h2 class="text-4xl">
+                    Notifications
+                </h2>
+
+                <p class="underline">
+                    Marquer tout comme lu
+                </p>
+            </div>
             <?php
             require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/notification_view.php';
             ?>
