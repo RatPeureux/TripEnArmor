@@ -159,7 +159,7 @@ CREATE TABLE _offre (
     id_type_offre INTEGER REFERENCES _type_offre (id_type_offre) DEFERRABLE INITIALLY IMMEDIATE,
     id_pro INTEGER,
     id_adresse SERIAL REFERENCES _adresse (id_adresse) DEFERRABLE INITIALLY IMMEDIATE,
-    option VARCHAR(10)
+    option VARCHAR(50)
 );
 
 ALTER TABLE _offre

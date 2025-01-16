@@ -285,20 +285,95 @@ CREATE OR REPLACE TRIGGER offer_update_timestamp BEFORE
 UPDATE ON _offre FOR EACH ROW
 EXECUTE FUNCTION update_offer_timestamp ();
 
--- trigers de vérification d'un unique compte professionnel privé puisse rentrer des valeurs (pas très explicit ça)
+-- triggers de vérification d'un unique compte professionnel privé puisse rentrer des valeurs (pas très explicit ça)
 CREATE OR REPLACE TRIGGER tg_unique_vals_compte BEFORE
 INSERT
     ON _pro_prive FOR EACH ROW
 EXECUTE FUNCTION unique_vals_compte ();
 
--- trigers de vérification d'un unique compte professionnel publique puisse rentrer des valeurs (pas très explicit ça)
+-- triggers de vérification d'un unique compte professionnel publique puisse rentrer des valeurs (pas très explicit ça)
 CREATE OR REPLACE TRIGGER tg_unique_vals_compte BEFORE
 INSERT
     ON _pro_public FOR EACH ROW
 EXECUTE FUNCTION unique_vals_compte ();
 
--- trigers de vérification d'un unique compte membre puisse rentrer des valeurs (pas très explicit ça)
+-- triggers de vérification d'un unique compte membre puisse rentrer des valeurs (pas très explicit ça)
 CREATE OR REPLACE TRIGGER tg_unique_vals_compte BEFORE
 INSERT
     ON _membre FOR EACH ROW
 EXECUTE FUNCTION unique_vals_compte ();
+
+--- SUITE DE TRIGGERS POUR LA VUE_RESTAURANT_TYPE_REPAS (CRUD)
+CREATE OR REPLACE FUNCTION update_vue_type_repas()
+RETURNS TRIGGER AS $$
+DECLARE
+	id_type_nouveau INT;
+	id_type_actuel INT;
+BEGIN
+	SELECT id_type_repas INTO id_type_actuel
+	FROM sae_db._type_repas
+	WHERE nom = OLD.nom;
+
+	SELECT id_type_repas INTO id_type_nouveau
+	FROM sea_db.type_repas
+	WHERE nom = NEW.nom;
+
+	DELETE FROM _restaurant_type_repas
+	WHERE id_type_repas = id_type_actuel AND id_offre = OLD.id_offre;
+	INSERT INTO _restaurant_type_repas
+	VALUES (OLD.id_offre, id_type_nouveau);
+
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS tg_update_vue_type_repas ON sae_db.vue_restaurant_type_repas;
+CREATE TRIGGER tg_update_vue_type_repas
+INSTEAD OF UPDATE ON sae_db.vue_restaurant_type_repas
+FOR EACH ROW
+EXECUTE FUNCTION update_vue_type_repas();
+
+CREATE OR REPLACE FUNCTION delete_vue_type_repas()
+RETURNS TRIGGER AS $$
+DECLARE
+	id_type_actuel INT;
+BEGIN
+	SELECT id_type_repas INTO id_type_actuel
+	FROM sae_db._type_repas
+	WHERE nom = OLD.nom;
+
+	DELETE FROM sae_db._restaurant_type_repas
+	WHERE id_type_repas = id_type_actuel AND id_offre = OLD.id_offre;
+
+	RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS tg_delete_vue_type_repas ON sae_db.vue_restaurant_type_repas;
+CREATE TRIGGER tg_delete_vue_type_repas
+INSTEAD OF DELETE ON sae_db.vue_restaurant_type_repas
+FOR EACH ROW
+EXECUTE FUNCTION delete_vue_type_repas();
+
+CREATE OR REPLACE FUNCTION insert_vue_type_repas()
+RETURNS TRIGGER AS $$
+DECLARE
+	id_type_nouveau INT;
+BEGIN
+	SELECT id_type_repas INTO id_type_nouveau
+	FROM sae_db._type_repas
+	WHERE nom = NEW.nom;
+
+	INSERT INTO sae_db._restaurant_type_repas (id_offre, id_type_repas)
+	VALUES (NEW.id_offre, id_type_nouveau);
+
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS tg_insert_vue_type_repas ON sae_db.vue_restaurant_type_repas;
+CREATE TRIGGER tg_insert_vue_type_repas
+INSTEAD OF INSERT ON sae_db.vue_restaurant_type_repas
+FOR EACH ROW
+EXECUTE FUNCTION insert_vue_type_repas();
+
