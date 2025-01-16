@@ -474,7 +474,7 @@ if ($mode_carte == 'membre') {
 							?>
 							<a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>"
 								onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?\nLa facturation s\'arrêtra à compter de demain.');"
-								title=" [!!!] mettre hors-ligne">
+								title="mettre hors-ligne">
 								<svg id="wifi_to_offline" class="toggle-wifi-offline p-1 duration-100 fill-white hover:fill-[#EA4335]" width="55" height="40"
 									viewBox="0 0 40 32">
 									<path
@@ -494,7 +494,7 @@ if ($mode_carte == 'membre') {
 								// Pouvoir mettre en ligne si tout est OK ou si public
 								echo "href='/scripts/toggle_ligne.php?id_offre={$id_offre}' onclick='return confirm(\"Voulez-vous vraiment mettre {$titre_offre} en ligne ? N'hésitez pas à consulter de nouveau nos CGV\");'";
 							}
-							?> title="[!!!] mettre en ligne">
+							?> title="mettre en ligne">
 								<svg id="wifi_to_online" class="toggle-wifi-online p-1 fill-[#EA4335] hover:fill-white border-solid duration-300" width="55"
 									height="40" viewBox="0 0 40 32">
 									<path
