@@ -1749,6 +1749,30 @@ video {
   fill: #0a0035;
 }
 
+.fill-\[\] {
+  fill: ;
+}
+
+.fill-\[\#\] {
+  fill: #;
+}
+
+.fill-\[\#070\] {
+  fill: #070;
+}
+
+.fill-\[\#075\] {
+  fill: #075;
+}
+
+.fill-\[\#575\] {
+  fill: #575;
+}
+
+.fill-\[\#175\] {
+  fill: #175;
+}
+
 .stroke-black {
   stroke: #000;
 }
@@ -2490,6 +2514,14 @@ input[type="checkbox"]:checked:before {
 
 .hover\:fill-white:hover {
   fill: #fff;
+}
+
+.hover\:fill-\[white\]:hover {
+  fill: white;
+}
+
+.hover\:fill-\[\#070\]:hover {
+  fill: #070;
 }
 
 .hover\:\!stroke-primary:hover {
