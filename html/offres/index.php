@@ -81,11 +81,37 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         // Effectuer le tri
         if ($_GET['sort'] === 'note-ascending') {
             usort($offresAvecNotes, function ($a, $b) {
-                return $a['note_moyenne'] <=> $b['note_moyenne']; // Tri croissant
+                $noteA = $a['note_moyenne'];
+                $noteB = $b['note_moyenne'];
+            
+                if (is_null($noteA) && is_null($noteB)) {
+                    return 0;
+                }
+                if (is_null($noteA)) {
+                    return 1;
+                }
+                if (is_null($noteB)) {
+                    return -1;
+                }
+            
+                return $noteA <=> $noteB;
             });
         } else if ($_GET['sort'] === 'note-descending') {
             usort($offresAvecNotes, function ($a, $b) {
-                return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
+                $noteA = $a['note_moyenne'];
+                $noteB = $b['note_moyenne'];
+            
+                if (is_null($noteA) && is_null($noteB)) {
+                    return 0;
+                }
+                if (is_null($noteA)) {
+                    return 1;
+                }
+                if (is_null($noteB)) {
+                    return -1;
+                }
+            
+                return $noteB <=> $noteA;
             });
         }
 
