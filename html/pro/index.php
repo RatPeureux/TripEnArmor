@@ -203,7 +203,7 @@ if (!function_exists('chaineVersMot')) {
                                 id_pro: <?php echo $_SESSION['id_pro']; ?>
                             })
                         }).then(() => {
-                            window.location.reload();
+                            console.log(<?php echo $_SESSION['id_pro']; ?>)
                         });
                     }
                 </script>
