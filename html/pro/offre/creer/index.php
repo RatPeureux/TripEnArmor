@@ -332,18 +332,18 @@ $pro = verifyPro();
 				$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
 			}
 
-			BDD::commitTransaction();
-
 			// Insérer les options dans la base de données
 			if ($option == "A la une" || $option == "En relief") {
 				$prix_ht = $option == "A la une" ? 8.34 : 16.68;
 				$prix_ttc = $option == "A la une" ? 10.00 : 20.00;
-
+				
 				require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/souscription_controller.php";
 				$souscription_controller = new SouscriptionController();
 				$souscription_controller->createSouscription($id_offre, $option, $prix_ht, $prix_ttc, $debut_option, $duree_option);
 			}
-
+			
+			BDD::commitTransaction();
+			
 			header('location: /pro');
 
 		} catch (Exception $e) {
