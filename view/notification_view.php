@@ -18,7 +18,7 @@ if ($avis && count($avis) !== 0) {
                     <h3 class="text-gray-600"><span class="text-black"><?php echo $avi['titre']; ?></span> posté par
                         <span
                             class="text-black"><?php echo $membreController->getInfosMembre($avi['id_membre'])['pseudo']; ?></span>
-                        Il y a <span class="text-black">
+                        Le <span class="text-black">
                             <?php echo (new DateTime($avi['date_publication']))->format('d/m/Y'); ?></span>
                     </h3>
                     <div class="flex justify-end">
@@ -28,15 +28,15 @@ if ($avis && count($avis) !== 0) {
                         for ($i = 0; $i < 5; $i++) {
                             if ($note >= 1) {
                                 ?>
-                                <img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
+                                <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
                                 <?php
                             } else if ($note > 0) {
                                 ?>
-                                    <img class="w-3" src="/public/icones/oeuf_moitie.svg" alt="0.5 point de note">
+                                    <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
                                 <?php
                             } else {
                                 ?>
-                                    <img class="w-3" src="/public/icones/oeuf_vide.svg" alt="0 point de note">
+                                    <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
                                 <?php
                             }
                             $note--;

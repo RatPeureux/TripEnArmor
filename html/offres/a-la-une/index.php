@@ -17,7 +17,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
 
-    <script src="/scripts/filtersAndSorts.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
 
     <title>À la Une - PACT</title>
@@ -34,15 +33,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-    $sort_order = '';
-    if (isset($_GET['sort'])) {
-        if ($_GET['sort'] == 'price-ascending') {
-            $sort_order = 'ORDER BY prix_mini ASC';
-        } elseif ($_GET['sort'] == 'price-descending') {
-            $sort_order = 'ORDER BY prix_mini DESC';
-        }
-    }
-
     // Obtenez l'ensemble des offres avec le tri approprié
     $stmt = $dbh->prepare("
         select *
@@ -52,23 +42,9 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         AND (date_annulation IS NULL OR CURRENT_DATE < date_annulation)
         AND CURRENT_DATE <= date_lancement + (nb_semaines * INTERVAL '1 week')
         AND CURRENT_DATE >= date_lancement 
-        $sort_order
     ");
     $stmt->execute();
     $aLaUnes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    $prix_mini_max = 0;
-
-    foreach ($aLaUnes as $offre) {
-        $prix_mini = $offre['prix_mini'];
-        if ($prix_mini !== null && $prix_mini !== '') {
-            if ($prix_mini_max === 0) {
-                $prix_mini_max = $prix_mini;
-            } else {
-                $prix_mini_max = max($prix_mini_max, $prix_mini);
-            }
-        }
-    }
 
     if (isset($_GET['sort'])) {
         // Récupérer toutes les moyennes en une seule requête
@@ -90,16 +66,78 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         // Effectuer le tri
         if ($_GET['sort'] === 'note-ascending') {
             usort($offresAvecNotes, function ($a, $b) {
-                return $a['note_moyenne'] <=> $b['note_moyenne']; // Tri croissant
+                if (is_null($a['note_moyenne']) && is_null($b['note_moyenne'])) {
+                    return 0;
+                }
+                if (is_null($a['note_moyenne'])) {
+                    return 1;
+                }
+                if (is_null($b['note_moyenne'])) {
+                    return -1;
+                }
+            
+                return $a['note_moyenne'] <=> $b['note_moyenne'];
             });
+
+            // Réassigner les offres triées
+            $toutesLesOffres = $offresAvecNotes;
         } else if ($_GET['sort'] === 'note-descending') {
             usort($offresAvecNotes, function ($a, $b) {
-                return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
+                if (is_null($a['note_moyenne']) && is_null($b['note_moyenne'])) {
+                    return 0;
+                }
+                if (is_null($a['note_moyenne'])) {
+                    return 1;
+                }
+                if (is_null($b['note_moyenne'])) {
+                    return -1;
+                }
+            
+                return $b['note_moyenne'] <=> $a['note_moyenne'];
+            });
+
+            // Réassigner les offres triées
+            $toutesLesOffres = $offresAvecNotes;
+        } else if ($_GET['sort'] == 'price-ascending') {
+            usort($aLaUnes, function ($a, $b) {
+                if (is_null($a['prix_mini']) && is_null($b['prix_mini'])) {
+                    return 0;
+                }
+                if (is_null($a['prix_mini'])) {
+                    return -1;
+                }
+                if (is_null($b['prix_mini'])) {
+                    return 1;
+                }
+                return $a['prix_mini'] <=> $b['prix_mini'];
+            });
+        } else if ($_GET['sort'] == 'price-descending') {
+            usort($aLaUnes, function ($a, $b) {
+                if (is_null($a['prix_mini']) && is_null($b['prix_mini'])) {
+                    return 0;
+                }
+                if (is_null($a['prix_mini'])) {
+                    return -1;
+                }
+                if (is_null($b['prix_mini'])) {
+                    return 1;
+                }
+                return $b['prix_mini'] <=> $a['prix_mini'];
             });
         }
+    }
 
-        // Réassigner les offres triées
-        $aLaUnes = $offresAvecNotes;
+    $prix_mini_max = 0;
+
+    foreach ($aLaUnes as $offre) {
+        $prix_mini = $offre['prix_mini'];
+        if ($prix_mini !== null && $prix_mini !== '') {
+            if ($prix_mini_max === 0) {
+                $prix_mini_max = $prix_mini;
+            } else {
+                $prix_mini_max = max($prix_mini_max, $prix_mini);
+            }
+        }
     }
     ?>
 

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -7,12 +11,11 @@
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
 
-    <script src="/scripts/filtersAndSorts.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
 
     <title>PACT</title>
 
-    <script src="/scripts/search.js"></script>
+    <script src="/scripts/filtersAndSorts.js"></script>
 </head>
 
 <body class="flex flex-col min-h-screen">
@@ -88,7 +91,8 @@
 
             <!-- Actions Utilisateur -->
             <div class="flex items-center gap-4">
-                <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+                <?php
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
                 if (isConnectedAsMember()) { ?>
                     <!-- Si connecté -->
                     <a href="/compte">
@@ -173,7 +177,8 @@
                 </button>
             </div>
             <!-- Dropdown de recherche -->
-            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10" id="search-menu">
+            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
+                id="search-menu">
             </div>
         </div>
 
@@ -211,7 +216,6 @@
         <?php } else { ?>
             <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-12" id="no-matches">
                 <?php
-                $temp = []; // Tableau pour stocker les offres sélectionnées
                 $categoriesOrdre = [
                     'restauration' => null,
                     'spectacle' => null,
@@ -246,9 +250,7 @@
                 }
 
                 // Reconstituer $temp dans l'ordre des catégories
-                $temp = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-
-                $meilleuresNotes = $temp;
+                $meilleuresNotes = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
 
                 $iOffres = 0;
                 foreach ($meilleuresNotes as $offre) {

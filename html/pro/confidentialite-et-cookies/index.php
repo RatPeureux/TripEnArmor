@@ -53,7 +53,7 @@ $pro = verifyPro(); ?>
             <p>
                 Conformément aux Mentions Légales, le responsable du traitement est :<br>
                 <strong>Nom :</strong> FNOC<br>
-                <strong>Adresse :</strong> 2 Place de l'École, 29670, Henvic, Bretagne<br>
+                <strong>Adresse :</strong> 2 Place de l'ÉcoleMilitaire, 75007, Paris<br>
                 <strong>Contact :</strong> contact@pact.com
             </p>
 

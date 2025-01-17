@@ -27,7 +27,6 @@ if (!function_exists('chaineVersMot')) {
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
 
-    <script src="/scripts/filtersAndSortsPro.js"></script>
     <script type="module" src="/scripts/main.js"></script>
 
     <title>Mes offres - Professionnel - PACT</title>
@@ -52,37 +51,11 @@ if (!function_exists('chaineVersMot')) {
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-    $sort_order = '';
-    if (isset($_GET['sort'])) {
-        if ($_GET['sort'] == 'price-ascending') {
-            $sort_order = 'ORDER BY prix_mini ASC';
-        } elseif ($_GET['sort'] == 'price-descending') {
-            $sort_order = 'ORDER BY prix_mini DESC';
-        } else if ($_GET['sort'] == 'type-ascending') {
-            $sort_order = 'ORDER BY id_type_offre ASC';
-        } elseif ($_GET['sort'] == 'type-descending') {
-            $sort_order = 'ORDER BY id_type_offre DESC';
-        }
-    }
-
     // Obtenir l'ensembre des offres du professionnel identifié
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro $sort_order");
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro");
     $stmt->bindParam(':id_pro', $pro['id_compte']);
     $stmt->execute();
     $toutesMesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    $prix_mini_max = 0;
-
-    foreach ($toutesMesOffres as $offre) {
-        $prix_mini = $offre['prix_mini'];
-        if ($prix_mini !== null && $prix_mini !== '') {
-            if ($prix_mini_max === 0) {
-                $prix_mini_max = $prix_mini;
-            } else {
-                $prix_mini_max = max($prix_mini_max, $prix_mini);
-            }
-        }
-    }
 
     if (isset($_GET['sort'])) {
         // Récupérer toutes les moyennes en une seule requête
@@ -104,16 +77,78 @@ if (!function_exists('chaineVersMot')) {
         // Effectuer le tri
         if ($_GET['sort'] === 'note-ascending') {
             usort($offresAvecNotes, function ($a, $b) {
-                return $a['note_moyenne'] <=> $b['note_moyenne']; // Tri croissant
+                if (is_null($a['note_moyenne']) && is_null($b['note_moyenne'])) {
+                    return 0;
+                }
+                if (is_null($a['note_moyenne'])) {
+                    return 1;
+                }
+                if (is_null($b['note_moyenne'])) {
+                    return -1;
+                }
+            
+                return $a['note_moyenne'] <=> $b['note_moyenne'];
             });
+
+            // Réassigner les offres triées
+            $toutesLesOffres = $offresAvecNotes;
         } else if ($_GET['sort'] === 'note-descending') {
             usort($offresAvecNotes, function ($a, $b) {
-                return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
+                if (is_null($a['note_moyenne']) && is_null($b['note_moyenne'])) {
+                    return 0;
+                }
+                if (is_null($a['note_moyenne'])) {
+                    return 1;
+                }
+                if (is_null($b['note_moyenne'])) {
+                    return -1;
+                }
+            
+                return $b['note_moyenne'] <=> $a['note_moyenne'];
+            });
+
+            // Réassigner les offres triées
+            $toutesLesOffres = $offresAvecNotes;
+        } else if ($_GET['sort'] == 'price-ascending') {
+            usort($toutesLesOffres, function ($a, $b) {
+                if (is_null($a['prix_mini']) && is_null($b['prix_mini'])) {
+                    return 0;
+                }
+                if (is_null($a['prix_mini'])) {
+                    return -1;
+                }
+                if (is_null($b['prix_mini'])) {
+                    return 1;
+                }
+                return $a['prix_mini'] <=> $b['prix_mini'];
+            });
+        } else if ($_GET['sort'] == 'price-descending') {
+            usort($toutesLesOffres, function ($a, $b) {
+                if (is_null($a['prix_mini']) && is_null($b['prix_mini'])) {
+                    return 0;
+                }
+                if (is_null($a['prix_mini'])) {
+                    return -1;
+                }
+                if (is_null($b['prix_mini'])) {
+                    return 1;
+                }
+                return $b['prix_mini'] <=> $a['prix_mini'];
             });
         }
+    }
 
-        // Réassigner les offres triées
-        $toutesMesOffres = $offresAvecNotes;
+    $prix_mini_max = 0;
+
+    foreach ($toutesMesOffres as $offre) {
+        $prix_mini = $offre['prix_mini'];
+        if ($prix_mini !== null && $prix_mini !== '') {
+            if ($prix_mini_max === 0) {
+                $prix_mini_max = $prix_mini;
+            } else {
+                $prix_mini_max = max($prix_mini_max, $prix_mini);
+            }
+        }
     }
     ?>
 

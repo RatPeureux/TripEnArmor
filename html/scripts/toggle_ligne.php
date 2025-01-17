@@ -33,11 +33,11 @@ if (isset($_GET['id_offre'])) {
     $stmt->execute();
 
     // Ajouter ou modifier une ligne de la table _periodes_en_ligne pour garder un historique
-        // Si l'offre passe en ligne, créer une nouvelle période
+    // Si l'offre passe en ligne, créer une nouvelle période
 
     if ($next_valeur_en_ligne == 'true') {
         $last_date_fin = $periodes_en_ligne_controller->getLastDateFinByIdOffre($id_offre);
-        
+
         // Cas de la première création de période en ligne pour cette offre
         if (is_null($last_date_fin)) {
             // Créer nouvelle période en ligne
@@ -48,7 +48,7 @@ if (isset($_GET['id_offre'])) {
         $last_date_fin = new DateTime($last_date_fin);
         $to_compare = new DateTime();
         $to_compare = $to_compare->modify('-2 days');
-        
+
         // Savoir si la date est antérieur de deux jours au moins par rapport au jour actuel
         if ($last_date_fin <= $to_compare) {
             // Créer nouvelle période en ligne
@@ -58,7 +58,7 @@ if (isset($_GET['id_offre'])) {
             $periodes_en_ligne_controller->ouvrirPeriodeByIdOffre($id_offre);
         }
     }
-        // Si l'offre passe hors ligne, compléter la achever la période existante (normalement, une seule ligne avec date_fin = null)
+    // Si l'offre passe hors ligne, compléter la achever la période existante (normalement, une seule ligne avec date_fin = null)
     else {
         $periodes_en_ligne_controller->clorePeriodeByIdOffre($id_offre);
     }

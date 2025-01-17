@@ -121,7 +121,7 @@ $date_echeance = $date_echeance->format('d/m/Y');
                     <?php foreach ($lignes_facture_en_ligne as $ligne_facture_en_ligne) {
                         $HT_total_periodes += $ligne_facture_en_ligne['prix_total_ht'];
                         $TTC_total_periodes += $ligne_facture_en_ligne['prix_total_ttc'];
-                        ?>
+                    ?>
                         <tr class="text-center">
                             <td class="border p-2 text-center">
                                 <?php echo htmlspecialchars($ligne_facture_en_ligne['type_offre']); ?>
@@ -182,7 +182,7 @@ $date_echeance = $date_echeance->format('d/m/Y');
                     <?php foreach ($lignes_facture_option as $ligne_facture_option) {
                         $HT_total_souscriptions += $ligne_facture_option['prix_total_ht'];
                         $TTC_total_souscriptions += $ligne_facture_option['prix_total_ttc'];
-                        ?>
+                    ?>
                         <tr>
                             <td class="border p-2 text-center">
                                 <?php echo htmlspecialchars($ligne_facture_option['nom_option']); ?>
@@ -221,7 +221,7 @@ $date_echeance = $date_echeance->format('d/m/Y');
         <div class="w-1/3">
             <div class="flex justify-between">
                 <span>Total HT</span>
-                <span><?php echo $HT_total_periodes + $HT_total_souscriptions ?> €</span>
+                <span><?php echo number_format($HT_total_periodes + $HT_total_souscriptions, 2, ',', ' ') ?> €</span>
             </div>
             <div class="flex justify-between font-bold">
                 <span>Total TTC</span>
