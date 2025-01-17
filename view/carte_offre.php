@@ -267,7 +267,7 @@ if ($mode_carte == 'membre') {
 								<div class="notes flex gap-1">
 									<div class="note flex gap-1 shrink-0" title="<?php echo $moyenne; ?>">
 										<?php for ($i = 0; $i < 5; $i++) {
-											if ($n > 1) {
+											if ($n >= 1) {
 												?>
 												<img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
 												<?php
@@ -449,7 +449,7 @@ if ($mode_carte == 'membre') {
 						<div class="flex gap-1 self-end">
 							<div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne; ?>">
 								<?php for ($i = 0; $i < 5; $i++) {
-									if ($n > 1) {
+									if ($n >= 1) {
 										?>
 										<img class="w-3" src="/public/icones/oeuf_plein.svg" alt="1 point de note">
 										<?php

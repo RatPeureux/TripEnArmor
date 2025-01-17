@@ -112,9 +112,6 @@
         ?>" class="flex items-center hover:text-primary duration-100">
             <p class="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? 'border-b border-primary' : ''; ?>">Type d'offre de A à Z</p>
         </a>
-        <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-descending') ? '/pro' : '?sort=type-descending'; ?>" class="flex items-center <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'type-descending') ? '' : ''; ?> hover:text-primary duration-100">
-            <p>Type d'offre de Z à A</p>
-        </a>
         <a href="<?php
             // Base URL sans les paramètres
             $baseUrl = strtok($_SERVER['PHP_SELF'], '?');
