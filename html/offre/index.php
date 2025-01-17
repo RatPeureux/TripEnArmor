@@ -686,7 +686,6 @@ session_start();
                             <?php
                             }
                             ?>
-
                         </div>
                     </div>
                     <!-- Partie avis -->
