@@ -1589,6 +1589,10 @@ video {
   overflow-wrap: break-word;
 }
 
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
 .border {
   border-width: 1px;
 }
@@ -1731,6 +1735,10 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.fill-\[\#070\] {
+  fill: #070;
 }
 
 .fill-\[\#EA4335\] {
@@ -2471,12 +2479,12 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(10 0 53 / 0.9);
 }
 
-.hover\:fill-\[\#EA4335\]:hover {
-  fill: #EA4335;
+.hover\:fill-\[\#070\]:hover {
+  fill: #070;
 }
 
-.hover\:fill-white:hover {
-  fill: #fff;
+.hover\:fill-\[\#EA4335\]:hover {
+  fill: #EA4335;
 }
 
 .hover\:\!stroke-primary:hover {
