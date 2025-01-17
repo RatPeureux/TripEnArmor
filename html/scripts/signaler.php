@@ -19,7 +19,7 @@ $file = $_SERVER['DOCUMENT_ROOT'] . '/../signalements.txt';
 
 // Si le fichier existe
 if (!is_writable($file)) {
-    echo json_encode(['error' => 'Unable to write to the file.']);
+    echo json_encode(['error' => 'Impossible d\'écrire dans le registre de signalements']);
     exit();
 }
 $content = "$dateTime : avis n°$id_avis pour $motif.";

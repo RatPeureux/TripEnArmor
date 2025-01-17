@@ -111,7 +111,7 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
                     <?php foreach ($periodes_en_ligne as $periode_en_ligne) {
                         $HT_total_periodes += $periode_en_ligne['prix_ht_total'];
                         $TTC_total_periodes += $periode_en_ligne['prix_ttc_total'];
-                        ?>
+                    ?>
                         <tr class="text-center">
                             <td class="border p-2 text-center"><?php echo htmlspecialchars($periode_en_ligne['type_offre']); ?>
                             </td>
@@ -171,7 +171,7 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
                     <?php foreach ($options_details as $option_details) {
                         $HT_total_souscriptions += $option_details['prix_ht_total'];
                         $TTC_total_souscriptions += $option_details['prix_ttc_total'];
-                        ?>
+                    ?>
                         <tr>
                             <td class="border p-2 text-center"><?php echo htmlspecialchars($option_details['nom_option']); ?>
                             </td>
@@ -208,7 +208,7 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
         <div class="w-1/3">
             <div class="flex justify-between">
                 <span>Total HT</span>
-                <span><?php echo $HT_total_periodes + $HT_total_souscriptions ?> €</span>
+                <span><?php echo number_format($HT_total_periodes + $HT_total_souscriptions, 2, ',', ' ') ?> €</span>
             </div>
             <div class="flex justify-between font-bold">
                 <span>Total TTC</span>

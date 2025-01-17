@@ -18,7 +18,7 @@ if ($avis && count($avis) !== 0) {
                     <h3 class="text-gray-600"><span class="text-black"><?php echo $avi['titre']; ?></span> posté par
                         <span
                             class="text-black"><?php echo $membreController->getInfosMembre($avi['id_membre'])['pseudo']; ?></span>
-                        Il y a <span class="text-black">
+                        Le <span class="text-black">
                             <?php echo (new DateTime($avi['date_publication']))->format('d/m/Y'); ?></span>
                     </h3>
                     <div class="flex justify-end">

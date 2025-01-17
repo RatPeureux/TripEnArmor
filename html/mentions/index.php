@@ -42,7 +42,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <p>
                 <strong>Nom du site :</strong> PACT<br>
                 <strong>Nom de l'éditeur :</strong> FNOC<br>
-                <strong>Adresse :</strong> 2 Place de l'École, 29670, Henvic, Bretagne<br>
+                <strong>Adresse :</strong> 2 Place de l'ÉcoleMilitaire, 75007, Paris<br>
                 <strong>Contact :</strong> Tél. +33 1 23 45 67 89<br>
                 <strong>Numéro SIRET :</strong> 123 456 789 00012<br>
                 <strong>RCS :</strong> 123 456 789 RCS FORT-DE-FRANCE

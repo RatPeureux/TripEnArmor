@@ -125,7 +125,8 @@ $pro = verifyPro();
 			$adresseController = new AdresseController();
 			$id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
 			if (!$id_adresse) {
-				BDD::rollbackTransaction();
+				echo "Erreur lors de l'insertion de l'adresse.";
+				BDD::Transaction();
 				exit;
 			}
 
@@ -140,6 +141,7 @@ $pro = verifyPro();
 					$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
 
 					if ($id_offre < 0) { // Cas d'erreur
+						echo "Erreur lors de l'insertion de l'activité.";
 						BDD::rollbackTransaction();
 						exit;
 					}
@@ -152,6 +154,7 @@ $pro = verifyPro();
 					$id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
 
 					if ($id_offre < 0) {
+						echo "Erreur lors de l'insertion de la visite.";
 						BDD::rollbackTransaction();
 						exit;
 					}
@@ -165,6 +168,7 @@ $pro = verifyPro();
 					$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $dureeFormatted);
 
 					if ($id_offre < 0) {
+						echo "Erreur lors de l'insertion du spectacle.";
 						BDD::rollbackTransaction();
 						exit;
 					}
@@ -178,6 +182,7 @@ $pro = verifyPro();
 					$id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
 
 					if ($id_offre < 0) {
+						echo "Erreur lors de l'insertion du parc d'attraction.";
 						BDD::rollbackTransaction();
 						exit;
 					}
@@ -191,12 +196,14 @@ $pro = verifyPro();
 					$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix);
 
 					if ($id_offre < 0) {
+						echo "Erreur lors de l'insertion de la restauration.";
 						BDD::rollbackTransaction();
 						exit;
 					}
 					break;
 
 				default:
+					echo "Type d'activité inconnu.";
 					BDD::rollbackTransaction();
 					exit;
 			}
@@ -237,6 +244,8 @@ $pro = verifyPro();
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
 					if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
+						echo "Erreur lors de l'upload de l'image détaillée.";
+						var_dump($_FILES['photo-detail']);
 						BDD::rollbackTransaction();
 						exit;
 					}
@@ -322,18 +331,19 @@ $pro = verifyPro();
 
 				$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
 			}
-			BDD::commitTransaction();
 
 			// Insérer les options dans la base de données
 			if ($option == "A la une" || $option == "En relief") {
 				$prix_ht = $option == "A la une" ? 8.34 : 16.68;
 				$prix_ttc = $option == "A la une" ? 10.00 : 20.00;
-
+				
 				require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/souscription_controller.php";
 				$souscription_controller = new SouscriptionController();
 				$souscription_controller->createSouscription($id_offre, $option, $prix_ht, $prix_ttc, $debut_option, $duree_option);
 			}
-
+			
+			BDD::commitTransaction();
+			
 			header('location: /pro');
 
 		} catch (Exception $e) {
@@ -843,9 +853,9 @@ $pro = verifyPro();
 												<td class="w-fit group">
 													<input type="checkbox" id="newPrestationInclude" class="hidden peer">
 													<label for="newPrestationInclude"
-														class="h-max w-full cursor-pointer flex justify-center items-center text-rouge-logo peer-checked:hidden">
+														class="h-max w-full cursor-pointer flex justify-center items-center stroke-rouge-logo peer-checked:hidden">
 														<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-															viewBox="0 0 32 32" fill="none" stroke="currentcardColor"
+															viewBox="0 0 32 32" fill="none"
 															stroke-width="2.5" stroke-linecap="round"
 															stroke-linejoin="round" class="lucide lucide-square-x">
 															<rect width="28" height="28" x="2" y="2" rx="4" ry="4" />
@@ -1250,7 +1260,7 @@ $pro = verifyPro();
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la Une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-								<div class="card active relative bg-base100 flex flex-col w-full" id="card-preview">
+								<div class="card relative bg-base100 flex flex-col w-full" id="card-preview">
 									<script>
 										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
 										function toggleCardPreview(option) {
@@ -1434,7 +1444,7 @@ $pro = verifyPro();
 								class="text-white text-center text-small w-full "
 							  ></p> -->
 												<!-- Mise à jour du tag en temps réel -->
-												<p class="text-white text-center  bg-secondary  w-fit p-2"
+												<p class="tags text-white text-center  bg-secondary  w-fit p-2"
 													id="preview-tag-input">
 													Ajouter un tag...
 												</p>
@@ -1526,6 +1536,9 @@ $pro = verifyPro();
 			const tagManager = new TagManager('tag-input', []);
 		</script>
 		<script src="/scripts/priceManager.js"></script>
+		<script>
+			const priceManager = new PriceManager('grilleTarifaire', []);
+		</script>
 		<script src="/scripts/prestationManager.js"></script>
 		<script src="/scripts/optionToggler.js"></script>
 		<script>

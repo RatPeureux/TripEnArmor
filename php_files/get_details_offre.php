@@ -67,6 +67,9 @@ $moyenne = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($moyenne) {
     $nb_avis = intval($moyenne['count']);
     $moyenne = floatval($moyenne['avg']);
+} else {
+    unset($nb_avis);
+    unset($moyenne);
 }
 
 // Obtenir la catégorie de l'offre
