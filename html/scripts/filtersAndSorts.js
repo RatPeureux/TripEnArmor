@@ -118,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
     developpedFilter('button-f4-tab', 'arrow-f4-tab', 'developped-f4-tab');
     developpedFilter('button-f5-tab', 'arrow-f5-tab', 'developped-f5-tab');
     developpedFilter('button-f6-tab', 'arrow-f6-tab', 'developped-f6-tab');
-    developpedFilter('button-f7-tab', 'arrow-f7-tab', 'developped-f7-tab');
 
     // Initialisation des filtres pour téléphone
     developpedFilterAutoClose('button-f1-tel', 'arrow-f1-tel', 'developped-f1-tel');
@@ -127,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function () {
     developpedFilterAutoClose('button-f4-tel', 'arrow-f4-tel', 'developped-f4-tel');
     developpedFilterAutoClose('button-f5-tel', 'arrow-f5-tel', 'developped-f5-tel');
     developpedFilterAutoClose('button-f6-tel', 'arrow-f6-tel', 'developped-f6-tel');
-    developpedFilterAutoClose('button-f7-tel', 'arrow-f7-tel', 'developped-f7-tel');
 
 
 
@@ -211,12 +209,32 @@ document.addEventListener("DOMContentLoaded", function () {
         gammes: [], // Gammes sélectionnées
         tags: [] // Tags sélectionnés
     };
+    
+    function updateCategoryParam() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get('category');
+    
+        // Vérifiez si la catégorie est décochée (simulé ici par une condition)
+        const isCategoryUnchecked = true; // Remplacez par votre logique pour vérifier si décoché
+    
+        if (isCategoryUnchecked && categoryParam) {
+            urlParams.delete('category'); // Supprimer la clé 'category' de l'URL
+    
+            // Mettre à jour l'URL sans recharger la page
+            const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+            history.replaceState(null, '', newUrl);
+        }
+    }
 
     function filterOnCategories(device) {
         const checkboxes = document.querySelectorAll('#developped-f1-' + device + ' input[type="checkbox"]');
 
         checkboxes?.forEach((checkbox) => {
             checkbox.addEventListener('change', () => {
+                if (new URLSearchParams(window.location.search).has('category')) {
+                    updateCategoryParam();
+                }
+
                 // Mettre à jour les catégories sélectionnées
                 filterState.categories = Array.from(checkboxes)
                     .filter(checkbox => checkbox.checked)
@@ -400,7 +418,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const category = urlParams.get('category');
         if (category) {
-
             const checkbox = document.querySelector(`input[id="${category}-tab"], input[id="${category}-tel"]`);
             if (checkbox) {
                 checkbox.checked = true;
@@ -475,6 +492,31 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
+    
+    function updateSearchParam(removedTag) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchParam = urlParams.get('search');
+    
+        if (searchParam) {
+            // Diviser les tags, les filtrer et recréer l'URL sans le tag supprimé
+            const tags = searchParam.split(',').map(tag => tag.trim());
+            const updatedTags = tags.filter(tag => tag !== removedTag);
+    
+            if (updatedTags.length > 0) {
+                urlParams.set('search', updatedTags.join(','));
+            } else {
+                urlParams.delete('search'); // Supprimer le paramètre s'il est vide
+            }
+
+            if (urlParams.get('search') === '') {
+                urlParams.delete('search'); // Supprimer le paramètre s'il est vide
+            }
+    
+            // Mettre à jour l'URL sans recharger la page
+            const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+            history.replaceState(null, '', newUrl);
+        }
+    }
 
     // Ajoute un tag
     function addTag(text) {
@@ -499,6 +541,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             tag.remove();
+            updateSearchParam(text.trim());
             updateClearButtonVisibility();
             
             applyFilters();
@@ -603,6 +646,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         tagsContainer.innerHTML = "";
         searchInput.value = "";
+        history.replaceState(null, '', window.location.pathname + '?' + new URLSearchParams([...new URLSearchParams(window.location.search)].filter(([key]) => key !== 'search')).toString());
         updateClearButtonVisibility();
         
         applyFilters();
