@@ -162,7 +162,7 @@ foreach ($horaires as $jour => $horaire) {
 							$n--;
 						}
 						?>
-						<!-- <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p> -->
+						<!-- <p class='text-small italic flex items-center'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p> -->
 					</div>
 				<?php
 				} else { ?>

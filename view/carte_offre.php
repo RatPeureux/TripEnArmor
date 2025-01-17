@@ -234,6 +234,13 @@ if ($mode_carte == 'membre') {
 			</div>
 		</div>
 
+
+
+
+
+
+
+
 		<!-- CARTE VERSION TABLETTE -->
 		<div class='md:block hidden relative bg-base100 '>
 			<div class="flex flex-row">
@@ -290,7 +297,7 @@ if ($mode_carte == 'membre') {
 										}
 										?>
 									</div>
-									<p class='text-small flex items-cente pt-1'>(<?php echo $nb_avis ?>)</p>
+									<p class='text-small flex items-cente pt-1'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
 								</div>
 							<?php
 							}
@@ -478,7 +485,7 @@ if ($mode_carte == 'membre') {
 								}
 								?>
 							</div>
-							<p class='text-small flex items-center pt-1'>(<?php echo $nb_avis ?>)</p>
+							<p class='text-small flex items-center pt-1'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
 						</div>
 					<?php
 					}
