@@ -49,7 +49,6 @@ class TagManager {
     }
 
     init(existingTags) {
-        console.log("Initialisation du gestionnaire de tags");
         for (const key in this.tagContainer) {
             if (typeof this.tagContainer[key] === 'string') {
                 this.tagContainer[key].classList.add('hidden');
@@ -57,21 +56,15 @@ class TagManager {
         }
 
         this.changeAvailableTags(document.getElementById('activityType').value);
-        console.log(document.getElementById('activityType').value); 
-        console.log(this.tagInput);
 
         this.tagInput.addEventListener('change', () => {
-            console.log("Changement de valeur");
             const tag = this.tagInput.value;
-            console.log(`Tag sélectionné: ${tag}`);
             const activityType = document.getElementById('activityType').value;
-            console.log(`Type d'activité: ${activityType}`);
             this.addTag(tag, activityType);
             this.tagInput.value = '';
         });
 
         document.getElementById('activityType').addEventListener('change', (event) => {
-            console.log("Changement de type d'activité");
             this.changeAvailableTags(event.target.value);
         });
 
