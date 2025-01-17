@@ -200,7 +200,7 @@ if ($mode_carte == 'membre') {
 						?>
 						<div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne; ?>">
 							<?php for ($i = 0; $i < 5; $i++) {
-								if ($n > 1) {
+								if ($n >= 1) {
 									if ($option) { ?>
 											<img class="w-2" src="/public/icones/egg-full-white.svg" alt="1 point de note">
 									<?php } else { ?>
@@ -267,7 +267,7 @@ if ($mode_carte == 'membre') {
 								<div class="notes flex gap-1">
 									<div class="note flex gap-1 shrink-0" title="<?php echo $moyenne; ?>">
 										<?php for ($i = 0; $i < 5; $i++) {
-											if ($n > 1) {
+											if ($n >= 1) {
 												if ($option) { ?>
 													<img class="w-2" src="/public/icones/egg-full-white.svg" alt="1 point de note">
 												<?php } else { ?>
@@ -455,7 +455,7 @@ if ($mode_carte == 'membre') {
 						<div class="flex gap-1 self-end">
 							<div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne; ?>">
 								<?php for ($i = 0; $i < 5; $i++) {
-									if ($n > 1) {
+									if ($n >= 1) {
 										if ($option) { ?>
 											 <img class="w-2" src="/public/icones/egg-full-white.svg" alt="1 point de note">
 										<?php } else { ?>

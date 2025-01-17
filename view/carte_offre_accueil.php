@@ -92,7 +92,7 @@ foreach ($horaires as $jour => $horaire) {
 					?>
 					<div class="note flex gap-1.5 flex-wrap" title="<?php echo $moyenne; ?>">
 						<?php for ($i = 0; $i < 5; $i++) {
-							if ($n > 1) {
+							if ($n >= 1) {
 								?>
 								<img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
 								<?php
@@ -146,7 +146,7 @@ foreach ($horaires as $jour => $horaire) {
 					?>
 					<div class="note flex gap-1.5 flex-wrap" title="<?php echo $moyenne; ?>">
 						<?php for ($i = 0; $i < 5; $i++) {
-							if ($n > 1) {
+							if ($n >= 1) {
 								?>
 								<img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
 								<?php
