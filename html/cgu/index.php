@@ -87,7 +87,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 Les présentes CGU peuvent être modifiées à tout moment. Nous encourageons les utilisateurs à les consulter régulièrement.
             </p>
 
-            <p class="text-h2">Loi Applicable et Juridiction</p>
+            <p class="text-h2 underline">Loi Applicable et Juridiction</p>
             <p>
                 Les présentes CGU sont régies par le droit français. En cas de litige, les tribunaux compétents seront ceux du ressort de Lannion.
             </p>
