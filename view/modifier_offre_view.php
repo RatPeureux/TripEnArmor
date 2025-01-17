@@ -128,23 +128,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
-	// Mise à jour des informations de l'offre
-	$modifier_offre_controller->updateOffre(
-		$id_offre,
-		$titre,
-		$description,
-		$resume,
-		$prix_mini,
-		$offre['date_creation'],
-		$date_mise_a_jour,
-		$date_suppression,
-		$est_en_ligne,
-		$id_type_offre,
-		$id_pro,
-		$id_adresse,
-		$accessibilite
-	);
-
 	// Mise à jour de l'adresse
 	if (!empty($id_adresse)) {
 		$adresseController->updateAdresse($offre['id_adresse'], $code_postal, $ville, $numero, $odonyme, $complement);
@@ -1529,7 +1512,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-								<div class="card relative bg-base300  flex flex-col w-full" id="card-preview">
+								<div class="card relative bg-base100  flex flex-col w-full" id="card-preview">
 									<script>
 										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
 										function toggleCardPreview(option) {
@@ -1694,7 +1677,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 												}, 100);
 											</script>
 										</div>
-										<hr class="h-20 border-black border" />
+										
 										<!-- Résumé de l'offre -->
 										<div
 											class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
@@ -1744,7 +1727,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 													});
 											</script>
 										</div>
-										<hr class="h-20 border-black border" />
 										<!-- Notation et Prix -->
 										<div
 											class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
