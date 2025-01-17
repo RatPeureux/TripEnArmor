@@ -36,8 +36,17 @@ if (empty($_POST)) { ?>
                 <a href="/">
                     <img src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
-            
-                <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se connecter à la PACT</h2>
+
+                <?php if (isset($_SERVER['HTTP_REFERER'])) {
+                    $previous_url = $_SERVER['HTTP_REFERER'];
+                    
+                    // Vérifiez si l'URL contient "offres" ou "détails"
+                    if (strpos($previous_url, 'offre') && strpos($previous_url, 'détails')) { ?>
+                        <h2 class="mx-auto text-center text-h2 pt-4 my-4">Connecter-vous pour émettre un avis</h2>
+                    <?php } else { ?>
+                        <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se connecter à la PACT</h2>
+                    <?php }
+                } ?>
                 
                 <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST">
 

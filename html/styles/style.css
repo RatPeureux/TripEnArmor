@@ -922,6 +922,14 @@ video {
   margin-top: 1.25rem;
 }
 
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
 .line-clamp-1 {
   overflow: hidden;
   display: -webkit-box;
@@ -1589,10 +1597,6 @@ video {
   overflow-wrap: break-word;
 }
 
-.rounded-lg {
-  border-radius: 0.5rem;
-}
-
 .border {
   border-width: 1px;
 }
@@ -1679,11 +1683,6 @@ video {
 .bg-base100 {
   --tw-bg-opacity: 1;
   background-color: rgb(241 243 244 / var(--tw-bg-opacity, 1));
-}
-
-.bg-base300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(204 204 204 / var(--tw-bg-opacity, 1));
 }
 
 .bg-black {
