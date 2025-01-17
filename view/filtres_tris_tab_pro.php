@@ -15,10 +15,10 @@
         </a>
     <?php if ($pro['data']['type'] === 'prive') { ?>
         <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? strtok($_SERVER['PHP_SELF'], '?') : '?sort=type-ascending'; ?>" class="flex items-center hover:text-primary duration-100">
-            <p class="<?php echo (isset($_GET['sort']) && $_GET['sort'] == 'type-ascending') ? '' : ''; ?>">Type d'offre de A à Z</p>
+            <p class="<?php echo (isset($_GET['sort']) && $_GET['sort'] == 'type-ascending') ? 'border-b border-primary' : ''; ?>">Type d'offre de A à Z</p>
         </a>
         <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-descending') ? strtok($_SERVER['PHP_SELF'], '?') : '?sort=type-descending'; ?>" class="flex items-center hover:text-primary duration-100">
-            <p class="<?php echo (isset($_GET['sort']) && $_GET['sort'] == 'type-descending') ? '' : ''; ?>">Type d'offre de Z à A</p>
+            <p class="<?php echo (isset($_GET['sort']) && $_GET['sort'] == 'type-descending') ? 'border-b border-primary' : ''; ?>">Type d'offre de Z à A</p>
         </a>
     <?php } ?>
     </div>

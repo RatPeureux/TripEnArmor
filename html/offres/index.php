@@ -17,7 +17,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
 
-    <script src="/scripts/filtersAndSorts.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
 
     <title>Toutes les offres - PACT</title>
@@ -34,17 +33,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-    $sort_order = '';
-    if (isset($_GET['sort'])) {
-        if ($_GET['sort'] == 'price-ascending') {
-            $sort_order = 'ORDER BY prix_mini ASC';
-        } elseif ($_GET['sort'] == 'price-descending') {
-            $sort_order = 'ORDER BY prix_mini DESC';
-        }
-    }
-
     // Obtenez l'ensemble des offres avec le tri approprié
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true $sort_order");
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true");
     $stmt->execute();
     $toutesLesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
