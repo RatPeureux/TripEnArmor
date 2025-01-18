@@ -66,59 +66,49 @@ session_start();
     ?>
 
 
-    <div class="w-full flex flex-col justify-center items-center">
+    <header class="flex justify-between items-center z-30 w-full h-16 top-0 mx-auto max-w-[1280px] px-4">
+        <div class="flex items-center gap-4">
+            <!-- Logo -->
+            <a href="/" class="flex items-center gap-2">
+                <img src="/public/icones/logo.svg" alt="Logo" width="50" class="hidden md:block">
+                <!-- <h1 class="font-cormorant uppercase text-PACT hidden md:block">PACT</h1> -->
+            </a>
 
-        <header class="flex justify-between items-center z-30 w-full h-16 top-0 mx-auto max-w-[1280px] px-4">
-            <div class="flex items-center justify-between">
-                <!-- Menu Burger pour les petits écrans -->
-                <div class="flex items-center gap-4 md:hidden">
-                    <a href="/">
-                        <img src="/public/icones/logo.svg" alt="Logo" width="40">
-                    </a>
-                </div>
-
-                <!-- Logo -->
-                <a href="/" class="flex items-center gap-2">
-                    <img src="/public/icones/logo.svg" alt="Logo" width="50" class="hidden md:block">
-                    <!-- <h1 class="font-cormorant uppercase text-PACT hidden md:block">PACT</h1> -->
-                </a>
-            </div>
-
-            <div class="flex items-center justify-center gap-2">
-                <a class="p-2 hover:bg-base100 " href="/offres/a-la-une">À la Une</a>
-                <p class="font-thin text-xl text-base200">|</p>
+            <!-- Menu -->
+            <div class="flex items-center justify-center text-small">
+                <a class="p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la Une</a>
                 <a class="p-2 hover:bg-base100 " href="/offres">Toutes les offres</a>
             </div>
+        </div>
 
-            <!-- Actions Utilisateur -->
-            <div class="flex items-center gap-4">
-                <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-                if (isConnectedAsMember()) { ?>
-                    <!-- Si connecté -->
-                    <a href="/compte">
-                        <i class="text-3xl fa-regular fa-user"></i>
-                    </a>
-                    <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
-                        onclick="return confirmLogout()">
-                        <div class="border border-primary  p-2">
-                            <p>Se déconnecter</p>
-                        </div>
-                    </a>
-                <?php } else { ?>
-                    <!-- Si non connecté -->
-                    <a href="/connexion" class="md:hidden">
-                        <i class="text-3xl fa-regular fa-user"></i>
-                    </a>
-                    <a href="/connexion" class="hidden md:block">
-                        <div class="border border-primary  p-2">
-                            <p>Se connecter</p>
-                        </div>
-                    </a>
-                <?php } ?>
-            </div>
-        </header>
-    </div>
+        <!-- Actions Utilisateur -->
+        <div class="flex items-center text-small gap-4">
+            <?php
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+            if (isConnectedAsMember()) { ?>
+                <!-- Si connecté -->
+                <a href="/compte">
+                    <i class="text-3xl fa-regular fa-user"></i>
+                </a>
+                <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
+                    onclick="return confirmLogout()">
+                    <div class="border border-primary  p-2">
+                        <p>Se déconnecter</p>
+                    </div>
+                </a>
+            <?php } else { ?>
+                <!-- Si non connecté -->
+                <a href="/connexion" class="md:hidden">
+                    <i class="text-3xl fa-regular fa-user"></i>
+                </a>
+                <a href="/connexion" class="hidden md:block">
+                    <div class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full">
+                        <p>Se connecter</p>
+                    </div>
+                </a>
+            <?php } ?>
+        </div>
+    </header>
 
     <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
         <div class="w-full flex justify-center gap-10 text-center">
@@ -253,7 +243,7 @@ session_start();
 
                 // Reconstituer $temp dans l'ordre des catégories
                 $temp = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-
+            
                 $meilleuresNotes = $temp;
 
                 $iOffres = 0;
