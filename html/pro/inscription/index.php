@@ -29,9 +29,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <link rel="icon" type="image" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/style.css">
+        <link rel="stylesheet" href="/styles/style.css">
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
         <title>Création de compte - Professionnel - PACT</title>
@@ -44,7 +44,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <a href="/">
                     <img src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
-                
+
                 <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se créer un compte PACT Pro</h2>
 
                 <form class="bg-white w-full p-5 border-2 border-secondary" action="" method="POST"
@@ -93,8 +93,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Champ pour confirmer le mot de passe -->
                     <div class="relative w-full">
                         <label class="text-small" for="confMdp">Confirmer le mot de passe</label>
-                        <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="confMdp"
-                            name="confMdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
+                        <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="confMdp" name="confMdp"
+                            pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
                             title="Confirmer le mot de passe saisit ci-dessus"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
@@ -107,11 +107,11 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                     <!-- Bouton pour continuer -->
                     <input type="submit" value="Continuer"
-                        class="cursor-pointer w-full h-12 my-1.5 bg-secondary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                        class="text-small py-2 px-4 rounded-full cursor-pointer w-full h-12 my-1.5 bg-secondary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                     <!-- Lien vers la page de connexion -->
                     <a href="/pro/connexion"
-                        class="w-full h-12 p-1 bg-transparent text-secondary   inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
+                        class="text-small py-2 px-4 rounded-full w-full h-12 p-1 bg-transparent text-secondary   inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
                         J'ai déjà un compte
                     </a>
                 </form>
@@ -245,7 +245,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         </a>
 
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
-            
+
             <h2 class="mx-auto text-center text-h2 pt-12 sm:pt-0 my-4">Dites-nous en plus !</h2>
 
             <form class="mb-4 bg-white w-full p-5 border-2 border-secondary" action="" method="POST">
@@ -321,7 +321,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     </div>
                     <div class="w-full">
                         <label class="text-small" for="locality">Ville</label>
-                        <input class="p-2 bg-white w-full h-12" id="locality" name="locality"
+                        <input class="p-2 bg-base100 w-full h-12" id="locality" name="locality"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir votre ville"
                             placeholder="Rennes"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['locality'] ?? '' ?>" required>
@@ -351,7 +351,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         <div class="mb-1.5 flex items-start">
                             <input class="mt-0.5 mr-1.5" type="checkbox" id="plus" name="plus"
                                 title="Accepter pour renseigner un IBAN ?" onchange="toggleIBAN()">
-                            <label class="text-small" for="plus">Je souhaite saisir mes informations bancaires dès
+                            <label class="ml-1 text-small" for="plus">Je souhaite saisir mes informations bancaires dès
                                 maintenant
                                 !</label>
                         </div>
@@ -369,13 +369,17 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <!-- Choix d'acceptation des termes et conditions -->
                 <div class="mb-1.5 text-small flex items-start gap-1">
-                    <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer" required>
-                    <label for="termes">J’accepte les <span onclick="toggleCGU()" class="underline cursor-pointer">Conditions générales d'utilisation</span> et je confirme avoir lu la <span onclick="togglePolitique()" class="underline cursor-pointer">Politique de confidentialité et d'utilisation des cookies</span>.</label>
+                    <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
+                        required>
+                    <label for="termes">J’accepte les <span onclick="toggleCGU()"
+                            class="underline cursor-pointer">Conditions générales d'utilisation</span> et je confirme avoir
+                        lu la <span onclick="togglePolitique()" class="underline cursor-pointer">Politique de
+                            confidentialité et d'utilisation des cookies</span>.</label>
                 </div>
 
                 <!-- Bouton pour créer le compte -->
                 <input type="submit" value="Créer mon compte"
-                    class="cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                    class="text-small py-2 px-4 rounded-full cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                 <!-- Garder les informations de POST même si les champs ne sont plus visibles -->
                 <input type="hidden" name="statut"

@@ -2,7 +2,7 @@
     Composant du footer pour le pro
     Pour l'ajouter, écrier la balise <div id='footer'></div> dans votre code html
 -->
-<footer class="bg-secondary text-white p-8 pb-16 md:pb-8">
+<footer class="bg-secondary text-white p-8 pb-16 md:pb-8 text-small">
     <div class="mx-auto flex flex-col justify-center items-center">
         <div class="hidden md:flex w-full items-center items-end justify-between">
             <a href="/pro/" class="self-start flex items-center gap-2">
@@ -46,7 +46,8 @@
 
             <div class="w-full flex items-center justify-between flex-col md:flex-row gap-4">
                 <div class="hidden md:block">
-                    ©<?php echo date("Y"); ?> <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>, Association Loi 1901 Tous droits réservés
+                    ©<?php echo date("Y"); ?> <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>,
+                    Association Loi 1901 Tous droits réservés
                 </div>
 
                 <div class="flex flex-col md:hidden items-center justify-center">

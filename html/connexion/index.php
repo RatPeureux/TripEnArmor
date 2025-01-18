@@ -66,7 +66,7 @@ if (empty($_POST)) { ?>
 
                     <!-- Bouton de connexion -->
                     <input type="submit" value="Me connecter"
-                        class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+                        class="cursor-pointer w-full text-small py-2 px-4 rounded-full h-12 my-1.5 bg-primary text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
 
                     <!-- Liens pour mot de passe oublié et création de compte -->
                     <div class="flex items-center flex-nowrap h-12 space-x-1.5">
@@ -75,7 +75,7 @@ if (empty($_POST)) { ?>
                             Mot de passe oublié ?
                         </a>
                         <a href="/inscription"
-                            class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-primary   inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
+                            class="text-small py-2 px-4 rounded-full text-center w-full h-full p-1 text-wrap bg-transparent text-primary   inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
                             Créer un compte
                         </a>
                     </div>

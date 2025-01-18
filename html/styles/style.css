@@ -931,6 +931,14 @@ video {
   margin-top: 1.25rem;
 }
 
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
 .line-clamp-1 {
   overflow: hidden;
   display: -webkit-box;
@@ -2517,6 +2525,15 @@ input[type="checkbox"]:checked:before {
 
 .hover\:bg-rouge-logo\/90:hover {
   background-color: rgb(234 67 53 / 0.9);
+}
+
+.hover\:bg-white\/90:hover {
+  background-color: rgb(255 255 255 / 0.9);
+}
+
+.hover\:bg-secondary:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(10 0 53 / var(--tw-bg-opacity));
 }
 
 .hover\:fill-\[\#070\]:hover {
