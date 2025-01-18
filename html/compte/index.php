@@ -74,34 +74,34 @@ $membre = verifyMember();
             <div class="grow flex justify-center max-w-[23rem] mx-auto gap-12 flex flex-col items-center">
                 <a href="/compte/profil"
                     class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
-                    <i class="w-[50px] text-center text-5xl fa-solid fa-user"></i>
+                    <i class="w-[50px] text-center text-4xl fa-solid fa-user"></i>
                     <div class="w-full">
-                        <p class="text-h2">Profil</p>
+                        <p class="text-h4">Profil</p>
                         <p class="text-small">Modifier mon profil public.</p>
                         <p class="text-small">Voir mes activités récentes.</p>
                     </div>
                 </a>
                 <a href="/compte/parametres"
                     class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
-                    <i class="w-[50px] text-center text-5xl fa-solid fa-gear"></i>
+                    <i class="w-[50px] text-center text-4xl fa-solid fa-gear"></i>
                     <div class="w-full">
-                        <p class="text-h2">Paramètres</p>
+                        <p class="text-h4">Paramètres</p>
                         <p class="text-small">Modifier mes informations privées.</p>
                         <p class="text-small">Supprimer mon compte.</p>
                     </div>
                 </a>
                 <a href="/compte/securite"
                     class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
-                    <i class="w-[50px] text-center text-5xl fa-solid fa-shield"></i>
+                    <i class="w-[50px] text-center text-4xl fa-solid fa-shield"></i>
                     <div class="w-full">
-                        <p class="text-h2">Sécurité</p>
+                        <p class="text-h4">Sécurité</p>
                         <p class="text-small">Modifier mes informations sensibles.</p>
                         <p class="text-small">Protéger mon compte.</p>
                     </div>
                 </a>
 
                 <a href="/scripts/logout.php" onclick="return confirmLogout()"
-                    class="w-full h-12 p-1  text-small text-center text-wrap text-rouge-logo bg-transparent  flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
+                    class="w-full text-white text-small border border-rouge-logo bg-rouge-logo px-4 py-2 rounded-full hover:bg-rouge-logo/90 flex items-center justify-center">
                     Se déconnecter
                 </a>
             </div>

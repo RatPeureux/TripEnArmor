@@ -202,9 +202,9 @@ if ($mode_carte == 'membre') {
 							<?php for ($i = 0; $i < 5; $i++) {
 								if ($n >= 1) {
 									if ($option) { ?>
-											<img class="w-2" src="/public/icones/egg-full-white.svg" alt="1 point de note">
+										<img class="w-2" src="/public/icones/egg-full-white.svg" alt="1 point de note">
 									<?php } else { ?>
-											<img class="w-2" src="/public/icones/egg-full.svg" alt="1 point de note">
+										<img class="w-2" src="/public/icones/egg-full.svg" alt="1 point de note">
 									<?php }
 								} else if ($n > 0) {
 									if ($option) { ?>
@@ -269,9 +269,9 @@ if ($mode_carte == 'membre') {
 										<?php for ($i = 0; $i < 5; $i++) {
 											if ($n >= 1) {
 												if ($option) { ?>
-														<img class="w-3" src="/public/icones/egg-full-white.svg" alt="1 point de note">
+													<img class="w-3" src="/public/icones/egg-full-white.svg" alt="1 point de note">
 												<?php } else { ?>
-														<img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
+													<img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
 												<?php }
 											} else if ($n > 0) {
 												if ($option) { ?>
@@ -440,13 +440,12 @@ if ($mode_carte == 'membre') {
 
 					<!-- Titre de l'offre -->
 					<div>
-						<h3 class="text-h2"><?php echo $titre_offre ?></h3>
+						<p class="text-h2 truncate"><?php echo $titre_offre ?></p>
 						<div class="flex">
-							<p class="text"><?php echo $pro['nom_pro'] ?></p>
+							<p class="truncate"><?php echo $pro['nom_pro'] ?></p>
 							<p class="categorie text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
 						</div>
 					</div>
-
 					<?php
 					// Moyenne des notes quand il y en a une
 					if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
@@ -457,9 +456,9 @@ if ($mode_carte == 'membre') {
 								<?php for ($i = 0; $i < 5; $i++) {
 									if ($n >= 1) {
 										if ($option) { ?>
-												<img class="w-3" src="/public/icones/egg-full-white.svg" alt="1 point de note">
+											<img class="w-3" src="/public/icones/egg-full-white.svg" alt="1 point de note">
 										<?php } else { ?>
-												<img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
+											<img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
 										<?php }
 									} else if ($n > 0) {
 										if ($option) { ?>
@@ -493,8 +492,9 @@ if ($mode_carte == 'membre') {
 							<a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>"
 								onclick="return confirm('Voulez-vous vraiment mettre <?php echo $titre_offre ?> hors ligne ?\nLa facturation s\'arrêtra à compter de demain.');"
 								title="mettre hors-ligne">
-								<svg id="wifi_to_offline" class="toggle-wifi-offline p-1 duration-100 fill-[#070] hover:fill-[#EA4335]" width="55" height="40"
-									viewBox="0 0 40 32">
+								<svg id="wifi_to_offline"
+									class="toggle-wifi-offline p-1 duration-100 fill-[#070] hover:fill-[#EA4335]" width="55"
+									height="40" viewBox="0 0 40 32">
 									<path
 										d="M3.3876 12.6812C7.7001 8.54375 13.5501 6 20.0001 6C26.4501 6 32.3001 8.54375 36.6126 12.6812C37.4126 13.4437 38.6751 13.4187 39.4376 12.625C40.2001 11.8313 40.1751 10.5625 39.3814 9.8C34.3563 4.96875 27.5251 2 20.0001 2C12.4751 2 5.64385 4.96875 0.612605 9.79375C-0.181145 10.5625 -0.206145 11.825 0.556355 12.625C1.31885 13.425 2.5876 13.45 3.38135 12.6812H3.3876ZM20.0001 16C23.5501 16 26.7876 17.3188 29.2626 19.5C30.0939 20.2313 31.3564 20.15 32.0876 19.325C32.8189 18.5 32.7376 17.2312 31.9126 16.5C28.7376 13.7 24.5626 12 20.0001 12C15.4376 12 11.2626 13.7 8.09385 16.5C7.2626 17.2312 7.1876 18.4938 7.91885 19.325C8.6501 20.1562 9.9126 20.2313 10.7439 19.5C13.2126 17.3188 16.4501 16 20.0064 16H20.0001ZM24.0001 26C24.0001 24.9391 23.5787 23.9217 22.8285 23.1716C22.0784 22.4214 21.061 22 20.0001 22C18.9392 22 17.9218 22.4214 17.1717 23.1716C16.4215 23.9217 16.0001 24.9391 16.0001 26C16.0001 27.0609 16.4215 28.0783 17.1717 28.8284C17.9218 29.5786 18.9392 30 20.0001 30C21.061 30 22.0784 29.5786 22.8285 28.8284C23.5787 28.0783 24.0001 27.0609 24.0001 26Z" />
 									<path class="invisible" d="M31 26.751L6 2.75098" stroke-width="3" stroke="#EA4335"
@@ -513,8 +513,9 @@ if ($mode_carte == 'membre') {
 								echo "href='/scripts/toggle_ligne.php?id_offre={$id_offre}' onclick='return confirm(\"Voulez-vous vraiment mettre {$titre_offre} en ligne ? N'hésitez pas à consulter de nouveau nos CGV\");'";
 							}
 							?> title="mettre en ligne">
-								<svg id="wifi_to_online" class="toggle-wifi-online p-1 fill-[#EA4335] hover:fill-[#070] border-solid duration-300" width="55"
-									height="40" viewBox="0 0 40 32">
+								<svg id="wifi_to_online"
+									class="toggle-wifi-online p-1 fill-[#EA4335] hover:fill-[#070] border-solid duration-300"
+									width="55" height="40" viewBox="0 0 40 32">
 									<path
 										d="M3.3876 12.6812C7.7001 8.54375 13.5501 6 20.0001 6C26.4501 6 32.3001 8.54375 36.6126 12.6812C37.4126 13.4437 38.6751 13.4187 39.4376 12.625C40.2001 11.8313 40.1751 10.5625 39.3814 9.8C34.3563 4.96875 27.5251 2 20.0001 2C12.4751 2 5.64385 4.96875 0.612605 9.79375C-0.181145 10.5625 -0.206145 11.825 0.556355 12.625C1.31885 13.425 2.5876 13.45 3.38135 12.6812H3.3876ZM20.0001 16C23.5501 16 26.7876 17.3188 29.2626 19.5C30.0939 20.2313 31.3564 20.15 32.0876 19.325C32.8189 18.5 32.7376 17.2312 31.9126 16.5C28.7376 13.7 24.5626 12 20.0001 12C15.4376 12 11.2626 13.7 8.09385 16.5C7.2626 17.2312 7.1876 18.4938 7.91885 19.325C8.6501 20.1562 9.9126 20.2313 10.7439 19.5C13.2126 17.3188 16.4501 16 20.0064 16H20.0001ZM24.0001 26C24.0001 24.9391 23.5787 23.9217 22.8285 23.1716C22.0784 22.4214 21.061 22 20.0001 22C18.9392 22 17.9218 22.4214 17.1717 23.1716C16.4215 23.9217 16.0001 24.9391 16.0001 26C16.0001 27.0609 16.4215 28.0783 17.1717 28.8284C17.9218 29.5786 18.9392 30 20.0001 30C21.061 30 22.0784 29.5786 22.8285 28.8284C23.5787 28.0783 24.0001 27.0609 24.0001 26Z" />
 									<path class="visible" d="M31 26.751L6 2.75098" stroke-width="3" stroke="#EA4335"

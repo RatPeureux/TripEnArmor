@@ -91,7 +91,7 @@ session_start();
                 </a>
                 <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                     onclick="return confirmLogout()">
-                    <div class="border border-primary  p-2">
+                    <div class="text-black border border-secondary px-4 py-2 rounded-full">
                         <p>Se déconnecter</p>
                     </div>
                 </a>
@@ -101,7 +101,8 @@ session_start();
                     <i class="text-3xl fa-regular fa-user"></i>
                 </a>
                 <a href="/connexion" class="hidden md:block">
-                    <div class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full">
+                    <div
+                        class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
                         <p>Se connecter</p>
                     </div>
                 </a>
@@ -241,7 +242,7 @@ session_start();
 
                 // Reconstituer $temp dans l'ordre des catégories
                 $meilleuresNotes = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-
+            
                 $iOffres = 0;
                 foreach ($meilleuresNotes as $offre) {
                     if ($iOffres < 5) {

@@ -23,7 +23,7 @@ if (empty($_POST)) { ?>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="icon" type="image" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/style.css">
+        <link rel="stylesheet" href="/styles/style.css">
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
         <title>Connexion au compte - PACT</title>
@@ -36,9 +36,9 @@ if (empty($_POST)) { ?>
                 <a href="/">
                     <img src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
-            
+
                 <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se connecter à la PACT</h2>
-                
+
                 <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST">
 
                     <!-- Champ pour l'identifiant -->
