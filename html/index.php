@@ -11,12 +11,11 @@ session_start();
     <link rel="icon" type="image" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
 
-    <script src="/scripts/filtersAndSorts.js"></script>
     <script type="module" src="/scripts/main.js" defer></script>
 
     <title>PACT</title>
 
-    <script src="/scripts/search.js"></script>
+    <script src="/scripts/filtersAndSorts.js"></script>
 </head>
 
 <body class="flex flex-col min-h-screen">
@@ -207,7 +206,6 @@ session_start();
         <?php } else { ?>
             <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-12" id="no-matches">
                 <?php
-                $temp = []; // Tableau pour stocker les offres sélectionnées
                 $categoriesOrdre = [
                     'restauration' => null,
                     'spectacle' => null,
@@ -242,9 +240,7 @@ session_start();
                 }
 
                 // Reconstituer $temp dans l'ordre des catégories
-                $temp = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-            
-                $meilleuresNotes = $temp;
+                $meilleuresNotes = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
 
                 $iOffres = 0;
                 foreach ($meilleuresNotes as $offre) {

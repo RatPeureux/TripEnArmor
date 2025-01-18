@@ -49,7 +49,7 @@ $pro = verifyPro();?>
                 <strong>Hébergement :</strong> Gildas "Big Papoo" Quignou, Vents d'ouest
             </p>
 
-            <p class="text-h2 underline underline">Acceptation des CGU</p>
+            <p class="text-h2 underline">Acceptation des CGU</p>
             <p>
                 En accédant et en utilisant ce site, vous acceptez pleinement les présentes Conditions Générales d'Utilisation.
                 Si vous n'êtes pas d'accord, veuillez cesser d'utiliser le site.
@@ -60,7 +60,7 @@ $pro = verifyPro();?>
                 Le site est accessible gratuitement. Cependant, l’accès peut être suspendu pour maintenance ou en cas de force majeure.
             </p>
 
-            <p class="text-h2 underline underline">Propriété Intellectuelle</p>
+            <p class="text-h2 underline">Propriété Intellectuelle</p>
             <p>
                 Tous les contenus présents sur ce site sont protégés par le droit de la propriété intellectuelle. Toute utilisation non autorisée est interdite.
             </p>

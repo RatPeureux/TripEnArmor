@@ -67,8 +67,10 @@ $moyenne = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($moyenne) {
     $nb_avis = intval($moyenne['count']);
     $moyenne = floatval($moyenne['avg']);
+} else {
+    unset($nb_avis);
+    unset($moyenne);
 }
-
 
 // Obtenir la catégorie de l'offre
 $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_categorie WHERE id_offre = :id_offre");
