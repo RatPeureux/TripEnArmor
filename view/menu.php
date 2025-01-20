@@ -5,19 +5,19 @@
 
 <!-- VERSION PHONE -->
 <div class="md:hidden h-full bg-white fixed top-0 w-7/12 left-0 -translate-x-full duration-200 z-50">
-  <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2">
+  <a class="p-4 gap-4 self-end flex items-center">
     <i class="text-3xl fa-solid fa-circle-xmark cursor-pointer" onclick="toggleMenu()"></i>
     <h1 class="text-h1">Menu</h1>
   </a>
 
   <div class="all-items flex flex-col items-stretch">
-    <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 1) {
+    <a class="pl-5 py-3 <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>
-    <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 2) {
+    <a class="pl-5 py-3 <?php if (isset($pagination) && $pagination == 2) {
       echo 'active';
     } ?>" href="/offres/a-la-une">À la Une</a>
-    <a class="pl-5 py-3 border-t border-black  <?php if (isset($pagination) && $pagination == 3) {
+    <a class="pl-5 py-3  <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
     } ?>" href="/offres">Toutes les offres</a>
   </div>
@@ -32,14 +32,14 @@
       <p>Menu</p>
   </a>
 
-  <div class="all-items flex flex-col items-stretch border-black border" id="menu-component">
+  <div class="all-items flex flex-col items-stretch border-base200 border-t" id="menu-component">
     <a class="pl-5 py-3 border-black <?php if (isset($pagination) && $pagination == 1) {
       echo 'active';
     } ?>" href="/">Accueil</a>
-    <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 3) {
+    <a class="pl-5 py-3 <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
     } ?>" href="/offres/a-la-une">À la Une</a>
-    <a class="pl-5 py-3 border-t border-black  <?php if (isset($pagination) && $pagination == 2) {
+    <a class="pl-5 py-3  <?php if (isset($pagination) && $pagination == 2) {
       echo 'active';
     } ?>" href="/offres">Toutes les offres</a>
   </div>

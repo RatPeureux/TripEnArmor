@@ -9,8 +9,7 @@ $avis = $avisController->getAvisNonVusByIdPro($_SESSION['id_pro']);
 
 if ($avis && count($avis) !== 0) {
     foreach ($avis as $avi) {
-        // print_r($avi);
-        ?>
+?>
         <div class="h-full p-2 hover:bg-gray-100">
             <!-- lien vers l'offre -->
             <a href='/scripts/go_to_details_pro.php?id_offre=<?php echo $avi['id_offre'] ?>'>
@@ -32,17 +31,17 @@ if ($avis && count($avis) !== 0) {
                         $note = floatval($avi['note']);
                         for ($i = 0; $i < 5; $i++) {
                             if ($note >= 1) {
-                                ?>
+                        ?>
                                 <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
-                                <?php
+                            <?php
                             } else if ($note > 0) {
-                                ?>
-                                    <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-                                <?php
+                            ?>
+                                <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+                            <?php
                             } else {
-                                ?>
-                                    <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-                                <?php
+                            ?>
+                                <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
+                        <?php
                             }
                             $note--;
                         }
@@ -53,12 +52,12 @@ if ($avis && count($avis) !== 0) {
                 <p class="text-small">
                     <?php
                     echo $avi['commentaire']
-                        ?>
+                    ?>
                 </p>
             </a>
         </div>
         <hr class="mt-1" />
-        <?php
+    <?php
     }
 } else {
     ?>
@@ -67,5 +66,5 @@ if ($avis && count($avis) !== 0) {
             Vous n'avez aucune nouvelle notification.
         </p>
     </div>
-    <?php
+<?php
 } ?>
