@@ -86,7 +86,6 @@ $pro = verifyPro();
             return $carry + $item['total_ttc'];
         }, 0);
         $sommeTotauxTTC = number_format($sommeTotauxTTC, 2, '.', '');
-
     } else {
         echo "Erreur lors de la récupération de vos offres";
         exit();
@@ -115,9 +114,9 @@ $pro = verifyPro();
                     <?php
                     if ($all_totaux_ttc) {
                         foreach ($all_totaux_ttc as $total) {
-                            ?>
+                    ?>
                             <li><?php echo $all_titres[$total['id_offre']]['titre'] . " : " . $total['total_ttc'] ?> €</li>
-                            <?php
+                    <?php
                         }
                     }
                     ?>
@@ -141,7 +140,7 @@ $pro = verifyPro();
             }
 
             // Chargement de la page -> déclencher le défilement des chiffres
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 const montantElement = document.getElementById('montantTotal');
                 updateAmount(montantElement, <?php echo $sommeTotauxTTC ?>);
             });
@@ -163,7 +162,7 @@ $pro = verifyPro();
                         <option value="<?php echo htmlspecialchars($offre['id_offre']) ?>">
                             <?php echo htmlspecialchars($offre['titre']) ?>
                         </option>
-                        <?php
+                    <?php
                     }
                     ?>
                     <option value="2">Autre offre</option>
@@ -200,13 +199,13 @@ $pro = verifyPro();
                         },
 
                         // Durant l'exécution de la requête
-                        success: function (response) {
+                        success: function(response) {
                             const preview_loaded = response;
                             $('#facture-preview').html(preview_loaded);
                         },
 
                         // A la fin, chacher le logo de chargement
-                        complete: function () {
+                        complete: function() {
                             // Masquer le loader après la requête
                             $('#loading-indicator').hide();
                             toggleDownloadButton();
@@ -221,12 +220,12 @@ $pro = verifyPro();
 
                     if (previewContent === "") {
                         downloadButton.disabled = true;
-                        downloadButton.classList.remove('!bg-primary');  // Couleur grise
-                        downloadButton.style.cursor = "not-allowed";  // Changer le curseur pour indiquer que c'est désactivé
+                        downloadButton.classList.remove('!bg-primary'); // Couleur grise
+                        downloadButton.style.cursor = "not-allowed"; // Changer le curseur pour indiquer que c'est désactivé
                     } else {
                         downloadButton.disabled = false;
-                        downloadButton.classList.add('!bg-primary');  // Couleur primaire
-                        downloadButton.style.cursor = "pointer";  // Rétablir le curseur normal
+                        downloadButton.classList.add('!bg-primary'); // Couleur primaire
+                        downloadButton.style.cursor = "pointer"; // Rétablir le curseur normal
                     }
                 }
 
@@ -235,7 +234,7 @@ $pro = verifyPro();
             </script>
             </div>
 
-            <?php
+        <?php
         } else {
             echo "<p>Vous n'avez pas d'offres en ligne.</p>";
         } ?>
@@ -288,7 +287,7 @@ $pro = verifyPro();
                             } else {
                                 echo "ERREUR : Impossible d'obtenir les lignes de la facture n°$numero_facture";
                             }
-                            ?>
+                    ?>
                             <tr>
                                 <td class='border-b p-2'><?php echo htmlspecialchars($facture['numero_facture']); ?></td>
                                 <td class='border-b p-2'><?php echo htmlspecialchars($offre['titre']); ?></td>
@@ -309,7 +308,7 @@ $pro = verifyPro();
                                             class="fa-solid fa-eye hover:text-primary hover:cursor-pointer"></i></a>
                                 </td>
                             </tr>
-                            <?php
+                    <?php
                         }
                     }
                     ?>
@@ -344,12 +343,12 @@ $pro = verifyPro();
                     },
 
                     // Durant l'exécution de la requête
-                    success: function (response) {
+                    success: function(response) {
                         $('#facture-content').html(response);
                     },
 
                     // A la fin, chacher le logo de chargement
-                    complete: function () {
+                    complete: function() {
                         // Masquer le loader après la requête
                         $('#loading-facture-indicator').hide();
                     }
@@ -372,7 +371,9 @@ $pro = verifyPro();
 
             // TÉLÉCHARGER LE PDF
             async function generatePDF(frame) {
-                const { jsPDF } = window.jspdf;
+                const {
+                    jsPDF
+                } = window.jspdf;
                 const pdf = new jsPDF();
 
                 // Wait for the next paint to ensure styles are fully applied
@@ -383,8 +384,6 @@ $pro = verifyPro();
                 });
 
                 const canvas = await html2canvas(frame); // useCORS to ensure external images are loaded correctly
-
-                console.log(frame);
 
                 const imgData = canvas.toDataURL('image/png');
                 pdf.addImage(imgData, 'PNG', 10, 10, 190, canvas.height * 190 / canvas.width);
@@ -398,29 +397,41 @@ $pro = verifyPro();
 
             // Trier la table selon différents critères
             function sortTable(n) {
-                const table = document.getElementById("facture-table"); let rows, switching, i, x, y, shouldSwitch,
-                    dir, switchcount = 0; switching = true; dir = "asc"; while (switching) {
-                        switching = false;
-                        rows = table.rows; for (i = 1; i < (rows.length - 1); i++) {
-                            shouldSwitch = false;
-                            x = rows[i].getElementsByTagName("TD")[n]; y = rows[i + 1].getElementsByTagName("TD")[n]; if
-                                (dir == "asc") {
-                                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                                    shouldSwitch = true;
-                                    break;
-                                }
-                            } else if (dir == "desc") {
-                                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) { shouldSwitch = true; break; }
+                const table = document.getElementById("facture-table");
+                let rows, switching, i, x, y, shouldSwitch,
+                    dir, switchcount = 0;
+                switching = true;
+                dir = "asc";
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[n];
+                        y = rows[i + 1].getElementsByTagName("TD")[n];
+                        if (dir == "asc") {
+                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                shouldSwitch = true;
+                                break;
                             }
-                        } if (shouldSwitch) {
-                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                            switching = true; switchcount++;
-                        } else {
-                            if (switchcount == 0 && dir == "asc") {
-                                dir = "desc"; switching = true;
+                        } else if (dir == "desc") {
+                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                                shouldSwitch = true;
+                                break;
                             }
                         }
                     }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                        switchcount++;
+                    } else {
+                        if (switchcount == 0 && dir == "asc") {
+                            dir = "desc";
+                            switching = true;
+                        }
+                    }
+                }
             }
         </script>
     </main>

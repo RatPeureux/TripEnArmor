@@ -5,19 +5,19 @@
 
 <!-- VERSION PHONE -->
 <div class="md:hidden h-full bg-white fixed top-0 w-7/12 left-0 -translate-x-full duration-200 z-50">
-    <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2">
+    <a class="p-4 gap-4 self-end flex items-center">
         <i class="text-3xl fa-solid fa-circle-xmark cursor-pointer" onclick="toggleMenu()"></i>
         <h1 class="text-h1">Menu</h1>
     </a>
 
     <div class="all-items flex flex-col items-stretch">
-        <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 1) {
+        <a class="pl-5 py-3 <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';
         } ?>" href="/">Accueil</a>
-        <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 3) {
+        <a class="pl-5 py-3 <?php if (isset($pagination) && $pagination == 3) {
             echo 'active';
         } ?>" href="/offres/a-la-une">À la Une</a>
-        <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 2) {
+        <a class="pl-5 py-3 <?php if (isset($pagination) && $pagination == 2) {
             echo 'active';
         } ?>" href="/offres">Toutes les offres</a>
     </div>
@@ -33,26 +33,26 @@
         <p>Menu</p>
     </a>
 
-    <div class="w-52 border-black border z-25" id="menu-component">
+    <div class="w-52 border-base200 border-t z-25" id="menu-component">
         <div class="all-items flex flex-col items-stretch">
             <a class="pl-5 py-3 border-black <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';
             } ?>" href="/">Accueil</a>
-            <a class="pl-5 py-3 border-t border-black <?php if (isset($pagination) && $pagination == 2) {
+            <a class="pl-5 py-3 <?php if (isset($pagination) && $pagination == 2) {
                 echo 'active';
             } ?>" href="/offres/a-la-une">À la Une</a>
-            <a class="pl-5 py-3 border-t border-black  <?php if (isset($pagination) && $pagination == 3) {
+            <a class="pl-5 py-3  <?php if (isset($pagination) && $pagination == 3) {
                 echo 'active';
             } ?>" href="/offres">Toutes les offres</a>
         </div>
     </div>
 
-    <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2 cursor-pointer hover:text-primary" id="filtre-button" onclick="developpedFiltre()">
+    <a class="mt-6 mx-2 mb-1 self-end flex items-center gap-2 cursor-pointer hover:text-primary" id="filtre-button" onclick="developpedFiltre()">
         <i class="text xl fa-solid fa-filter"></i>
         <p>Filtrer</p>
     </a>
     
-    <div class="hidden w-52 border-black border z-25" id="filtre-component">
+    <div class="hidden w-52 border-base200 border-t z-25" id="filtre-component">
         <div class="flex flex-col w-full p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f1-tab">
                 <p>Catégorie</p>
@@ -85,7 +85,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col w-full border-t border-black p-3 gap-4">
+        <div class="flex flex-col w-full p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f2-tab">
                 <p>Disponibilité</p>
                 <p class="arrow" id="arrow-f2-tab">></p>
@@ -102,7 +102,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col w-full border-t border-black p-3 gap-4">
+        <div class="flex flex-col w-full p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f3-tab">
                 <p>Localisation</p>
                 <p class="arrow" id="arrow-f3-tab">></p>
@@ -112,7 +112,7 @@
                 <input id="localisation-tab" type="text" class="w-full border border-black p-1 focus:ring-0" />
             </div>
         </div>
-        <div class="flex flex-col w-full border-t border-black p-3 gap-4">
+        <div class="flex flex-col w-full p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f4-tab">
                 <p>Note générale</p>
                 <p class="arrow" id="arrow-f4-tab">></p>
@@ -134,7 +134,7 @@
                 </div>
             </div>
         </div>
-        <div class="hidden flex flex-col w-full border-t border-black p-3 gap-4">
+        <div class="hidden flex flex-col w-full p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f5-tab">
                 <p>Période</p>
                 <p class="arrow" id="arrow-f5-tab">></p>
@@ -151,7 +151,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col w-full border-t border-black p-3 gap-4">
+        <div class="flex flex-col w-full p-3 gap-4">
             <div class="flex justify-between cursor-pointer" id="button-f6-tab">
                 <p>Prix</p>
                 <p class="arrow" id="arrow-f6-tab">></p>

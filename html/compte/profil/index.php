@@ -60,17 +60,17 @@ $membre = verifyMember();
 
                 <hr class="mb-8">
 
-                <p class="text-h1 mb-4">Informations publiques</p>
+                <p class="text-h2 mb-4">Informations publiques</p>
 
-                <form action="" class="flex flex-col" method="post">
+                <form action="" class="flex flex-col mb-4" method="post">
 
-                    <label class="text-h3" for="pseudo">Nom d'utilisateur</label>
+                    <label class="text-h4" for="pseudo">Nom d'utilisateur</label>
                     <input value="<?php echo $membre['pseudo'] ?>"
-                        class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 " type="text"
-                        id="pseudo" name="pseudo">
+                        class="border border-secondary p-2 bg-white w-full h-12 mb-3 text-small" type="text" id="pseudo"
+                        name="pseudo">
 
                     <input type="submit" id="save" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4  text-small text-white bg-primary  border border-transparent"
+                        class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
                     </input>
                 </form>
@@ -81,9 +81,9 @@ $membre = verifyMember();
                 <div class="max-w-[23rem] mx-auto">
                     <a href="/compte/profil/avis"
                         class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
-                        <i class="w-[50px] text-center text-5xl fa-solid fa-egg"></i>
+                        <i class="w-[50px] text-center text-4xl fa-solid fa-egg"></i>
                         <div class="w-full">
-                            <p class="text-h2">Avis</p>
+                            <p class="text-h4">Avis</p>
                             <p class="text-small">Consulter l’ensemble des avis que j’ai postés sur les différentes
                                 offres
                                 de la PACT.</p>

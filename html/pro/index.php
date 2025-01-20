@@ -86,7 +86,7 @@ if (!function_exists('chaineVersMot')) {
                 if (is_null($b['note_moyenne'])) {
                     return -1;
                 }
-            
+
                 return $a['note_moyenne'] <=> $b['note_moyenne'];
             });
 
@@ -103,7 +103,7 @@ if (!function_exists('chaineVersMot')) {
                 if (is_null($b['note_moyenne'])) {
                     return -1;
                 }
-            
+
                 return $b['note_moyenne'] <=> $a['note_moyenne'];
             });
 
@@ -162,9 +162,9 @@ if (!function_exists('chaineVersMot')) {
 
             <div class="w-full flex justify-between items-end mb-2">
                 <div class="flex items-center gap-4">
-                    <h1 class="text-4xl">Mes offres</h1>
+                    <h1 class="text-h1">Mes offres</h1>
                     <!-- Bouton de création d'offre -->
-                    <a href="/pro/offre/creer" class="self-center bg-primary text-white py-2 px-4  inline-flex items-center border border-primary hover:text-white hover:bg-primary/90 hover:border-primary/90 
+                    <a href="/pro/offre/creer" class="self-center bg-primary text-white py-2 px-4 rounded-full inline-flex items-center border border-primary hover:text-white hover:bg-primary/90 hover:border-primary/90 
                     focus:scale-[0.97] <?php
                     if (!$toutesMesOffres) {
                         echo "hidden";
@@ -175,12 +175,12 @@ if (!function_exists('chaineVersMot')) {
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="hidden md:flex justify-center items-center gap-4">
-                    <a class="flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
+                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
                         <i class="text xl fa-solid fa-filter"></i>
                         <p>Filtrer</p>
                     </a>
                     <p class="font-thin text-xl text-base200">|</p>
-                    <a class="flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
+                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
                         <i class="text xl fa-solid fa-sort"></i>
                         <p>Trier par</p>
                     </a>
@@ -215,14 +215,15 @@ if (!function_exists('chaineVersMot')) {
 
         </div>
         <div class="w-full h-full xl:max-w-7xl grow p-4">
-            <div class="flex 2xl:flex-col min-[1760px]:flex-row justify-between items-center">
-                <h2 class="text-4xl">
+            <div class="flex 3xl:flex-col min-[1760px]:flex-row justify-between items-center mb-4">
+                <h2 class="text-h1">
                     Notifications
                 </h2>
 
                 <form action="/scripts/mark_all_as_read.php" method="POST" class="underline cursor-pointer">
                     <input type="hidden" name="id_pro" value="<?php echo $_SESSION['id_pro']; ?>">
-                    <button type="submit">
+                    <button type="submit"
+                        class="rounded-full bg-secondary text-white text-small py-2 px-4 border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
                         Tout supprimer
                     </button>
                 </form>

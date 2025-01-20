@@ -75,7 +75,7 @@ $membre = verifyMember();
                 <hr class="mb-8">
 
                 <div class="flex justify-between items-center">
-                    <p class="text-h1">Mes avis</p>
+                    <p class="text-h2 mb-4">Mes avis</p>
 
                     <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button">
                         <i class="text xl fa-solid fa-sort"></i>
@@ -143,7 +143,7 @@ $membre = verifyMember();
                         }
                     } else {
                         ?>
-                        <h1 class="text-h2 ">Vous n'avez publié aucun avis.</h1>
+                        <h1 class="text-h4 ">Vous n'avez publié aucun avis.</h1>
                         <?php
                     }
                     ?>
@@ -183,13 +183,13 @@ $membre = verifyMember();
 
     // Initialisation du toggle pour le bouton et la section
     setupToggle('sort-button', 'sort-section');
-    
+
     function sendReaction(idAvis, action) {
         const thumbDown = document.getElementById('thumb-down-' + idAvis);
         const thumbUp = document.getElementById('thumb-up-' + idAvis);
         const dislikeCountElement = document.getElementById(`dislike-count-${idAvis}`);
         const likeCountElement = document.getElementById(`like-count-${idAvis}`);
-        
+
         // Réinitialisation des icônes
         thumbDown.classList.remove('fa-solid', 'text-rouge-logo');
         thumbDown.classList.add('fa-regular');
@@ -198,11 +198,11 @@ $membre = verifyMember();
         thumbUp.classList.add('fa-regular');
 
         // Restauration des événements onclick par défaut
-        thumbDown.onclick = function() {
+        thumbDown.onclick = function () {
             sendReaction(idAvis, 'down'); // Nouvelle action
         };
 
-        thumbUp.onclick = function() {
+        thumbUp.onclick = function () {
             sendReaction(idAvis, 'up'); // Nouvelle action
         };
 
@@ -222,11 +222,11 @@ $membre = verifyMember();
             }
 
             // Mise à jour des événements onclick
-            thumbDown.onclick = function() {
+            thumbDown.onclick = function () {
                 sendReaction(idAvis, 'downTOnull'); // Nouvelle action pour annuler
             };
 
-            thumbUp.onclick = function() {
+            thumbUp.onclick = function () {
                 sendReaction(idAvis, 'downTOup'); // Nouvelle action
             };
         }
@@ -247,11 +247,11 @@ $membre = verifyMember();
             }
 
             // Mise à jour des événements onclick
-            thumbUp.onclick = function() {
+            thumbUp.onclick = function () {
                 sendReaction(idAvis, 'upTOnull'); // Nouvelle action pour annuler
             };
 
-            thumbDown.onclick = function() {
+            thumbDown.onclick = function () {
                 sendReaction(idAvis, 'upTOdown'); // Nouvelle action
             };
         }
@@ -268,7 +268,7 @@ $membre = verifyMember();
 
         // Envoi de la requête pour mettre à jour la réaction
         const url = `/scripts/thumb.php?id_avis=${idAvis}&action=${action}`;
-        
+
         fetch(url)
             .then(response => {
                 if (!response.ok) {

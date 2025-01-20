@@ -1,28 +1,104 @@
 <!-- BOUTONS DE FILTRES ET DE TRIS TÉLÉPHONE -->
-<div class="block md:hidden p-4 h-16 w-full bg-blur/25 backdrop-blur border-t border-black fixed bottom-0 flex items-center justify-between">
-    <a class="p-2 flex items-center gap-2 hover:text-primary duration-100" onclick="toggleFiltres()">
+<div class="block md:hidden p-4 h-16 w-full bg-blur/25 backdrop-blur fixed border-t border-black bottom-0 flex items-center justify-between">
+    <a class="cursor-pointer p-2 flex items-center gap-2 hover:text-primary duration-100" onclick="toggleFiltres()">
         <i class="text xl fa-solid fa-filter"></i>
         <p>Filtrer</p>
     </a>
 
     <div>
-        <a class="p-2 flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tel">
+        <a class="cursor-pointer p-2 flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tel">
             <i class="text xl fa-solid fa-sort"></i>
             <p>Trier par</p>
         </a>
         <!-- DROPDOWN MENU TRIS TÉLÉPHONE -->
         <div class="hidden md:hidden absolute bottom-[72px] right-2 z-20 bg-white border border-black shadow-md max-w-48 p-2 flex flex-col gap-4" id="sort-section-tel">
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-ascending') ? strtok($_SERVER['PHP_SELF'], '?') : '?sort=note-ascending'; ?>" class="flex items-center duration-100">
+            <a href="<?php
+                // Base URL sans les paramètres
+                $baseUrl = strtok($_SERVER['PHP_SELF'], '?');
+
+                // Initialisation des paramètres
+                $params = $_GET;
+
+                // Si le tri est déjà défini comme "note-ascending", on enlève le tri
+                if (isset($params['sort']) && $params['sort'] === 'note-ascending') {
+                    unset($params['sort']);
+                } else {
+                    // Ajouter ou mettre à jour le paramètre 'sort'
+                    $params['sort'] = 'note-ascending';
+                }
+
+                // Construire l'URL avec les nouveaux paramètres
+                $urlWithParams = $baseUrl . '?' . http_build_query($params);
+
+                echo htmlspecialchars($urlWithParams);
+            ?>" class="flex items-center hover:text-primary duration-100">
                 <p class="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-ascending') ? 'border-b border-primary' : ''; ?>">Note croissante</p>
             </a>
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-descending') ? strtok($_SERVER['PHP_SELF'], '?') : '?sort=note-descending'; ?>" class="flex items-center duration-100">
+            <a href="<?php
+                // Base URL sans les paramètres
+                $baseUrl = strtok($_SERVER['PHP_SELF'], '?');
+
+                // Initialisation des paramètres
+                $params = $_GET;
+
+                // Si le tri est déjà défini comme "note-ascending", on enlève le tri
+                if (isset($params['sort']) && $params['sort'] === 'note-descending') {
+                    unset($params['sort']);
+                } else {
+                    // Ajouter ou mettre à jour le paramètre 'sort'
+                    $params['sort'] = 'note-descending';
+                }
+
+                // Construire l'URL avec les nouveaux paramètres
+                $urlWithParams = $baseUrl . '?' . http_build_query($params);
+
+                echo htmlspecialchars($urlWithParams);
+            ?>" class="flex items-center hover:text-primary duration-100">
                 <p class="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'note-descending') ? 'border-b border-primary' : ''; ?>">Note décroissante</p>
             </a>
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-descending') ? strtok($_SERVER['PHP_SELF'], '?') : '?sort=price-descending'; ?>" class="flex items-center hover:text-primary duration-100">
-                <p class="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-descending') ? 'border-b border-primary' : ''; ?>">Prix croissant</p>
+            <a href="<?php
+                // Base URL sans les paramètres
+                $baseUrl = strtok($_SERVER['PHP_SELF'], '?');
+
+                // Initialisation des paramètres
+                $params = $_GET;
+
+                // Si le tri est déjà défini comme "note-ascending", on enlève le tri
+                if (isset($params['sort']) && $params['sort'] === 'price-ascending') {
+                    unset($params['sort']);
+                } else {
+                    // Ajouter ou mettre à jour le paramètre 'sort'
+                    $params['sort'] = 'price-ascending';
+                }
+
+                // Construire l'URL avec les nouveaux paramètres
+                $urlWithParams = $baseUrl . '?' . http_build_query($params);
+
+                echo htmlspecialchars($urlWithParams);
+            ?>" class="flex items-center hover:text-primary duration-100">
+                <p class="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? 'border-b border-primary' : ''; ?>">Prix croissant</p>
             </a>
-            <a href="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? strtok($_SERVER['PHP_SELF'], '?') : '?sort=price-ascending'; ?>" class="flex items-center duration-100">
-                <p class="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-ascending') ? 'border-b border-primary' : ''; ?>">Prix décroissant</p>
+            <a href="<?php
+                // Base URL sans les paramètres
+                $baseUrl = strtok($_SERVER['PHP_SELF'], '?');
+
+                // Initialisation des paramètres
+                $params = $_GET;
+
+                // Si le tri est déjà défini comme "note-ascending", on enlève le tri
+                if (isset($params['sort']) && $params['sort'] === 'price-descending') {
+                    unset($params['sort']);
+                } else {
+                    // Ajouter ou mettre à jour le paramètre 'sort'
+                    $params['sort'] = 'price-descending';
+                }
+
+                // Construire l'URL avec les nouveaux paramètres
+                $urlWithParams = $baseUrl . '?' . http_build_query($params);
+
+                echo htmlspecialchars($urlWithParams);
+            ?>" class="flex items-center hover:text-primary duration-100">
+                <p class="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'price-descending') ? 'border-b border-primary' : ''; ?>">Prix décroissant</p>
             </a>
         </div>
     </div>
@@ -38,7 +114,7 @@
         </div>
 
         <div class="w-full">
-            <div class="flex flex-col w-full border-t border-black p-3 gap-4">
+            <div class="flex flex-col w-full p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f1-tel">
                     <p>Catégorie</p>
                     <p class="arrow" id="arrow-f1-tel">></p>
@@ -70,7 +146,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full border-t border-black p-3 gap-4">
+            <div class="flex flex-col w-full p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f2-tel">
                     <p>Disponibilité</p>
                     <p class="arrow" id="arrow-f2-tel">></p>
@@ -87,7 +163,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full border-t border-black p-3 gap-4">
+            <div class="flex flex-col w-full p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f3-tel">
                     <p>Localisation</p>
                     <p class="arrow" id="arrow-f3-tel">></p>
@@ -99,7 +175,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full border-t border-black p-3 gap-4">
+            <div class="flex flex-col w-full p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f4-tel">
                     <p>Note générale</p>
                     <p class="arrow" id="arrow-f4-tel">></p>
@@ -119,7 +195,7 @@
                     </div>
                 </div>
             </div>
-            <div class="hidden flex flex-col w-full border-t border-black p-3 gap-4">
+            <div class="hidden flex flex-col w-full p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f5-tel">
                     <p>Période</p>
                     <p class="arrow" id="arrow-f5-tel">></p>
@@ -136,7 +212,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full border-t border-black p-3 gap-4">
+            <div class="flex flex-col w-full p-3 gap-4">
                 <div class="flex justify-between cursor-pointer" id="button-f6-tel">
                     <p>Prix</p>
                     <p class="arrow" id="arrow-f6-tel">></p>

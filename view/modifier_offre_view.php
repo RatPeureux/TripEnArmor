@@ -63,7 +63,6 @@ if (!$adresse) {
 	return -1;
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// Récupération des données du formulaire pour l'offre
 	$titre = $_POST['titre'] ?? $offre['titre'];
@@ -71,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$resume = $_POST['resume'] ?? $offre['resume'];
 	$prix_mini = $_POST['prix_mini'] ?? $offre['prix_mini'];
 	$date_suppression = $_POST['date_suppression'] ?? $offre['date_suppression'];
-	$est_en_ligne = 0;
+	$est_en_ligne = $offre['est_en_ligne'] ? 'true' : 'false';
 	$id_type_offre = $_POST['id_type_offre'] ?? $offre['id_type_offre'];
 	$id_pro = $_SESSION['id_pro'] ?? $offre['id_pro'];
 	$id_adresse = $_POST['id_adresse'] ?? $offre['id_adresse'];
@@ -120,40 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (!empty($_FILES['photo-upload-carte']['tmp_name'])) {
 		if (!$imagesController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
 			echo "Erreur lors de l'upload de l'image de la carte.";
-			var_dump($_FILES);
-			BDD::rollbackTransaction();
-			exit;
-		}
-	}
-
-	// Mise à jour des informations de l'offre
-	$modifier_offre_controller->updateOffre(
-		$id_offre,
-		$titre,
-		$description,
-		$resume,
-		$prix_mini,
-		$offre['date_creation'],
-		$date_mise_a_jour,
-		$date_suppression,
-		$est_en_ligne,
-		$id_type_offre,
-		$id_pro,
-		$id_adresse,
-		$accessibilite
-	);
-
-	// Mise à jour de l'adresse
-	if (!empty($id_adresse)) {
-		$adresseController->updateAdresse($offre['id_adresse'], $code_postal, $ville, $numero, $odonyme, $complement);
-
-	} else {
-		throw new Exception('L\'identifiant de l\'adresse est manquant');
-	}
-
-	if (!empty($_FILES['photo-upload-carte']['tmp_name'])) {
-		if (!$imagesController->uploadImage($id_offre, 'carte', $_FILES['photo-upload-carte']['tmp_name'], explode('/', $_FILES['photo-upload-carte']['type'])[1])) {
-			echo "Erreur lors de l'upload de l'image de la carte.";
 			BDD::rollbackTransaction();
 			exit;
 		}
@@ -182,7 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// Vérifiez que l'offre est de type restauration et que l'ID de l'offre est défini
 	// L'ID de l'offre et les types de repas sélectionnés
-
 	if ($catOffre[0]['type_offre'] === 'restauration' && isset($id_offre)) {
 		// Vérifier si des types de repas sont envoyés
 		if (!empty($typesRepas)) {
@@ -218,7 +182,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	header('Location: /pro');
 	exit;
-
 }
 
 
@@ -317,13 +280,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-		// echo "Option : " . $option . "<br>";
-		// echo "Durée option : " . $duree_option . "<br>";
-		// echo "Debut option : " . $debut_option . "<br>";
-	
-		// Récupérer d'autres valeurs
-	
 
+		// Récupérer d'autres valeurs
 		// *********************************************************************************************************************** Insertion
 		// Ordre de l'insertion :
 		// 	1. [x] Adresse
@@ -336,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// 	10. [x] Offre_Prestation
 		// 	11. Horaires
 		// 	12. [x] Tarif_Public
-	
+
 
 		BDD::startTransaction();
 		try {
@@ -346,12 +304,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$adresseController = new AdresseController();
 			$id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
 			if (!$id_adresse) {
-				// echo "Erreur lors de la création de l'adresse.";
 				BDD::rollbackTransaction();
 				exit;
 			}
-			// echo"Adresse insérée.<br>";
-	
+
 			// Insérer l'offre dans la base de données
 			$prixMin = calculerPrixMin($prices);
 			$id_offre;
@@ -363,11 +319,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					$id_offre = $activiteController->createActivite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $duree_formatted, $age, $prestations);
 
 					if ($id_offre < 0) { // Cas d'erreur
-						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo "Activité insérée.<br>";
 					break;
 
 				case 'visite':
@@ -377,11 +331,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					$id_offre = $visiteController->createVisite($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $dureeFormatted, $avec_guide);
 
 					if ($id_offre < 0) {
-						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo "Visite insérée<br>";
 					break;
 
 				case 'spectacle':
@@ -392,11 +344,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					$id_offre = $spectacleController->createSpectacle($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $capacite, $dureeFormatted);
 
 					if ($id_offre < 0) {
-						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo "Spectacle inséré<br>";
 					break;
 
 				case 'parc_attraction':
@@ -407,11 +357,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					$id_offre = $parcAttractionController->createParcAttraction($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $nb_attractions, $age);
 
 					if ($id_offre < 0) {
-						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo "Parc d'attraction inséré<br>";
 					break;
 
 				case 'restauration':
@@ -422,20 +370,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					$id_offre = $restaurationController->createRestauration($description, $resume, $prixMin, $titre, $id_pro, $id_type_offre, $id_adresse, $gamme_prix);
 
 					if ($id_offre < 0) {
-						// echo "Erreur lors de l'insertion : " . $id_offre;
 						BDD::rollbackTransaction();
 						exit;
 					}
-					// echo "Restauration insérée<br>";
 					break;
 
 				default:
-					// echo "Aucune activité sélectionnée";
 					BDD::rollbackTransaction();
 					exit;
 			}
-			// echo"new id_offre : " . $id_offre . "<br>";
-	
+
 			// Insérer les liens entre les offres et les tags dans la base de données
 			if ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
@@ -450,7 +394,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 					$tagRestaurationRestaurantController->linkRestaurationAndTag($id_offre, $tag_id);
 				}
-				// echo "Tags Restaurant inséré<br>";
 			} else {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
 				$tagController = new TagController();
@@ -462,7 +405,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					$tag_id = $tags_id ? $tags_id[0]['id_tag'] : $tagController->createTag($tag);
 					$tagOffreController->linkOffreAndTag($id_offre, $tag_id);
 				}
-				// echo "Tags insérés.<br>";
 			}
 
 			// Insérer les images dans la base de données
@@ -475,21 +417,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				BDD::rollbackTransaction();
 				exit;
 			}
-			// echo"Image de la carte insérée.<br>";
-	
+
 			// *** DETAIL
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
 					if (!$imageController->uploadImage($id_offre, 'detail-' . $i, $_FILES['photo-detail']['tmp_name'][$i], explode('/', $_FILES['photo-detail']['type'][$i])[1])) {
-						// echo "Erreur lors de l'upload de l'image de détail.";
 						BDD::rollbackTransaction();
 						exit;
 					}
 				}
-				// echo "Images de détail insérées.<br>";
 			}
 
-			//$existingImages = $imageController->getImagesOfOffre($offre['id_offre']);
 			foreach ($images as $image) {
 				if (strpos($image['type'], 'detail-') !== false) {
 					echo "Image de détail existante : " . $image['url'] . "<br>";
@@ -508,7 +446,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					BDD::rollbackTransaction();
 					exit;
 				}
-				// echo "Image du plan insérée.<br>";
 			}
 
 			if ($activityType === 'visite' && $avec_guide) {
@@ -521,11 +458,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				for ($i = 1; $i < count($langueController->getInfosAllLangues()) + 1; $i++) { // foreach ($langues as $langue => $isIncluded) {
 					$isIncluded = $_POST['langue' . $i] ?? "on";
 					if ($isIncluded) {
-						// echo "Langue incluse : " . $langueController->getInfosLangue($i)['nom'] . "<br>";
 						$visiteLangueController->linkVisiteAndLangue($id_offre, $i);
 					}
 				}
-				// echo "Langues insérées.<br>";
 			} elseif ($activityType === 'restauration') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
 				$typeRepasController = new TypeRepasController();
@@ -541,7 +476,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						$restaurationTypeRepasController->linkRestaurantAndTypeRepas($id_offre, $id_type_repas);
 					}
 				}
-				// echo "Types de repas insérés.<br>";
 			} elseif ($activityType === 'activite') {
 				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_controller.php';
 				$prestationController = new PrestationController();
@@ -556,7 +490,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 					$activitePrestationController->linkActiviteAndPrestation($id_offre, $id_prestation);
 				}
-				// echo "Prestations insérées.<br>";
 			}
 
 			// Insérer les horaires dans la base de données
@@ -566,20 +499,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			foreach ($horaires as $key => $jour) {
 				$horaireController->createHoraire($key, $jour['ouverture'], $jour['fermeture'], $jour['pause'], $jour['reprise'], $id_offre);
 			}
-			// echo"Horaires insérés.<br>";
-	
+
 			// Insérer les prix dans la base de données
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
 			$tarifController = new TarifPublicController();
 			foreach ($prices as $price) {
 				if (!isset($price['name']) || !isset($price['value'])) {
-					// echo "Erreur : données de prix invalides.";
 					continue;
 				}
 
 				$tarifController->createTarifPublic($price['name'], $price['value'], $id_offre);
 			}
-			// echo"Prix insérés.<br>";
 			BDD::commitTransaction();
 
 			// Insérer les options dans la base de données
@@ -612,7 +542,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$typeOffreController = new TypeOffreController();
 		$typesOffre = $typeOffreController->getAllTypeOffre();
 		array_multisort($typesOffre, SORT_DESC);
-		?>
+	?>
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
 
@@ -664,15 +594,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 								$avantages[] = "<span class='font-bold'>Possibilité de remplir une grille tarifaire<span>";
 								$avantages[] = "<span class='font-bold'>Possibilité de souscrire aux options “À la une” et “En relief”<span>";
 							}
-							?>
+						?>
 							<style>
-								<?php if ($typesOffres['nom'] != $typeOffre['nom']) { ?>
-									.type_offre_
-
-									<?php echo $typeOffre['id_type_offre']; ?>
-									+label {
-										opacity: 1;
-									}
+								<?php if ($typesOffres['nom'] != $typeOffre['nom']) { ?>.type_offre_ <?php echo $typeOffre['id_type_offre']; ?>+label {
+									opacity: 1;
+								}
 
 								<?php } ?>
 							</style>
@@ -718,87 +644,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 									</div>
 								</label>
 							</div>
-							<?php
+						<?php
 						}
 						?>
-
-						<!-- <div class="border border-secondary  flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "prive") {
-							echo "hidden";
-						} ?>">
-							<input type="radio" name="type_offre" id="type_offre_1" value="1" class="hidden">
-							<label for="type_offre_1"
-								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
-								<div class="h-full divide-y divide-current">
-									<div>
-										<h1 class="text-h1 leading-none mt-1 text-center">Gratuite</h1>
-										<h1 class="text-center font-bold">Pour les associations et les organismes publics
-										</h1>
-									</div>
-									<div>
-										<div class="ml-8">
-											<ul class="list-disc text-left text-small my-2">
-												<li>Jusqu’à 10 photos de présentations</li>
-												<li>Réponse aux avis des membres</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div>
-									<h1 class="text-h1 leading-none mt-1 text-center py-2">0€/mois</h1>
-								</div>
-							</label>
-						</div>
-						<div class="border border-primary  flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
-							echo "hidden";
-						} ?>">
-							<input type="radio" name="type_offre" id="type_offre_2" value="2" class="hidden">
-							<label for="type_offre_2"
-								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
-								<div class="h-full divide-y divide-current">
-									<div>
-										<h1 class="text-h1 leading-none mt-1 text-center">Standard</h1>
-										<h1 class="text-center font-bold">Pour les entreprises et organismes privés</h1>
-									</div>
-									<div class="h-full">
-										<div class="ml-8">
-											<ul class="list-disc text-left text-small my-2">
-												<li>Jusqu’à 10 photos de présentations</li>
-												<li>Réponse aux avis des membres</li>
-												<li>Possibilité de souscrire aux options “À la une” et “En relief”</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div>
-									<h1 class="text-h1 leading-none mt-1 text-center py-2">12€/mois</h1>
-								</div>
-							</label>
-						</div>
-						<div class="border border-secondary  flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
-							echo "hidden";
-						} ?>">
-							<input type="radio" name="type_offre" id="type_offre_3" value="3" class="hidden">
-							<label for="type_offre_3"
-								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
-								<div class="h-full divide-y divide-current">
-									<div>
-										<h1 class="text-h1 leading-none mt-1 text-center">Premium</h1>
-										<h2 class="text-center font-bold">Pour les entreprises et organismes privés</h2>
-									</div>
-									<div class="h-full">
-										<p class="mt-2 text-small font-bold">Standard +</p>
-										<div class="ml-8">
-											<ul class="list-disc text-left text-small">
-												<li>Mise sur liste noire de 3 commentaires</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div>
-									<p class="text-h1 leading-none mt-1 text-center py-2">19€/mois</p>
-								</div>
-							</label>
-						</div> -->
 					</div>
 					<div class="w-full flex space-x-12">
 						<div class="w-full">
@@ -1051,17 +899,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 									<div class="w-fit p-2  border border-transparent"
 										onclick="toggleCheckbox('repasDejeuner')">
 										<input type="checkbox" name="repasDejeuner" id="repasDejeuner" class="hidden">
-										<label for="repasDejeuner"<?php echo in_array('Déjeuner', $repasNoms) ? 'checked' : ''; ?>>Déjeuner</label>
+										<label for="repasDejeuner" <?php echo in_array('Déjeuner', $repasNoms) ? 'checked' : ''; ?>>Déjeuner</label>
 									</div>
 									<div class="w-fit p-2  border border-transparent"
 										onclick="toggleCheckbox('repasDiner')">
 										<input type="checkbox" name="repasDiner" id="repasDiner" class="hidden">
-										<label for="repasDiner"<?php echo in_array('Dîner', $repasNoms) ? 'checked' : ''; ?>>Dîner</label>
+										<label for="repasDiner" <?php echo in_array('Dîner', $repasNoms) ? 'checked' : ''; ?>>Dîner</label>
 									</div>
 									<div class="w-fit p-2  border border-transparent"
 										onclick="toggleCheckbox('repasBoissons')">
 										<input type="checkbox" name="repasBoissons" id="repasBoissons" class="hidden">
-										<label for="repasBoissons"<?php echo in_array('Boissons', $repasNoms) ? 'checked' : ''; ?>>Boissons</label>
+										<label for="repasBoissons" <?php echo in_array('Boissons', $repasNoms) ? 'checked' : ''; ?>>Boissons</label>
 									</div>
 								</div>
 								<!-- Plan du parc d'attraction -->
@@ -1373,8 +1221,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 									<!-- GRILLE TARIFAIRE -->
 									<div class="w-full <?php if ($pro['data']['type'] === 'prive') {
-										echo "optionActivite optionVisite optionSpectacle optionParcAttraction";
-									} ?> hidden">
+															echo "optionActivite optionVisite optionSpectacle optionParcAttraction";
+														} ?> hidden">
 										<h2 class="text-h2 text-secondary">Grille tarifaire</h2>
 										<table class="w-full">
 											<thead>
@@ -1418,8 +1266,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 								</div>
 
 								<div class="<?php if ($pro['data']['type'] === 'prive') {
-									echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
-								} ?> hidden w-full">
+												echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
+											} ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
 
 									<!-- CGU -->
@@ -1443,7 +1291,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 										$options = $stmt->fetchAll(PDO::FETCH_ASSOC);
 										foreach ($options as $option) {
 											$nom_option = str_contains($option['nom'], 'relief') ? "option-relief" : "option-a-la-une";
-											?>
+										?>
 											<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white font-bold text-center text-lg"
 												id="<?php echo $nom_option; ?>-div">
 												<input type="radio" id="<?php echo $nom_option; ?>" name="option"
@@ -1474,7 +1322,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 													}
 												}
 
-												document.getElementById('start_date').addEventListener('focus', function (e) {
+												document.getElementById('start_date').addEventListener('focus', function(e) {
 													e.target.setAttribute('min', getNextMonday());
 													e.target.value = getNextMonday();
 												});
@@ -1495,8 +1343,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 											<input type="number" id="duration" name="duration" min="1" max="4" value="1"
 												class="border border-secondary  p-2 bg-white w-min">
 											<script>
-
-												document.getElementById('duration').addEventListener('change', function (event) {
+												document.getElementById('duration').addEventListener('change', function(event) {
 													const value = parseInt(event.target.value, 10);
 													if (value < 1) {
 														event.target.value = 1;
@@ -1527,7 +1374,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							<div class="h-fit w-full">
 								<!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
 								<!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->
-								<div class="card relative bg-base300  flex flex-col w-full" id="card-preview">
+								<div class="card relative bg-base100  flex flex-col w-full" id="card-preview">
 									<script>
 										// Fonction pour activer ou désactiver la carte en fonction de l'option choisie
 										function toggleCardPreview(option) {
@@ -1542,17 +1389,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 										}
 										// Ajouter un EventListener pour détecter les changements dans les options
 										optionData = document.getElementById("option-data");
-										document.getElementById("option-rien-div").addEventListener("click", function () {
+										document.getElementById("option-rien-div").addEventListener("click", function() {
 											toggleRadio("option-rien");
 											toggleCardPreview("option-rien");
 											optionData.classList.add('hidden');
 										});
-										document.getElementById("option-relief-div").addEventListener("click", function () {
+										document.getElementById("option-relief-div").addEventListener("click", function() {
 											toggleRadio("option-relief");
 											toggleCardPreview("option-relief");
 											optionData.classList.remove('hidden');
 										});
-										document.getElementById("option-a-la-une-div").addEventListener("click", function () {
+										document.getElementById("option-a-la-une-div").addEventListener("click", function() {
 											toggleRadio("option-a-la-une");
 											toggleCardPreview("option-a-la-une");
 											optionData.classList.remove('hidden');
@@ -1565,16 +1412,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 										<h3 class="text-center font-bold" id="preview-titre"></h3>
 										<script>
 											document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
-												document.getElementById("titre").value
-												:
+												document.getElementById("titre").value :
 												// Si le titre est vide, afficher le placeholder du titre
 												document.getElementById("titre").placeholder;
 											document
 												.getElementById("titre")
-												.addEventListener("input", function () {
+												.addEventListener("input", function() {
 													document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
-														document.getElementById("titre").value
-														:
+														document.getElementById("titre").value :
 														// Si le titre est vide, afficher le placeholder du titre
 														document.getElementById("titre").placeholder;
 												});
@@ -1643,14 +1488,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 									<script>
 										document
 											.getElementById("photo-upload-carte")
-											.addEventListener("change", function (event) {
+											.addEventListener("change", function(event) {
 												const file = event.target.files[0]; // Récupérer le fichier sélectionné
 												const previewImage =
 													document.getElementById("preview-image"); // Élément d'image à mettre à jour
 
 												if (file) {
 													const reader = new FileReader(); // Créer un nouvel objet FileReader
-													reader.onload = function (e) {
+													reader.onload = function(e) {
 														previewImage.src = e.target.result; // Mettre à jour la source de l'image avec le fichier
 													};
 													reader.readAsDataURL(file); // Lire le fichier comme une URL de données
@@ -1669,22 +1514,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 											<p class="text-small" id="preview-locality"></p>
 											<script>
 												document.getElementById(
-													"preview-locality"
-												).textContent =
+														"preview-locality"
+													).textContent =
 													document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
 												document
 													.getElementById("locality")
 													.addEventListener("input", () => {
 														document.getElementById(
-															"preview-locality"
-														).textContent =
+																"preview-locality"
+															).textContent =
 															document.getElementById("locality").value ? document.getElementById("locality").value : document.getElementById("locality").placeholder
 													});
 											</script>
 											<!-- Mise à jour du code postal en temps réel -->
 											<p class="text-small" id="preview-postal_code"></p>
 											<script>
-												setInterval(function () {
+												setInterval(function() {
 													const locality = document.getElementById("locality").value;
 													const postalCode = document.getElementById("postal_code").value;
 													document.getElementById("preview-locality").textContent = locality ? locality : document.getElementById("locality").placeholder;
@@ -1692,14 +1537,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 												}, 100);
 											</script>
 										</div>
-										<hr class="h-20 border-black border" />
+
 										<!-- Résumé de l'offre -->
 										<div
 											class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
 											<div class="p-1 w-full flex justify-center items-center">
-												<!-- <p
-								class="text-white text-center text-small w-full font-bold"
-							  ></p> -->
 												<!-- Mise à jour du tag en temps réel -->
 												<p class="tags text-white text-center bg-secondary font-bold w-fit p-2"
 													id="preview-tag-input">
@@ -1721,11 +1563,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 													Array.from(document
 														.getElementsByClassName("tag-container")).forEach(
-															(container) => {
-																const observer = new MutationObserver(refreshTagPreview);
-																observer.observe(container, { childList: true });
-															}
-														)
+														(container) => {
+															const observer = new MutationObserver(refreshTagPreview);
+															observer.observe(container, {
+																childList: true
+															});
+														}
+													)
 												</script>
 											</div>
 											<!-- Mise à jour du résumé en temps réel -->
@@ -1736,13 +1580,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 													document.getElementById("resume").value ? document.getElementById("resume").value : document.getElementById("resume").placeholder
 												document
 													.getElementById("resume")
-													.addEventListener("input", function () {
+													.addEventListener("input", function() {
 														document.getElementById("preview-resume").textContent =
 															document.getElementById("resume").value ? document.getElementById("resume").value : document.getElementById("resume").placeholder;
 													});
 											</script>
 										</div>
-										<hr class="h-20 border-black border" />
 										<!-- Notation et Prix -->
 										<div
 											class="localisation flex flex-col flex-shrink-0 gap-2 justify-center items-center">
@@ -1803,7 +1646,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				}
 				?>
 				const existingTags = <?php echo json_encode($tags); ?>;
-				console.log(existingTags);
 				const tagManager = new TagManager('tag-input', existingTags);
 			});
 		</script>
@@ -1812,7 +1654,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<script src="/scripts/optionToggler.js"></script>
 		<script>
 			// Lors de l'appui sur entrer, ne pas soumettre le formulaire
-			document.getElementById('formulaire').addEventListener('keydown', function (event) {
+			document.getElementById('formulaire').addEventListener('keydown', function(event) {
 				if (event.key === 'Enter') {
 					event.preventDefault();
 				}
@@ -1927,8 +1769,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			}
 
 			const tagInput = document.querySelector("#tag-input");
-			console.log(tagInput);
-			tagInput.value = "test";
 		</script>
 
 	<?php } ?>

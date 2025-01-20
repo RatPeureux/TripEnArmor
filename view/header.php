@@ -30,8 +30,7 @@
                     <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
                 </div>
                 <!-- Bouton de suppression -->
-                <button
-                    class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white  px-2 py-1"
+                <button class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white  px-2 py-1"
                     id="clear-tags-btn">
                     <i class="text-xl fa-solid fa-times cursor-pointer"></i>
                 </button>
@@ -51,7 +50,7 @@
                 </a>
                 <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                     onclick="return confirmLogout()">
-                    <div class="border border-primary  p-2">
+                    <div class="text-black text-small border border-secondary px-4 py-2 rounded-full">
                         <p class="">Se déconnecter</p>
                     </div>
                 </a>
@@ -61,8 +60,10 @@
                     <i class="text-3xl fa-regular fa-user"></i>
                 </a>
                 <a href="/connexion" class="hidden md:block">
-                    <div class="border border-primary  p-2">
-                        <p class="">Se connecter</p>
+                    <div
+                        class="text-white text-small border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
+                        <p class="">
+                            Se connecter</p>
                     </div>
                 </a>
             <?php } ?>

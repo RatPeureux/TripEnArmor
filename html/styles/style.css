@@ -866,6 +866,10 @@ video {
   margin-bottom: 2rem;
 }
 
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
 .ml-8 {
   margin-left: 2rem;
 }
@@ -920,6 +924,14 @@ video {
 
 .mt-5 {
   margin-top: 1.25rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
 }
 
 .line-clamp-1 {
@@ -1569,6 +1581,12 @@ video {
   overflow-y: scroll;
 }
 
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .overflow-ellipsis {
   text-overflow: ellipsis;
 }
@@ -1589,8 +1607,8 @@ video {
   overflow-wrap: break-word;
 }
 
-.rounded-lg {
-  border-radius: 0.5rem;
+.rounded-full {
+  border-radius: 9999px;
 }
 
 .border {
@@ -1605,6 +1623,10 @@ video {
   border-bottom-width: 1px;
 }
 
+.border-r {
+  border-right-width: 1px;
+}
+
 .border-t {
   border-top-width: 1px;
 }
@@ -1615,6 +1637,11 @@ video {
 
 .border-dashed {
   border-style: dashed;
+}
+
+.border-base100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(241 243 244 / var(--tw-border-opacity, 1));
 }
 
 .border-base200 {
@@ -1681,11 +1708,6 @@ video {
   background-color: rgb(241 243 244 / var(--tw-bg-opacity, 1));
 }
 
-.bg-base300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(204 204 204 / var(--tw-bg-opacity, 1));
-}
-
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
@@ -1716,6 +1738,11 @@ video {
 .bg-primary {
   --tw-bg-opacity: 1;
   background-color: rgb(242 119 27 / var(--tw-bg-opacity, 1));
+}
+
+.bg-rouge-logo {
+  --tw-bg-opacity: 1;
+  background-color: rgb(234 67 53 / var(--tw-bg-opacity, 1));
 }
 
 .bg-secondary {
@@ -1924,11 +1951,6 @@ video {
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
-}
-
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
 }
 
 .text-7xl {
@@ -2475,6 +2497,15 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-rouge-logo\/90:hover {
+  background-color: rgb(234 67 53 / 0.9);
+}
+
+.hover\:bg-secondary:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(10 0 53 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:bg-secondary\/90:hover {
   background-color: rgb(10 0 53 / 0.9);
 }
@@ -2747,10 +2778,6 @@ input[type="checkbox"]:checked:before {
 @media (min-width: 1536px) {
   .\32xl\:flex-row {
     flex-direction: row;
-  }
-
-  .\32xl\:flex-col {
-    flex-direction: column;
   }
 
   .\32xl\:items-start {
