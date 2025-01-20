@@ -12,7 +12,7 @@ $pro = verifyPro();
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<link rel="icon" type="image" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/style.css">
+	<link rel="stylesheet" href="/styles/style.css">
 	<script type="module" src="/scripts/main.js" defer></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
@@ -101,7 +101,7 @@ $pro = verifyPro();
 		$debut_option = $_POST['start_date'] ?? [];
 
 		// Récupérer d'autres valeurs
-	
+
 
 		// *********************************************************************************************************************** Insertion
 		// Ordre de l'insertion :
@@ -115,7 +115,7 @@ $pro = verifyPro();
 		// 	10. [x] Offre_Prestation
 		// 	11. Horaires
 		// 	12. [x] Tarif_Public
-	
+
 
 		BDD::startTransaction();
 		try {
@@ -126,7 +126,7 @@ $pro = verifyPro();
 			$id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
 			if (!$id_adresse) {
 				echo "Erreur lors de l'insertion de l'adresse.";
-				BDD::Transaction();
+				BDD::startTransaction();
 				exit;
 			}
 
@@ -239,7 +239,7 @@ $pro = verifyPro();
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
 			$imageController = new ImageController();
 			// echo"Image de la carte insérée.<br>";
-	
+
 			// *** DETAIL
 			if ($_FILES['photo-detail']['error'][0] !== 4) {
 				for ($i = 0; $i < count($_FILES['photo-detail']['name']); $i++) {
@@ -336,16 +336,15 @@ $pro = verifyPro();
 			if ($option == "A la une" || $option == "En relief") {
 				$prix_ht = $option == "A la une" ? 8.34 : 16.68;
 				$prix_ttc = $option == "A la une" ? 10.00 : 20.00;
-				
+
 				require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/souscription_controller.php";
 				$souscription_controller = new SouscriptionController();
 				$souscription_controller->createSouscription($id_offre, $option, $prix_ht, $prix_ttc, $debut_option, $duree_option);
 			}
-			
-			BDD::commitTransaction();
-			
-			header('location: /pro');
 
+			BDD::commitTransaction();
+
+			header('location: /pro');
 		} catch (Exception $e) {
 			echo "Erreur lors de l'insertion : " . $e->getMessage();
 			BDD::rollbackTransaction();
@@ -357,7 +356,7 @@ $pro = verifyPro();
 		$typeOffreController = new TypeOffreController();
 		$typesOffre = $typeOffreController->getAllTypeOffre();
 		array_multisort($typesOffre, SORT_DESC);
-		?>
+	?>
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
 
@@ -402,7 +401,7 @@ $pro = verifyPro();
 								$avantages[] = "<span class=''>Possibilité de remplir une grille tarifaire<span>";
 								$avantages[] = "<span class=''>Possibilité de souscrire aux options “À la Une” et “En relief”<span>";
 							}
-							?>
+						?>
 							<div
 								class="border border-<?php echo $cardColor; ?>  flex-col justify-center w-full text-<?php echo $cardColor; ?> p-4 has-[:checked]:bg-<?php echo $cardColor; ?> has-[:checked]:text-white md:h-full <?php echo $cardVisible; ?>">
 								<input type="radio" name="type_offre" id="type_offre_<?php echo $typeOffre['id_type_offre']; ?>"
@@ -445,12 +444,12 @@ $pro = verifyPro();
 									</div>
 								</label>
 							</div>
-							<?php
+						<?php
 						} ?>
 
 						<!-- <div class="border border-secondary  flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "prive") {
-							echo "hidden";
-						} ?>">
+																																														echo "hidden";
+																																													} ?>">
 							<input type="radio" name="type_offre" id="type_offre_1" value="1" class="hidden">
 							<label for="type_offre_1"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -475,8 +474,8 @@ $pro = verifyPro();
 							</label>
 						</div>
 						<div class="border border-primary  flex-col justify-center w-full text-primary p-4 has-[:checked]:bg-primary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
-							echo "hidden";
-						} ?>">
+																																												echo "hidden";
+																																											} ?>">
 							<input type="radio" name="type_offre" id="type_offre_2" value="2" class="hidden">
 							<label for="type_offre_2"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -501,8 +500,8 @@ $pro = verifyPro();
 							</label>
 						</div>
 						<div class="border border-secondary  flex-col justify-center w-full text-secondary p-4 has-[:checked]:bg-secondary has-[:checked]:text-white md:h-full <?php if ($pro['data']['type'] === "public") {
-							echo "hidden";
-						} ?>">
+																																													echo "hidden";
+																																												} ?>">
 							<input type="radio" name="type_offre" id="type_offre_3" value="3" class="hidden">
 							<label for="type_offre_3"
 								class="divide-y divide-current cursor-pointer flex flex-col justify-between h-full">
@@ -737,11 +736,11 @@ $pro = verifyPro();
 										</div>
 										<div>
 											<input type="radio" id="€€" name="gamme2prix" value="€€" checked />
-											<label for="€€">€€  (&lt;40€)</label>
+											<label for="€€">€€ (&lt;40€)</label>
 										</div>
 										<div>
 											<input type="radio" id="€€€" name="gamme2prix" value="€€€" />
-											<label for="€€€">€€€  (&gt;40€)</label>
+											<label for="€€€">€€€ (&gt;40€)</label>
 										</div>
 									</div>
 								</div>
@@ -1083,8 +1082,8 @@ $pro = verifyPro();
 
 									<!-- GRILLE TARIFAIRE -->
 									<div class="w-full <?php if ($pro['data']['type'] === 'prive') {
-										echo "optionActivite optionVisite optionSpectacle optionParcAttraction";
-									} ?> hidden">
+															echo "optionActivite optionVisite optionSpectacle optionParcAttraction";
+														} ?> hidden">
 										<h2 class="text-h2 text-secondary">Grille tarifaire</h2>
 										<table class="w-full">
 											<thead>
@@ -1128,8 +1127,8 @@ $pro = verifyPro();
 								</div>
 
 								<div class="<?php if ($pro['data']['type'] === 'prive') {
-									echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
-								} ?> hidden w-full">
+												echo "optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction";
+											} ?> hidden w-full">
 									<h1 class="text-h2 text-secondary">Les options</h1>
 
 									<!-- CGU -->
@@ -1153,7 +1152,7 @@ $pro = verifyPro();
 										$options = $stmt->fetchAll(PDO::FETCH_ASSOC);
 										foreach ($options as $option) {
 											$nom_option = str_contains($option['nom'], 'relief') ? "option-relief" : "option-a-la-une";
-											?>
+										?>
 											<div class="w-fit p-2  border border-transparent hover:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-white  text-center text-lg"
 												id="<?php echo $nom_option; ?>-div">
 												<input type="radio" id="<?php echo $nom_option; ?>" name="option"
@@ -1168,21 +1167,15 @@ $pro = verifyPro();
 										<?php }
 										?>
 										<script>
-											console.log("In script")
-											document.getElementById('option-rien').addEventListener('change', function () {
-												console.log('In change')
+											document.getElementById('option-rien').addEventListener('change', function() {
 												if (document.getElementById('option-rien').checked === 'true') {
-													console.log("Checked")
 													document.getElementById('duration').removeAttribute('required');
 													document.getElementById('start_date').removeAttribute('required');
 												} else {
-													console.log("Not checked")
 													document.getElementById('duration').setAttribute('required', 'required');
 													document.getElementById('start_date').setAttribute('required', 'required');
 												}
-												console.log("end change")
 											});
-											console.log("end of script")
 										</script>
 									</div>
 
@@ -1201,7 +1194,7 @@ $pro = verifyPro();
 													}
 												}
 
-												document.getElementById('start_date').addEventListener('focus', function (e) {
+												document.getElementById('start_date').addEventListener('focus', function(e) {
 													e.target.setAttribute('min', getNextMonday());
 													e.target.value = getNextMonday();
 												});
@@ -1222,8 +1215,7 @@ $pro = verifyPro();
 											<input type="number" id="duration" name="duration" min="1" max="4" value="1"
 												class="border border-secondary  p-2 bg-white w-min">
 											<script>
-
-												document.getElementById('duration').addEventListener('change', function (event) {
+												document.getElementById('duration').addEventListener('change', function(event) {
 													const value = parseInt(event.target.value, 10);
 													if (value < 1) {
 														event.target.value = 1;
@@ -1268,17 +1260,17 @@ $pro = verifyPro();
 										}
 										// Ajouter un EventListener pour détecter les changements dans les options
 										optionData = document.getElementById("option-data");
-										document.getElementById("option-rien-div").addEventListener("click", function () {
+										document.getElementById("option-rien-div").addEventListener("click", function() {
 											toggleRadio("option-rien");
 											toggleCardPreview("option-rien");
 											optionData.classList.add('hidden');
 										});
-										document.getElementById("option-relief-div").addEventListener("click", function () {
+										document.getElementById("option-relief-div").addEventListener("click", function() {
 											toggleRadio("option-relief");
 											toggleCardPreview("option-relief");
 											optionData.classList.remove('hidden');
 										});
-										document.getElementById("option-a-la-une-div").addEventListener("click", function () {
+										document.getElementById("option-a-la-une-div").addEventListener("click", function() {
 											toggleRadio("option-a-la-une");
 											toggleCardPreview("option-a-la-une");
 											optionData.classList.remove('hidden');
@@ -1291,16 +1283,14 @@ $pro = verifyPro();
 										<h3 class="text-center " id="preview-titre"></h3>
 										<script>
 											document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
-												document.getElementById("titre").value
-												:
+												document.getElementById("titre").value :
 												// Si le titre est vide, afficher le placeholder du titre
 												document.getElementById("titre").placeholder;
 											document
 												.getElementById("titre")
-												.addEventListener("input", function () {
+												.addEventListener("input", function() {
 													document.getElementById("preview-titre").textContent = document.getElementById("titre").value ?
-														document.getElementById("titre").value
-														:
+														document.getElementById("titre").value :
 														// Si le titre est vide, afficher le placeholder du titre
 														document.getElementById("titre").placeholder;
 												});
@@ -1367,14 +1357,14 @@ $pro = verifyPro();
 									<script>
 										document
 											.getElementById("photo-upload-carte")
-											.addEventListener("change", function (event) {
+											.addEventListener("change", function(event) {
 												const file = event.target.files[0]; // Récupérer le fichier sélectionné
 												const previewImage =
 													document.getElementById("preview-image"); // Élément d'image à mettre à jour
 
 												if (file) {
 													const reader = new FileReader(); // Créer un nouvel objet FileReader
-													reader.onload = function (e) {
+													reader.onload = function(e) {
 														previewImage.src = e.target.result; // Mettre à jour la source de l'image avec le fichier
 													};
 													reader.readAsDataURL(file); // Lire le fichier comme une URL de données
@@ -1400,42 +1390,12 @@ $pro = verifyPro();
 													document.getElementById("preview-locality").textContent = locality ? locality : document.getElementById("locality").placeholder;
 													document.getElementById("preview-postal_code").textContent = postalCode ? postalCode : document.getElementById("postal_code").placeholder;
 												}, 100);
-												// const previewLocality = document.getElementById("preview-locality");
-												// const previewPostalCode = document.getElementById("preview-postal_code");
-												// const locality = document.getElementById("locality");
-												// const postalCode = document.getElementById("postal_code");
-
-												// previewLocality.textContent = locality.value ? locality.value : locality.placeholder
-												// previewPostalCode.textContent = postalCode.value ? postalCode.value : postalCode.placeholder
-
-												// document.getElementById("user_input_autocomplete_address")
-												// 	.addEventListener("input", function () {
-												// 		previewLocality.textContent =
-												// 			locality.value ? locality.value : locality.placeholder;
-												// 		previewPostalCode.textContent =
-												// 			postalCode.value ? postalCode.value : postalCode.placeholder;
-												// 	})
-
-												// locality.addEventListener("input", function () {
-												// 	console.log(locality);
-												// 	previewLocality.textContent =
-												// 		locality.value ? locality.value : locality.placeholder;
-												// });
-
-												// postalCode.addEventListener("input", function () {
-												// 	console.log(postalCode);
-												// 	previewPostalCode.textContent =
-												// 		postalCode.value ? postalCode.value : postalCode.placeholder;
-												// });
 											</script>
 										</div>
 										<!-- Résumé de l'offre -->
 										<div
 											class="description py-2 flex flex-col gap-2 justify-center w-full max-w-[300px]">
 											<div class="p-1 w-full flex justify-center items-center">
-												<!-- <p
-								class="text-white text-center text-small w-full "
-							  ></p> -->
 												<!-- Mise à jour du tag en temps réel -->
 												<p class="tags text-white text-center  bg-secondary  w-fit p-2"
 													id="preview-tag-input">
@@ -1458,11 +1418,13 @@ $pro = verifyPro();
 
 													Array.from(document
 														.getElementsByClassName("tag-container")).forEach(
-															(container) => {
-																const observer = new MutationObserver(refreshTagPreview);
-																observer.observe(container, { childList: true });
-															}
-														)
+														(container) => {
+															const observer = new MutationObserver(refreshTagPreview);
+															observer.observe(container, {
+																childList: true
+															});
+														}
+													)
 												</script>
 											</div>
 											<!-- Mise à jour du résumé en temps réel -->
@@ -1473,7 +1435,7 @@ $pro = verifyPro();
 													document.getElementById("resume").value ? document.getElementById("resume").value : document.getElementById("resume").placeholder
 												document
 													.getElementById("resume")
-													.addEventListener("input", function () {
+													.addEventListener("input", function() {
 														document.getElementById("preview-resume").textContent =
 															document.getElementById("resume").value ? document.getElementById("resume").value : document.getElementById("resume").placeholder;
 													});
@@ -1536,7 +1498,7 @@ $pro = verifyPro();
 		<script src="/scripts/optionToggler.js"></script>
 		<script>
 			// Lors de l'appui sur entrer, ne pas soumettre le formulaire
-			document.getElementById('formulaire').addEventListener('keydown', function (event) {
+			document.getElementById('formulaire').addEventListener('keydown', function(event) {
 				if (event.key === 'Enter') {
 					event.preventDefault();
 				}

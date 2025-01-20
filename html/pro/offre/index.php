@@ -90,7 +90,7 @@ session_start();
         header('location: /pro/404');
         exit();
     }
-    
+
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -98,7 +98,7 @@ session_start();
         header('location: /pro/404');
         exit();
     }
-    
+
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php'; ?>
 
     <!-- Inclusion du header -->
@@ -359,13 +359,13 @@ session_start();
                         </div>
                         <?php
                         // Moyenne des notes quand il y en a une
-                        if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) { 
-                            $n = $moyenne?>
+                        if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
+                            $n = $moyenne ?>
                             <div class="flex gap-1">
                                 <div class="flex gap-1 shrink-0">
                                     <?php for ($i = 0; $i < 5; $i++) {
                                         if ($n >= 1) {
-                                            ?>
+                                    ?>
                                             <img class="w-4" src="/public/icones/egg-full.svg" alt="1 point de note">
                                         <?php
                                         } else if ($n > 0) {
@@ -381,7 +381,7 @@ session_start();
                                     }
                                     ?>
                                 </div>
-                                <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p>
+                                <p class='text-small italic flex items-center'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
                             </div>
                         <?php
                         }
@@ -694,13 +694,13 @@ session_start();
                             <h3 class="text-h4 pt-2">Avis</h3>
                             <?php
                             // Moyenne des notes quand il y en a une
-                            if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) { 
-                                $n = $moyenne?>
+                            if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
+                                $n = $moyenne ?>
                                 <div class="flex gap-1">
                                     <div class="flex gap-1 shrink-0">
                                         <?php for ($i = 0; $i < 5; $i++) {
                                             if ($n >= 1) {
-                                                ?>
+                                        ?>
                                                 <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
                                             <?php
                                             } else if ($n > 0) {
@@ -716,7 +716,7 @@ session_start();
                                         }
                                         ?>
                                     </div>
-                                    <p class='text-small flex items-center'>(<?php echo $nb_avis ?>)</p>
+                                    <p class='text-small flex items-center'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
                                 </div>
                             <?php
                             }

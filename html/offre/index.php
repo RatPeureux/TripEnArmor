@@ -366,7 +366,7 @@ session_start();
                                 <div class="flex gap-1 shrink-0">
                                     <?php for ($i = 0; $i < 5; $i++) {
                                         if ($n >= 1) {
-                                            ?>
+                                    ?>
                                             <img class="w-4" src="/public/icones/egg-full.svg" alt="1 point de note">
                                             <?php
                                         } else if ($n > 0) {
@@ -382,7 +382,7 @@ session_start();
                                     }
                                     ?>
                                 </div>
-                                <p class='text-small flex pt-1 items-center'>(<?php echo $nb_avis ?>)</p>
+                                <p class='text-small flex pt-1 items-center'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
                             </div>
                             <?php
                         }
@@ -686,7 +686,6 @@ session_start();
                                 <?php
                             }
                             ?>
-
                         </div>
                     </div>
                     <!-- Partie avis -->
@@ -701,7 +700,7 @@ session_start();
                                     <div class="flex gap-1 shrink-0">
                                         <?php for ($i = 0; $i < 5; $i++) {
                                             if ($n >= 1) {
-                                                ?>
+                                        ?>
                                                 <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
                                                 <?php
                                             } else if ($n > 0) {
@@ -717,7 +716,7 @@ session_start();
                                         }
                                         ?>
                                     </div>
-                                    <p class='text-small flex items-center'>(<?php echo $nb_avis ?>)</p>
+                                    <p class='text-small flex items-center'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
                                 </div>
                                 <?php
                             }
