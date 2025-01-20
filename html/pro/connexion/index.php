@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <img src="/public/icones/logo.svg" alt="moine" width="108">
             </a>
             
-            <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se connecter à la PACT Pro</h2>
+            <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se connecter à la PACT PRO</h2>
 
             <form class="bg-white w-full p-5 border-2 border-secondary" action="" method="POST">
                 <!-- Champ pour l'identifiant -->
