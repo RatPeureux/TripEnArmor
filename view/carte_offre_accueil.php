@@ -80,7 +80,7 @@ foreach ($horaires as $jour => $horaire) {
 	<div class='hidden xl:block w-max h-full relative bg-base100 flex flex-col group'>
 		<!-- En-tête -->
 		<div
-			class='en-tete absolute opacity-0 top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 group-hover:opacity-100 duration-200'>
+			class='en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 duration-200'>
 			<h3 class='text-xl text-center  mb-2'>
 				<?php echo $titre_offre; ?>
 			</h3>
