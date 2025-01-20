@@ -361,13 +361,6 @@ $pro = verifyPro();
 		<!-- Conteneur principal pour le contenu -->
 		<div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">
 
-			<div id="menu-pro">
-				<?php
-				$pagination = 2;
-				require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
-				?>
-			</div>
-
 			<div class="w-full">
 				<!-- Inclusion du header -->
 				<?php

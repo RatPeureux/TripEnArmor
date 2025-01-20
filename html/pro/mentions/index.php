@@ -27,12 +27,6 @@ $pro = verifyPro(); ?>
 
 <body class="min-h-screen flex flex-col justify-between">
 
-    <div id="menu-pro">
-        <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
-        ?>
-    </div>
-
     <!-- Inclusion du header -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';

@@ -34,14 +34,6 @@ if (!function_exists('chaineVersMot')) {
 
 <body class="flex flex-col min-h-screen">
 
-    <!-- Inclusion du menu -->
-    <div id="menu-pro">
-        <?php
-        $pagination = 1;
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
-        ?>
-    </div>
-
     <!-- Inclusion du header -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
