@@ -786,10 +786,6 @@ video {
   margin: auto;
 }
 
-.m-8 {
-  margin: 2rem;
-}
-
 .mx-10 {
   margin-left: 2.5rem;
   margin-right: 2.5rem;
@@ -830,11 +826,6 @@ video {
   margin-bottom: 1.25rem;
 }
 
-.my-8 {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
 .mb-0 {
   margin-bottom: 0px;
 }
@@ -873,6 +864,10 @@ video {
 
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.ml-1 {
+  margin-left: 0.25rem;
 }
 
 .ml-8 {
@@ -935,8 +930,12 @@ video {
   margin-left: 0.5rem;
 }
 
-.ml-1 {
-  margin-left: 0.25rem;
+.ml-4 {
+  margin-left: 1rem;
+}
+
+.ml-10 {
+  margin-left: 2.5rem;
 }
 
 .line-clamp-1 {
@@ -1186,10 +1185,6 @@ video {
 .w-min {
   width: -moz-min-content;
   width: min-content;
-}
-
-.w-\[30px\] {
-  width: 30px;
 }
 
 .min-w-16 {
@@ -1620,10 +1615,6 @@ video {
   border-radius: 9999px;
 }
 
-.rounded {
-  border-radius: 0.25rem;
-}
-
 .border {
   border-width: 1px;
 }
@@ -1753,6 +1744,11 @@ video {
   background-color: rgb(242 119 27 / var(--tw-bg-opacity));
 }
 
+.bg-rouge-logo {
+  --tw-bg-opacity: 1;
+  background-color: rgb(234 67 53 / var(--tw-bg-opacity));
+}
+
 .bg-secondary {
   --tw-bg-opacity: 1;
   background-color: rgb(10 0 53 / var(--tw-bg-opacity));
@@ -1770,11 +1766,6 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-rouge-logo {
-  --tw-bg-opacity: 1;
-  background-color: rgb(234 67 53 / var(--tw-bg-opacity));
 }
 
 .fill-\[\#070\] {
@@ -1964,11 +1955,6 @@ video {
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
-}
-
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
 }
 
 .text-7xl {
@@ -2463,10 +2449,6 @@ input[type="checkbox"]:checked:before {
   cursor: pointer;
 }
 
-.hover\:border-2:hover {
-  border-width: 2px;
-}
-
 .hover\:border-orange-600:hover {
   --tw-border-opacity: 1;
   border-color: rgb(234 88 12 / var(--tw-border-opacity));
@@ -2519,21 +2501,17 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-secondary\/90:hover {
-  background-color: rgb(10 0 53 / 0.9);
-}
-
 .hover\:bg-rouge-logo\/90:hover {
   background-color: rgb(234 67 53 / 0.9);
-}
-
-.hover\:bg-white\/90:hover {
-  background-color: rgb(255 255 255 / 0.9);
 }
 
 .hover\:bg-secondary:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(10 0 53 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-secondary\/90:hover {
+  background-color: rgb(10 0 53 / 0.9);
 }
 
 .hover\:fill-\[\#070\]:hover {
@@ -2804,10 +2782,6 @@ input[type="checkbox"]:checked:before {
 @media (min-width: 1536px) {
   .\32xl\:flex-row {
     flex-direction: row;
-  }
-
-  .\32xl\:flex-col {
-    flex-direction: column;
   }
 
   .\32xl\:items-start {
