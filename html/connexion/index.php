@@ -23,7 +23,7 @@ if (empty($_POST)) { ?>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="icon" type="image" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/style.css">
+        <link rel="stylesheet" href="/styles/style.css">
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
         <title>Connexion au compte - PACT</title>
@@ -37,17 +37,8 @@ if (empty($_POST)) { ?>
                     <img src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
 
-                <?php if (isset($_SERVER['HTTP_REFERER'])) {
-                    $previous_url = $_SERVER['HTTP_REFERER'];
-                    
-                    // Vérifiez si l'URL contient "offres" ou "détails"
-                    if (strpos($previous_url, 'offre') && strpos($previous_url, 'détails')) { ?>
-                        <h2 class="mx-auto text-center text-h2 pt-4 my-4">Connecter-vous pour émettre un avis</h2>
-                    <?php } else { ?>
-                        <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se connecter à la PACT</h2>
-                    <?php }
-                } ?>
-                
+                <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se connecter à la PACT</h2>
+
                 <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST">
 
                     <!-- Champ pour l'identifiant -->
@@ -75,7 +66,7 @@ if (empty($_POST)) { ?>
 
                     <!-- Bouton de connexion -->
                     <input type="submit" value="Me connecter"
-                        class="cursor-pointer w-full h-12 my-1.5 bg-primary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+                        class="cursor-pointer w-full text-small py-2 px-4 rounded-full h-12 my-1.5 bg-primary text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
 
                     <!-- Liens pour mot de passe oublié et création de compte -->
                     <div class="flex items-center flex-nowrap h-12 space-x-1.5">
@@ -84,7 +75,7 @@ if (empty($_POST)) { ?>
                             Mot de passe oublié ?
                         </a>
                         <a href="/inscription"
-                            class="text-small text-center w-full h-full p-1 text-wrap bg-transparent text-primary   inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
+                            class="text-small py-2 px-4 rounded-full text-center w-full h-full p-1 text-wrap bg-transparent text-primary   inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
                             Créer un compte
                         </a>
                     </div>

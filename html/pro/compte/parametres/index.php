@@ -136,24 +136,24 @@ if ($pro['data']['id_rib'] != null) {
 
             <hr class="mb-8">
 
-            <p class="text-h1 mb-4">Informations privées</p>
+            <p class="text-h2 mb-4">Informations privées</p>
 
             <form action="" class="flex flex-col" method="post">
 
-                <label class="text-h3" for="email">Adresse mail</label>
+                <label class="text-h4" for="email">Adresse mail</label>
                 <input value="<?php echo $pro['email'] ?>" title="L'adresse mail doit comporter un '@' et un '.'"
                     placeholder="exemple@gmail.com"
-                    class="border-2 border-secondary p-2 bg-white w-full h-12 mb-3 " type="email" id="email"
+                    class="border text-small border-secondary p-2 bg-white w-full h-12 mb-3 " type="email" id="email"
                     name="email">
 
-                <label class="text-h3" for="num_tel">Numéro de téléphone</label>
+                <label class="text-h4" for="num_tel">Numéro de téléphone</label>
                 <input value="<?php echo $pro['tel'] ?>" pattern="^0\d( \d{2}){4}"
-                    class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 " id="num_tel"
+                    class="border text-small border-secondary p-2 bg-white max-w-36 h-12 mb-3 " id="num_tel"
                     name="num_tel" title="Le numéro doit commencer par un 0 et comporter 10 chiffres"
                     placeholder="01 23 45 67 89">
 
                 <input type="submit" id="save1" value="Enregistrer les modifications"
-                    class="self-end opacity-50 max-w-sm h-12 mb-8 px-4  text-small text-white bg-primary  border border-transparent"
+                    class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                     disabled>
                 </input>
             </form>
@@ -163,15 +163,15 @@ if ($pro['data']['id_rib'] != null) {
                 <hr class="mb-8">
                 <form action="" class="flex flex-col" method="post">
 
-                    <label class="text-h3" for="iban">IBAN</label>
+                    <label class="text-h4" for="iban">IBAN</label>
                     <input value="<?php if (isset($rib) && $rib != null) {
                         echo extraireIbanDepuisRib($rib);
-                    } ?>" class="border-2 border-secondary p-2 bg-white max-w-80 h-12 mb-3 " type="text"
+                    } ?>" class="border text-small border-secondary p-2 bg-white max-w-80 h-12 mb-3 " type="text"
                         id="iban" name="iban" pattern="^(FR)\d{2}( \d{4}){5} \d{3}$"
                         placeholder="FRXX XXXX XXXX XXXX XXXX XXXX XXX" title="Format : FRXX XXXX XXXX XXXX XXXX XXXX XXX ">
 
                     <input type="submit" id="save2" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4  text-small text-white bg-primary  border border-transparent"
+                        class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
                     </input>
                 </form>
@@ -180,14 +180,14 @@ if ($pro['data']['id_rib'] != null) {
 
                 <form action="" class="flex flex-col" method="post">
 
-                    <label class="text-h3" for="num_siren">Numéro SIRET</label>
+                    <label class="text-h4" for="num_siren">Numéro SIRET</label>
                     <input id="num_siren" name="num_siren" pattern="^\d{3} \d{3} \d{3} \d{5}$"
                         title="Le numéro SIRET doit être composé de 14 chiffres" placeholder="Ex: 12345678901234"
                         value="<?php echo $pro['data']['numero_siren'] ?>"
-                        class="border-2 border-secondary p-2 bg-white max-w-44 h-12 mb-3 ">
+                        class="border text-small border-secondary p-2 bg-white max-w-44 h-12 mb-3 ">
 
                     <input type="submit" id="save3" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4  text-small text-white bg-primary  border border-transparent"
+                        class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
                     </input>
 
@@ -198,13 +198,13 @@ if ($pro['data']['id_rib'] != null) {
                 ?>
                 <hr class="mb-8">
                 <form action="" class="flex flex-col" method="post">
-                    <label class="text-h3" for="type_orga">Type d'organisation</label>
+                    <label class="text-h4" for="type_orga">Type d'organisation</label>
                     <input value="<?php echo $pro['data']['type_orga'] ?>"
-                        class="border-2 border-secondary p-2 bg-white max-w-36 h-12 mb-3 " type="text"
+                        class="border text-small border-secondary p-2 bg-white max-w-36 h-12 mb-3 " type="text"
                         id="type_orga" name="type_orga">
 
                     <input type="submit" id="save4" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm h-12 mb-8 px-4  text-small text-white bg-primary  border border-transparent"
+                        class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
                     </input>
                 </form>
