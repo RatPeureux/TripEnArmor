@@ -164,7 +164,7 @@ if (!function_exists('chaineVersMot')) {
                 <div class="flex items-center gap-4">
                     <h1 class="text-h1">Mes offres</h1>
                     <!-- Bouton de création d'offre -->
-                    <a href="/pro/offre/creer" class="self-center bg-primary text-white py-2 px-4 rounded-full inline-flex items-center border border-primary hover:text-white hover:bg-primary/90 hover:border-primary/90 
+                    <a href="/pro/offre/creer" class="self-center bg-primary text-small text-white py-2 px-4 rounded-full inline-flex items-center border border-primary hover:text-white hover:bg-primary/90 hover:border-primary/90 
                     focus:scale-[0.97] <?php
                     if (!$toutesMesOffres) {
                         echo "hidden";

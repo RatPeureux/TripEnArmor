@@ -73,9 +73,10 @@ session_start();
             </a>
 
             <!-- Menu -->
-            <div class="flex items-center justify-center text-small hidden md:block">
-                <a class="p-2 hover:bg-base100 border-r border-base100" href="/offres/a-la-une">À la Une</a>
-                <a class="p-2 hover:bg-base100 " href="/offres">Toutes les offres</a>
+            <div class="md:flex items-center justify-center text-small hidden">
+                <a class="px-4 py-3 hover:bg-base100" href="/offres/a-la-une">À la Une</a>
+                <hr class="self-stretch border border-base100">
+                <a class="px-4 py-3 hover:bg-base100 " href="/offres">Toutes les offres</a>
             </div>
         </div>
 
