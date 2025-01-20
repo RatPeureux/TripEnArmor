@@ -14,12 +14,17 @@ if ($avis && count($avis) !== 0) {
             <!-- lien vers l'offre -->
             <a href='/scripts/go_to_details_pro.php?id_offre=<?php echo $avi['id_offre'] ?>'>
                 <div class="w-full flex justify-between items-center">
-                    <h3 class="text-gray-600"><span class="text-black"><?php echo $avi['titre']; ?></span> posté par
-                        <span
-                            class="text-black"><?php echo $membreController->getInfosMembre($avi['id_membre'])['pseudo']; ?></span>
-                        Le <span class="text-black">
-                            <?php echo (new DateTime($avi['date_publication']))->format('d/m/Y'); ?></span>
-                    </h3>
+                    <div class="flex items-center space-x-1">
+                        <p class="text-black text-h4"><?php echo $avi['titre']; ?></p>
+                        <p class="text-gray-600 texxt-small ">posté par</p>
+                        <p class="text-black text-small">
+                            <?php echo $membreController->getInfosMembre($avi['id_membre'])['pseudo']; ?>
+                        </p>
+                        <p class="text-small text-gray-600">Le</p>
+                        <p class="text-black text-small">
+                            <?php echo (new DateTime($avi['date_publication']))->format('d/m/Y'); ?>
+                        </p>
+                    </div>
                     <div class="flex justify-end">
                         <?php
                         // Note s'il y en a une
@@ -43,8 +48,8 @@ if ($avis && count($avis) !== 0) {
                         ?>
                     </div>
                 </div>
-                <p>Vécu le <?php echo (new DateTime($avi['date_experience']))->format('d/m/Y'); ?></p>
-                <p>
+                <p class="text-small">Vécu le <?php echo (new DateTime($avi['date_experience']))->format('d/m/Y'); ?></p>
+                <p class="text-small">
                     <?php
                     echo $avi['commentaire']
                     ?>
@@ -57,7 +62,7 @@ if ($avis && count($avis) !== 0) {
 } else {
     ?>
     <div class="h-full p-2">
-        <p class="text-xl text-center">
+        <p class="text-h3 text-center">
             Vous n'avez aucune nouvelle notification.
         </p>
     </div>
