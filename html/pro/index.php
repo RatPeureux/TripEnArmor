@@ -166,12 +166,12 @@ if (!function_exists('chaineVersMot')) {
                 </div>
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
-                <div class="hidden md:flex justify-center items-center gap-4">
+                <div class="hidden md:flex justify-center items-center gap-8">
                     <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
                         <i class="text xl fa-solid fa-filter"></i>
                         <p>Filtrer</p>
                     </a>
-                    <p class="font-thin text-xl text-base200">|</p>
+
                     <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
                         <i class="text xl fa-solid fa-sort"></i>
                         <p>Trier par</p>
