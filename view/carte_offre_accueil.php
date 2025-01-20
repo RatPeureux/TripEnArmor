@@ -89,29 +89,29 @@ foreach ($horaires as $jour => $horaire) {
 				// Moyenne des notes quand il y en a une
 				if (0 <= $moyenne && $moyenne <= 5) {
 					$n = $moyenne;
-					?>
+				?>
 					<div class="note flex gap-1.5 flex-wrap" title="<?php echo $moyenne; ?>">
 						<?php for ($i = 0; $i < 5; $i++) {
 							if ($n >= 1) {
-								?>
+						?>
 								<img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
-								<?php
+							<?php
 							} else if ($n > 0) {
-								?>
-									<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-								<?php
+							?>
+								<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+							<?php
 							} else {
-								?>
-									<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-								<?php
+							?>
+								<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
+						<?php
 							}
 							$n--;
 						}
 						?>
 					</div>
-					<?php
-				} else { 
-					?>
+				<?php
+				} else {
+				?>
 					<p class='text-lg'><?php echo $pro['nom_pro'] ?></p>
 				<?php } ?>
 				<p class='text-lg categorie'><?php echo chaineVersMot($categorie_offre) ?></p>
@@ -124,10 +124,10 @@ foreach ($horaires as $jour => $horaire) {
 		$images = $controllerImage->getImagesOfOffre($id_offre);
 		?>
 		<img class="h-[27rem] w-full object-cover" src='/public/images/<?php if ($images['carte']) {
-																						echo "offres/" . $images['carte'];
-																					} else {
-																						echo $categorie_offre . '.jpg';
-																					} ?>' alt="Image promotionnelle de l'offre">
+																			echo "offres/" . $images['carte'];
+																		} else {
+																			echo $categorie_offre . '.jpg';
+																		} ?>' alt="Image promotionnelle de l'offre">
 	</div>
 
 	<!-- CARTE VERSION TÉLÉPHONE -->
@@ -143,28 +143,28 @@ foreach ($horaires as $jour => $horaire) {
 				// Moyenne des notes quand il y en a une
 				if (0 <= $moyenne && $moyenne <= 5) {
 					$n = $moyenne;
-					?>
+				?>
 					<div class="note flex gap-1.5 flex-wrap" title="<?php echo $moyenne; ?>">
 						<?php for ($i = 0; $i < 5; $i++) {
 							if ($n >= 1) {
-								?>
+						?>
 								<img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
-								<?php
+							<?php
 							} else if ($n > 0) {
-								?>
-									<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-								<?php
+							?>
+								<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+							<?php
 							} else {
-								?>
-									<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-								<?php
+							?>
+								<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
+						<?php
 							}
 							$n--;
 						}
 						?>
-						<!-- <p class='text-small italic flex items-center'>(<?php echo $nb_avis ?>)</p> -->
+						<!-- <p class='text-small italic flex items-center'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p> -->
 					</div>
-					<?php
+				<?php
 				} else { ?>
 					<p class='text-lg '><?php echo $pro['nom_pro'] ?></p>
 				<?php } ?>
@@ -178,9 +178,9 @@ foreach ($horaires as $jour => $horaire) {
 		$images = $controllerImage->getImagesOfOffre($id_offre);
 		?>
 		<img class="h-72 w-full  object-cover" src='/public/images/<?php if ($images['carte']) {
-																				echo "offres/" . $images['carte'];
-																			} else {
-																				echo $categorie_offre . '.jpg';
-																			} ?>' alt="Image promotionnelle de l'offre">
+																		echo "offres/" . $images['carte'];
+																	} else {
+																		echo $categorie_offre . '.jpg';
+																	} ?>' alt="Image promotionnelle de l'offre">
 	</div>
 </a>

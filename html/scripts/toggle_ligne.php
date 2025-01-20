@@ -34,7 +34,6 @@ if (isset($_GET['id_offre'])) {
 
     // Ajouter ou modifier une ligne de la table _periodes_en_ligne pour garder un historique
     // Si l'offre passe en ligne, créer une nouvelle période
-
     if ($next_valeur_en_ligne == 'true') {
         $last_date_fin = $periodes_en_ligne_controller->getLastDateFinByIdOffre($id_offre);
 

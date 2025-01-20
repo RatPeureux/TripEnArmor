@@ -59,10 +59,10 @@ SELECT
     type_offre,
     prix_ht,
     -- Calcul du prix total HT (duree * prix_ht)
-    ROUND(((COALESCE(date_fin, CURRENT_DATE) - date_debut + 1) * prix_ht)::NUMERIC, 2) AS prix_ht_total,
+    ROUND(((COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) - date_debut + 1) * prix_ht)::NUMERIC, 2) AS prix_ht_total,
     prix_ttc,
     -- Calcul du prix total TTC (duree * prix_ttc)
-	ROUND(((COALESCE(date_fin, CURRENT_DATE) - date_debut + 1) * prix_ttc)::NUMERIC, 2) AS prix_ttc_total,
+	ROUND(((COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) - date_debut + 1) * prix_ttc)::NUMERIC, 2) AS prix_ttc_total,
     -- Calcul de la TVA (arrondi à 2 décimales)
     ROUND(((prix_ttc::NUMERIC / prix_ht::NUMERIC) - 1), 2) * 100 AS tva,
     -- Si date_debut est antérieure à date_fin et dans un mois différent, on remplace par le 1er jour du mois de date_fin
@@ -73,9 +73,9 @@ SELECT
         THEN DATE_TRUNC('MONTH', CURRENT_DATE)::DATE
         ELSE date_debut
     END AS date_debut,
-    COALESCE(date_fin, CURRENT_DATE) AS date_fin,
+	COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) AS date_fin,
     -- Calcul de la durée (nombre de jours entre date_debut et date_fin)
-    COALESCE(date_fin, CURRENT_DATE) - date_debut + 1 AS duree
+    COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) - date_debut + 1 AS duree
 FROM 
     _periodes_en_ligne
 WHERE
