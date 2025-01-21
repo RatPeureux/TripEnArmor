@@ -69,18 +69,14 @@ session_start();
         <div class="flex items-center justify-between md:gap-4">
             <!-- Logo -->
             <a href="/" class="flex items-center gap-2">
-                <img src="/public/icones/logo.svg" alt="Logo" width="50" class="block">
+                <img src="/public/icones/logo.svg" alt="Logo" width="50">
             </a>
         </div>
 
-            <!-- Menu -->
-            <div class="md:flex items-center justify-center text-small hidden">
-                <a class="px-4 py-3 hover:bg-base100" href="/offres/a-la-une">À la Une</a>
-                <div class="border border-base100">
-
-                </div>
-                <a class="px-4 py-3 hover:bg-base100 " href="/offres">Toutes les offres</a>
-            </div>
+        <!-- Menu -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-small">
+            <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la Une</a>
+            <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
         </div>
 
         <!-- Menu -->
@@ -162,16 +158,16 @@ session_start();
         </div>
 
         <!-- Barre de recherche -->
-        <div class="relative flex-1 max-w-full mx-2 mb-8">
+        <div class="relative flex-2 min-w-[30em] mx-2 mb-8">
             <div class="relative flex items-center">
                 <input type="text" id="search-field" placeholder="Rechercher par tags..."
-                    class="w-full border border-primary p-2  h-12 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                    class="rounded-full w-full border border-primary p-2  h-12 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
                     aria-label="Recherche" autocomplete="off">
                 <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">
                     <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
                 </div>
                 <!-- Bouton de suppression -->
-                <button class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white  px-2 py-1"
+                <button class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white px-2 py-1"
                     id="clear-tags-btn">
                     <i class="text-xl fa-solid fa-times cursor-pointer"></i>
                 </button>
