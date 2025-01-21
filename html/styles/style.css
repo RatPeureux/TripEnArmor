@@ -786,6 +786,10 @@ video {
   margin: auto;
 }
 
+.m-2 {
+  margin: 0.5rem;
+}
+
 .mx-10 {
   margin-left: 2.5rem;
   margin-right: 2.5rem;
@@ -928,6 +932,10 @@ video {
 
 .mt-6 {
   margin-top: 1.5rem;
+}
+
+.mb-16 {
+  margin-bottom: 4rem;
 }
 
 .line-clamp-1 {
@@ -1183,6 +1191,10 @@ video {
   min-width: 13rem;
 }
 
+.min-w-\[30em\] {
+  min-width: 30em;
+}
+
 .min-w-\[450px\] {
   min-width: 450px;
 }
@@ -1194,14 +1206,6 @@ video {
 .min-w-max {
   min-width: -moz-max-content;
   min-width: max-content;
-}
-
-.min-w-96 {
-  min-width: 24rem;
-}
-
-.min-w-\[30em\] {
-  min-width: 30em;
 }
 
 .max-w-32 {
@@ -1266,6 +1270,10 @@ video {
 
 .max-w-sm {
   max-width: 24rem;
+}
+
+.max-w-\[30em\] {
+  max-width: 30em;
 }
 
 .flex-1 {
@@ -1976,22 +1984,6 @@ video {
   line-height: 1.5rem;
 }
 
-.text-h1 {
-  font-size: 32px;
-}
-
-.text-h2 {
-  font-size: 24px;
-}
-
-.text-h3 {
-  font-size: 20px;
-}
-
-.text-h4 {
-  font-size: 18px;
-}
-
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -2000,10 +1992,6 @@ video {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-.text-small {
-  font-size: 14px;
 }
 
 .text-xl {
@@ -2042,11 +2030,6 @@ video {
 .\!text-white {
   --tw-text-opacity: 1 !important;
   color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
-}
-
-.text-base200 {
-  --tw-text-opacity: 1;
-  color: rgb(224 224 224 / var(--tw-text-opacity));
 }
 
 .text-black {
@@ -2353,8 +2336,9 @@ input[type="checkbox"]:checked:before {
   padding-bottom: 0.75rem;
 }
 
-.file\:text-small::file-selector-button {
-  font-size: 14px;
+.file\:text-sm::file-selector-button {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .file\:font-bold::file-selector-button {

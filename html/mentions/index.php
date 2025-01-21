@@ -36,9 +36,9 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         </div>
 
         <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:">
-            <p class="text-h1">Mentions Légales</p>
+            <p class="text-3xl">Mentions Légales</p>
 
-            <p class="text-h2 underline">Éditeur du Site</p>
+            <p class="text-2xl underline">Éditeur du Site</p>
             <p>
                 <strong>Nom du site :</strong> PACT<br>
                 <strong>Nom de l'éditeur :</strong> FNOC<br>
@@ -48,7 +48,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 <strong>RCS :</strong> 123 456 789 RCS FORT-DE-FRANCE
             </p>
 
-            <p class="text-h2 underline">Hébergement</p>
+            <p class="text-2xl underline">Hébergement</p>
             <p>
                 Le site est hébergé par :<br>
                 <strong>Nom de l’hébergeur :</strong> Vents d'ouest<br>
@@ -56,20 +56,20 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 <strong>Contact :</strong> gildas@bigpapooXXX.com
             </p>
 
-            <p class="text-h2 underline">Directeur de la Publication</p>
+            <p class="text-2xl underline">Directeur de la Publication</p>
             <p>
                 <strong>Nom :</strong> Léo Bléas<br>
                 <strong>Contact :</strong> leobleas@gmail.com
             </p>
 
-            <p class="text-h2 underline">Propriété Intellectuelle</p>
+            <p class="text-2xl underline">Propriété Intellectuelle</p>
             <p>
                 Tous les contenus présents sur ce site (textes, images, vidéos, logos, etc.) sont protégés par le droit
                 de la propriété intellectuelle.
                 Toute reproduction ou utilisation non autorisée est interdite.
             </p>
 
-            <p class="text-h2 underline">Données Personnelles et RGPD</p>
+            <p class="text-2xl underline">Données Personnelles et RGPD</p>
             <p>
                 Conformément au RGPD, les données collectées via ce site sont utilisées uniquement dans le cadre de son
                 fonctionnement.
@@ -77,13 +77,13 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 pour en savoir plus.
             </p>
 
-            <p class="text-h2 underline">Cookies</p>
+            <p class="text-2xl underline">Cookies</p>
             <p>
                 Ce site utilise des cookies obligatoires pour améliorer l'expérience utilisateur. Vous pouvez gérer vos
                 préférences en matière de cookies via la bannière dédiée affichée lors de votre première visite.
             </p>
 
-            <p class="text-h2 underline">Loi Applicable et Juridiction</p>
+            <p class="text-2xl underline">Loi Applicable et Juridiction</p>
             <p>
                 Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux
                 compétents seront ceux du ressort de Lannion.

@@ -74,19 +74,14 @@ session_start();
         </div>
 
         <!-- Menu -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-small">
-            <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la Une</a>
+        <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
+            <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la
+                Une</a>
             <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
         </div>
 
-        <!-- Menu -->
-        <div class="flex items-center justify-center text-small md:hidden">
-
-            <a class="p-2 hover:bg-base100 border-r border-base100" href="/offres/a-la-une">À la Une</a>
-            <a class="p-2 hover:bg-base100 " href="/offres">Toutes les offres</a>
-        </div>
         <!-- Actions Utilisateur -->
-        <div class="flex items-center text-small gap-4">
+        <div class="flex items-center text-sm gap-4">
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsMember()) { ?>
@@ -125,28 +120,28 @@ session_start();
         </div>
 
         <div class="searchOn hidden md:flex justify-between text-center items-center mb-2">
-            <h1 class="cursor-pointer text-h3 border-b border-secondary hover:text-secondary" id="all">
+            <h1 class="cursor-pointer text-xl border-b border-secondary hover:text-secondary" id="all">
                 Tout rechercher
             </h1>
-            <h1 class="cursor-pointer text-h3 hover:text-secondary" id="restaurants">
+            <h1 class="cursor-pointer text-xl hover:text-secondary" id="restaurants">
                 Restaurants
             </h1>
-            <h1 class="cursor-pointer text-h3 hover:text-secondary" id="spectacles">
+            <h1 class="cursor-pointer text-xl hover:text-secondary" id="spectacles">
                 Spectacles
             </h1>
-            <h1 class="cursor-pointer text-h3 hover:text-secondary" id="activites">
+            <h1 class="cursor-pointer text-xl hover:text-secondary" id="activites">
                 Activités
             </h1>
-            <h1 class="cursor-pointer text-h3 hover:text-secondary" id="visites">
+            <h1 class="cursor-pointer text-xl hover:text-secondary" id="visites">
                 Visites
             </h1>
-            <h1 class="cursor-pointer text-h3 hover:text-secondary" id="attractions">
+            <h1 class="cursor-pointer text-xl hover:text-secondary" id="attractions">
                 Attractions
             </h1>
         </div>
 
         <div class="searchOn text-center md:hidden mb-2">
-            <select class="text-center text-h3 bg-white border-b border-secondary p-1 cursor-pointer focus:outline-none"
+            <select class="text-center text-xl bg-white border-b border-secondary p-1 cursor-pointer focus:outline-none"
                 id="search-category">
                 <option class="text-left" value="all">Tout rechercher</option>
                 <option class="text-left" value="restaurants">Restaurants</option>
@@ -158,7 +153,7 @@ session_start();
         </div>
 
         <!-- Barre de recherche -->
-        <div class="relative flex-2 min-w-[30em] mx-2 mb-8">
+        <div class="relative flex-2 max-w-full mx-2 mb-8">
             <div class="relative flex items-center">
                 <input type="text" id="search-field" placeholder="Rechercher par tags..."
                     class="rounded-full w-full border border-primary p-2  h-12 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
@@ -179,18 +174,18 @@ session_start();
         </div>
 
         <a class="cursor-pointer group" href="/offres/a-la-une">
-            <h1 class="text-h1 ">À la Une<span
+            <h1 class="text-3xl ">À la Une<span
                     class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
         </a>
 
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$aLaUnes) { ?>
-            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-16">
-                <?php echo "<p class=' text-h2'>Il n'existe aucune offre...</p>"; ?>
+            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
+                <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
-            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-0 md:mb-16" id="no-matches-2">
+            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
                 <?php $i = 0;
                 foreach ($aLaUnes as $offre) {
                     if ($i > -1) {
@@ -201,13 +196,13 @@ session_start();
             </div>
         <?php } ?>
 
-        <h1 class="text-h1 ">Nos meilleures offres</h1>
+        <h1 class="text-3xl ">Nos meilleures offres</h1>
 
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$meilleuresNotes) { ?>
             <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-12">
-                <?php echo "<p class=' text-h2'>Il n'existe aucune offre...</p>"; ?>
+                <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
             </div>
         <?php } else { ?>
             <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-12" id="no-matches">
@@ -355,7 +350,7 @@ session_start();
                 message.id = 'no-matches-message';
                 const content = document.createElement('p');
                 content.textContent = 'Aucune offre n\'est "À la Une".';
-                message.classList.add('flex', 'justify-center', 'items-center', 'text-h2', 'h-[27rem]');
+                message.classList.add('flex', 'justify-center', 'items-center', 'text-2xl', 'h-[27rem]');
                 message.appendChild(content);
                 messageContainer.appendChild(message);
                 noMatchesContainer.appendChild(messageContainer);

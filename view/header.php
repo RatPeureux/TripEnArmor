@@ -50,7 +50,7 @@
                 </a>
                 <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                     onclick="return confirmLogout()">
-                    <div class="text-black text-small border border-secondary px-4 py-2 rounded-full">
+                    <div class="text-black text-sm border border-secondary px-4 py-2 rounded-full">
                         <p class="">Se déconnecter</p>
                     </div>
                 </a>
@@ -61,7 +61,7 @@
                 </a>
                 <a href="/connexion" class="hidden md:block">
                     <div
-                        class="text-white text-small border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
+                        class="text-white text-sm border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
                         <p class="">
                             Se connecter</p>
                     </div>

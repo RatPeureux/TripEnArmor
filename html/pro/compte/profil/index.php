@@ -91,7 +91,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
         <div class="m-auto flex flex-col">
-            <p class="text-h3 p-4">
+            <p class="text-xl p-4">
                 <a href="/pro/compte">Mon compte</a>
                 >
                 <a href="/pro/compte/profil" class="underline">Profil</a>
@@ -99,18 +99,18 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
             <hr class="mb-8">
 
-            <p class="text-h1 mb-4">Informations publiques</p>
+            <p class="text-3xl mb-4">Informations publiques</p>
 
             <form action="" class="flex flex-col" method="post">
-                <label class="text-h3"
+                <label class="text-xl"
                     for="nom"><?php if ($pro['data']['type'] == 'prive') { ?>Dénomination<?php } else { ?>Nom
-                        de l'organisation<?php } ?></label>
+                                de l'organisation<?php } ?></label>
                 <input value="<?php echo $pro['nom_pro'] ?>"
-                    class="border text-small border-secondary p-2 bg-white w-full h-12 mb-3 " type="text" id="nom"
+                    class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 " type="text" id="nom"
                     name="nom">
 
                 <input type="submit" id="save1" value="Enregistrer les modifications"
-                    class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
+                    class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                     disabled>
                 </input>
             </form>
@@ -118,34 +118,34 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
             <hr class="mb-8">
 
             <form action="" class="flex flex-col" method="post">
-                <label class="text-h3" for="adresse">Adresse postale</label>
+                <label class="text-xl" for="adresse">Adresse postale</label>
                 <input value="<?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] ?>"
-                    class="border text-small border-secondary p-2 bg-white w-full h-12 mb-3 " type="text" id="adresse"
+                    class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 " type="text" id="adresse"
                     name="adresse">
 
-                <label class=" text-h3" for="complement">Complément adresse postale</label>
+                <label class=" text-xl" for="complement">Complément adresse postale</label>
                 <input value="<?php echo $adresse['complement'] ?>"
-                    class="border text-small border-secondary p-2 bg-white w-full h-12 mb-3 " type="text"
-                    id="complement" name="complement">
+                    class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 " type="text" id="complement"
+                    name="complement">
 
                 <div class=" flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-32">
-                        <label class="text-h3" for="postal_code">Code postal</label>
+                        <label class="text-xl" for="postal_code">Code postal</label>
                         <input id="postal_code" name="postal_code" value="<?php echo $adresse['code_postal'] ?>"
-                            class="border text-small border-secondary p-2 text-right bg-white max-w-32 h-12 mb-3 "
+                            class="border text-sm border-secondary p-2 text-right bg-white max-w-32 h-12 mb-3 "
                             pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345">
                     </div>
                     <div class="w-full">
-                        <label class="text-h3" for="locality">Ville</label>
+                        <label class="text-xl" for="locality">Ville</label>
                         <input id="locality" name="locality" value="<?php echo $adresse['ville'] ?>"
-                            class="border text-small border-secondary p-2 bg-white w-full h-12 mb-3 "
+                            class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
                             title="Saisir votre ville" placeholder="Rennes">
                     </div>
                 </div>
 
                 <input type="submit" id="save2" value="Enregistrer les modifications"
-                    class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
+                    class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                     disabled>
                 </input>
             </form>
@@ -157,8 +157,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                     class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
                     <i class="w-[50px] text-center text-4xl fa-solid fa-egg"></i>
                     <div class="w-full">
-                        <p class="text-h4">Avis</p>
-                        <p class="text-small">Consulter l’ensemble des avis sur mes offres de la PACT.</p>
+                        <p class="text-lg">Avis</p>
+                        <p class="text-sm">Consulter l’ensemble des avis sur mes offres de la PACT.</p>
                     </div>
                 </a>
             </div>

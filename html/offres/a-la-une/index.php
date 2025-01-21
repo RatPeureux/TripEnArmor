@@ -75,7 +75,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 if (is_null($b['note_moyenne'])) {
                     return -1;
                 }
-            
+
                 return $a['note_moyenne'] <=> $b['note_moyenne'];
             });
 
@@ -92,7 +92,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 if (is_null($b['note_moyenne'])) {
                     return -1;
                 }
-            
+
                 return $b['note_moyenne'] <=> $a['note_moyenne'];
             });
 
@@ -160,7 +160,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
-                    <h1 class="text-h1 ">À la Une</h1>
+                    <h1 class="text-3xl ">À la Une</h1>
 
                     <div class="hidden md:flex gap-4">
                         <a class="self-end flex items-center gap-2 hover:text-primary duration-100"
@@ -179,21 +179,21 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 <?php
                 // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
                 if (!$aLaUnes) { ?>
-                    <div class="md:min-w-full flex flex-col gap-4">
-                        <?php echo "<p class='mt-4  text-h2'>Il n'existe aucune offre...</p>"; ?>
-                    </div>
+                        <div class="md:min-w-full flex flex-col gap-4">
+                            <?php echo "<p class='mt-4  text-2xl'>Il n'existe aucune offre...</p>"; ?>
+                        </div>
                 <?php } else { ?>
-                    <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
-                        <?php $i = 0;
-                        foreach ($aLaUnes as $offre) {
-                            if ($i > -1) {
-                                // Afficher la carte (!!! défnir la variable $mode_carte !!!)
-                                $mode_carte = 'membre';
-                                require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
-                                $i++;
-                            }
-                        } ?>
-                    </div>
+                        <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
+                            <?php $i = 0;
+                            foreach ($aLaUnes as $offre) {
+                                if ($i > -1) {
+                                    // Afficher la carte (!!! défnir la variable $mode_carte !!!)
+                                    $mode_carte = 'membre';
+                                    require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
+                                    $i++;
+                                }
+                            } ?>
+                        </div>
                 <?php } ?>
             </main>
         </div>

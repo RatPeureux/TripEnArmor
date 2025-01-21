@@ -52,7 +52,7 @@ $membre = verifyMember();
             </div>
 
             <div class="flex flex-col md:mx-10 grow">
-                <p class="text-h3 p-4">
+                <p class="text-xl p-4">
                     <a href="/compte">Mon compte</a>
                     >
                     <a href="/compte/profil" class="underline">Profil</a>
@@ -60,17 +60,17 @@ $membre = verifyMember();
 
                 <hr class="mb-8">
 
-                <p class="text-h2 mb-4">Informations publiques</p>
+                <p class="text-2xl mb-4">Informations publiques</p>
 
                 <form action="" class="flex flex-col mb-4" method="post">
 
-                    <label class="text-h4" for="pseudo">Nom d'utilisateur</label>
+                    <label class="text-lg" for="pseudo">Nom d'utilisateur</label>
                     <input value="<?php echo $membre['pseudo'] ?>"
-                        class="border border-secondary p-2 bg-white w-full h-12 mb-3 text-small" type="text" id="pseudo"
+                        class="border border-secondary p-2 bg-white w-full h-12 mb-3 text-sm" type="text" id="pseudo"
                         name="pseudo">
 
                     <input type="submit" id="save" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
+                        class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
                     </input>
                 </form>
@@ -83,8 +83,8 @@ $membre = verifyMember();
                         class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
                         <i class="w-[50px] text-center text-4xl fa-solid fa-egg"></i>
                         <div class="w-full">
-                            <p class="text-h4">Avis</p>
-                            <p class="text-small">Consulter l’ensemble des avis que j’ai postés sur les différentes
+                            <p class="text-lg">Avis</p>
+                            <p class="text-sm">Consulter l’ensemble des avis que j’ai postés sur les différentes
                                 offres
                                 de la PACT.</p>
                         </div>

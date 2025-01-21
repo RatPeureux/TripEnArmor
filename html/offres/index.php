@@ -67,7 +67,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 if (is_null($b['note_moyenne'])) {
                     return -1;
                 }
-            
+
                 return $a['note_moyenne'] <=> $b['note_moyenne'];
             });
 
@@ -84,7 +84,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 if (is_null($b['note_moyenne'])) {
                     return -1;
                 }
-            
+
                 return $b['note_moyenne'] <=> $a['note_moyenne'];
             });
 
@@ -145,14 +145,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 ?>
             </div>
 
-            <main class="grow p-4 md:p-2 flex flex-col md:mx-10 md:">
+            <main class="grow m-2 md:p-2 flex flex-col md:mx-10 md:">
 
                 <!-- Conteneur des tags (!!! RECHERCHE) -->
                 <div class="flex flex-wrap gap-4" id="tags-container"></div>
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
-                    <h1 class="text-h1 ">Toutes les offres</h1>
+                    <h1 class="text-3xl ">Toutes les offres</h1>
 
                     <div class="hidden md:flex gap-4">
                         <a class="self-end flex items-center gap-2 hover:text-primary duration-100"
@@ -172,7 +172,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
                 if (!$toutesLesOffres) { ?>
                     <div class="md:min-w-full flex flex-col gap-4">
-                        <?php echo "<p class='mt-4  text-h2'>Il n'existe aucune offre...</p>"; ?>
+                        <?php echo "<p class='mt-4  text-2xl'>Il n'existe aucune offre...</p>"; ?>
                     </div>
                 <?php } else { ?>
                     <div class="md:min-w-full flex flex-col gap-4" id="no-matches">

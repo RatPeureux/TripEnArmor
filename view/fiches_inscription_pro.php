@@ -3,9 +3,9 @@
     <i onclick="toggleCGU()" class="top-[27px] left-0 absolute fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
     <main class="max-w-[720px] mx-auto h-full gap-4 p-4 md:p-2 flex flex-col overflow-y-scroll">
-        <p class="text-h1">Conditions Générales d'Utilisation (CGU)</p>
+        <p class="text-3xl">Conditions Générales d'Utilisation (CGU)</p>
 
-        <p class="text-h2 underline">Présentation du Site</p>
+        <p class="text-2xl underline">Présentation du Site</p>
         <p>
             <strong>Nom du site :</strong> PACT<br>
             <strong>Propriétaire :</strong> TripEnArvor<br>
@@ -14,37 +14,37 @@
             <strong>Hébergement :</strong> Gildas "Big Papoo" Quignou, Vents d'ouest
         </p>
 
-        <p class="text-h2 underline">Acceptation des CGU</p>
+        <p class="text-2xl underline">Acceptation des CGU</p>
         <p>
             En accédant et en utilisant ce site, vous acceptez pleinement les présentes Conditions Générales
             d'Utilisation.
             Si vous n'êtes pas d'accord, veuillez cesser d'utiliser le site.
         </p>
 
-        <p class="text-h2 underline">Utilisation du Site</p>
+        <p class="text-2xl underline">Utilisation du Site</p>
         <p>
             Le site est accessible gratuitement. Cependant, l’accès peut être suspendu pour maintenance ou en cas de
             force majeure.
         </p>
 
-        <p class="text-h2 underline">Propriété Intellectuelle</p>
+        <p class="text-2xl underline">Propriété Intellectuelle</p>
         <p>
             Tous les contenus présents sur ce site sont protégés par le droit de la propriété intellectuelle. Toute
             utilisation non autorisée est interdite.
         </p>
 
-        <p class="text-h2 underline">Données Personnelles et RGPD</p>
+        <p class="text-2xl underline">Données Personnelles et RGPD</p>
         <p>
             Les données personnelles des utilisateurs sont collectées et traitées conformément à notre <span
                 onclick="versPolitique()" class="underline cursor-pointer">Politique de Confidentialité</span>.
         </p>
 
-        <p class="text-h2 underline">Cookies</p>
+        <p class="text-2xl underline">Cookies</p>
         <p>
             Le site utilise des cookies obligatoires pour améliorer l’expérience utilisateur.
         </p>
 
-        <p class="text-h2 underline">Responsabilités</p>
+        <p class="text-2xl underline">Responsabilités</p>
         <p>
             <strong>Responsabilité de l’éditeur :</strong> Le site décline toute responsabilité en cas d’interruptions
             ou d’erreurs dans les contenus.<br>
@@ -52,25 +52,25 @@
             pas utiliser le site de manière frauduleuse.
         </p>
 
-        <p class="text-h2 underline">Liens Hypertextes</p>
+        <p class="text-2xl underline">Liens Hypertextes</p>
         <p>
             Le site peut contenir des liens vers des sites tiers. Nous ne sommes pas responsables du contenu de ces
             sites.
         </p>
 
-        <p class="text-h2 underline">Modifications des CGU</p>
+        <p class="text-2xl underline">Modifications des CGU</p>
         <p>
             Les présentes CGU peuvent être modifiées à tout moment. Nous encourageons les utilisateurs à les consulter
             régulièrement.
         </p>
 
-        <p class="text-h2 underline">Loi Applicable et Juridiction</p>
+        <p class="text-2xl underline">Loi Applicable et Juridiction</p>
         <p>
             Les présentes CGU sont régies par le droit français. En cas de litige, les tribunaux compétents seront ceux
             du ressort de Lannion.
         </p>
 
-        <p class="text-h2 underline">Finalité du traitement</p>
+        <p class="text-2xl underline">Finalité du traitement</p>
         <p>
             Les finalités du traitement de données sur la PACT pour ses utilisateurs sont :
         <ul class="list-disc list-inside">
@@ -98,9 +98,9 @@
     <i onclick="toggleMentions()" class="top-[27px] left-0 absolute fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
     <main class="max-w-[720px] mx-auto h-full gap-4 p-4 md:p-2 flex flex-col overflow-y-scroll">
-        <p class="text-h1">Mentions Légales</p>
+        <p class="text-3xl">Mentions Légales</p>
 
-        <p class="text-h2 underline">Éditeur du Site</p>
+        <p class="text-2xl underline">Éditeur du Site</p>
         <p>
             <strong>Nom du site :</strong> PACT<br>
             <strong>Nom de l'éditeur :</strong> FNOC<br>
@@ -110,7 +110,7 @@
             <strong>RCS :</strong> 123 456 789 RCS FORT-DE-FRANCE
         </p>
 
-        <p class="text-h2 underline">Hébergement</p>
+        <p class="text-2xl underline">Hébergement</p>
         <p>
             Le site est hébergé par :<br>
             <strong>Nom de l’hébergeur :</strong> Vents d'ouest<br>
@@ -118,20 +118,20 @@
             <strong>Contact :</strong> gildas@bigpapooXXX.com
         </p>
 
-        <p class="text-h2 underline">Directeur de la Publication</p>
+        <p class="text-2xl underline">Directeur de la Publication</p>
         <p>
             <strong>Nom :</strong> Léo Bléas<br>
             <strong>Contact :</strong> leobleas@gmail.com
         </p>
 
-        <p class="text-h2 underline">Propriété Intellectuelle</p>
+        <p class="text-2xl underline">Propriété Intellectuelle</p>
         <p>
             Tous les contenus présents sur ce site (textes, images, vidéos, logos, etc.) sont protégés par le droit de
             la propriété intellectuelle.
             Toute reproduction ou utilisation non autorisée est interdite.
         </p>
 
-        <p class="text-h2 underline">Données Personnelles et RGPD</p>
+        <p class="text-2xl underline">Données Personnelles et RGPD</p>
         <p>
             Conformément au RGPD, les données collectées via ce site sont utilisées uniquement dans le cadre de son
             fonctionnement.
@@ -139,13 +139,13 @@
                 Confidentialité</span> pour en savoir plus.
         </p>
 
-        <p class="text-h2 underline">Cookies</p>
+        <p class="text-2xl underline">Cookies</p>
         <p>
             Ce site utilise des cookies obligatoires pour améliorer l'expérience utilisateur. Vous pouvez gérer vos
             préférences en matière de cookies via la bannière dédiée affichée lors de votre première visite.
         </p>
 
-        <p class="text-h2 underline">Loi Applicable et Juridiction</p>
+        <p class="text-2xl underline">Loi Applicable et Juridiction</p>
         <p>
             Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux compétents
             seront ceux du ressort de Lannion.
@@ -159,9 +159,9 @@
     <i onclick="togglePolitique()" class="top-[27px] left-0 absolute fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
     <main class="max-w-[720px] mx-auto h-full gap-4 p-4 md:p-2 flex flex-col overflow-y-scroll">
-        <p class="text-h1">Politique de Confidentialité et Cookies</p>
+        <p class="text-3xl">Politique de Confidentialité et Cookies</p>
 
-        <p class="text-h2 underline">Introduction</p>
+        <p class="text-2xl underline">Introduction</p>
         <p>
             Cette politique complète nos <span onclick="versCGU()" class="underline cursor-pointer">Conditions Générales
                 d'Utilisation</span> et nos <span onclick="versMentions()" class="underline cursor-pointer">Mentions
@@ -169,7 +169,7 @@
             personnelles et notre gestion des cookies.
         </p>
 
-        <p class="text-h2 underline">Responsable du Traitement</p>
+        <p class="text-2xl underline">Responsable du Traitement</p>
         <p>
             Conformément aux Mentions Légales, le responsable du traitement est :<br>
             <strong>Nom :</strong> FNOC<br>
@@ -177,7 +177,7 @@
             <strong>Contact :</strong> contact@pact.com
         </p>
 
-        <p class="text-h2 underline">Données Collectées : Professionnel</p>
+        <p class="text-2xl underline">Données Collectées : Professionnel</p>
         <p>
             Nous collectons des données personnelles nécessaires au fonctionnement du site, notamment :
         <ul class="list-disc list-inside">
@@ -188,7 +188,7 @@
         </ul>
         </p>
 
-        <p class="text-h2 underline">Finalités et Conservation</p>
+        <p class="text-2xl underline">Finalités et Conservation</p>
         <p>
             Les données sont utilisées conformément à la section « Finalité du traitement » des
             <span onclick="versCGU()" class="underlinecursor-pointer">CGU</span>. La durée de conservation varie selon
@@ -201,7 +201,7 @@
         vos données.
         </p>
 
-        <p class="text-h2 underline">Vos Droits</p>
+        <p class="text-2xl underline">Vos Droits</p>
         <p>
             En tant qu'utilisateur, vous disposez des droits suivants :
         <ul class="list-disc list-inside">
@@ -213,7 +213,7 @@
             class="underline">dpo@pact.com</a>.
         </p>
 
-        <p class="text-h2 underline">Cookies</p>
+        <p class="text-2xl underline">Cookies</p>
         <p>
             Ce site utilise des cookies pour :
         <ul class="list-disc list-inside">
@@ -222,7 +222,7 @@
         Vous pouvez consulter la liste des cookies utilisés ci-dessous.
         </p>
 
-        <p class="text-h2 underline">Liste des Cookies Utilisés</p>
+        <p class="text-2xl underline">Liste des Cookies Utilisés</p>
         <table class="table-auto border-collapse border border-base300 w-full">
             <thead>
                 <tr class="bg-base100">
@@ -242,7 +242,7 @@
             </tbody>
         </table>
 
-        <p class="text-h2 underline">Gestion des Cookies</p>
+        <p class="text-2xl underline">Gestion des Cookies</p>
         <p>
             Vous pouvez gérer vos préférences en matière de cookies :
         <ul class="list-disc list-inside">
@@ -250,7 +250,7 @@
         </ul>
         </p>
 
-        <p class="text-h2 underline">Modifications</p>
+        <p class="text-2xl underline">Modifications</p>
         <p>
             Nous nous réservons le droit de modifier cette politique à tout moment. Les mises à jour seront publiées sur
             cette page.
@@ -273,9 +273,9 @@
     <i onclick="toggleMentions()" class="top-[27px] left-0 absolute fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
     <main class="max-w-[720px] mx-auto h-full gap-4 p-4 md:p-2 flex flex-col overflow-y-scroll">
-        <p class="text-h1">Mentions Légales</p>
+        <p class="text-3xl">Mentions Légales</p>
 
-        <p class="text-h2 underline">Éditeur du Site</p>
+        <p class="text-2xl underline">Éditeur du Site</p>
         <p>
             <strong>Nom du site :</strong> PACT<br>
             <strong>Nom de l'éditeur :</strong> FNOC<br>
@@ -285,7 +285,7 @@
             <strong>RCS :</strong> 123 456 789 RCS FORT-DE-FRANCE
         </p>
 
-        <p class="text-h2 underline">Hébergement</p>
+        <p class="text-2xl underline">Hébergement</p>
         <p>
             Le site est hébergé par :<br>
             <strong>Nom de l’hébergeur :</strong> Vents d'ouest<br>
@@ -293,20 +293,20 @@
             <strong>Contact :</strong> gildas@bigpapooXXX.com
         </p>
 
-        <p class="text-h2 underline">Directeur de la Publication</p>
+        <p class="text-2xl underline">Directeur de la Publication</p>
         <p>
             <strong>Nom :</strong> Léo Bléas<br>
             <strong>Contact :</strong> leobleas@gmail.com
         </p>
 
-        <p class="text-h2 underline">Propriété Intellectuelle</p>
+        <p class="text-2xl underline">Propriété Intellectuelle</p>
         <p>
             Tous les contenus présents sur ce site (textes, images, vidéos, logos, etc.) sont protégés par le droit de
             la propriété intellectuelle.
             Toute reproduction ou utilisation non autorisée est interdite.
         </p>
 
-        <p class="text-h2 underline">Données Personnelles et RGPD</p>
+        <p class="text-2xl underline">Données Personnelles et RGPD</p>
         <p>
             Conformément au RGPD, les données collectées via ce site sont utilisées uniquement dans le cadre de son
             fonctionnement.
@@ -314,13 +314,13 @@
                 Confidentialité</span> pour en savoir plus.
         </p>
 
-        <p class="text-h2 underline">Cookies</p>
+        <p class="text-2xl underline">Cookies</p>
         <p>
             Ce site utilise des cookies obligatoires pour améliorer l'expérience utilisateur. Vous pouvez gérer vos
             préférences en matière de cookies via la bannière dédiée affichée lors de votre première visite.
         </p>
 
-        <p class="text-h2 underline">Loi Applicable et Juridiction</p>
+        <p class="text-2xl underline">Loi Applicable et Juridiction</p>
         <p>
             Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux compétents
             seront ceux du ressort de Lannion.

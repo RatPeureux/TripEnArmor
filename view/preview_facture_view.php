@@ -94,9 +94,9 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
                 <thead class="bg-blue-200">
                     <tr>
                         <th class="border p-2 text-center">Type</th>
-                        <th class="border p-2 text-center">Du<p class="text-small"> (inclus)</p>
+                        <th class="border p-2 text-center">Du<p class="text-sm"> (inclus)</p>
                         </th>
-                        <th class="border p-2 text-center">Au<p class="text-small"> (inclus)</p>
+                        <th class="border p-2 text-center">Au<p class="text-sm"> (inclus)</p>
                         </th>
                         <th class="border p-2 text-center">Qte</th>
                         <th class="border p-2 text-center">Unité</th>
@@ -111,7 +111,7 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
                     <?php foreach ($periodes_en_ligne as $periode_en_ligne) {
                         $HT_total_periodes += $periode_en_ligne['prix_ht_total'];
                         $TTC_total_periodes += $periode_en_ligne['prix_ttc_total'];
-                    ?>
+                        ?>
                         <tr class="text-center">
                             <td class="border p-2 text-center"><?php echo htmlspecialchars($periode_en_ligne['type_offre']); ?>
                             </td>
@@ -154,9 +154,9 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
                 <thead class="bg-blue-200">
                     <tr class="text-center">
                         <th class="border p-2 text-center">Nom</th>
-                        <th class="border p-2 text-center">Du<p class="text-small"> (inclus)</p>
+                        <th class="border p-2 text-center">Du<p class="text-sm"> (inclus)</p>
                         </th>
-                        <th class="border p-2 text-center">Au<p class="text-small"> (inclus)</p>
+                        <th class="border p-2 text-center">Au<p class="text-sm"> (inclus)</p>
                         </th>
                         <th class="border p-2 text-center">Qte</th>
                         <th class="border p-2 text-center">Unité</th>
@@ -171,7 +171,7 @@ $date_echeance = date('01/m/Y', strtotime('first day of next month'));
                     <?php foreach ($options_details as $option_details) {
                         $HT_total_souscriptions += $option_details['prix_ht_total'];
                         $TTC_total_souscriptions += $option_details['prix_ttc_total'];
-                    ?>
+                        ?>
                         <tr>
                             <td class="border p-2 text-center"><?php echo htmlspecialchars($option_details['nom_option']); ?>
                             </td>

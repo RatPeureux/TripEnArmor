@@ -79,12 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="/">
                 <img src="/public/icones/logo.svg" alt="moine" width="108">
             </a>
-            
-            <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se connecter à la PACT PRO</h2>
+
+            <h2 class="mx-auto text-center text-2xl pt-4 my-4">Se connecter à la PACT PRO</h2>
 
             <form class="bg-white w-full p-5 border-2 border-secondary" action="" method="POST">
                 <!-- Champ pour l'identifiant -->
-                <label class="text-small" for="id">Identifiant</label>
+                <label class="text-sm" for="id">Identifiant</label>
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="id" name="id"
                     placeholder="Nom, téléphone ou mail"
                     title="Saisir un de vos identifiants (Dénomination, téléphone, mail)"
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Champ pour le mot de passe -->
                 <div class="relative w-full">
-                    <label class="text-small" for="mdp">Mot de passe</label>
+                    <label class="text-sm" for="mdp">Mot de passe</label>
                     <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="mdp" name="mdp"
                         pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
                         title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
@@ -102,22 +102,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         id="togglePassword"></i>
                 </div>
 
-                <span id="error-message" class="error text-rouge-logo text-small">
+                <span id="error-message" class="error text-rouge-logo text-sm">
                     <?php echo $_SESSION['error'] ?? '' ?>
                 </span>
 
                 <!-- Bouton de connexion -->
                 <input type="submit" value="Me connecter"
-                    class="text-small py-2 px-4 rounded-full cursor-pointer w-full h-12 my-1.5 bg-secondary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                    class="text-sm py-2 px-4 rounded-full cursor-pointer w-full h-12 my-1.5 bg-secondary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
 
                 <!-- Liens pour mot de passe oublié et création de compte -->
                 <div class="flex items-center flex-nowrap h-12 space-x-1.5">
                     <a
-                        class="text-small text-center w-full text-wrap bg-transparent text-secondary underline  focus:scale-[0.97]">
+                        class="text-sm text-center w-full text-wrap bg-transparent text-secondary underline  focus:scale-[0.97]">
                         Mot de passe oublié ?
                     </a>
                     <a href="/pro/inscription"
-                        class="text-small py-2 px-4 rounded-full text-center w-full h-full p-1 text-wrap bg-transparent text-secondary   inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
+                        class="text-sm py-2 px-4 rounded-full text-center w-full h-full p-1 text-wrap bg-transparent text-secondary   inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
                         Créer un compte
                     </a>
                 </div>
