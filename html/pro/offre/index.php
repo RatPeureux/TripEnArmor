@@ -101,13 +101,6 @@ session_start();
 
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php'; ?>
 
-    <!-- Inclusion du menu -->
-    <div id="menu-pro">
-        <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
-        ?>
-    </div>
-
     <!-- Inclusion du header -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';

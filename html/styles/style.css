@@ -2185,7 +2185,6 @@ label:has(+ select[required])::after {
 /* Activation des menus */
 
 #menu > .active,
-#menu-pro > .active,
 #filtres.active,
 #cgu.active,
 #politique.active,
@@ -2193,8 +2192,7 @@ label:has(+ select[required])::after {
   --tw-translate-x: 0%;
 }
 
-#menu a.active,
-#menu-pro a.active {
+#menu a.active {
   text-decoration: underline;
   text-decoration-color: var(--primary-color);
   text-underline-offset: 6px;

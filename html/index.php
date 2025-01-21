@@ -72,12 +72,12 @@ session_start();
                 <img src="/public/icones/logo.svg" alt="Logo" width="50" class="hidden md:block">
                 <!-- <h1 class="font-cormorant uppercase text-PACT hidden md:block">PACT</h1> -->
             </a>
+        </div>
 
-            <!-- Menu -->
-            <div class="flex items-center justify-center text-small">
-                <a class="p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la Une</a>
-                <a class="p-2 hover:bg-base100 " href="/offres">Toutes les offres</a>
-            </div>
+        <!-- Menu -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-small">
+            <a class="p-2 font-bold hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la Une</a>
+            <a class="p-2 font-bold hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
         </div>
 
         <!-- Actions Utilisateur -->
@@ -168,7 +168,7 @@ session_start();
                 </button>
             </div>
             <!-- Dropdown de recherche -->
-            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
+            <div class="absolute top-full left-0 right-0 bg-white border border-base200 shadow-md mt-2 hidden z-10"
                 id="search-menu">
             </div>
         </div>

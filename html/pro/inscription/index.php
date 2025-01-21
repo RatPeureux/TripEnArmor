@@ -44,8 +44,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <a href="/">
                     <img src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
-
-                <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se créer un compte PACT Pro</h2>
+                
+                <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se créer un compte PACT PRO</h2>
 
                 <form class="bg-white w-full p-5 border-2 border-secondary" action="" method="POST"
                     onsubmit="return validateForm()">
