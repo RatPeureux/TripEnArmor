@@ -71,6 +71,7 @@ session_start();
             <a href="/" class="flex items-center gap-2">
                 <img src="/public/icones/logo.svg" alt="Logo" width="50" class="block">
             </a>
+        </div>
 
             <!-- Menu -->
             <div class="md:flex items-center justify-center text-small hidden">
@@ -176,7 +177,7 @@ session_start();
                 </button>
             </div>
             <!-- Dropdown de recherche -->
-            <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
+            <div class="absolute top-full left-0 right-0 bg-white border border-base200 shadow-md mt-2 hidden z-10"
                 id="search-menu">
             </div>
         </div>

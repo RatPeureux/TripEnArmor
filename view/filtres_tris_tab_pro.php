@@ -139,7 +139,7 @@
 </div>
 
 <!-- CHAMPS DE FILTRES TABLETTE -->
-<div class="hidden md:hidden border border-black mr-6 mb-4 w-full" id="filter-section-tab">
+<div class="hidden md:hidden border-base200 border-t mr-6 mb-4 w-full" id="filter-section-tab">
     <div class="flex flex-col w-full bg-white p-3 gap-4">
         <div class="flex justify-between cursor-pointer" id="button-f1-tab">
             <p>Catégorie</p>
@@ -172,7 +172,7 @@
             </div>
         </div>
     </div>
-    <div class="flex flex-col w-full bg-white border-t border-black p-3 gap-4">
+    <div class="flex flex-col w-full bg-white p-3 gap-4">
         <div class="flex justify-between cursor-pointer" id="button-f2-tab">
             <p>Disponibilité</p>
             <p id="arrow-f2-tab">></p>
@@ -189,7 +189,7 @@
             </div>
         </div>
     </div>
-    <div class="flex flex-col w-full bg-white border-t border-black p-3 gap-4">
+    <div class="flex flex-col w-full bg-white p-3 gap-4">
         <div class="flex justify-between cursor-pointer" id="button-f3-tab">
             <p>Localisation</p>
             <p id="arrow-f3-tab">></p>
@@ -201,7 +201,7 @@
             </div>
         </div>
     </div>
-    <div class="flex flex-col w-full bg-white border-t border-black p-3 gap-4">
+    <div class="flex flex-col w-full bg-white p-3 gap-4">
         <div class="flex justify-between cursor-pointer" id="button-f4-tab">
             <p>Note générale</p>
             <p id="arrow-f4-tab">></p>
@@ -221,7 +221,7 @@
             </div>
         </div>
     </div>
-    <div class="hidden flex flex-col w-full bg-white border-t border-black p-3 gap-4">
+    <div class="hidden flex flex-col w-full bg-white p-3 gap-4">
         <div class="flex justify-between cursor-pointer" id="button-f5-tab">
             <p>Période</p>
             <p id="arrow-f5-tab">></p>
@@ -233,7 +233,7 @@
             <input type="date" class="border border-black p-1 text-right" id="max-date-tab" name="max-date-tab">
         </div>
     </div>
-    <div class="flex flex-col w-full bg-white border-t border-black p-3 gap-4">
+    <div class="flex flex-col w-full bg-white p-3 gap-4">
         <div class="flex justify-between cursor-pointer" id="button-f6-tab">
             <p>Prix</p>
             <p id="arrow-f6-tab">></p>
@@ -266,7 +266,7 @@
         </div>
     </div>
 <?php if ($pro['data']['type'] === 'prive') { ?>
-    <div class="flex flex-col w-full bg-white border-t border-black p-3 gap-4">
+    <div class="flex flex-col w-full bg-white p-3 gap-4">
         <div class="flex justify-between cursor-pointer" id="button-f7-tab">
             <p>Type d'offre</p>
             <p id="arrow-f7-tab">></p>

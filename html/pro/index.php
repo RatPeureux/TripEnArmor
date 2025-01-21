@@ -34,14 +34,6 @@ if (!function_exists('chaineVersMot')) {
 
 <body class="flex flex-col min-h-screen">
 
-    <!-- Inclusion du menu -->
-    <div id="menu-pro">
-        <?php
-        $pagination = 1;
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu-pro.php';
-        ?>
-    </div>
-
     <!-- Inclusion du header -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
@@ -174,12 +166,12 @@ if (!function_exists('chaineVersMot')) {
                 </div>
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
-                <div class="hidden md:flex justify-center items-center gap-4">
+                <div class="hidden md:flex justify-center items-center gap-8">
                     <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab">
                         <i class="text xl fa-solid fa-filter"></i>
                         <p>Filtrer</p>
                     </a>
-                    <p class="font-thin text-xl text-base200">|</p>
+
                     <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab">
                         <i class="text xl fa-solid fa-sort"></i>
                         <p>Trier par</p>
