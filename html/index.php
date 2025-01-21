@@ -66,7 +66,7 @@ session_start();
 
 
     <header class="flex justify-between items-center z-30 w-full h-16 top-0 mx-auto max-w-[1280px] px-4">
-        <div class="flex items-center gap-4">
+        <div class="flex items-center justify-between md:gap-4">
             <!-- Logo -->
             <a href="/" class="flex items-center gap-2">
                 <img src="/public/icones/logo.svg" alt="Logo" width="50">
@@ -79,20 +79,26 @@ session_start();
             <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
         </div>
 
+        <!-- Menu -->
+        <div class="flex items-center justify-center text-small md:hidden">
+
+            <a class="p-2 hover:bg-base100 border-r border-base100" href="/offres/a-la-une">À la Une</a>
+            <a class="p-2 hover:bg-base100 " href="/offres">Toutes les offres</a>
+        </div>
         <!-- Actions Utilisateur -->
         <div class="flex items-center text-small gap-4">
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsMember()) { ?>
                 <!-- Si connecté -->
-                <a href="/compte">
-                    <i class="text-3xl fa-regular fa-user"></i>
-                </a>
                 <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                     onclick="return confirmLogout()">
                     <div class="text-black border border-secondary px-4 py-2 rounded-full">
                         <p>Se déconnecter</p>
                     </div>
+                </a>
+                <a href="/compte">
+                    <i class="text-3xl fa-regular fa-user"></i>
                 </a>
             <?php } else { ?>
                 <!-- Si non connecté -->
