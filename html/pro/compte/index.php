@@ -39,7 +39,7 @@ $pro = verifyPro();
 
         <div class="grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center justify-center">
             <a href="/pro/compte/profil"
-                class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
+                class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-user"></i>
                 <div class="w-full">
                     <p class="text-h4">Profil</p>
@@ -48,21 +48,20 @@ $pro = verifyPro();
                 </div>
             </a>
             <a href="/pro/compte/parametres"
-                class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
+                class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-gear"></i>
                 <div class="w-full">
                     <p class="text-h4">Paramètres</p>
                     <p class="text-small">Modifier mes informations privées.</p>
-                    <p class="text-small">Supprimer mon compte.</p>
                 </div>
             </a>
             <a href="/pro/compte/securite"
-                class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
+                class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-shield"></i>
                 <div class="w-full">
                     <p class="text-h2">Sécurité</p>
                     <p class="text-small">Modifier mes informations sensibles.</p>
-                    <p class="text-small">Protéger mon compte.</p>
+                    <p class="text-small">Récupérer ma clé API : Tchatator.</p>
                 </div>
             </a>
 
@@ -70,7 +69,7 @@ $pro = verifyPro();
             if (($pro['data']['type']) == 'prive') {
                 ?>
                 <a href="/pro/compte/facture"
-                    class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
+                    class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                     <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
                     <div class="w-full">
                         <p class="text-h4">Factures</p>

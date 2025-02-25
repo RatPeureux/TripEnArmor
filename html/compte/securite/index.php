@@ -128,6 +128,32 @@ if (isset($_POST['mdp'])) {
                         disabled>
                     </input>
                 </form>
+
+                <hr class="mb-8">
+
+                <?php
+                // Connexion avec la bdd
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+                $stmt = $dbh->prepare("SELECT api_key FROM sae_db._membre WHERE id_compte = ?");
+                $stmt->bindParam(1, $membre['id_compte']);
+                $stmt->execute();
+                $key = $stmt->fetch();
+                $prefix = 'tchatator';
+                $key = substr(strstr($key['api_key'], '_'), 0, 5);
+                $key = $prefix . $key . '...';
+                ?>
+
+                <div class="flex">
+                    <p class="text-small">Clé API Tchatator :</p>
+                    &nbsp;
+                    <p 
+                        id="apiKey" 
+                        class="text-sm cursor-pointer blur-sm hover:blur-none" 
+                        onclick="copyToClipboard()"
+                    >
+                        <?php echo $key; ?>
+                    </p>
+                </div>
             </div>
         </div>
     </main>
@@ -232,4 +258,16 @@ if (isset($_POST['mdp'])) {
     mdp.addEventListener('input', activeSave);
     newMdp.addEventListener('input', activeSave);
     confNewMdp.addEventListener('input', activeSave);
+
+    function copyToClipboard() {
+        // Sélectionner le contenu du paragraphe
+        const content = document.getElementById('apiKey').textContent;
+
+        // Copier le contenu dans le presse-papiers
+        navigator.clipboard.writeText(content).then(() => {
+            alert("Clé API copiée dans le presse-papiers !");
+        }).catch(err => {
+            console.error('Erreur lors de la copie : ', err);
+        });
+    }
 </script>
