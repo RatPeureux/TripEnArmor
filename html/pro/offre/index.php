@@ -8,11 +8,11 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
 
@@ -476,7 +476,7 @@ session_start();
                     ?>
 
 
-                    <!-- Partie du bas de la page (toutes les infos pratiques) -->
+<!-- Partie du bas de la page (toutes les infos pratiques) -->
                     <div class="flex flex-col md:flex-row w-full">
                         <!-- Partie description -->
                         <div class="partie-description flex flex-col basis-1/2 pr-2">

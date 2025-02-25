@@ -30,7 +30,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="icon" type="image" href="/public/images/favicon.png">
+        <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -222,13 +222,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="icon" type="image" href="/public/images/favicon.png">
+        <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
         <script type="text/javascript" src="/scripts/autocomplete.js"></script>
-        <script type="text/javascript" src="/scripts/formats.js" defer></script>
+        <script type="text/javascript" src="/scripts/formats.js" type="module"></script>
 
         <title>Création de compte - Professionnel - PACT</title>
     </head>

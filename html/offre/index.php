@@ -9,11 +9,11 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="icon" href="/public/images/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
 
@@ -476,7 +476,6 @@ session_start();
                     }
                     ?>
 
-
                     <!-- Partie du bas de la page (toutes les infos pratiques) -->
                     <div class="flex flex-col md:flex-row w-full">
                         <!-- Partie description -->
@@ -556,7 +555,7 @@ session_start();
                                     
                                             ?>
                                             <div class="text-small flex flex-col md:flex-row">
-                                                <p class="text-small">Repas servis&nbsp:&nbsp</p>
+                                                <p class="text-small">Repas servis&nbsp;:&nbsp;</p>
                                                 <p><?php echo $tags_type_repas ?></p>
                                             </div>
                                             <?php
@@ -748,7 +747,7 @@ session_start();
                                     <button onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
                                         class="text-small py-2 px-4 rounded-full bg-secondary  text-white self-end flex items-center gap-2">
                                         <i class="fa-solid fa-pen"></i>
-                                        <p>Rédiger un avis</p>
+                                        Rédiger un avis
                                     </button>
 
                                     <form id="avis_formulaire" action="/scripts/creation_avis.php" method="POST"
@@ -762,7 +761,7 @@ session_start();
                                         </div>
 
                                         <!-- Commentaire de l'avis -->
-                                        <textarea type="commentaire" name="commentaire" id="commentaire"
+                                        <textarea name="commentaire" id="commentaire"
                                             placeholder="Votre commentaire" class="w-full border border-black  p-1"></textarea>
 
                                         <!-- Note globale donnée (pour toutes les offres) -->
@@ -866,8 +865,7 @@ session_start();
                                         <!-- Date de l'expérience -->
                                         <div>
                                             <label for="date_experience">Date de l'expérience</label>
-                                            <input type="date" name="date_experience" id="date_experience"
-                                                value="Date de votre expérience" required>
+                                            <input type="date" name="date_experience" id="date_experience" required>
                                         </div>
 
                                         <!-- Contexte de passage -->
@@ -1017,7 +1015,6 @@ session_start();
                     });
                 </script>
             </div>
-        </div>
         </div>
     </main>
 

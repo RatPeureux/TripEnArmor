@@ -45,6 +45,6 @@ function fillInAddress() {
     document.querySelector("#postal_code").value = postalCode; // Remplit le champ de code postal
 }
 
-google.maps.event.addDomListener(window, 'load', function () {
-    initializeAutocomplete('user_input_autocomplete_address');
-});
+// google.maps.event.addDomListener(window, 'load', function () {
+//     initializeAutocomplete('user_input_autocomplete_address');
+// });

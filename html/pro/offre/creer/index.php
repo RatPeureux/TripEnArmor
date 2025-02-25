@@ -11,9 +11,9 @@ $pro = verifyPro();
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<link rel="icon" type="image" href="/public/images/favicon.png">
+	<link rel="icon" href="/public/images/favicon.png">
 	<link rel="stylesheet" href="/styles/style.css">
-	<script type="module" src="/scripts/main.js" defer></script>
+	<script type="module" src="/scripts/main.js"></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
 	<script type="text/javascript" src="/scripts/autocomplete.js"></script>

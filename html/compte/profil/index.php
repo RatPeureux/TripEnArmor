@@ -28,9 +28,9 @@ $membre = verifyMember();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/main.js"></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Profil du compte - PACT</title>
@@ -62,7 +62,7 @@ $membre = verifyMember();
 
                 <p class="text-h2 mb-4">Informations publiques</p>
 
-                <form action="" class="flex flex-col mb-4" method="post">
+                <form action="/compte/profil/" class="flex flex-col mb-4" method="post">
 
                     <label class="text-h4" for="pseudo">Nom d'utilisateur</label>
                     <input value="<?php echo $membre['pseudo'] ?>"

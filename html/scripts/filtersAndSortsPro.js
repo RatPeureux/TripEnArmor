@@ -69,13 +69,23 @@ document.addEventListener("DOMContentLoaded", function () {
     function developpedFilter(buttonId, arrowId, developpedId) {
         const button = document.getElementById(buttonId); // Récupère le bouton
         const arrow = document.getElementById(arrowId); // Récupère l'icône flèche
-        const developped = document.getElementById(developpedId); // Récupère la section développable
+        if (developpedId == 'developped-f6-tab') {
+            const developped = document.getElementsByClassName(developpedId); // Récupère les élem avec l'id "..-f6-tab". Pourquoi il y en a plusieurs ? jsp, pb de codage...
+        } else {
+            const developped = document.getElementById(developpedId); // Récupère la section développable
+        }
 
         if (button && arrow && developped) { // Vérifie que les éléments existent
             button.addEventListener('click', function (event) {
                 event.preventDefault(); // Empêche le comportement par défaut
                 arrow.classList.toggle('rotate-90'); // Alterne la rotation de l'icône
-                developped.classList.toggle('hidden'); // Alterne la visibilité de la section
+                if (developpedId == 'developped-f6-tab') {
+                    developped.forEach(el => {
+                        el.classList.toggle('hidden');
+                    });
+                } else {
+                    developped.classList.toggle('hidden'); // Alterne la visibilité de la section
+                }
             });
         }
     }
@@ -84,16 +94,32 @@ document.addEventListener("DOMContentLoaded", function () {
     function developpedFilterAutoClose(buttonId, arrowId, developpedId) {
         const button = document.getElementById(buttonId); // Récupère le bouton
         const arrow = document.getElementById(arrowId); // Récupère l'icône flèche
-        const developped = document.getElementById(developpedId); // Récupère la section développable
+        if (developpedId == 'developped-f2-tab') {
+            const developped = document.getElementsByClassName(developpedId); // Récupère les élem avec l'id "..-f6-tab". Pourquoi il y en a plusieurs ? jsp, pb de codage...
+        } else {
+            const developped = document.getElementById(developpedId); // Récupère la section développable
+        }
 
         if (button && arrow && developped) { // Vérifie que les éléments existent
             button.addEventListener('click', function (event) {
                 event.preventDefault(); // Empêche le comportement par défaut
 
                 // Alterne l'état de la section actuelle
+                if (developpedId == 'developped-f2-tab') {
+                    const isCurrentlyHidden = developped[0].classList.contains('hidden');
+                } else {
+                    developped.classList.toggle('hidden', !isCurrentlyHidden); // Ajuste la visibilité
+                }
                 const isCurrentlyHidden = developped.classList.contains('hidden');
                 arrow.classList.toggle('rotate-90', isCurrentlyHidden); // Ajuste la rotation uniquement si la section est cachée
-                developped.classList.toggle('hidden', !isCurrentlyHidden); // Ajuste la visibilité
+
+                if (developpedId == 'developped-f2-tab') {
+                    developped.forEach(el => {
+                        el.classList.toggle('hidden');
+                    });
+                } else {
+                    developped.classList.toggle('hidden', !isCurrentlyHidden); // Ajuste la visibilité
+                }
 
                 // Ferme les autres sections
                 document.querySelectorAll('.developped')?.forEach(section => {

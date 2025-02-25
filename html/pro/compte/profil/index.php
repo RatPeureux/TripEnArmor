@@ -74,9 +74,9 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/main.js"></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Profil du compte - Professionnel - PACT</title>
@@ -101,7 +101,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
             <p class="text-h1 mb-4">Informations publiques</p>
 
-            <form action="" class="flex flex-col" method="post">
+            <form action="/pro/compte/profil/" class="flex flex-col" method="post">
                 <label class="text-h3"
                     for="nom"><?php if ($pro['data']['type'] == 'prive') { ?>Dénomination<?php } else { ?>Nom
                         de l'organisation<?php } ?></label>
@@ -117,7 +117,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
             <hr class="mb-8">
 
-            <form action="" class="flex flex-col" method="post">
+            <form action="/pro/compte/profil/" class="flex flex-col" method="post">
                 <label class="text-h3" for="adresse">Adresse postale</label>
                 <input value="<?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] ?>"
                     class="border text-small border-secondary p-2 bg-white w-full h-12 mb-3 " type="text" id="adresse"

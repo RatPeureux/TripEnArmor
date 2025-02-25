@@ -121,27 +121,27 @@
                 </div>
                 <div class="developped hidden text-small flex flex-wrap gap-4" id="developped-f1-tel">
                     <div class="flex items-center gap-2">
-                        <input type="checkbox" class="mb-1" id="restauration-tel" />
+                        <input type="checkbox" class="mb-1" id="restauration-tel">
                         <label for="restauration-tel">Restauration</label>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <input type="checkbox" class="mb-1" id="activite-tel" />
+                        <input type="checkbox" class="mb-1" id="activite-tel">
                         <label for="activite-tel">Activité</label>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <input type="checkbox" class="mb-1" id="spectacle-tel" />
+                        <input type="checkbox" class="mb-1" id="spectacle-tel">
                         <label for="spectacle-tel">Spectacle</label>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <input type="checkbox" class="mb-1" id="visite-tel" />
+                        <input type="checkbox" class="mb-1" id="visite-tel">
                         <label for="visite-tel">Visite</label>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <input type="checkbox" class="mb-1" id="parc_attraction-tel" />
+                        <input type="checkbox" class="mb-1" id="parc_attraction-tel">
                         <label for="parc_attraction-tel">Parc d'attraction</label>
                     </div>
                 </div>
@@ -151,14 +151,14 @@
                     <p>Disponibilité</p>
                     <p class="arrow" id="arrow-f2-tel">></p>
                 </div>
-                <div class="developped hidden text-small flex flex-wrap gap-4" id="developped-f2-tel">
+                <div class="developped hidden text-small flex flex-wrap gap-4 developped-f2-tel">
                     <div class="flex items-center gap-2">
-                        <input type="checkbox" class="mb-1" class="mb-1" id="ouvert-tel" />
+                        <input type="checkbox" class="mb-1" id="ouvert-tel">
                         <label for="ouvert-tel">Ouvert</label>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <input type="checkbox" class="mb-1" id="ferme-tel" />
+                        <input type="checkbox" class="mb-1" id="ferme-tel">
                         <label for="ferme-tel">Fermé</label>
                     </div>
                 </div>
@@ -171,7 +171,7 @@
                 <div class="developped hidden flex flex-nowrap w-full items-center gap-4" id="developped-f3-tel">
                     <div class="text-nowrap text-small flex items-center gap-2 w-full">
                         <label>Ville ou Code postal</label>
-                        <input id="localisation-tel" type="text" class="w-full border border-black p-1 focus:ring-0" />
+                        <input id="localisation-tel" type="text" class="w-full border border-black p-1 focus:ring-0">
                     </div>
                 </div>
             </div>
@@ -183,15 +183,15 @@
                 <div class="developped hidden flex items-center" id="developped-f4-tel">
                     <label class="text-small">Intervalle des prix entre&nbsp;</label>
                     <div class="flex items-center">
-                        <input id="min-note-tel" type="number" value="0" min="0" max="5" step="0.5" class="border border-black p-1 text-small text-right w-[39px] focus:ring-0" />
+                        <input id="min-note-tel" type="number" value="0" min="0" max="5" step="0.5" class="border border-black p-1 text-small text-right w-[39px] focus:ring-0">
                         &nbsp;
-                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11">
+                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='oeuf plein'>
                     </div>
                     <label class="text-small">&nbsp;et&nbsp;</label>
                     <div class="flex items-center">
-                        <input id="max-note-tel" type="number" value="5" min="0" max="5" step="0.5" class="border border-black p-1 text-small text-right w-[39px] focus:ring-0" />
+                        <input id="max-note-tel" type="number" value="5" min="0" max="5" step="0.5" class="border border-black p-1 text-small text-right w-[39px] focus:ring-0">
                         &nbsp;
-                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11">
+                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='oeuf plein'>
                     </div>
                 </div>
             </div>
@@ -220,25 +220,25 @@
                 <div class="developped hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tel">
                     <div class="flex items-center">
                         <label class="text-small">Intervalle des prix entre&nbsp;</label>
-                        <input id="min-price-tel" type="number" value="0" min="0" max="99" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0" />
+                        <input id="min-price-tel" type="number" value="0" min="0" max="99" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0">
                         <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
-                        <input id="max-price-tel" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0" />
+                        <input id="max-price-tel" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0">
                         <label class="text-small">&nbsp;€</label>
                     </div>
-                    <div class="text-small flex flex-wrap gap-4" id="developped-f2-tel">
+                    <div class="text-small flex flex-wrap gap-4 developped-f2-tel">
                         <label class="text-small">Restauration :&nbsp;</label>
                         <div class="flex items-center gap-2">
-                            <input type="checkbox" class="mb-1" id="€-tel" />
+                            <input type="checkbox" class="mb-1" id="€-tel">
                             <label for="€-tel">€</label>
                         </div>
 
                         <div class="flex items-center gap-2">
-                            <input type="checkbox" class="mb-1" id="€€-tel" />
+                            <input type="checkbox" class="mb-1" id="€€-tel">
                             <label for="€€-tel">€€</label>
                         </div>
 
                         <div class="flex items-center gap-2">
-                            <input type="checkbox" class="mb-1" id="€€€-tel" />
+                            <input type="checkbox" class="mb-1" id="€€€-tel">
                             <label for="€€€-tel">€€€</label>
                         </div>
                     </div>

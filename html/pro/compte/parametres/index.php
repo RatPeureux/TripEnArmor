@@ -94,9 +94,9 @@ $pro = verifyPro();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/main.js"></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Paramètres du compte - Professionnel - PACT</title>
@@ -132,7 +132,7 @@ if ($pro['data']['id_rib'] != null) {
 
             <p class="text-h2 mb-4">Informations privées</p>
 
-            <form action="" class="flex flex-col" method="post">
+            <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
 
                 <label class="text-h4" for="email">Adresse mail</label>
                 <input value="<?php echo $pro['email'] ?>" title="L'adresse mail doit comporter un '@' et un '.'"
@@ -155,7 +155,7 @@ if ($pro['data']['id_rib'] != null) {
             <?php
             if ($pro['data']['type'] == 'prive') { ?>
                 <hr class="mb-8">
-                <form action="" class="flex flex-col" method="post">
+                <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
 
                     <label class="text-h4" for="iban">IBAN</label>
                     <input value="<?php if (isset($rib) && $rib != null) {
@@ -172,7 +172,7 @@ if ($pro['data']['id_rib'] != null) {
 
                 <hr class="mb-8">
 
-                <form action="" class="flex flex-col" method="post">
+                <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
 
                     <label class="text-h4" for="num_siren">Numéro SIRET</label>
                     <input id="num_siren" name="num_siren" pattern="^\d{3} \d{3} \d{3} \d{5}$"
@@ -191,7 +191,7 @@ if ($pro['data']['id_rib'] != null) {
             } else {
                 ?>
                 <hr class="mb-8">
-                <form action="" class="flex flex-col" method="post">
+                <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
                     <label class="text-h4" for="type_orga">Type d'organisation</label>
                     <input value="<?php echo $pro['data']['type_orga'] ?>"
                         class="border text-small border-secondary p-2 bg-white max-w-36 h-12 mb-3 " type="text"

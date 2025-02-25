@@ -91,7 +91,7 @@ $membre = verifyMember();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
@@ -125,7 +125,7 @@ $membre = verifyMember();
 
                 <p class="text-h2 mb-4">Informations privées</p>
 
-                <form action="" class="flex flex-col" method="post">
+                <form action="/compte/parametres/" class="flex flex-col" method="post">
                     <div class="flex flex-nowrap space-x-3 mb-1.5">
                         <div class="w-full">
                             <label class="text-h4" for="prenom">Prénom</label>
@@ -149,7 +149,7 @@ $membre = verifyMember();
 
 
                 <hr class="mb-8">
-                <form action="" class="flex flex-col" method="post">
+                <form action="/compte/parametres/" class="flex flex-col" method="post">
 
                     <label class="text-h4" for="email">Adresse mail</label>
                     <input value="<?php echo $membre['email'] ?>" placeholder="exemple@gmail.com"
@@ -171,7 +171,7 @@ $membre = verifyMember();
 
                 <hr class="mb-8">
 
-                <form action="" class="flex flex-col" method="post">
+                <form action="/compte/parametres" class="flex flex-col" method="post">
                     <label class="text-h4" for="adresse">Adresse postale</label>
                     <input value="<?php echo $adresse['numero'] . " " . $adresse['odonyme'] ?>"
                         class="border border-secondary text-small p-2 bg-white w-full h-12 mb-3 " type="text"

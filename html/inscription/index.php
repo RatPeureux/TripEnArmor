@@ -29,7 +29,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="icon" type="image" href="/public/images/favicon.png">
+        <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -46,7 +46,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se créer un compte PACT</h2>
 
-                <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST"
+                <form class="bg-white w-full p-5 border-2 border-primary" action="/inscription/" method="POST"
                     onsubmit="return validateForm()">
                     <!-- Champs pour le prénom et le nom -->
                     <div class="flex flex-nowrap space-x-3 mb-1.5">
@@ -66,7 +66,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                     <!-- Champ pour l'adresse mail -->
                     <label class="text-small" for="mail">Adresse mail</label>
-                    <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="mail" id="mail" name="mail"
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="email" id="mail" name="mail"
                         title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" required>
                     <!-- Message d'erreur pour l'adresse mail -->
@@ -111,64 +111,60 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 </form>
             </div>
         </div>
-    </body>
 
-    </html>
+        <script>
+            // Gestion des icônes pour afficher/masquer le mot de passe
+            const togglePassword1 = document.getElementById('togglePassword1');
+            const togglePassword2 = document.getElementById('togglePassword2');
+            const mdp = document.getElementById('mdp');
+            const confMdp = document.getElementById('confMdp');
 
-    <script>
-        // Gestion des icônes pour afficher/masquer le mot de passe
-        const togglePassword1 = document.getElementById('togglePassword1');
-        const togglePassword2 = document.getElementById('togglePassword2');
-        const mdp = document.getElementById('mdp');
-        const confMdp = document.getElementById('confMdp');
-
-        if (togglePassword1) {
-            togglePassword1.addEventListener('click', function () {
-                if (mdp.type === 'password') {
-                    mdp.type = 'text';
-                    this.classList.remove('fa-eye');
-                    this.classList.add('fa-eye-slash');
-                } else {
-                    mdp.type = 'password';
-                    this.classList.remove('fa-eye-slash');
-                    this.classList.add('fa-eye');
-                }
-            });
-        }
-
-        if (togglePassword2) {
-            togglePassword2.addEventListener('click', function () {
-                if (confMdp.type === 'password') {
-                    confMdp.type = 'text';
-                    this.classList.remove('fa-eye');
-                    this.classList.add('fa-eye-slash');
-                } else {
-                    confMdp.type = 'password';
-                    this.classList.remove('fa-eye-slash');
-                    this.classList.add('fa-eye');
-                }
-            });
-        }
-
-        // Fonction de validation du formulaire
-        function validateForm() {
-            var mdp = document.getElementById("mdp").value;
-            var confMdp = document.getElementById("confMdp").value;
-            var errorMessage = document.getElementById("error-message");
-
-            // Vérifie si les mots de passe correspondent
-            if (mdp !== confMdp) {
-                errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
-                return false; // Empêche l'envoi du formulaire
+            if (togglePassword1) {
+                togglePassword1.addEventListener('click', function () {
+                    if (mdp.type === 'password') {
+                        mdp.type = 'text';
+                        this.classList.remove('fa-eye');
+                        this.classList.add('fa-eye-slash');
+                    } else {
+                        mdp.type = 'password';
+                        this.classList.remove('fa-eye-slash');
+                        this.classList.add('fa-eye');
+                    }
+                });
             }
 
-            errorMessage.textContent = ""; // Réinitialise le message d'erreur
-            return true; // Permet l'envoi du formulaire
-        }
-    </script>
+            if (togglePassword2) {
+                togglePassword2.addEventListener('click', function () {
+                    if (confMdp.type === 'password') {
+                        confMdp.type = 'text';
+                        this.classList.remove('fa-eye');
+                        this.classList.add('fa-eye-slash');
+                    } else {
+                        confMdp.type = 'password';
+                        this.classList.remove('fa-eye-slash');
+                        this.classList.add('fa-eye');
+                    }
+                });
+            }
 
+            // Fonction de validation du formulaire
+            function validateForm() {
+                var mdp = document.getElementById("mdp").value;
+                var confMdp = document.getElementById("confMdp").value;
+                var errorMessage = document.getElementById("error-message");
 
+                // Vérifie si les mots de passe correspondent
+                if (mdp !== confMdp) {
+                    errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
+                    return false; // Empêche l'envoi du formulaire
+                }
 
+                errorMessage.textContent = ""; // Réinitialise le message d'erreur
+                return true; // Permet l'envoi du formulaire
+            }
+        </script>
+
+    </body>
 
     <!-- 2ème étape de l'inscription -->
 <?php } elseif (!isset($_POST['num_tel'])) {
@@ -200,13 +196,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image" href="/public/images/favicon.png">
+        <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-        <script type="text/javascript"
+        <script
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr "></script>
-        <script type="text/javascript" src="/scripts/autocomplete.js"></script>
-        <script type="text/javascript" defer src="/scripts/formats.js"></script>
+        <script src="/scripts/autocomplete.js"></script>
+        <script src="/scripts/formats.js"></script>
 
         <title>Création de compte - PACT</title>
     </head>
@@ -226,7 +222,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
             <h2 class="mx-auto text-center text-h2 pt-12 sm:pt-0 my-4">Dites-nous en plus !</h2>
 
-            <form class="mb-4 bg-white w-full p-5 border-2 border-primary" action="" method="POST">
+            <form class="mb-4 bg-white w-full p-5 border-2 border-primary" action="/inscription/" method="POST">
                 <!-- Champs pour le prénom et le nom (en lecture seule) -->
                 <div class="flex flex-nowrap space-x-3 mb-1.5">
                     <div class="w-full">
@@ -262,7 +258,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 ?>
 
                 <!-- Champs pour l'adresse -->
-                <label class="text-small" for="adresse">Adresse</label>
+                <label class="text-small" for="user_input_autocomplete_address">Adresse</label>
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="user_input_autocomplete_address"
                     name="user_input_autocomplete_address" placeholder="Ex : 10 Rue des Fleurs" title="Saisir votre adresse"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?? '' ?>"
@@ -325,9 +321,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>">
             </form>
         </div>
-    </body>
-
-    </html>
 
     <script>
         // Synchroniser les cases à cocher
@@ -406,6 +399,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         }
     </script>
 
+    </body>
+
     <!-- 3ème étape de l'inscription (écriture dans la base de données) -->
 <?php } else {
     // Garder les informations remplies par l'utilisateur
@@ -458,6 +453,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         // Assurer que tous les champs obligatoires sont remplis
         $adresse = $_POST['user_input_autocomplete_address'];
         $infosSupAdresse = extraireInfoAdresse($adresse);
+        print_r($_POST);
+        echo "test";
+        print_r($infosSupAdresse);
         $complement = $_POST['complement'];
         $code = $_POST['postal_code'];
         $ville = $_POST['locality'];
@@ -504,3 +502,5 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     header("location: /");
 }
 ?>
+
+</html>
