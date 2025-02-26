@@ -111,31 +111,31 @@ $pro = verifyPro();
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
+    <script>
+        // Fonction pour configurer un bouton qui affiche ou masque une section
+        function setupToggle(buttonId, sectionId) {
+            const button = document.getElementById(buttonId); // Bouton pour activer/désactiver
+            const section = document.getElementById(sectionId); // Section à afficher/masquer
+
+            if (button && section) { // Vérification que les éléments existent
+                button.addEventListener('click', function (event) {
+                    event.preventDefault(); // Empêche le comportement par défaut du lien
+                    section.classList.toggle('hidden'); // Alterne la visibilité de la section
+                });
+
+                // Fermer la section si l'utilisateur clique en dehors
+                document.addEventListener('click', function (event) {
+                    if (!section.contains(event.target) && !button.contains(event.target)) {
+                        section.classList.add('hidden'); // Cache la section si clic ailleurs
+                    }
+                });
+            }
+        }
+
+        // Initialisation du toggle pour le bouton et la section
+        setupToggle('sort-button', 'sort-section');
+    </script>
+
 </body>
 
 </html>
-
-<script>
-    // Fonction pour configurer un bouton qui affiche ou masque une section
-    function setupToggle(buttonId, sectionId) {
-        const button = document.getElementById(buttonId); // Bouton pour activer/désactiver
-        const section = document.getElementById(sectionId); // Section à afficher/masquer
-
-        if (button && section) { // Vérification que les éléments existent
-            button.addEventListener('click', function (event) {
-                event.preventDefault(); // Empêche le comportement par défaut du lien
-                section.classList.toggle('hidden'); // Alterne la visibilité de la section
-            });
-
-            // Fermer la section si l'utilisateur clique en dehors
-            document.addEventListener('click', function (event) {
-                if (!section.contains(event.target) && !button.contains(event.target)) {
-                    section.classList.add('hidden'); // Cache la section si clic ailleurs
-                }
-            });
-        }
-    }
-
-    // Initialisation du toggle pour le bouton et la section
-    setupToggle('sort-button', 'sort-section');
-</script>

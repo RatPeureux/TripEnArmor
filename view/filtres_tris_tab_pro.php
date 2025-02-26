@@ -177,7 +177,7 @@
             <p>Disponibilité</p>
             <p id="arrow-f2-tab">></p>
         </div>
-        <div class="hidden text-small flex flex-wrap gap-4" id="developped-f2-tab">
+        <div class="hidden text-small flex flex-wrap gap-4 developped-f2-tab">
             <div class="flex items-center gap-2">
                 <input type="checkbox" class="mb-1" id="ouvert-tab">
                 <label for="ouvert-tab">Ouvert</label>
@@ -238,7 +238,7 @@
             <p>Prix</p>
             <p id="arrow-f6-tab">></p>
         </div>
-        <div class="hidden flex flex-wrap items-center justify-between gap-2" class="developped-f6-tab">
+        <div class="hidden flex flex-wrap items-center justify-between gap-2 developped-f6-tab">
             <div class="flex items-center">
                 <label class="text-small">Intervalle des prix entre&nbsp;</label>
                 <input id="min-price-tab" type="number" value="0" min="0" max="99" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0">
@@ -246,7 +246,7 @@
                 <input id="max-price-tab" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0">
                 <label class="text-small">&nbsp;€</label>
             </div>
-            <div class="text-small flex flex-wrap gap-4" id="developped-f2-tab">
+            <div class="text-small flex flex-wrap gap-4 developped-f2-tab">
                 <label class="text-small">Restauration :&nbsp;</label>
                 <div class="flex items-center gap-2">
                     <input type="checkbox" class="mb-1" id="€-tab">

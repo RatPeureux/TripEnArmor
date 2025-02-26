@@ -90,7 +90,7 @@
                 <p>Disponibilité</p>
                 <p class="arrow" id="arrow-f2-tab">></p>
             </div>
-            <div class="alldevelopped hidden text-small flex flex-wrap gap-4" id="developped-f2-tab">
+            <div class="alldevelopped hidden text-small flex flex-wrap gap-4 developped-f2-tab">
                 <div class="flex items-center gap-2">
                     <input type="checkbox" class="mb-1" id="ouvert-tab">
                     <label for="ouvert-tab">Ouvert</label>

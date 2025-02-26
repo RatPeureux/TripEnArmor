@@ -126,7 +126,7 @@ if (isset($_POST['mdp'])) {
                     <input type="submit" id="save" value="Modifier mon mot de passe"
                         class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-                    </input>
+                    
                 </form>
 
                 <hr class="mb-8">

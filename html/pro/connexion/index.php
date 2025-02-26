@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se connecter à la PACT PRO</h2>
 
-            <form class="bg-white w-full p-5 border-2 border-secondary" action="" method="POST">
+            <form class="bg-white w-full p-5 border-2 border-secondary" action="/pro/connexion/" method="POST">
                 <!-- Champ pour l'identifiant -->
                 <label class="text-small" for="id">Identifiant</label>
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="id" name="id"
@@ -124,9 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
-</body>
 
-<script>
+    <script>
     // Récupération de l'élément pour afficher/masquer le mot de passe
     const togglePassword = document.getElementById('togglePassword');
     const mdp = document.getElementById('mdp');
@@ -145,6 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         });
     }
-</script>
+    </script>
 
+</body>
 </html>

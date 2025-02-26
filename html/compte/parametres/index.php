@@ -144,7 +144,7 @@ $membre = verifyMember();
                     <input type="submit" id="save1" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-                    </input>
+                    
                 </form>
 
 
@@ -166,7 +166,7 @@ $membre = verifyMember();
                     <input type="submit" id="save2" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-                    </input>
+                    
                 </form>
 
                 <hr class="mb-8">
@@ -202,12 +202,12 @@ $membre = verifyMember();
                     <input type="submit" id="save3" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-                    </input>
+                    
 
                     <hr class="hidden mb-8">
 
-                    <a href="/scripts/delete.php" class="hidden" onclick="return confirmDelete()"
-                        class="mx-auto max-w-[23rem] w-full h-12 p-1  text-small text-center text-wrap text-rouge-logo bg-transparent  flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
+                    <a href="/scripts/delete.php" onclick="return confirmDelete()"
+                        class="hidden mx-auto max-w-[23rem] w-full h-12 p-1  text-small text-center text-wrap text-rouge-logo bg-transparent  flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
                         Supprimer mon compte
                     </a>
                 </form>

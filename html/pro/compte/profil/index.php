@@ -112,7 +112,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                 <input type="submit" id="save1" value="Enregistrer les modifications"
                     class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                     disabled>
-                </input>
+
             </form>
 
             <hr class="mb-8">
@@ -147,7 +147,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                 <input type="submit" id="save2" value="Enregistrer les modifications"
                     class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                     disabled>
-                </input>
+
             </form>
 
             <hr class="mb-8">
@@ -170,55 +170,55 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
+    <script>
+        const initialValues = {
+            nom: document.getElementById("nom").value,
+            adresse: document.getElementById("adresse").value,
+            complement: document.getElementById("complement").value,
+            code: document.getElementById("postal_code").value,
+            ville: document.getElementById("locality").value,
+        };
+
+        function activeSave1() {
+            const save1 = document.getElementById("save1");
+            const nom = document.getElementById("nom").value;
+
+            if (nom !== initialValues.nom) {
+                save1.disabled = false;
+                save1.classList.remove("opacity-50");
+                save1.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+            } else {
+                save1.disabled = true;
+                save1.classList.add("opacity-50");
+                save1.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+            }
+        }
+
+        function activeSave2() {
+            const save2 = document.getElementById("save2");
+            const adresse = document.getElementById("adresse").value;
+            const complement = document.getElementById("complement").value;
+            const code = document.getElementById("postal_code").value;
+            const ville = document.getElementById("locality").value;
+
+            if (adresse !== initialValues.adresse || complement !== initialValues.complement || code !== initialValues.code || ville !== initialValues.ville) {
+                save2.disabled = false;
+                save2.classList.remove("opacity-50");
+                save2.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+            } else {
+                save2.disabled = true;
+                save2.classList.add("opacity-50");
+                save2.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+            }
+        }
+
+        document.getElementById("nom").addEventListener("input", activeSave1);
+        document.getElementById("adresse").addEventListener("input", activeSave2);
+        document.getElementById("complement").addEventListener("input", activeSave2);
+        document.getElementById("postal_code").addEventListener("input", activeSave2);
+        document.getElementById("locality").addEventListener("input", activeSave2);
+    </script>
+
 </body>
 
 </html>
-
-<script>
-    const initialValues = {
-        nom: document.getElementById("nom").value,
-        adresse: document.getElementById("adresse").value,
-        complement: document.getElementById("complement").value,
-        code: document.getElementById("postal_code").value,
-        ville: document.getElementById("locality").value,
-    };
-
-    function activeSave1() {
-        const save1 = document.getElementById("save1");
-        const nom = document.getElementById("nom").value;
-
-        if (nom !== initialValues.nom) {
-            save1.disabled = false;
-            save1.classList.remove("opacity-50");
-            save1.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-        } else {
-            save1.disabled = true;
-            save1.classList.add("opacity-50");
-            save1.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-        }
-    }
-
-    function activeSave2() {
-        const save2 = document.getElementById("save2");
-        const adresse = document.getElementById("adresse").value;
-        const complement = document.getElementById("complement").value;
-        const code = document.getElementById("postal_code").value;
-        const ville = document.getElementById("locality").value;
-
-        if (adresse !== initialValues.adresse || complement !== initialValues.complement || code !== initialValues.code || ville !== initialValues.ville) {
-            save2.disabled = false;
-            save2.classList.remove("opacity-50");
-            save2.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-        } else {
-            save2.disabled = true;
-            save2.classList.add("opacity-50");
-            save2.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-        }
-    }
-
-    document.getElementById("nom").addEventListener("input", activeSave1);
-    document.getElementById("adresse").addEventListener("input", activeSave2);
-    document.getElementById("complement").addEventListener("input", activeSave2);
-    document.getElementById("postal_code").addEventListener("input", activeSave2);
-    document.getElementById("locality").addEventListener("input", activeSave2);
-</script>

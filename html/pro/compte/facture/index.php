@@ -225,7 +225,6 @@ $pro = verifyPro();
                 // Initialiser l'état du bouton au démarrage (au cas où il y a déjà un contenu)
                 document.addEventListener('DOMContentLoaded', toggleDownloadButton);
             </script>
-            </div>
 
         <?php
         } else {

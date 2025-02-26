@@ -90,7 +90,6 @@
     </main>
 </div>
 
-
 <div class="p-4 fixed top-0 w-full h-full bg-white overflow-hidden z-50 -translate-x-full" id="mentions">
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="toggleMentions()" class="top-[27px] left-0 absolute fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
@@ -251,66 +250,5 @@
                     d'utilisation</span> et je confirme avoir lu la Politique de confidentialité et d'utilisation des
                 cookies.</label>
         </div>
-    </div>
-</div>
-
-
-<div class="p-4 fixed top-0 w-full h-full bg-white overflow-hidden z-50 -translate-x-full" id="mentions">
-    <!-- Icône pour revenir à la page précédente -->
-    <i onclick="toggleMentions()" class="top-[27px] left-0 absolute fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
-
-    <div class="max-w-[720px] mx-auto h-full gap-4 p-4 md:p-2 flex flex-col overflow-y-scroll">
-        <p class="text-h1">Mentions Légales</p>
-
-        <p class="text-h2 underline">Éditeur du Site</p>
-        <p>
-            <strong>Nom du site :</strong> PACT<br>
-            <strong>Nom de l'éditeur :</strong> FNOC<br>
-            <strong>Adresse :</strong> 2 Place de l'ÉcoleMilitaire, 75007, Paris<br>
-            <strong>Contact :</strong> Tél. +33 1 23 45 67 89<br>
-            <strong>Numéro SIRET :</strong> 123 456 789 00012<br>
-            <strong>RCS :</strong> 123 456 789 RCS FORT-DE-FRANCE
-        </p>
-
-        <p class="text-h2 underline">Hébergement</p>
-        <p>
-            Le site est hébergé par :<br>
-            <strong>Nom de l’hébergeur :</strong> Vents d'ouest<br>
-            <strong>Adresse :</strong> 2 Rue du Vent Ouest, 35400 Saint-Malo, France<br>
-            <strong>Contact :</strong> gildas@bigpapooXXX.com
-        </p>
-
-        <p class="text-h2 underline">Directeur de la Publication</p>
-        <p>
-            <strong>Nom :</strong> Léo Bléas<br>
-            <strong>Contact :</strong> leobleas@gmail.com
-        </p>
-
-        <p class="text-h2 underline">Propriété Intellectuelle</p>
-        <p>
-            Tous les contenus présents sur ce site (textes, images, vidéos, logos, etc.) sont protégés par le droit de
-            la propriété intellectuelle.
-            Toute reproduction ou utilisation non autorisée est interdite.
-        </p>
-
-        <p class="text-h2 underline">Données Personnelles et RGPD</p>
-        <p>
-            Conformément au RGPD, les données collectées via ce site sont utilisées uniquement dans le cadre de son
-            fonctionnement.
-            Consultez notre <span onclick="versPolitique()" class="underline cursor-pointer">Politique de
-                Confidentialité</span> pour en savoir plus.
-        </p>
-
-        <p class="text-h2 underline">Cookies</p>
-        <p>
-            Ce site utilise des cookies obligatoires pour améliorer l'expérience utilisateur. Vous pouvez gérer vos
-            préférences en matière de cookies via la bannière dédiée affichée lors de votre première visite.
-        </p>
-
-        <p class="text-h2 underline">Loi Applicable et Juridiction</p>
-        <p>
-            Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux compétents
-            seront ceux du ressort de Lannion.
-        </p>
     </div>
 </div>
