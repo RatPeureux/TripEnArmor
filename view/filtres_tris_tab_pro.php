@@ -147,27 +147,27 @@
         </div>
         <div class="hidden text-small flex flex-wrap gap-4" id="developped-f1-tab">
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="mb-1" id="restauration-tab" />
+                <input type="checkbox" class="mb-1" id="restauration-tab">
                 <label for="restauration-tab">Restauration</label>
             </div>
 
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="mb-1" id="activite-tab" />
+                <input type="checkbox" class="mb-1" id="activite-tab">
                 <label for="activite-tab">Activité</label>
             </div>
 
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="mb-1" id="spectacle-tab" />
+                <input type="checkbox" class="mb-1" id="spectacle-tab">
                 <label for="spectacle-tab">Spectacle</label>
             </div>
 
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="mb-1" id="visite-tab" />
+                <input type="checkbox" class="mb-1" id="visite-tab">
                 <label for="visite-tab">Visite</label>
             </div>
 
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="mb-1" id="parc_attraction-tab" />
+                <input type="checkbox" class="mb-1" id="parc_attraction-tab">
                 <label for="parc_attraction-tab">Parc d'attraction</label>
             </div>
         </div>
@@ -177,14 +177,14 @@
             <p>Disponibilité</p>
             <p id="arrow-f2-tab">></p>
         </div>
-        <div class="hidden text-small flex flex-wrap gap-4" id="developped-f2-tab">
+        <div class="hidden text-small flex flex-wrap gap-4 developped-f2-tab">
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="mb-1" id="ouvert-tab" />
+                <input type="checkbox" class="mb-1" id="ouvert-tab">
                 <label for="ouvert-tab">Ouvert</label>
             </div>
 
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="mb-1" id="ferme-tab" />
+                <input type="checkbox" class="mb-1" id="ferme-tab">
                 <label for="ferme-tab">Fermé</label>
             </div>
         </div>
@@ -197,7 +197,7 @@
         <div class="hidden flex flex-wrap items-center gap-4" id="developped-f3-tab">
             <div class="text-nowrap text-small flex items-center gap-2 w-full">
                 <label>Ville ou Code postal</label>
-                <input id="localisation-tab" type="text" class="w-full border border-black p-1 focus:ring-0" />
+                <input id="localisation-tab" type="text" class="w-full border border-black p-1 focus:ring-0">
             </div>
         </div>
     </div>
@@ -209,15 +209,15 @@
         <div class="hidden flex items-center" id="developped-f4-tab">
             <label class="text-small">Intervalle des notes entre&nbsp;</label>
             <div class="flex items-center">
-                <input id="min-note-tab" type="number" value="0" min="0" max="5" step="0.5" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0" />
+                <input id="min-note-tab" type="number" value="0" min="0" max="5" step="0.5" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0">
                 &nbsp;
-                <img src="/public/icones/egg-full.svg" class="mb-1" width="11">
+                <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='oeuf-plein'>
             </div>
             <label class="text-small">&nbsp;et&nbsp;</label>
             <div class="flex items-center">
-                <input id="max-note-tab" type="number" value="5" min="0" max="5" step="0.5" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0" />
+                <input id="max-note-tab" type="number" value="5" min="0" max="5" step="0.5" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0">
                 &nbsp;
-                <img src="/public/icones/egg-full.svg" class="mb-1" width="11">
+                <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='oeuf-plein'>
             </div>
         </div>
     </div>
@@ -238,28 +238,28 @@
             <p>Prix</p>
             <p id="arrow-f6-tab">></p>
         </div>
-        <div class="hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tab">
+        <div class="hidden flex flex-wrap items-center justify-between gap-2 developped-f6-tab">
             <div class="flex items-center">
                 <label class="text-small">Intervalle des prix entre&nbsp;</label>
-                <input id="min-price-tab" type="number" value="0" min="0" max="99" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0" />
+                <input id="min-price-tab" type="number" value="0" min="0" max="99" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0">
                 <label class="text-small">&nbsp;€&nbsp;et&nbsp;</label>
-                <input id="max-price-tab" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0" />
+                <input id="max-price-tab" type="number" value="<?php echo $prix_mini_max;?>" min="0" max="<?php echo $prix_mini_max;?>" class="w-[44px] border border-black p-1 text-small text-right focus:ring-0">
                 <label class="text-small">&nbsp;€</label>
             </div>
-            <div class="text-small flex flex-wrap gap-4" id="developped-f2-tab">
+            <div class="text-small flex flex-wrap gap-4 developped-f2-tab">
                 <label class="text-small">Restauration :&nbsp;</label>
                 <div class="flex items-center gap-2">
-                    <input type="checkbox" class="mb-1" id="€-tab" />
+                    <input type="checkbox" class="mb-1" id="€-tab">
                     <label for="€-tab">€</label>
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <input type="checkbox" class="mb-1" id="€€-tab" />
+                    <input type="checkbox" class="mb-1" id="€€-tab">
                     <label for="€€-tab">€€</label>
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <input type="checkbox" class="mb-1" id="€€€-tab" />
+                    <input type="checkbox" class="mb-1" id="€€€-tab">
                     <label for="€€€-tab">€€€</label>
                 </div>
             </div>
@@ -273,12 +273,12 @@
         </div>
         <div class="hidden flex items-center gap-4" id="developped-f7-tab">
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="mb-1" id="standard-tab" />
+                <input type="checkbox" class="mb-1" id="standard-tab">
                 <label for="standard-tab">Standard</label>
             </div>
 
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="mb-1" id="premium-tab" />
+                <input type="checkbox" class="mb-1" id="premium-tab">
                 <label for="premium-tab">Premium</label>
             </div>
         </div>

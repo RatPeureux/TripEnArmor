@@ -22,7 +22,7 @@ if (empty($_POST)) { ?>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="icon" type="image" href="/public/images/favicon.png">
+        <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -39,7 +39,7 @@ if (empty($_POST)) { ?>
 
                 <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se connecter à la PACT</h2>
 
-                <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST">
+                <form class="bg-white w-full p-5 border-2 border-primary" action="/connexion/" method="POST">
 
                     <!-- Champ pour l'identifiant -->
                     <label class="text-small" for="id">Identifiant</label>

@@ -94,9 +94,9 @@ $pro = verifyPro();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/main.js"></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Paramètres du compte - Professionnel - PACT</title>
@@ -132,7 +132,7 @@ if ($pro['data']['id_rib'] != null) {
 
             <p class="text-h2 mb-4">Informations privées</p>
 
-            <form action="" class="flex flex-col" method="post">
+            <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
 
                 <label class="text-h4" for="email">Adresse mail</label>
                 <input value="<?php echo $pro['email'] ?>" title="L'adresse mail doit comporter un '@' et un '.'"
@@ -149,13 +149,13 @@ if ($pro['data']['id_rib'] != null) {
                 <input type="submit" id="save1" value="Enregistrer les modifications"
                     class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                     disabled>
-                </input>
+
             </form>
 
             <?php
             if ($pro['data']['type'] == 'prive') { ?>
                 <hr class="mb-8">
-                <form action="" class="flex flex-col" method="post">
+                <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
 
                     <label class="text-h4" for="iban">IBAN</label>
                     <input value="<?php if (isset($rib) && $rib != null) {
@@ -167,12 +167,12 @@ if ($pro['data']['id_rib'] != null) {
                     <input type="submit" id="save2" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-                    </input>
+
                 </form>
 
                 <hr class="mb-8">
 
-                <form action="" class="flex flex-col" method="post">
+                <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
 
                     <label class="text-h4" for="num_siren">Numéro SIRET</label>
                     <input id="num_siren" name="num_siren" pattern="^\d{3} \d{3} \d{3} \d{5}$"
@@ -183,15 +183,13 @@ if ($pro['data']['id_rib'] != null) {
                     <input type="submit" id="save3" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-                    </input>
-
                 </form>
 
                 <?php
             } else {
                 ?>
                 <hr class="mb-8">
-                <form action="" class="flex flex-col" method="post">
+                <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
                     <label class="text-h4" for="type_orga">Type d'organisation</label>
                     <input value="<?php echo $pro['data']['type_orga'] ?>"
                         class="border text-small border-secondary p-2 bg-white max-w-36 h-12 mb-3 " type="text"
@@ -200,15 +198,15 @@ if ($pro['data']['id_rib'] != null) {
                     <input type="submit" id="save4" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-                    </input>
+
                 </form>
                 <?php
             } ?>
 
             <hr class="hidden mb-8">
 
-            <a href="/scripts/delete.php" class="hidden" onclick="return confirmDelete()"
-                class="mx-auto max-w-[23rem] w-full h-12 p-1  text-small text-center text-wrap text-rouge-logo bg-transparent  flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
+            <a href="/scripts/delete.php" onclick="return confirmDelete()"
+                class="hidden mx-auto max-w-[23rem] w-full h-12 p-1  text-small text-center text-wrap text-rouge-logo bg-transparent  flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
                 Supprimer mon compte
             </a>
         </div>
@@ -219,103 +217,103 @@ if ($pro['data']['id_rib'] != null) {
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const iban = document.getElementById("iban");
+            const siren = document.getElementById("num_siren");
+            const type_orga = document.getElementById("type_orga");
+
+            const initialValues = {
+                email: document.getElementById("email").value,
+                num_tel: document.getElementById("num_tel").value,
+            };
+
+            if (iban) {
+                initialValues.iban = iban.value;
+            }
+            if (siren) {
+                initialValues.siren = siren.value;
+            }
+            if (type_orga) {
+                initialValues.type_orga = type_orga.value;
+            }
+
+            function activeSave1() {
+                const save1 = document.getElementById("save1");
+                const email = document.getElementById("email").value;
+                const num_tel = document.getElementById("num_tel").value;
+
+                if (email !== initialValues.email || num_tel !== initialValues.num_tel) {
+                    save1.disabled = false;
+                    save1.classList.remove("opacity-50");
+                    save1.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+                } else {
+                    save1.disabled = true;
+                    save1.classList.add("opacity-50");
+                    save1.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+                }
+            }
+
+            function activeSave2() {
+                const save2 = document.getElementById("save2");
+                const iban = document.getElementById("iban").value;
+
+                if (iban !== initialValues.iban) {
+                    save2.disabled = false;
+                    save2.classList.remove("opacity-50");
+                    save2.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+                } else {
+                    save2.disabled = true;
+                    save2.classList.add("opacity-50");
+                    save2.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+                }
+            }
+
+            function activeSave3() {
+                const save3 = document.getElementById("save3");
+                const siren = document.getElementById("num_siren").value;
+
+                if (siren !== initialValues.siren) {
+                    save3.disabled = false;
+                    save3.classList.remove("opacity-50");
+                    save3.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+                } else {
+                    save3.disabled = true;
+                    save3.classList.add("opacity-50");
+                    save3.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+                }
+            }
+
+            function activeSave4() {
+                const save4 = document.getElementById("save4");
+                const type_orga = document.getElementById("type_orga").value;
+
+                if (type_orga !== initialValues.type_orga) {
+                    save4.disabled = false;
+                    save4.classList.remove("opacity-50");
+                    save4.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+                } else {
+                    save4.disabled = true;
+                    save4.classList.add("opacity-50");
+                    save4.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+                }
+            }
+
+            document.getElementById("email").addEventListener("input", activeSave1);
+            document.getElementById("num_tel").addEventListener("input", activeSave1);
+            if (iban) {
+                document.getElementById("iban").addEventListener("input", activeSave2);
+            }
+            if (siren) {
+                document.getElementById("num_siren").addEventListener("input", activeSave3);
+            }
+            if (type_orga) {
+                document.getElementById("type_orga").addEventListener("input", activeSave4);
+            }
+
+        });
+    </script>
+
 </body>
 
 </html>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const iban = document.getElementById("iban");
-        const siren = document.getElementById("num_siren");
-        const type_orga = document.getElementById("type_orga");
-
-        const initialValues = {
-            email: document.getElementById("email").value,
-            num_tel: document.getElementById("num_tel").value,
-        };
-
-        if (iban) {
-            initialValues.iban = iban.value;
-        }
-        if (siren) {
-            initialValues.siren = siren.value;
-        }
-        if (type_orga) {
-            initialValues.type_orga = type_orga.value;
-        }
-
-        function activeSave1() {
-            const save1 = document.getElementById("save1");
-            const email = document.getElementById("email").value;
-            const num_tel = document.getElementById("num_tel").value;
-
-            if (email !== initialValues.email || num_tel !== initialValues.num_tel) {
-                save1.disabled = false;
-                save1.classList.remove("opacity-50");
-                save1.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            } else {
-                save1.disabled = true;
-                save1.classList.add("opacity-50");
-                save1.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            }
-        }
-
-        function activeSave2() {
-            const save2 = document.getElementById("save2");
-            const iban = document.getElementById("iban").value;
-
-            if (iban !== initialValues.iban) {
-                save2.disabled = false;
-                save2.classList.remove("opacity-50");
-                save2.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            } else {
-                save2.disabled = true;
-                save2.classList.add("opacity-50");
-                save2.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            }
-        }
-
-        function activeSave3() {
-            const save3 = document.getElementById("save3");
-            const siren = document.getElementById("num_siren").value;
-
-            if (siren !== initialValues.siren) {
-                save3.disabled = false;
-                save3.classList.remove("opacity-50");
-                save3.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            } else {
-                save3.disabled = true;
-                save3.classList.add("opacity-50");
-                save3.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            }
-        }
-
-        function activeSave4() {
-            const save4 = document.getElementById("save4");
-            const type_orga = document.getElementById("type_orga").value;
-
-            if (type_orga !== initialValues.type_orga) {
-                save4.disabled = false;
-                save4.classList.remove("opacity-50");
-                save4.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            } else {
-                save4.disabled = true;
-                save4.classList.add("opacity-50");
-                save4.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            }
-        }
-
-        document.getElementById("email").addEventListener("input", activeSave1);
-        document.getElementById("num_tel").addEventListener("input", activeSave1);
-        if (iban) {
-            document.getElementById("iban").addEventListener("input", activeSave2);
-        }
-        if (siren) {
-            document.getElementById("num_siren").addEventListener("input", activeSave3);
-        }
-        if (type_orga) {
-            document.getElementById("type_orga").addEventListener("input", activeSave4);
-        }
-
-    });
-</script>

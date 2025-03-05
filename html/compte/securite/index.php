@@ -51,9 +51,9 @@ if (isset($_POST['mdp'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/main.js"></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Sécurité du compte - PACT</title>
@@ -92,7 +92,7 @@ if (isset($_POST['mdp'])) {
                     <li>- 1 caractère numérique</li>
                 </ul>
 
-                <form action="" class="flex flex-col" method="post">
+                <form action="/compte/securite/" class="flex flex-col" method="post">
                     <div class="relative w-full">
                         <label class="text-h4" for="mdp">Mot de passe actuel</label>
                         <input class="border border-secondary text-small  p-2 bg-white w-full h-12 mb-3 "
@@ -126,7 +126,7 @@ if (isset($_POST['mdp'])) {
                     <input type="submit" id="save" value="Modifier mon mot de passe"
                         class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-                    </input>
+                    
                 </form>
 
                 <hr class="mb-8">

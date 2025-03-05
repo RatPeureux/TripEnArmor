@@ -58,9 +58,9 @@ if (isset($_POST['mdp'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/main.js"></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Sécurité du compte - Professionnel - PACT</title>
@@ -92,7 +92,7 @@ if (isset($_POST['mdp'])) {
                 <li>- 1 caractère numérique</li>
             </ul>
 
-            <form action="" class="flex flex-col" method="post">
+            <form action="/pro/compte/securite/" class="flex flex-col" method="post">
                 <div class="relative w-full">
                     <label class="text-h4" for="mdp">Mot de passe actuel</label>
                     <input class="border text-small border-secondary p-2 bg-white w-full h-12 mb-3 "
@@ -126,7 +126,6 @@ if (isset($_POST['mdp'])) {
                 <input type="submit" id="save" value="Modifier mon mot de passe"
                     class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
                     disabled>
-                </input>
             </form>
 
             <hr class="mb-8">
@@ -150,11 +149,7 @@ if (isset($_POST['mdp'])) {
             <div class="flex">
                 <p class="text-small">Clé API Tchatator :</p>
                 &nbsp;
-                <p 
-                    id="apiKey" 
-                    class="text-sm cursor-pointer blur-sm hover:blur-none" 
-                    onclick="copyToClipboard()"
-                >
+                <p id="apiKey" class="text-sm cursor-pointer blur-sm hover:blur-none" onclick="copyToClipboard()">
                     <?php echo $key; ?>
                 </p>
             </div>
@@ -165,112 +160,113 @@ if (isset($_POST['mdp'])) {
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
     ?>
-</body>
 
-</html>
+    <script>
+        const mdp = document.getElementById('mdp');
+        const newMdp = document.getElementById('newMdp');
+        const confNewMdp = document.getElementById('confNewMdp');
+        const togglePassword1 = document.getElementById('togglePassword1');
+        const togglePassword2 = document.getElementById('togglePassword2');
+        const togglePassword3 = document.getElementById('togglePassword3');
 
-<script>
-    const mdp = document.getElementById('mdp');
-    const newMdp = document.getElementById('newMdp');
-    const confNewMdp = document.getElementById('confNewMdp');
-    const togglePassword1 = document.getElementById('togglePassword1');
-    const togglePassword2 = document.getElementById('togglePassword2');
-    const togglePassword3 = document.getElementById('togglePassword3');
-
-    if (togglePassword1) {
-        togglePassword1.addEventListener('click', function () {
-            if (mdp.type === 'password') {
-                mdp.type = 'text';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            } else {
-                mdp.type = 'password';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
-            }
-        });
-    }
-
-    if (togglePassword2) {
-        togglePassword2.addEventListener('click', function () {
-            if (newMdp.type === 'password') {
-                newMdp.type = 'text';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            } else {
-                newMdp.type = 'password';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
-            }
-        });
-    }
-
-    if (togglePassword3) {
-        togglePassword3.addEventListener('click', function () {
-            if (confNewMdp.type === 'password') {
-                confNewMdp.type = 'text';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            } else {
-                confNewMdp.type = 'password';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
-            }
-        });
-    }
-
-    const save = document.getElementById('save');
-    const errorMessage = document.getElementById('error-message');
-
-    function activeSave() {
-        if (mdp.value.match(mdp.pattern) && newMdp.value.match(mdp.pattern) && confNewMdp.value.match(mdp.pattern)) {
-            if (mdp.value !== newMdp.value) {
-                if (newMdp.value === confNewMdp.value) {
-                    save.disabled = false;
-                    save.classList.remove("opacity-50");
-                    save.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-                    errorMessage.textContent = "";
+        if (togglePassword1) {
+            togglePassword1.addEventListener('click', function () {
+                if (mdp.type === 'password') {
+                    mdp.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
                 } else {
-                    errorMessage.textContent = "Les nouveaux mots de passe ne correspondent pas.";
+                    mdp.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
+            });
+        }
+
+        if (togglePassword2) {
+            togglePassword2.addEventListener('click', function () {
+                if (newMdp.type === 'password') {
+                    newMdp.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    newMdp.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
+            });
+        }
+
+        if (togglePassword3) {
+            togglePassword3.addEventListener('click', function () {
+                if (confNewMdp.type === 'password') {
+                    confNewMdp.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    confNewMdp.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
+            });
+        }
+
+        const save = document.getElementById('save');
+        const errorMessage = document.getElementById('error-message');
+
+        function activeSave() {
+            if (mdp.value.match(mdp.pattern) && newMdp.value.match(mdp.pattern) && confNewMdp.value.match(mdp.pattern)) {
+                if (mdp.value !== newMdp.value) {
+                    if (newMdp.value === confNewMdp.value) {
+                        save.disabled = false;
+                        save.classList.remove("opacity-50");
+                        save.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+                        errorMessage.textContent = "";
+                    } else {
+                        errorMessage.textContent = "Les nouveaux mots de passe ne correspondent pas.";
+                        save.disabled = true;
+                        save.classList.add("opacity-50");
+                        save.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
+                    }
+                } else {
+                    errorMessage.textContent = "Le nouveau mot de passe doit être différent de l'ancien.";
                     save.disabled = true;
                     save.classList.add("opacity-50");
                     save.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
                 }
             } else {
-                errorMessage.textContent = "Le nouveau mot de passe doit être différent de l'ancien.";
+                if (!confNewMdp.value.match(mdp.pattern)) {
+                    errorMessage.textContent = "La confirmation du nouveau mot de passe doit contenir au moins 8 caractères, une majuscule et un chiffre.";
+                }
+                if (!newMdp.value.match(mdp.pattern)) {
+                    errorMessage.textContent = "Le nouveau mot de passe doit contenir au moins 8 caractères, une majuscule et un chiffre.";
+                }
+                if (!mdp.value.match(mdp.pattern)) {
+                    errorMessage.textContent = "Le mot de passe actuel doit contenir au moins 8 caractères, une majuscule et un chiffre.";
+                }
                 save.disabled = true;
                 save.classList.add("opacity-50");
                 save.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
             }
-        } else {
-            if (!confNewMdp.value.match(mdp.pattern)) {
-                errorMessage.textContent = "La confirmation du nouveau mot de passe doit contenir au moins 8 caractères, une majuscule et un chiffre.";
-            }
-            if (!newMdp.value.match(mdp.pattern)) {
-                errorMessage.textContent = "Le nouveau mot de passe doit contenir au moins 8 caractères, une majuscule et un chiffre.";
-            }
-            if (!mdp.value.match(mdp.pattern)) {
-                errorMessage.textContent = "Le mot de passe actuel doit contenir au moins 8 caractères, une majuscule et un chiffre.";
-            }
-            save.disabled = true;
-            save.classList.add("opacity-50");
-            save.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
         }
-    }
 
-    mdp.addEventListener('input', activeSave);
-    newMdp.addEventListener('input', activeSave);
-    confNewMdp.addEventListener('input', activeSave);
+        mdp.addEventListener('input', activeSave);
+        newMdp.addEventListener('input', activeSave);
+        confNewMdp.addEventListener('input', activeSave);
 
-    function copyToClipboard() {
-        // Sélectionner le contenu du paragraphe
-        const content = document.getElementById('apiKey').textContent;
+        function copyToClipboard() {
+            // Sélectionner le contenu du paragraphe
+            const content = document.getElementById('apiKey').textContent;
 
-        // Copier le contenu dans le presse-papiers
-        navigator.clipboard.writeText(content).then(() => {
-            alert("Clé API copiée dans le presse-papiers !");
-        }).catch(err => {
-            console.error('Erreur lors de la copie : ', err);
-        });
-    }
-</script>
+            // Copier le contenu dans le presse-papiers
+            navigator.clipboard.writeText(content).then(() => {
+                alert("Clé API copiée dans le presse-papiers !");
+            }).catch(err => {
+                console.error('Erreur lors de la copie : ', err);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

@@ -30,7 +30,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="icon" type="image" href="/public/images/favicon.png">
+        <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
@@ -44,10 +44,10 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <a href="/">
                     <img src="/public/icones/logo.svg" alt="moine" width="108">
                 </a>
-                
+
                 <h2 class="mx-auto text-center text-h2 pt-4 my-4">Se créer un compte PACT PRO</h2>
 
-                <form class="bg-white w-full p-5 border-2 border-secondary" action="" method="POST"
+                <form class="bg-white w-full p-5 border-2 border-secondary" action="/pro/inscription/" method="POST"
                     onsubmit="return validateForm()">
                     <p class="pb-3">Je créé un compte Professionnel</p>
 
@@ -65,14 +65,14 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         <br>
 
                         <!-- Champ pour le nom -->
-                        <label class="text-small" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
+                        <label class="text-small" for="nom">Dénomination sociale / Nom de l'organisation</label>
                         <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="nom" name="nom"
                             title="Saisir le nom de l'organisation (max 100 caractères)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" required>
 
                     <!-- Champ pour l'adresse mail -->
                     <label class=" text-small" for="mail">Adresse mail</label>
-                    <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="mail" id="mail" name="mail"
+                    <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="email" id="mail" name="mail"
                         title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" required>
                     <!-- Message d'erreur pour l'adresse mail -->
@@ -117,73 +117,74 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 </form>
             </div>
         </div>
+
+        <script>
+            // Gestion des icônes pour afficher/masquer le mot de passe
+            const togglePassword1 = document.getElementById('togglePassword1');
+            const togglePassword2 = document.getElementById('togglePassword2');
+            const mdp = document.getElementById('mdp');
+            const confMdp = document.getElementById('confMdp');
+
+            if (togglePassword1) {
+                togglePassword1.addEventListener('click', function () {
+                    if (mdp.type === 'password') {
+                        mdp.type = 'text';
+                        this.classList.remove('fa-eye');
+                        this.classList.add('fa-eye-slash');
+                    } else {
+                        mdp.type = 'password';
+                        this.classList.remove('fa-eye-slash');
+                        this.classList.add('fa-eye');
+                    }
+                });
+            }
+
+            if (togglePassword2) {
+                togglePassword2.addEventListener('click', function () {
+                    if (confMdp.type === 'password') {
+                        confMdp.type = 'text';
+                        this.classList.remove('fa-eye');
+                        this.classList.add('fa-eye-slash');
+                    } else {
+                        confMdp.type = 'password';
+                        this.classList.remove('fa-eye-slash');
+                        this.classList.add('fa-eye');
+                    }
+                });
+            }
+
+            // Fonction de validation du formulaire
+            function validateForm() {
+                var mdp = document.getElementById("mdp").value;
+                var confMdp = document.getElementById("confMdp").value;
+                var errorMessage = document.getElementById("error-message");
+
+                // Vérifie si les mots de passe correspondent
+                if (mdp !== confMdp) {
+                    errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
+                    return false; // Empêche l'envoi du formulaire
+                }
+
+                errorMessage.textContent = ""; // Réinitialise le message d'erreur
+                return true; // Permet l'envoi du formulaire
+            }
+
+            // Fonction pour mettre à jour le label en fonction du statut choisit
+            function updateLabel() {
+                const statut = document.getElementById('statut');
+                const labelNom = document.getElementById('nom');
+
+                if (statut) {
+                    if (statut.value === 'public') {
+                        labelNom.textContent = 'Nom de l\'organisation';
+                    } else {
+                        labelNom.textContent = 'Dénomination sociale';
+                    }
+                }
+            }
+        </script>
+
     </body>
-
-    <script>
-        // Gestion des icônes pour afficher/masquer le mot de passe
-        const togglePassword1 = document.getElementById('togglePassword1');
-        const togglePassword2 = document.getElementById('togglePassword2');
-        const mdp = document.getElementById('mdp');
-        const confMdp = document.getElementById('confMdp');
-
-        if (togglePassword1) {
-            togglePassword1.addEventListener('click', function () {
-                if (mdp.type === 'password') {
-                    mdp.type = 'text';
-                    this.classList.remove('fa-eye');
-                    this.classList.add('fa-eye-slash');
-                } else {
-                    mdp.type = 'password';
-                    this.classList.remove('fa-eye-slash');
-                    this.classList.add('fa-eye');
-                }
-            });
-        }
-
-        if (togglePassword2) {
-            togglePassword2.addEventListener('click', function () {
-                if (confMdp.type === 'password') {
-                    confMdp.type = 'text';
-                    this.classList.remove('fa-eye');
-                    this.classList.add('fa-eye-slash');
-                } else {
-                    confMdp.type = 'password';
-                    this.classList.remove('fa-eye-slash');
-                    this.classList.add('fa-eye');
-                }
-            });
-        }
-
-        // Fonction de validation du formulaire
-        function validateForm() {
-            var mdp = document.getElementById("mdp").value;
-            var confMdp = document.getElementById("confMdp").value;
-            var errorMessage = document.getElementById("error-message");
-
-            // Vérifie si les mots de passe correspondent
-            if (mdp !== confMdp) {
-                errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
-                return false; // Empêche l'envoi du formulaire
-            }
-
-            errorMessage.textContent = ""; // Réinitialise le message d'erreur
-            return true; // Permet l'envoi du formulaire
-        }
-
-        // Fonction pour mettre à jour le label en fonction du statut choisit
-        function updateLabel() {
-            const statut = document.getElementById('statut');
-            const labelNom = document.getElementById('nom');
-
-            if (statut) {
-                if (statut.value === 'public') {
-                    labelNom.textContent = 'Nom de l\'organisation';
-                } else {
-                    labelNom.textContent = 'Dénomination sociale';
-                }
-            }
-        }
-    </script>
 
     </html>
 
@@ -222,13 +223,13 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="icon" type="image" href="/public/images/favicon.png">
+        <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-        <script type="text/javascript"
+        <script
             src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
-        <script type="text/javascript" src="/scripts/autocomplete.js"></script>
-        <script type="text/javascript" src="/scripts/formats.js" defer></script>
+        <script src="/scripts/autocomplete.js"></script>
+        <script src="/scripts/formats.js" type="module"></script>
 
         <title>Création de compte - Professionnel - PACT</title>
     </head>
@@ -248,21 +249,21 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
             <h2 class="mx-auto text-center text-h2 pt-12 sm:pt-0 my-4">Dites-nous en plus !</h2>
 
-            <form class="mb-4 bg-white w-full p-5 border-2 border-secondary" action="" method="POST">
+            <form class="mb-4 bg-white w-full p-5 border-2 border-secondary" action="/pro/inscription/" method="POST">
                 <div class="mb-3">
-                    <label class="text-small" for="nom" id="nom">Je suis un organisme
+                    <label class="text-small" for="nom">Je suis un organisme
                         <?php echo $statut ?></label>
                 </div>
 
                 <?php if ($statut == "privé") { ?>
                     <!-- Champ pour la dénomination sociale (en lecture seule) -->
-                    <label class="text-small" for="nom" id="nom">Dénomination sociale</label>
+                    <label class="text-small" for="nom">Dénomination sociale</label>
                     <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="nom" name="nom"
                         title="Saisir votre dénomination sociale"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" readonly>
                 <?php } else { ?>
                     <!-- Champ pour le nom de l'organisation (en lecture seule) -->
-                    <label class="text-small" for="nom" id="nom">Nom de l'organisation</label>
+                    <label class="text-small" for="nom">Nom de l'organisation</label>
                     <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="nom" name="nom"
                         title="Nom de l'organisation" value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>"
                         readonly>
@@ -300,7 +301,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php } ?>
 
                 <!-- Champs pour l'adresse -->
-                <label class="text-small" for="adresse">Adresse</label>
+                <label class="text-small" for="user_input_autocomplete_address">Adresse</label>
                 <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="user_input_autocomplete_address"
                     title="Saisir l'adresse de l'organisation" name="user_input_autocomplete_address"
                     placeholder="Ex : 10 Rue des Fleurs"
@@ -389,101 +390,102 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>">
             </form>
         </div>
-    </body>
 
-    <script>
-        // Fonction pour afficher ou masquer le champ IBAN
-        function toggleIBAN() {
-            const checkbox = document.getElementById('plus');
-            const ibanContainer = document.getElementById('iban-container');
-            const iban = document.getElementById('iban');
+        <script>
+            // Fonction pour afficher ou masquer le champ IBAN
+            function toggleIBAN() {
+                const checkbox = document.getElementById('plus');
+                const ibanContainer = document.getElementById('iban-container');
+                const iban = document.getElementById('iban');
 
-            // Afficher ou masquer le conteneur IBAN
-            ibanContainer.classList.toggle('hidden', !checkbox.checked);
+                // Afficher ou masquer le conteneur IBAN
+                ibanContainer.classList.toggle('hidden', !checkbox.checked);
 
-            if (checkbox.checked) {
-                iban.value = 'FR'; // Ajoute le préfixe 'FR'
-                iban.disabled = false; // Active le champ
-            } else {
-                iban.value = ''; // Supprime toute saisie
-                iban.disabled = true; // Désactive le champ
+                if (checkbox.checked) {
+                    iban.value = 'FR'; // Ajoute le préfixe 'FR'
+                    iban.disabled = false; // Active le champ
+                } else {
+                    iban.value = ''; // Supprime toute saisie
+                    iban.disabled = true; // Désactive le champ
+                }
             }
-        }
-        // Synchroniser les cases à cocher
-        function syncCheckboxes() {
-            // Récupère toutes les cases à cocher ayant le même name "termes"
-            const checkboxes = document.querySelectorAll('input[name="termes"]');
+            // Synchroniser les cases à cocher
+            function syncCheckboxes() {
+                // Récupère toutes les cases à cocher ayant le même name "termes"
+                const checkboxes = document.querySelectorAll('input[name="termes"]');
 
-            checkboxes.forEach((checkbox) => {
-                // Ajoute un écouteur sur le changement d'état
-                checkbox.addEventListener('change', () => {
-                    // Applique le même état à toutes les cases
-                    checkboxes.forEach((cb) => cb.checked = checkbox.checked);
+                checkboxes.forEach((checkbox) => {
+                    // Ajoute un écouteur sur le changement d'état
+                    checkbox.addEventListener('change', () => {
+                        // Applique le même état à toutes les cases
+                        checkboxes.forEach((cb) => cb.checked = checkbox.checked);
+                    });
                 });
-            });
-        }
-
-        syncCheckboxes();
-
-        function toggleCheckbox() {
-            const checkbox = document.querySelector('#termes');
-            checkbox.checked = (checkbox.checked) ? false : true; // Cocher la case
-        }
-
-        // Fonction pour afficher ou masquer les cgu pendant l'inscription
-        function toggleCGU() {
-            const cgu = document.querySelector('#cgu');
-
-            if (!cgu.classList.contains('active')) {
-                toggleCheckbox();
             }
 
-            // Toggle la classe 'active' pour le CGU
-            cgu.classList.toggle('active');
-        }
+            syncCheckboxes();
 
-        // Fonction pour afficher ou masquer la politique de confidentialité et d'utilisation des cookies pendant l'inscription
-        function togglePolitique() {
-            const politique = document.querySelector('#politique');
-
-            if (!politique.classList.contains('active')) {
-                toggleCheckbox();
+            function toggleCheckbox() {
+                const checkbox = document.querySelector('#termes');
+                checkbox.checked = (checkbox.checked) ? false : true; // Cocher la case
             }
 
-            // Toggle la classe 'active' pour la politique
-            politique.classList.toggle('active');
-        }
+            // Fonction pour afficher ou masquer les cgu pendant l'inscription
+            function toggleCGU() {
+                const cgu = document.querySelector('#cgu');
 
-        // Fonction pour afficher ou masquer les mentions légales pendant l'inscription
-        function toggleMentions() {
-            const mentions = document.querySelector('#mentions');
+                if (!cgu.classList.contains('active')) {
+                    toggleCheckbox();
+                }
 
-            if (!mentions.classList.contains('active')) {
-                toggleCheckbox();
+                // Toggle la classe 'active' pour le CGU
+                cgu.classList.toggle('active');
             }
 
-            // Toggle la classe 'active' pour les mentions légales
-            mentions.classList.toggle('active');
-        }
+            // Fonction pour afficher ou masquer la politique de confidentialité et d'utilisation des cookies pendant l'inscription
+            function togglePolitique() {
+                const politique = document.querySelector('#politique');
 
-        function versCGU() {
-            document.querySelector('#cgu')?.classList.toggle('active'); // Alterne la classe 'active'
-            document.querySelector('#politique')?.classList.remove('active'); // Supprime la classe 'active'
-            document.querySelector('#mentions')?.classList.remove('active'); // Supprime la classe 'active'
-        }
+                if (!politique.classList.contains('active')) {
+                    toggleCheckbox();
+                }
 
-        function versPolitique() {
-            document.querySelector('#politique')?.classList.toggle('active'); // Alterne la classe 'active'
-            document.querySelector('#cgu')?.classList.remove('active'); // Supprime la classe 'active'
-            document.querySelector('#mentions')?.classList.remove('active'); // Supprime la classe 'active'
-        }
+                // Toggle la classe 'active' pour la politique
+                politique.classList.toggle('active');
+            }
 
-        function versMentions() {
-            document.querySelector('#mentions')?.classList.toggle('active'); // Alterne la classe 'active'
-            document.querySelector('#cgu')?.classList.remove('active'); // Supprime la classe 'active'
-            document.querySelector('#politique')?.classList.remove('active'); // Supprime la classe 'active'
-        }
-    </script>
+            // Fonction pour afficher ou masquer les mentions légales pendant l'inscription
+            function toggleMentions() {
+                const mentions = document.querySelector('#mentions');
+
+                if (!mentions.classList.contains('active')) {
+                    toggleCheckbox();
+                }
+
+                // Toggle la classe 'active' pour les mentions légales
+                mentions.classList.toggle('active');
+            }
+
+            function versCGU() {
+                document.querySelector('#cgu')?.classList.toggle('active'); // Alterne la classe 'active'
+                document.querySelector('#politique')?.classList.remove('active'); // Supprime la classe 'active'
+                document.querySelector('#mentions')?.classList.remove('active'); // Supprime la classe 'active'
+            }
+
+            function versPolitique() {
+                document.querySelector('#politique')?.classList.toggle('active'); // Alterne la classe 'active'
+                document.querySelector('#cgu')?.classList.remove('active'); // Supprime la classe 'active'
+                document.querySelector('#mentions')?.classList.remove('active'); // Supprime la classe 'active'
+            }
+
+            function versMentions() {
+                document.querySelector('#mentions')?.classList.toggle('active'); // Alterne la classe 'active'
+                document.querySelector('#cgu')?.classList.remove('active'); // Supprime la classe 'active'
+                document.querySelector('#politique')?.classList.remove('active'); // Supprime la classe 'active'
+            }
+        </script>
+
+    </body>
 
     </html>
 
