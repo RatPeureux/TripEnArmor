@@ -26,7 +26,7 @@ $pro = verifyPro(); ?>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
-    
+
     <!-- Inclusion du header -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
@@ -34,16 +34,16 @@ $pro = verifyPro(); ?>
 
     <div class="self-center  flex justify-center w-full md:max-w-[1280px] p-2">
         <main class="grow gap-4 p-4 md:p-2 flex flex-col md:mx-10 md:">
-            <p class="text-h1">Politique de Confidentialité et Cookies</p>
+            <p class="text-3xl">Politique de Confidentialité et Cookies</p>
 
-            <p class="text-h2 underline">Introduction</p>
+            <p class="text-2xl underline">Introduction</p>
             <p>
                 Cette politique complète nos <a href="/cgu.php" class="underline">Conditions Générales d'Utilisation</a>
                 et nos <a href="/mentions_legales.php" class="underline">Mentions Légales</a>. Elle décrit en détail
                 comment nous collectons, utilisons et protégeons vos données personnelles et notre gestion des cookies.
             </p>
 
-            <p class="text-h2 underline">Responsable du Traitement</p>
+            <p class="text-2xl underline">Responsable du Traitement</p>
             <p>
                 Conformément aux Mentions Légales, le responsable du traitement est :<br>
                 <strong>Nom :</strong> FNOC<br>
@@ -51,7 +51,7 @@ $pro = verifyPro(); ?>
                 <strong>Contact :</strong> contact@pact.com
             </p>
 
-            <p class="text-h2 underline">Données Collectées : Professionnel</p>
+            <p class="text-2xl underline">Données Collectées : Professionnel</p>
                 Nous collectons des données personnelles nécessaires au fonctionnement du site, notamment :
             <ul class="list-disc list-inside">
                 <li><strong>Données fournies directement :</strong> Statut de l'organisation (publique ou privée), Nom,
@@ -60,7 +60,7 @@ $pro = verifyPro(); ?>
                 <li><strong>Données collectées automatiquement :</strong> Cookies.</li>
             </ul>
 
-            <p class="text-h2 underline">Finalités et Conservation</p>
+            <p class="text-2xl underline">Finalités et Conservation</p>
                 Les données sont utilisées conformément à la section « Finalité du traitement » des
                 <a href="/cgu.php" class="underline">CGU</a>. La durée de conservation varie selon la finalité :
             <ul class="list-disc list-inside">
@@ -70,7 +70,7 @@ $pro = verifyPro(); ?>
             Consultez la section sur vos <strong>Droits des Utilisateurs</strong> ci-dessous pour demander la
             suppression de vos données.
 
-            <p class="text-h2 underline">Vos Droits</p>
+            <p class="text-2xl underline">Vos Droits</p>
                 En tant qu'utilisateur, vous disposez des droits suivants :
             <ul class="list-disc list-inside">
                 <li>Droit d'accès, rectification ou suppression de vos données,</li>
@@ -80,14 +80,14 @@ $pro = verifyPro(); ?>
             Pour exercer vos droits, contactez-nous : <a href="mailto:benoit.tottereau@univ-rennes.fr"
                 class="underline">dpo@pact.com</a>.
 
-            <p class="text-h2 underline">Cookies</p>
+            <p class="text-2xl underline">Cookies</p>
                 Ce site utilise des cookies pour :
             <ul class="list-disc list-inside">
                 <li>Améliorer l'expérience utilisateur,</li>
             </ul>
             Vous pouvez consulter la liste des cookies utilisés ci-dessous.
 
-            <p class="text-h2 underline">Liste des Cookies Utilisés</p>
+            <p class="text-2xl underline">Liste des Cookies Utilisés</p>
             <table class="table-auto border-collapse border border-base300 w-full">
                 <thead>
                     <tr class="bg-base100">
@@ -107,13 +107,13 @@ $pro = verifyPro(); ?>
                 </tbody>
             </table>
 
-            <p class="text-h2 underline">Gestion des Cookies</p>
+            <p class="text-2xl underline">Gestion des Cookies</p>
                 Vous pouvez gérer vos préférences en matière de cookies :
             <ul class="list-disc list-inside">
                 <li>En modifiant les paramètres de votre navigateur.</li>
             </ul>
 
-            <p class="text-h2 underline">Modifications</p>
+            <p class="text-2xl underline">Modifications</p>
             <p>
                 Nous nous réservons le droit de modifier cette politique à tout moment. Les mises à jour seront publiées
                 sur cette page.

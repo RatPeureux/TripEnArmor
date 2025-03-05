@@ -73,22 +73,27 @@ if ($mode_carte == 'membre') {
 	// Composant dynamique (généré avec les données en php)
 	// Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 	?>
+	?>
 	<a class="card <?php if ($option) {
+		echo "active ";
+	} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 		echo "active ";
 	} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
 		<!-- CARTE VERSION TÉLÉPHONE -->
 		<div class='md:hidden relative bg-base100  flex flex-col'>
+
 			<!-- En-tête -->
 			<div class='en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 '>
 				<h3 class='text-xl text-center'>
 					<?php echo $titre_offre; ?>
 				</h3>
 				<div class='flex w-full justify-between px-2'>
-					<p class='text-small'><?php echo $pro['nom_pro'] ?></p>
-					<p class='categorie text-small'><?php echo chaineVersMot($categorie_offre) ?></p>
+					<p class='text-sm'><?php echo $pro['nom_pro'] ?></p>
+					<p class='categorie text-sm'><?php echo chaineVersMot($categorie_offre) ?></p>
 				</div>
 			</div>
+
 			<!-- Image de fond -->
 			<?php
 			require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
@@ -100,18 +105,22 @@ if ($mode_carte == 'membre') {
 			} else {
 				echo $categorie_offre . '.jpg';
 			} ?>' alt="Image promotionnelle de l'offre">
+				echo "offres/" . $images['carte'];
+			} else {
+				echo $categorie_offre . '.jpg';
+			} ?>' alt="Image promotionnelle de l'offre">
 			<!-- Infos principales -->
 			<div class='infos flex items-center justify-around gap-2 px-2 grow'>
 				<!-- Localisation -->
 				<div class='localisation flex flex-col gap-2 flex-shrink-0 justify-center items-center min-w-16'>
 					<i class='fa-solid fa-location-dot'></i>
-					<p class='text-small'><?php
+					<p class='text-sm'><?php
 					if (strlen($ville) > 10) {
 						echo substr($ville, 0, length: 7) . '...';
 					} else {
 						echo $ville;
 					} ?></p>
-					<p class='text-small'><?php echo $code_postal ?></p>
+					<p class='text-sm'><?php echo $code_postal ?></p>
 				</div>
 				<!-- Description avec les tags-->
 				<div class='description py-2 flex flex-col gap-2 justify-center self-stretch'>
@@ -136,19 +145,23 @@ if ($mode_carte == 'membre') {
 							$tagsAffiche = rtrim($tagsAffiche, ', ');
 							if ($tags_offre) {
 								?>
+								?>
 								<div class="p-1  bg-secondary self-center w-full">
 									<?php
 									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
 									?>
 								</div>
 								<?php
+								<?php
 							} else {
+								?>
 								?>
 								<div class="p-1  bg-secondary self-center w-full">
 									<?php
 									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 									?>
 								</div>
+								<?php
 								<?php
 							}
 						} else {
@@ -169,13 +182,16 @@ if ($mode_carte == 'membre') {
 							$tagsAffiche = rtrim($tagsAffiche, ', ');
 							if ($tags_offre) {
 								?>
+								?>
 								<div class="tags p-1 bg-secondary self-center w-full">
 									<?php
 									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
 									?>
 								</div>
 								<?php
+								<?php
 							} else {
+								?>
 								?>
 								<div class="tags p-1  bg-secondary self-center w-full">
 									<?php
@@ -183,11 +199,12 @@ if ($mode_carte == 'membre') {
 									?>
 								</div>
 								<?php
+								<?php
 							}
 						}
 						?>
 					</div>
-					<p class='overflow-hidden line-clamp-2 text-small'>
+					<p class='overflow-hidden line-clamp-2 text-sm'>
 						<?php echo $resume ?>
 					</p>
 				</div>
@@ -197,6 +214,7 @@ if ($mode_carte == 'membre') {
 					// Moyenne des notes quand il y en a une
 					if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
 						$n = $moyenne;
+						?>
 						?>
 						<div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne; ?>">
 							<?php for ($i = 0; $i < 5; $i++) {
@@ -208,25 +226,25 @@ if ($mode_carte == 'membre') {
 									<?php }
 								} else if ($n > 0) {
 									if ($option) { ?>
-											<img class="w-2" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
+												<img class="w-2" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
 									<?php } else { ?>
-											<img class="w-2" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+												<img class="w-2" src="/public/icones/egg-half.svg" alt="0.5 point de note">
 									<?php }
 								} else {
 									if ($option) { ?>
-											<img class="w-2" src="/public/icones/egg-half-white.svg" alt="0 point de note">
+												<img class="w-2" src="/public/icones/egg-half-white.svg" alt="0 point de note">
 									<?php } else { ?>
-											<img class="w-2" src="/public/icones/egg-empty.svg" alt="0 point de note">
-									<?php }
+												<img class="w-2" src="/public/icones/egg-empty.svg" alt="0 point de note">
+											<?php }
 								}
 								$n--;
 							}
 							?>
 						</div>
-						<?php
+							<?php
 					}
 					?>
-					<p class='prix text-small'
+					<p class='prix text-sm'
 						title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'>
 						<?php echo $prix_a_afficher ?>
 					</p>
@@ -257,6 +275,10 @@ if ($mode_carte == 'membre') {
 					} else {
 						echo $categorie_offre . '.jpg';
 					} ?>' alt="Image promotionnelle de l'offre">
+						echo "offres/" . $images['carte'];
+					} else {
+						echo $categorie_offre . '.jpg';
+					} ?>' alt="Image promotionnelle de l'offre">
 				</div>
 				<!-- Partie droite (infos principales) -->
 				<div class='infos flex flex-col basis-1/2 p-3 justify-between relative'>
@@ -271,6 +293,7 @@ if ($mode_carte == 'membre') {
 							if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
 								$n = $moyenne;
 								?>
+								?>
 								<div class="notes flex gap-1">
 									<div class="note flex gap-1 shrink-0" title="<?php echo $moyenne; ?>">
 										<?php for ($i = 0; $i < 5; $i++) {
@@ -282,31 +305,33 @@ if ($mode_carte == 'membre') {
 												<?php }
 											} else if ($n > 0) {
 												if ($option) { ?>
-														<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
+															<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
 												<?php } else { ?>
-														<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+															<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
 												<?php }
 											} else {
 												if ($option) { ?>
-														<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
+															<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
 												<?php } else { ?>
-														<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-												<?php }
+															<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
+														<?php }
 											}
 											$n--;
 										}
 										?>
 									</div>
-									<p class='text-small flex items-cente pt-1'>
-										(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
+									<p class='text-sm flex items-cente pt-1'>
+										(<?php echo number_format($moyenne, 2, ',', '') ?>)
+									</p>
 								</div>
+								<?php
 								<?php
 							}
 							?>
 						</div>
-						<p class='categorie text-small tablette'><?php echo chaineVersMot($categorie_offre); ?></p>
-						<p class='text-small'><?php echo $pro['nom_pro'] ?></p>
-						<p class="text-small <?php echo ($ouvert) ? "text-green-500" : "text-red-500"; ?> ">
+						<p class='categorie text-sm tablette'><?php echo chaineVersMot($categorie_offre); ?></p>
+						<p class='text-sm'><?php echo $pro['nom_pro'] ?></p>
+						<p class="text-sm <?php echo ($ouvert) ? "text-green-500" : "text-red-500"; ?> ">
 							<?php echo ($ouvert) ? "Ouvert" : "Fermé"; ?>
 						</p>
 					</div>
@@ -333,21 +358,21 @@ if ($mode_carte == 'membre') {
 
 								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								if ($tags_offre) {
-									?>
-									<div class="tags p-1 bg-secondary self-center w-full">
-										<?php
+											?>
+											<div class="tags p-1 bg-secondary self-center w-full">
+												<?php
 										echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-										?>
-									</div>
-									<?php
+												?>
+											</div>
+												<?php
 								} else {
-									?>
-									<div class="tags p-1 bg-secondary self-center w-full">
-										<?php
+													?>
+											<div class="tags p-1 bg-secondary self-center w-full">
+												<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-										?>
-									</div>
-									<?php
+												?>
+											</div>
+												<?php
 								}
 							} else {
 								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
@@ -367,26 +392,27 @@ if ($mode_carte == 'membre') {
 
 								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								if ($tags_offre) {
-									?>
-									<div class="tags p-1 bg-secondary self-center w-full">
-										<?php
+													?>
+											<div class="tags p-1 bg-secondary self-center w-full">
+												<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-										?>
-									</div>
-									<?php
+												?>
+											</div>
+												<?php
 								} else {
-									?>
-									<div class="tags p-1  bg-secondary self-center w-full">
-										<?php
+													?>
+											<div class="tags p-1  bg-secondary self-center w-full">
+												<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 										?>
 									</div>
 									<?php
+									}
 								}
-							}
-							?>
+								?>
+							</p>
 						</div>
-						<p class='overflow-hidden line-clamp-5 text-small'>
+						<p class='overflow-hidden line-clamp-5 text-sm'>
 							<?php echo $resume ?>
 						</p>
 					</div>
@@ -396,12 +422,12 @@ if ($mode_carte == 'membre') {
 							<!-- Localisation -->
 							<div class='localisation flex gap-2 flex-shrink-0 justify-center items-center'>
 								<i class='fa-solid fa-location-dot'></i>
-								<p class='text-small'><?php echo $ville ?></p>
-								<p class='text-small'><?php echo $code_postal ?></p>
+								<p class='text-sm'><?php echo $ville ?></p>
+								<p class='text-sm'><?php echo $code_postal ?></p>
 							</div>
 							<!-- Notation et Prix -->
 							<div class='flex flex-col flex-shrink-0 gap-2 justify-center items-center'>
-								<p class='prix text-small'
+								<p class='prix text-sm'
 									title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'>
 									<?php echo $prix_a_afficher ?>
 								</p>
@@ -413,12 +439,15 @@ if ($mode_carte == 'membre') {
 		</div>
 	</a>
 	<?php
+	<?php
 } else {
 	// !!! CARD COMPONENT PRO !!!
 	// Composant dynamique (généré avec les données en php)
 	// Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 	?>
+	?>
 	<div class="card <?php if ($option)
+		echo 'active' ?> relative max-w-[1280px] bg-base100  flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 		echo 'active' ?> relative max-w-[1280px] bg-base100  flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
 		<!-- PARTIE DE GAUCHE, image-->
@@ -430,6 +459,10 @@ if ($mode_carte == 'membre') {
 				$images = $controllerImage->getImagesOfOffre($id_offre);
 				?>
 				<img class=" w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
+					echo "offres/" . $images['carte'];
+				} else {
+					echo $categorie_offre . '.jpg';
+				} ?>' alt="Image promotionnelle de l'offre" title="Consulter les détails">
 					echo "offres/" . $images['carte'];
 				} else {
 					echo $categorie_offre . '.jpg';
@@ -446,7 +479,7 @@ if ($mode_carte == 'membre') {
 
 					<!-- Titre de l'offre -->
 					<div>
-						<p class="text-h2 truncate"><?php echo $titre_offre ?></p>
+						<p class="text-2xl truncate"><?php echo $titre_offre ?></p>
 						<div class="flex">
 							<p class="truncate"><?php echo $pro['nom_pro'] ?></p>
 							<p class="categorie text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
@@ -456,6 +489,7 @@ if ($mode_carte == 'membre') {
 					// Moyenne des notes quand il y en a une
 					if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
 						$n = $moyenne;
+						?>
 						?>
 						<div class="flex gap-1 self-end">
 							<div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne; ?>">
@@ -468,23 +502,24 @@ if ($mode_carte == 'membre') {
 										<?php }
 									} else if ($n > 0) {
 										if ($option) { ?>
-												<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
+													<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
 										<?php } else { ?>
-												<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+													<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
 										<?php }
 									} else {
 										if ($option) { ?>
-												<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
+													<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
 										<?php } else { ?>
-												<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-										<?php }
+													<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
+												<?php }
 									}
 									$n--;
 								}
 								?>
 							</div>
-							<p class='text-small flex items-center pt-1'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
+							<p class='text-sm flex items-center pt-1'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
 						</div>
+						<?php
 						<?php
 					}
 					?>
@@ -494,6 +529,7 @@ if ($mode_carte == 'membre') {
 						<!-- en ligne ? -->
 						<?php
 						if ($est_en_ligne) {
+							?>
 							?>
 							<a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>"
 								onclick="return confirm('Voulez-vous vraiment mettre votre offre hors ligne ?\nLa facturation s\'arrêtra à compter de demain.');"
@@ -508,9 +544,19 @@ if ($mode_carte == 'membre') {
 								</svg>
 							</a>
 							<?php
+							<?php
 						} else {
 							?>
+							?>
 							<a <?php
+							// Cas où aucun rib n'est rentré : ne pas pouvoir mettre en ligne
+							if ($pro['data']['type'] == 'prive' && (!isset($pro['data']['id_rib']) || $pro['data']['id_rib'] == null)) {
+								echo "onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre une offre en ligne\");'";
+							} else {
+								// Pouvoir mettre en ligne si tout est OK ou si public
+								echo "href='/scripts/toggle_ligne.php?id_offre={$id_offre}' onclick='return confirm(\"Voulez-vous vraiment mettre votre offre en ligne ?\nVous pouvez consulter de nouveau nos CGV\");'";
+							}
+							?> title="mettre en ligne">
 							// Cas où aucun rib n'est rentré : ne pas pouvoir mettre en ligne
 							if ($pro['data']['type'] == 'prive' && (!isset($pro['data']['id_rib']) || $pro['data']['id_rib'] == null)) {
 								echo "onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre une offre en ligne\");'";
@@ -529,16 +575,17 @@ if ($mode_carte == 'membre') {
 								</svg>
 							</a>
 							<?php
+							<?php
 						}
 						?>
 						<!-- modifier l'offre -->
 						<a title="Modifier l'offre" href="/pro/offre/modifier/index.php?id_offre=<?php echo $id_offre ?>">
 							<i id="modifier_offre"
-								class="fa-solid fa-gear text-h1 hover:text-primary hover:rotate-[24deg] duration-300"></i>
+								class="fa-solid fa-gear text-3xl hover:text-primary hover:rotate-[24deg] duration-300"></i>
 						</a>
 						<!-- détails de l'offre -->
 						<a href="/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>" title="Voir l'offre">
-							<i class="fa-solid fa-arrow-up-right-from-square text-h1 hover:text-primary duration-300"></i>
+							<i class="fa-solid fa-arrow-up-right-from-square text-3xl hover:text-primary duration-300"></i>
 						</a>
 					</div>
 				</div>
@@ -567,19 +614,23 @@ if ($mode_carte == 'membre') {
 								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								if ($tags_offre) {
 									?>
+									?>
 									<div class="p-1bg-secondary self-center w-full">
 										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
 										?>
 									</div>
 									<?php
+									<?php
 								} else {
+									?>
 									?>
 									<div class="p-1  bg-secondary self-center w-full">
 										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 										?>
 									</div>
+									<?php
 									<?php
 								}
 							} else {
@@ -601,19 +652,23 @@ if ($mode_carte == 'membre') {
 								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								if ($tags_offre) {
 									?>
+									?>
 									<div class="tags p-1  bg-secondary self-center w-full">
 										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
 										?>
 									</div>
 									<?php
+									<?php
 								} else {
+									?>
 									?>
 									<div class="tags p-1 bg-secondary self-center w-full">
 										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 										?>
 									</div>
+									<?php
 									<?php
 								}
 							}
@@ -633,13 +688,13 @@ if ($mode_carte == 'membre') {
 					<div title="Adresse de l'offre"
 						class="localisation flex gap-2 flex-shrink-0 justify-center items-center">
 						<i class="fa-solid fa-location-dot"></i>
-						<p class="text-small"><?php echo $ville ?></p>
-						<p class="text-small"><?php echo $code_postal ?></p>
+						<p class="text-sm"><?php echo $ville ?></p>
+						<p class="text-sm"><?php echo $code_postal ?></p>
 					</div>
 
 					<!-- Notation et Prix -->
 					<div class="flex flex-col flex-shrink-0 gap-2 justify-center items-center">
-						<p class="prix text-small"
+						<p class="prix text-sm"
 							title="<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>">
 							<?php echo $prix_a_afficher ?>
 						</p>
@@ -671,10 +726,15 @@ if ($mode_carte == 'membre') {
 					</div>
 
 					<!-- Dates de mise à jour -->
-					<div class="flex justify-between text-small">
+					<div class="flex justify-between text-sm">
 						<div class="flex items-center justify-arround gap-1">
 							<i class="fa-solid fa-rotate text-xl"></i>
 							<p>Modifiée le <?php
+							if (isset($date_mise_a_jour)) {
+								echo $date_mise_a_jour;
+							} else {
+								echo $date_publication;
+							} ?>
 							if (isset($date_mise_a_jour)) {
 								echo $date_mise_a_jour;
 							} else {
@@ -704,6 +764,7 @@ if ($mode_carte == 'membre') {
 									$date_fin = $date_lancement->modify('+' . $souscription[0]['nb_semaines'] . ' weeks')->format('d/m/Y');
 									echo $souscription[0]["nom_option"];
 									?>
+									?>
 									<p>
 										<?php echo $souscritpion[0]["nom_option"] ?>
 									</p>
@@ -711,6 +772,7 @@ if ($mode_carte == 'membre') {
 										<?php echo $date_lancement_formatted ?> -
 										<?php echo $date_fin; ?>
 									</p>
+									<?php
 									<?php
 								} else {
 									echo "Aucune option";

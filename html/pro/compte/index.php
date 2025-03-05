@@ -33,55 +33,55 @@ $pro = verifyPro();
     ?>
 
     <main class="grow flex flex-col max-w-[1280px] md:w-full mx-auto p-2">
-        <p class="text-h3 p-4"><?php echo $pro['nom_pro'] ?></p>
+        <p class="text-xl p-4"><?php echo $pro['nom_pro'] ?></p>
 
         <hr class="mb-4">
 
         <div class="grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center justify-center">
-            <a href="/pro/compte/profil"
-                class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
+            <a href="/pro/compte/profil" class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-user"></i>
                 <div class="w-full">
-                    <p class="text-h4">Profil</p>
-                    <p class="text-small">Modifier mon profil public.</p>
-                    <p class="text-small">Voir mes activités récentes.</p>
+                    <p class="text-lg">Profil</p>
+                    <p class="text-sm">Modifier mon profil public.</p>
+                    <p class="text-sm">Voir mes activités récentes.</p>
                 </div>
             </a>
             <a href="/pro/compte/parametres"
                 class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-gear"></i>
                 <div class="w-full">
-                    <p class="text-h4">Paramètres</p>
-                    <p class="text-small">Modifier mes informations privées.</p>
+                    <p class="text-lg">Paramètres</p>
+                    <p class="text-sm">Modifier mes informations privées.</p>
                 </div>
             </a>
             <a href="/pro/compte/securite"
                 class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-shield"></i>
                 <div class="w-full">
-                    <p class="text-h2">Sécurité</p>
-                    <p class="text-small">Modifier mes informations sensibles.</p>
-                    <p class="text-small">Récupérer ma clé API : Tchatator.</p>
+                    <p class="text-2xl">Sécurité</p>
+                    <p class="text-sm">Modifier mes informations sensibles.</p>
+                    <p class="text-sm">Protéger mon compte.</p>
+                    <p class="text-sm">Récupérer ma clé API : Tchatator.</p>
                 </div>
             </a>
 
             <?php
             if (($pro['data']['type']) == 'prive') {
                 ?>
-                <a href="/pro/compte/facture"
-                    class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
-                    <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
-                    <div class="w-full">
-                        <p class="text-h4">Factures</p>
-                        <p class="text-small">Faire le point sur mes paiements réels ou prévisionnels.</p>
-                    </div>
-                </a>
-                <?php
+                        <a href="/pro/compte/facture"
+                            class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
+                            <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
+                            <div class="w-full">
+                                <p class="text-lg">Factures</p>
+                                <p class="text-sm">Faire le point sur mes paiements réels ou prévisionnels.</p>
+                            </div>
+                        </a>
+                        <?php
             }
             ?>
 
             <a href="/scripts/logout.php" onclick="return confirmLogout()"
-                class="w-full text-white text-small border border-rouge-logo bg-rouge-logo px-4 py-2 rounded-full hover:bg-rouge-logo/90 flex items-center justify-center">
+                class="w-full text-white text-sm border border-rouge-logo bg-rouge-logo px-4 py-2 rounded-full hover:bg-rouge-logo/90 flex items-center justify-center">
                 Se déconnecter
             </a>
         </div>

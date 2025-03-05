@@ -89,7 +89,7 @@ $pro = verifyPro();
     <main class="grow md:w-full mt-0 m-auto max-w-[1280px] p-2 flex flex-col gap-10">
         <!-- Chemin de navigation -->
         <div>
-            <p class="text-h3 p-4">
+            <p class="text-xl p-4">
                 <a href="/pro/compte">Mon compte</a>
                 >
                 <a href="/pro/compte/facture" class="underline">Facture</a>
@@ -99,17 +99,17 @@ $pro = verifyPro();
 
         <!-- Montants totaux prévisionnels -->
         <div>
-            <h2 class="text-h2">Montants prévisionnels du mois (TTC)</h2>
+            <h2 class="text-2xl">Montants prévisionnels du mois (TTC)</h2>
             <div class="flex flex-col justify-start px-5">
                 <!-- Affichage du total avec effet de défilement -->
-                <h1 id="montantTotal" class="text-h1 font-bold">0 €</h1>
+                <h1 id="montantTotal" class="text-3xl font-bold">0 €</h1>
                 <ul>
                     <?php
                     if ($all_totaux_ttc) {
                         foreach ($all_totaux_ttc as $total) {
-                    ?>
-                            <li><?php echo $all_titres[$total['id_offre']]['titre'] . " : " . $total['total_ttc'] ?> €</li>
-                    <?php
+                            ?>
+                                            <li><?php echo $all_titres[$total['id_offre']]['titre'] . " : " . $total['total_ttc'] ?> €</li>
+                                            <?php
                         }
                     }
                     ?>
@@ -133,7 +133,7 @@ $pro = verifyPro();
             }
 
             // Chargement de la page -> déclencher le défilement des chiffres
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 const montantElement = document.getElementById('montantTotal');
                 updateAmount(montantElement, <?php echo $sommeTotauxTTC ?>);
             });
@@ -146,94 +146,94 @@ $pro = verifyPro();
         $factureController = new FactureController();
 
         if (count($offresDuPro) > 0) { ?>
-            <div class="flex gap-5 items-center">
-                <h3 class="text-h3">Simuler la facturation d'une offre</h3>
-                <select name="offre" id="offre" onchange="loadPreview()" class="p-2 border border-primary bg-transparent">
-                    <option value="" disabled selected>Choisir une offre</option>
-                    <?php
-                    foreach ($offresDuPro as $offre) { ?>
-                        <option value="<?php echo htmlspecialchars($offre['id_offre']) ?>">
-                            <?php echo htmlspecialchars($offre['titre']) ?>
-                        </option>
-                    <?php
-                    }
-                    ?>
-                    <option value="2">Autre offre</option>
-                </select>
-                <button id="preview-dl-button" onclick="generatePDF(document.querySelector('#facture-preview'))"
-                    class="bg-slate-200 text-white p-2">
-                    Télécharger la facture en PDF
-                </button>
-                <!-- Logo de chargement de preview -->
-                <img id="loading-indicator" style="display: none;" class="w-8" src="/public/images/loading.gif"
-                    alt="Loading...">
-            </div>
+                    <div class="flex gap-5 items-center">
+                        <h3 class="text-xl">Simuler la facturation d'une offre</h3>
+                        <select name="offre" id="offre" onchange="loadPreview()" class="p-2 border border-primary bg-transparent">
+                            <option value="" disabled selected>Choisir une offre</option>
+                            <?php
+                            foreach ($offresDuPro as $offre) { ?>
+                                        <option value="<?php echo htmlspecialchars($offre['id_offre']) ?>">
+                                            <?php echo htmlspecialchars($offre['titre']) ?>
+                                        </option>
+                                        <?php
+                            }
+                            ?>
+                            <option value="2">Autre offre</option>
+                        </select>
+                        <button id="preview-dl-button" onclick="generatePDF(document.querySelector('#facture-preview'))"
+                            class="bg-slate-200 text-white p-2">
+                            Télécharger la facture en PDF
+                        </button>
+                        <!-- Logo de chargement de preview -->
+                        <img id="loading-indicator" style="display: none;" class="w-8" src="/public/images/loading.gif"
+                            alt="Loading...">
+                    </div>
 
-            <!-- Contenu de la preview -->
-            <div id="facture-preview" class="self-center">
-            </div>
+                    <!-- Contenu de la preview -->
+                    <div id="facture-preview" class="self-center">
+                    </div>
 
-            <script>
-                // AFFICHER LA PREVIEW D'UNE FACTURE QUAND OFFRE SÉLECTIONNÉE
-                function loadPreview() {
-                    // Afficher le loader pendant le chargement
-                    $('#loading-indicator').show();
+                    <script>
+                        // AFFICHER LA PREVIEW D'UNE FACTURE QUAND OFFRE SÉLECTIONNÉE
+                        function loadPreview() {
+                            // Afficher le loader pendant le chargement
+                            $('#loading-indicator').show();
 
-                    const id_offre = document.getElementById('offre').value;
-                    $('#facture-preview').html('');
+                            const id_offre = document.getElementById('offre').value;
+                            $('#facture-preview').html('');
 
-                    toggleDownloadButton();
-
-                    $.ajax({
-                        url: '/scripts/load_preview.php',
-                        type: 'GET',
-                        data: {
-                            id_offre: id_offre,
-                        },
-
-                        // Durant l'exécution de la requête
-                        success: function(response) {
-                            const preview_loaded = response;
-                            $('#facture-preview').html(preview_loaded);
-                        },
-
-                        // A la fin, chacher le logo de chargement
-                        complete: function() {
-                            // Masquer le loader après la requête
-                            $('#loading-indicator').hide();
                             toggleDownloadButton();
+
+                            $.ajax({
+                                url: '/scripts/load_preview.php',
+                                type: 'GET',
+                                data: {
+                                    id_offre: id_offre,
+                                },
+
+                                // Durant l'exécution de la requête
+                                success: function (response) {
+                                    const preview_loaded = response;
+                                    $('#facture-preview').html(preview_loaded);
+                                },
+
+                                // A la fin, chacher le logo de chargement
+                                complete: function () {
+                                    // Masquer le loader après la requête
+                                    $('#loading-indicator').hide();
+                                    toggleDownloadButton();
+                                }
+                            });
                         }
-                    });
-                }
 
-                // ACTUALISER L'ÉTAT DU BOUTON TÉLÉCHARGER EN FONCTION DU CONTENU DE LA PREVIEW
-                function toggleDownloadButton() {
-                    const previewContent = document.getElementById('facture-preview').innerHTML.trim();
-                    const downloadButton = document.getElementById('preview-dl-button');
+                        // ACTUALISER L'ÉTAT DU BOUTON TÉLÉCHARGER EN FONCTION DU CONTENU DE LA PREVIEW
+                        function toggleDownloadButton() {
+                            const previewContent = document.getElementById('facture-preview').innerHTML.trim();
+                            const downloadButton = document.getElementById('preview-dl-button');
 
-                    if (previewContent === "") {
-                        downloadButton.disabled = true;
-                        downloadButton.classList.remove('!bg-primary'); // Couleur grise
-                        downloadButton.style.cursor = "not-allowed"; // Changer le curseur pour indiquer que c'est désactivé
-                    } else {
-                        downloadButton.disabled = false;
-                        downloadButton.classList.add('!bg-primary'); // Couleur primaire
-                        downloadButton.style.cursor = "pointer"; // Rétablir le curseur normal
-                    }
-                }
+                            if (previewContent === "") {
+                                downloadButton.disabled = true;
+                                downloadButton.classList.remove('!bg-primary'); // Couleur grise
+                                downloadButton.style.cursor = "not-allowed"; // Changer le curseur pour indiquer que c'est désactivé
+                            } else {
+                                downloadButton.disabled = false;
+                                downloadButton.classList.add('!bg-primary'); // Couleur primaire
+                                downloadButton.style.cursor = "pointer"; // Rétablir le curseur normal
+                            }
+                        }
 
                 // Initialiser l'état du bouton au démarrage (au cas où il y a déjà un contenu)
                 document.addEventListener('DOMContentLoaded', toggleDownloadButton);
             </script>
 
-        <?php
+                    <?php
         } else {
             echo "<p>Vous n'avez pas d'offres en ligne.</p>";
         } ?>
 
         <!-- HISTORIQUE DES FACTURES RÉELEMENTS ENVOYÉES & PRÉLEVÉES -->
         <div class="flex flex-col gap-2 mb-10">
-            <h3 class="text-h3">Historique des factures émises</h3>
+            <h3 class="text-xl">Historique des factures émises</h3>
             <table id='facture-table' class='w-full border-collapse border border-gray-300'>
                 <thead class='border bg-slate-200'>
                     <tr class="bg-slate-200 text-left">
@@ -279,28 +279,28 @@ $pro = verifyPro();
                             } else {
                                 echo "ERREUR : Impossible d'obtenir les lignes de la facture n°$numero_facture";
                             }
-                    ?>
-                            <tr>
-                                <td class='border-b p-2'><?php echo htmlspecialchars($facture['numero_facture']); ?></td>
-                                <td class='border-b p-2'><?php echo htmlspecialchars($offre['titre']); ?></td>
-                                <td class='border-b p-2'><?php echo $dateEmission->format('d/m/Y'); ?></td>
-                                <td class='border-b p-2'><?php echo $dateEcheance->format('d/m/Y'); ?></td>
-                                <td class='border-b p-2'>
-                                    <?php echo array_sum(array_column($lignes, 'prix_total_ttc')) + array_sum(array_column($options, 'prix_total_ttc')) ?>
-                                    €
-                                </td>
-                                <td class='border-b p-2 flex gap-2 items-center'>
-                                    <!-- Télécharger la facture -->
-                                    <a title="Télécharger"><i
-                                            onclick="downloadFacture('<?php echo $facture['numero_facture'] ?>')"
-                                            class="fa-solid fa-download hover:text-primary hover:cursor-pointer"></i></a>
-                                    <!-- Voir la facture -->
-                                    <a title="Consulter la facture">
-                                        <i onclick="loadFacture('<?php echo $facture['numero_facture'] ?>')"
-                                            class="fa-solid fa-eye hover:text-primary hover:cursor-pointer"></i></a>
-                                </td>
-                            </tr>
-                    <?php
+                            ?>
+                                            <tr>
+                                                <td class='border-b p-2'><?php echo htmlspecialchars($facture['numero_facture']); ?></td>
+                                                <td class='border-b p-2'><?php echo htmlspecialchars($offre['titre']); ?></td>
+                                                <td class='border-b p-2'><?php echo $dateEmission->format('d/m/Y'); ?></td>
+                                                <td class='border-b p-2'><?php echo $dateEcheance->format('d/m/Y'); ?></td>
+                                                <td class='border-b p-2'>
+                                                    <?php echo array_sum(array_column($lignes, 'prix_total_ttc')) + array_sum(array_column($options, 'prix_total_ttc')) ?>
+                                                    €
+                                                </td>
+                                                <td class='border-b p-2 flex gap-2 items-center'>
+                                                    <!-- Télécharger la facture -->
+                                                    <a title="Télécharger"><i
+                                                            onclick="downloadFacture('<?php echo $facture['numero_facture'] ?>')"
+                                                            class="fa-solid fa-download hover:text-primary hover:cursor-pointer"></i></a>
+                                                    <!-- Voir la facture -->
+                                                    <a title="Consulter la facture">
+                                                        <i onclick="loadFacture('<?php echo $facture['numero_facture'] ?>')"
+                                                            class="fa-solid fa-eye hover:text-primary hover:cursor-pointer"></i></a>
+                                                </td>
+                                            </tr>
+                                            <?php
                         }
                     }
                     ?>
@@ -335,12 +335,12 @@ $pro = verifyPro();
                     },
 
                     // Durant l'exécution de la requête
-                    success: function(response) {
+                    success: function (response) {
                         $('#facture-content').html(response);
                     },
 
                     // A la fin, chacher le logo de chargement
-                    complete: function() {
+                    complete: function () {
                         // Masquer le loader après la requête
                         $('#loading-facture-indicator').hide();
                     }

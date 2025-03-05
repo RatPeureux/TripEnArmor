@@ -7,7 +7,7 @@
 <div class="md:hidden h-full bg-white fixed top-0 w-7/12 left-0 -translate-x-full duration-200 z-50">
   <a class="p-4 gap-4 self-end flex items-center">
     <i class="text-3xl fa-solid fa-circle-xmark cursor-pointer" onclick="toggleMenu()"></i>
-    <h1 class="text-h1">Menu</h1>
+    <h1 class="text-3xl">Menu</h1>
   </a>
 
   <div class="all-items flex flex-col items-stretch">
@@ -27,9 +27,10 @@
 
 <!-- VERSION TABLETTE OU PLUS (+768px) -->
 <div class="hidden w-52 sticky top-2 md:block bg-white z-20">
-  <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2 cursor-pointer hover:text-primary" id="menu-button" onclick="developpedMenu()">
-      <i class="fa-solid fa-bars"></i>
-      <p>Menu</p>
+  <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2 cursor-pointer hover:text-primary" id="menu-button"
+    onclick="developpedMenu()">
+    <i class="fa-solid fa-bars"></i>
+    <p>Menu</p>
   </a>
 
   <div class="all-items flex flex-col items-stretch border-base200 border-t" id="menu-component">
@@ -46,14 +47,14 @@
 </div>
 
 <script>
-    function developpedMenu() {
-        const menu = document.getElementById('menu-component');
-        const menuButton = document.getElementById('menu-button');
+  function developpedMenu() {
+    const menu = document.getElementById('menu-component');
+    const menuButton = document.getElementById('menu-button');
 
-        if (menu.classList.contains('hidden')) {
-            menu.classList.remove('hidden');
-        } else {
-            menu.classList.add('hidden');
-        }
+    if (menu.classList.contains('hidden')) {
+      menu.classList.remove('hidden');
+    } else {
+      menu.classList.add('hidden');
     }
+  }
 </script>

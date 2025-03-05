@@ -3,7 +3,7 @@
     Pour l'ajouter, écrier la balise <div id='footer'></div> dans votre code html
     (responsive)
 -->
-<footer class="bg-secondary text-white p-8 pb-16 md:pb-8 text-small">
+<footer class="bg-secondary text-white p-8 pb-16 md:pb-8 text-sm">
     <div class="mx-auto max-w-[1280px] flex flex-col justify-center items-center">
         <div class="hidden md:flex w-full items-center items-end justify-between">
             <a href="/" class="self-start flex items-center gap-2">

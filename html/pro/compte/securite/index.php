@@ -23,26 +23,26 @@ if (isset($_POST['mdp'])) {
         } else {
             $controllerProPublic->updateProPublic($pro['id_compte'], false, $mdp, false, false, false, false);
         } ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var successMessage = document.getElementById('success-message');
-                successMessage.textContent = 'Le mot de passe a bien été modifié.';
-                setTimeout(function () {
-                    successMessage.textContent = '';
-                }, 7500);
-            });
-        </script>
-    <?php } else { ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var errorMessage = document.getElementById('error-message');
-                errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
-                setTimeout(function () {
-                    errorMessage.textContent = '';
-                }, 7500);
-            });
-        </script>
-    <?php }
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                var successMessage = document.getElementById('success-message');
+                                successMessage.textContent = 'Le mot de passe a bien été modifié.';
+                                setTimeout(function () {
+                                    successMessage.textContent = '';
+                                }, 7500);
+                            });
+                        </script>
+            <?php } else { ?>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                var errorMessage = document.getElementById('error-message');
+                                errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
+                                setTimeout(function () {
+                                    errorMessage.textContent = '';
+                                }, 7500);
+                            });
+                        </script>
+            <?php }
 
     unset($_POST['mdp']);
     unset($_POST['newMdp']);
@@ -75,7 +75,7 @@ if (isset($_POST['mdp'])) {
 
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
         <div class="m-auto flex flex-col">
-            <p class="text-h3 p-4">
+            <p class="text-xl p-4">
                 <a href="/pro/compte">Mon compte</a>
                 >
                 <a href="pro/compte/securite" class="underline">Sécurité</a>
@@ -83,10 +83,10 @@ if (isset($_POST['mdp'])) {
 
             <hr class="mb-8">
 
-            <p class="text-h2 mb-4">Informations sensibles</p>
-            <p class="text-small">Définissez un nouveau mot de passe fiable, respectant les conditions
+            <p class="text-2xl mb-4">Informations sensibles</p>
+            <p class="text-sm">Définissez un nouveau mot de passe fiable, respectant les conditions
                 de sécurité minimum suivantes :</p>
-            <ul class="mb-3 text-small">
+            <ul class="mb-3 text-sm">
                 <li>- 8 caratères</li>
                 <li>- 1 majuscule</li>
                 <li>- 1 caractère numérique</li>
@@ -94,8 +94,8 @@ if (isset($_POST['mdp'])) {
 
             <form action="/pro/compte/securite/" class="flex flex-col" method="post">
                 <div class="relative w-full">
-                    <label class="text-h4" for="mdp">Mot de passe actuel</label>
-                    <input class="border text-small border-secondary p-2 bg-white w-full h-12 mb-3 "
+                    <label class="text-lg" for="mdp">Mot de passe actuel</label>
+                    <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
                         title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                         type="password" id="mdp" name="mdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$">
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -103,8 +103,8 @@ if (isset($_POST['mdp'])) {
                 </div>
 
                 <div class="relative w-full">
-                    <label class="text-h4" for="newMdp">Nouveau mot de passe</label>
-                    <input class="border text-small border-secondary p-2 bg-white w-full h-12 mb-3 "
+                    <label class="text-lg" for="newMdp">Nouveau mot de passe</label>
+                    <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
                         title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                         type="password" id="newMdp" name="newMdp">
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
@@ -112,19 +112,19 @@ if (isset($_POST['mdp'])) {
                 </div>
 
                 <div class="relative w-full">
-                    <label class="text-h4" for="confNewMdp">Confirmation nouveau mot de passe</label>
-                    <input class="border text-small border-secondary p-2 bg-white w-full h-12 mb-3 "
+                    <label class="text-lg" for="confNewMdp">Confirmation nouveau mot de passe</label>
+                    <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
                         title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                         type="password" id="confNewMdp" name="confNewMdp">
                     <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
                         id="togglePassword3"></i>
                 </div>
 
-                <span id="success-message" class="success text-green-600 text-small"></span>
-                <span id="error-message" class="error text-rouge-logo text-small"></span>
+                <span id="success-message" class="success text-green-600 text-sm"></span>
+                <span id="error-message" class="error text-rouge-logo text-sm"></span>
 
                 <input type="submit" id="save" value="Modifier mon mot de passe"
-                    class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-small text-white bg-primary  border border-transparent rounded-full"
+                    class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                     disabled>
             </form>
 
