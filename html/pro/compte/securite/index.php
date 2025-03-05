@@ -23,26 +23,26 @@ if (isset($_POST['mdp'])) {
         } else {
             $controllerProPublic->updateProPublic($pro['id_compte'], false, $mdp, false, false, false, false);
         } ?>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                var successMessage = document.getElementById('success-message');
-                                successMessage.textContent = 'Le mot de passe a bien été modifié.';
-                                setTimeout(function () {
-                                    successMessage.textContent = '';
-                                }, 7500);
-                            });
-                        </script>
-            <?php } else { ?>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                var errorMessage = document.getElementById('error-message');
-                                errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
-                                setTimeout(function () {
-                                    errorMessage.textContent = '';
-                                }, 7500);
-                            });
-                        </script>
-            <?php }
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var successMessage = document.getElementById('success-message');
+                successMessage.textContent = 'Le mot de passe a bien été modifié.';
+                setTimeout(function () {
+                    successMessage.textContent = '';
+                }, 7500);
+            });
+        </script>
+    <?php } else { ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
+                setTimeout(function () {
+                    errorMessage.textContent = '';
+                }, 7500);
+            });
+        </script>
+    <?php }
 
     unset($_POST['mdp']);
     unset($_POST['newMdp']);
@@ -147,7 +147,7 @@ if (isset($_POST['mdp'])) {
             ?>
 
             <div class="flex">
-                <p class="text-small">Clé API Tchatator :</p>
+                <p class="text-sm">Clé API Tchatator :</p>
                 &nbsp;
                 <p id="apiKey" class="text-sm cursor-pointer blur-sm hover:blur-none" onclick="copyToClipboard()">
                     <?php echo $key; ?>
