@@ -80,7 +80,7 @@ $membre = verifyMember();
 
                 <div class="max-w-[23rem] mx-auto">
                     <a href="/compte/profil/avis"
-                        class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
+                        class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                         <i class="w-[50px] text-center text-4xl fa-solid fa-egg"></i>
                         <div class="w-full">
                             <p class="text-lg">Avis</p>

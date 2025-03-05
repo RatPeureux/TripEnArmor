@@ -72,8 +72,7 @@ $membre = verifyMember();
             <hr class="mb-4">
 
             <div class="grow flex justify-center max-w-[23rem] mx-auto gap-12 flex flex-col items-center">
-                <a href="/compte/profil"
-                    class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
+                <a href="/compte/profil" class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                     <i class="w-[50px] text-center text-4xl fa-solid fa-user"></i>
                     <div class="w-full">
                         <p class="text-lg">Profil</p>
@@ -82,21 +81,21 @@ $membre = verifyMember();
                     </div>
                 </a>
                 <a href="/compte/parametres"
-                    class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
+                    class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                     <i class="w-[50px] text-center text-4xl fa-solid fa-gear"></i>
                     <div class="w-full">
                         <p class="text-lg">Paramètres</p>
                         <p class="text-sm">Modifier mes informations privées.</p>
-                        <p class="text-sm">Supprimer mon compte.</p>
                     </div>
                 </a>
                 <a href="/compte/securite"
-                    class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
+                    class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                     <i class="w-[50px] text-center text-4xl fa-solid fa-shield"></i>
                     <div class="w-full">
                         <p class="text-lg">Sécurité</p>
                         <p class="text-sm">Modifier mes informations sensibles.</p>
                         <p class="text-sm">Protéger mon compte.</p>
+                        <p class="text-sm">Récupérer ma clé API : Tchatator.</p>
                     </div>
                 </a>
 
