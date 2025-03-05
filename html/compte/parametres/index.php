@@ -91,7 +91,7 @@ $membre = verifyMember();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
@@ -125,7 +125,7 @@ $membre = verifyMember();
 
                 <p class="text-2xl mb-4">Informations privées</p>
 
-                <form action="" class="flex flex-col" method="post">
+                <form action="/compte/parametres/" class="flex flex-col" method="post">
                     <div class="flex flex-nowrap space-x-3 mb-1.5">
                         <div class="w-full">
                             <label class="text-lg" for="prenom">Prénom</label>
@@ -144,12 +144,12 @@ $membre = verifyMember();
                     <input type="submit" id="save1" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-                    </input>
+                    
                 </form>
 
 
                 <hr class="mb-8">
-                <form action="" class="flex flex-col" method="post">
+                <form action="/compte/parametres/" class="flex flex-col" method="post">
 
                     <label class="text-lg" for="email">Adresse mail</label>
                     <input value="<?php echo $membre['email'] ?>" placeholder="exemple@gmail.com"
@@ -166,12 +166,12 @@ $membre = verifyMember();
                     <input type="submit" id="save2" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-                    </input>
+                    
                 </form>
 
                 <hr class="mb-8">
 
-                <form action="" class="flex flex-col" method="post">
+                <form action="/compte/parametres" class="flex flex-col" method="post">
                     <label class="text-lg" for="adresse">Adresse postale</label>
                     <input value="<?php echo $adresse['numero'] . " " . $adresse['odonyme'] ?>"
                         class="border border-secondary text-sm p-2 bg-white w-full h-12 mb-3 " type="text" id="adresse"
@@ -202,12 +202,12 @@ $membre = verifyMember();
                     <input type="submit" id="save3" value="Enregistrer les modifications"
                         class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-                    </input>
+                    
 
                     <hr class="hidden mb-8">
 
-                    <a href="/scripts/delete.php" class="hidden" onclick="return confirmDelete()"
-                        class="mx-auto max-w-[23rem] w-full h-12 p-1  text-sm text-center text-wrap text-rouge-logo bg-transparent  flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
+                    <a href="/scripts/delete.php" onclick="return confirmDelete()"
+                        class="hidden mx-auto max-w-[23rem] w-full h-12 p-1  text-sm text-center text-wrap text-rouge-logo bg-transparent  flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
                         Supprimer mon compte
                     </a>
                 </form>

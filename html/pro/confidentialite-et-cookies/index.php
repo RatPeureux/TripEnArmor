@@ -18,9 +18,9 @@ $pro = verifyPro(); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/scripts/main.js" defer=""></script>
+    <script type="module" src="/scripts/main.js" ></script>
 
     <title>Politique de confidentialité et d'utilisation des cookies - Professionnel - PACT</title>
 </head>
@@ -52,7 +52,6 @@ $pro = verifyPro(); ?>
             </p>
 
             <p class="text-2xl underline">Données Collectées : Professionnel</p>
-            <p>
                 Nous collectons des données personnelles nécessaires au fonctionnement du site, notamment :
             <ul class="list-disc list-inside">
                 <li><strong>Données fournies directement :</strong> Statut de l'organisation (publique ou privée), Nom,
@@ -60,10 +59,8 @@ $pro = verifyPro(); ?>
                     postale, Numéro de téléphone, IBAN (Facultatif : Organisme privée),</li>
                 <li><strong>Données collectées automatiquement :</strong> Cookies.</li>
             </ul>
-            </p>
 
             <p class="text-2xl underline">Finalités et Conservation</p>
-            <p>
                 Les données sont utilisées conformément à la section « Finalité du traitement » des
                 <a href="/cgu.php" class="underline">CGU</a>. La durée de conservation varie selon la finalité :
             <ul class="list-disc list-inside">
@@ -72,10 +69,8 @@ $pro = verifyPro(); ?>
             </ul>
             Consultez la section sur vos <strong>Droits des Utilisateurs</strong> ci-dessous pour demander la
             suppression de vos données.
-            </p>
 
             <p class="text-2xl underline">Vos Droits</p>
-            <p>
                 En tant qu'utilisateur, vous disposez des droits suivants :
             <ul class="list-disc list-inside">
                 <li>Droit d'accès, rectification ou suppression de vos données,</li>
@@ -84,16 +79,13 @@ $pro = verifyPro(); ?>
             </ul>
             Pour exercer vos droits, contactez-nous : <a href="mailto:benoit.tottereau@univ-rennes.fr"
                 class="underline">dpo@pact.com</a>.
-            </p>
 
             <p class="text-2xl underline">Cookies</p>
-            <p>
                 Ce site utilise des cookies pour :
             <ul class="list-disc list-inside">
                 <li>Améliorer l'expérience utilisateur,</li>
             </ul>
             Vous pouvez consulter la liste des cookies utilisés ci-dessous.
-            </p>
 
             <p class="text-2xl underline">Liste des Cookies Utilisés</p>
             <table class="table-auto border-collapse border border-base300 w-full">
@@ -116,12 +108,10 @@ $pro = verifyPro(); ?>
             </table>
 
             <p class="text-2xl underline">Gestion des Cookies</p>
-            <p>
                 Vous pouvez gérer vos préférences en matière de cookies :
             <ul class="list-disc list-inside">
                 <li>En modifiant les paramètres de votre navigateur.</li>
             </ul>
-            </p>
 
             <p class="text-2xl underline">Modifications</p>
             <p>

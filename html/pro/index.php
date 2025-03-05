@@ -24,7 +24,7 @@ if (!function_exists('chaineVersMot')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
 
     <script type="module" src="/scripts/main.js"></script>

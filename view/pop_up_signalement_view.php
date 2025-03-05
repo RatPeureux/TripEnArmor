@@ -3,9 +3,10 @@
     <h2 class="text-2xl text-center">Signaler un avis</h2>
 
     <!-- MOTIF -->
-    <label for="motif" class="text-lg">Motif</label>
-    <select required name="motif" id="motif" class="mb-5 border border-black text-lg bg-transparent text-center"
-        required>
+    <label for="motif-<?php echo $id_avis ?>" class="text-lg">Motif</label>
+    <select required name="motif-<?php echo $id_avis ?>" id="motif-<?php echo $id_avis ?>"
+        class="mb-5 border border-black text-lg bg-transparent text-center"
+       >
         <option value="" selected disabled>-- Motif --</option>
         <option value="desinformation">Désinformation</option>
         <option value="discrimination">Discrimination</option>
@@ -15,8 +16,9 @@
     </select>
 
     <!-- COMMENTAIRE (optionnel) -->
-    <label for="commentaire-signalement" class="text-lg">Commentaire</label>
-    <textarea name="commentaire-signalement" id="commentaire-signalement"
+    <label for="commentaire-signalement-<?php echo $id_avis ?>" class="text-lg">Commentaire</label>
+    <textarea name="commentaire-signalement-<?php echo $id_avis ?>" id="commentaire-signalement-<?php echo $id_avis ?>"
+       
         class="mb-5 w-[400px] h-[150px] border border-black"></textarea>
 
     <!-- Bouton de signalement -->
@@ -26,15 +28,18 @@
 
 <script>
     document.getElementById("formulaire-signalement-<?php echo $id_avis ?>").addEventListener("submit", function (event) {
+    document.getElementById("formulaire-signalement-<?php echo $id_avis ?>").addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const motif = document.getElementById("motif").value;
-        const commentaireSignalement = document.getElementById("commentaire-signalement").value;
+        const motif = document.getElementById("motif-<?php echo $id_avis ?>").value;
+        const commentaireSignalement = document.getElementById("commentaire-signalement-<?php echo $id_avis ?>").value;
         const dateTime = new Date().toLocaleString();
 
         const url = `/scripts/signaler.php?motif=${encodeURIComponent(motif)}&commentaireSignalement=${encodeURIComponent(commentaireSignalement)}&dateTime=${encodeURIComponent(dateTime)}&id_avis=<?php echo $id_avis ?>`;
 
         fetch(url, {
+            method: "GET",
+        })
             method: "GET",
         })
             .then(response => response.json())

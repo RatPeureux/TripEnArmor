@@ -79,7 +79,6 @@
             <li>Permettre aux utilisateurs de partager leurs avis et d’être reconnus pour leurs contributions.</li>
             <li>Fournir des notifications concernant l'évolution de nos contenus et de nos offres.</li>
         </ul>
-        </p>
 
         <!-- Choix d'acceptation des termes et conditions -->
         <div class="mb-1.5 flex items-start">
@@ -92,12 +91,11 @@
     </main>
 </div>
 
-
 <div class="p-4 fixed top-0 w-full h-full bg-white overflow-hidden z-50 -translate-x-full" id="mentions">
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="toggleMentions()" class="top-[27px] left-0 absolute fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
-    <main class="max-w-[720px] mx-auto h-full gap-4 p-4 md:p-2 flex flex-col overflow-y-scroll">
+    <div class="max-w-[720px] mx-auto h-full gap-4 p-4 md:p-2 flex flex-col overflow-y-scroll">
         <p class="text-3xl">Mentions Légales</p>
 
         <p class="text-2xl underline">Éditeur du Site</p>
@@ -150,15 +148,14 @@
             Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux compétents
             seront ceux du ressort de Lannion.
         </p>
-    </main>
+    </div>
 </div>
-
 
 <div class="p-4 fixed top-0 w-full h-full bg-white overflow-hidden z-50 -translate-x-full" id="politique">
     <!-- Icône pour revenir à la page précédente -->
     <i onclick="togglePolitique()" class="top-[27px] left-0 absolute fa-solid fa-arrow-left fa-2xl cursor-pointer"></i>
 
-    <main class="max-w-[720px] mx-auto h-full gap-4 p-4 md:p-2 flex flex-col overflow-y-scroll">
+    <div class="max-w-[720px] mx-auto h-full gap-4 p-4 md:p-2 flex flex-col overflow-y-scroll">
         <p class="text-3xl">Politique de Confidentialité et Cookies</p>
 
         <p class="text-2xl underline">Introduction</p>
@@ -186,7 +183,6 @@
                 postale, Numéro de téléphone, IBAN (Facultatif : Organisme privée),</li>
             <li><strong>Données collectées automatiquement :</strong> Cookies.</li>
         </ul>
-        </p>
 
         <p class="text-2xl underline">Finalités et Conservation</p>
         <p>
@@ -199,7 +195,6 @@
         </ul>
         Consultez la section sur vos <strong>Droits des Utilisateurs</strong> ci-dessous pour demander la suppression de
         vos données.
-        </p>
 
         <p class="text-2xl underline">Vos Droits</p>
         <p>
@@ -211,7 +206,6 @@
         </ul>
         Pour exercer vos droits, contactez-nous : <a href="mailto:benoit.tottereau@univ-rennes.fr"
             class="underline">dpo@pact.com</a>.
-        </p>
 
         <p class="text-2xl underline">Cookies</p>
         <p>
@@ -220,7 +214,6 @@
             <li>Améliorer l'expérience utilisateur,</li>
         </ul>
         Vous pouvez consulter la liste des cookies utilisés ci-dessous.
-        </p>
 
         <p class="text-2xl underline">Liste des Cookies Utilisés</p>
         <table class="table-auto border-collapse border border-base300 w-full">
@@ -248,7 +241,6 @@
         <ul class="list-disc list-inside">
             <li>En modifiant les paramètres de votre navigateur.</li>
         </ul>
-        </p>
 
         <p class="text-2xl underline">Modifications</p>
         <p>
@@ -264,7 +256,7 @@
                     d'utilisation</span> et je confirme avoir lu la Politique de confidentialité et d'utilisation des
                 cookies.</label>
         </div>
-    </main>
+    </div>
 </div>
 
 

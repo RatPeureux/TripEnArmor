@@ -14,9 +14,9 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image" href="/public/images/favicon.png">
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/scripts/main.js" defer=""></script>
+    <script src="/scripts/main.js" type="module"></script>
 
     <title>Politique de confidentialité et d'utilisation des cookies - PACT</title>
 </head>
@@ -61,7 +61,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     de téléphone.</li>
                 <li><strong>Données collectées automatiquement :</strong> Cookies.</li>
             </ul>
-            </p>
 
             <p class="text-2xl underline">Finalités et Conservation</p>
             <p>
@@ -73,7 +72,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             </ul>
             Consultez la section sur vos <strong>Droits des Utilisateurs</strong> ci-dessous pour demander la
             suppression de vos données.
-            </p>
 
             <p class="text-2xl underline">Vos Droits</p>
             <p>
@@ -85,7 +83,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             </ul>
             Pour exercer vos droits, contactez-nous : <a href="mailto:benoit.tottereau@univ-rennes.fr"
                 class="underline">dpo@pact.com</a>.
-            </p>
 
             <p class="text-2xl underline">Cookies</p>
             <p>
@@ -94,7 +91,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 <li>Améliorer l'expérience utilisateur,</li>
             </ul>
             Vous pouvez consulter la liste des cookies utilisés ci-dessous.
-            </p>
 
             <p class="text-2xl underline">Liste des Cookies Utilisés</p>
             <table class="table-auto border-collapse border border-base300 w-full">
@@ -122,7 +118,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <ul class="list-disc list-inside">
                 <li>En modifiant les paramètres de votre navigateur.</li>
             </ul>
-            </p>
 
             <p class="text-2xl underline">Modifications</p>
             <p>
