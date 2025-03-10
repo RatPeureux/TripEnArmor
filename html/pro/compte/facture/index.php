@@ -158,7 +158,6 @@ $pro = verifyPro();
                                         <?php
                             }
                             ?>
-                            <option value="2">Autre offre</option>
                         </select>
                         <button id="preview-dl-button" onclick="generatePDF(document.querySelector('#facture-preview'))"
                             class="bg-slate-200 text-white p-2">

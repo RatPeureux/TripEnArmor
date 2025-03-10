@@ -69,7 +69,7 @@ $pro = verifyPro();
             if (($pro['data']['type']) == 'prive') {
                 ?>
                         <a href="/pro/compte/facture"
-                            class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4">
+                            class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4 bg-base100">
                             <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
                             <div class="w-full">
                                 <p class="text-lg">Factures</p>
