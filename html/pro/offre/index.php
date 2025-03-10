@@ -24,268 +24,268 @@ session_start();
 
 <body class="flex flex-col">
 
-    <?php
-    $id_offre = $_SESSION['id_offre'];
-    if (isset($_SESSION['id_membre'])) {
-        $id_membre = $_SESSION['id_membre'];
-    }
+<?php
+$id_offre = $_SESSION['id_offre'];
+if (isset($_SESSION['id_membre'])) {
+  $id_membre = $_SESSION['id_membre'];
+}
 
-    // Connexion avec la bdd
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+// Connexion avec la bdd
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-    // Avoir une variable $pro qui contient les informations du pro actuel.
-    $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
-    $stmt->bindParam(':id_offre', $id_offre);
-    $stmt->execute();
-    $id_pro = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
+// Avoir une variable $pro qui contient les informations du pro actuel.
+$stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
+$stmt->bindParam(':id_offre', $id_offre);
+$stmt->execute();
+$id_pro = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
 
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
-    $stmt->bindParam(':id_pro', $id_pro);
-    $stmt->execute();
-    $pro = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($pro) {
-        $nom_pro = $pro['nom_pro'];
-    }
+$stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
+$stmt->bindParam(':id_pro', $id_pro);
+$stmt->execute();
+$pro = $stmt->fetch(PDO::FETCH_ASSOC);
+if ($pro) {
+  $nom_pro = $pro['nom_pro'];
+}
 
-    require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
-    $result = [
-        "id_compte" => "",
-        "nom_pro" => "",
-        "email" => "",
-        "tel" => "",
-        "id_adresse" => "",
-        "data" => []
-    ];
-    $proController = new ProPriveController();
+require_once dirname(path: $_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_prive_controller.php";
+$result = [
+  "id_compte" => "",
+  "nom_pro" => "",
+  "email" => "",
+  "tel" => "",
+  "id_adresse" => "",
+  "data" => []
+];
+$proController = new ProPriveController();
 
-    $proAuth = $proController->getInfosProPrive($pro['id_compte']);
-    if (!$proAuth) {
-        require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_public_controller.php";
-        $proController = new ProPublicController();
-        $proAuth = $proController->getInfosProPublic($pro['id_compte']);
+$proAuth = $proController->getInfosProPrive($pro['id_compte']);
+if (!$proAuth) {
+  require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_public_controller.php";
+  $proController = new ProPublicController();
+  $proAuth = $proController->getInfosProPublic($pro['id_compte']);
 
-        $result["id_compte"] = $proAuth["id_compte"];
-        $result["nom_pro"] = $proAuth["nom_pro"];
-        $result["email"] = $proAuth["email"];
-        $result["tel"] = $proAuth["num_tel"];
-        $result["id_adresse"] = $proAuth["id_adresse"];
-        $result["data"]["type_orga"] = $proAuth["type_orga"];
-        $result["data"]["type"] = "public";
-    } else {
-        $result["id_compte"] = $proAuth["id_compte"];
-        $result["nom_pro"] = $proAuth["nom_pro"];
-        $result["email"] = $proAuth["email"];
-        $result["tel"] = $proAuth["tel"];
-        $result["id_adresse"] = $proAuth["id_adresse"];
-        $result["data"]["numero_siren"] = $proAuth["num_siren"];
-        $result["data"]["id_rib"] = $proAuth["id_rib"];
-        $result["data"]["type"] = "prive";
-    }
+  $result["id_compte"] = $proAuth["id_compte"];
+  $result["nom_pro"] = $proAuth["nom_pro"];
+  $result["email"] = $proAuth["email"];
+  $result["tel"] = $proAuth["num_tel"];
+  $result["id_adresse"] = $proAuth["id_adresse"];
+  $result["data"]["type_orga"] = $proAuth["type_orga"];
+  $result["data"]["type"] = "public";
+} else {
+  $result["id_compte"] = $proAuth["id_compte"];
+  $result["nom_pro"] = $proAuth["nom_pro"];
+  $result["email"] = $proAuth["email"];
+  $result["tel"] = $proAuth["tel"];
+  $result["id_adresse"] = $proAuth["id_adresse"];
+  $result["data"]["numero_siren"] = $proAuth["num_siren"];
+  $result["data"]["id_rib"] = $proAuth["id_rib"];
+  $result["data"]["type"] = "prive";
+}
 
-    // Obtenir l'ensemble des informations de l'offre
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
-    if (isset($_GET['détails']) && $_GET['détails'] !== '') {
-        $stmt->bindParam(':id_offre', $_GET['détails']);
-    } else {
-        header('location: /pro/404');
-        exit();
-    }
+// Obtenir l'ensemble des informations de l'offre
+$stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
+if (isset($_GET['détails']) && $_GET['détails'] !== '') {
+  $stmt->bindParam(':id_offre', $_GET['détails']);
+} else {
+  header('location: /pro/404');
+  exit();
+}
 
-    $stmt->execute();
-    $offre = $stmt->fetch(PDO::FETCH_ASSOC);
+$stmt->execute();
+$offre = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (empty($offre)) {
-        header('location: /pro/404');
-        exit();
-    }
+if (empty($offre)) {
+  header('location: /pro/404');
+  exit();
+}
 
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php'; ?>
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php'; ?>
 
     <!-- Inclusion du header -->
-    <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+<?php
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
 
-    switch ($categorie_offre) {
-        case 'restauration':
+switch ($categorie_offre) {
+case 'restauration':
 
-            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
-            $controllerRestauration = new RestaurationController();
-            $restauration = $controllerRestauration->getInfosRestauration($id_offre);
+  require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+  $controllerRestauration = new RestaurationController();
+  $restauration = $controllerRestauration->getInfosRestauration($id_offre);
 
-            // Type de repas servis
-            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_type_repas_controller.php';
-            $controllerRestaurationType = new RestaurationTypeRepasController();
-            $restaurationListeId = $controllerRestaurationType->getTypesRepasBydIdRestaurant($id_offre);
+  // Type de repas servis
+  require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_type_repas_controller.php';
+  $controllerRestaurationType = new RestaurationTypeRepasController();
+  $restaurationListeId = $controllerRestaurationType->getTypesRepasBydIdRestaurant($id_offre);
 
-            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
-            $controllerTypeRepas = new TypeRepasController();
-            $tags_type_repas = '';
-            foreach ($restaurationListeId as $type) {
-                $type_repas[] = $controllerTypeRepas->getInfoTypeRepas($type['id_type_repas']);
-            }
-            foreach ($type_repas as $type_repa) {
-                $tags_type_repas .= $type_repa['nom'] . ', ';
-            }
-            $tags_type_repas = rtrim($tags_type_repas, ', ');
+  require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_controller.php';
+  $controllerTypeRepas = new TypeRepasController();
+  $tags_type_repas = '';
+  foreach ($restaurationListeId as $type) {
+    $type_repas[] = $controllerTypeRepas->getInfoTypeRepas($type['id_type_repas']);
+  }
+  foreach ($type_repas as $type_repa) {
+    $tags_type_repas .= $type_repa['nom'] . ', ';
+  }
+  $tags_type_repas = rtrim($tags_type_repas, ', ');
 
-            break;
+  break;
 
-        case 'activite':
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
-            $controllerActivite = new ActiviteController();
-            $activite = $controllerActivite->getInfosActivite($id_offre);
+case 'activite':
+  require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_controller.php';
+  $controllerActivite = new ActiviteController();
+  $activite = $controllerActivite->getInfosActivite($id_offre);
 
-            // Durée de l'activité
-            $duree_act = $activite['duree'];
-            $duree_act = substr($duree_act, 0, -3);
-            $duree_act = str_replace(':', 'h', $duree_act);
+  // Durée de l'activité
+  $duree_act = $activite['duree'];
+  $duree_act = substr($duree_act, 0, -3);
+  $duree_act = str_replace(':', 'h', $duree_act);
 
-            // Prestations de l'activité
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
-            $controllerActivitePrestation = new ActivitePrestationController();
-            $activitePrestations = $controllerActivitePrestation->getPrestationsByIdActivite($id_offre);
+  // Prestations de l'activité
+  require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/activite_prestation_controller.php';
+  $controllerActivitePrestation = new ActivitePrestationController();
+  $activitePrestations = $controllerActivitePrestation->getPrestationsByIdActivite($id_offre);
 
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_controller.php';
-            $controllerPrestation = new PrestationController();
-            foreach ($activitePrestations as $prestation) {
-                $prestations[] = $controllerPrestation->getPrestationById($prestation['id_prestation']);
-            }
+  require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/prestation_controller.php';
+  $controllerPrestation = new PrestationController();
+  foreach ($activitePrestations as $prestation) {
+    $prestations[] = $controllerPrestation->getPrestationById($prestation['id_prestation']);
+  }
 
-            // Âge requis pour l'activité
-            $age_requis_act = $activite['age_requis'];
-            break;
+  // Âge requis pour l'activité
+  $age_requis_act = $activite['age_requis'];
+  break;
 
-        case 'parc_attraction':
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
-            $controllerParcAttraction = new ParcAttractionController();
-            $parc_attraction = $controllerParcAttraction->getInfosParcAttraction($id_offre);
+case 'parc_attraction':
+  require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/parc_attraction_controller.php';
+  $controllerParcAttraction = new ParcAttractionController();
+  $parc_attraction = $controllerParcAttraction->getInfosParcAttraction($id_offre);
 
-            // Âge requis pour le parc d'attraction
-            $age_requis_pa = $parc_attraction['age_requis'];
+  // Âge requis pour le parc d'attraction
+  $age_requis_pa = $parc_attraction['age_requis'];
 
-            // Nombre d'attractions du parc d'attraction
-            $nb_attractions = $parc_attraction['nb_attractions'];
-            break;
+  // Nombre d'attractions du parc d'attraction
+  $nb_attractions = $parc_attraction['nb_attractions'];
+  break;
 
-        case 'visite':
-            require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
-            $controllerVisite = new VisiteController();
-            $visite = $controllerVisite->getInfosVisite($id_offre);
+case 'visite':
+  require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_controller.php';
+  $controllerVisite = new VisiteController();
+  $visite = $controllerVisite->getInfosVisite($id_offre);
 
-            // Durée de la visite
-            $duree_vis = $visite['duree'];
-            $duree_vis = substr($duree_vis, 0, -3);
-            $duree_vis = str_replace(':', 'h', $duree_vis);
+  // Durée de la visite
+  $duree_vis = $visite['duree'];
+  $duree_vis = substr($duree_vis, 0, -3);
+  $duree_vis = str_replace(':', 'h', $duree_vis);
 
-            // Visite guidée ou non
-            $guideBool = $visite['avec_guide'];
-            if ($guideBool == true) {
-                $guide = 'oui';
-                require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
-                $controllerLangue = new VisiteLangueController();
-                $tabLangues = $controllerLangue->getLanguesByIdVisite($id_offre);
-                $langues = '';
-                foreach ($tabLangues as $langue) {
-                    // Ajout des langues parlées lors de la visite
-                    $langues .= $langue['nom'] . ', ';
-                }
-                $langues = rtrim($langues, ', ');
-            } else {
-                $guide = 'non';
-            }
-
-            break;
-
-        case 'spectacle':
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
-            $controllerSpectacle = new SpectacleController();
-            $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
-
-            // Durée du spectacle
-            $duree_spec = $spectacle['duree'];
-            $duree_spec = substr($duree_spec, 0, -3);
-            $duree_spec = str_replace(':', 'h', $duree_spec);
-
-            // Capacité du spectacle
-            $capacite = $spectacle['capacite'];
-            break;
-        default:
-            break;
+  // Visite guidée ou non
+  $guideBool = $visite['avec_guide'];
+  if ($guideBool == true) {
+    $guide = 'oui';
+    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/visite_langue_controller.php';
+    $controllerLangue = new VisiteLangueController();
+    $tabLangues = $controllerLangue->getLanguesByIdVisite($id_offre);
+    $langues = '';
+    foreach ($tabLangues as $langue) {
+      // Ajout des langues parlées lors de la visite
+      $langues .= $langue['nom'] . ', ';
     }
+    $langues = rtrim($langues, ', ');
+  } else {
+    $guide = 'non';
+  }
 
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
-    $controllerHoraire = new HoraireController();
-    $horaires = $controllerHoraire->getHorairesOfOffre($id_offre);
+  break;
 
-    $jour_semaine = date('l');
-    $jours_semaine_fr = [
-        'Monday' => 'lundi',
-        'Tuesday' => 'mardi',
-        'Wednesday' => 'mercredi',
-        'Thursday' => 'jeudi',
-        'Friday' => 'vendredi',
-        'Saturday' => 'samedi',
-        'Sunday' => 'dimanche'
-    ];
+case 'spectacle':
+  require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/spectacle_controller.php';
+  $controllerSpectacle = new SpectacleController();
+  $spectacle = $controllerSpectacle->getInfosSpectacle($id_offre);
 
-    $jour_semaine = $jours_semaine_fr[$jour_semaine];
-    date_default_timezone_set('Europe/Paris');
-    $heure_actuelle = date('H:i');
-    $ouvert = false;
+  // Durée du spectacle
+  $duree_spec = $spectacle['duree'];
+  $duree_spec = substr($duree_spec, 0, -3);
+  $duree_spec = str_replace(':', 'h', $duree_spec);
 
-    foreach ($horaires as $jour => $horaire) {
-        if ($jour == $jour_semaine) {
-            $ouverture = $horaire['ouverture'];
-            $fermeture = $horaire['fermeture'];
-            if ($ouverture !== null && $fermeture !== null) {
-                if ($fermeture < $ouverture) {
-                    $fermeture_T = explode(':', $fermeture);
-                    $fermeture_T[0] = $fermeture_T[0] + 24;
-                    $fermeture_T = implode(':', $fermeture_T);
-                } else {
-                    $fermeture_T = $fermeture;
-                }
-                if ($heure_actuelle >= $ouverture && $heure_actuelle <= $fermeture_T) {
-                    if ($horaire['pause_debut'] !== null && $horaire['pause_fin'] !== null) {
-                        $pause_debut = $horaire['pause_debut'];
-                        $pause_fin = $horaire['pause_fin'];
-                        if ($heure_actuelle >= $pause_debut && $heure_actuelle <= $pause_fin) {
-                            $ouvert = false;
-                        } else {
-                            if ($heure_actuelle >= $ouverture && $heure_actuelle <= $fermeture_T) {
-                                $ouvert = true;
-                            }
-                        }
-                    } else {
-                        $ouvert = true;
-                    }
-                }
+  // Capacité du spectacle
+  $capacite = $spectacle['capacite'];
+  break;
+default:
+  break;
+}
+
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
+$controllerHoraire = new HoraireController();
+$horaires = $controllerHoraire->getHorairesOfOffre($id_offre);
+
+$jour_semaine = date('l');
+$jours_semaine_fr = [
+  'Monday' => 'lundi',
+  'Tuesday' => 'mardi',
+  'Wednesday' => 'mercredi',
+  'Thursday' => 'jeudi',
+  'Friday' => 'vendredi',
+  'Saturday' => 'samedi',
+  'Sunday' => 'dimanche'
+];
+
+$jour_semaine = $jours_semaine_fr[$jour_semaine];
+date_default_timezone_set('Europe/Paris');
+$heure_actuelle = date('H:i');
+$ouvert = false;
+
+foreach ($horaires as $jour => $horaire) {
+  if ($jour == $jour_semaine) {
+    $ouverture = $horaire['ouverture'];
+    $fermeture = $horaire['fermeture'];
+    if ($ouverture !== null && $fermeture !== null) {
+      if ($fermeture < $ouverture) {
+        $fermeture_T = explode(':', $fermeture);
+        $fermeture_T[0] = $fermeture_T[0] + 24;
+        $fermeture_T = implode(':', $fermeture_T);
+      } else {
+        $fermeture_T = $fermeture;
+      }
+      if ($heure_actuelle >= $ouverture && $heure_actuelle <= $fermeture_T) {
+        if ($horaire['pause_debut'] !== null && $horaire['pause_fin'] !== null) {
+          $pause_debut = $horaire['pause_debut'];
+          $pause_fin = $horaire['pause_fin'];
+          if ($heure_actuelle >= $pause_debut && $heure_actuelle <= $pause_fin) {
+            $ouvert = false;
+          } else {
+            if ($heure_actuelle >= $ouverture && $heure_actuelle <= $fermeture_T) {
+              $ouvert = true;
             }
+          }
+        } else {
+          $ouvert = true;
         }
+      }
     }
+  }
+}
 
-    if ($categorie_offre !== 'restauration') {
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
-        $controllerGrilleTarifaire = new TarifPublicController();
-        // VALEUR TEST CAR PAS DANS LA BDD
-        // $tarifs = [
-        //     [
-        //         "titre_tarif" => "Tarif adulte",
-        //         "prix" => 10
-        //     ],
-        //     [
-        //         "titre_tarif" => "Tarif enfant",
-        //         "prix" => 5
-        //     ]
-        // ];
-    }
+if ($categorie_offre !== 'restauration') {
+  require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
+  $controllerGrilleTarifaire = new TarifPublicController();
+  // VALEUR TEST CAR PAS DANS LA BDD
+  // $tarifs = [
+  //     [
+  //         "titre_tarif" => "Tarif adulte",
+  //         "prix" => 10
+  //     ],
+  //     [
+  //         "titre_tarif" => "Tarif enfant",
+  //         "prix" => 5
+  //     ]
+  // ];
+}
 
-    if ($categorie_offre == 'parc_attraction') {
-        // require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
-        // $controllerImage = new TImageImgController();
-        // $path_plan = $controllerImage->getPathToPlan($id_offre);
-    }
-    ?>
+if ($categorie_offre == 'parc_attraction') {
+  // require dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/t_image_img_controller.php';
+  // $controllerImage = new TImageImgController();
+  // $path_plan = $controllerImage->getPathToPlan($id_offre);
+}
+?>
 
     <main class="w-full grow flex items-start justify-center p-2 grow">
         <div class="flex justify-center w-full md:max-w-[1280px]">
@@ -296,46 +296,46 @@ session_start();
                 <!-- CAROUSSEL -->
                 <div class="w-full h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container">
                     <!-- Wrapper -->
-                    <?php
-                    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
-                    $controllerImage = new ImageController();
-                    $images = $controllerImage->getImagesOfOffre($id_offre);
-                    ?>
+<?php
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+$controllerImage = new ImageController();
+$images = $controllerImage->getImagesOfOffre($id_offre);
+?>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
-                                echo "offres/" . $images['carte'];
-                            } else {
-                                echo $categorie_offre . '.jpg';
-                            } ?>' alt="image de slider">
+                        <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
+                        echo "offres/" . $images['carte'];
+} else {
+  echo $categorie_offre . '.jpg';
+} ?>' alt="image de slider">
                                 echo "offres/" . $images['carte'];
                             } else {
                                 echo $categorie_offre . '.jpg';
                             } ?>' alt="image de slider">
                         </div>
                         <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
-                                echo "offres/" . $images['carte'];
-                            } else {
-                                echo $categorie_offre . '.jpg';
-                            } ?>' alt="image de slider">
+                        <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
+                        echo "offres/" . $images['carte'];
+                                } else {
+                                  echo $categorie_offre . '.jpg';
+                                } ?>' alt="image de slider">
                                 echo "offres/" . $images['carte'];
                             } else {
                                 echo $categorie_offre . '.jpg';
                             } ?>' alt="image de slider">
                         </div>
-                        <?php
-                        if ($images['details']) {
-                            foreach ($images['details'] as $image) {
-                                ?>
+<?php
+                            if ($images['details']) {
+                              foreach ($images['details'] as $image) {
+?>
                                         <div class="swiper-slide !w-full">
                                             <img class="object-cover w-full h-full"
                                                 src='/public/images/<?php echo "offres/" . $image; ?>' alt="image de slider">
                                         </div>
-                                        <?php
+<?php
+                              }
                             }
-                        }
-                        ?>
+?>
                     </div>
 
                     <!-- Pagination en bas du slider -->
@@ -351,9 +351,9 @@ session_start();
                                     class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
                                     ›</a>
                             </div>
-                            <?php
-                    }
-                    ?>
+<?php
+                            }
+?>
                 </div>
 
 
@@ -365,48 +365,48 @@ session_start();
                             <p class="hidden text-3xl md:flex">&nbsp;-&nbsp;</p>
                             <p class="professionnel text-3xl"><?php echo $nom_pro ?></p>
                         </div>
-                        <?php
+<?php
                         // Moyenne des notes quand il y en a une
                         if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
-                            $n = $moyenne ?>
+                          $n = $moyenne ?>
                                 <div class="flex gap-1">
                                     <div class="flex gap-1 shrink-0">
-                                        <?php for ($i = 0; $i < 5; $i++) {
-                                            if ($n >= 1) {
-                                                        ?>
+<?php for ($i = 0; $i < 5; $i++) {
+if ($n >= 1) {
+?>
                                                         <img class="w-4" src="/public/icones/egg-full.svg" alt="1 point de note">
-                                                            <?php
-                                            } else if ($n > 0) {
-                                                    ?>
+<?php
+} else if ($n > 0) {
+?>
                                                                     <img class="w-4" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-                                                            <?php
-                                            } else {
-                                                    ?>
+<?php
+} else {
+?>
                                                                     <img class="w-4" src="/public/icones/egg-empty.svg" alt="0 point de note">
-                                                                <?php
-                                            }
-                                            $n--;
-                                        }
-                                        ?>
+<?php
+}
+$n--;
+                        }
+?>
                                     </div>
                                     <p class='text-sm italic flex items-center'>
-                                        
+
                                     (<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
                                 </div>
-                                    <?php
+<?php
                         }
-                        ?>
+?>
                     </div>
-                    <?php if ($ouvert == true) {
-                        ?>
+<?php if ($ouvert == true) {
+?>
                             <p class="text-xl  text-green-500">Ouvert</p>
-                            <?php
-                    } else {
-                        ?>
+<?php
+                        } else {
+?>
                             <p class="text-xl  text-red-500">Fermé</p>
-                            <?php
-                    }
-                    ?>
+<?php
+                        }
+?>
                     <div class="w-full">
                         <p class="text-sm">
                             <?php echo $resume ?>
@@ -414,76 +414,76 @@ session_start();
                     </div>
 
                     <!-- Afficher les tags de l'offre -->
-                    <?php
+<?php
                     if ($categorie_offre != 'restauration') {
-                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
-                        $controllerTagOffre = new TagOffreController();
-                        $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
+                      require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
+                      $controllerTagOffre = new TagOffreController();
+                      $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
 
-                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-                        $controllerTag = new TagController();
-                        $tagsAffiche = "";
-                        $tagsListe = [];
-                        foreach ($tags_offre as $tag) {
-                            array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
-                        }
-                        foreach ($tagsListe as $tag) {
-                            $tagsAffiche .= $tag['nom'] . ', ';
-                        }
+                      require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+                      $controllerTag = new TagController();
+                      $tagsAffiche = "";
+                      $tagsListe = [];
+                      foreach ($tags_offre as $tag) {
+                        array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
+                      }
+                      foreach ($tagsListe as $tag) {
+                        $tagsAffiche .= $tag['nom'] . ', ';
+                      }
 
-                        $tagsAffiche = rtrim($tagsAffiche, ', ');
-                        if ($tags_offre) {
-                            ?>
+                      $tagsAffiche = rtrim($tagsAffiche, ', ');
+                      if ($tags_offre) {
+?>
                                     <div class="p-1  bg-secondary self-center w-full">
-                                        <?php
-                                        echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-                                        ?>
+<?php
+                        echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+?>
                                     </div>
-                                    <?php
-                        } else {
-                            ?>
+<?php
+                      } else {
+?>
                                     <div class="p-1  bg-secondary self-center w-full">
-                                        <?php
-                                        echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-                                        ?>
+<?php
+                        echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+?>
                                     </div>
-                                    <?php
-                        }
+<?php
+                      }
                     } else {
-                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
-                        $controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
-                        $tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
+                      require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
+                      $controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
+                      $tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
 
-                        require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
-                        $controllerTagRest = new TagRestaurantController();
-                        $tagsAffiche = "";
-                        foreach ($tags_offre as $tag) {
-                            $tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
-                        }
-                        foreach ($tagsListe as $tag) {
-                            $tagsAffiche .= $tag[0]['nom'] . ', ';
-                        }
+                      require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+                      $controllerTagRest = new TagRestaurantController();
+                      $tagsAffiche = "";
+                      foreach ($tags_offre as $tag) {
+                        $tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
+                      }
+                      foreach ($tagsListe as $tag) {
+                        $tagsAffiche .= $tag[0]['nom'] . ', ';
+                      }
 
-                        $tagsAffiche = rtrim($tagsAffiche, ', ');
-                        if ($tags_offre) {
-                            ?>
+                      $tagsAffiche = rtrim($tagsAffiche, ', ');
+                      if ($tags_offre) {
+?>
                                     <div class="p-1  bg-secondary self-center w-full">
-                                        <?php
-                                        echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-                                        ?>
+<?php
+                        echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+?>
                                     </div>
-                                    <?php
-                        } else {
-                            ?>
+<?php
+                      } else {
+?>
                                     <div class="p-1  bg-secondary self-center w-full">
-                                        <?php
-                                        echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-                                        ?>
+<?php
+                        echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+?>
                                     </div>
-                                    <?php
-                        }
+<?php
+                      }
                     }
-                    ?>
+?>
 
 
                     <!-- Partie du bas de la page (toutes les infos pratiques) -->
@@ -498,9 +498,9 @@ session_start();
                                     <div class="text-sm">
                                         <p><?php echo $ville . ', ' . $code_postal ?></p>
                                         <p>
-                                            <?php
+<?php
                                             echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement']
-                                                ?>
+?>
                                                 ?>
                                         </p>
                                     </div>
@@ -530,26 +530,26 @@ session_start();
                                     <p id="horaire-arrow">></p>
                                 </div>
                                 <div class="text-sm py-3 px-2" id="horaire-info">
-                                    <?php
-                                    foreach ($horaires as $jour => $horaire) {
-                                        echo "$jour : ";
-                                        foreach ($horaire as $key => $value) {
-                                            if ($value !== null) {
-                                                $horaire[$key] = substr($value, 0, -3);
-                                            }
-                                        }
-                                        if (!isset($horaire['ouverture'])) {
-                                            echo "Fermé <br>";
-                                        } else {
-                                            if (!isset($horaire['pause_debut'])) {
-                                                echo $horaire['ouverture'] . ' - ' . $horaire['fermeture'];
-                                            } else {
-                                                echo $horaire['ouverture'] . ' - ' . $horaire['pause_debut'] . ' ' . $horaire['pause_fin'] . ' - ' . $horaire['fermeture'];
-                                            }
-                                            echo "<br>";
-                                        }
-                                    }
-                                    ?>
+<?php
+foreach ($horaires as $jour => $horaire) {
+  echo "$jour : ";
+  foreach ($horaire as $key => $value) {
+    if ($value !== null) {
+      $horaire[$key] = substr($value, 0, -3);
+    }
+  }
+  if (!isset($horaire['ouverture'])) {
+    echo "Fermé <br>";
+  } else {
+    if (!isset($horaire['pause_debut'])) {
+      echo $horaire['ouverture'] . ' - ' . $horaire['fermeture'];
+    } else {
+      echo $horaire['ouverture'] . ' - ' . $horaire['pause_debut'] . ' ' . $horaire['pause_fin'] . ' - ' . $horaire['fermeture'];
+    }
+    echo "<br>";
+  }
+}
+?>
                                 </div>
                             </a>
                             <a class="">
@@ -558,54 +558,54 @@ session_start();
                                     <p id="compl-arrow">></p>
                                 </div>
                                 <div class="flex flex-col py-3 px-2" id="compl-info">
-                                    <?php
-                                    switch ($categorie_offre) {
-                                        case 'restauration':
+<?php
+switch ($categorie_offre) {
+case 'restauration':
 
-                                            // VALEUR TEST CAR PAS DANS LA BDD
-                                                                        
-                                                    ?>
+  // VALEUR TEST CAR PAS DANS LA BDD
+
+?>
                                                     <div class="text-sm flex flex-col md:flex-row">
                                                         <p class="text-sm">Repas servis&nbsp;:&nbsp;</p>
                                                         <p><?php echo $tags_type_repas ?></p>
                                                     </div>
-                                                    <?php
-                                                    if ($images) {
-                                                            ?>
+<?php
+  if ($images) {
+?>
                                                             <img src="/public/images/offres/<?php echo $images['carte-resto']; ?>" alt=""
                                                                 class="max-h-[400px] max-w-[350px] md:max-w-[500px]">
-                                                                <?php
-                                                    } else {
-                                                            ?>
+<?php
+  } else {
+?>
                                                             <p class="text-sm">Aucune carte pour le restaurant.</p>
-                                                                <?php
-                                                    } ?>
-                                                        <?php
-                                                    break;
+<?php
+  } ?>
+<?php
+    break;
 
-                                        case 'activite':
-                                                ?>
+case 'activite':
+?>
                                                     <div class="text-sm flex flex-row">
                                                         <p>Durée&nbsp:&nbsp</p>
                                                         <p><?php echo $duree_act ?></p>
                                                     </div>
                                                     <p class="text-sm">Âge requis&nbsp;:&nbsp;<?php echo $age_requis_act ?> ans</p>
                                                     <div class="text-sm">
-                                                        <?php foreach ($prestations as $presta) {
-                                                            if ($presta['inclus'] == 1) {
-                                                                $presta['inclus'] = 'inclus';
-                                                            } else {
-                                                                $presta['inclus'] = 'non inclus';
-                                                            }
-                                                            echo $presta['nom'] . ' : ' . $presta['inclus'] . '<br>';
-                                                        } ?>
+<?php foreach ($prestations as $presta) {
+if ($presta['inclus'] == 1) {
+  $presta['inclus'] = 'inclus';
+} else {
+  $presta['inclus'] = 'non inclus';
+}
+echo $presta['nom'] . ' : ' . $presta['inclus'] . '<br>';
+} ?>
                                                     </div>
 
-                                                    <?php
-                                                    break;
+<?php
+  break;
 
-                                        case 'parc_attraction':
-                                                ?>
+case 'parc_attraction':
+?>
                                                     <div class="text-sm flex flex-row">
                                                         <p>Âge requis&nbsp:&nbsp</p>
                                                         <p><?php echo $age_requis_pa ?></p>
@@ -615,21 +615,21 @@ session_start();
                                                         <p>Nombre d'attraction&nbsp:&nbsp</p>
                                                         <p><?php echo $nb_attractions ?></p>
                                                     </div>
-                                                    <?php
-                                                    if ($images) {
-                                                            ?>
+<?php
+  if ($images) {
+?>
                                                             <img src="/public/images/offres/<?php echo $images['plan']; ?>" alt="">
-                                                                <?php
-                                                    } else {
-                                                            ?>
+<?php
+  } else {
+?>
                                                             <p class="text-sm">Aucun plan</p>
-                                                                <?php
-                                                    } ?>
-                                                        <?php
-                                                    break;
+<?php
+  } ?>
+<?php
+    break;
 
-                                        case 'visite':
-                                            ?>
+case 'visite':
+?>
                                                     <div class="text-sm flex flex-row">
                                                         <p>Durée&nbsp:&nbsp</p>
                                                         <p><?php echo $duree_vis ?></p>
@@ -644,11 +644,11 @@ session_start();
                                                                 </p>
                                                             </div>
                                                     <?php } ?>
-                                                    <?php
-                                                    break;
+<?php
+  break;
 
-                                        case 'spectacle':
-                                            ?>
+case 'spectacle':
+?>
                                                     <div class="text-sm flex flex-row">
                                                         <p>Durée&nbsp:&nbsp</p>
                                                         <p><?php echo $duree_spec ?></p>
@@ -658,44 +658,44 @@ session_start();
                                                         <p><?php echo $capacite ?></p>
                                                         <p>&nbsppersonnes</p>
                                                     </div>
-                                                    <?php
-                                                    break;
+<?php
+  break;
 
-                                        default:
-                                                ?>
+default:
+?>
                                                     <p class="text-sm">Aucune informations complémentaires à afficher.</p>
-                                                            <?php
-                                                    break;
-                                    }
-                                    ?>
+<?php
+  break;
+}
+?>
                                 </div>
                             </a>
-                            <?php
-                            if ($categorie_offre != 'restauration' && $proAuth['type_orga'] != 'public') {
-                                ?>
+<?php
+if ($categorie_offre != 'restauration' && $proAuth['type_orga'] != 'public') {
+?>
                                     <a class="">
                                         <div class="flex flex-row justify-between pt-3" id="grille-button">
                                             <p class="text-lg">Grille tarifaire</p>
                                             <p id="grille-arrow">></p>
                                         </div>
                                         <div class="text-sm py-3 px-2" id="grille-info">
-                                            <?php
-                                            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
-                                            $controllerTarifPublic = new TarifPublicController();
-                                            $tarifs = $controllerTarifPublic->getTarifsByIdOffre($id_offre);
-                                            foreach ($tarifs as $tarif) {
-                                                ?>
+<?php
+  require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tarif_public_controller.php';
+  $controllerTarifPublic = new TarifPublicController();
+  $tarifs = $controllerTarifPublic->getTarifsByIdOffre($id_offre);
+  foreach ($tarifs as $tarif) {
+?>
 
                                                     <?php echo $tarif['titre'] ?> :&nbsp;
                                                     <?php echo $tarif['prix'] ?> € <br>
-                                                    <?php
-                                            }
-                                            ?>
+<?php
+  }
+?>
                                         </div>
                                     </a>
-                                    <?php
-                            }
-                            ?>
+<?php
+}
+?>
 
                         </div>
                     </div>
@@ -703,58 +703,58 @@ session_start();
                     <div class="mt-5 flex flex-col gap-2">
                         <div class="w-full flex justify-between">
                             <h3 class="text-lg pt-2">Avis</h3>
-                            <?php
-                            // Moyenne des notes quand il y en a une
-                            if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
-                                $n = $moyenne ?>
+<?php
+// Moyenne des notes quand il y en a une
+if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
+  $n = $moyenne ?>
                                     <div class="flex gap-1">
                                         <div class="flex gap-1 shrink-0">
-                                            <?php for ($i = 0; $i < 5; $i++) {
-                                                if ($n >= 1) {
-                                                    ?>
+<?php for ($i = 0; $i < 5; $i++) {
+if ($n >= 1) {
+?>
                                                             <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
-                                                            <?php
-                                                } else if ($n > 0) {
-                                                    ?>
+<?php
+} else if ($n > 0) {
+?>
                                                                     <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-                                                            <?php
-                                                } else {
-                                                    ?>
+<?php
+} else {
+?>
                                                                     <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-                                                            <?php
-                                                }
-                                                $n--;
-                                            }
-                                            ?>
+<?php
+}
+$n--;
+}
+?>
                                         </div>
                                         <p class='text-sm flex items-center'>(<?php echo number_format($moyenne, 2, ',', '') ?>)
                                         </p>
                                     </div>
-                                    <?php
-                            }
-                            ?>
+<?php
+}
+?>
                         </div>
 
-                        <?php
-                        if (isset($_SESSION['id_membre'])) {
-                            // UTILISATEUR CONNECTÉ, 2 cas :
-                            // - a déjà écrit un avis, auquel cas on le voit en premier et on peut le modifier
-                            // - n'a pas déjà écrit d'avis, auquel cas un formulaire de création d'avis apparaît
-                                                
-                            // vérifier si l'utilisateur a écrit un avis
-                            include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
-                            $avisController = new AvisController;
-                            $mon_avis = $avisController->getAvisByIdMembreEtOffre($_SESSION['id_membre'], $id_offre);
-                            if ($mon_avis) { ?>
+<?php
+if (isset($_SESSION['id_membre'])) {
+  // UTILISATEUR CONNECTÉ, 2 cas :
+  // - a déjà écrit un avis, auquel cas on le voit en premier et on peut le modifier
+  // - n'a pas déjà écrit d'avis, auquel cas un formulaire de création d'avis apparaît
+
+  // vérifier si l'utilisateur a écrit un avis
+  include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
+  $avisController = new AvisController;
+  $mon_avis = $avisController->getAvisByIdMembreEtOffre($_SESSION['id_membre'], $id_offre);
+  if ($mon_avis) { ?>
                                         <!-- AFFICHER SON AVIS ET POUVOIR LE MODIFIER -->
-                                        <?php
-                                        $id_avis = $mon_avis['id_avis'];
-                                        $id_membre = $_SESSION['id_membre'];
-                                        $mode = 'mon_avis';
-                                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
-                                        ?>
-                                <?php } else {
-                                ?>
+<?php
+    $id_avis = $mon_avis['id_avis'];
+  $id_membre = $_SESSION['id_membre'];
+  $mode = 'mon_avis';
+  include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
+?>
+<?php } else {
+?>
                                         <!-- FORMULAIRE DE CRÉATION D'AVIS -->
                                         <div class="flex flex-col gap-2">
                                             <button onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
@@ -796,9 +796,9 @@ session_start();
                                                     </select>
                                                 </div>
 
-                                                <?php
-                                                // Notes additionnelles pour les restaurants
-                                                if ($categorie_offre == 'restauration') { ?>
+<?php
+// Notes additionnelles pour les restaurants
+if ($categorie_offre == 'restauration') { ?>
                                                         <div>
                                                             <label for="note_ambiance">Ambiance</label>
                                                             <select name="note_ambiance" id="note_ambiance" class="p-1 " required>
@@ -871,9 +871,9 @@ session_start();
                                                             </select>
                                                         </div>
 
-                                                        <?php
-                                                }
-                                                ?>
+<?php
+}
+?>
 
                                                 <!-- Date de l'expérience -->
                                                 <div>
@@ -915,39 +915,37 @@ session_start();
                                                 <hr class="w-1/2 border border-black self-end my-2  bg-black">
                                             </form>
 
-                                            <script>
-                                                // Eviter de pouvoir sélectionner un date ultérieure au jour actuel
-                                                function setMaxDate() {
-                                                    const today = new Date();
-                                                    const year = today.getFullYear();
-                                                    const month = String(today.getMonth() + 1).padStart(2, '0');
-                                                    const day = String(today.getDate()).padStart(2, '0');
-                                                    const maxDate = `${year}-${month}-${day}`;
+<script>
+// Eviter de pouvoir sélectionner un date ultérieure au jour actuel
+function setMaxDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  const maxDate = `${year}-${month}-${day}`;
 
-                                                    document.getElementById("date_experience").setAttribute("max", maxDate);
-                                                }
+  document.getElementById("date_experience").setAttribute("max", maxDate);
+}
 
-                                                // Call the function when the page loads
-                                                window.onload = setMaxDate;
-                                            </script>
+// Call the function when the page loads
+window.onload = setMaxDate;
+</script>
 
                                 </div>
-                                <?php
                                         </div>
-                                        <?php
-                            }
-                            ?>
+<?php
+  }
+?>
 
-                            <?php
-                                <?php
-                            // UTILISATEUR PAS CONNECTÉ
-                        } else if (!isset($_SESSION['id_pro'])) { ?>
+<?php
+  // UTILISATEUR PAS CONNECTÉ
+} else if (!isset($_SESSION['id_pro'])) { ?>
                                         <p class="text-sm italic"><a href='/connexion' class="underline">Connectez-vous</a>
                                             pour rédiger un
                                             avis</p>
-                                <?php
-                        }
-                        ?>
+<?php
+}
+?>
 
                         <!-- Conteneur pour tous les avis -->
                         <div id="avis-container" class="grid grid-cols-1 gap-12 items-center w-full justify-center">
@@ -967,107 +965,108 @@ session_start();
                 </div>
 
                 <!-- A garder ici car il y a du PHP -->
-                <script>
-                    $(document).ready(function () {
-                    $(document).ready(function () {
-                        // Paramètres à passer au fichier PHP de chargement des avis
-                        let idx_avis = 0;
-                        const id_offre = <?php echo $_SESSION['id_offre'] ?>;
-                        const id_membre = <?php if (isset($_SESSION['id_membre'])) {
-                            echo $_SESSION['id_membre'];
-                        } else {
-                            echo '-1';
-                        } ?>;
-                            echo $_SESSION['id_membre'];
-                        } else {
-                            echo '-1';
-                        } ?>;
+<script>
+$(document).ready(function () {
+  $(document).ready(function () {
+    // Paramètres à passer au fichier PHP de chargement des avis
+    let idx_avis = 0;
+    const id_offre = <?php echo $_SESSION['id_offre'] ?>;
+    const id_membre = <?php if (isset($_SESSION['id_membre'])) {
+    echo $_SESSION['id_membre'];
+    } else {
+      echo '-1';
+    } ?>;
+    echo $_SESSION['id_membre'];
+  } else {
+    echo '-1';
+  } ?>;
 
-                        // Charger les X premiers avis
-                        loadAvis();
+  // Charger les X premiers avis
+  loadAvis();
 
-                        // Ajouter des avis quand le bouton est cliqué
-                        $('#load-more-btn').click(function () {
-                        $('#load-more-btn').click(function () {
-                            loadAvis();
-                        });
+  // Ajouter des avis quand le bouton est cliqué
+  $('#load-more-btn').click(function () {
+    $('#load-more-btn').click(function () {
+      loadAvis();
+    });
 
-                        // Fonction pour charger X avis (en PHP), puis les ajouter à la page via AJAX JS
-                        function loadAvis() {
-                            // Afficher le loader pendant le chargement
-                            $('#loading-indicator').show();
+    // Fonction pour charger X avis (en PHP), puis les ajouter à la page via AJAX JS
+    function loadAvis() {
+      // Afficher le loader pendant le chargement
+      $('#loading-indicator').show();
 
-                            // Désactiver le bouton pendant le chargement
-                            $('#load-more-btn').prop('disabled', true);
+      // Désactiver le bouton pendant le chargement
+      $('#load-more-btn').prop('disabled', true);
 
-                            $.ajax({
-                                url: '/scripts/load_avis.php',
-                                type: 'GET',
-                                data: {
-                                    id_offre: id_offre,
-                                    idx_avis: idx_avis,
-                                    id_membre: id_membre
-                                },
+      $.ajax({
+      url: '/scripts/load_avis.php',
+        type: 'GET',
+        data: {
+        id_offre: id_offre,
+          idx_avis: idx_avis,
+          id_membre: id_membre
+      },
 
-                                // Durant l'exécution de la requête
-                                success: function (response) {
-                                success: function (response) {
-                                    const lesAvisCharges = response;
-                                    if (lesAvisCharges.length > 0) {
-                                        // Ajouter le contenu HTML généré par loaded avis.
-                                        $('#avis-container').append(lesAvisCharges);
+        // Durant l'exécution de la requête
+        success: function (response) {
+          success: function (response) {
+            const lesAvisCharges = response;
+            if (lesAvisCharges.length > 0) {
+              // Ajouter le contenu HTML généré par loaded avis.
+              $('#avis-container').append(lesAvisCharges);
 
-                                        // Pour l'éventuel prochain chargement, incrémenter le curseur
-                                        idx_avis += 3;
-                                    } else {
-                                        // Ne plus pouvoir cliquer sur le bouton quand il n'y a plus d'avis
-                                        $('#load-more-btn').prop('disabled', true).text('');
-                                    }
-                                },
+              // Pour l'éventuel prochain chargement, incrémenter le curseur
+              idx_avis += 3;
+            } else {
+              // Ne plus pouvoir cliquer sur le bouton quand il n'y a plus d'avis
+              $('#load-more-btn').prop('disabled', true).text('');
+            }
+          },
 
-                                // A la fin, chacher le logo de chargement
-                                complete: function () {
-                                complete: function () {
-                                    // Masquer le loader après la requête
-                                    $('#loading-indicator').hide();
-                                    // Réactiver le bouton après la requête (que ce soit réussi ou non)
-                                    $('#load-more-btn').prop('disabled', false);
-                                }
-                            });
-                        }
-                    });
-                </script>
+            // A la fin, chacher le logo de chargement
+            complete: function () {
+              complete: function () {
+                // Masquer le loader après la requête
+                $('#loading-indicator').hide();
+                // Réactiver le bouton après la requête (que ce soit réussi ou non)
+                $('#load-more-btn').prop('disabled', false);
+              }
+            });
+        }
+      });
+      </script>
             </div>
         </div>
     </main>
 
     <!-- FOOTER -->
     <div class="w-full">
-        <?php
-        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
-        ?>
+<?php
+  include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+?>
     </div>
 
-    <script>
-        // Configurer les flèches pour faire des dropdown menu stylés
-        function setupToggle(arrowID, buttonID, infoID) {
-            const button = document.getElementById(buttonID);
-            const arrow = document.getElementById(arrowID);
-            const info = document.getElementById(infoID);
+  <script>
+  // Configurer les flèches pour faire des dropdown menu stylés
+  function setupToggle(arrowID, buttonID, infoID) {
+    const button = document.getElementById(buttonID);
+    const arrow = document.getElementById(arrowID);
+    const info = document.getElementById(infoID);
 
-            if (button) {
-                button.addEventListener('click', function (event) {
-                button.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    arrow.classList.toggle('rotate-90');
-                    info.classList.toggle('hidden');
-                });
-            }
-        }
-        setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
-        setupToggle('compl-arrow', 'compl-button', 'compl-info');
-        setupToggle('grille-arrow', 'grille-button', 'grille-info');
+    if (button) {
+      button.addEventListener('click', function (event) {
+        button.addEventListener('click', function (event) {
+          event.preventDefault();
+          arrow.classList.toggle('rotate-90');
+          info.classList.toggle('hidden');
+        });
+      }
+    }
+    setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
+    setupToggle('compl-arrow', 'compl-button', 'compl-info');
+    setupToggle('grille-arrow', 'grille-button', 'grille-info');
     </script>
-</body>
 
+</body>
 </html>
+

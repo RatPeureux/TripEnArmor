@@ -63,7 +63,7 @@ if (isset($_POST['mdp'])) {
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="w-full flex justify-center grow">

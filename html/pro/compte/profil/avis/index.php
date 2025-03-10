@@ -22,7 +22,7 @@ $pro = verifyPro();
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
     ?>
 
     <main class="flex flex-col justify-center grow md:w-full mt-0 m-auto max-w-[1280px] p-2">
@@ -59,7 +59,7 @@ $pro = verifyPro();
             </div>
         </div>
 
-        <div class="grow flex flex-col gap-4 mt-4">
+        <div class="grow flex flex-col gap-5 mt-4">
             <?php
             // Afficher tous les avis du professionnel
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
@@ -82,7 +82,7 @@ $pro = verifyPro();
                     $id_membre = $avis['id_membre'];
                     ?>
 
-                                    <div id="clickable_div_<?php echo $id_avis ?>" class="shadow-lg hover:cursor-pointer">
+                                    <div id="clickable_div_<?php echo $id_avis ?>" class="border border-black hover:cursor-pointer">
                                         <?php
                                         $mode = 'avis';
                                         include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';

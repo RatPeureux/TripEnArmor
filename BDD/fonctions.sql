@@ -377,3 +377,37 @@ INSTEAD OF INSERT ON sae_db.vue_restaurant_type_repas
 FOR EACH ROW
 EXECUTE FUNCTION insert_vue_type_repas();
 
+----------------------------------------------------- Trigger pour vérifier qu'une offre premium n'a que 3 avis blacklistés au plus
+CREATE OR REPLACE FUNCTION check_trois_blacklistages_par_offre()
+RETURNS TRIGGER AS $$
+DECLARE
+  test INT;
+BEGIN
+  -- Vérifier l'id_type_offre de l'offre associée
+  IF EXISTS (SELECT 1 FROM sae_db._offre WHERE id_offre = NEW.id_offre AND id_type_offre = 2) THEN
+    -- Si id_type_offre = 2, autoriser fin_blacklistage non nul mais pas plus de 3 avis avec fin_blacklistage non nul
+    IF NEW.fin_blacklistage IS NOT NULL THEN
+      -- Vérifier si le nombre d'avis est supérieur à 3
+      IF (SELECT count(*) FROM sae_db._avis WHERE id_offre = NEW.id_offre AND fin_blacklistage IS NOT NULL) >= 3 THEN
+        RAISE EXCEPTION 'Il ne peut y avoir plus de 3 avis avec fin_blacklistage non nul pour la même offre';
+    END IF; 
+    END IF; 
+  ELSE
+    -- Cas où l'avis ne concerne pas une offre premium (donc pas le droit au blacklistage)
+    IF EXISTS (SELECT 1 FROM _offre WHERE id_offre = NEW.id_offre) THEN
+      -- Si id_type_offre != 2, fin_blacklistage doit être nul
+      IF NEW.fin_blacklistage IS NOT NULL THEN
+        RAISE EXCEPTION 'Les offres avec id_type_offre différent de 2 ne peuvent avoir fin_blacklistage non nul';
+      END IF; 
+    END IF; 
+  END IF; 
+
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_check_fin_blacklistage
+BEFORE INSERT OR UPDATE ON _avis
+FOR EACH ROW
+EXECUTE FUNCTION check_trois_blacklistages_par_offre();
+

@@ -117,7 +117,7 @@ if ($pro['data']['id_rib'] != null) {
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
     ?>
 
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">

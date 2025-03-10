@@ -104,7 +104,7 @@ session_start();
 
     <!-- Inclusion du header -->
     <?php
-    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
 
     switch ($categorie_offre) {
         case 'restauration':

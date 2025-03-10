@@ -33,7 +33,7 @@ unset($_SESSION['data_en_cours_inscription']);
 <body class="min-h-screen flex flex-col">
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="grow md:w-full m-auto flex max-w-[1280px] p-2">

@@ -152,7 +152,6 @@ if ($mode_carte == 'membre') {
 									?>
 								</div>
 								<?php
-								<?php
 							} else {
 								?>
 								?>
@@ -161,7 +160,6 @@ if ($mode_carte == 'membre') {
 									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 									?>
 								</div>
-								<?php
 								<?php
 							}
 						} else {
@@ -189,7 +187,6 @@ if ($mode_carte == 'membre') {
 									?>
 								</div>
 								<?php
-								<?php
 							} else {
 								?>
 								?>
@@ -198,7 +195,6 @@ if ($mode_carte == 'membre') {
 									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 									?>
 								</div>
-								<?php
 								<?php
 							}
 						}
@@ -325,7 +321,6 @@ if ($mode_carte == 'membre') {
 									</p>
 								</div>
 								<?php
-								<?php
 							}
 							?>
 						</div>
@@ -439,16 +434,12 @@ if ($mode_carte == 'membre') {
 		</div>
 	</a>
 	<?php
-	<?php
 } else {
 	// !!! CARD COMPONENT PRO !!!
 	// Composant dynamique (généré avec les données en php)
 	// Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 	?>
-	?>
-	<div class="card <?php if ($option)
-		echo 'active' ?> relative max-w-[1280px] bg-base100  flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
-		echo 'active' ?> relative max-w-[1280px] bg-base100  flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
+	<div class="card <?php if ($option)	echo 'active' ?> relative max-w-[1280px] bg-base100  flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>
 
 		<!-- PARTIE DE GAUCHE, image-->
 		<div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
@@ -490,7 +481,6 @@ if ($mode_carte == 'membre') {
 					if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
 						$n = $moyenne;
 						?>
-						?>
 						<div class="flex gap-1 self-end">
 							<div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne; ?>">
 								<?php for ($i = 0; $i < 5; $i++) {
@@ -520,7 +510,6 @@ if ($mode_carte == 'membre') {
 							<p class='text-sm flex items-center pt-1'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
 						</div>
 						<?php
-						<?php
 					}
 					?>
 
@@ -529,7 +518,6 @@ if ($mode_carte == 'membre') {
 						<!-- en ligne ? -->
 						<?php
 						if ($est_en_ligne) {
-							?>
 							?>
 							<a href="/scripts/toggle_ligne.php?id_offre=<?php echo $id_offre ?>"
 								onclick="return confirm('Voulez-vous vraiment mettre votre offre hors ligne ?\nLa facturation s\'arrêtra à compter de demain.');"
@@ -543,7 +531,6 @@ if ($mode_carte == 'membre') {
 										stroke-linecap="round" />
 								</svg>
 							</a>
-							<?php
 							<?php
 						} else {
 							?>
@@ -574,7 +561,6 @@ if ($mode_carte == 'membre') {
 										stroke-linecap="round" />
 								</svg>
 							</a>
-							<?php
 							<?php
 						}
 						?>
@@ -614,23 +600,19 @@ if ($mode_carte == 'membre') {
 								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								if ($tags_offre) {
 									?>
-									?>
 									<div class="p-1bg-secondary self-center w-full">
 										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
 										?>
 									</div>
 									<?php
-									<?php
 								} else {
-									?>
 									?>
 									<div class="p-1  bg-secondary self-center w-full">
 										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 										?>
 									</div>
-									<?php
 									<?php
 								}
 							} else {
@@ -652,23 +634,19 @@ if ($mode_carte == 'membre') {
 								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								if ($tags_offre) {
 									?>
-									?>
 									<div class="tags p-1  bg-secondary self-center w-full">
 										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
 										?>
 									</div>
 									<?php
-									<?php
 								} else {
-									?>
 									?>
 									<div class="tags p-1 bg-secondary self-center w-full">
 										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 										?>
 									</div>
-									<?php
 									<?php
 								}
 							}
@@ -735,11 +713,6 @@ if ($mode_carte == 'membre') {
 							} else {
 								echo $date_publication;
 							} ?>
-							if (isset($date_mise_a_jour)) {
-								echo $date_mise_a_jour;
-							} else {
-								echo $date_publication;
-							} ?>
 							</p>
 						</div>
 					</div>
@@ -764,15 +737,10 @@ if ($mode_carte == 'membre') {
 									$date_fin = $date_lancement->modify('+' . $souscription[0]['nb_semaines'] . ' weeks')->format('d/m/Y');
 									echo $souscription[0]["nom_option"];
 									?>
-									?>
-									<p>
-										<?php echo $souscritpion[0]["nom_option"] ?>
-									</p>
 									<p>
 										<?php echo $date_lancement_formatted ?> -
 										<?php echo $date_fin; ?>
 									</p>
-									<?php
 									<?php
 								} else {
 									echo "Aucune option";
@@ -788,3 +756,4 @@ if ($mode_carte == 'membre') {
 	</div>
 
 <?php } ?>
+

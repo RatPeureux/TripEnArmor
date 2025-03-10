@@ -366,7 +366,7 @@ $pro = verifyPro();
 					<div class="w-full">
 						<!-- Inclusion du header -->
 						<?php
-						include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+						include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
 						?>
 					</div>
 
