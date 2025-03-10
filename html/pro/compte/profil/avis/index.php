@@ -22,7 +22,7 @@ $pro = verifyPro();
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="flex flex-col justify-center grow md:w-full mt-0 m-auto max-w-[1280px] p-2">
@@ -109,7 +109,7 @@ $pro = verifyPro();
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
     <script>
         // Fonction pour configurer un bouton qui affiche ou masque une section

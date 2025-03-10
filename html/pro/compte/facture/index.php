@@ -29,7 +29,7 @@ $pro = verifyPro();
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <?php
@@ -444,11 +444,11 @@ $pro = verifyPro();
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 
 </body>

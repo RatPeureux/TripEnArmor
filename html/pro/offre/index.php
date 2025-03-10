@@ -103,7 +103,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.
 
     <!-- Inclusion du header -->
 <?php
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
 
 switch ($categorie_offre) {
 case 'restauration':
@@ -1042,7 +1042,7 @@ $(document).ready(function () {
     <!-- FOOTER -->
     <div class="w-full">
 <?php
-  include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+  include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
 ?>
     </div>
 

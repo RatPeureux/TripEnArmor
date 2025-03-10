@@ -62,7 +62,7 @@ $membre = verifyMember();
     <main class="grow max-w-[1280px] md:w-full mx-auto p-2 flex">
         <div id="menu">
             <?php
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
             ?>
         </div>
 
@@ -109,7 +109,7 @@ $membre = verifyMember();
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 

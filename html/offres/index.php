@@ -141,7 +141,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <div id="menu">
                 <?php
                 $pagination = 3;
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu+filtres.php';
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu+filtres.php';
                 ?>
             </div>
 
@@ -198,7 +198,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 

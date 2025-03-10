@@ -70,7 +70,7 @@ if (isset($_POST['mdp'])) {
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
@@ -158,7 +158,7 @@ if (isset($_POST['mdp'])) {
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 
     <script>

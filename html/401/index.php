@@ -40,7 +40,7 @@ unset($_SESSION['data_en_cours_inscription']);
         <!-- Inclusion du menu -->
         <div id="menu">
             <?php
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
             ?>
         </div>
 
@@ -53,7 +53,7 @@ unset($_SESSION['data_en_cours_inscription']);
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 

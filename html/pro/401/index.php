@@ -32,7 +32,7 @@ $pro = verifyPro();?>
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="grow flex justify-center w-full  m-auto max-w-[1280px] p-2">
@@ -46,7 +46,7 @@ $pro = verifyPro();?>
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 

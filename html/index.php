@@ -64,51 +64,16 @@ session_start();
     $meilleuresNotes = $offresAvecNotes;
     ?>
 
+    <!-- Inclusion du header -->
+    <?php
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
+    ?>
 
-    <header class="flex justify-between items-center z-30 w-full h-16 top-0 mx-auto max-w-[1280px] px-4">
-        <div class="flex items-center justify-between md:gap-4">
-            <!-- Logo -->
-            <a href="/" class="flex items-center gap-2">
-                <img src="/public/icones/logo.svg" alt="Logo" width="50">
-            </a>
-        </div>
-
-        <!-- Menu -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
-            <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la
-                Une</a>
-            <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
-        </div>
-
-        <!-- Actions Utilisateur -->
-        <div class="flex items-center text-sm gap-4">
-            <?php
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-            if (isConnectedAsMember()) { ?>
-                <!-- Si connecté -->
-                <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
-                    onclick="return confirmLogout()">
-                    <div class="text-black border border-secondary px-4 py-2 rounded-full">
-                        <p>Se déconnecter</p>
-                    </div>
-                </a>
-                <a href="/compte">
-                    <i class="text-3xl fa-regular fa-user"></i>
-                </a>
-            <?php } else { ?>
-                <!-- Si non connecté -->
-                <a href="/connexion" class="md:hidden">
-                    <i class="text-3xl fa-regular fa-user"></i>
-                </a>
-                <a href="/connexion" class="hidden md:block">
-                    <div
-                        class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
-                        <p>Se connecter</p>
-                    </div>
-                </a>
-            <?php } ?>
-        </div>
-    </header>
+    <!-- Menu -->
+    <div class="flex items-center justify-center text-sm">
+        <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la Une</a>
+        <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
+    </div>
 
     <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
         <div class="w-full flex justify-center gap-10 text-center">
@@ -256,105 +221,105 @@ session_start();
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Sélectionne les éléments nécessaires
-        const titres = document.querySelectorAll('.searchOn h1');
-        const searchField = document.getElementById('search-field');
-        const selectMenu = document.getElementById('search-category');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sélectionne les éléments nécessaires
+            const titres = document.querySelectorAll('.searchOn h1');
+            const searchField = document.getElementById('search-field');
+            const selectMenu = document.getElementById('search-category');
 
-        // Placeholder correspondant à chaque catégorie
-        const placeholders = {
-            all: "Rechercher par tags...",
-            restaurants: "Rechercher des restaurants par tags...",
-            spectacles: "Rechercher des spectacles par tags...",
-            activites: "Rechercher des activités par tags...",
-            visites: "Rechercher des visites par tags...",
-            attractions: "Rechercher des parcs d'attractions par tags..."
-        };
+            // Placeholder correspondant à chaque catégorie
+            const placeholders = {
+                all: "Rechercher par tags...",
+                restaurants: "Rechercher des restaurants par tags...",
+                spectacles: "Rechercher des spectacles par tags...",
+                activites: "Rechercher des activités par tags...",
+                visites: "Rechercher des visites par tags...",
+                attractions: "Rechercher des parcs d'attractions par tags..."
+            };
 
-        // Fonction pour gérer le clic sur les h1
-        const handleH1Click = (titre) => {
-            const id = titre.id;
+            // Fonction pour gérer le clic sur les h1
+            const handleH1Click = (titre) => {
+                const id = titre.id;
 
-            // Retire la classe de soulignement de tous les h1
-            titres.forEach(t => t.classList.remove('border-b', 'border-secondary'));
+                // Retire la classe de soulignement de tous les h1
+                titres.forEach(t => t.classList.remove('border-b', 'border-secondary'));
 
-            // Ajoute la classe de soulignement au h1 cliqué
-            titre.classList.add('border-b', 'border-secondary');
+                // Ajoute la classe de soulignement au h1 cliqué
+                titre.classList.add('border-b', 'border-secondary');
 
-            // Met à jour le placeholder
-            searchField.placeholder = placeholders[id] || "Rechercher...";
+                // Met à jour le placeholder
+                searchField.placeholder = placeholders[id] || "Rechercher...";
 
-            // Met à jour la valeur du select pour qu'elle corresponde
-            selectMenu.value = id;
-        };
+                // Met à jour la valeur du select pour qu'elle corresponde
+                selectMenu.value = id;
+            };
 
-        // Fonction pour gérer le changement du select
-        const handleSelectChange = () => {
-            const selectedValue = selectMenu.value;
+            // Fonction pour gérer le changement du select
+            const handleSelectChange = () => {
+                const selectedValue = selectMenu.value;
 
-            // Met à jour le placeholder
-            searchField.placeholder = placeholders[selectedValue] || "Rechercher...";
+                // Met à jour le placeholder
+                searchField.placeholder = placeholders[selectedValue] || "Rechercher...";
 
-            // Met à jour le style des h1 pour refléter la sélection
-            titres.forEach(t => {
-                if (t.id === selectedValue) {
-                    t.classList.add('border-b', 'border-secondary');
+                // Met à jour le style des h1 pour refléter la sélection
+                titres.forEach(t => {
+                    if (t.id === selectedValue) {
+                        t.classList.add('border-b', 'border-secondary');
+                    } else {
+                        t.classList.remove('border-b', 'border-secondary');
+                    }
+                });
+            };
+
+            // Ajoute les écouteurs sur les h1
+            titres.forEach(titre => {
+                titre.addEventListener('click', () => handleH1Click(titre));
+            });
+
+            // Ajoute un écouteur sur le select
+            selectMenu.addEventListener('change', handleSelectChange);
+
+            // Gestion de l'affichage des offres "À la Une"
+            const offres = document.querySelectorAll('#no-matches-2 .card');
+            let anyVisible = false;
+
+            offres?.forEach((offre) => {
+                if (offre.classList.contains('active')) {
+                    anyVisible = true;
+                    offre.classList.remove('hidden');
                 } else {
-                    t.classList.remove('border-b', 'border-secondary');
+                    offre.classList.add('hidden');
                 }
             });
-        };
 
-        // Ajoute les écouteurs sur les h1
-        titres.forEach(titre => {
-            titre.addEventListener('click', () => handleH1Click(titre));
-        });
+            const noMatchesContainer = document.querySelector('#no-matches-2');
+            if (!noMatchesContainer) {
+                console.error('Le conteneur #no-matches-2 est introuvable.');
+                return;
+            }
 
-        // Ajoute un écouteur sur le select
-        selectMenu.addEventListener('change', handleSelectChange);
-
-        // Gestion de l'affichage des offres "À la Une"
-        const offres = document.querySelectorAll('#no-matches-2 .card');
-        let anyVisible = false;
-
-        offres?.forEach((offre) => {
-            if (offre.classList.contains('active')) {
-                anyVisible = true;
-                offre.classList.remove('hidden');
+            const noMatchesMessage = document.getElementById('no-matches-message');
+            if (!anyVisible) {
+                if (!noMatchesMessage) {
+                    const messageContainer = document.createElement('div');
+                    messageContainer.classList.add('w-full', 'h-full', 'h-full');
+                    const message = document.createElement('div');
+                    message.id = 'no-matches-message';
+                    const content = document.createElement('p');
+                    content.textContent = 'Aucune offre n\'est "À la Une".';
+                    message.classList.add('flex', 'justify-center', 'items-center', 'text-2xl', 'h-[27rem]');
+                    message.appendChild(content);
+                    messageContainer.appendChild(message);
+                    noMatchesContainer.appendChild(messageContainer);
+                }
             } else {
-                offre.classList.add('hidden');
+                noMatchesMessage?.remove();
             }
         });
-
-        const noMatchesContainer = document.querySelector('#no-matches-2');
-        if (!noMatchesContainer) {
-            console.error('Le conteneur #no-matches-2 est introuvable.');
-            return;
-        }
-
-        const noMatchesMessage = document.getElementById('no-matches-message');
-        if (!anyVisible) {
-            if (!noMatchesMessage) {
-                const messageContainer = document.createElement('div');
-                messageContainer.classList.add('w-full', 'h-full', 'h-full');
-                const message = document.createElement('div');
-                message.id = 'no-matches-message';
-                const content = document.createElement('p');
-                content.textContent = 'Aucune offre n\'est "À la Une".';
-                message.classList.add('flex', 'justify-center', 'items-center', 'text-2xl', 'h-[27rem]');
-                message.appendChild(content);
-                messageContainer.appendChild(message);
-                noMatchesContainer.appendChild(messageContainer);
-            }
-        } else {
-            noMatchesMessage?.remove();
-        }
-    });
     </script>
 
 </body>
