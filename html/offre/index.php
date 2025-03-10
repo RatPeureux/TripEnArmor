@@ -531,7 +531,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                             <a class="">
                                 <div class="flex flex-row justify-between pt-3" id="compl-button">
                                     <p class="text-lg">Informations complémentaires</p>
-                                    <p id="compl-arrow">></p>
+                                    <p id="compl-arrow">&gt;</p>
                                 </div>
                                 <div class="flex flex-col py-3 px-2" id="compl-info">
                                     <?php
@@ -543,12 +543,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                             ?>
                                             <div class="text-sm flex flex-col md:flex-row">
                                                 <p class="text-sm">Repas servis&nbsp;:&nbsp;</p>
-                                                <p><?php echo $tags_type_repas ?></p>
+                                                <p><?php echo $tags_type_repas; ?></p>
                                             </div>
                                             <?php
                                             if ($images) {
                                                 ?>
-                                                <img src="/public/images/offres/<?php echo $images['carte-resto']; ?>" alt=""
+                                                <img src="/public/images/offres/<?php echo $images['photo-resto']; ?>" alt=""
                                                     class="max-h-[400px] max-w-[350px] md:max-w-[500px]">
                                                 <?php
                                             } else {

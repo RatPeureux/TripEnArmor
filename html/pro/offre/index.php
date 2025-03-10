@@ -308,10 +308,6 @@ $images = $controllerImage->getImagesOfOffre($id_offre);
 } else {
   echo $categorie_offre . '.jpg';
 } ?>' alt="image de slider">
-                                echo "offres/" . $images['carte'];
-                            } else {
-                                echo $categorie_offre . '.jpg';
-                            } ?>' alt="image de slider">
                         </div>
                         <div class="swiper-slide !w-full">
                         <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
@@ -321,7 +317,7 @@ $images = $controllerImage->getImagesOfOffre($id_offre);
                                 } ?>' alt="image de slider">
                                 echo "offres/" . $images['carte'];
                             } else {
-                                echo $categorie_offre . '.jpg';
+                            echo $categorie_offre . '.jpg';
                             } ?>' alt="image de slider">
                         </div>
 <?php
@@ -763,38 +759,38 @@ if (isset($_SESSION['id_membre'])) {
                                                 <p>Rédiger un avis</p>
                                             </button>
 
-                                            <form id="avis_formulaire" action="/scripts/creation_avis.php" method="POST"
-                                                class="hidden flex flex-col gap-4">
+                                    <form id="avis_formulaire" action="/scripts/creation_avis.php" method="POST"
+                                        class="hidden flex flex-col gap-4">
 
-                                                <!-- Titre de l'avis -->
-                                                <div>
-                                                    <label for="titre">Titre</label>
-                                                    <input type="text" name="titre" id="titre" placeholder="Titre de l'avis"
-                                                        class="w-full border border-black  p-1" required>
-                                                </div>
+                                        <!-- Titre de l'avis -->
+                                        <div>
+                                            <label for="titre">Titre</label>
+                                            <input type="text" name="titre" id="titre" placeholder="Titre de l'avis"
+                                                class="w-full border border-black  p-1" required>
+                                        </div>
 
-                                                <!-- Commentaire de l'avis -->
-                                                <textarea type="commentaire" name="commentaire" id="commentaire"
-                                                    placeholder="Votre commentaire" class="w-full border border-black  p-1"></textarea>
+                                        <!-- Commentaire de l'avis -->
+                                        <textarea type="commentaire" name="commentaire" id="commentaire"
+                                            placeholder="Votre commentaire" class="w-full border border-black  p-1"></textarea>
 
-                                                <!-- Note globale donnée (pour toutes les offres) -->
-                                                <div>
-                                                    <label for="note_globale">Note globale</label>
-                                                    <select name="note_globale" id="note_globale" class="p-1 " required>
-                                                        <option value="" selected disabled>...</option>
-                                                        <option value="0">0</option>
-                                                        <option value="0.5">0,5</option>
-                                                        <option value="1">1</option>
-                                                        <option value="1.5">1,5</option>
-                                                        <option value="2">2</option>
-                                                        <option value="2.5">2,5</option>
-                                                        <option value="3">3</option>
-                                                        <option value="3.5">3,5</option>
-                                                        <option value="4">4</option>
-                                                        <option value="4.5">4,5</option>
-                                                        <option value="5">5</option>
-                                                    </select>
-                                                </div>
+                                        <!-- Note globale donnée (pour toutes les offres) -->
+                                        <div>
+                                            <label for="note_globale">Note globale</label>
+                                            <select name="note_globale" id="note_globale" class="p-1 " required>
+                                                <option value="" selected disabled>...</option>
+                                                <option value="0">0</option>
+                                                <option value="0.5">0,5</option>
+                                                <option value="1">1</option>
+                                                <option value="1.5">1,5</option>
+                                                <option value="2">2</option>
+                                                <option value="2.5">2,5</option>
+                                                <option value="3">3</option>
+                                                <option value="3.5">3,5</option>
+                                                <option value="4">4</option>
+                                                <option value="4.5">4,5</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
 
 <?php
 // Notes additionnelles pour les restaurants
@@ -817,103 +813,103 @@ if ($categorie_offre == 'restauration') { ?>
                                                             </select>
                                                         </div>
 
-                                                        <div>
-                                                            <label for="note_service">Service</label>
-                                                            <select name="note_service" id="note_service" class="p-1 " required>
-                                                                <option value="" selected disabled>...</option>
-                                                                <option value="0">0</option>
-                                                                <option value="0.5">0,5</option>
-                                                                <option value="1">1</option>
-                                                                <option value="1.5">1,5</option>
-                                                                <option value="2">2</option>
-                                                                <option value="2.5">2,5</option>
-                                                                <option value="3">3</option>
-                                                                <option value="3.5">3,5</option>
-                                                                <option value="4">4</option>
-                                                                <option value="4.5">4,5</option>
-                                                                <option value="5">5</option>
-                                                            </select>
-                                                        </div>
+                                            <div>
+                                                <label for="note_service">Service</label>
+                                                <select name="note_service" id="note_service" class="p-1 " required>
+                                                    <option value="" selected disabled>...</option>
+                                                    <option value="0">0</option>
+                                                    <option value="0.5">0,5</option>
+                                                    <option value="1">1</option>
+                                                    <option value="1.5">1,5</option>
+                                                    <option value="2">2</option>
+                                                    <option value="2.5">2,5</option>
+                                                    <option value="3">3</option>
+                                                    <option value="3.5">3,5</option>
+                                                    <option value="4">4</option>
+                                                    <option value="4.5">4,5</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
 
-                                                        <div>
-                                                            <label for="note_cuisine">Cuisine</label>
-                                                            <select name="note_cuisine" id="note_cuisine" class="p-1 " required>
-                                                                <option value="" selected disabled>...</option>
-                                                                <option value="0">0</option>
-                                                                <option value="0.5">0,5</option>
-                                                                <option value="1">1</option>
-                                                                <option value="1.5">1,5</option>
-                                                                <option value="2">2</option>
-                                                                <option value="2.5">2,5</option>
-                                                                <option value="3">3</option>
-                                                                <option value="3.5">3,5</option>
-                                                                <option value="4">4</option>
-                                                                <option value="4.5">4,5</option>
-                                                                <option value="5">5</option>
-                                                            </select>
-                                                        </div>
+                                            <div>
+                                                <label for="note_cuisine">Cuisine</label>
+                                                <select name="note_cuisine" id="note_cuisine" class="p-1 " required>
+                                                    <option value="" selected disabled>...</option>
+                                                    <option value="0">0</option>
+                                                    <option value="0.5">0,5</option>
+                                                    <option value="1">1</option>
+                                                    <option value="1.5">1,5</option>
+                                                    <option value="2">2</option>
+                                                    <option value="2.5">2,5</option>
+                                                    <option value="3">3</option>
+                                                    <option value="3.5">3,5</option>
+                                                    <option value="4">4</option>
+                                                    <option value="4.5">4,5</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
 
-                                                        <div>
-                                                            <label for="note_rapport">Rapport qualité / prix</label>
-                                                            <select name="note_rapport" id="note_rapport" class="p-1 " required>
-                                                                <option value="" selected disabled>...</option>
-                                                                <option value="0">0</option>
-                                                                <option value="0.5">0,5</option>
-                                                                <option value="1">1</option>
-                                                                <option value="1.5">1,5</option>
-                                                                <option value="2">2</option>
-                                                                <option value="2.5">2,5</option>
-                                                                <option value="3">3</option>
-                                                                <option value="3.5">3,5</option>
-                                                                <option value="4">4</option>
-                                                                <option value="4.5">4,5</option>
-                                                                <option value="5">5</option>
-                                                            </select>
-                                                        </div>
+                                            <div>
+                                                <label for="note_rapport">Rapport qualité / prix</label>
+                                                <select name="note_rapport" id="note_rapport" class="p-1 " required>
+                                                    <option value="" selected disabled>...</option>
+                                                    <option value="0">0</option>
+                                                    <option value="0.5">0,5</option>
+                                                    <option value="1">1</option>
+                                                    <option value="1.5">1,5</option>
+                                                    <option value="2">2</option>
+                                                    <option value="2.5">2,5</option>
+                                                    <option value="3">3</option>
+                                                    <option value="3.5">3,5</option>
+                                                    <option value="4">4</option>
+                                                    <option value="4.5">4,5</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
 
 <?php
 }
 ?>
 
-                                                <!-- Date de l'expérience -->
-                                                <div>
-                                                    <label for="date_experience">Date de l'expérience</label>
-                                                    <input type="date" name="date_experience" id="date_experience"
-                                                        value="Date de votre expérience" required>
-                                                </div>
+                                        <!-- Date de l'expérience -->
+                                        <div>
+                                            <label for="date_experience">Date de l'expérience</label>
+                                            <input type="date" name="date_experience" id="date_experience"
+                                                value="Date de votre expérience" required>
+                                        </div>
 
-                                                <!-- Contexte de passage -->
-                                                <div>
-                                                    <label for="contexte_passage">Contexte de passage</label>
-                                                    <select name="contexte_passage" id="contexte_passage" class="p-1 " required>
-                                                        <option value="" selected disabled>...</option>
-                                                        <option value="en solo">en solo</option>
-                                                        <option value="en couple">en couple</option>
-                                                        <option value="entre amis">entre amis</option>
-                                                        <option value="pour le travail">pour le travail</option>
-                                                        <option value="en famille">en famille</option>
-                                                    </select>
-                                                </div>
+                                        <!-- Contexte de passage -->
+                                        <div>
+                                            <label for="contexte_passage">Contexte de passage</label>
+                                            <select name="contexte_passage" id="contexte_passage" class="p-1 " required>
+                                                <option value="" selected disabled>...</option>
+                                                <option value="en solo">en solo</option>
+                                                <option value="en couple">en couple</option>
+                                                <option value="entre amis">entre amis</option>
+                                                <option value="pour le travail">pour le travail</option>
+                                                <option value="en famille">en famille</option>
+                                            </select>
+                                        </div>
 
-                                                <!-- Champs cachés pour transmettre des donées à la création de l'offre -->
-                                                <input type="text" id='id_offre' name='id_offre' hidden
-                                                    value="<?php echo $_SESSION['id_offre'] ?>">
-                                                <input type="text" id='id_membre' name='id_membre' hidden
-                                                    value="<?php echo $_SESSION['id_membre'] ?>">
+                                        <!-- Champs cachés pour transmettre des donées à la création de l'offre -->
+                                        <input type="text" id='id_offre' name='id_offre' hidden
+                                            value="<?php echo $_SESSION['id_offre'] ?>">
+                                        <input type="text" id='id_membre' name='id_membre' hidden
+                                            value="<?php echo $_SESSION['id_membre'] ?>">
 
-                                                <!-- Publier l'avis ou annuler l'écriture -->
-                                                <div class="flex justify-end gap-3 items-center">
-                                                    <div onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
-                                                        class=" text-secondarygit  p-2 self-end flex items-center gap-2 border border-secondary">
-                                                        <p>Annuler</p>
-                                                    </div>
+                                        <!-- Publier l'avis ou annuler l'écriture -->
+                                        <div class="flex justify-end gap-3 items-center">
+                                            <div onclick="document.getElementById('avis_formulaire').classList.toggle('hidden');"
+                                                class=" text-secondarygit  p-2 self-end flex items-center gap-2 border border-secondary">
+                                                <p>Annuler</p>
+                                            </div>
 
-                                                    <input type="submit" value="+ Publier"
-                                                        class="bg-secondary text-white   p-2 self-end">
-                                                </div>
+                                            <input type="submit" value="+ Publier"
+                                                class="bg-secondary text-white   p-2 self-end">
+                                        </div>
 
-                                                <hr class="w-1/2 border border-black self-end my-2  bg-black">
-                                            </form>
+                                        <hr class="w-1/2 border border-black self-end my-2  bg-black">
+                                    </form>
 
 <script>
 // Eviter de pouvoir sélectionner un date ultérieure au jour actuel

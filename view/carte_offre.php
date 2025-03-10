@@ -73,13 +73,9 @@ if ($mode_carte == 'membre') {
 	// Composant dynamique (généré avec les données en php)
 	// Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 	?>
-	?>
 	<a class="card <?php if ($option) {
 		echo "active ";
 	} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
-		echo "active ";
-	} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
-
 		<!-- CARTE VERSION TÉLÉPHONE -->
 		<div class='md:hidden relative bg-base100  flex flex-col'>
 
@@ -100,11 +96,8 @@ if ($mode_carte == 'membre') {
 			$controllerImage = new ImageController();
 			$images = $controllerImage->getImagesOfOffre($id_offre);
 			?>
-			<img class="h-48 w-full  object-cover" src='/public/images/<?php if ($images['carte']) {
-				echo "offres/" . $images['carte'];
-			} else {
-				echo $categorie_offre . '.jpg';
-			} ?>' alt="Image promotionnelle de l'offre">
+			<img class="h-48 w-full  object-cover" src='/public/images/
+			<?php if ($images['carte']) {
 				echo "offres/" . $images['carte'];
 			} else {
 				echo $categorie_offre . '.jpg';
@@ -145,7 +138,6 @@ if ($mode_carte == 'membre') {
 							$tagsAffiche = rtrim($tagsAffiche, ', ');
 							if ($tags_offre) {
 								?>
-								?>
 								<div class="p-1  bg-secondary self-center w-full">
 									<?php
 									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
@@ -153,7 +145,6 @@ if ($mode_carte == 'membre') {
 								</div>
 								<?php
 							} else {
-								?>
 								?>
 								<div class="p-1  bg-secondary self-center w-full">
 									<?php
@@ -179,7 +170,6 @@ if ($mode_carte == 'membre') {
 
 							$tagsAffiche = rtrim($tagsAffiche, ', ');
 							if ($tags_offre) {
-								?>
 								?>
 								<div class="tags p-1 bg-secondary self-center w-full">
 									<?php
@@ -211,7 +201,6 @@ if ($mode_carte == 'membre') {
 					if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
 						$n = $moyenne;
 						?>
-						?>
 						<div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne; ?>">
 							<?php for ($i = 0; $i < 5; $i++) {
 								if ($n >= 1) {
@@ -222,22 +211,22 @@ if ($mode_carte == 'membre') {
 									<?php }
 								} else if ($n > 0) {
 									if ($option) { ?>
-												<img class="w-2" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
+											<img class="w-2" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
 									<?php } else { ?>
-												<img class="w-2" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+											<img class="w-2" src="/public/icones/egg-half.svg" alt="0.5 point de note">
 									<?php }
 								} else {
 									if ($option) { ?>
-												<img class="w-2" src="/public/icones/egg-half-white.svg" alt="0 point de note">
+											<img class="w-2" src="/public/icones/egg-half-white.svg" alt="0 point de note">
 									<?php } else { ?>
-												<img class="w-2" src="/public/icones/egg-empty.svg" alt="0 point de note">
-											<?php }
+											<img class="w-2" src="/public/icones/egg-empty.svg" alt="0 point de note">
+									<?php }
 								}
 								$n--;
 							}
 							?>
 						</div>
-							<?php
+						<?php
 					}
 					?>
 					<p class='prix text-sm'
@@ -247,10 +236,6 @@ if ($mode_carte == 'membre') {
 				</div>
 			</div>
 		</div>
-
-
-
-
 
 
 
@@ -271,10 +256,6 @@ if ($mode_carte == 'membre') {
 					} else {
 						echo $categorie_offre . '.jpg';
 					} ?>' alt="Image promotionnelle de l'offre">
-						echo "offres/" . $images['carte'];
-					} else {
-						echo $categorie_offre . '.jpg';
-					} ?>' alt="Image promotionnelle de l'offre">
 				</div>
 				<!-- Partie droite (infos principales) -->
 				<div class='infos flex flex-col basis-1/2 p-3 justify-between relative'>
@@ -289,7 +270,6 @@ if ($mode_carte == 'membre') {
 							if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
 								$n = $moyenne;
 								?>
-								?>
 								<div class="notes flex gap-1">
 									<div class="note flex gap-1 shrink-0" title="<?php echo $moyenne; ?>">
 										<?php for ($i = 0; $i < 5; $i++) {
@@ -301,16 +281,16 @@ if ($mode_carte == 'membre') {
 												<?php }
 											} else if ($n > 0) {
 												if ($option) { ?>
-															<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
+														<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
 												<?php } else { ?>
-															<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+														<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
 												<?php }
 											} else {
 												if ($option) { ?>
-															<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
+														<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
 												<?php } else { ?>
-															<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-														<?php }
+														<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
+												<?php }
 											}
 											$n--;
 										}
@@ -353,21 +333,21 @@ if ($mode_carte == 'membre') {
 
 								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								if ($tags_offre) {
-											?>
-											<div class="tags p-1 bg-secondary self-center w-full">
-												<?php
+									?>
+									<div class="tags p-1 bg-secondary self-center w-full">
+										<?php
 										echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-												?>
-											</div>
-												<?php
+										?>
+									</div>
+									<?php
 								} else {
-													?>
-											<div class="tags p-1 bg-secondary self-center w-full">
-												<?php
+									?>
+									<div class="tags p-1 bg-secondary self-center w-full">
+										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-												?>
-											</div>
-												<?php
+										?>
+									</div>
+									<?php
 								}
 							} else {
 								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
@@ -387,24 +367,24 @@ if ($mode_carte == 'membre') {
 
 								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								if ($tags_offre) {
-													?>
-											<div class="tags p-1 bg-secondary self-center w-full">
-												<?php
+									?>
+									<div class="tags p-1 bg-secondary self-center w-full">
+										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-												?>
-											</div>
-												<?php
+										?>
+									</div>
+									<?php
 								} else {
-													?>
-											<div class="tags p-1  bg-secondary self-center w-full">
-												<?php
+									?>
+									<div class="tags p-1  bg-secondary self-center w-full">
+										<?php
 										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 										?>
 									</div>
 									<?php
-									}
 								}
-								?>
+							}
+							?>
 							</p>
 						</div>
 						<p class='overflow-hidden line-clamp-5 text-sm'>
@@ -436,11 +416,18 @@ if ($mode_carte == 'membre') {
 	<?php
 } else {
 	// !!! CARD COMPONENT PRO !!!
-	// Composant dynamique (généré avec les données en php)
-	// Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
+// Composant dynamique (généré avec les données en php)
+// Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 	?>
+<<<<<<< HEAD
 	<div class="card <?php if ($option)	echo 'active' ?> relative max-w-[1280px] bg-base100  flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>
 
+=======
+	<div class="card 
+		<?php if ($option)
+			echo 'active' ?> 
+		relative max-w-[1280px] bg-base100  flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
+>>>>>>> 453b0afeeb3600ebd21c552a8db91c1dca55bb77
 		<!-- PARTIE DE GAUCHE, image-->
 		<div class="gauche relative shrink-0 basis-1/2 h-[370px] overflow-hidden">
 			<a href='/scripts/go_to_details_pro.php?id_offre=<?php echo $id_offre ?>'>
@@ -450,10 +437,6 @@ if ($mode_carte == 'membre') {
 				$images = $controllerImage->getImagesOfOffre($id_offre);
 				?>
 				<img class=" w-full h-full object-cover object-center" src='/public/images/<?php if ($images['carte']) {
-					echo "offres/" . $images['carte'];
-				} else {
-					echo $categorie_offre . '.jpg';
-				} ?>' alt="Image promotionnelle de l'offre" title="Consulter les détails">
 					echo "offres/" . $images['carte'];
 				} else {
 					echo $categorie_offre . '.jpg';
@@ -492,16 +475,16 @@ if ($mode_carte == 'membre') {
 										<?php }
 									} else if ($n > 0) {
 										if ($option) { ?>
-													<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
+												<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
 										<?php } else { ?>
-													<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+												<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
 										<?php }
 									} else {
 										if ($option) { ?>
-													<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
+												<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
 										<?php } else { ?>
-													<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-												<?php }
+												<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
+										<?php }
 									}
 									$n--;
 								}
@@ -534,22 +517,19 @@ if ($mode_carte == 'membre') {
 							<?php
 						} else {
 							?>
-							?>
 							<a <?php
 							// Cas où aucun rib n'est rentré : ne pas pouvoir mettre en ligne
-							if ($pro['data']['type'] == 'prive' && (!isset($pro['data']['id_rib']) || $pro['data']['id_rib'] == null)) {
-								echo "onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre une offre en ligne\");'";
+							if (
+								$pro['data']['type'] == 'prive' && (!isset($pro['data']['id_rib']) || $pro['data']['id_rib']
+									== null)
+							) {
+								echo "onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre une offre en
+								ligne\");'";
 							} else {
 								// Pouvoir mettre en ligne si tout est OK ou si public
-								echo "href='/scripts/toggle_ligne.php?id_offre={$id_offre}' onclick='return confirm(\"Voulez-vous vraiment mettre votre offre en ligne ?\nVous pouvez consulter de nouveau nos CGV\");'";
-							}
-							?> title="mettre en ligne">
-							// Cas où aucun rib n'est rentré : ne pas pouvoir mettre en ligne
-							if ($pro['data']['type'] == 'prive' && (!isset($pro['data']['id_rib']) || $pro['data']['id_rib'] == null)) {
-								echo "onclick='return alert(\"Veuillez renseigner votre IBAN pour mettre une offre en ligne\");'";
-							} else {
-								// Pouvoir mettre en ligne si tout est OK ou si public
-								echo "href='/scripts/toggle_ligne.php?id_offre={$id_offre}' onclick='return confirm(\"Voulez-vous vraiment mettre votre offre en ligne ?\nVous pouvez consulter de nouveau nos CGV\");'";
+								echo "href='/scripts/toggle_ligne.php?id_offre={$id_offre}' onclick='return
+								confirm(\"Voulez-vous vraiment mettre votre offre en ligne ?\nVous pouvez consulter de nouveau
+								nos CGV\");'";
 							}
 							?> title="mettre en ligne">
 								<svg id="wifi_to_online"
@@ -712,6 +692,14 @@ if ($mode_carte == 'membre') {
 								echo $date_mise_a_jour;
 							} else {
 								echo $date_publication;
+<<<<<<< HEAD
+=======
+							}
+							if (isset($date_mise_a_jour)) {
+								echo $date_mise_a_jour;
+							} else {
+								echo $date_publication;
+>>>>>>> 453b0afeeb3600ebd21c552a8db91c1dca55bb77
 							} ?>
 							</p>
 						</div>
@@ -731,12 +719,19 @@ if ($mode_carte == 'membre') {
 								$controllerSouscription = new SouscriptionController();
 								$souscription = $controllerSouscription->getAllSouscriptionsByIdOffre($id_offre);
 
-								if (isset($souscription[0])) {
+								if (isset($souscription) && isset($souscription[0])) {
 									$date_lancement = DateTime::createFromFormat('Y-m-d', $souscription[0]['date_lancement']);
 									$date_lancement_formatted = $date_lancement->format('d/m/Y');
 									$date_fin = $date_lancement->modify('+' . $souscription[0]['nb_semaines'] . ' weeks')->format('d/m/Y');
+<<<<<<< HEAD
 									echo $souscription[0]["nom_option"];
 									?>
+=======
+									?>
+									<p>
+										<?php echo $souscription[0]["nom_option"] ?>
+									</p>
+>>>>>>> 453b0afeeb3600ebd21c552a8db91c1dca55bb77
 									<p>
 										<?php echo $date_lancement_formatted ?> -
 										<?php echo $date_fin; ?>
@@ -754,6 +749,12 @@ if ($mode_carte == 'membre') {
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
 
 <?php } ?>
 
+=======
+	<?php
+}
+?>
+>>>>>>> 453b0afeeb3600ebd21c552a8db91c1dca55bb77
