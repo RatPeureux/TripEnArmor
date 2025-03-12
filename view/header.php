@@ -44,28 +44,28 @@
         <div class="flex items-center gap-4">
             <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsMember()) { ?>
-                <!-- Si connecté -->
-                <a href="/compte">
-                    <i class="text-3xl fa-regular fa-user"></i>
-                </a>
-                <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
-                    onclick="return confirmLogout()">
-                    <div class="text-black text-sm border border-secondary px-4 py-2 rounded-full">
-                        <p class="">Se déconnecter</p>
-                    </div>
-                </a>
+                        <!-- Si connecté -->
+                        <a href="/compte">
+                            <i class="text-3xl fa-regular fa-user"></i>
+                        </a>
+                        <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
+                            onclick="return confirmLogout()">
+                            <div class="text-black text-sm border border-secondary px-4 py-2 rounded-full">
+                                <p class="">Se déconnecter</p>
+                            </div>
+                        </a>
             <?php } else { ?>
-                <!-- Si non connecté -->
-                <a href="/connexion" class="md:hidden">
-                    <i class="text-3xl fa-regular fa-user"></i>
-                </a>
-                <a href="/connexion" class="hidden md:block">
-                    <div
-                        class="text-white text-sm border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
-                        <p class="">
-                            Se connecter</p>
-                    </div>
-                </a>
+                        <!-- Si non connecté -->
+                        <a href="/connexion" class="md:hidden">
+                            <i class="text-3xl fa-regular fa-user"></i>
+                        </a>
+                        <a href="/connexion" class="hidden md:block">
+                            <div
+                                class="text-white text-sm border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
+                                <p class="">
+                                    Se connecter</p>
+                            </div>
+                        </a>
             <?php } ?>
         </div>
     </div>

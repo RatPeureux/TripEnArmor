@@ -12,7 +12,7 @@ unset($_SESSION['data_en_cours_inscription']);
 
 // Vérifier si le pro est bien connecté
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-$pro = verifyPro();?>
+$pro = verifyPro(); ?>
 
 <!DOCTYPE html>
 <html lang="fr">

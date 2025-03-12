@@ -1,15 +1,17 @@
 <?php
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-class Horaire extends BDD {
+class Horaire extends BDD
+{
     // Nom de la table utilisée dans les requêtes
     static private $nom_table = "sae_db._horaire";
 
-    static function getHorairesOfOffre($id_offre) {
+    static function getHorairesOfOffre($id_offre)
+    {
         self::initBDD();
         // Requête SQL pour sélectionner les horaires d'une offre
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ?";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id_offre);
@@ -28,11 +30,12 @@ class Horaire extends BDD {
      * @param int $id L'identifiant de l'horaire à récupérer.
      * @return array|int Retourne un tableau contenant les données de l'horaire ou -1 en cas d'erreur.
      */
-    static function getHoraireById($id) {
+    static function getHoraireById($id)
+    {
         self::initBDD();
         // Requête SQL pour sélectionner un horaire par son ID
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_horaire = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_horaire = ?";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
@@ -54,11 +57,12 @@ class Horaire extends BDD {
      * @param string|null $pause_fin Fin de la pause (facultatif).
      * @return array|int Retourne un tableau contenant l'identifiant du nouvel horaire ou -1 en cas d'erreur.
      */
-    static function createHoraire($jour, $ouverture, $fermeture, $pause_debut, $pause_fin, $id_offre) {
+    static function createHoraire($jour, $ouverture, $fermeture, $pause_debut, $pause_fin, $id_offre)
+    {
         self::initBDD();
         // Requête SQL pour insérer un nouvel horaire
-        $query = "INSERT INTO " . self::$nom_table ." (ouverture, fermeture, pause_debut, pause_fin, jour, id_offre) VALUES (?, ?, ?, ?, ?, ?) RETURNING id_horaire";
-        
+        $query = "INSERT INTO " . self::$nom_table . " (ouverture, fermeture, pause_debut, pause_fin, jour, id_offre) VALUES (?, ?, ?, ?, ?, ?) RETURNING id_horaire";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $ouverture);
@@ -85,11 +89,12 @@ class Horaire extends BDD {
      * @param string|null $pause_fin Nouvelle fin de pause (facultatif).
      * @return array|int Retourne un tableau contenant l'identifiant de l'horaire mis à jour ou -1 en cas d'erreur.
      */
-    static function updateHoraire($id_horaire, $ouverture, $fermeture, $pause_debut, $pause_fin) {
+    static function updateHoraire($id_horaire, $ouverture, $fermeture, $pause_debut, $pause_fin)
+    {
         self::initBDD();
         // Requête SQL pour mettre à jour un horaire existant
-        $query = "UPDATE " . self::$nom_table ." SET ouverture = ?, fermeture = ?, pause_debut = ?, pause_fin = ? WHERE id_horaire = ? RETURNING id_horaire";
-        
+        $query = "UPDATE " . self::$nom_table . " SET ouverture = ?, fermeture = ?, pause_debut = ?, pause_fin = ? WHERE id_horaire = ? RETURNING id_horaire";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $ouverture);
@@ -112,11 +117,12 @@ class Horaire extends BDD {
      * @param int $id L'identifiant de l'horaire à supprimer.
      * @return array|int Retourne un tableau vide si la suppression réussit ou -1 en cas d'erreur.
      */
-    static function deleteHoraire($id) {
+    static function deleteHoraire($id)
+    {
         self::initBDD();
         // Requête SQL pour supprimer un horaire par son ID
-        $query = "DELETE FROM " . self::$nom_table ." WHERE id_horaire = ?";
-        
+        $query = "DELETE FROM " . self::$nom_table . " WHERE id_horaire = ?";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);

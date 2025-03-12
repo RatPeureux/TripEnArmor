@@ -23,7 +23,7 @@ class PeriodesEnLigne extends BDD
     static function createPeriodeEnLigne($id_offre, $type_offre, $prix_ht, $prix_ttc)
     {
         self::initBDD();
-            $query = "INSERT INTO sae_db._periodes_en_ligne(id_offre, type_offre, prix_ht, prix_ttc)
+        $query = "INSERT INTO sae_db._periodes_en_ligne(id_offre, type_offre, prix_ht, prix_ttc)
                       VALUES (?, ?, ?, ?)";
 
         $stmt = self::$db->prepare($query);
@@ -58,7 +58,8 @@ class PeriodesEnLigne extends BDD
         }
     }
 
-    static function ouvrirPeriodeByIdOffre($id_offre) {
+    static function ouvrirPeriodeByIdOffre($id_offre)
+    {
         self::initBDD();
         $query = "UPDATE " . self::$nom_table . " SET date_fin = NULL
                                                 WHERE id_offre = ?
@@ -80,7 +81,8 @@ class PeriodesEnLigne extends BDD
         }
     }
 
-    static function getLastDateFinByIdOffre($id_offre) {
+    static function getLastDateFinByIdOffre($id_offre)
+    {
         self::initBDD();
         $query = "select date_fin from sae_db._periodes_en_ligne
                 where id_offre = ?

@@ -21,7 +21,8 @@ class TypeOffre extends BDD
         }
     }
 
-    static function getAllTypeOffre() {
+    static function getAllTypeOffre()
+    {
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table;
         $statement = self::$db->prepare($query);
