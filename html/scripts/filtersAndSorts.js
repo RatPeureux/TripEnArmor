@@ -381,7 +381,8 @@ document.addEventListener("DOMContentLoaded", function () {
         offre
           ?.querySelector(".localisation")
           ?.querySelector("p:nth-of-type(1)")
-          ?.textContent.toLowerCase().trim() ?? null;
+          ?.textContent.toLowerCase()
+          .trim() ?? null;
       const code =
         offre
           ?.querySelector(".localisation")

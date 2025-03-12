@@ -59,6 +59,7 @@ class SpectacleController
                 $id_type_offre !== false ? $id_type_offre : $spectacle["id_type_offre"],
                 $id_adresse !== false ? $id_adresse : $spectacle["id_adresse"],
                 $capacite !== false ? $capacite : $spectacle["capacite"],
+                $duree !== false ? $duree : $spectacle['duree'],
                 $avec_guide !== false ? $avec_guide : $spectacle["avec_guide"]
             );
 
