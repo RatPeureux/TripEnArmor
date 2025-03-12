@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     locInputElement?.addEventListener("input", () => {
       // Mettre à jour la localisation dans l'état global
-      filterState.localisation = locInputElement?.value.trim();
+      filterState.localisation = locInputElement?.value.toLowerCase().trim();
 
       // Appliquer les filtres croisés
       applyFiltersPro();
@@ -431,7 +431,7 @@ document.addEventListener("DOMContentLoaded", function () {
         offre
           ?.querySelector(".localisation")
           ?.querySelector("p:nth-of-type(1)")
-          ?.textContent.trim() ?? null;
+          ?.textContent.toLowerCase().trim() ?? null;
       const code =
         offre
           ?.querySelector(".localisation")
