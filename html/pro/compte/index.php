@@ -38,7 +38,7 @@ $pro = verifyPro();
         <hr class="mb-4">
 
         <div class="grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center justify-center">
-            <a href="/pro/compte/profil" class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
+            <a href="/pro/compte/profil" class="border hover:border-secondary cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-user"></i>
                 <div class="w-full">
                     <p class="text-lg">Profil</p>
@@ -47,7 +47,7 @@ $pro = verifyPro();
                 </div>
             </a>
             <a href="/pro/compte/parametres"
-                class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
+                class="border hover:border-secondary cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-gear"></i>
                 <div class="w-full">
                     <p class="text-lg">Paramètres</p>
@@ -55,7 +55,7 @@ $pro = verifyPro();
                 </div>
             </a>
             <a href="/pro/compte/securite"
-                class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
+                class="border hover:border-secondary cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-shield"></i>
                 <div class="w-full">
                     <p class="text-2xl">Sécurité</p>
@@ -69,7 +69,7 @@ $pro = verifyPro();
             if (($pro['data']['type']) == 'prive') {
                 ?>
                 <a href="/pro/compte/facture"
-                    class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4 bg-base100">
+                    class="border hover:border-secondary cursor-pointer w-full space-x-8 flex items-center px-8 py-4 bg-base100">
                     <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
                     <div class="w-full">
                         <p class="text-lg">Factures</p>

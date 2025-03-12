@@ -25,11 +25,12 @@ from _offre
 
 --------------------------------------------------------------------- Moyenne des notes pour chaque offre (id_offre)
 CREATE OR REPLACE VIEW vue_moyenne AS
-SELECT _offre.id_offre, AVG(_avis.note), COUNT(_avis.note)
-FROM _offre
-    JOIN _avis ON _avis.id_offre = _offre.id_offre
+SELECT sae_db._offre.id_offre, AVG(sae_db._avis.note), COUNT(sae_db._avis.note)
+FROM sae_db._offre
+    LEFT JOIN sae_db._avis ON sae_db._avis.id_offre = sae_db._offre.id_offre
+	where sae_db._avis.fin_blacklistage IS NULL
 GROUP BY
-    _offre.id_offre;
+    sae_db._offre.id_offre;
 
 --------------------------------------------------------------------- vue pour connaître les tags d'une offre quelconque (restaurant + autres offres)
 create or replace view vue_offre_tag as
@@ -198,4 +199,30 @@ FULL JOIN
 GROUP BY
     COALESCE(v.id_offre, tp.id_offre), tp.total_periode;
 
+-------------------------------------------------------------------- Connaître le nombre d'avis blacklistés par offre en cours
+CREATE OR REPLACE VIEW vue_offre_blacklistes_en_cours AS
+SELECT
+    o.id_offre,
+    a.id_avis
+FROM _offre o
+JOIN _avis a ON a.id_offre = o.id_offre AND a.fin_blacklistage IS NOT NULL AND fin_blacklistage >= CURRENT_DATE
+ORDER BY fin_blacklistage;
 
+------------------- Avis blacklistés par offre (au total)
+CREATE OR REPLACE VIEW vue_offre_blacklistes AS
+SELECT
+    o.id_offre,
+    a.id_avis
+FROM _offre o
+JOIN _avis a ON a.id_offre = o.id_offre AND a.fin_blacklistage IS NOT NULL;
+
+-------------------------------------------------------------------- Connaître les indicateurs clés sur les avis par offre
+CREATE OR REPLACE VIEW vue_offre_chiffres_cles AS
+SELECT
+    o.id_offre, 
+    COUNT(CASE WHEN a.fin_blacklistage IS NOT NULL THEN a.id_avis END) AS nb_blacklistes,
+    COUNT(CASE WHEN a.est_lu = false THEN a.id_avis END) AS nb_non_lus,
+    COUNT(CASE WHEN a.reponse IS NULL THEN a.id_avis END) AS nb_sans_reponse
+FROM _offre o
+LEFT JOIN _avis a ON a.id_offre = o.id_offre
+GROUP BY o.id_offre;

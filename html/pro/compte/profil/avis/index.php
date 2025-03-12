@@ -82,25 +82,18 @@ $pro = verifyPro();
                     $id_membre = $avis['id_membre'];
                     ?>
 
-                                    <div id="clickable_div_<?php echo $id_avis ?>" class="border border-black hover:cursor-pointer">
-                                        <?php
-                                        $mode = 'avis';
-                                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
-                                        ?>
-                                    </div>
+                    <?php
+                    $mode = 'avis';
+                    $is_reference = true;
+                    include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
+                    ?>
 
-                                    <script>
-                                        document.querySelector('#clickable_div_<?php echo $id_avis ?>')?.addEventListener('click', function () {
-                                            window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
-                                        });
-                                    </script>
-
-                                    <?php
+                    <?php
                 }
             } else {
                 ?>
-                        <h1 class="text-2xl ">Aucun avis n'a été publié sur vos offres.</h1>
-                        <?php
+                <h1 class="text-2xl ">Aucun avis n'a été publié sur vos offres.</h1>
+                <?php
             }
             ?>
         </div>

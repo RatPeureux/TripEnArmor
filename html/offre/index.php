@@ -14,6 +14,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="/styles/style.css">
+
     <script type="module" src="/scripts/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
@@ -82,6 +83,37 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
         $result["data"]["numero_siren"] = $proAuth["num_siren"];
         $result["data"]["id_rib"] = $proAuth["id_rib"];
         $result["data"]["type"] = "prive";
+    }
+
+    // Vérifier si on est connecté avec le compte du pro qui peut répondre
+    $pro_can_answer = false;
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
+    $stmt->bindParam(':id_offre', $id_offre);
+    $stmt->execute();
+    $id_pro_must_have = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+    $pro_can_answer = (isConnectedAsPro() && $id_pro_must_have == $_SESSION['id_pro']) ? true : false;
+
+    // Possiblité de blacklister : type_offre = premium, tickets blacklistage restants et pro_can_answer
+    $pro_can_blacklist = false;
+    $stmt = $dbh->prepare(
+        "
+        SELECT * FROM sae_db._avis
+        JOIN sae_db._offre ON sae_db._offre.id_offre = sae_db._avis.id_offre
+        WHERE sae_db._offre.id_offre = :id_offre;
+    "
+    );
+    $stmt->bindParam(':id_offre', $id_offre);
+    $stmt->execute();
+    $id_type_offre = $stmt->fetch(PDO::FETCH_ASSOC)['id_type_offre'];
+
+    $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_blacklistes_en_cours WHERE id_offre = :id_offre");
+    $stmt->bindParam(':id_offre', $id_offre);
+    $stmt->execute();
+    $nb_blacklistes_en_cours = $stmt->rowCount();
+    if ($stmt->rowCount() < 3 && $pro_can_answer && $id_type_offre == '2') {
+        $pro_can_blacklist = true;
     }
 
     // Obtenir l'ensemble des informations de l'offre
@@ -537,9 +569,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                     <?php
                                     switch ($categorie_offre) {
                                         case 'restauration':
-
-                                            // VALEUR TEST CAR PAS DANS LA BDD
-                                    
                                             ?>
                                             <div class="text-sm flex flex-col md:flex-row">
                                                 <p class="text-sm">Repas servis&nbsp;:&nbsp;</p>
@@ -652,7 +681,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                 <a class="">
                                     <div class="flex flex-row justify-between pt-3" id="grille-button">
                                         <p class="text-lg">Grille tarifaire</p>
-                                        <p id="grille-arrow">></p>
+                                        <p id="grille-arrow">&gt;</p>
                                     </div>
                                     <div class="text-sm py-3 px-2" id="grille-info">
                                         <?php
@@ -661,7 +690,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                         $tarifs = $controllerTarifPublic->getTarifsByIdOffre($id_offre);
                                         foreach ($tarifs as $tarif) {
                                             ?>
-
                                             <?php echo $tarif['titre'] ?> :&nbsp;
                                             <?php echo $tarif['prix'] ?> € <br>
                                             <?php
@@ -674,16 +702,49 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                             ?>
                         </div>
                     </div>
+
+                    <!-- Partie avis blacklistés pour le professionnel -->
+                    <?php if ($pro_can_answer) {
+                        $stmt = $dbh->prepare("
+                            SELECT id_avis FROM sae_db.vue_offre_blacklistes
+                            WHERE id_offre = :id_offre
+                        ");
+                        $stmt->bindParam('id_offre', $id_offre);
+                        if ($stmt->execute()) {
+                            $les_id_avis = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        }
+                        ?>
+                        <div class="w-full flex flex-col">
+                            <div id="blacklistes-button" class="flex gap-4 items-center">
+                                <h3 class="text-lg">Avis blacklisté(s) - (<?php echo $stmt->rowCount() ?>)</h3>
+                                <p id="blacklistes-arrow">&gt;</p>
+                            </div>
+
+                            <div id="avis-blacklistes-container" class="flex flex-col items-center gap-1">
+                                <?php foreach ($les_id_avis as $id_avis) {
+                                    $id_avis = $id_avis['id_avis'];
+                                    $mode = 'avis';
+                                    $is_reference = false;
+                                    include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
+                                } ?>
+                            </div>
+                        </div>
+
+                    <?php } else {
+                        echo $pro_can_answer;
+                    } ?>
+
                     <!-- Partie avis -->
-                    <div class="mt-5 flex flex-col gap-2">
-                        <div class="w-full flex justify-between">
-                            <h3 class="text-lg pt-2">Avis</h3>
+                    <div class="!mt-10 flex flex-col gap-2">
+                        <div id="avis-button" class="w-full flex gap-4 items-center">
+                            <h3 class="text-lg">Avis</h3>
+                            <p id="avis-arrow">&gt;</p>
                             <?php
                             // Moyenne des notes quand il y en a une
                             if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
                                 $n = $moyenne ?>
-                                <div class="flex gap-1">
-                                    <div class="flex gap-1 shrink-0">
+                                <div class="flex gap-1 grow justify-end">
+                                    <div title="moyenne des notes" class="flex gap-1 shrink-0">
                                         <?php for ($i = 0; $i < 5; $i++) {
                                             if ($n >= 1) {
                                                 ?>
@@ -905,7 +966,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                         // Call the function when the page loads
                                         window.onload = setMaxDate;
                                     </script>
-
                                 </div>
                                 <?php
                             }
@@ -922,20 +982,20 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                         ?>
 
                         <!-- Conteneur pour tous les avis -->
-                        <div id="avis-container" class="grid grid-cols-1 gap-12 items-center w-full justify-center">
+                        <div id="avis-container" class="grid grid-cols-1 gap-6 items-center w-full justify-center">
                         </div>
                     </div>
 
                     <!-- Bouton pour charger plus d'avis -->
                     <div class="flex gap-2 items-center justify-center self-end">
-                        <!-- Symbole de chargement quand les avis chargent -->
-                        <img id="loading-indicator" class="w-8 h-6" style="display: none;"
-                            src="/public/images/loading.gif" alt="Loading...">
                         <button
                             class="text-sm py-2 px-4 rounded-full border border-secondary hover:bg-secondary hover:text-white"
                             id="load-more-btn">
                             Afficher plus
                         </button>
+                        <!-- Symbole de chargement quand les avis chargent -->
+                        <img id="loading-indicator" class="w-8 h-6" style="display: none;"
+                            src="/public/images/loading.gif" alt="Loading...">
                     </div>
 
                 </div>
@@ -982,13 +1042,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                     const lesAvisCharges = response;
                                     if (lesAvisCharges.length > 0) {
                                         // Ajouter le contenu HTML généré par loaded avis.
-                                        $('#avis-container').append(lesAvisCharges);
+                                        try {
+                                            $('#avis-container').append(lesAvisCharges);
+                                        } catch (e) {
+                                            console.log(e.getMessage());
+                                        }
 
                                         // Pour l'éventuel prochain chargement, incrémenter le curseur
                                         idx_avis += 3;
                                     } else {
                                         // Ne plus pouvoir cliquer sur le bouton quand il n'y a plus d'avis
                                         $('#load-more-btn').prop('disabled', true).text('');
+                                        document.getElementById('load-more-btn').classList.add('hidden');
                                     }
                                 },
 
@@ -1018,6 +1083,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
             const button = document.getElementById(buttonID);
             const arrow = document.getElementById(arrowID);
             const info = document.getElementById(infoID);
+            arrow.classList.toggle('rotate-90');
 
             if (button) {
                 button.addEventListener('click', function (event) {
@@ -1029,7 +1095,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
         }
         setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
         setupToggle('compl-arrow', 'compl-button', 'compl-info');
-        setupToggle('grille-arrow', 'grille-button', 'grille-info');
+        <?php if ($pro_can_answer) { ?>
+            setupToggle('blacklistes-arrow', 'blacklistes-button', 'avis-blacklistes-container');
+        <?php } ?>
+        setupToggle('avis-arrow', 'avis-button', 'avis-container');
+        // setupToggle('grille-arrow', 'grille-button', 'grille-info');
 
         function sendReaction(idAvis, action) {
             const thumbDown = document.getElementById('thumb-down-' + idAvis);

@@ -25,6 +25,10 @@ label:has(+ select[required])::after {
   --tw-translate-x: 0%;
 }
 
+.hidden-force {
+  display: none !important;
+}
+
 #menu a.active {
   text-decoration: underline;
   text-decoration-color: var(--primary-color);
@@ -60,18 +64,6 @@ label:has(+ select[required])::after {
 .card .active hr {
   border-color: white;
 }
-
-/* .card.active .notes,
-.card .active {
-  background: white;
-  color: black;
-  padding: 0.25em;
-} */
-
-/* .card.active h3,
-.card .active h3 {
-  color: var(--primary-color);
-} */
 
 /* Slider d'images (détails d'une offre) */
 .swiper-pagination-bullet {
