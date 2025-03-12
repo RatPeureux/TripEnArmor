@@ -6,7 +6,7 @@
     <div class="flex w-full items-center justify-between relative mx-auto">
         <!-- Partie gauche -->
         <a href="/pro" class="flex gap-2 items-center">
-            <img src="/public/icones/logo.svg" alt="Logo" width="50">
+            <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="50">
             <h1 class="font-cormorant uppercase whitespace-nowrap text-PACT">
                 <span class="hidden md:inline">PACT</span> PRO
             </h1>

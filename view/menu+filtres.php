@@ -127,14 +127,14 @@
                         <input id="min-note-tab" type="number" value="0" min="0" max="5" step="0.5"
                             class="border border-black p-1 text-sm text-right w-[39px] focus:ring-0">
                         &nbsp;
-                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='oeuf plein'>
+                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='1 point de note'>
                     </div>
                     <label class="text-sm">&nbsp;et&nbsp;</label>
                     <div class="flex items-center">
                         <input id="max-note-tab" type="number" value="5" min="0" max="5" step="0.5"
                             class="border border-black p-1 text-sm text-right w-[39px] focus:ring-0">
                         &nbsp;
-                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='oeuf plein'>
+                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='1 point de note'>
                     </div>
                 </div>
             </div>

@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
             <!-- Logo de l'application -->
             <a href="/">
-                <img src="/public/icones/logo.svg" alt="moine" width="108">
+                <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="108">
             </a>
 
             <h2 class="mx-auto text-center text-2xl pt-4 my-4">Se connecter à la PACT PRO</h2>

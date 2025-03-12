@@ -69,7 +69,7 @@ session_start();
         <div class="flex items-center justify-between md:gap-4">
             <!-- Logo -->
             <a href="/" class="flex items-center gap-2">
-                <img src="/public/icones/logo.svg" alt="Logo" width="50">
+                <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="50">
             </a>
         </div>
 
@@ -112,11 +112,11 @@ session_start();
 
     <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
         <div class="w-full flex justify-center gap-10 text-center">
-            <img src="public/images/plumeGN.png" alt=""
+            <img src="public/images/plumeGN.png" alt="Plume du moine macareux"
                 class="h-full hidden md:flex max-h-[170px] space-x-2 pb-1 -rotate-[20deg]">
             <a href="/"
                 class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl ml-8 mb-4">PACT</a>
-            <img src="public/images/plumeDN.png" alt="" class="h-full max-h-[170px] hidden md:flex pb-1 rotate-[20deg]">
+            <img src="public/images/plumeDN.png" alt="Plume du moine macareux" class="h-full max-h-[170px] hidden md:flex pb-1 rotate-[20deg]">
         </div>
 
         <div class="searchOn hidden md:flex justify-between text-center items-center mb-2">

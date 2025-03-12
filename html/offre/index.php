@@ -323,7 +323,7 @@ session_start();
                                 ?>
                                 <div class="swiper-slide !w-full">
                                     <img class="object-cover w-full h-full"
-                                        src='/public/images/<?php echo "offres/" . $image; ?>' alt="image de slider">
+                                        src='/public/images/<?php echo "offres/" . $image; ?>' alt="Image de slider">
                                 </div>
                                 <?php
                             }
@@ -562,7 +562,7 @@ session_start();
                                             <?php
                                             if ($images) {
                                                 ?>
-                                                <img src="/public/images/offres/<?php echo $images['photo-resto']; ?>" alt=""
+                                                <img src="/public/images/offres/<?php echo $images['photo-resto']; ?>" alt="Carte du restaurant"
                                                     class="max-h-[400px] max-w-[350px] md:max-w-[500px]">
                                                 <?php
                                             } else {
@@ -608,7 +608,7 @@ session_start();
                                             <?php
                                             if ($images) {
                                                 ?>
-                                                <img src="/public/images/offres/<?php echo $images['plan']; ?>" alt="">
+                                                <img src="/public/images/offres/<?php echo $images['plan']; ?>" alt="Plan du parc d'attractions">
                                                 <?php
                                             } else {
                                                 ?>
@@ -944,7 +944,7 @@ session_start();
                     <div class="flex gap-2 items-center justify-center self-end">
                         <!-- Symbole de chargement quand les avis chargent -->
                         <img id="loading-indicator" class="w-8 h-6" style="display: none;"
-                            src="/public/images/loading.gif" alt="Loading...">
+                            src="/public/images/loading.gif" alt="Chargement...">
                         <button
                             class="text-sm py-2 px-4 rounded-full border border-secondary hover:bg-secondary hover:text-white"
                             id="load-more-btn">

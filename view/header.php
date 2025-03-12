@@ -10,13 +10,13 @@
                 <i class="text-3xl fa-solid fa-bars"></i>
             </button>
             <a href="/">
-                <img src="/public/icones/logo.svg" alt="Logo" width="40">
+                <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="40">
             </a>
         </div>
 
         <!-- Logo -->
         <a href="/" class="flex items-center gap-2">
-            <img src="/public/icones/logo.svg" alt="Logo" width="50" class="hidden md:block">
+            <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="50" class="hidden md:block">
             <h1 class="font-cormorant uppercase text-PACT hidden md:block">PACT</h1>
         </a>
 

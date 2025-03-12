@@ -166,7 +166,7 @@ $pro = verifyPro();
                         </button>
                         <!-- Logo de chargement de preview -->
                         <img id="loading-indicator" style="display: none;" class="w-8" src="/public/images/loading.gif"
-                            alt="Loading...">
+                            alt="Chargement...">
                     </div>
 
                     <!-- Contenu de la preview -->
@@ -434,7 +434,7 @@ $pro = verifyPro();
 
         <!-- Logo de chargement -->
         <img id="loading-facture-indicator" style="display: none;" class="w-8 z-50" src="/public/images/loading.gif"
-            alt="Loading...">
+            alt="Chargement...">
 
         <!-- La facture -->
         <div id="facture-content" class="z-50 overflow-y-auto max-h-screen">

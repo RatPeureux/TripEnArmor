@@ -42,7 +42,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
                 <a href="/">
-                    <img src="/public/icones/logo.svg" alt="moine" width="108">
+                    <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="108">
                 </a>
 
                 <h2 class="mx-auto text-center text-2xl pt-4 my-4">Se créer un compte PACT PRO</h2>
@@ -242,7 +242,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
         <!-- Logo de l'application -->
         <a href="/" class="absolute left-0 top-0 p-4">
-            <img src="/public/icones/logo.svg" alt="moine" width="81">
+            <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="81">
         </a>
 
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">

@@ -6,7 +6,7 @@
     <div class="mx-auto flex flex-col justify-center items-center">
         <div class="hidden md:flex w-full items-center items-end justify-between">
             <a href="/pro/" class="self-start flex items-center gap-2">
-                <img src="/public/icones/logo-footer.svg" alt="[img] Logo">
+                <img src="/public/icones/logo-footer.svg" alt="Logo alternatif de TripEnArvor : Moine macareux albinos">
                 <h1 class="font-cormorant text-white uppercase text-PACT">PACT</h1>
             </a>
 
@@ -15,7 +15,7 @@
 
         <div class="md:hidden w-full flex flex-col items-center justify-center items-end justify-between">
             <a href="/pro/" class="mx-auto self-start flex items-center gap-2">
-                <img src="/public/icones/logo-footer.svg" alt="[img] Logo">
+                <img src="/public/icones/logo-footer.svg" alt="Logo alternatif de TripEnArvor : Moine macareux albinos">
                 <h1 class="font-cormorant text-white uppercase text-PACT">PACT</h1>
             </a>
 
