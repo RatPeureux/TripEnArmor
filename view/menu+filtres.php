@@ -121,7 +121,7 @@
                 <p class="arrow" id="arrow-f4-tab">></p>
             </div>
             <div class="alldevelopped hidden flex-col" id="developped-f4-tab">
-                <label class="text-sm">Intervalle des prix entre :&nbsp;</label>
+                <label class="text-sm">Intervalle des notes entre&nbsp;</label>
                 <div class="flex items-center">
                     <div class="flex items-center">
                         <input id="min-note-tab" type="number" value="0" min="0" max="5" step="0.5"
@@ -164,7 +164,7 @@
             </div>
             <div class="alldevelopped hidden flex flex-wrap items-center justify-between gap-2 developped-f6-tab">
                 <div class="flex flex-col">
-                    <label class="text-sm">Intervalle des prix entre :&nbsp;</label>
+                    <label class="text-sm">Intervalle des prix entre&nbsp;</label>
                     <div class="flex items-center">
                         <input id="min-price-tab" type="number" value="0" min="0" max="99"
                             class="w-[44px] border border-black p-1 text-sm text-right focus:ring-0">

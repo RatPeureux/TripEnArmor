@@ -10,7 +10,7 @@
                 <h1 class="font-cormorant text-white uppercase text-PACT">PACT</h1>
             </a>
 
-            <a href="/" class="hover:text-primary">Retourner vers la PACT</a>
+            <a href="/" class="underline hover:text-primary">Retourner vers la PACT</a>
         </div>
 
         <div class="md:hidden w-full flex flex-col items-center justify-center items-end justify-between">
@@ -19,45 +19,45 @@
                 <h1 class="font-cormorant text-white uppercase text-PACT">PACT</h1>
             </a>
 
-            <a href="/" class="hover:text-primary">Retourner vers la PACT</a>
+            <a href="/" class="underline hover:text-primary">Retourner vers la PACT</a>
         </div>
 
         <div class="w-full flex flex-col gap-8 mt-4">
             <div class="w-full flex items-center justify-between flex-col md:flex-row gap-4">
                 <div class="hidden md:flex">
-                    <a href="/pro/mentions" class="hover:text-primary">Mentions légales</a>
+                    <a href="/pro/mentions" class="underline hover:text-primary">Mentions légales</a>
                     ,&nbsp;
-                    <a href="/pro/cgu" class="hover:text-primary">Conditions générales d'utilisation</a>
+                    <a href="/pro/cgu" class="underline hover:text-primary">Conditions générales d'utilisation</a>
                     ,&nbsp;
-                    <a href="/pro/cgv" class="hover:text-primary">Conditions générales de ventes</a>
+                    <a href="/pro/cgv" class="underline hover:text-primary">Conditions générales de ventes</a>
                     ,&nbsp;
-                    <a href="/pro/cgu" class="hover:text-primary">Politique en matière de cookies</a>
+                    <a href="/pro/cgu" class="underline hover:text-primary">Politique en matière de cookies</a>
                 </div>
 
                 <div class="flex flex-col md:hidden items-center justify-center">
-                    <a href="/pro/mentions" class="hover:text-primary">Mentions légales</a>
-                    <a href="/pro/cgu" class="hover:text-primary">Conditions générales d'utilisation</a>
-                    <a href="/pro/cgv" class="hover:text-primary">Conditions générales de ventes</a>
-                    <a href="/pro/cgu" class="hover:text-primary">Politique en matière de cookies</a>
+                    <a href="/pro/mentions" class="underline hover:text-primary">Mentions légales</a>
+                    <a href="/pro/cgu" class="underline hover:text-primary">Conditions générales d'utilisation</a>
+                    <a href="/pro/cgv" class="underline hover:text-primary">Conditions générales de ventes</a>
+                    <a href="/pro/cgu" class="underline hover:text-primary">Politique en matière de cookies</a>
                 </div>
 
-                <a href="mailto:pact.tripenarvor@gmail.com" class="hover:text-primary">Contacter le support</a>
+                <a href="mailto:pact.tripenarvor@gmail.com" class="underline hover:text-primary">Contacter le support</a>
             </div>
 
             <div class="w-full flex items-center justify-between flex-col md:flex-row gap-4">
                 <div class="hidden md:block">
-                    ©<?php echo date("Y"); ?> <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>,
+                    ©<?php echo date("Y"); ?> <a href="/pro/TripEnArvor" class="underline hover:text-primary">TripEnArvor</a>,
                     Association Loi 1901 Tous droits réservés
                 </div>
 
                 <div class="flex flex-col md:hidden items-center justify-center">
                     <div>
-                        ©<?php echo date("Y"); ?> <a href="/pro/TripEnArvor" class="hover:text-primary">TripEnArvor</a>
+                        ©<?php echo date("Y"); ?> <a href="/pro/TripEnArvor" class="underline hover:text-primary">TripEnArvor</a>
                     </div>
                     Association Loi 1901 Tous droits réservés
                 </div>
 
-                <div>
+                <div class="text-primary">
                     Offres de Bretagne
                 </div>
             </div>

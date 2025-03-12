@@ -192,7 +192,7 @@
                     <p class="arrow" id="arrow-f4-tel">></p>
                 </div>
                 <div class="developped hidden flex items-center" id="developped-f4-tel">
-                    <label class="text-sm">Intervalle des prix entre&nbsp;</label>
+                    <label class="text-sm">Intervalle des notes entre&nbsp;</label>
                     <div class="flex items-center">
                         <input id="min-note-tel" type="number" value="0" min="0" max="5" step="0.5"
                             class="border border-black p-1 text-sm text-right w-[39px] focus:ring-0">
