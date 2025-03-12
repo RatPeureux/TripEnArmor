@@ -7,7 +7,8 @@
     </a>
 
     <div>
-        <a class="cursor-pointer p-2 flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tel">
+        <a class="cursor-pointer p-2 flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tel"
+            tabindex="0">
             <i class="text xl fa-solid fa-sort"></i>
             <p>Trier par</p>
         </a>

@@ -40,6 +40,20 @@ document.addEventListener("DOMContentLoaded", function () {
           section.classList.add("md:hidden");
         }
       });
+
+      button.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // Empêche le comportement par défaut (ex: navigation)
+          // Alterne entre affichage (md:block) et masquage (md:hidden) de la section
+          if (section.classList.contains("md:hidden")) {
+            section.classList.remove("md:hidden");
+            section.classList.add("md:block");
+          } else {
+            section.classList.remove("md:block");
+            section.classList.add("md:hidden");
+          }
+        }
+      });
     }
   }
 

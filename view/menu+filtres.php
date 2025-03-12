@@ -11,13 +11,13 @@
     </a>
 
     <div class="all-items flex flex-col items-stretch">
-        <a class="pl-5 py-3 <?php if (isset($pagination) && $pagination == 1) {
+        <a class="p-3 <?php if (isset($pagination) && $pagination == 1) {
             echo 'active';
         } ?>" href="/">Accueil</a>
-        <a class="pl-5 py-3 <?php if (isset($pagination) && $pagination == 3) {
+        <a class="p-3 <?php if (isset($pagination) && $pagination == 3) {
             echo 'active';
         } ?>" href="/offres/a-la-une">À la Une</a>
-        <a class="pl-5 py-3 <?php if (isset($pagination) && $pagination == 2) {
+        <a class="p-3 <?php if (isset($pagination) && $pagination == 2) {
             echo 'active';
         } ?>" href="/offres">Toutes les offres</a>
     </div>
@@ -30,34 +30,41 @@
 <div
     class="sticky top-2 hidden md:block flex flex-col min-w-52 h-[80.5vh] scroll-hidden overflow-x-hidden overflow-y-auto">
     <a class="mt-4 mx-2 mb-1 self-end flex items-center gap-2 cursor-pointer hover:text-primary" id="menu-button"
-        onclick="developpedMenu()">
+        tabindex="0">
         <i class="fa-solid fa-bars"></i>
         <p>Menu</p>
     </a>
 
     <div class="w-52 border-base200 border-t z-25" id="menu-component">
         <div class="all-items flex flex-col items-stretch">
-            <a class="pl-5 py-3 border-black <?php if (isset($pagination) && $pagination == 1) {
-                echo 'active';
-            } ?>" href="/">Accueil</a>
-            <a class="pl-5 py-3 <?php if (isset($pagination) && $pagination == 2) {
-                echo 'active';
-            } ?>" href="/offres/a-la-une">À la Une</a>
-            <a class="pl-5 py-3  <?php if (isset($pagination) && $pagination == 3) {
-                echo 'active';
-            } ?>" href="/offres">Toutes les offres</a>
+            <div class="p-3">
+                <a class="<?php if (isset($pagination) && $pagination == 1) {
+                    echo 'active';
+                } ?>" href="/">Accueil</a>
+            </div>
+            <div class="p-3">
+                <a class="<?php if (isset($pagination) && $pagination == 3) {
+                    echo 'active';
+                } ?>" href="/offres/a-la-une">À la Une</a>
+            </div>
+            <div class="p-3">
+                <a class="<?php if (isset($pagination) && $pagination == 2) {
+                    echo 'active';
+                } ?>" href="/offres">Toutes les offres</a>
+            </div>
         </div>
     </div>
 
     <a class="mt-6 mx-2 mb-1 self-end flex items-center gap-2 cursor-pointer hover:text-primary" id="filtre-button"
-        onclick="developpedFiltre()">
+        tabindex="0">
         <i class="text xl fa-solid fa-filter"></i>
         <p>Filtrer</p>
     </a>
 
     <div class="hidden w-52 border-base200 border-t z-25" id="filtre-component">
         <div class="flex flex-col w-full p-3 gap-4">
-            <div class="flex justify-between cursor-pointer" id="button-f1-tab">
+            <div class="flex justify-between cursor-pointer" id="button-f1-tab"
+                tabindex="0">
                 <p>Catégorie</p>
                 <p class="arrow" id="arrow-f1-tab">></p>
             </div>
@@ -89,7 +96,8 @@
             </div>
         </div>
         <div class="flex flex-col w-full p-3 gap-4">
-            <div class="flex justify-between cursor-pointer" id="button-f2-tab">
+            <div class="flex justify-between cursor-pointer" id="button-f2-tab"
+                tabindex="0">
                 <p>Disponibilité</p>
                 <p class="arrow" id="arrow-f2-tab">></p>
             </div>
@@ -106,7 +114,8 @@
             </div>
         </div>
         <div class="flex flex-col w-full p-3 gap-4">
-            <div class="flex justify-between cursor-pointer" id="button-f3-tab">
+            <div class="flex justify-between cursor-pointer" id="button-f3-tab"
+                tabindex="0">
                 <p>Localisation</p>
                 <p class="arrow" id="arrow-f3-tab">></p>
             </div>
@@ -116,7 +125,8 @@
             </div>
         </div>
         <div class="flex flex-col w-full p-3 gap-4">
-            <div class="flex justify-between cursor-pointer" id="button-f4-tab">
+            <div class="flex justify-between cursor-pointer" id="button-f4-tab"
+                tabindex="0">
                 <p>Note générale</p>
                 <p class="arrow" id="arrow-f4-tab">></p>
             </div>
@@ -140,7 +150,8 @@
             </div>
         </div>
         <div class="hidden flex flex-col w-full p-3 gap-4">
-            <div class="flex justify-between cursor-pointer" id="button-f5-tab">
+            <div class="flex justify-between cursor-pointer" id="button-f5-tab"
+                tabindex="0">
                 <p>Période</p>
                 <p class="arrow" id="arrow-f5-tab">></p>
             </div>
@@ -158,7 +169,8 @@
             </div>
         </div>
         <div class="flex flex-col w-full p-3 gap-4">
-            <div class="flex justify-between cursor-pointer" id="button-f6-tab">
+            <div class="flex justify-between cursor-pointer" id="button-f6-tab"
+                tabindex="0">
                 <p>Prix</p>
                 <p class="arrow" id="arrow-f6-tab">></p>
             </div>
@@ -200,25 +212,45 @@
 </div>
 
 <script>
-    function developpedMenu() {
-        const menu = document.getElementById('menu-component');
-        const menuButton = document.getElementById('menu-button');
+    const menu = document.getElementById('menu-component');
+    const menuButton = document.getElementById('menu-button');
 
+    menuButton.addEventListener('click', function () {
         if (menu.classList.contains('hidden')) {
             menu.classList.remove('hidden');
         } else {
             menu.classList.add('hidden');
         }
-    }
+    });
 
-    function developpedFiltre() {
-        const filtre = document.getElementById('filtre-component');
-        const filtreButton = document.getElementById('filtre-button');
+    menuButton.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+    });
 
+    const filtre = document.getElementById('filtre-component');
+    const filtreButton = document.getElementById('filtre-button');
+
+    filtreButton.addEventListener('click', function () {
         if (filtre.classList.contains('hidden')) {
             filtre.classList.remove('hidden');
         } else {
             filtre.classList.add('hidden');
         }
-    }
+    });
+
+    filtreButton.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            if (filtre.classList.contains('hidden')) {
+                filtre.classList.remove('hidden');
+            } else {
+                filtre.classList.add('hidden');
+            }
+        }
+    });
 </script>

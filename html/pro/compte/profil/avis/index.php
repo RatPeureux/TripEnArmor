@@ -39,7 +39,8 @@ $pro = verifyPro();
         <div class="flex justify-between items-center">
             <p class="text-3xl">Mes avis</p>
 
-            <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button">
+            <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button"
+                tabindex="0">
                 <i class="text xl fa-solid fa-sort"></i>
                 <p>Trier par</p>
             </a>
@@ -82,25 +83,25 @@ $pro = verifyPro();
                     $id_membre = $avis['id_membre'];
                     ?>
 
-                                                    <div id="clickable_div_<?php echo $id_avis ?>" class="shadow-lg hover:cursor-pointer">
-                                                        <?php
-                                                        $mode = 'avis';
-                                                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
-                                                        ?>
-                                                    </div>
+                    <div id="clickable_div_<?php echo $id_avis ?>" class="shadow-lg hover:cursor-pointer">
+                        <?php
+                        $mode = 'avis';
+                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
+                        ?>
+                    </div>
 
-                                                    <script>
-                                                        document.querySelector('#clickable_div_<?php echo $id_avis ?>')?.addEventListener('click', function () {
-                                                            window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
-                                                        });
-                                                    </script>
+                    <script>
+                        document.querySelector('#clickable_div_<?php echo $id_avis ?>')?.addEventListener('click', function () {
+                            window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
+                        });
+                    </script>
 
-                                                    <?php
+                    <?php
                 }
             } else {
                 ?>
-                                <h1 class="text-2xl ">Aucun avis n'a été publié sur vos offres.</h1>
-                                <?php
+                <h1 class="text-2xl ">Aucun avis n'a été publié sur vos offres.</h1>
+                <?php
             }
             ?>
         </div>

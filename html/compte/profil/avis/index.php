@@ -77,7 +77,7 @@ $membre = verifyMember();
                 <div class="flex justify-between items-center">
                     <p class="text-2xl mb-4">Mes avis</p>
 
-                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button">
+                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button" tabindex="0">
                         <i class="text xl fa-solid fa-sort"></i>
                         <p>Trier par</p>
                     </a>
