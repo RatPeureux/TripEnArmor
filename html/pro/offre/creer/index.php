@@ -366,7 +366,7 @@ $pro = verifyPro();
 					<div class="w-full">
 						<!-- Inclusion du header -->
 						<?php
-						include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+						include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
 						?>
 					</div>
 
@@ -1503,7 +1503,7 @@ $pro = verifyPro();
 				<!-- FOOTER -->
 				<div class="w-full">
 					<?php
-					include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+					include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
 					?>
 				</div>
 				</div>

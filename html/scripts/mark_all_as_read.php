@@ -8,3 +8,4 @@ if (isset($_POST['id_pro'])) {
 
     header('Location: /pro/');
 }
+
