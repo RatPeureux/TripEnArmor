@@ -297,7 +297,7 @@ if ($mode_carte == 'membre') {
 										?>
 									</div>
 									<p class='text-sm flex items-cente pt-1'>
-										(<?php echo number_format($moyenne, 2, ',', '') ?>)
+										(<?php echo number_format($moyenne, 1, ',', '') ?>)
 									</p>
 								</div>
 								<?php
@@ -485,7 +485,7 @@ if ($mode_carte == 'membre') {
 								}
 								?>
 							</div>
-							<p class='text-sm flex items-center pt-1'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
+							<p class='text-sm flex items-center pt-1'>(<?php echo number_format($moyenne, 1, ',', '') ?>)</p>
 						</div>
 						<?php
 					}
