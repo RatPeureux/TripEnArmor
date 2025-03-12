@@ -295,7 +295,7 @@ if ($mode_carte == 'membre') {
 										}
 										?>
 									</div>
-									<p class='text-sm hidden lg:flex lg:items-center lg:justify-center px-2 pt-2'>
+									<p class='text-sm hidden lg:flex lg:items-center lg:justify-center px-1.5 pt-1.5'>
 										<?php echo number_format($moyenne, 1, ',', '') ?>
 									</p>
 								</div>
