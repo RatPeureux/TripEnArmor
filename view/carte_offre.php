@@ -161,15 +161,18 @@ if ($mode_carte == 'membre') {
 							require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
 							$controllerTagRest = new TagRestaurantController();
 							$tagsAffiche = "";
-							foreach ($tags_offre as $tag) {
-								$tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
-							}
-							foreach ($tagsListe as $tag) {
-								$tagsAffiche .= $tag[0]['nom'] . ', ';
+							if ($tags_offre) {
+								$tags_offre = [];
+								foreach ($tags_offre as $tag) {
+									$tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
+								}
+								foreach ($tagsListe as $tag) {
+									$tagsAffiche .= $tag[0]['nom'] . ', ';
+								}
 							}
 
-							$tagsAffiche = rtrim($tagsAffiche, ', ');
 							if ($tags_offre) {
+								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								?>
 								<div class="tags p-1 bg-secondary self-center w-full">
 									<?php
@@ -178,7 +181,6 @@ if ($mode_carte == 'membre') {
 								</div>
 								<?php
 							} else {
-								?>
 								?>
 								<div class="tags p-1  bg-secondary self-center w-full">
 									<?php
@@ -237,9 +239,6 @@ if ($mode_carte == 'membre') {
 			</div>
 		</div>
 
-
-
-
 		<!-- CARTE VERSION TABLETTE -->
 		<div class='md:block hidden relative bg-base100 '>
 			<div class="flex flex-row">
@@ -296,8 +295,8 @@ if ($mode_carte == 'membre') {
 										}
 										?>
 									</div>
-									<p class='text-sm flex items-cente pt-1'>
-										(<?php echo number_format($moyenne, 1, ',', '') ?>)
+									<p class='text-sm hidden lg:flex lg:items-center lg:justify-center px-2 pt-2'>
+										<?php echo number_format($moyenne, 1, ',', '') ?>
 									</p>
 								</div>
 								<?php
@@ -324,15 +323,16 @@ if ($mode_carte == 'membre') {
 								$controllerTag = new TagController();
 								$tagsAffiche = "";
 								$tagsListe = [];
-								foreach ($tags_offre as $tag) {
-									array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
-								}
-								foreach ($tagsListe as $tag) {
-									$tagsAffiche .= $tag['nom'] . ', ';
-								}
-
-								$tagsAffiche = rtrim($tagsAffiche, ', ');
 								if ($tags_offre) {
+									foreach ($tags_offre as $tag) {
+										array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
+									}
+									foreach ($tagsListe as $tag) {
+										$tagsAffiche .= $tag['nom'] . ', ';
+									}
+								}
+								if ($tags_offre) {
+									$tagsAffiche = rtrim($tagsAffiche, ', ');
 									?>
 									<div class="tags p-1 bg-secondary self-center w-full">
 										<?php
@@ -344,7 +344,7 @@ if ($mode_carte == 'membre') {
 									?>
 									<div class="tags p-1 bg-secondary self-center w-full">
 										<?php
-										echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+										echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
 										?>
 									</div>
 									<?php
@@ -485,7 +485,7 @@ if ($mode_carte == 'membre') {
 								}
 								?>
 							</div>
-							<p class='text-sm flex items-center pt-1'>(<?php echo number_format($moyenne, 1, ',', '') ?>)</p>
+							<p class='text-sm flex items-center pt-2'><?php echo number_format($moyenne, 1, ',', '') ?></p>
 						</div>
 						<?php
 					}
