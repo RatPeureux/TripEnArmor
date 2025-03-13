@@ -1,15 +1,17 @@
 <?php
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-class ModifierOffre extends BDD {
+class ModifierOffre extends BDD
+{
     // Nom de la table utilisée dans les requêtes
     static private $nom_table = "sae_db._offre";
 
-    static function getOffreById($id) {
+    static function getOffreById($id)
+    {
         self::initBDD();
         // Requête SQL pour sélectionner une offre par son ID
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ?";
+
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
@@ -23,11 +25,12 @@ class ModifierOffre extends BDD {
         }
     }
 
-    static function updateOffre($id, $titre, $description, $resume, $prix_mini, $date_creation, $date_mise_a_jour, $date_suppression, $est_en_ligne, $id_type_offre, $id_pro, $id_adresse, $accessibilite) {
+    static function updateOffre($id, $titre, $description, $resume, $prix_mini, $date_creation, $date_mise_a_jour, $date_suppression, $est_en_ligne, $id_type_offre, $id_pro, $id_adresse, $accessibilite)
+    {
         self::initBDD();
         // Requête SQL pour mettre à jour une offre
-        $query = "UPDATE " . self::$nom_table ." SET titre = ?, description = ?, resume = ?, prix_mini = ?, date_creation = ?, date_mise_a_jour = ?, date_suppression = ?, est_en_ligne = ?, id_type_offre = ?, id_pro = ?, id_adresse = ?, accessibilite = ? WHERE id_offre = ?";
-        
+        $query = "UPDATE " . self::$nom_table . " SET titre = ?, description = ?, resume = ?, prix_mini = ?, date_creation = ?, date_mise_a_jour = ?, date_suppression = ?, est_en_ligne = ?, id_type_offre = ?, id_pro = ?, id_adresse = ?, accessibilite = ? WHERE id_offre = ?";
+
         // Vérifie si l'id_adresse existe dans la table _adresse
         $checkQuery = "SELECT COUNT(*) FROM sae_db._adresse WHERE id_adresse = ?";
         $checkStatement = self::$db->prepare($checkQuery);

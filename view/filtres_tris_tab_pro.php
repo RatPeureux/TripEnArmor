@@ -99,54 +99,54 @@
                 Prix décroissant</p>
         </a>
         <?php if ($pro['data']['type'] === 'prive') { ?>
-            <a href="<?php
-            // Base URL sans les paramètres
-            $baseUrl = strtok($_SERVER['PHP_SELF'], '?');
+                <a href="<?php
+                // Base URL sans les paramètres
+                $baseUrl = strtok($_SERVER['PHP_SELF'], '?');
 
-            // Initialisation des paramètres
-            $params = $_GET;
+                // Initialisation des paramètres
+                $params = $_GET;
 
-            // Si le tri est déjà défini comme "note-ascending", on enlève le tri
-            if (isset($params['sort']) && $params['sort'] === 'type-ascending') {
-                unset($params['sort']);
-            } else {
-                // Ajouter ou mettre à jour le paramètre 'sort'
-                $params['sort'] = 'type-ascending';
-            }
+                // Si le tri est déjà défini comme "note-ascending", on enlève le tri
+                if (isset($params['sort']) && $params['sort'] === 'type-ascending') {
+                    unset($params['sort']);
+                } else {
+                    // Ajouter ou mettre à jour le paramètre 'sort'
+                    $params['sort'] = 'type-ascending';
+                }
 
-            // Construire l'URL avec les nouveaux paramètres
-            $urlWithParams = $baseUrl . '?' . http_build_query($params);
+                // Construire l'URL avec les nouveaux paramètres
+                $urlWithParams = $baseUrl . '?' . http_build_query($params);
 
-            echo htmlspecialchars($urlWithParams);
-            ?>" class="flex items-center hover:text-primary duration-100">
-                <p
-                    class="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? 'border-b border-primary' : ''; ?>">
-                    Type d'offre de A à Z</p>
-            </a>
-            <a href="<?php
-            // Base URL sans les paramètres
-            $baseUrl = strtok($_SERVER['PHP_SELF'], '?');
+                echo htmlspecialchars($urlWithParams);
+                ?>" class="flex items-center hover:text-primary duration-100">
+                    <p
+                        class="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-ascending') ? 'border-b border-primary' : ''; ?>">
+                        Type d'offre de A à Z</p>
+                </a>
+                <a href="<?php
+                // Base URL sans les paramètres
+                $baseUrl = strtok($_SERVER['PHP_SELF'], '?');
 
-            // Initialisation des paramètres
-            $params = $_GET;
+                // Initialisation des paramètres
+                $params = $_GET;
 
-            // Si le tri est déjà défini comme "note-ascending", on enlève le tri
-            if (isset($params['sort']) && $params['sort'] === 'type-descending') {
-                unset($params['sort']);
-            } else {
-                // Ajouter ou mettre à jour le paramètre 'sort'
-                $params['sort'] = 'type-descending';
-            }
+                // Si le tri est déjà défini comme "note-ascending", on enlève le tri
+                if (isset($params['sort']) && $params['sort'] === 'type-descending') {
+                    unset($params['sort']);
+                } else {
+                    // Ajouter ou mettre à jour le paramètre 'sort'
+                    $params['sort'] = 'type-descending';
+                }
 
-            // Construire l'URL avec les nouveaux paramètres
-            $urlWithParams = $baseUrl . '?' . http_build_query($params);
+                // Construire l'URL avec les nouveaux paramètres
+                $urlWithParams = $baseUrl . '?' . http_build_query($params);
 
-            echo htmlspecialchars($urlWithParams);
-            ?>" class="flex items-center hover:text-primary duration-100">
-                <p
-                    class="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-descending') ? 'border-b border-primary' : ''; ?>">
-                    Type d'offre de Z à A</p>
-            </a>
+                echo htmlspecialchars($urlWithParams);
+                ?>" class="flex items-center hover:text-primary duration-100">
+                    <p
+                        class="<?php echo (isset($_GET['sort']) && $_GET['sort'] === 'type-descending') ? 'border-b border-primary' : ''; ?>">
+                        Type d'offre de Z à A</p>
+                </a>
         <?php } ?>
     </div>
 </div>
@@ -154,7 +154,7 @@
 <!-- CHAMPS DE FILTRES TABLETTE -->
 <div class="hidden md:hidden border-base200 border-t mr-6 mb-4 w-full" id="filter-section-tab">
     <div class="flex flex-col w-full bg-white p-3 gap-4">
-        <div class="flex justify-between cursor-pointer" id="button-f1-tab">
+        <div class="flex justify-between cursor-pointer" id="button-f1-tab" tabindex="0">
             <p>Catégorie</p>
             <p id="arrow-f1-tab">></p>
         </div>
@@ -186,7 +186,7 @@
         </div>
     </div>
     <div class="flex flex-col w-full bg-white p-3 gap-4">
-        <div class="flex justify-between cursor-pointer" id="button-f2-tab">
+        <div class="flex justify-between cursor-pointer" id="button-f2-tab" tabindex="0">
             <p>Disponibilité</p>
             <p id="arrow-f2-tab">></p>
         </div>
@@ -203,7 +203,7 @@
         </div>
     </div>
     <div class="flex flex-col w-full bg-white p-3 gap-4">
-        <div class="flex justify-between cursor-pointer" id="button-f3-tab">
+        <div class="flex justify-between cursor-pointer" id="button-f3-tab" tabindex="0">
             <p>Localisation</p>
             <p id="arrow-f3-tab">></p>
         </div>
@@ -215,7 +215,7 @@
         </div>
     </div>
     <div class="flex flex-col w-full bg-white p-3 gap-4">
-        <div class="flex justify-between cursor-pointer" id="button-f4-tab">
+        <div class="flex justify-between cursor-pointer" id="button-f4-tab" tabindex="0">
             <p>Note générale</p>
             <p id="arrow-f4-tab">></p>
         </div>
@@ -225,19 +225,19 @@
                 <input id="min-note-tab" type="number" value="0" min="0" max="5" step="0.5"
                     class="w-[44px] border border-black p-1 text-sm text-right focus:ring-0">
                 &nbsp;
-                <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='oeuf-plein'>
+                <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='1 point de note'>
             </div>
             <label class="text-sm">&nbsp;et&nbsp;</label>
             <div class="flex items-center">
                 <input id="max-note-tab" type="number" value="5" min="0" max="5" step="0.5"
                     class="w-[44px] border border-black p-1 text-sm text-right focus:ring-0">
                 &nbsp;
-                <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='oeuf-plein'>
+                <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='1 point de note'>
             </div>
         </div>
     </div>
     <div class="hidden flex flex-col w-full bg-white p-3 gap-4">
-        <div class="flex justify-between cursor-pointer" id="button-f5-tab">
+        <div class="flex justify-between cursor-pointer" id="button-f5-tab" tabindex="0">
             <p>Période</p>
             <p id="arrow-f5-tab">></p>
         </div>
@@ -249,7 +249,7 @@
         </div>
     </div>
     <div class="flex flex-col w-full bg-white p-3 gap-4">
-        <div class="flex justify-between cursor-pointer" id="button-f6-tab">
+        <div class="flex justify-between cursor-pointer" id="button-f6-tab" tabindex="0">
             <p>Prix</p>
             <p id="arrow-f6-tab">></p>
         </div>
@@ -284,22 +284,22 @@
         </div>
     </div>
     <?php if ($pro['data']['type'] === 'prive') { ?>
-        <div class="flex flex-col w-full bg-white p-3 gap-4">
-            <div class="flex justify-between cursor-pointer" id="button-f7-tab">
-                <p>Type d'offre</p>
-                <p id="arrow-f7-tab">></p>
-            </div>
-            <div class="hidden flex items-center gap-4" id="developped-f7-tab">
-                <div class="flex items-center gap-2">
-                    <input type="checkbox" class="mb-1" id="standard-tab">
-                    <label for="standard-tab">Standard</label>
+            <div class="flex flex-col w-full bg-white p-3 gap-4">
+                <div class="flex justify-between cursor-pointer" id="button-f7-tab" tabindex="0">
+                    <p>Type d'offre</p>
+                    <p id="arrow-f7-tab">></p>
                 </div>
+                <div class="hidden flex items-center gap-4" id="developped-f7-tab">
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" class="mb-1" id="standard-tab">
+                        <label for="standard-tab">Standard</label>
+                    </div>
 
-                <div class="flex items-center gap-2">
-                    <input type="checkbox" class="mb-1" id="premium-tab">
-                    <label for="premium-tab">Premium</label>
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" class="mb-1" id="premium-tab">
+                        <label for="premium-tab">Premium</label>
+                    </div>
                 </div>
             </div>
-        </div>
     <?php } ?>
 </div>
