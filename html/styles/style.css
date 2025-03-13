@@ -883,6 +883,10 @@ video {
   margin-left: 0.25rem;
 }
 
+.ml-5 {
+  margin-left: 1.25rem;
+}
+
 .ml-8 {
   margin-left: 2rem;
 }
@@ -937,10 +941,6 @@ video {
 
 .mt-6 {
   margin-top: 1.5rem;
-}
-
-.ml-5 {
-  margin-left: 1.25rem;
 }
 
 .line-clamp-1 {
@@ -1025,6 +1025,10 @@ video {
 
 .h-\[150px\] {
   height: 150px;
+}
+
+.h-\[200px\] {
+  height: 200px;
 }
 
 .h-\[27rem\] {
@@ -2959,10 +2963,6 @@ video {
 
 .pl-10 {
   padding-left: 2.5rem;
-}
-
-.pl-5 {
-  padding-left: 1.25rem;
 }
 
 .pr-12 {
