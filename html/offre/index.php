@@ -704,7 +704,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                     </div>
 
                     <!-- Partie avis blacklistés pour le professionnel -->
-                    <?php if ($pro_can_answer) {
+                    <?php if ($pro_can_answer && $id_type_offre == 2) {
                         $stmt = $dbh->prepare("
                             SELECT id_avis FROM sae_db.vue_offre_blacklistes
                             WHERE id_offre = :id_offre
@@ -730,9 +730,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                             </div>
                         </div>
 
-                    <?php } else {
-                        echo $pro_can_answer;
-                    } ?>
+                    <?php } ?>
 
                     <!-- Partie avis -->
                     <div class="!mt-10 flex flex-col gap-2">
