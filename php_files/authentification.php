@@ -1,5 +1,5 @@
 <?php
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/connect_params.php';
 session_start();
 function isConnectedAsMember(): bool
 {

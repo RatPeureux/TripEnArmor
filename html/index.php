@@ -257,7 +257,7 @@ session_start();
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 
     <script>
@@ -314,11 +314,6 @@ session_start();
             // Ajoute les écouteurs sur les h1
             titres.forEach(titre => {
                 titre.addEventListener('click', () => handleH1Click(titre));
-                titre.addEventListener('keydown', (event) => {
-                    if (event.key === 'Enter') {
-                        handleH1Click(titre);
-                    }
-                });
             });
 
             // Ajoute un écouteur sur le select

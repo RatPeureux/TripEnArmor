@@ -1,6 +1,5 @@
 <?php
 // FONCTION UTILES
-
 if (!function_exists('chaineVersMot')) {
     function chaineVersMot($str): string
     {

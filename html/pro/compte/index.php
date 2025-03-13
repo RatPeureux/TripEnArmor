@@ -29,7 +29,7 @@ $pro = verifyPro();
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="grow flex flex-col max-w-[1280px] md:w-full mx-auto p-2">
@@ -38,7 +38,8 @@ $pro = verifyPro();
         <hr class="mb-4">
 
         <div class="grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center justify-center">
-            <a href="/pro/compte/profil" class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
+            <a href="/pro/compte/profil"
+                class="border hover:border-secondary cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-user"></i>
                 <div class="w-full">
                     <p class="text-lg">Profil</p>
@@ -47,7 +48,7 @@ $pro = verifyPro();
                 </div>
             </a>
             <a href="/pro/compte/parametres"
-                class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
+                class="border hover:border-secondary cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-gear"></i>
                 <div class="w-full">
                     <p class="text-lg">Paramètres</p>
@@ -55,7 +56,7 @@ $pro = verifyPro();
                 </div>
             </a>
             <a href="/pro/compte/securite"
-                class="cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
+                class="border hover:border-secondary cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-shield"></i>
                 <div class="w-full">
                     <p class="text-2xl">Sécurité</p>
@@ -68,15 +69,15 @@ $pro = verifyPro();
             <?php
             if (($pro['data']['type']) == 'prive') {
                 ?>
-                        <a href="/pro/compte/facture"
-                            class="cursor-pointer w-full  shadow-custom space-x-8 flex items-center px-8 py-4 bg-base100">
-                            <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
-                            <div class="w-full">
-                                <p class="text-lg">Factures</p>
-                                <p class="text-sm">Faire le point sur mes paiements réels ou prévisionnels.</p>
-                            </div>
-                        </a>
-                        <?php
+                <a href="/pro/compte/facture"
+                    class="border hover:border-secondary cursor-pointer w-full space-x-8 flex items-center px-8 py-4 bg-base100">
+                    <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
+                    <div class="w-full">
+                        <p class="text-lg">Factures</p>
+                        <p class="text-sm">Faire le point sur mes paiements réels ou prévisionnels.</p>
+                    </div>
+                </a>
+                <?php
             }
             ?>
 
@@ -89,7 +90,7 @@ $pro = verifyPro();
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 
