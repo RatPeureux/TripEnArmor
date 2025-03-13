@@ -16,12 +16,19 @@
 <body>
     <div id="map" style="width: 600px; height: 400px; position: relative;"></div>
     <script>
-        var map = L.map('map').setView([51.505, -0.09], 13);
+        var map = L.map('map').setView([48.202, -2.932], 8);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
+
+	var restaurantIcon = L.icon({
+		iconUrl: "/public/icones/restaurant.png",
+	})
+
+	var markerRestaurant = L.marker([48.734, -3.457], {icon: restaurantIcon, riseOnHover: true}).addTo(map).bindPopup("Restaurant");
+	var markerActivite = L.marker([48.734, -3.458], riseOnHover=true).addTo(map).bindPopup("Activite");
     </script>
 </body>
 
