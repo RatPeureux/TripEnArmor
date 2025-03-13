@@ -100,59 +100,59 @@ $date_echeance = $date_echeance->format('d/m/Y');
         <h2 class="text-xl">Jours en ligne</h2>
 
         <?php if (count($lignes_facture_en_ligne) > 0) { ?>
-            <table class="w-full border-collapse border border-gray-300">
-                <thead class="bg-blue-200">
-                    <tr>
-                        <th class="border p-2 text-center">Type</th>
-                        <th class="border p-2 text-center">Du<p class="text-sm"> (inclus)</p>
-                        </th>
-                        <th class="border p-2 text-center">Au<p class="text-sm"> (inclus)</p>
-                        </th>
-                        <th class="border p-2 text-center">Qte</th>
-                        <th class="border p-2 text-center">Unité</th>
-                        <th class="border p-2 text-center">Prix uni. HT</th>
-                        <th class="border p-2 text-center">Total HT</th>
-                        <th class="border p-2 text-center">TVA</th>
-                        <th class="border p-2 text-center">Prix uni. TTC</th>
-                        <th class="border p-2 text-center">Total TTC</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($lignes_facture_en_ligne as $ligne_facture_en_ligne) {
-                        $HT_total_periodes += $ligne_facture_en_ligne['prix_total_ht'];
-                        $TTC_total_periodes += $ligne_facture_en_ligne['prix_total_ttc'];
-                        ?>
-                        <tr class="text-center">
-                            <td class="border p-2 text-center">
-                                <?php echo htmlspecialchars($ligne_facture_en_ligne['type_offre']); ?>
-                            </td>
+                        <table class="w-full border-collapse border border-gray-300">
+                            <thead class="bg-blue-200">
+                                <tr>
+                                    <th class="border p-2 text-center">Type</th>
+                                    <th class="border p-2 text-center">Du<p class="text-sm"> (inclus)</p>
+                                    </th>
+                                    <th class="border p-2 text-center">Au<p class="text-sm"> (inclus)</p>
+                                    </th>
+                                    <th class="border p-2 text-center">Qte</th>
+                                    <th class="border p-2 text-center">Unité</th>
+                                    <th class="border p-2 text-center">Prix uni. HT</th>
+                                    <th class="border p-2 text-center">Total HT</th>
+                                    <th class="border p-2 text-center">TVA</th>
+                                    <th class="border p-2 text-center">Prix uni. TTC</th>
+                                    <th class="border p-2 text-center">Total TTC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($lignes_facture_en_ligne as $ligne_facture_en_ligne) {
+                                    $HT_total_periodes += $ligne_facture_en_ligne['prix_total_ht'];
+                                    $TTC_total_periodes += $ligne_facture_en_ligne['prix_total_ttc'];
+                                    ?>
+                                                <tr class="text-center">
+                                                    <td class="border p-2 text-center">
+                                                        <?php echo htmlspecialchars($ligne_facture_en_ligne['type_offre']); ?>
+                                                    </td>
 
-                            <td class="border p-2 text-center">
-                                <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_en_ligne['date_debut'])->format('d/m/y') ?>
-                            </td>
-                            <td class="border p-2 text-center">
-                                <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_en_ligne['date_fin'])->format('d/m/y') ?>
-                            </td>
+                                                    <td class="border p-2 text-center">
+                                                        <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_en_ligne['date_debut'])->format('d/m/y') ?>
+                                                    </td>
+                                                    <td class="border p-2 text-center">
+                                                        <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_en_ligne['date_fin'])->format('d/m/y') ?>
+                                                    </td>
 
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['quantite'] ?></td>
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['unite'] ?></td>
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['quantite'] ?></td>
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['unite'] ?></td>
 
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['prix_unitaire_ht'] ?> € </td>
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['prix_total_ht'] ?> €</td>
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['prix_unitaire_ht'] ?> € </td>
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['prix_total_ht'] ?> €</td>
 
-                            <!-- TVA -->
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['tva'] ?>%</td>
+                                                    <!-- TVA -->
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['tva'] ?>%</td>
 
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['prix_unitaire_ttc'] ?> €</td>
-                            <td class="border p-2 text-center">
-                                <?php echo $ligne_facture_en_ligne['prix_total_ttc'] ?> €
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_en_ligne['prix_unitaire_ttc'] ?> €</td>
+                                                    <td class="border p-2 text-center">
+                                                        <?php echo $ligne_facture_en_ligne['prix_total_ttc'] ?> €
+                                                    </td>
+                                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
         <?php } else { ?>
-            <p>Aucun jour en ligne</p>
+                        <p>Aucun jour en ligne</p>
         <?php } ?>
     </div>
 
@@ -161,58 +161,58 @@ $date_echeance = $date_echeance->format('d/m/Y');
         <h2 class="text-xl">Options</h2>
 
         <?php if (count($lignes_facture_option) > 0) { ?>
-            <table class="w-full border-collapse border border-gray-300">
-                <thead class="bg-blue-200">
-                    <tr class="text-center">
-                        <th class="border p-2 text-center">Nom</th>
-                        <th class="border p-2 text-center">Du<p class="text-sm"> (inclus)</p>
-                        </th>
-                        <th class="border p-2 text-center">Au<p class="text-sm"> (inclus)</p>
-                        </th>
-                        <th class="border p-2 text-center">Qte</th>
-                        <th class="border p-2 text-center">Unité</th>
-                        <th class="border p-2 text-center">Prix uni. HT</th>
-                        <th class="border p-2 text-center">Total HT</th>
-                        <th class="border p-2 text-center">TVA</th>
-                        <th class="border p-2 text-center">Prix uni. TTC</th>
-                        <th class="border p-2 text-center">Total TTC</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($lignes_facture_option as $ligne_facture_option) {
-                        $HT_total_souscriptions += $ligne_facture_option['prix_total_ht'];
-                        $TTC_total_souscriptions += $ligne_facture_option['prix_total_ttc'];
-                        ?>
-                        <tr>
-                            <td class="border p-2 text-center">
-                                <?php echo htmlspecialchars($ligne_facture_option['nom_option']); ?>
-                            </td>
+                        <table class="w-full border-collapse border border-gray-300">
+                            <thead class="bg-blue-200">
+                                <tr class="text-center">
+                                    <th class="border p-2 text-center">Nom</th>
+                                    <th class="border p-2 text-center">Du<p class="text-sm"> (inclus)</p>
+                                    </th>
+                                    <th class="border p-2 text-center">Au<p class="text-sm"> (inclus)</p>
+                                    </th>
+                                    <th class="border p-2 text-center">Qte</th>
+                                    <th class="border p-2 text-center">Unité</th>
+                                    <th class="border p-2 text-center">Prix uni. HT</th>
+                                    <th class="border p-2 text-center">Total HT</th>
+                                    <th class="border p-2 text-center">TVA</th>
+                                    <th class="border p-2 text-center">Prix uni. TTC</th>
+                                    <th class="border p-2 text-center">Total TTC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($lignes_facture_option as $ligne_facture_option) {
+                                    $HT_total_souscriptions += $ligne_facture_option['prix_total_ht'];
+                                    $TTC_total_souscriptions += $ligne_facture_option['prix_total_ttc'];
+                                    ?>
+                                                <tr>
+                                                    <td class="border p-2 text-center">
+                                                        <?php echo htmlspecialchars($ligne_facture_option['nom_option']); ?>
+                                                    </td>
 
-                            <td class="border p-2 text-center">
-                                <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_option['date_debut'])->format('d/m/y') ?>
-                            </td>
-                            <td class="border p-2 text-center">
-                                <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_option['date_fin'])->format('d/m/y') ?>
-                            </td>
+                                                    <td class="border p-2 text-center">
+                                                        <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_option['date_debut'])->format('d/m/y') ?>
+                                                    </td>
+                                                    <td class="border p-2 text-center">
+                                                        <?php echo DateTime::createFromFormat('Y-m-d', $ligne_facture_option['date_fin'])->format('d/m/y') ?>
+                                                    </td>
 
-                            <td class="border p-2 text-center">
-                                <?php echo htmlspecialchars($ligne_facture_option['quantite']); ?>
-                            </td>
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['unite'] ?></td>
+                                                    <td class="border p-2 text-center">
+                                                        <?php echo htmlspecialchars($ligne_facture_option['quantite']); ?>
+                                                    </td>
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_option['unite'] ?></td>
 
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_unitaire_ht'] ?> €</td>
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_total_ht'] ?> €</td>
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_unitaire_ht'] ?> €</td>
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_total_ht'] ?> €</td>
 
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['tva'] ?>%</td>
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_option['tva'] ?>%</td>
 
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_unitaire_ttc'] ?> €</td>
-                            <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_total_ttc'] ?> €</td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_unitaire_ttc'] ?> €</td>
+                                                    <td class="border p-2 text-center"><?php echo $ligne_facture_option['prix_total_ttc'] ?> €</td>
+                                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
         <?php } else { ?>
-            <p>Aucune souscription</p>
+                        <p>Aucune souscription</p>
         <?php } ?>
     </div>
 

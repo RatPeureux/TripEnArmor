@@ -66,7 +66,7 @@ class TypeRepasRestaurant extends BDD
             $query = "UPDATE " . self::$nom_table . " SET nom = ? WHERE id_offre = ? RETURNING id_offre";
 
             $stmt = self::$db->prepare($query);
-            $stmt->bindParam(1, $nom_type_repas );
+            $stmt->bindParam(1, $nom_type_repas);
             $stmt->bindParam(2, $id);
 
             if ($stmt->execute()) {

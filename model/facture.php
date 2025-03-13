@@ -30,7 +30,8 @@ class Facture extends BDD
         }
     }
 
-    static function getAllFactures() {
+    static function getAllFactures()
+    {
         self::initBDD();
         // Requête SQL pour sélectionner une facture par son ID
         $query = "SELECT * FROM " . self::$nom_table;

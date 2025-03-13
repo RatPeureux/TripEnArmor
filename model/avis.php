@@ -62,7 +62,8 @@ class Avis extends BDD
         }
     }
 
-    static function marquerTousLesAvisCommeLus($id_pro) {
+    static function marquerTousLesAvisCommeLus($id_pro)
+    {
         self::initBDD();
         // Obtenir l'ensembre des offres du professionnel identifié
         $stmt = self::$db->prepare("SELECT id_offre FROM sae_db._offre JOIN sae_db._professionnel ON sae_db._offre.id_pro = sae_db._professionnel.id_compte WHERE id_compte = :id_pro");
@@ -103,7 +104,8 @@ class Avis extends BDD
         }
     }
 
-    static function getAvisNonVusByIdOffre($idOffre) {
+    static function getAvisNonVusByIdOffre($idOffre)
+    {
         self::initBDD();
         $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ? AND est_lu = false";
         $statement = self::$db->prepare($query);

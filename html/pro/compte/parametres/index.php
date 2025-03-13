@@ -153,53 +153,53 @@ if ($pro['data']['id_rib'] != null) {
 
             <?php
             if ($pro['data']['type'] == 'prive') { ?>
-                <hr class="mb-8">
-                <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
+                            <hr class="mb-8">
+                            <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
 
-                            <label class="text-lg" for="iban">IBAN</label>
-                            <input value="<?php if (isset($rib) && $rib != null) {
-                                echo extraireIbanDepuisRib($rib);
-                            } ?>" class="border text-sm border-secondary p-2 bg-white max-w-80 h-12 mb-3 " type="text"
-                                id="iban" name="iban" pattern="^(FR)\d{2}( \d{4}){5} \d{3}$"
-                                placeholder="FRXX XXXX XXXX XXXX XXXX XXXX XXX" title="Format : FRXX XXXX XXXX XXXX XXXX XXXX XXX ">
+                                        <label class="text-lg" for="iban">IBAN</label>
+                                        <input value="<?php if (isset($rib) && $rib != null) {
+                                            echo extraireIbanDepuisRib($rib);
+                                        } ?>" class="border text-sm border-secondary p-2 bg-white max-w-80 h-12 mb-3 " type="text"
+                                            id="iban" name="iban" pattern="^(FR)\d{2}( \d{4}){5} \d{3}$"
+                                            placeholder="FRXX XXXX XXXX XXXX XXXX XXXX XXX" title="Format : FRXX XXXX XXXX XXXX XXXX XXXX XXX ">
 
-                            <input type="submit" id="save2" value="Enregistrer les modifications"
-                                class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
-                                disabled>
+                                        <input type="submit" id="save2" value="Enregistrer les modifications"
+                                            class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                                            disabled>
         
-                        </form>
+                                    </form>
 
-                        <hr class="mb-8">
+                                    <hr class="mb-8">
 
-                <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
+                            <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
 
-                            <label class="text-lg" for="num_siren">Numéro SIRET</label>
-                            <input id="num_siren" name="num_siren" pattern="^\d{3} \d{3} \d{3} \d{5}$"
-                                title="Le numéro SIRET doit être composé de 14 chiffres" placeholder="Ex: 12345678901234"
-                                value="<?php echo $pro['data']['numero_siren'] ?>"
-                                class="border text-sm border-secondary p-2 bg-white max-w-44 h-12 mb-3 ">
+                                        <label class="text-lg" for="num_siren">Numéro SIRET</label>
+                                        <input id="num_siren" name="num_siren" pattern="^\d{3} \d{3} \d{3} \d{5}$"
+                                            title="Le numéro SIRET doit être composé de 14 chiffres" placeholder="Ex: 12345678901234"
+                                            value="<?php echo $pro['data']['numero_siren'] ?>"
+                                            class="border text-sm border-secondary p-2 bg-white max-w-44 h-12 mb-3 ">
 
-                            <input type="submit" id="save3" value="Enregistrer les modifications"
-                                class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
-                                disabled>
-                                </form>
+                                        <input type="submit" id="save3" value="Enregistrer les modifications"
+                                            class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                                            disabled>
+                                            </form>
 
-                        <?php
+                                    <?php
             } else {
                 ?>
-                        <hr class="mb-8">
-                        <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
-                            <label class="text-lg" for="type_orga">Type d'organisation</label>
-                            <input value="<?php echo $pro['data']['type_orga'] ?>"
-                                class="border text-sm border-secondary p-2 bg-white max-w-36 h-12 mb-3 " type="text" id="type_orga"
-                                name="type_orga">
+                                    <hr class="mb-8">
+                                    <form action="/pro/compte/parametres/" class="flex flex-col" method="post">
+                                        <label class="text-lg" for="type_orga">Type d'organisation</label>
+                                        <input value="<?php echo $pro['data']['type_orga'] ?>"
+                                            class="border text-sm border-secondary p-2 bg-white max-w-36 h-12 mb-3 " type="text" id="type_orga"
+                                            name="type_orga">
 
-                            <input type="submit" id="save4" value="Enregistrer les modifications"
-                                class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
-                                disabled>
+                                        <input type="submit" id="save4" value="Enregistrer les modifications"
+                                            class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                                            disabled>
         
-                        </form>
-                        <?php
+                                    </form>
+                                    <?php
             } ?>
 
             <hr class="hidden mb-8">

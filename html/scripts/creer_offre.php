@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$imageController->uploadImage($id_offre, 'carte-resto', $_FILES['photo-resto']['tmp_name'], explode('/', $_FILES['photo-resto']['type'])[1])) {
             echo "Erreur lors de l'upload de l'image de la carte du restaurant.";
             BDD::rollbackTransaction();
-            exit;   
+            exit;
         }
 
         // *** DETAIL

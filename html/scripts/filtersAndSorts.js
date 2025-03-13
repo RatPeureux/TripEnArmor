@@ -40,6 +40,20 @@ document.addEventListener("DOMContentLoaded", function () {
           section.classList.add("md:hidden");
         }
       });
+
+      button.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // Empêche le comportement par défaut (ex: navigation)
+          // Alterne entre affichage (md:block) et masquage (md:hidden) de la section
+          if (section.classList.contains("md:hidden")) {
+            section.classList.remove("md:hidden");
+            section.classList.add("md:block");
+          } else {
+            section.classList.remove("md:block");
+            section.classList.add("md:hidden");
+          }
+        }
+      });
     }
   }
 
@@ -294,7 +308,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     locInputElement?.addEventListener("input", () => {
       // Mettre à jour la localisation dans l'état global
-      filterState.localisation = locInputElement?.value.trim();
+      filterState.localisation = locInputElement?.value.toLowerCase().trim();
 
       // Appliquer les filtres croisés
       applyFilters();
@@ -381,7 +395,8 @@ document.addEventListener("DOMContentLoaded", function () {
         offre
           ?.querySelector(".localisation")
           ?.querySelector("p:nth-of-type(1)")
-          ?.textContent.trim() ?? null;
+          ?.textContent.toLowerCase()
+          .trim() ?? null;
       const code =
         offre
           ?.querySelector(".localisation")

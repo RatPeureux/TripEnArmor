@@ -163,8 +163,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     <h1 class="text-3xl ">À la Une</h1>
 
                     <div class="hidden md:flex gap-4">
-                        <a class="self-end flex items-center gap-2 hover:text-primary duration-100"
-                            id="sort-button-tab">
+                        <a class="self-end flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab"
+                            tabindex="0">
                             <i class="text xl fa-solid fa-sort"></i>
                             <p>Trier par</p>
                         </a>

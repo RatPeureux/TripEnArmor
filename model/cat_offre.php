@@ -2,7 +2,8 @@
 
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-class CatOffre extends BDD{
+class CatOffre extends BDD
+{
 
     static private $nom_table = "sae_db.vue_offre_categorie";
 

@@ -38,7 +38,8 @@ $pro = verifyPro();
         <hr class="mb-4">
 
         <div class="grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center justify-center">
-            <a href="/pro/compte/profil" class="border hover:border-secondary cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
+            <a href="/pro/compte/profil"
+                class="border hover:border-secondary cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-user"></i>
                 <div class="w-full">
                     <p class="text-lg">Profil</p>
@@ -68,15 +69,15 @@ $pro = verifyPro();
             <?php
             if (($pro['data']['type']) == 'prive') {
                 ?>
-                <a href="/pro/compte/facture"
-                    class="border hover:border-secondary cursor-pointer w-full space-x-8 flex items-center px-8 py-4 bg-base100">
-                    <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
-                    <div class="w-full">
-                        <p class="text-lg">Factures</p>
-                        <p class="text-sm">Faire le point sur mes paiements réels ou prévisionnels.</p>
-                    </div>
-                </a>
-                <?php
+                    <a href="/pro/compte/facture"
+                        class="border hover:border-secondary cursor-pointer w-full space-x-8 flex items-center px-8 py-4 bg-base100">
+                        <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
+                        <div class="w-full">
+                            <p class="text-lg">Factures</p>
+                            <p class="text-sm">Faire le point sur mes paiements réels ou prévisionnels.</p>
+                        </div>
+                    </a>
+                    <?php
             }
             ?>
 
