@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div id="map" class="h-[200px] w-[400px]"></div>
+    <div id="map" style="width: 600px; height: 400px; position: relative;"></div>
     <script>
         var map = L.map('map').setView([51.505, -0.09], 13);
 
