@@ -91,8 +91,6 @@ if (!function_exists('to_nom_note')) {
             if ($avis['titre']) { ?>
                 <p class="font-medium"><?php echo $avis['titre'] ?>&nbsp;</p>
                 <?php
-                <p class="font-medium"><?php echo $avis['titre'] ?>&nbsp;</p>
-                <?php
             }
             ?>
             <p class="text-gray-500">de</p>
@@ -105,7 +103,6 @@ if (!function_exists('to_nom_note')) {
                 $date_publication = new DateTime($avis['date_publication']);
                 $now = new DateTime();
                 $interval = $date_publication->diff($now);
-                <?php
                 $date_publication = new DateTime($avis['date_publication']);
                 $now = new DateTime();
                 $interval = $date_publication->diff($now);
@@ -155,18 +152,12 @@ if (!function_exists('to_nom_note')) {
                     ?>
                     <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
                     <?php
-                    <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
-                    <?php
                 } else if ($note > 0) {
                     ?>
                         <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
                     <?php
-                        <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-                    <?php
                 } else {
                     ?>
-                        <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-                    <?php
                         <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
                     <?php
                 }
@@ -182,7 +173,7 @@ if (!function_exists('to_nom_note')) {
             if (!$is_blacklisted && $pro_can_blacklist) { ?>
                 <a onclick="return confirm('Voulez-vous vraiment blacklister cet avis définitivement ? Cela coute un ticket (il vous en reste <?php echo 3 - $nb_blacklistes_en_cours ?>) qui vous sera restitué dans <?php echo $duree_blacklistage ?> jours.')"
                     href="/scripts/blacklister-avis.php?id_avis=<?php echo $id_avis ?>&duree_blacklistage=<?php echo $duree_blacklistage ?>">
-<i title="blacklister l'avis" class="text-xl fa-regular fa-eye-slash hover:text-primary"></i>
+                    <i title="blacklister l'avis" class="text-xl fa-regular fa-eye-slash hover:text-primary"></i>
                 </a>
             <?php }
 
@@ -234,18 +225,12 @@ if (!function_exists('to_nom_note')) {
                 ?>
                 <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
                 <?php
-                <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
-                <?php
             } else if ($note > 0) {
                 ?>
                     <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
                 <?php
-                    <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-                <?php
             } else {
                 ?>
-                    <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-                <?php
                     <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
                 <?php
             }
@@ -264,24 +249,7 @@ if (!function_exists('to_nom_note')) {
             $stmt->bindParam(":id_restauration", $restauration['id_offre']);
             $stmt->execute();
             $notes_restauration = $stmt->fetch();
-        <div class='flex md:flex-row flex-col justify-between flex-wrap'>
-            <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-            $stmt = $dbh->prepare("SELECT * FROM sae_db._avis_restauration_note WHERE id_avis = :id_avis AND id_restauration = :id_restauration");
-            $stmt->bindParam(":id_avis", $id_avis);
-            $stmt->bindParam(":id_restauration", $restauration['id_offre']);
-            $stmt->execute();
-            $notes_restauration = $stmt->fetch();
 
-            foreach (['note_ambiance', 'note_service', 'note_cuisine', 'rapport_qualite_prix'] as $nom_note) {
-                ?>
-                <div class='flex'>
-                    <p class="text-gray-500"><?php echo ucfirst(to_nom_note(nom_attribut_note: $nom_note)) ?> :&nbsp;</p>
-                    <p><?php echo $notes_restauration[$nom_note] ?>/5</p>
-                </div>
-                <?php
-            } ?>
-        </div>
-        <?php
             foreach (['note_ambiance', 'note_service', 'note_cuisine', 'rapport_qualite_prix'] as $nom_note) {
                 ?>
                 <div class='flex'>
@@ -362,150 +330,148 @@ window.location.href = '/scripts/delete_reponse.php?id_avis=<?php echo $id_avis 
             <!-- Texte de la réponse -->
             <p id="reponse-avis-<?php echo $id_avis ?>" class="hidden italic"> <?php echo $avis['reponse'] ?></p>
         </div>
-            <!-- Texte de la réponse -->
-            <p id="reponse-avis-<?php echo $id_avis ?>" class="hidden italic"> <?php echo $avis['reponse'] ?></p>
-        </div>
+        <!-- Texte de la réponse -->
+        <p id="reponse-avis-<?php echo $id_avis ?>" class="hidden italic"> <?php echo $avis['reponse'] ?></p>
+    </div>
 
-        <!-- Sinon formulaire de reponse pour le pro s'il est bien connecté -->
-        <!-- Sinon formulaire de reponse pour le pro s'il est bien connecté -->
-    <?php } else if ($pro_can_answer) { ?>
-            <div class="p-4 flex flex-col gap-2 justify-start">
-                <!-- Bouton de rédaction de réponse -->
-                <div class="flex gap-4 items-center">
-                    <a class="p-1 hover:cursor-pointer self-start border border-secondary hover:bg-secondary hover:text-white"
-                        onclick="document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden')">Répondre</a>
-                    <a id="send-reponse-avis-<?php echo $id_avis ?>" class="hidden">
-                        <i class="fa-regular fa-paper-plane hover:cursor-pointer" title="Envoyer" onclick="let content = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value; let encodedContent = encodeURIComponent(content); if (encodedContent.length > 0) {
+    <!-- Sinon formulaire de reponse pour le pro s'il est bien connecté -->
+<?php } else if ($pro_can_answer) { ?>
+        <div class="p-4 flex flex-col gap-2 justify-start">
+            <!-- Bouton de rédaction de réponse -->
+            <div class="flex gap-4 items-center">
+                <a class="p-1 hover:cursor-pointer self-start border border-secondary hover:bg-secondary hover:text-white"
+                    onclick="document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden')">Répondre</a>
+                <a id="send-reponse-avis-<?php echo $id_avis ?>" class="hidden">
+                    <i class="fa-regular fa-paper-plane hover:cursor-pointer" title="Envoyer" onclick="let content = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value; let encodedContent = encodeURIComponent(content); if (encodedContent.length > 0) {
                                     window.location.href = '/scripts/send_reponse.php?id_avis=<?php echo $id_avis ?>&reponse=' + encodedContent;
                                 }">
-                        </i>
-                    </a>
-                </div>
-
-                <!-- Champ de rédaction -->
-                <textarea id="formulaire-reponse-avis-<?php echo $id_avis ?>" class="hidden border border-gris"></textarea>
-                <!-- Proposer d'envoyer la réponse que quand il y a du texte rentré -->
-                <script>
-                    $("#formulaire-reponse-avis-<?php echo $id_avis ?>").on('input', function () {
-                        let send_button = document.getElementById('send-reponse-avis-<?php echo $id_avis ?>');
-                        let longeur_message = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value.length;
-                        if (longeur_message > 0) {
-                            send_button.classList.remove('hidden');
-                        } else {
-                            send_button.classList.add('hidden');
-                        }
-                    });
-                </script>
+                    </i>
+                </a>
             </div>
-    <?php } ?>
 
-    <!-- POUCES -->
-    <?php
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-    $statement = $dbh->prepare("SELECT * FROM sae_db.vue_avis_reaction_counter WHERE id_avis = ?");
-    $statement->bindParam(1, $id_avis);
-    $statement->execute();
-    $nb_reactions = $statement->fetch(PDO::FETCH_ASSOC); ?>
-    <div>
-        <div class="rounded-md px-3">
-            <img src="html/temp/2018-04-16.jpg" alt="" class="object-cover w-full h-full">
-            <img src="html/temp/image.jpg" alt="" class="object-cover w-full h-full">
-            <img src="html/temp/resto.jpg" alt="" class="object-cover w-full h-full">
-            <img src="html/temp/resto1.jpg" alt="" class="object-cover w-full h-full">
-            <p>TEST</p>
+            <!-- Champ de rédaction -->
+            <textarea id="formulaire-reponse-avis-<?php echo $id_avis ?>" class="hidden border border-gris"></textarea>
+            <!-- Proposer d'envoyer la réponse que quand il y a du texte rentré -->
+            <script>
+                $("#formulaire-reponse-avis-<?php echo $id_avis ?>").on('input', function () {
+                    let send_button = document.getElementById('send-reponse-avis-<?php echo $id_avis ?>');
+                    let longeur_message = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value.length;
+                    if (longeur_message > 0) {
+                        send_button.classList.remove('hidden');
+                    } else {
+                        send_button.classList.add('hidden');
+                    }
+                });
+            </script>
         </div>
-        <div class="flex flex-row-reverse gap-3 items-center">
-            <?php
-            ?>
+<?php } ?>
 
-            <!-- AFFICHER LES POUCES VITRINES POUR LE PRO -->
-            <?php if (isset($_SESSION['id_pro'])) { ?>
+<!-- POUCES -->
+<?php
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-                <!-- Nombre de pouces rouges -->
-                <p class="font-bold w-2 text-center">
-                    <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
-                </p>
-                <i class="fa-regular fa-thumbs-down text-2xl mt-1 text-rouge-logo"
-                    onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
+$statement = $dbh->prepare("SELECT * FROM sae_db.vue_avis_reaction_counter WHERE id_avis = ?");
+$statement->bindParam(1, $id_avis);
+$statement->execute();
+$nb_reactions = $statement->fetch(PDO::FETCH_ASSOC); ?>
+<div>
+    <div class="rounded-md px-3">
+        <img src="html/temp/2018-04-16.jpg" alt="" class="object-cover w-full h-full">
+        <img src="html/temp/image.jpg" alt="" class="object-cover w-full h-full">
+        <img src="html/temp/resto.jpg" alt="" class="object-cover w-full h-full">
+        <img src="html/temp/resto1.jpg" alt="" class="object-cover w-full h-full">
+        <p>TEST</p>
+    </div>
+    <div class="flex flex-row-reverse gap-3 items-center">
+        <?php
+        ?>
 
-                <!-- Nombre de pouces bleus -->
-                <p class="font-bold w-2 text-center"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
-                </p>
-                <i class="fa-regular fa-thumbs-up text-2xl mb-1 text-secondary"
-                    onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
+        <!-- AFFICHER LES POUCES VITRINES POUR LE PRO -->
+        <?php if (isset($_SESSION['id_pro'])) { ?>
 
-                <!-- AFFICHER LES POUCES INTERACTIFS PORU LE MEMBRE -->
-            <?php } else if (isset($_SESSION['id_membre'])) {
+            <!-- Nombre de pouces rouges -->
+            <p class="font-bold w-2 text-center">
+                <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
+            </p>
+            <i class="fa-regular fa-thumbs-down text-2xl mt-1 text-rouge-logo"
+                onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
 
-                $query = "SELECT type_de_reaction FROM sae_db._avis_reactions WHERE id_avis = ? AND id_membre = ?";
-                $statement = $dbh->prepare($query);
-                $statement->bindParam(1, $id_avis);
-                $statement->bindParam(2, $_SESSION['id_membre']);
+            <!-- Nombre de pouces bleus -->
+            <p class="font-bold w-2 text-center"><?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
+            </p>
+            <i class="fa-regular fa-thumbs-up text-2xl mb-1 text-secondary"
+                onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
 
-                if ($statement->execute()) {
-                    $reaction = $statement->fetch(PDO::FETCH_ASSOC);
-                } else {
-                    echo "ERREUR : Impossible d'obtenir cette réaction";
-                    return -1;
-                }
+            <!-- AFFICHER LES POUCES INTERACTIFS PORU LE MEMBRE -->
+        <?php } else if (isset($_SESSION['id_membre'])) {
 
-                if ($reaction) { ?>
-                        <!-- Pouce bleu pour le membre -->
-                    <?php if ($reaction['type_de_reaction'] == true) { ?>
-                            <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
-                            <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
-                            </p>
-                            <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1" id="thumb-down-<?php echo $id_avis; ?>"
-                                onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
-                            <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
-                            <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
-                            </p>
-                            <i class="cursor-pointer fa-solid fa-thumbs-up text-2xl mb-1 text-secondary"
-                                id="thumb-up-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
-                            <!-- Pouce rouge pour le membre -->
-                    <?php } else { ?>
-                            <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
-                            <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
-                            </p>
-                            <i class="cursor-pointer fa-solid fa-thumbs-down text-2xl mt-1 text-rouge-logo"
-                                id="thumb-down-<?php echo $id_avis; ?>"
-                                onclick="sendReaction(<?php echo $id_avis; ?>, 'downTOnull')"></i>
-                            <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
-                            <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
-                            </p>
-                            <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1" id="thumb-up-<?php echo $id_avis; ?>"
-                                onclick="sendReaction(<?php echo $id_avis; ?>, 'downTOup')"></i>
-                    <?php } ?>
-                        <!-- Aucun pouce pour le membre -->
-                <?php } else { ?>
+            $query = "SELECT type_de_reaction FROM sae_db._avis_reactions WHERE id_avis = ? AND id_membre = ?";
+            $statement = $dbh->prepare($query);
+            $statement->bindParam(1, $id_avis);
+            $statement->bindParam(2, $_SESSION['id_membre']);
+
+            if ($statement->execute()) {
+                $reaction = $statement->fetch(PDO::FETCH_ASSOC);
+            } else {
+                echo "ERREUR : Impossible d'obtenir cette réaction";
+                return -1;
+            }
+
+            if ($reaction) { ?>
+                    <!-- Pouce bleu pour le membre -->
+                <?php if ($reaction['type_de_reaction'] == true) { ?>
                         <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
                         <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
                         </p>
                         <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1" id="thumb-down-<?php echo $id_avis; ?>"
-                            onclick="sendReaction(<?php echo $id_avis; ?>, 'down')"></i>
+                            onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
+                        <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
+                        <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
+                        </p>
+                        <i class="cursor-pointer fa-solid fa-thumbs-up text-2xl mb-1 text-secondary"
+                            id="thumb-up-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
+                        <!-- Pouce rouge pour le membre -->
+                <?php } else { ?>
+                        <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
+                        <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
+                        </p>
+                        <i class="cursor-pointer fa-solid fa-thumbs-down text-2xl mt-1 text-rouge-logo"
+                            id="thumb-down-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'downTOnull')"></i>
                         <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
                         <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
                         </p>
                         <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1" id="thumb-up-<?php echo $id_avis; ?>"
-                            onclick="sendReaction(<?php echo $id_avis; ?>, 'up')"></i>
+                            onclick="sendReaction(<?php echo $id_avis; ?>, 'downTOup')"></i>
                 <?php } ?>
+                    <!-- Aucun pouce pour le membre -->
             <?php } else { ?>
-                    <!-- POUCES POUR LES VISITEURS -->
                     <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
                     <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
                     </p>
-                    <a href="/connexion">
-                        <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1"></i>
-                    </a>
+                    <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1" id="thumb-down-<?php echo $id_avis; ?>"
+                        onclick="sendReaction(<?php echo $id_avis; ?>, 'down')"></i>
                     <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
                     <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
                     </p>
-                    <a href="/connexion">
-                        <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1"></i>
-                    </a>
+                    <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1" id="thumb-up-<?php echo $id_avis; ?>"
+                        onclick="sendReaction(<?php echo $id_avis; ?>, 'up')"></i>
             <?php } ?>
-        </div>
+        <?php } else { ?>
+                <!-- POUCES POUR LES VISITEURS -->
+                <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
+                <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
+                </p>
+                <a href="/connexion">
+                    <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1"></i>
+                </a>
+                <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
+                <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
+                </p>
+                <a href="/connexion">
+                    <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1"></i>
+                </a>
+        <?php } ?>
     </div>
-    <hr>
+</div>
+<hr>
 </div>
