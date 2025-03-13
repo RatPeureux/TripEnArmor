@@ -15,27 +15,27 @@ if (isset($_POST['mdp'])) {
         $controllerMembre->updateMembre($membre['id_compte'], false, $mdp, false, false, false, false);
 
         ?>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                var successMessage = document.getElementById('success-message');
-                                successMessage.textContent = 'Le mot de passe a bien été modifié.';
-                                setTimeout(function () {
-                                    successMessage.textContent = '';
-                                }, 7500);
-                            });
-                        </script>
-                        <?php
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var successMessage = document.getElementById('success-message');
+                                        successMessage.textContent = 'Le mot de passe a bien été modifié.';
+                                        setTimeout(function () {
+                                            successMessage.textContent = '';
+                                        }, 7500);
+                                    });
+                                </script>
+                                <?php
     } else { ?>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                var errorMessage = document.getElementById('error-message');
-                                errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
-                                setTimeout(function () {
-                                    errorMessage.textContent = '';
-                                }, 7500);
-                            });
-                        </script>
-            <?php }
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var errorMessage = document.getElementById('error-message');
+                                        errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
+                                        setTimeout(function () {
+                                            errorMessage.textContent = '';
+                                        }, 7500);
+                                    });
+                                </script>
+                <?php }
 
     unset($_POST['mdp']);
     unset($_POST['newMdp']);

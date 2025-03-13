@@ -15,99 +15,99 @@ if (!isset($_SESSION['data_en_cours_connexion'])) {
 
 // 1ère étape : remplir les informations de connexion
 if (empty($_POST)) { ?>
-            <!DOCTYPE html>
-            <html lang="fr">
+                <!DOCTYPE html>
+                <html lang="fr">
 
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-                <link rel="icon" href="/public/images/favicon.png">
-                <link rel="stylesheet" href="/styles/style.css">
-                <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+                    <link rel="icon" href="/public/images/favicon.png">
+                    <link rel="stylesheet" href="/styles/style.css">
+                    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
-                <title>Connexion au compte - PACT</title>
-            </head>
+                    <title>Connexion au compte - PACT</title>
+                </head>
 
-            <body class="h-screen bg-white p-4 overflow-hidden">
-                <div class="h-full flex flex-col items-center justify-center">
-                    <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
-                        <!-- Logo de l'application -->
-                        <a href="/">
-                            <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="108">
-                        </a>
+                <body class="h-screen bg-white p-4 overflow-hidden">
+                    <div class="h-full flex flex-col items-center justify-center">
+                        <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
+                            <!-- Logo de l'application -->
+                            <a href="/">
+                                <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="108">
+                            </a>
 
-                        <h2 class="mx-auto text-center text-2xl pt-4 my-4">Se connecter à la PACT</h2>
+                            <h2 class="mx-auto text-center text-2xl pt-4 my-4">Se connecter à la PACT</h2>
 
-                        <form class="bg-white w-full p-5 border-2 border-primary" action="/connexion/" method="POST">
+                            <form class="bg-white w-full p-5 border-2 border-primary" action="/connexion/" method="POST">
 
-                            <!-- Champ pour l'identifiant -->
-                            <label class="text-sm" for="id">Identifiant</label>
-                            <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="id" name="id"
-                                title="Saisir un de vos identifiants (Pseudonyme, téléphone ou mail)"
-                                placeholder="Pseudonyme, téléphone ou mail"
-                                value="<?php echo $_SESSION['data_en_cours_connexion']['id'] ?? '' ?>" required>
+                                <!-- Champ pour l'identifiant -->
+                                <label class="text-sm" for="id">Identifiant</label>
+                                <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="id" name="id"
+                                    title="Saisir un de vos identifiants (Pseudonyme, téléphone ou mail)"
+                                    placeholder="Pseudonyme, téléphone ou mail"
+                                    value="<?php echo $_SESSION['data_en_cours_connexion']['id'] ?? '' ?>" required>
 
-                            <!-- Champ pour le mot de passe -->
-                            <div class="relative w-full">
-                                <label class="text-sm" for="mdp">Mot de passe</label>
-                                <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="mdp" name="mdp"
-                                    pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
-                                    title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                                    value="<?php echo $_SESSION['data_en_cours_connexion']['mdp'] ?? '' ?>" required>
-                                <!-- Icône pour afficher/masquer le mot de passe -->
-                                <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                                    id="togglePassword"></i>
-                            </div>
+                                <!-- Champ pour le mot de passe -->
+                                <div class="relative w-full">
+                                    <label class="text-sm" for="mdp">Mot de passe</label>
+                                    <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="mdp" name="mdp"
+                                        pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
+                                        title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                                        value="<?php echo $_SESSION['data_en_cours_connexion']['mdp'] ?? '' ?>" required>
+                                    <!-- Icône pour afficher/masquer le mot de passe -->
+                                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                                        id="togglePassword"></i>
+                                </div>
 
-                            <span id="error-message" class="error text-rouge-logo text-sm">
-                                <?php echo $_SESSION['error'] ?? '' ?>
-                            </span>
+                                <span id="error-message" class="error text-rouge-logo text-sm">
+                                    <?php echo $_SESSION['error'] ?? '' ?>
+                                </span>
 
-                            <!-- Bouton de connexion -->
-                            <input type="submit" value="Me connecter"
-                                class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-primary text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
+                                <!-- Bouton de connexion -->
+                                <input type="submit" value="Me connecter"
+                                    class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-primary text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-orange-600 hover:border-orange-600 hover:text-white">
 
-                            <!-- Liens pour mot de passe oublié et création de compte -->
-                            <div class="flex items-center flex-nowrap h-12 space-x-1.5">
-                                <a
-                                    class="text-sm text-center w-full text-wrap bg-transparent text-primary underline  focus:scale-[0.97]">
-                                    Mot de passe oublié ?
-                                </a>
-                                <a href="/inscription"
-                                    class="text-sm py-2 px-4 rounded-full text-center w-full h-full p-1 text-wrap bg-transparent text-primary   inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
-                                    Créer un compte
-                                </a>
-                            </div>
-                        </form>
+                                <!-- Liens pour mot de passe oublié et création de compte -->
+                                <div class="flex items-center flex-nowrap h-12 space-x-1.5">
+                                    <a
+                                        class="text-sm text-center w-full text-wrap bg-transparent text-primary underline  focus:scale-[0.97]">
+                                        Mot de passe oublié ?
+                                    </a>
+                                    <a href="/inscription"
+                                        class="text-sm py-2 px-4 rounded-full text-center w-full h-full p-1 text-wrap bg-transparent text-primary   inline-flex items-center justify-center border border-primary hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:scale-[0.97]">
+                                        Créer un compte
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </body>
+                </body>
 
-            <script>
-                // Récupération de l'élément pour afficher/masquer le mot de passe
-                const togglePassword = document.getElementById('togglePassword');
-                const mdp = document.getElementById('mdp');
+                <script>
+                    // Récupération de l'élément pour afficher/masquer le mot de passe
+                    const togglePassword = document.getElementById('togglePassword');
+                    const mdp = document.getElementById('mdp');
 
-                // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-                if (togglePassword) {
-                    togglePassword.addEventListener('click', function () {
-                        if (mdp.type === 'password') {
-                            mdp.type = 'text';
-                            this.classList.remove('fa-eye');
-                            this.classList.add('fa-eye-slash');
-                        } else {
-                            mdp.type = 'password';
-                            this.classList.remove('fa-eye-slash');
-                            this.classList.add('fa-eye');
-                        }
-                    });
-                }
-            </script>
+                    // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
+                    if (togglePassword) {
+                        togglePassword.addEventListener('click', function () {
+                            if (mdp.type === 'password') {
+                                mdp.type = 'text';
+                                this.classList.remove('fa-eye');
+                                this.classList.add('fa-eye-slash');
+                            } else {
+                                mdp.type = 'password';
+                                this.classList.remove('fa-eye-slash');
+                                this.classList.add('fa-eye');
+                            }
+                        });
+                    }
+                </script>
 
-            </html>
+                </html>
 
-            <!-- 2ème étape, essayer de se connecter à la base, et inscrire une erreur sinon -->
+                <!-- 2ème étape, essayer de se connecter à la base, et inscrire une erreur sinon -->
 <?php } else {
     try {
         // Connexion avec la bdd

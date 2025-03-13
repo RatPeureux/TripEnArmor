@@ -83,18 +83,18 @@ $pro = verifyPro();
                     $id_membre = $avis['id_membre'];
                     ?>
 
-                    <?php
-                    $mode = 'avis';
-                    $is_reference = true;
-                    include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
-                    ?>
+                            <?php
+                            $mode = 'avis';
+                            $is_reference = true;
+                            include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
+                            ?>
 
-                    <?php
+                            <?php
                 }
             } else {
                 ?>
-                <h1 class="text-2xl ">Aucun avis n'a été publié sur vos offres.</h1>
-                <?php
+                    <h1 class="text-2xl ">Aucun avis n'a été publié sur vos offres.</h1>
+                    <?php
             }
             ?>
         </div>

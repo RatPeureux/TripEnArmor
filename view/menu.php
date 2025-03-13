@@ -12,13 +12,13 @@
 
   <div class="all-items flex flex-col items-stretch">
     <a class="p-3 <?php if (isset($pagination) && $pagination == 1) {
-      echo 'active';
+        echo 'active';
     } ?>" href="/">Accueil</a>
     <a class="p-3 <?php if (isset($pagination) && $pagination == 2) {
-      echo 'active';
+        echo 'active';
     } ?>" href="/offres/a-la-une">À la Une</a>
     <a class="p-3  <?php if (isset($pagination) && $pagination == 3) {
-      echo 'active';
+        echo 'active';
     } ?>" href="/offres">Toutes les offres</a>
   </div>
 </div>
@@ -37,17 +37,17 @@
     <div class="all-items flex flex-col items-stretch">
       <div class="p-3">
         <a class="<?php if (isset($pagination) && $pagination == 1) {
-          echo 'active';
+            echo 'active';
         } ?>" href="/">Accueil</a>
       </div>
       <div class="p-3">
         <a class="<?php if (isset($pagination) && $pagination == 3) {
-          echo 'active';
+            echo 'active';
         } ?>" href="/offres/a-la-une">À la Une</a>
       </div>
       <div class="p-3">
         <a class="<?php if (isset($pagination) && $pagination == 2) {
-          echo 'active';
+            echo 'active';
         } ?>" href="/offres">Toutes les offres</a>
       </div>
     </div>

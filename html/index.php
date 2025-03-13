@@ -85,27 +85,27 @@ session_start();
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsMember()) { ?>
-                <!-- Si connecté -->
-                <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
-                    onclick="return confirmLogout()">
-                    <div class="text-black border border-secondary px-4 py-2 rounded-full">
-                        <p>Se déconnecter</p>
-                    </div>
-                </a>
-                <a href="/compte">
-                    <i class="text-3xl fa-regular fa-user"></i>
-                </a>
+                    <!-- Si connecté -->
+                    <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
+                        onclick="return confirmLogout()">
+                        <div class="text-black border border-secondary px-4 py-2 rounded-full">
+                            <p>Se déconnecter</p>
+                        </div>
+                    </a>
+                    <a href="/compte">
+                        <i class="text-3xl fa-regular fa-user"></i>
+                    </a>
             <?php } else { ?>
-                <!-- Si non connecté -->
-                <a href="/connexion" class="md:hidden">
-                    <i class="text-3xl fa-regular fa-user"></i>
-                </a>
-                <a href="/connexion" class="hidden md:block">
-                    <div
-                        class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
-                        <p>Se connecter</p>
-                    </div>
-                </a>
+                    <!-- Si non connecté -->
+                    <a href="/connexion" class="md:hidden">
+                        <i class="text-3xl fa-regular fa-user"></i>
+                    </a>
+                    <a href="/connexion" class="hidden md:block">
+                        <div
+                            class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
+                            <p>Se connecter</p>
+                        </div>
+                    </a>
             <?php } ?>
         </div>
     </header>
@@ -182,19 +182,19 @@ session_start();
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$aLaUnes) { ?>
-            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
-                <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
-            </div>
+                <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
+                    <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
+                </div>
         <?php } else { ?>
-            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
-                <?php $i = 0;
-                foreach ($aLaUnes as $offre) {
-                    if ($i > -1) {
-                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
-                        $i++;
-                    }
-                } ?>
-            </div>
+                <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
+                    <?php $i = 0;
+                    foreach ($aLaUnes as $offre) {
+                        if ($i > -1) {
+                            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
+                            $i++;
+                        }
+                    } ?>
+                </div>
         <?php } ?>
 
         <h1 class="text-3xl ">Nos meilleures offres</h1>
@@ -202,56 +202,56 @@ session_start();
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$meilleuresNotes) { ?>
-            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-12">
-                <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
-            </div>
+                <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-12">
+                    <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
+                </div>
         <?php } else { ?>
-            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-12" id="no-matches">
-                <?php
-                $categoriesOrdre = [
-                    'restauration' => null,
-                    'spectacle' => null,
-                    'activite' => null,
-                    'visite' => null,
-                    'parc_attraction' => null,
-                ];
+                <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-12" id="no-matches">
+                    <?php
+                    $categoriesOrdre = [
+                        'restauration' => null,
+                        'spectacle' => null,
+                        'activite' => null,
+                        'visite' => null,
+                        'parc_attraction' => null,
+                    ];
 
-                // Parcourir les offres
-                foreach ($meilleuresNotes as $offre) {
+                    // Parcourir les offres
+                    foreach ($meilleuresNotes as $offre) {
 
-                    $stmt = $dbh->prepare("SELECT count FROM sae_db.vue_moyenne WHERE id_offre = :id_offre");
-                    $stmt->bindParam(':id_offre', $offre['id_offre']);
-                    $stmt->execute();
-                    $moyenne = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                    if ($moyenne) {
-                        $stmt = $dbh->prepare("SELECT type_offre FROM sae_db.vue_offre_categorie WHERE id_offre = :id_offre");
+                        $stmt = $dbh->prepare("SELECT count FROM sae_db.vue_moyenne WHERE id_offre = :id_offre");
                         $stmt->bindParam(':id_offre', $offre['id_offre']);
                         $stmt->execute();
-                        $categorie = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $moyenne = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                        if ($categorie && isset($categorie['type_offre'])) {
-                            $typeOffre = $categorie['type_offre'];
+                        if ($moyenne) {
+                            $stmt = $dbh->prepare("SELECT type_offre FROM sae_db.vue_offre_categorie WHERE id_offre = :id_offre");
+                            $stmt->bindParam(':id_offre', $offre['id_offre']);
+                            $stmt->execute();
+                            $categorie = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                            // Ajouter l'offre dans la catégorie correspondante si elle n'est pas encore définie
-                            if (array_key_exists($typeOffre, $categoriesOrdre) && $categoriesOrdre[$typeOffre] === null) {
-                                $categoriesOrdre[$typeOffre] = $offre;
+                            if ($categorie && isset($categorie['type_offre'])) {
+                                $typeOffre = $categorie['type_offre'];
+
+                                // Ajouter l'offre dans la catégorie correspondante si elle n'est pas encore définie
+                                if (array_key_exists($typeOffre, $categoriesOrdre) && $categoriesOrdre[$typeOffre] === null) {
+                                    $categoriesOrdre[$typeOffre] = $offre;
+                                }
                             }
                         }
                     }
-                }
 
-                // Reconstituer $temp dans l'ordre des catégories
-                $meilleuresNotes = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-            
-                $iOffres = 0;
-                foreach ($meilleuresNotes as $offre) {
-                    if ($iOffres < 5) {
-                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
-                    }
-                    $iOffres++;
-                } ?>
-            </div>
+                    // Reconstituer $temp dans l'ordre des catégories
+                    $meilleuresNotes = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
+                
+                    $iOffres = 0;
+                    foreach ($meilleuresNotes as $offre) {
+                        if ($iOffres < 5) {
+                            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
+                        }
+                        $iOffres++;
+                    } ?>
+                </div>
         <?php } ?>
     </main>
 
