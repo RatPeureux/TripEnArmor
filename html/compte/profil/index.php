@@ -40,14 +40,14 @@ $membre = verifyMember();
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="w-full flex justify-center grow">
         <div class="max-w-[1280px] w-full p-2 flex justify-center">
             <div id="menu">
                 <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
                 ?>
             </div>
 
@@ -96,7 +96,7 @@ $membre = verifyMember();
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 

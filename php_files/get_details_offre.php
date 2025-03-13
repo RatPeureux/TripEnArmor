@@ -1,5 +1,4 @@
 <?php
-
 // Obtenir le nom du pro
 $id_pro = $offre['id_pro'];
 
@@ -43,21 +42,12 @@ $est_en_ligne = $offre['est_en_ligne'];
 $date_mise_a_jour = $offre['date_mise_a_jour'];
 $titre_offre = $offre['titre'];
 
-
-if (isset($_SESSION['id_pro'])) {
-    if ($_SESSION['id_pro'] !== $id_pro) {
-        header('location: /pro/401');
-        exit();
-    }
-} else {
-    if (!$est_en_ligne) {
-        echo $id_offre;
-        echo $est_en_ligne;
-        header('location: /401');
-        exit();
-    }
+if (!$est_en_ligne) {
+    echo $id_offre;
+    echo $est_en_ligne;
+    header('location: /401');
+    exit();
 }
-
 
 // Otenir la moyenne des notes de l'offre
 $stmt = $dbh->prepare("SELECT avg, count FROM sae_db.vue_moyenne WHERE id_offre = :id_offre");

@@ -29,7 +29,7 @@ $pro = verifyPro();
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <?php
@@ -158,7 +158,6 @@ $pro = verifyPro();
                                         <?php
                             }
                             ?>
-                            <option value="2">Autre offre</option>
                         </select>
                         <button id="preview-dl-button" onclick="generatePDF(document.querySelector('#facture-preview'))"
                             class="bg-slate-200 text-white p-2">
@@ -444,11 +443,11 @@ $pro = verifyPro();
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 
 </body>
