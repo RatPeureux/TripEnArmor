@@ -332,10 +332,11 @@ $offer = array_values(array_filter($offers, fn($o) => $o['id'] == $offerId))[0];
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
 
-                <div class="flex flex-col w-full space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-start md:space-x-4">
+                <div
+                    class="flex flex-col w-full space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-start md:space-x-4">
                     <!-- CAROUSSEL -->
                     <div
-                        class="w-full h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container">
+                        class="w-2/3 h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container">
                         <!-- Wrapper -->
                         <?php
                         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
