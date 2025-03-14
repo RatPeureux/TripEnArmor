@@ -265,7 +265,7 @@ $offers = [
         <?php } ?> -->
 
         <h2 class="text-3xl mb-2">Carte de nos offres</h2>
-        <div id="map" class="w-full h-[600px] shadow-lg border border-gray-300"></div>
+        <div id="map" class="w-full h-[600px] border border-gray-300"></div>
 
         <script>
             window.mapConfig = {

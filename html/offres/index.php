@@ -161,7 +161,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <div class="flex flex-wrap gap-4" id="tags-container"></div>
 
             <h2 class="text-3xl mb-2">Carte de nos offres</h2>
-            <div id="map" class="w-full h-[400px] shadow-lg border border-gray-300"></div>
+            <div id="map" class="w-full h-[400px] border border-gray-300"></div>
 
             <script>
                 window.mapConfig = {
