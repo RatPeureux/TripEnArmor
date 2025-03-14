@@ -381,8 +381,6 @@ $offer = array_values(array_filter($offers, fn($o) => $o['id'] == $offerId))[0];
                         }
                         ?>
                     </div>
-
-                    <h2 class="text-3xl mb-2">Carte de nos offres</h2>
                     <div id="map" class="w-1/3 h-[400px] shadow-lg border border-gray-300"></div>
 
                     <script>
