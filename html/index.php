@@ -187,8 +187,7 @@ $offers = [
         </div>
 
         <a class="cursor-pointer group" href="/offres/a-la-une">
-            <h1 class="text-3xl ">À la Une<span
-                    class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
+            <h2 class="text-3xl ">À la Une<span class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h2>
         </a>
 
         <?php
@@ -266,8 +265,8 @@ $offers = [
                 </div>
         <?php } ?> -->
 
-        <h2 class="text-center text-xl font-bold">Carte des Offres</h2>
-        <div id="map" class="w-full h-[600px] rounded-lg shadow-lg border border-gray-300"></div>
+        <h2 class="text-3xl">Carte de nos offres</h2>
+        <div id="map" class="w-full h-[600px] shadow-lg border border-gray-300"></div>
 
         <script>
             window.mapConfig = {
