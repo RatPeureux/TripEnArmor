@@ -34,7 +34,7 @@ $offers = [
             offers: <?php echo json_encode($offers); ?>
         };
     </script>
-    <script src="map.js"></script>
+    <script src="/script/map.js"></script>
 
 </body>
 </html>
