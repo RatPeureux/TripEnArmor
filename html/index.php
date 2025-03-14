@@ -1,5 +1,12 @@
 <?php
 session_start();
+$offers = [
+    ["name" => "Hôtel Rennes", "lat" => 48.1173, "lng" => -1.6778],
+    ["name" => "Hôtel Brest", "lat" => 48.3904, "lng" => -4.4861],
+    ["name" => "Hôtel Quimper", "lat" => 48.0000, "lng" => -4.1000],
+    ["name" => "Hôtel Vannes", "lat" => 47.6582, "lng" => -2.7608],
+];
+
 ?>
 
 <!DOCTYPE html>
@@ -44,23 +51,23 @@ session_start();
     // // Récupérer toutes les moyennes en une seule requête
     // $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
     // $notesMoyennes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    
     // // Associer les moyennes aux offres
     // $notesAssociees = [];
     // foreach ($notesMoyennes as $note) {
     //     $notesAssociees[$note['id_offre']] = floatval($note['avg']);
     // }
-
+    
     // // Créer un tableau temporaire enrichi
     // $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
     //     $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
     //     return $offre;
     // }, $toutesLesOffres);
-
+    
     // usort($offresAvecNotes, function ($a, $b) {
     //     return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
     // });
-
+    
     // $meilleuresNotes = $offresAvecNotes;
     ?>
 
@@ -85,27 +92,27 @@ session_start();
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsMember()) { ?>
-                    <!-- Si connecté -->
-                    <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
-                        onclick="return confirmLogout()">
-                        <div class="text-black border border-secondary px-4 py-2 rounded-full">
-                            <p>Se déconnecter</p>
-                        </div>
-                    </a>
-                    <a href="/compte">
-                        <i class="text-3xl fa-regular fa-user"></i>
-                    </a>
+                <!-- Si connecté -->
+                <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
+                    onclick="return confirmLogout()">
+                    <div class="text-black border border-secondary px-4 py-2 rounded-full">
+                        <p>Se déconnecter</p>
+                    </div>
+                </a>
+                <a href="/compte">
+                    <i class="text-3xl fa-regular fa-user"></i>
+                </a>
             <?php } else { ?>
-                    <!-- Si non connecté -->
-                    <a href="/connexion" class="md:hidden">
-                        <i class="text-3xl fa-regular fa-user"></i>
-                    </a>
-                    <a href="/connexion" class="hidden md:block">
-                        <div
-                            class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
-                            <p>Se connecter</p>
-                        </div>
-                    </a>
+                <!-- Si non connecté -->
+                <a href="/connexion" class="md:hidden">
+                    <i class="text-3xl fa-regular fa-user"></i>
+                </a>
+                <a href="/connexion" class="hidden md:block">
+                    <div
+                        class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
+                        <p>Se connecter</p>
+                    </div>
+                </a>
             <?php } ?>
         </div>
     </header>
@@ -182,19 +189,19 @@ session_start();
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$aLaUnes) { ?>
-                <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
-                    <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
-                </div>
+            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
+                <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
+            </div>
         <?php } else { ?>
-                <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
-                    <?php $i = 0;
-                    foreach ($aLaUnes as $offre) {
-                        if ($i > -1) {
-                            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
-                            $i++;
-                        }
-                    } ?>
-                </div>
+            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
+                <?php $i = 0;
+                foreach ($aLaUnes as $offre) {
+                    if ($i > -1) {
+                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
+                        $i++;
+                    }
+                } ?>
+            </div>
         <?php } ?>
 
         <!-- <h1 class="text-3xl ">Nos meilleures offres</h1>
@@ -253,6 +260,18 @@ session_start();
                     } ?>
                 </div>
         <?php } ?> -->
+
+        <h2 class="text-center text-xl font-bold">Carte des Offres</h2>
+        <div id="map" class="w-full h-[600px] rounded-lg shadow-lg border border-gray-300"></div>
+
+        <script>
+            window.mapConfig = {
+                center: [48.1, -2.5],
+                zoom: 7,
+                offers: <?php echo json_encode($offers); ?>
+            };
+        </script>
+        <script src="map.js"></script>
     </main>
 
     <!-- FOOTER -->
