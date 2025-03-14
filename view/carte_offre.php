@@ -157,158 +157,157 @@ if ($mode_carte == 'membre') {
                     $controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
                     $tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
 
-                    require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
-                    $controllerTagRest = new TagRestaurantController();
-                    $tagsAffiche = "";
-                    foreach ($tags_offre as $tag) {
-                        $tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
-                    }
-                    foreach ($tagsListe as $tag) {
-                        $tagsAffiche .= $tag[0]['nom'] . ', ';
-                    }
+							require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
+							$controllerTagRest = new TagRestaurantController();
+							$tagsAffiche = "";
+							if ($tags_offre) {
+								$tags_offre = [];
+								foreach ($tags_offre as $tag) {
+									$tagsListe[] = $controllerTagRest->getInfosTagRestaurant($tag['id_tag_restaurant']);
+								}
+								foreach ($tagsListe as $tag) {
+									$tagsAffiche .= $tag[0]['nom'] . ', ';
+								}
+							}
 
-                    $tagsAffiche = rtrim($tagsAffiche, ', ');
-                    if ($tags_offre) {
-                        ?>
-                            <div class="tags p-1 bg-secondary self-center w-full">
-                              <?php
-                              echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-                              ?>
-                            </div>
-                            <?php
-                    } else {
-                        ?>
-                            ?>
-                            <div class="tags p-1  bg-secondary self-center w-full">
-                              <?php
-                              echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-                              ?>
-                            </div>
-                            <?php
-                    }
-                }
-                ?>
-              </div>
-              <p class='overflow-hidden line-clamp-2 text-sm'>
-                <?php echo $resume ?>
-              </p>
-            </div>
-            <!-- Notation et Prix -->
-            <div class='flex flex-col gap-2 justify-center items-center min-w-16'>
-              <?php
-              // Moyenne des notes quand il y en a une
-              if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
-                  $n = $moyenne;
-                  ?>
-                    <div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne; ?>">
-                      <?php for ($i = 0; $i < 5; $i++) {
-                          if ($n >= 1) {
-                              if ($option) { ?>
-                                        <img class="w-2" src="/public/icones/egg-full-white.svg" alt="1 point de note">
-                                  <?php } else { ?>
-                                        <img class="w-2" src="/public/icones/egg-full.svg" alt="1 point de note">
-                                  <?php }
-                          } else if ($n > 0) {
-                              if ($option) { ?>
-                                              <img class="w-2" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
-                                  <?php } else { ?>
-                                              <img class="w-2" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-                                  <?php }
-                          } else {
-                              if ($option) { ?>
-                                              <img class="w-2" src="/public/icones/egg-half-white.svg" alt="0 point de note">
-                                  <?php } else { ?>
-                                              <img class="w-2" src="/public/icones/egg-empty.svg" alt="0 point de note">
-                                  <?php }
-                          }
-                          $n--;
-                      }
-                      ?>
-                    </div>
-                    <?php
-              }
-              ?>
-              <p class='prix text-sm'
-                title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'>
-                <?php echo $prix_a_afficher ?>
-              </p>
-            </div>
-          </div>
-        </div>
+							if ($tags_offre) {
+								$tagsAffiche = rtrim($tagsAffiche, ', ');
+								?>
+								<div class="tags p-1 bg-secondary self-center w-full">
+									<?php
+									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+									?>
+								</div>
+								<?php
+							} else {
+								?>
+								<div class="tags p-1  bg-secondary self-center w-full">
+									<?php
+									echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+									?>
+								</div>
+								<?php
+							}
+						}
+						?>
+					</div>
+					<p class='overflow-hidden line-clamp-2 text-sm'>
+						<?php echo $resume ?>
+					</p>
+				</div>
+				<!-- Notation et Prix -->
+				<div class='flex flex-col gap-2 justify-center items-center min-w-16'>
+					<?php
+					// Moyenne des notes quand il y en a une
+					if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
+						$n = $moyenne;
+						?>
+						<div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne; ?>">
+							<?php for ($i = 0; $i < 5; $i++) {
+								if ($n >= 1) {
+									if ($option) { ?>
+										<img class="w-2" src="/public/icones/egg-full-white.svg" alt="1 point de note">
+									<?php } else { ?>
+										<img class="w-2" src="/public/icones/egg-full.svg" alt="1 point de note">
+									<?php }
+								} else if ($n > 0) {
+									if ($option) { ?>
+											<img class="w-2" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
+									<?php } else { ?>
+											<img class="w-2" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+									<?php }
+								} else {
+									if ($option) { ?>
+											<img class="w-2" src="/public/icones/egg-half-white.svg" alt="0 point de note">
+									<?php } else { ?>
+											<img class="w-2" src="/public/icones/egg-empty.svg" alt="0 point de note">
+									<?php }
+								}
+								$n--;
+							}
+							?>
+						</div>
+						<?php
+					}
+					?>
+					<p class='prix text-sm'
+						title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'>
+						<?php echo $prix_a_afficher ?>
+					</p>
+				</div>
+			</div>
+		</div>
 
-
-
-
-        <!-- CARTE VERSION TABLETTE -->
-        <div class='md:block hidden relative bg-base100 '>
-          <div class="flex flex-row">
-            <!-- Partie gauche -->
-            <div class='gauche grow relative shrink-0 basis-1/2 h-[280px] overflow-hidden'>
-              <!-- Image de fond -->
-              <?php
-              require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
-              $controllerImage = new ImageController();
-              $images = $controllerImage->getImagesOfOffre($id_offre);
-              ?>
-              <img class=' w-full h-full object-cover object-center' src='/public/images/<?php if ($images['carte']) {
-                  echo "offres/" . $images['carte'];
-              } else {
-                  echo $categorie_offre . '.jpg';
-              } ?>' alt="Image promotionnelle de l'offre">
-            </div>
-            <!-- Partie droite (infos principales) -->
-            <div class='infos flex flex-col basis-1/2 p-3 justify-between relative'>
-              <!-- En tête avec titre -->
-              <div class='en-tete relative top-0 max-w-full '>
-                <div class="flex w-full">
-                  <h3 class='text-xl  grow'>
-                    <?php echo $titre_offre ?>
-                  </h3>
-                  <?php
-                  // Moyenne des notes quand il y en a une
-                  if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
-                      $n = $moyenne;
-                      ?>
-                        <div class="notes flex gap-1">
-                          <div class="note flex gap-1 shrink-0" title="<?php echo $moyenne; ?>">
-                            <?php for ($i = 0; $i < 5; $i++) {
-                                if ($n >= 1) {
-                                    if ($option) { ?>
-                                              <img class="w-3" src="/public/icones/egg-full-white.svg" alt="1 point de note">
-                                        <?php } else { ?>
-                                              <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
-                                        <?php }
-                                } else if ($n > 0) {
-                                    if ($option) { ?>
-                                                    <img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
-                                        <?php } else { ?>
-                                                    <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-                                        <?php }
-                                } else {
-                                    if ($option) { ?>
-                                                    <img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
-                                        <?php } else { ?>
-                                                    <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-                                        <?php }
-                                }
-                                $n--;
-                            }
-                            ?>
-                          </div>
-                          <p class='text-sm flex items-cente pt-1'>
-                            (<?php echo number_format($moyenne, 2, ',', '') ?>)
-                          </p>
-                        </div>
-                        <?php
-                  }
-                  ?>
-                </div>
-                <p class='categorie text-sm tablette'><?php echo chaineVersMot($categorie_offre); ?></p>
-                <p class='text-sm'><?php echo $pro['nom_pro'] ?></p>
-                <p class="text-sm <?php echo ($ouvert) ? "text-green-500" : "text-red-500"; ?> ">
-                  <?php echo ($ouvert) ? "Ouvert" : "Fermé"; ?>
-                </p>
-              </div>
+		<!-- CARTE VERSION TABLETTE -->
+		<div class='md:block hidden relative bg-base100 '>
+			<div class="flex flex-row">
+				<!-- Partie gauche -->
+				<div class='gauche grow relative shrink-0 basis-1/2 h-[280px] overflow-hidden'>
+					<!-- Image de fond -->
+					<?php
+					require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+					$controllerImage = new ImageController();
+					$images = $controllerImage->getImagesOfOffre($id_offre);
+					?>
+					<img class=' w-full h-full object-cover object-center' src='/public/images/<?php if ($images['carte']) {
+						echo "offres/" . $images['carte'];
+					} else {
+						echo $categorie_offre . '.jpg';
+					} ?>' alt="Image promotionnelle de l'offre">
+				</div>
+				<!-- Partie droite (infos principales) -->
+				<div class='infos flex flex-col basis-1/2 p-3 justify-between relative'>
+					<!-- En tête avec titre -->
+					<div class='en-tete relative top-0 max-w-full '>
+						<div class="flex w-full">
+							<h3 class='text-xl  grow'>
+								<?php echo $titre_offre ?>
+							</h3>
+							<?php
+							// Moyenne des notes quand il y en a une
+							if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
+								$n = $moyenne;
+								?>
+								<div class="notes flex gap-1">
+									<div class="note flex gap-1 shrink-0" title="<?php echo $moyenne; ?>">
+										<?php for ($i = 0; $i < 5; $i++) {
+											if ($n >= 1) {
+												if ($option) { ?>
+													<img class="w-3" src="/public/icones/egg-full-white.svg" alt="1 point de note">
+												<?php } else { ?>
+													<img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
+												<?php }
+											} else if ($n > 0) {
+												if ($option) { ?>
+														<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
+												<?php } else { ?>
+														<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+												<?php }
+											} else {
+												if ($option) { ?>
+														<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
+												<?php } else { ?>
+														<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
+												<?php }
+											}
+											$n--;
+										}
+										?>
+									</div>
+									<p class='text-sm hidden lg:flex lg:items-center lg:justify-center px-1.5 pt-1.5'>
+										<?php echo number_format($moyenne, 1, ',', '') ?>
+									</p>
+								</div>
+								<?php
+							}
+							?>
+						</div>
+						<p class='categorie text-sm tablette'><?php echo chaineVersMot($categorie_offre); ?></p>
+						<p class='text-sm'><?php echo $pro['nom_pro'] ?></p>
+						<p class="text-sm <?php echo ($ouvert) ? "text-green-500" : "text-red-500"; ?> ">
+							<?php echo ($ouvert) ? "Ouvert" : "Fermé"; ?>
+						</p>
+					</div>
 
               <!-- Description + tags -->
               <div class='description py-2 flex flex-col gap-2 self-stretch grow'>
@@ -319,39 +318,40 @@ if ($mode_carte == 'membre') {
                       $controllerTagOffre = new TagOffreController();
                       $tags_offre = $controllerTagOffre->getTagsByIdOffre($id_offre);
 
-                      require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
-                      $controllerTag = new TagController();
-                      $tagsAffiche = "";
-                      $tagsListe = [];
-                      foreach ($tags_offre as $tag) {
-                          array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
-                      }
-                      foreach ($tagsListe as $tag) {
-                          $tagsAffiche .= $tag['nom'] . ', ';
-                      }
-
-                      $tagsAffiche = rtrim($tagsAffiche, ', ');
-                      if ($tags_offre) {
-                          ?>
-                              <div class="tags p-1 bg-secondary self-center w-full">
-                                <?php
-                                echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-                                ?>
-                              </div>
-                              <?php
-                      } else {
-                          ?>
-                              <div class="tags p-1 bg-secondary self-center w-full">
-                                <?php
-                                echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-                                ?>
-                              </div>
-                              <?php
-                      }
-                  } else {
-                      require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
-                      $controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
-                      $tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
+								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_controller.php';
+								$controllerTag = new TagController();
+								$tagsAffiche = "";
+								$tagsListe = [];
+								if ($tags_offre) {
+									foreach ($tags_offre as $tag) {
+										array_push($tagsListe, $controllerTag->getInfosTag($tag['id_tag']));
+									}
+									foreach ($tagsListe as $tag) {
+										$tagsAffiche .= $tag['nom'] . ', ';
+									}
+								}
+								if ($tags_offre) {
+									$tagsAffiche = rtrim($tagsAffiche, ', ');
+									?>
+									<div class="tags p-1 bg-secondary self-center w-full">
+										<?php
+										echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+										?>
+									</div>
+									<?php
+								} else {
+									?>
+									<div class="tags p-1 bg-secondary self-center w-full">
+										<?php
+										echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+										?>
+									</div>
+									<?php
+								}
+							} else {
+								require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
+								$controllerTagRestRestauOffre = new tagRestaurantRestaurationController();
+								$tags_offre = $controllerTagRestRestauOffre->getTagsByIdOffre($id_offre);
 
                       require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_controller.php';
                       $controllerTagRest = new TagRestaurantController();
@@ -449,50 +449,50 @@ if ($mode_carte == 'membre') {
             <!-- A droite, en haut -->
             <div class="flex w-full items-center justify-between">
 
-              <!-- Titre de l'offre -->
-              <div>
-                <p class="text-2xl truncate"><?php echo $titre_offre ?></p>
-                <div class="flex">
-                  <p class="truncate"><?php echo $pro['nom_pro'] ?></p>
-                  <p class="categorie text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
-                </div>
-              </div>
-              <?php
-              // Moyenne des notes quand il y en a une
-              if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
-                  $n = $moyenne;
-                  ?>
-                    <div class="flex gap-1 self-end">
-                      <div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne; ?>">
-                        <?php for ($i = 0; $i < 5; $i++) {
-                            if ($n >= 1) {
-                                if ($option) { ?>
-                                          <img class="w-3" src="/public/icones/egg-full-white.svg" alt="1 point de note">
-                                    <?php } else { ?>
-                                          <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
-                                    <?php }
-                            } else if ($n > 0) {
-                                if ($option) { ?>
-                                                <img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
-                                    <?php } else { ?>
-                                                <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-                                    <?php }
-                            } else {
-                                if ($option) { ?>
-                                                <img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
-                                    <?php } else { ?>
-                                                <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-                                    <?php }
-                            }
-                            $n--;
-                        }
-                        ?>
-                      </div>
-                      <p class='text-sm flex items-center pt-1'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p>
-                    </div>
-                    <?php
-              }
-              ?>
+					<!-- Titre de l'offre -->
+					<div>
+						<p class="text-2xl truncate"><?php echo $titre_offre ?></p>
+						<div class="flex">
+							<p class="truncate"><?php echo $pro['nom_pro'] ?></p>
+							<p class="categorie text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
+						</div>
+					</div>
+					<?php
+					// Moyenne des notes quand il y en a une
+					if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
+						$n = $moyenne;
+						?>
+						<div class="flex gap-1 self-end">
+							<div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne; ?>">
+								<?php for ($i = 0; $i < 5; $i++) {
+									if ($n >= 1) {
+										if ($option) { ?>
+											<img class="w-3" src="/public/icones/egg-full-white.svg" alt="1 point de note">
+										<?php } else { ?>
+											<img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
+										<?php }
+									} else if ($n > 0) {
+										if ($option) { ?>
+												<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0.5 point de note">
+										<?php } else { ?>
+												<img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+										<?php }
+									} else {
+										if ($option) { ?>
+												<img class="w-3" src="/public/icones/egg-half-white.svg" alt="0 point de note">
+										<?php } else { ?>
+												<img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
+										<?php }
+									}
+									$n--;
+								}
+								?>
+							</div>
+							<p class='text-sm flex items-center pt-2'><?php echo number_format($moyenne, 1, ',', '') ?></p>
+						</div>
+						<?php
+					}
+					?>
 
               <!-- Manipulations sur l'offre -->
               <div class="flex gap-10 self-start items-center justify-center">
