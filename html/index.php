@@ -41,27 +41,27 @@ session_start();
     $stmt->execute();
     $aLaUnes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Récupérer toutes les moyennes en une seule requête
-    $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
-    $notesMoyennes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // // Récupérer toutes les moyennes en une seule requête
+    // $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
+    // $notesMoyennes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Associer les moyennes aux offres
-    $notesAssociees = [];
-    foreach ($notesMoyennes as $note) {
-        $notesAssociees[$note['id_offre']] = floatval($note['avg']);
-    }
+    // // Associer les moyennes aux offres
+    // $notesAssociees = [];
+    // foreach ($notesMoyennes as $note) {
+    //     $notesAssociees[$note['id_offre']] = floatval($note['avg']);
+    // }
 
-    // Créer un tableau temporaire enrichi
-    $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
-        $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
-        return $offre;
-    }, $toutesLesOffres);
+    // // Créer un tableau temporaire enrichi
+    // $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
+    //     $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
+    //     return $offre;
+    // }, $toutesLesOffres);
 
-    usort($offresAvecNotes, function ($a, $b) {
-        return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
-    });
+    // usort($offresAvecNotes, function ($a, $b) {
+    //     return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
+    // });
 
-    $meilleuresNotes = $offresAvecNotes;
+    // $meilleuresNotes = $offresAvecNotes;
     ?>
 
     <!-- Inclusion du header -->
@@ -165,7 +165,7 @@ session_start();
                 </div>
         <?php } ?>
 
-        <h1 class="text-3xl ">Nos meilleures offres</h1>
+        <!-- <h1 class="text-3xl ">Nos meilleures offres</h1>
 
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
@@ -220,7 +220,7 @@ session_start();
                         $iOffres++;
                     } ?>
                 </div>
-        <?php } ?>
+        <?php } ?> -->
     </main>
 
     <!-- FOOTER -->
@@ -288,7 +288,7 @@ session_start();
             selectMenu.addEventListener('change', handleSelectChange);
 
             // Gestion de l'affichage des offres "À la Une"
-            const offres = document.querySelectorAll('#no-matches-2 .card');
+            const offres = document.querySelectorAll('#no-matches .card');
             let anyVisible = false;
 
             offres?.forEach((offre) => {
@@ -300,9 +300,9 @@ session_start();
                 }
             });
 
-            const noMatchesContainer = document.querySelector('#no-matches-2');
+            const noMatchesContainer = document.querySelector('#no-matches');
             if (!noMatchesContainer) {
-                console.error('Le conteneur #no-matches-2 est introuvable.');
+                console.error('Le conteneur #no-matches est introuvable.');
                 return;
             }
 

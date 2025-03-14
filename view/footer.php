@@ -70,7 +70,7 @@ if (isConnectedAsPro()) {
 
         <footer class="bg-secondary text-white p-8 pb-16 md:pb-8 text-sm">
             <div class="mx-auto max-w-[1280px] flex flex-col justify-center items-center">
-                <div class="hidden md:flex w-full items-end justify-between">
+                <div class="hidden md:flex w-full items-center justify-between">
                     <a href="/" class="self-start flex items-center gap-2">
                         <img src="/public/icones/logo-footer.svg" alt="Logo alternatif de TripEnArvor : Moine macareux albinos">
                         <h1 class="font-cormorant text-white uppercase text-PACT">PACT</h1>
@@ -79,7 +79,7 @@ if (isConnectedAsPro()) {
                     <a href="/pro/connexion" class="hover:text-primary">Vous êtes un professionnel ?</a>
                 </div>
 
-                <div class="md:hidden w-full flex flex-col items-end justify-between">
+                <div class="md:hidden w-full flex flex-col items-center justify-between">
                     <a href="/" class="mx-auto self-start flex items-center gap-2">
                         <img src="/public/icones/logo-footer.svg" alt="Logo alternatif de TripEnArvor : Moine macareux albinos">
                         <h1 class="font-cormorant text-white uppercase text-PACT">PACT</h1>
