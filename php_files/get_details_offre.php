@@ -44,18 +44,11 @@ $date_mise_a_jour = $offre['date_mise_a_jour'];
 $titre_offre = $offre['titre'];
 
 
-if (isset($_SESSION['id_pro'])) {
-    if ($_SESSION['id_pro'] !== $id_pro) {
-        header('location: /pro/401');
-        exit();
-    }
-} else {
-    if (!$est_en_ligne) {
-        echo $id_offre;
-        echo $est_en_ligne;
-        header('location: /401');
-        exit();
-    }
+if (!$est_en_ligne) {
+    echo $id_offre;
+    echo $est_en_ligne;
+    header('location: /401');
+    exit();
 }
 
 
