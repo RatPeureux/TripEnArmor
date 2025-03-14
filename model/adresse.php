@@ -1,5 +1,4 @@
 <?php
-
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
 class Adresse extends BDD
@@ -38,13 +37,15 @@ class Adresse extends BDD
      * @param int $numero Le numéro de l'adresse.
      * @param string $odonyme L'odonyme (nom de la rue ou voie).
      * @param string|null $complement Le complément d'adresse (facultatif).
-     * @return array|int Retourne un tableau contenant l'identifiant de la nouvelle adresse ou -1 en cas d'erreur.
+     * @param string $lat La latitude.
+     * @param string $lng La longitude.
+     * @return int Retourne l'identifiant de la nouvelle adresse ou -1 en cas d'erreur.
      */
-    static function createAdresse($code_postal, $ville, $numero, $odonyme, $complement)
+    static function createAdresse($code_postal, $ville, $numero, $odonyme, $complement, $lat, $lng)
     {
         self::initBDD();
         // Requête SQL pour insérer une nouvelle adresse
-        $query = "INSERT INTO " . self::$nom_table . " (code_postal, ville, numero, odonyme, complement) VALUES (?, ?, ?, ?, ?) RETURNING id_adresse";
+        $query = "INSERT INTO " . self::$nom_table . " (code_postal, ville, numero, odonyme, complement, lat, lng) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id_adresse";
 
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -53,6 +54,8 @@ class Adresse extends BDD
         $statement->bindParam(3, $numero);
         $statement->bindParam(4, $odonyme);
         $statement->bindParam(5, $complement);
+        $statement->bindParam(6, $lat);
+        $statement->bindParam(7, $lng);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {
@@ -72,11 +75,11 @@ class Adresse extends BDD
      * @param string|null $complement Le nouveau complément d'adresse.
      * @return array|int Retourne un tableau contenant l'identifiant de l'adresse mise à jour ou -1 en cas d'erreur.
      */
-    static function updateAdresse($id_adresse, $code_postal, $ville, $numero, $odonyme, $complement)
+    static function updateAdresse($id_adresse, $code_postal, $ville, $numero, $odonyme, $complement, $lat, $lng)
     {
         self::initBDD();
         // Requête SQL pour mettre à jour une adresse existante
-        $query = "UPDATE " . self::$nom_table . " SET code_postal = ?, ville = ?, numero = ?, odonyme = ?, complement = ? WHERE id_adresse = ? RETURNING id_adresse";
+        $query = "UPDATE " . self::$nom_table . " SET code_postal = ?, ville = ?, numero = ?, odonyme = ?, complement = ?, lat = ?, lng = ? WHERE id_adresse = ? RETURNING id_adresse";
 
         // Prépare la requête SQL
         $statement = self::$db->prepare($query);
@@ -85,7 +88,9 @@ class Adresse extends BDD
         $statement->bindParam(3, $numero);
         $statement->bindParam(4, $odonyme);
         $statement->bindParam(5, $complement);
-        $statement->bindParam(6, $id_adresse);
+        $statement->bindParam(6, $lat);
+        $statement->bindParam(7, $lng);
+        $statement->bindParam(8, $id_adresse);
 
         // Exécute la requête et retourne les résultats ou une erreur
         if ($statement->execute()) {

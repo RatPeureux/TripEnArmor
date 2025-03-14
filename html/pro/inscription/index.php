@@ -231,8 +231,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
 
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-        <script
-            src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
         <script src="/scripts/autocomplete.js"></script>
         <script src="/scripts/formats.js" type="module"></script>
 
@@ -257,7 +255,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 onclick="document.getElementById('map-container').classList.add('hidden');">
             </div>
 
-            <div id="map" class="border border-black max-h-[500px] h-full max-w-[500px] w-full" id="map"></div>
+            <div id="map" class="border border-black max-h-[500px] h-full max-w-[500px] w-full"></div>
         </div>
 
         <!-- LEAFLET JS -->

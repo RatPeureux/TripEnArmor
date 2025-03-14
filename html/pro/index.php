@@ -212,7 +212,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
                     <input type="hidden" name="id_pro" value="<?php echo $_SESSION['id_pro']; ?>">
                     <button type="submit"
                         class="rounded-full bg-secondary text-white text-sm py-2 px-4 border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
-                        Tout supprimer
+                        Marquer comme lu
                     </button>
                 </form>
             </div>

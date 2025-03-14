@@ -1,5 +1,4 @@
 const provider = new GeoSearch.OpenStreetMapProvider();
-
 const map = L.map('map').setView([48.176197, -2.753931], 8);
 
 L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
@@ -57,6 +56,11 @@ map.on('geosearch/showlocation', function (event) {
           document.getElementById("user_input_autocomplete_address").value = `${numero} ${street}`;
           document.getElementById("postal_code").value = postalCode;
           document.getElementById("locality").value = city;
+
+          // Déclencher manuellement les événements 'input' ou 'change'
+          document.getElementById("user_input_autocomplete_address").dispatchEvent(new Event('input'));
+          document.getElementById("postal_code").dispatchEvent(new Event('input'));
+          document.getElementById("locality").dispatchEvent(new Event('input'));
         } else {
           console.error('Impossible de récupérer les informations d\'adresse.');
         }
@@ -72,15 +76,21 @@ map.on('geosearch/showlocation', function (event) {
 function showMap() {
   const mapElement = document.getElementById('map-container');
   mapElement.classList.remove('hidden');
+  if (!mapElement) {
+    console.log('Map container not found!');
+    return;
+  }
 
   // Fixer l'affichage de la map
-  map.invalidateSize();
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 200);
 }
 window.showMap = showMap;
 
 function reorderFocusOnSelectAddress(input, refocus) {
-  input.addEventListener("focus", function() {
-    if(input.value == "") {
+  input.addEventListener("focus", function () {
+    if (input.value == "") {
       input.blur();
       refocus.click();
     }
@@ -89,4 +99,3 @@ function reorderFocusOnSelectAddress(input, refocus) {
 reorderFocusOnSelectAddress(document.getElementById('user_input_autocomplete_address'), document.getElementById('select-on-map'));
 reorderFocusOnSelectAddress(document.getElementById('locality'), document.getElementById('select-on-map'));
 reorderFocusOnSelectAddress(document.getElementById('postal_code'), document.getElementById('select-on-map'));
-
