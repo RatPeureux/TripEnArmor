@@ -1,41 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <title>Comparaison des clusters</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
-    <!-- Make sure you put the js AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-    <title>Test Carte Interactive</title>
+    <style>
+        #map { height: 600px; }
+    </style>
 </head>
-
 <body>
-    <div id="map" style="width: 600px; height: 400px; position: relative;"></div>
-    <script>
-        var map = L.map('map').setView([48.202, -2.932], 8);
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    <button onclick="switchClusters('global')">Activer Cluster Global</button>
+    <button onclick="switchClusters('ville')">Activer Cluster par Ville</button>
+    
+    <div id="map"></div>
+
+    <script>
+        // Initialiser la carte centrée sur la Bretagne
+        var map = L.map('map').setView([48.1, -2.5], 7);
+
+        // Ajouter une couche OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        var restaurantIcon = L.icon({
-            iconUrl: "/public/icones/restaurant.png",
-        })
-
-        var markerRestaurant = L.marker([48.734, -3.457], { icon: restaurantIcon, riseOnHover: true }).addTo(map).bindPopup("Restaurant");
-        var markerActivite = L.marker([48.734, -3.458], riseOnHover = true).addTo(map).bindPopup("Activite");
-
-        var clustersParVille = {};
-
-        // Exemple de villes avec leurs coordonnées
+        // Villes en Bretagne avec leurs coordonnées
         var villes = {
             "Rennes": [48.1173, -1.6778],
             "Brest": [48.3904, -4.4861],
@@ -43,32 +37,61 @@
             "Vannes": [47.6582, -2.7608]
         };
 
-        // Initialiser un cluster par ville
+        // Création des clusters
+        var clusterGlobal = L.markerClusterGroup();
+        var clustersParVille = {};
+
         Object.keys(villes).forEach(ville => {
             clustersParVille[ville] = L.markerClusterGroup();
         });
 
-        // Exemple de points avec attribution à la ville correspondante
-        var locations = [
-            { lat: 48.120, lng: -1.680, ville: "Rennes" },
-            { lat: 48.118, lng: -1.675, ville: "Rennes" },
-            { lat: 48.392, lng: -4.485, ville: "Brest" },
-            { lat: 48.002, lng: -4.098, ville: "Quimper" },
-            { lat: 47.660, lng: -2.758, ville: "Vannes" }
-        ];
+        // Générer des points aléatoires autour des villes
+        function generateRandomPoints(baseLat, baseLng, count) {
+            let points = [];
+            for (let i = 0; i < count; i++) {
+                let latOffset = (Math.random() - 0.5) * 0.1; // Variation légère en latitude
+                let lngOffset = (Math.random() - 0.5) * 0.1; // Variation légère en longitude
+                points.push([baseLat + latOffset, baseLng + lngOffset]);
+            }
+            return points;
+        }
 
-        // Ajouter les marqueurs aux clusters correspondants
-        locations.forEach(function (loc) {
-            var marker = L.marker([loc.lat, loc.lng]);
-            clustersParVille[loc.ville].addLayer(marker);
+        // Ajouter des marqueurs
+        Object.keys(villes).forEach(ville => {
+            let points = generateRandomPoints(villes[ville][0], villes[ville][1], 100); // 100 points par ville
+            points.forEach(coords => {
+                let marker = L.marker(coords);
+
+                // Ajouter au cluster global
+                clusterGlobal.addLayer(marker);
+
+                // Ajouter au cluster spécifique à la ville
+                clustersParVille[ville].addLayer(marker);
+            });
         });
 
-        // Ajouter les clusters à la carte
-        Object.values(clustersParVille).forEach(cluster => {
-            map.addLayer(cluster);
-        });
+        // Fonction pour changer de type de cluster
+        function switchClusters(type) {
+            // Supprimer tous les clusters de la carte
+            map.eachLayer(layer => {
+                if (layer instanceof L.MarkerClusterGroup) {
+                    map.removeLayer(layer);
+                }
+            });
+
+            if (type === 'global') {
+                map.addLayer(clusterGlobal);
+            } else if (type === 'ville') {
+                Object.values(clustersParVille).forEach(cluster => {
+                    map.addLayer(cluster);
+                });
+            }
+        }
+
+        // Activer le cluster global par défaut
+        switchClusters('global');
 
     </script>
-</body>
 
+</body>
 </html>
