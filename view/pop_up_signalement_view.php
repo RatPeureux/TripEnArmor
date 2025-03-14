@@ -5,8 +5,7 @@
     <!-- MOTIF -->
     <label for="motif-<?php echo $id_avis ?>" class="text-lg">Motif</label>
     <select required name="motif-<?php echo $id_avis ?>" id="motif-<?php echo $id_avis ?>"
-        class="mb-5 border border-black text-lg bg-transparent text-center"
-       >
+        class="mb-5 border border-black text-lg bg-transparent text-center">
         <option value="" selected disabled>-- Motif --</option>
         <option value="desinformation">Désinformation</option>
         <option value="discrimination">Discrimination</option>
@@ -18,7 +17,6 @@
     <!-- COMMENTAIRE (optionnel) -->
     <label for="commentaire-signalement-<?php echo $id_avis ?>" class="text-lg">Commentaire</label>
     <textarea name="commentaire-signalement-<?php echo $id_avis ?>" id="commentaire-signalement-<?php echo $id_avis ?>"
-       
         class="mb-5 w-[400px] h-[150px] border border-black"></textarea>
 
     <!-- Bouton de signalement -->

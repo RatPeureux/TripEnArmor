@@ -33,27 +33,27 @@ unset($_SESSION['data_en_cours_inscription']);
 <body class="min-h-screen flex flex-col">
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="grow md:w-full m-auto flex max-w-[1280px] p-2">
         <!-- Inclusion du menu -->
         <div id="menu">
             <?php
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
             ?>
         </div>
 
         <div class="m-auto text-center">
             <h1 class="font-cormorant text-[10rem]">401</h1>
             <p>Vous ne pouvez pas accéder à cette page.</p>
-            <img src="/public/images/401.gif" class="mt-10 mb-28  m-auto" alt="tottereau" width="250">
+            <img src="/public/images/401.gif" class="mt-10 mb-28  m-auto" alt="Totoro : Tottereau" width="250">
         </div>
     </main>
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 

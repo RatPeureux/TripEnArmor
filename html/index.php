@@ -69,7 +69,7 @@ session_start();
         <div class="flex items-center justify-between md:gap-4">
             <!-- Logo -->
             <a href="/" class="flex items-center gap-2">
-                <img src="/public/icones/logo.svg" alt="Logo" width="50">
+                <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="50">
             </a>
         </div>
 
@@ -85,57 +85,58 @@ session_start();
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsMember()) { ?>
-                <!-- Si connecté -->
-                <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
-                    onclick="return confirmLogout()">
-                    <div class="text-black border border-secondary px-4 py-2 rounded-full">
-                        <p>Se déconnecter</p>
-                    </div>
-                </a>
-                <a href="/compte">
-                    <i class="text-3xl fa-regular fa-user"></i>
-                </a>
+                    <!-- Si connecté -->
+                    <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
+                        onclick="return confirmLogout()">
+                        <div class="text-black border border-secondary px-4 py-2 rounded-full">
+                            <p>Se déconnecter</p>
+                        </div>
+                    </a>
+                    <a href="/compte">
+                        <i class="text-3xl fa-regular fa-user"></i>
+                    </a>
             <?php } else { ?>
-                <!-- Si non connecté -->
-                <a href="/connexion" class="md:hidden">
-                    <i class="text-3xl fa-regular fa-user"></i>
-                </a>
-                <a href="/connexion" class="hidden md:block">
-                    <div
-                        class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
-                        <p>Se connecter</p>
-                    </div>
-                </a>
+                    <!-- Si non connecté -->
+                    <a href="/connexion" class="md:hidden">
+                        <i class="text-3xl fa-regular fa-user"></i>
+                    </a>
+                    <a href="/connexion" class="hidden md:block">
+                        <div
+                            class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
+                            <p>Se connecter</p>
+                        </div>
+                    </a>
             <?php } ?>
         </div>
     </header>
 
     <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
         <div class="w-full flex justify-center gap-10 text-center">
-            <img src="public/images/plumeGN.png" alt=""
+            <img src="public/images/plumeGN.png" alt="Plume du moine macareux"
                 class="h-full hidden md:flex max-h-[170px] space-x-2 pb-1 -rotate-[20deg]">
             <a href="/"
                 class="font-cormorant uppercase text-center text-[20vw] md:text-[10rem] tracking-widest text-7xl ml-8 mb-4">PACT</a>
-            <img src="public/images/plumeDN.png" alt="" class="h-full max-h-[170px] hidden md:flex pb-1 rotate-[20deg]">
+            <img src="public/images/plumeDN.png" alt="Plume du moine macareux"
+                class="h-full max-h-[170px] hidden md:flex pb-1 rotate-[20deg]">
         </div>
 
         <div class="searchOn hidden md:flex justify-between text-center items-center mb-2">
-            <h1 class="cursor-pointer text-xl border-b border-secondary hover:text-secondary" id="all">
+            <h1 class="cursor-pointer text-xl border-b border-secondary hover:text-secondary" id="all" tabindex="0">
                 Tout rechercher
             </h1>
-            <h1 class="cursor-pointer text-xl hover:text-secondary" id="restaurants">
+            <h1 class="cursor-pointer text-xl hover:text-secondary" id="restaurants" tabindex="0">
                 Restaurants
             </h1>
-            <h1 class="cursor-pointer text-xl hover:text-secondary" id="spectacles">
+            <h1 class="cursor-pointer text-xl hover:text-secondary" id="spectacles" tabindex="0">
                 Spectacles
             </h1>
-            <h1 class="cursor-pointer text-xl hover:text-secondary" id="activites">
+            <h1 class="cursor-pointer text-xl hover:text-secondary" id="activites" tabindex="0">
                 Activités
             </h1>
-            <h1 class="cursor-pointer text-xl hover:text-secondary" id="visites">
+            <h1 class="cursor-pointer text-xl hover:text-secondary" id="visites" tabindex="0">
                 Visites
             </h1>
-            <h1 class="cursor-pointer text-xl hover:text-secondary" id="attractions">
+            <h1 class="cursor-pointer text-xl hover:text-secondary" id="attractions" tabindex="0">
                 Attractions
             </h1>
         </div>
@@ -181,19 +182,19 @@ session_start();
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$aLaUnes) { ?>
-            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
-                <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
-            </div>
+                <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
+                    <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
+                </div>
         <?php } else { ?>
-            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
-                <?php $i = 0;
-                foreach ($aLaUnes as $offre) {
-                    if ($i > -1) {
-                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
-                        $i++;
-                    }
-                } ?>
-            </div>
+                <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
+                    <?php $i = 0;
+                    foreach ($aLaUnes as $offre) {
+                        if ($i > -1) {
+                            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
+                            $i++;
+                        }
+                    } ?>
+                </div>
         <?php } ?>
 
         <h1 class="text-3xl ">Nos meilleures offres</h1>
@@ -201,160 +202,160 @@ session_start();
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$meilleuresNotes) { ?>
-            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-12">
-                <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
-            </div>
+                <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-12">
+                    <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
+                </div>
         <?php } else { ?>
-            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-12" id="no-matches">
-                <?php
-                $categoriesOrdre = [
-                    'restauration' => null,
-                    'spectacle' => null,
-                    'activite' => null,
-                    'visite' => null,
-                    'parc_attraction' => null,
-                ];
+                <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-12" id="no-matches">
+                    <?php
+                    $categoriesOrdre = [
+                        'restauration' => null,
+                        'spectacle' => null,
+                        'activite' => null,
+                        'visite' => null,
+                        'parc_attraction' => null,
+                    ];
 
-                // Parcourir les offres
-                foreach ($meilleuresNotes as $offre) {
+                    // Parcourir les offres
+                    foreach ($meilleuresNotes as $offre) {
 
-                    $stmt = $dbh->prepare("SELECT count FROM sae_db.vue_moyenne WHERE id_offre = :id_offre");
-                    $stmt->bindParam(':id_offre', $offre['id_offre']);
-                    $stmt->execute();
-                    $moyenne = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                    if ($moyenne) {
-                        $stmt = $dbh->prepare("SELECT type_offre FROM sae_db.vue_offre_categorie WHERE id_offre = :id_offre");
+                        $stmt = $dbh->prepare("SELECT count FROM sae_db.vue_moyenne WHERE id_offre = :id_offre");
                         $stmt->bindParam(':id_offre', $offre['id_offre']);
                         $stmt->execute();
-                        $categorie = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $moyenne = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                        if ($categorie && isset($categorie['type_offre'])) {
-                            $typeOffre = $categorie['type_offre'];
+                        if ($moyenne) {
+                            $stmt = $dbh->prepare("SELECT type_offre FROM sae_db.vue_offre_categorie WHERE id_offre = :id_offre");
+                            $stmt->bindParam(':id_offre', $offre['id_offre']);
+                            $stmt->execute();
+                            $categorie = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                            // Ajouter l'offre dans la catégorie correspondante si elle n'est pas encore définie
-                            if (array_key_exists($typeOffre, $categoriesOrdre) && $categoriesOrdre[$typeOffre] === null) {
-                                $categoriesOrdre[$typeOffre] = $offre;
+                            if ($categorie && isset($categorie['type_offre'])) {
+                                $typeOffre = $categorie['type_offre'];
+
+                                // Ajouter l'offre dans la catégorie correspondante si elle n'est pas encore définie
+                                if (array_key_exists($typeOffre, $categoriesOrdre) && $categoriesOrdre[$typeOffre] === null) {
+                                    $categoriesOrdre[$typeOffre] = $offre;
+                                }
                             }
                         }
                     }
-                }
 
-                // Reconstituer $temp dans l'ordre des catégories
-                $meilleuresNotes = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-            
-                $iOffres = 0;
-                foreach ($meilleuresNotes as $offre) {
-                    if ($iOffres < 5) {
-                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
-                    }
-                    $iOffres++;
-                } ?>
-            </div>
+                    // Reconstituer $temp dans l'ordre des catégories
+                    $meilleuresNotes = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
+                
+                    $iOffres = 0;
+                    foreach ($meilleuresNotes as $offre) {
+                        if ($iOffres < 5) {
+                            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
+                        }
+                        $iOffres++;
+                    } ?>
+                </div>
         <?php } ?>
     </main>
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Sélectionne les éléments nécessaires
-        const titres = document.querySelectorAll('.searchOn h1');
-        const searchField = document.getElementById('search-field');
-        const selectMenu = document.getElementById('search-category');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sélectionne les éléments nécessaires
+            const titres = document.querySelectorAll('.searchOn h1');
+            const searchField = document.getElementById('search-field');
+            const selectMenu = document.getElementById('search-category');
 
-        // Placeholder correspondant à chaque catégorie
-        const placeholders = {
-            all: "Rechercher par tags...",
-            restaurants: "Rechercher des restaurants par tags...",
-            spectacles: "Rechercher des spectacles par tags...",
-            activites: "Rechercher des activités par tags...",
-            visites: "Rechercher des visites par tags...",
-            attractions: "Rechercher des parcs d'attractions par tags..."
-        };
+            // Placeholder correspondant à chaque catégorie
+            const placeholders = {
+                all: "Rechercher par tags...",
+                restaurants: "Rechercher des restaurants par tags...",
+                spectacles: "Rechercher des spectacles par tags...",
+                activites: "Rechercher des activités par tags...",
+                visites: "Rechercher des visites par tags...",
+                attractions: "Rechercher des parcs d'attractions par tags..."
+            };
 
-        // Fonction pour gérer le clic sur les h1
-        const handleH1Click = (titre) => {
-            const id = titre.id;
+            // Fonction pour gérer le clic sur les h1
+            const handleH1Click = (titre) => {
+                const id = titre.id;
 
-            // Retire la classe de soulignement de tous les h1
-            titres.forEach(t => t.classList.remove('border-b', 'border-secondary'));
+                // Retire la classe de soulignement de tous les h1
+                titres.forEach(t => t.classList.remove('border-b', 'border-secondary'));
 
-            // Ajoute la classe de soulignement au h1 cliqué
-            titre.classList.add('border-b', 'border-secondary');
+                // Ajoute la classe de soulignement au h1 cliqué
+                titre.classList.add('border-b', 'border-secondary');
 
-            // Met à jour le placeholder
-            searchField.placeholder = placeholders[id] || "Rechercher...";
+                // Met à jour le placeholder
+                searchField.placeholder = placeholders[id] || "Rechercher...";
 
-            // Met à jour la valeur du select pour qu'elle corresponde
-            selectMenu.value = id;
-        };
+                // Met à jour la valeur du select pour qu'elle corresponde
+                selectMenu.value = id;
+            };
 
-        // Fonction pour gérer le changement du select
-        const handleSelectChange = () => {
-            const selectedValue = selectMenu.value;
+            // Fonction pour gérer le changement du select
+            const handleSelectChange = () => {
+                const selectedValue = selectMenu.value;
 
-            // Met à jour le placeholder
-            searchField.placeholder = placeholders[selectedValue] || "Rechercher...";
+                // Met à jour le placeholder
+                searchField.placeholder = placeholders[selectedValue] || "Rechercher...";
 
-            // Met à jour le style des h1 pour refléter la sélection
-            titres.forEach(t => {
-                if (t.id === selectedValue) {
-                    t.classList.add('border-b', 'border-secondary');
+                // Met à jour le style des h1 pour refléter la sélection
+                titres.forEach(t => {
+                    if (t.id === selectedValue) {
+                        t.classList.add('border-b', 'border-secondary');
+                    } else {
+                        t.classList.remove('border-b', 'border-secondary');
+                    }
+                });
+            };
+
+            // Ajoute les écouteurs sur les h1
+            titres.forEach(titre => {
+                titre.addEventListener('click', () => handleH1Click(titre));
+            });
+
+            // Ajoute un écouteur sur le select
+            selectMenu.addEventListener('change', handleSelectChange);
+
+            // Gestion de l'affichage des offres "À la Une"
+            const offres = document.querySelectorAll('#no-matches-2 .card');
+            let anyVisible = false;
+
+            offres?.forEach((offre) => {
+                if (offre.classList.contains('active')) {
+                    anyVisible = true;
+                    offre.classList.remove('hidden');
                 } else {
-                    t.classList.remove('border-b', 'border-secondary');
+                    offre.classList.add('hidden');
                 }
             });
-        };
 
-        // Ajoute les écouteurs sur les h1
-        titres.forEach(titre => {
-            titre.addEventListener('click', () => handleH1Click(titre));
-        });
+            const noMatchesContainer = document.querySelector('#no-matches-2');
+            if (!noMatchesContainer) {
+                console.error('Le conteneur #no-matches-2 est introuvable.');
+                return;
+            }
 
-        // Ajoute un écouteur sur le select
-        selectMenu.addEventListener('change', handleSelectChange);
-
-        // Gestion de l'affichage des offres "À la Une"
-        const offres = document.querySelectorAll('#no-matches-2 .card');
-        let anyVisible = false;
-
-        offres?.forEach((offre) => {
-            if (offre.classList.contains('active')) {
-                anyVisible = true;
-                offre.classList.remove('hidden');
+            const noMatchesMessage = document.getElementById('no-matches-message');
+            if (!anyVisible) {
+                if (!noMatchesMessage) {
+                    const messageContainer = document.createElement('div');
+                    messageContainer.classList.add('w-full', 'h-full', 'h-full');
+                    const message = document.createElement('div');
+                    message.id = 'no-matches-message';
+                    const content = document.createElement('p');
+                    content.textContent = 'Aucune offre n\'est "À la Une".';
+                    message.classList.add('flex', 'justify-center', 'items-center', 'text-2xl', 'h-[27rem]');
+                    message.appendChild(content);
+                    messageContainer.appendChild(message);
+                    noMatchesContainer.appendChild(messageContainer);
+                }
             } else {
-                offre.classList.add('hidden');
+                noMatchesMessage?.remove();
             }
         });
-
-        const noMatchesContainer = document.querySelector('#no-matches-2');
-        if (!noMatchesContainer) {
-            console.error('Le conteneur #no-matches-2 est introuvable.');
-            return;
-        }
-
-        const noMatchesMessage = document.getElementById('no-matches-message');
-        if (!anyVisible) {
-            if (!noMatchesMessage) {
-                const messageContainer = document.createElement('div');
-                messageContainer.classList.add('w-full', 'h-full', 'h-full');
-                const message = document.createElement('div');
-                message.id = 'no-matches-message';
-                const content = document.createElement('p');
-                content.textContent = 'Aucune offre n\'est "À la Une".';
-                message.classList.add('flex', 'justify-center', 'items-center', 'text-2xl', 'h-[27rem]');
-                message.appendChild(content);
-                messageContainer.appendChild(message);
-                noMatchesContainer.appendChild(messageContainer);
-            }
-        } else {
-            noMatchesMessage?.remove();
-        }
-    });
     </script>
 
 </body>

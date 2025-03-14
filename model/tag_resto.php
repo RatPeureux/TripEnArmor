@@ -1,13 +1,15 @@
-<?php 
+<?php
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/model/bdd.php";
 
-class TagResto extends BDD {
+class TagResto extends BDD
+{
     static private $nom_table = "sae_db.vue_offre_tag";
 
-    static function getTagRestoById($id) { 
+    static function getTagRestoById($id)
+    {
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE id_offre = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_offre = ?";
+
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $id);
 
@@ -19,10 +21,11 @@ class TagResto extends BDD {
         }
     }
 
-    static function getTagsRestoByName($name) {
+    static function getTagsRestoByName($name)
+    {
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table ." WHERE nom = ?";
-        
+        $query = "SELECT * FROM " . self::$nom_table . " WHERE nom = ?";
+
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $name);
 
@@ -34,10 +37,11 @@ class TagResto extends BDD {
         }
     }
 
-    static function createTagResto($nom) {
+    static function createTagResto($nom)
+    {
         self::initBDD();
         $query = "INSERT INTO " . self::$nom_table . " (nom) VALUES (?) RETURNING id_tag_resto";
-        
+
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $nom);
 
@@ -49,10 +53,11 @@ class TagResto extends BDD {
         }
     }
 
-    static function updateTagResto($nom) {
+    static function updateTagResto($nom)
+    {
         self::initBDD();
-        $query = "UPDATE " . self::$nom_table ." SET nom = ? RETURNING id_tag_resto";
-        
+        $query = "UPDATE " . self::$nom_table . " SET nom = ? RETURNING id_tag_resto";
+
         $stmt = self::$db->prepare($query);
         $stmt->bindParam(1, $nom);
 

@@ -86,7 +86,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
@@ -104,7 +104,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
             <form action="/pro/compte/profil/" class="flex flex-col" method="post">
                 <label class="text-xl"
                     for="nom"><?php if ($pro['data']['type'] == 'prive') { ?>Dénomination<?php } else { ?>Nom
-                                de l'organisation<?php } ?></label>
+                                            de l'organisation<?php } ?></label>
                 <input value="<?php echo $pro['nom_pro'] ?>"
                     class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 " type="text" id="nom"
                     name="nom">
@@ -168,7 +168,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
     <script>
         const initialValues = {

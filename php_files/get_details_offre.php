@@ -1,5 +1,4 @@
 <?php
-
 // Obtenir le nom du pro
 $id_pro = $offre['id_pro'];
 

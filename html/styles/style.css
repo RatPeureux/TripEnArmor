@@ -778,16 +778,16 @@ video {
   margin: 0.25rem;
 }
 
+.m-2 {
+  margin: 0.5rem;
+}
+
 .m-4 {
   margin: 1rem;
 }
 
 .m-auto {
   margin: auto;
-}
-
-.m-2 {
-  margin: 0.5rem;
 }
 
 .mx-10 {
@@ -803,6 +803,11 @@ video {
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
 }
 
 .mx-auto {
@@ -828,6 +833,10 @@ video {
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
+}
+
+.\!mt-10 {
+  margin-top: 2.5rem !important;
 }
 
 .mb-0 {
@@ -926,16 +935,12 @@ video {
   margin-top: 1rem;
 }
 
-.mt-5 {
-  margin-top: 1.25rem;
-}
-
 .mt-6 {
   margin-top: 1.5rem;
 }
 
-.mb-16 {
-  margin-bottom: 4rem;
+.ml-5 {
+  margin-left: 1.25rem;
 }
 
 .line-clamp-1 {
@@ -1030,8 +1035,8 @@ video {
   height: 280px;
 }
 
-.h-\[370px\] {
-  height: 370px;
+.h-\[400px\] {
+  height: 400px;
 }
 
 .h-\[80\.5vh\] {
@@ -1191,14 +1196,6 @@ video {
   min-width: 13rem;
 }
 
-.min-w-\[30em\] {
-  min-width: 30em;
-}
-
-.min-w-\[30em\] {
-  min-width: 30em;
-}
-
 .min-w-\[450px\] {
   min-width: 450px;
 }
@@ -1274,10 +1271,6 @@ video {
 
 .max-w-sm {
   max-width: 24rem;
-}
-
-.max-w-\[30em\] {
-  max-width: 30em;
 }
 
 .flex-1 {
@@ -1631,6 +1624,11 @@ video {
   border-width: 2px;
 }
 
+.border-y {
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1725,9 +1723,276 @@ video {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
 }
 
+.bg-blue-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
+}
+
+.bg-blue-100\/0 {
+  background-color: rgb(219 234 254 / 0);
+}
+
+.bg-blue-100\/10 {
+  background-color: rgb(219 234 254 / 0.1);
+}
+
+.bg-blue-100\/100 {
+  background-color: rgb(219 234 254 / 1);
+}
+
+.bg-blue-100\/15 {
+  background-color: rgb(219 234 254 / 0.15);
+}
+
+.bg-blue-100\/20 {
+  background-color: rgb(219 234 254 / 0.2);
+}
+
+.bg-blue-100\/25 {
+  background-color: rgb(219 234 254 / 0.25);
+}
+
+.bg-blue-100\/30 {
+  background-color: rgb(219 234 254 / 0.3);
+}
+
+.bg-blue-100\/35 {
+  background-color: rgb(219 234 254 / 0.35);
+}
+
+.bg-blue-100\/40 {
+  background-color: rgb(219 234 254 / 0.4);
+}
+
+.bg-blue-100\/45 {
+  background-color: rgb(219 234 254 / 0.45);
+}
+
+.bg-blue-100\/5 {
+  background-color: rgb(219 234 254 / 0.05);
+}
+
+.bg-blue-100\/50 {
+  background-color: rgb(219 234 254 / 0.5);
+}
+
+.bg-blue-100\/55 {
+  background-color: rgb(219 234 254 / 0.55);
+}
+
+.bg-blue-100\/60 {
+  background-color: rgb(219 234 254 / 0.6);
+}
+
+.bg-blue-100\/65 {
+  background-color: rgb(219 234 254 / 0.65);
+}
+
+.bg-blue-100\/70 {
+  background-color: rgb(219 234 254 / 0.7);
+}
+
+.bg-blue-100\/75 {
+  background-color: rgb(219 234 254 / 0.75);
+}
+
+.bg-blue-100\/80 {
+  background-color: rgb(219 234 254 / 0.8);
+}
+
+.bg-blue-100\/85 {
+  background-color: rgb(219 234 254 / 0.85);
+}
+
+.bg-blue-100\/90 {
+  background-color: rgb(219 234 254 / 0.9);
+}
+
+.bg-blue-100\/95 {
+  background-color: rgb(219 234 254 / 0.95);
+}
+
 .bg-blue-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(191 219 254 / var(--tw-bg-opacity, 1));
+}
+
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+}
+
+.bg-blue-500\/0 {
+  background-color: rgb(59 130 246 / 0);
+}
+
+.bg-blue-500\/10 {
+  background-color: rgb(59 130 246 / 0.1);
+}
+
+.bg-blue-500\/100 {
+  background-color: rgb(59 130 246 / 1);
+}
+
+.bg-blue-500\/15 {
+  background-color: rgb(59 130 246 / 0.15);
+}
+
+.bg-blue-500\/20 {
+  background-color: rgb(59 130 246 / 0.2);
+}
+
+.bg-blue-500\/25 {
+  background-color: rgb(59 130 246 / 0.25);
+}
+
+.bg-blue-500\/30 {
+  background-color: rgb(59 130 246 / 0.3);
+}
+
+.bg-blue-500\/35 {
+  background-color: rgb(59 130 246 / 0.35);
+}
+
+.bg-blue-500\/40 {
+  background-color: rgb(59 130 246 / 0.4);
+}
+
+.bg-blue-500\/45 {
+  background-color: rgb(59 130 246 / 0.45);
+}
+
+.bg-blue-500\/5 {
+  background-color: rgb(59 130 246 / 0.05);
+}
+
+.bg-blue-500\/50 {
+  background-color: rgb(59 130 246 / 0.5);
+}
+
+.bg-blue-500\/55 {
+  background-color: rgb(59 130 246 / 0.55);
+}
+
+.bg-blue-500\/60 {
+  background-color: rgb(59 130 246 / 0.6);
+}
+
+.bg-blue-500\/65 {
+  background-color: rgb(59 130 246 / 0.65);
+}
+
+.bg-blue-500\/70 {
+  background-color: rgb(59 130 246 / 0.7);
+}
+
+.bg-blue-500\/75 {
+  background-color: rgb(59 130 246 / 0.75);
+}
+
+.bg-blue-500\/80 {
+  background-color: rgb(59 130 246 / 0.8);
+}
+
+.bg-blue-500\/85 {
+  background-color: rgb(59 130 246 / 0.85);
+}
+
+.bg-blue-500\/90 {
+  background-color: rgb(59 130 246 / 0.9);
+}
+
+.bg-blue-500\/95 {
+  background-color: rgb(59 130 246 / 0.95);
+}
+
+.bg-blue-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));
+}
+
+.bg-blue-700\/0 {
+  background-color: rgb(29 78 216 / 0);
+}
+
+.bg-blue-700\/10 {
+  background-color: rgb(29 78 216 / 0.1);
+}
+
+.bg-blue-700\/100 {
+  background-color: rgb(29 78 216 / 1);
+}
+
+.bg-blue-700\/15 {
+  background-color: rgb(29 78 216 / 0.15);
+}
+
+.bg-blue-700\/20 {
+  background-color: rgb(29 78 216 / 0.2);
+}
+
+.bg-blue-700\/25 {
+  background-color: rgb(29 78 216 / 0.25);
+}
+
+.bg-blue-700\/30 {
+  background-color: rgb(29 78 216 / 0.3);
+}
+
+.bg-blue-700\/35 {
+  background-color: rgb(29 78 216 / 0.35);
+}
+
+.bg-blue-700\/40 {
+  background-color: rgb(29 78 216 / 0.4);
+}
+
+.bg-blue-700\/45 {
+  background-color: rgb(29 78 216 / 0.45);
+}
+
+.bg-blue-700\/5 {
+  background-color: rgb(29 78 216 / 0.05);
+}
+
+.bg-blue-700\/50 {
+  background-color: rgb(29 78 216 / 0.5);
+}
+
+.bg-blue-700\/55 {
+  background-color: rgb(29 78 216 / 0.55);
+}
+
+.bg-blue-700\/60 {
+  background-color: rgb(29 78 216 / 0.6);
+}
+
+.bg-blue-700\/65 {
+  background-color: rgb(29 78 216 / 0.65);
+}
+
+.bg-blue-700\/70 {
+  background-color: rgb(29 78 216 / 0.7);
+}
+
+.bg-blue-700\/75 {
+  background-color: rgb(29 78 216 / 0.75);
+}
+
+.bg-blue-700\/80 {
+  background-color: rgb(29 78 216 / 0.8);
+}
+
+.bg-blue-700\/85 {
+  background-color: rgb(29 78 216 / 0.85);
+}
+
+.bg-blue-700\/90 {
+  background-color: rgb(29 78 216 / 0.9);
+}
+
+.bg-blue-700\/95 {
+  background-color: rgb(29 78 216 / 0.95);
 }
 
 .bg-blur\/25 {
@@ -1747,9 +2012,810 @@ video {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
 }
 
+.bg-green-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
+}
+
+.bg-green-100\/0 {
+  background-color: rgb(220 252 231 / 0);
+}
+
+.bg-green-100\/10 {
+  background-color: rgb(220 252 231 / 0.1);
+}
+
+.bg-green-100\/100 {
+  background-color: rgb(220 252 231 / 1);
+}
+
+.bg-green-100\/15 {
+  background-color: rgb(220 252 231 / 0.15);
+}
+
+.bg-green-100\/20 {
+  background-color: rgb(220 252 231 / 0.2);
+}
+
+.bg-green-100\/25 {
+  background-color: rgb(220 252 231 / 0.25);
+}
+
+.bg-green-100\/30 {
+  background-color: rgb(220 252 231 / 0.3);
+}
+
+.bg-green-100\/35 {
+  background-color: rgb(220 252 231 / 0.35);
+}
+
+.bg-green-100\/40 {
+  background-color: rgb(220 252 231 / 0.4);
+}
+
+.bg-green-100\/45 {
+  background-color: rgb(220 252 231 / 0.45);
+}
+
+.bg-green-100\/5 {
+  background-color: rgb(220 252 231 / 0.05);
+}
+
+.bg-green-100\/50 {
+  background-color: rgb(220 252 231 / 0.5);
+}
+
+.bg-green-100\/55 {
+  background-color: rgb(220 252 231 / 0.55);
+}
+
+.bg-green-100\/60 {
+  background-color: rgb(220 252 231 / 0.6);
+}
+
+.bg-green-100\/65 {
+  background-color: rgb(220 252 231 / 0.65);
+}
+
+.bg-green-100\/70 {
+  background-color: rgb(220 252 231 / 0.7);
+}
+
+.bg-green-100\/75 {
+  background-color: rgb(220 252 231 / 0.75);
+}
+
+.bg-green-100\/80 {
+  background-color: rgb(220 252 231 / 0.8);
+}
+
+.bg-green-100\/85 {
+  background-color: rgb(220 252 231 / 0.85);
+}
+
+.bg-green-100\/90 {
+  background-color: rgb(220 252 231 / 0.9);
+}
+
+.bg-green-100\/95 {
+  background-color: rgb(220 252 231 / 0.95);
+}
+
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
+}
+
+.bg-green-500\/0 {
+  background-color: rgb(34 197 94 / 0);
+}
+
+.bg-green-500\/10 {
+  background-color: rgb(34 197 94 / 0.1);
+}
+
+.bg-green-500\/100 {
+  background-color: rgb(34 197 94 / 1);
+}
+
+.bg-green-500\/15 {
+  background-color: rgb(34 197 94 / 0.15);
+}
+
+.bg-green-500\/20 {
+  background-color: rgb(34 197 94 / 0.2);
+}
+
+.bg-green-500\/25 {
+  background-color: rgb(34 197 94 / 0.25);
+}
+
+.bg-green-500\/30 {
+  background-color: rgb(34 197 94 / 0.3);
+}
+
+.bg-green-500\/35 {
+  background-color: rgb(34 197 94 / 0.35);
+}
+
+.bg-green-500\/40 {
+  background-color: rgb(34 197 94 / 0.4);
+}
+
+.bg-green-500\/45 {
+  background-color: rgb(34 197 94 / 0.45);
+}
+
+.bg-green-500\/5 {
+  background-color: rgb(34 197 94 / 0.05);
+}
+
+.bg-green-500\/50 {
+  background-color: rgb(34 197 94 / 0.5);
+}
+
+.bg-green-500\/55 {
+  background-color: rgb(34 197 94 / 0.55);
+}
+
+.bg-green-500\/60 {
+  background-color: rgb(34 197 94 / 0.6);
+}
+
+.bg-green-500\/65 {
+  background-color: rgb(34 197 94 / 0.65);
+}
+
+.bg-green-500\/70 {
+  background-color: rgb(34 197 94 / 0.7);
+}
+
+.bg-green-500\/75 {
+  background-color: rgb(34 197 94 / 0.75);
+}
+
+.bg-green-500\/80 {
+  background-color: rgb(34 197 94 / 0.8);
+}
+
+.bg-green-500\/85 {
+  background-color: rgb(34 197 94 / 0.85);
+}
+
+.bg-green-500\/90 {
+  background-color: rgb(34 197 94 / 0.9);
+}
+
+.bg-green-500\/95 {
+  background-color: rgb(34 197 94 / 0.95);
+}
+
+.bg-green-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
+}
+
+.bg-green-700\/0 {
+  background-color: rgb(21 128 61 / 0);
+}
+
+.bg-green-700\/10 {
+  background-color: rgb(21 128 61 / 0.1);
+}
+
+.bg-green-700\/100 {
+  background-color: rgb(21 128 61 / 1);
+}
+
+.bg-green-700\/15 {
+  background-color: rgb(21 128 61 / 0.15);
+}
+
+.bg-green-700\/20 {
+  background-color: rgb(21 128 61 / 0.2);
+}
+
+.bg-green-700\/25 {
+  background-color: rgb(21 128 61 / 0.25);
+}
+
+.bg-green-700\/30 {
+  background-color: rgb(21 128 61 / 0.3);
+}
+
+.bg-green-700\/35 {
+  background-color: rgb(21 128 61 / 0.35);
+}
+
+.bg-green-700\/40 {
+  background-color: rgb(21 128 61 / 0.4);
+}
+
+.bg-green-700\/45 {
+  background-color: rgb(21 128 61 / 0.45);
+}
+
+.bg-green-700\/5 {
+  background-color: rgb(21 128 61 / 0.05);
+}
+
+.bg-green-700\/50 {
+  background-color: rgb(21 128 61 / 0.5);
+}
+
+.bg-green-700\/55 {
+  background-color: rgb(21 128 61 / 0.55);
+}
+
+.bg-green-700\/60 {
+  background-color: rgb(21 128 61 / 0.6);
+}
+
+.bg-green-700\/65 {
+  background-color: rgb(21 128 61 / 0.65);
+}
+
+.bg-green-700\/70 {
+  background-color: rgb(21 128 61 / 0.7);
+}
+
+.bg-green-700\/75 {
+  background-color: rgb(21 128 61 / 0.75);
+}
+
+.bg-green-700\/80 {
+  background-color: rgb(21 128 61 / 0.8);
+}
+
+.bg-green-700\/85 {
+  background-color: rgb(21 128 61 / 0.85);
+}
+
+.bg-green-700\/90 {
+  background-color: rgb(21 128 61 / 0.9);
+}
+
+.bg-green-700\/95 {
+  background-color: rgb(21 128 61 / 0.95);
+}
+
+.bg-orange-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 237 213 / var(--tw-bg-opacity, 1));
+}
+
+.bg-orange-100\/0 {
+  background-color: rgb(255 237 213 / 0);
+}
+
+.bg-orange-100\/10 {
+  background-color: rgb(255 237 213 / 0.1);
+}
+
+.bg-orange-100\/100 {
+  background-color: rgb(255 237 213 / 1);
+}
+
+.bg-orange-100\/15 {
+  background-color: rgb(255 237 213 / 0.15);
+}
+
+.bg-orange-100\/20 {
+  background-color: rgb(255 237 213 / 0.2);
+}
+
+.bg-orange-100\/25 {
+  background-color: rgb(255 237 213 / 0.25);
+}
+
+.bg-orange-100\/30 {
+  background-color: rgb(255 237 213 / 0.3);
+}
+
+.bg-orange-100\/35 {
+  background-color: rgb(255 237 213 / 0.35);
+}
+
+.bg-orange-100\/40 {
+  background-color: rgb(255 237 213 / 0.4);
+}
+
+.bg-orange-100\/45 {
+  background-color: rgb(255 237 213 / 0.45);
+}
+
+.bg-orange-100\/5 {
+  background-color: rgb(255 237 213 / 0.05);
+}
+
+.bg-orange-100\/50 {
+  background-color: rgb(255 237 213 / 0.5);
+}
+
+.bg-orange-100\/55 {
+  background-color: rgb(255 237 213 / 0.55);
+}
+
+.bg-orange-100\/60 {
+  background-color: rgb(255 237 213 / 0.6);
+}
+
+.bg-orange-100\/65 {
+  background-color: rgb(255 237 213 / 0.65);
+}
+
+.bg-orange-100\/70 {
+  background-color: rgb(255 237 213 / 0.7);
+}
+
+.bg-orange-100\/75 {
+  background-color: rgb(255 237 213 / 0.75);
+}
+
+.bg-orange-100\/80 {
+  background-color: rgb(255 237 213 / 0.8);
+}
+
+.bg-orange-100\/85 {
+  background-color: rgb(255 237 213 / 0.85);
+}
+
+.bg-orange-100\/90 {
+  background-color: rgb(255 237 213 / 0.9);
+}
+
+.bg-orange-100\/95 {
+  background-color: rgb(255 237 213 / 0.95);
+}
+
+.bg-orange-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 115 22 / var(--tw-bg-opacity, 1));
+}
+
+.bg-orange-500\/0 {
+  background-color: rgb(249 115 22 / 0);
+}
+
+.bg-orange-500\/10 {
+  background-color: rgb(249 115 22 / 0.1);
+}
+
+.bg-orange-500\/100 {
+  background-color: rgb(249 115 22 / 1);
+}
+
+.bg-orange-500\/15 {
+  background-color: rgb(249 115 22 / 0.15);
+}
+
+.bg-orange-500\/20 {
+  background-color: rgb(249 115 22 / 0.2);
+}
+
+.bg-orange-500\/25 {
+  background-color: rgb(249 115 22 / 0.25);
+}
+
+.bg-orange-500\/30 {
+  background-color: rgb(249 115 22 / 0.3);
+}
+
+.bg-orange-500\/35 {
+  background-color: rgb(249 115 22 / 0.35);
+}
+
+.bg-orange-500\/40 {
+  background-color: rgb(249 115 22 / 0.4);
+}
+
+.bg-orange-500\/45 {
+  background-color: rgb(249 115 22 / 0.45);
+}
+
+.bg-orange-500\/5 {
+  background-color: rgb(249 115 22 / 0.05);
+}
+
+.bg-orange-500\/50 {
+  background-color: rgb(249 115 22 / 0.5);
+}
+
+.bg-orange-500\/55 {
+  background-color: rgb(249 115 22 / 0.55);
+}
+
+.bg-orange-500\/60 {
+  background-color: rgb(249 115 22 / 0.6);
+}
+
+.bg-orange-500\/65 {
+  background-color: rgb(249 115 22 / 0.65);
+}
+
+.bg-orange-500\/70 {
+  background-color: rgb(249 115 22 / 0.7);
+}
+
+.bg-orange-500\/75 {
+  background-color: rgb(249 115 22 / 0.75);
+}
+
+.bg-orange-500\/80 {
+  background-color: rgb(249 115 22 / 0.8);
+}
+
+.bg-orange-500\/85 {
+  background-color: rgb(249 115 22 / 0.85);
+}
+
+.bg-orange-500\/90 {
+  background-color: rgb(249 115 22 / 0.9);
+}
+
+.bg-orange-500\/95 {
+  background-color: rgb(249 115 22 / 0.95);
+}
+
+.bg-orange-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(194 65 12 / var(--tw-bg-opacity, 1));
+}
+
+.bg-orange-700\/0 {
+  background-color: rgb(194 65 12 / 0);
+}
+
+.bg-orange-700\/10 {
+  background-color: rgb(194 65 12 / 0.1);
+}
+
+.bg-orange-700\/100 {
+  background-color: rgb(194 65 12 / 1);
+}
+
+.bg-orange-700\/15 {
+  background-color: rgb(194 65 12 / 0.15);
+}
+
+.bg-orange-700\/20 {
+  background-color: rgb(194 65 12 / 0.2);
+}
+
+.bg-orange-700\/25 {
+  background-color: rgb(194 65 12 / 0.25);
+}
+
+.bg-orange-700\/30 {
+  background-color: rgb(194 65 12 / 0.3);
+}
+
+.bg-orange-700\/35 {
+  background-color: rgb(194 65 12 / 0.35);
+}
+
+.bg-orange-700\/40 {
+  background-color: rgb(194 65 12 / 0.4);
+}
+
+.bg-orange-700\/45 {
+  background-color: rgb(194 65 12 / 0.45);
+}
+
+.bg-orange-700\/5 {
+  background-color: rgb(194 65 12 / 0.05);
+}
+
+.bg-orange-700\/50 {
+  background-color: rgb(194 65 12 / 0.5);
+}
+
+.bg-orange-700\/55 {
+  background-color: rgb(194 65 12 / 0.55);
+}
+
+.bg-orange-700\/60 {
+  background-color: rgb(194 65 12 / 0.6);
+}
+
+.bg-orange-700\/65 {
+  background-color: rgb(194 65 12 / 0.65);
+}
+
+.bg-orange-700\/70 {
+  background-color: rgb(194 65 12 / 0.7);
+}
+
+.bg-orange-700\/75 {
+  background-color: rgb(194 65 12 / 0.75);
+}
+
+.bg-orange-700\/80 {
+  background-color: rgb(194 65 12 / 0.8);
+}
+
+.bg-orange-700\/85 {
+  background-color: rgb(194 65 12 / 0.85);
+}
+
+.bg-orange-700\/90 {
+  background-color: rgb(194 65 12 / 0.9);
+}
+
+.bg-orange-700\/95 {
+  background-color: rgb(194 65 12 / 0.95);
+}
+
 .bg-primary {
   --tw-bg-opacity: 1;
   background-color: rgb(242 119 27 / var(--tw-bg-opacity, 1));
+}
+
+.bg-red-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+}
+
+.bg-red-100\/0 {
+  background-color: rgb(254 226 226 / 0);
+}
+
+.bg-red-100\/10 {
+  background-color: rgb(254 226 226 / 0.1);
+}
+
+.bg-red-100\/100 {
+  background-color: rgb(254 226 226 / 1);
+}
+
+.bg-red-100\/15 {
+  background-color: rgb(254 226 226 / 0.15);
+}
+
+.bg-red-100\/20 {
+  background-color: rgb(254 226 226 / 0.2);
+}
+
+.bg-red-100\/25 {
+  background-color: rgb(254 226 226 / 0.25);
+}
+
+.bg-red-100\/30 {
+  background-color: rgb(254 226 226 / 0.3);
+}
+
+.bg-red-100\/35 {
+  background-color: rgb(254 226 226 / 0.35);
+}
+
+.bg-red-100\/40 {
+  background-color: rgb(254 226 226 / 0.4);
+}
+
+.bg-red-100\/45 {
+  background-color: rgb(254 226 226 / 0.45);
+}
+
+.bg-red-100\/5 {
+  background-color: rgb(254 226 226 / 0.05);
+}
+
+.bg-red-100\/50 {
+  background-color: rgb(254 226 226 / 0.5);
+}
+
+.bg-red-100\/55 {
+  background-color: rgb(254 226 226 / 0.55);
+}
+
+.bg-red-100\/60 {
+  background-color: rgb(254 226 226 / 0.6);
+}
+
+.bg-red-100\/65 {
+  background-color: rgb(254 226 226 / 0.65);
+}
+
+.bg-red-100\/70 {
+  background-color: rgb(254 226 226 / 0.7);
+}
+
+.bg-red-100\/75 {
+  background-color: rgb(254 226 226 / 0.75);
+}
+
+.bg-red-100\/80 {
+  background-color: rgb(254 226 226 / 0.8);
+}
+
+.bg-red-100\/85 {
+  background-color: rgb(254 226 226 / 0.85);
+}
+
+.bg-red-100\/90 {
+  background-color: rgb(254 226 226 / 0.9);
+}
+
+.bg-red-100\/95 {
+  background-color: rgb(254 226 226 / 0.95);
+}
+
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
+}
+
+.bg-red-500\/0 {
+  background-color: rgb(239 68 68 / 0);
+}
+
+.bg-red-500\/10 {
+  background-color: rgb(239 68 68 / 0.1);
+}
+
+.bg-red-500\/100 {
+  background-color: rgb(239 68 68 / 1);
+}
+
+.bg-red-500\/15 {
+  background-color: rgb(239 68 68 / 0.15);
+}
+
+.bg-red-500\/20 {
+  background-color: rgb(239 68 68 / 0.2);
+}
+
+.bg-red-500\/25 {
+  background-color: rgb(239 68 68 / 0.25);
+}
+
+.bg-red-500\/30 {
+  background-color: rgb(239 68 68 / 0.3);
+}
+
+.bg-red-500\/35 {
+  background-color: rgb(239 68 68 / 0.35);
+}
+
+.bg-red-500\/40 {
+  background-color: rgb(239 68 68 / 0.4);
+}
+
+.bg-red-500\/45 {
+  background-color: rgb(239 68 68 / 0.45);
+}
+
+.bg-red-500\/5 {
+  background-color: rgb(239 68 68 / 0.05);
+}
+
+.bg-red-500\/50 {
+  background-color: rgb(239 68 68 / 0.5);
+}
+
+.bg-red-500\/55 {
+  background-color: rgb(239 68 68 / 0.55);
+}
+
+.bg-red-500\/60 {
+  background-color: rgb(239 68 68 / 0.6);
+}
+
+.bg-red-500\/65 {
+  background-color: rgb(239 68 68 / 0.65);
+}
+
+.bg-red-500\/70 {
+  background-color: rgb(239 68 68 / 0.7);
+}
+
+.bg-red-500\/75 {
+  background-color: rgb(239 68 68 / 0.75);
+}
+
+.bg-red-500\/80 {
+  background-color: rgb(239 68 68 / 0.8);
+}
+
+.bg-red-500\/85 {
+  background-color: rgb(239 68 68 / 0.85);
+}
+
+.bg-red-500\/90 {
+  background-color: rgb(239 68 68 / 0.9);
+}
+
+.bg-red-500\/95 {
+  background-color: rgb(239 68 68 / 0.95);
+}
+
+.bg-red-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
+}
+
+.bg-red-700\/0 {
+  background-color: rgb(185 28 28 / 0);
+}
+
+.bg-red-700\/10 {
+  background-color: rgb(185 28 28 / 0.1);
+}
+
+.bg-red-700\/100 {
+  background-color: rgb(185 28 28 / 1);
+}
+
+.bg-red-700\/15 {
+  background-color: rgb(185 28 28 / 0.15);
+}
+
+.bg-red-700\/20 {
+  background-color: rgb(185 28 28 / 0.2);
+}
+
+.bg-red-700\/25 {
+  background-color: rgb(185 28 28 / 0.25);
+}
+
+.bg-red-700\/30 {
+  background-color: rgb(185 28 28 / 0.3);
+}
+
+.bg-red-700\/35 {
+  background-color: rgb(185 28 28 / 0.35);
+}
+
+.bg-red-700\/40 {
+  background-color: rgb(185 28 28 / 0.4);
+}
+
+.bg-red-700\/45 {
+  background-color: rgb(185 28 28 / 0.45);
+}
+
+.bg-red-700\/5 {
+  background-color: rgb(185 28 28 / 0.05);
+}
+
+.bg-red-700\/50 {
+  background-color: rgb(185 28 28 / 0.5);
+}
+
+.bg-red-700\/55 {
+  background-color: rgb(185 28 28 / 0.55);
+}
+
+.bg-red-700\/60 {
+  background-color: rgb(185 28 28 / 0.6);
+}
+
+.bg-red-700\/65 {
+  background-color: rgb(185 28 28 / 0.65);
+}
+
+.bg-red-700\/70 {
+  background-color: rgb(185 28 28 / 0.7);
+}
+
+.bg-red-700\/75 {
+  background-color: rgb(185 28 28 / 0.75);
+}
+
+.bg-red-700\/80 {
+  background-color: rgb(185 28 28 / 0.8);
+}
+
+.bg-red-700\/85 {
+  background-color: rgb(185 28 28 / 0.85);
+}
+
+.bg-red-700\/90 {
+  background-color: rgb(185 28 28 / 0.9);
+}
+
+.bg-red-700\/95 {
+  background-color: rgb(185 28 28 / 0.95);
 }
 
 .bg-rouge-logo {
@@ -1760,6 +2826,11 @@ video {
 .bg-secondary {
   --tw-bg-opacity: 1;
   background-color: rgb(10 0 53 / var(--tw-bg-opacity, 1));
+}
+
+.bg-slate-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
 }
 
 .bg-slate-200 {
@@ -1914,10 +2985,6 @@ video {
   padding-top: 3rem;
 }
 
-.pt-2 {
-  padding-top: 0.5rem;
-}
-
 .pt-3 {
   padding-top: 0.75rem;
 }
@@ -2033,12 +3100,7 @@ video {
 
 .\!text-white {
   --tw-text-opacity: 1 !important;
-  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
-}
-
-.text-base200 {
-  --tw-text-opacity: 1;
-  color: rgb(224 224 224 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
 }
 
 .text-black {
@@ -2175,6 +3237,10 @@ label:has(+ select[required])::after {
   --tw-translate-x: 0%;
 }
 
+.hidden-force {
+  display: none !important;
+}
+
 #menu a.active {
   text-decoration: underline;
   text-decoration-color: var(--primary-color);
@@ -2212,18 +3278,6 @@ label:has(+ select[required])::after {
 .card .active hr {
   border-color: white;
 }
-
-/* .card.active .notes,
-.card .active {
-  background: white;
-  color: black;
-  padding: 0.25em;
-} */
-
-/* .card.active h3,
-.card .active h3 {
-  color: var(--primary-color);
-} */
 
 /* Slider d'images (détails d'une offre) */
 
@@ -2460,9 +3514,721 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(241 243 244 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-blue-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-blue-100\/0:hover {
+  background-color: rgb(219 234 254 / 0);
+}
+
+.hover\:bg-blue-100\/10:hover {
+  background-color: rgb(219 234 254 / 0.1);
+}
+
+.hover\:bg-blue-100\/100:hover {
+  background-color: rgb(219 234 254 / 1);
+}
+
+.hover\:bg-blue-100\/15:hover {
+  background-color: rgb(219 234 254 / 0.15);
+}
+
+.hover\:bg-blue-100\/20:hover {
+  background-color: rgb(219 234 254 / 0.2);
+}
+
+.hover\:bg-blue-100\/25:hover {
+  background-color: rgb(219 234 254 / 0.25);
+}
+
+.hover\:bg-blue-100\/30:hover {
+  background-color: rgb(219 234 254 / 0.3);
+}
+
+.hover\:bg-blue-100\/35:hover {
+  background-color: rgb(219 234 254 / 0.35);
+}
+
+.hover\:bg-blue-100\/40:hover {
+  background-color: rgb(219 234 254 / 0.4);
+}
+
+.hover\:bg-blue-100\/45:hover {
+  background-color: rgb(219 234 254 / 0.45);
+}
+
+.hover\:bg-blue-100\/5:hover {
+  background-color: rgb(219 234 254 / 0.05);
+}
+
+.hover\:bg-blue-100\/50:hover {
+  background-color: rgb(219 234 254 / 0.5);
+}
+
+.hover\:bg-blue-100\/55:hover {
+  background-color: rgb(219 234 254 / 0.55);
+}
+
+.hover\:bg-blue-100\/60:hover {
+  background-color: rgb(219 234 254 / 0.6);
+}
+
+.hover\:bg-blue-100\/65:hover {
+  background-color: rgb(219 234 254 / 0.65);
+}
+
+.hover\:bg-blue-100\/70:hover {
+  background-color: rgb(219 234 254 / 0.7);
+}
+
+.hover\:bg-blue-100\/75:hover {
+  background-color: rgb(219 234 254 / 0.75);
+}
+
+.hover\:bg-blue-100\/80:hover {
+  background-color: rgb(219 234 254 / 0.8);
+}
+
+.hover\:bg-blue-100\/85:hover {
+  background-color: rgb(219 234 254 / 0.85);
+}
+
+.hover\:bg-blue-100\/90:hover {
+  background-color: rgb(219 234 254 / 0.9);
+}
+
+.hover\:bg-blue-100\/95:hover {
+  background-color: rgb(219 234 254 / 0.95);
+}
+
+.hover\:bg-blue-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-blue-500\/0:hover {
+  background-color: rgb(59 130 246 / 0);
+}
+
+.hover\:bg-blue-500\/10:hover {
+  background-color: rgb(59 130 246 / 0.1);
+}
+
+.hover\:bg-blue-500\/100:hover {
+  background-color: rgb(59 130 246 / 1);
+}
+
+.hover\:bg-blue-500\/15:hover {
+  background-color: rgb(59 130 246 / 0.15);
+}
+
+.hover\:bg-blue-500\/20:hover {
+  background-color: rgb(59 130 246 / 0.2);
+}
+
+.hover\:bg-blue-500\/25:hover {
+  background-color: rgb(59 130 246 / 0.25);
+}
+
+.hover\:bg-blue-500\/30:hover {
+  background-color: rgb(59 130 246 / 0.3);
+}
+
+.hover\:bg-blue-500\/35:hover {
+  background-color: rgb(59 130 246 / 0.35);
+}
+
+.hover\:bg-blue-500\/40:hover {
+  background-color: rgb(59 130 246 / 0.4);
+}
+
+.hover\:bg-blue-500\/45:hover {
+  background-color: rgb(59 130 246 / 0.45);
+}
+
+.hover\:bg-blue-500\/5:hover {
+  background-color: rgb(59 130 246 / 0.05);
+}
+
+.hover\:bg-blue-500\/50:hover {
+  background-color: rgb(59 130 246 / 0.5);
+}
+
+.hover\:bg-blue-500\/55:hover {
+  background-color: rgb(59 130 246 / 0.55);
+}
+
+.hover\:bg-blue-500\/60:hover {
+  background-color: rgb(59 130 246 / 0.6);
+}
+
+.hover\:bg-blue-500\/65:hover {
+  background-color: rgb(59 130 246 / 0.65);
+}
+
+.hover\:bg-blue-500\/70:hover {
+  background-color: rgb(59 130 246 / 0.7);
+}
+
+.hover\:bg-blue-500\/75:hover {
+  background-color: rgb(59 130 246 / 0.75);
+}
+
+.hover\:bg-blue-500\/80:hover {
+  background-color: rgb(59 130 246 / 0.8);
+}
+
+.hover\:bg-blue-500\/85:hover {
+  background-color: rgb(59 130 246 / 0.85);
+}
+
+.hover\:bg-blue-500\/90:hover {
+  background-color: rgb(59 130 246 / 0.9);
+}
+
+.hover\:bg-blue-500\/95:hover {
+  background-color: rgb(59 130 246 / 0.95);
+}
+
+.hover\:bg-blue-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-blue-700\/0:hover {
+  background-color: rgb(29 78 216 / 0);
+}
+
+.hover\:bg-blue-700\/10:hover {
+  background-color: rgb(29 78 216 / 0.1);
+}
+
+.hover\:bg-blue-700\/100:hover {
+  background-color: rgb(29 78 216 / 1);
+}
+
+.hover\:bg-blue-700\/15:hover {
+  background-color: rgb(29 78 216 / 0.15);
+}
+
+.hover\:bg-blue-700\/20:hover {
+  background-color: rgb(29 78 216 / 0.2);
+}
+
+.hover\:bg-blue-700\/25:hover {
+  background-color: rgb(29 78 216 / 0.25);
+}
+
+.hover\:bg-blue-700\/30:hover {
+  background-color: rgb(29 78 216 / 0.3);
+}
+
+.hover\:bg-blue-700\/35:hover {
+  background-color: rgb(29 78 216 / 0.35);
+}
+
+.hover\:bg-blue-700\/40:hover {
+  background-color: rgb(29 78 216 / 0.4);
+}
+
+.hover\:bg-blue-700\/45:hover {
+  background-color: rgb(29 78 216 / 0.45);
+}
+
+.hover\:bg-blue-700\/5:hover {
+  background-color: rgb(29 78 216 / 0.05);
+}
+
+.hover\:bg-blue-700\/50:hover {
+  background-color: rgb(29 78 216 / 0.5);
+}
+
+.hover\:bg-blue-700\/55:hover {
+  background-color: rgb(29 78 216 / 0.55);
+}
+
+.hover\:bg-blue-700\/60:hover {
+  background-color: rgb(29 78 216 / 0.6);
+}
+
+.hover\:bg-blue-700\/65:hover {
+  background-color: rgb(29 78 216 / 0.65);
+}
+
+.hover\:bg-blue-700\/70:hover {
+  background-color: rgb(29 78 216 / 0.7);
+}
+
+.hover\:bg-blue-700\/75:hover {
+  background-color: rgb(29 78 216 / 0.75);
+}
+
+.hover\:bg-blue-700\/80:hover {
+  background-color: rgb(29 78 216 / 0.8);
+}
+
+.hover\:bg-blue-700\/85:hover {
+  background-color: rgb(29 78 216 / 0.85);
+}
+
+.hover\:bg-blue-700\/90:hover {
+  background-color: rgb(29 78 216 / 0.9);
+}
+
+.hover\:bg-blue-700\/95:hover {
+  background-color: rgb(29 78 216 / 0.95);
+}
+
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-green-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-green-100\/0:hover {
+  background-color: rgb(220 252 231 / 0);
+}
+
+.hover\:bg-green-100\/10:hover {
+  background-color: rgb(220 252 231 / 0.1);
+}
+
+.hover\:bg-green-100\/100:hover {
+  background-color: rgb(220 252 231 / 1);
+}
+
+.hover\:bg-green-100\/15:hover {
+  background-color: rgb(220 252 231 / 0.15);
+}
+
+.hover\:bg-green-100\/20:hover {
+  background-color: rgb(220 252 231 / 0.2);
+}
+
+.hover\:bg-green-100\/25:hover {
+  background-color: rgb(220 252 231 / 0.25);
+}
+
+.hover\:bg-green-100\/30:hover {
+  background-color: rgb(220 252 231 / 0.3);
+}
+
+.hover\:bg-green-100\/35:hover {
+  background-color: rgb(220 252 231 / 0.35);
+}
+
+.hover\:bg-green-100\/40:hover {
+  background-color: rgb(220 252 231 / 0.4);
+}
+
+.hover\:bg-green-100\/45:hover {
+  background-color: rgb(220 252 231 / 0.45);
+}
+
+.hover\:bg-green-100\/5:hover {
+  background-color: rgb(220 252 231 / 0.05);
+}
+
+.hover\:bg-green-100\/50:hover {
+  background-color: rgb(220 252 231 / 0.5);
+}
+
+.hover\:bg-green-100\/55:hover {
+  background-color: rgb(220 252 231 / 0.55);
+}
+
+.hover\:bg-green-100\/60:hover {
+  background-color: rgb(220 252 231 / 0.6);
+}
+
+.hover\:bg-green-100\/65:hover {
+  background-color: rgb(220 252 231 / 0.65);
+}
+
+.hover\:bg-green-100\/70:hover {
+  background-color: rgb(220 252 231 / 0.7);
+}
+
+.hover\:bg-green-100\/75:hover {
+  background-color: rgb(220 252 231 / 0.75);
+}
+
+.hover\:bg-green-100\/80:hover {
+  background-color: rgb(220 252 231 / 0.8);
+}
+
+.hover\:bg-green-100\/85:hover {
+  background-color: rgb(220 252 231 / 0.85);
+}
+
+.hover\:bg-green-100\/90:hover {
+  background-color: rgb(220 252 231 / 0.9);
+}
+
+.hover\:bg-green-100\/95:hover {
+  background-color: rgb(220 252 231 / 0.95);
+}
+
+.hover\:bg-green-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-green-500\/0:hover {
+  background-color: rgb(34 197 94 / 0);
+}
+
+.hover\:bg-green-500\/10:hover {
+  background-color: rgb(34 197 94 / 0.1);
+}
+
+.hover\:bg-green-500\/100:hover {
+  background-color: rgb(34 197 94 / 1);
+}
+
+.hover\:bg-green-500\/15:hover {
+  background-color: rgb(34 197 94 / 0.15);
+}
+
+.hover\:bg-green-500\/20:hover {
+  background-color: rgb(34 197 94 / 0.2);
+}
+
+.hover\:bg-green-500\/25:hover {
+  background-color: rgb(34 197 94 / 0.25);
+}
+
+.hover\:bg-green-500\/30:hover {
+  background-color: rgb(34 197 94 / 0.3);
+}
+
+.hover\:bg-green-500\/35:hover {
+  background-color: rgb(34 197 94 / 0.35);
+}
+
+.hover\:bg-green-500\/40:hover {
+  background-color: rgb(34 197 94 / 0.4);
+}
+
+.hover\:bg-green-500\/45:hover {
+  background-color: rgb(34 197 94 / 0.45);
+}
+
+.hover\:bg-green-500\/5:hover {
+  background-color: rgb(34 197 94 / 0.05);
+}
+
+.hover\:bg-green-500\/50:hover {
+  background-color: rgb(34 197 94 / 0.5);
+}
+
+.hover\:bg-green-500\/55:hover {
+  background-color: rgb(34 197 94 / 0.55);
+}
+
+.hover\:bg-green-500\/60:hover {
+  background-color: rgb(34 197 94 / 0.6);
+}
+
+.hover\:bg-green-500\/65:hover {
+  background-color: rgb(34 197 94 / 0.65);
+}
+
+.hover\:bg-green-500\/70:hover {
+  background-color: rgb(34 197 94 / 0.7);
+}
+
+.hover\:bg-green-500\/75:hover {
+  background-color: rgb(34 197 94 / 0.75);
+}
+
+.hover\:bg-green-500\/80:hover {
+  background-color: rgb(34 197 94 / 0.8);
+}
+
+.hover\:bg-green-500\/85:hover {
+  background-color: rgb(34 197 94 / 0.85);
+}
+
+.hover\:bg-green-500\/90:hover {
+  background-color: rgb(34 197 94 / 0.9);
+}
+
+.hover\:bg-green-500\/95:hover {
+  background-color: rgb(34 197 94 / 0.95);
+}
+
+.hover\:bg-green-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-green-700\/0:hover {
+  background-color: rgb(21 128 61 / 0);
+}
+
+.hover\:bg-green-700\/10:hover {
+  background-color: rgb(21 128 61 / 0.1);
+}
+
+.hover\:bg-green-700\/100:hover {
+  background-color: rgb(21 128 61 / 1);
+}
+
+.hover\:bg-green-700\/15:hover {
+  background-color: rgb(21 128 61 / 0.15);
+}
+
+.hover\:bg-green-700\/20:hover {
+  background-color: rgb(21 128 61 / 0.2);
+}
+
+.hover\:bg-green-700\/25:hover {
+  background-color: rgb(21 128 61 / 0.25);
+}
+
+.hover\:bg-green-700\/30:hover {
+  background-color: rgb(21 128 61 / 0.3);
+}
+
+.hover\:bg-green-700\/35:hover {
+  background-color: rgb(21 128 61 / 0.35);
+}
+
+.hover\:bg-green-700\/40:hover {
+  background-color: rgb(21 128 61 / 0.4);
+}
+
+.hover\:bg-green-700\/45:hover {
+  background-color: rgb(21 128 61 / 0.45);
+}
+
+.hover\:bg-green-700\/5:hover {
+  background-color: rgb(21 128 61 / 0.05);
+}
+
+.hover\:bg-green-700\/50:hover {
+  background-color: rgb(21 128 61 / 0.5);
+}
+
+.hover\:bg-green-700\/55:hover {
+  background-color: rgb(21 128 61 / 0.55);
+}
+
+.hover\:bg-green-700\/60:hover {
+  background-color: rgb(21 128 61 / 0.6);
+}
+
+.hover\:bg-green-700\/65:hover {
+  background-color: rgb(21 128 61 / 0.65);
+}
+
+.hover\:bg-green-700\/70:hover {
+  background-color: rgb(21 128 61 / 0.7);
+}
+
+.hover\:bg-green-700\/75:hover {
+  background-color: rgb(21 128 61 / 0.75);
+}
+
+.hover\:bg-green-700\/80:hover {
+  background-color: rgb(21 128 61 / 0.8);
+}
+
+.hover\:bg-green-700\/85:hover {
+  background-color: rgb(21 128 61 / 0.85);
+}
+
+.hover\:bg-green-700\/90:hover {
+  background-color: rgb(21 128 61 / 0.9);
+}
+
+.hover\:bg-green-700\/95:hover {
+  background-color: rgb(21 128 61 / 0.95);
+}
+
+.hover\:bg-orange-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 237 213 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-orange-100\/0:hover {
+  background-color: rgb(255 237 213 / 0);
+}
+
+.hover\:bg-orange-100\/10:hover {
+  background-color: rgb(255 237 213 / 0.1);
+}
+
+.hover\:bg-orange-100\/100:hover {
+  background-color: rgb(255 237 213 / 1);
+}
+
+.hover\:bg-orange-100\/15:hover {
+  background-color: rgb(255 237 213 / 0.15);
+}
+
+.hover\:bg-orange-100\/20:hover {
+  background-color: rgb(255 237 213 / 0.2);
+}
+
+.hover\:bg-orange-100\/25:hover {
+  background-color: rgb(255 237 213 / 0.25);
+}
+
+.hover\:bg-orange-100\/30:hover {
+  background-color: rgb(255 237 213 / 0.3);
+}
+
+.hover\:bg-orange-100\/35:hover {
+  background-color: rgb(255 237 213 / 0.35);
+}
+
+.hover\:bg-orange-100\/40:hover {
+  background-color: rgb(255 237 213 / 0.4);
+}
+
+.hover\:bg-orange-100\/45:hover {
+  background-color: rgb(255 237 213 / 0.45);
+}
+
+.hover\:bg-orange-100\/5:hover {
+  background-color: rgb(255 237 213 / 0.05);
+}
+
+.hover\:bg-orange-100\/50:hover {
+  background-color: rgb(255 237 213 / 0.5);
+}
+
+.hover\:bg-orange-100\/55:hover {
+  background-color: rgb(255 237 213 / 0.55);
+}
+
+.hover\:bg-orange-100\/60:hover {
+  background-color: rgb(255 237 213 / 0.6);
+}
+
+.hover\:bg-orange-100\/65:hover {
+  background-color: rgb(255 237 213 / 0.65);
+}
+
+.hover\:bg-orange-100\/70:hover {
+  background-color: rgb(255 237 213 / 0.7);
+}
+
+.hover\:bg-orange-100\/75:hover {
+  background-color: rgb(255 237 213 / 0.75);
+}
+
+.hover\:bg-orange-100\/80:hover {
+  background-color: rgb(255 237 213 / 0.8);
+}
+
+.hover\:bg-orange-100\/85:hover {
+  background-color: rgb(255 237 213 / 0.85);
+}
+
+.hover\:bg-orange-100\/90:hover {
+  background-color: rgb(255 237 213 / 0.9);
+}
+
+.hover\:bg-orange-100\/95:hover {
+  background-color: rgb(255 237 213 / 0.95);
+}
+
+.hover\:bg-orange-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 115 22 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-orange-500\/0:hover {
+  background-color: rgb(249 115 22 / 0);
+}
+
+.hover\:bg-orange-500\/10:hover {
+  background-color: rgb(249 115 22 / 0.1);
+}
+
+.hover\:bg-orange-500\/100:hover {
+  background-color: rgb(249 115 22 / 1);
+}
+
+.hover\:bg-orange-500\/15:hover {
+  background-color: rgb(249 115 22 / 0.15);
+}
+
+.hover\:bg-orange-500\/20:hover {
+  background-color: rgb(249 115 22 / 0.2);
+}
+
+.hover\:bg-orange-500\/25:hover {
+  background-color: rgb(249 115 22 / 0.25);
+}
+
+.hover\:bg-orange-500\/30:hover {
+  background-color: rgb(249 115 22 / 0.3);
+}
+
+.hover\:bg-orange-500\/35:hover {
+  background-color: rgb(249 115 22 / 0.35);
+}
+
+.hover\:bg-orange-500\/40:hover {
+  background-color: rgb(249 115 22 / 0.4);
+}
+
+.hover\:bg-orange-500\/45:hover {
+  background-color: rgb(249 115 22 / 0.45);
+}
+
+.hover\:bg-orange-500\/5:hover {
+  background-color: rgb(249 115 22 / 0.05);
+}
+
+.hover\:bg-orange-500\/50:hover {
+  background-color: rgb(249 115 22 / 0.5);
+}
+
+.hover\:bg-orange-500\/55:hover {
+  background-color: rgb(249 115 22 / 0.55);
+}
+
+.hover\:bg-orange-500\/60:hover {
+  background-color: rgb(249 115 22 / 0.6);
+}
+
+.hover\:bg-orange-500\/65:hover {
+  background-color: rgb(249 115 22 / 0.65);
+}
+
+.hover\:bg-orange-500\/70:hover {
+  background-color: rgb(249 115 22 / 0.7);
+}
+
+.hover\:bg-orange-500\/75:hover {
+  background-color: rgb(249 115 22 / 0.75);
+}
+
+.hover\:bg-orange-500\/80:hover {
+  background-color: rgb(249 115 22 / 0.8);
+}
+
+.hover\:bg-orange-500\/85:hover {
+  background-color: rgb(249 115 22 / 0.85);
+}
+
+.hover\:bg-orange-500\/90:hover {
+  background-color: rgb(249 115 22 / 0.9);
+}
+
+.hover\:bg-orange-500\/95:hover {
+  background-color: rgb(249 115 22 / 0.95);
 }
 
 .hover\:bg-orange-600:hover {
@@ -2470,13 +4236,369 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(234 88 12 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-orange-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(194 65 12 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-orange-700\/0:hover {
+  background-color: rgb(194 65 12 / 0);
+}
+
+.hover\:bg-orange-700\/10:hover {
+  background-color: rgb(194 65 12 / 0.1);
+}
+
+.hover\:bg-orange-700\/100:hover {
+  background-color: rgb(194 65 12 / 1);
+}
+
+.hover\:bg-orange-700\/15:hover {
+  background-color: rgb(194 65 12 / 0.15);
+}
+
+.hover\:bg-orange-700\/20:hover {
+  background-color: rgb(194 65 12 / 0.2);
+}
+
+.hover\:bg-orange-700\/25:hover {
+  background-color: rgb(194 65 12 / 0.25);
+}
+
+.hover\:bg-orange-700\/30:hover {
+  background-color: rgb(194 65 12 / 0.3);
+}
+
+.hover\:bg-orange-700\/35:hover {
+  background-color: rgb(194 65 12 / 0.35);
+}
+
+.hover\:bg-orange-700\/40:hover {
+  background-color: rgb(194 65 12 / 0.4);
+}
+
+.hover\:bg-orange-700\/45:hover {
+  background-color: rgb(194 65 12 / 0.45);
+}
+
+.hover\:bg-orange-700\/5:hover {
+  background-color: rgb(194 65 12 / 0.05);
+}
+
+.hover\:bg-orange-700\/50:hover {
+  background-color: rgb(194 65 12 / 0.5);
+}
+
+.hover\:bg-orange-700\/55:hover {
+  background-color: rgb(194 65 12 / 0.55);
+}
+
+.hover\:bg-orange-700\/60:hover {
+  background-color: rgb(194 65 12 / 0.6);
+}
+
+.hover\:bg-orange-700\/65:hover {
+  background-color: rgb(194 65 12 / 0.65);
+}
+
+.hover\:bg-orange-700\/70:hover {
+  background-color: rgb(194 65 12 / 0.7);
+}
+
+.hover\:bg-orange-700\/75:hover {
+  background-color: rgb(194 65 12 / 0.75);
+}
+
+.hover\:bg-orange-700\/80:hover {
+  background-color: rgb(194 65 12 / 0.8);
+}
+
+.hover\:bg-orange-700\/85:hover {
+  background-color: rgb(194 65 12 / 0.85);
+}
+
+.hover\:bg-orange-700\/90:hover {
+  background-color: rgb(194 65 12 / 0.9);
+}
+
+.hover\:bg-orange-700\/95:hover {
+  background-color: rgb(194 65 12 / 0.95);
+}
+
 .hover\:bg-primary\/90:hover {
   background-color: rgb(242 119 27 / 0.9);
+}
+
+.hover\:bg-red-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-red-100\/0:hover {
+  background-color: rgb(254 226 226 / 0);
+}
+
+.hover\:bg-red-100\/10:hover {
+  background-color: rgb(254 226 226 / 0.1);
+}
+
+.hover\:bg-red-100\/100:hover {
+  background-color: rgb(254 226 226 / 1);
+}
+
+.hover\:bg-red-100\/15:hover {
+  background-color: rgb(254 226 226 / 0.15);
+}
+
+.hover\:bg-red-100\/20:hover {
+  background-color: rgb(254 226 226 / 0.2);
+}
+
+.hover\:bg-red-100\/25:hover {
+  background-color: rgb(254 226 226 / 0.25);
+}
+
+.hover\:bg-red-100\/30:hover {
+  background-color: rgb(254 226 226 / 0.3);
+}
+
+.hover\:bg-red-100\/35:hover {
+  background-color: rgb(254 226 226 / 0.35);
+}
+
+.hover\:bg-red-100\/40:hover {
+  background-color: rgb(254 226 226 / 0.4);
+}
+
+.hover\:bg-red-100\/45:hover {
+  background-color: rgb(254 226 226 / 0.45);
+}
+
+.hover\:bg-red-100\/5:hover {
+  background-color: rgb(254 226 226 / 0.05);
+}
+
+.hover\:bg-red-100\/50:hover {
+  background-color: rgb(254 226 226 / 0.5);
+}
+
+.hover\:bg-red-100\/55:hover {
+  background-color: rgb(254 226 226 / 0.55);
+}
+
+.hover\:bg-red-100\/60:hover {
+  background-color: rgb(254 226 226 / 0.6);
+}
+
+.hover\:bg-red-100\/65:hover {
+  background-color: rgb(254 226 226 / 0.65);
+}
+
+.hover\:bg-red-100\/70:hover {
+  background-color: rgb(254 226 226 / 0.7);
+}
+
+.hover\:bg-red-100\/75:hover {
+  background-color: rgb(254 226 226 / 0.75);
+}
+
+.hover\:bg-red-100\/80:hover {
+  background-color: rgb(254 226 226 / 0.8);
+}
+
+.hover\:bg-red-100\/85:hover {
+  background-color: rgb(254 226 226 / 0.85);
+}
+
+.hover\:bg-red-100\/90:hover {
+  background-color: rgb(254 226 226 / 0.9);
+}
+
+.hover\:bg-red-100\/95:hover {
+  background-color: rgb(254 226 226 / 0.95);
+}
+
+.hover\:bg-red-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-red-500\/0:hover {
+  background-color: rgb(239 68 68 / 0);
+}
+
+.hover\:bg-red-500\/10:hover {
+  background-color: rgb(239 68 68 / 0.1);
+}
+
+.hover\:bg-red-500\/100:hover {
+  background-color: rgb(239 68 68 / 1);
+}
+
+.hover\:bg-red-500\/15:hover {
+  background-color: rgb(239 68 68 / 0.15);
+}
+
+.hover\:bg-red-500\/20:hover {
+  background-color: rgb(239 68 68 / 0.2);
+}
+
+.hover\:bg-red-500\/25:hover {
+  background-color: rgb(239 68 68 / 0.25);
+}
+
+.hover\:bg-red-500\/30:hover {
+  background-color: rgb(239 68 68 / 0.3);
+}
+
+.hover\:bg-red-500\/35:hover {
+  background-color: rgb(239 68 68 / 0.35);
+}
+
+.hover\:bg-red-500\/40:hover {
+  background-color: rgb(239 68 68 / 0.4);
+}
+
+.hover\:bg-red-500\/45:hover {
+  background-color: rgb(239 68 68 / 0.45);
+}
+
+.hover\:bg-red-500\/5:hover {
+  background-color: rgb(239 68 68 / 0.05);
+}
+
+.hover\:bg-red-500\/50:hover {
+  background-color: rgb(239 68 68 / 0.5);
+}
+
+.hover\:bg-red-500\/55:hover {
+  background-color: rgb(239 68 68 / 0.55);
+}
+
+.hover\:bg-red-500\/60:hover {
+  background-color: rgb(239 68 68 / 0.6);
+}
+
+.hover\:bg-red-500\/65:hover {
+  background-color: rgb(239 68 68 / 0.65);
+}
+
+.hover\:bg-red-500\/70:hover {
+  background-color: rgb(239 68 68 / 0.7);
+}
+
+.hover\:bg-red-500\/75:hover {
+  background-color: rgb(239 68 68 / 0.75);
+}
+
+.hover\:bg-red-500\/80:hover {
+  background-color: rgb(239 68 68 / 0.8);
+}
+
+.hover\:bg-red-500\/85:hover {
+  background-color: rgb(239 68 68 / 0.85);
+}
+
+.hover\:bg-red-500\/90:hover {
+  background-color: rgb(239 68 68 / 0.9);
+}
+
+.hover\:bg-red-500\/95:hover {
+  background-color: rgb(239 68 68 / 0.95);
 }
 
 .hover\:bg-red-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-red-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-red-700\/0:hover {
+  background-color: rgb(185 28 28 / 0);
+}
+
+.hover\:bg-red-700\/10:hover {
+  background-color: rgb(185 28 28 / 0.1);
+}
+
+.hover\:bg-red-700\/100:hover {
+  background-color: rgb(185 28 28 / 1);
+}
+
+.hover\:bg-red-700\/15:hover {
+  background-color: rgb(185 28 28 / 0.15);
+}
+
+.hover\:bg-red-700\/20:hover {
+  background-color: rgb(185 28 28 / 0.2);
+}
+
+.hover\:bg-red-700\/25:hover {
+  background-color: rgb(185 28 28 / 0.25);
+}
+
+.hover\:bg-red-700\/30:hover {
+  background-color: rgb(185 28 28 / 0.3);
+}
+
+.hover\:bg-red-700\/35:hover {
+  background-color: rgb(185 28 28 / 0.35);
+}
+
+.hover\:bg-red-700\/40:hover {
+  background-color: rgb(185 28 28 / 0.4);
+}
+
+.hover\:bg-red-700\/45:hover {
+  background-color: rgb(185 28 28 / 0.45);
+}
+
+.hover\:bg-red-700\/5:hover {
+  background-color: rgb(185 28 28 / 0.05);
+}
+
+.hover\:bg-red-700\/50:hover {
+  background-color: rgb(185 28 28 / 0.5);
+}
+
+.hover\:bg-red-700\/55:hover {
+  background-color: rgb(185 28 28 / 0.55);
+}
+
+.hover\:bg-red-700\/60:hover {
+  background-color: rgb(185 28 28 / 0.6);
+}
+
+.hover\:bg-red-700\/65:hover {
+  background-color: rgb(185 28 28 / 0.65);
+}
+
+.hover\:bg-red-700\/70:hover {
+  background-color: rgb(185 28 28 / 0.7);
+}
+
+.hover\:bg-red-700\/75:hover {
+  background-color: rgb(185 28 28 / 0.75);
+}
+
+.hover\:bg-red-700\/80:hover {
+  background-color: rgb(185 28 28 / 0.8);
+}
+
+.hover\:bg-red-700\/85:hover {
+  background-color: rgb(185 28 28 / 0.85);
+}
+
+.hover\:bg-red-700\/90:hover {
+  background-color: rgb(185 28 28 / 0.9);
+}
+
+.hover\:bg-red-700\/95:hover {
+  background-color: rgb(185 28 28 / 0.95);
 }
 
 .hover\:bg-rouge-logo\/90:hover {
@@ -2542,6 +4664,1074 @@ input[type="checkbox"]:checked:before {
   --tw-scale-x: 0.97;
   --tw-scale-y: 0.97;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.focus\:bg-blue-100:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-blue-100\/0:focus {
+  background-color: rgb(219 234 254 / 0);
+}
+
+.focus\:bg-blue-100\/10:focus {
+  background-color: rgb(219 234 254 / 0.1);
+}
+
+.focus\:bg-blue-100\/100:focus {
+  background-color: rgb(219 234 254 / 1);
+}
+
+.focus\:bg-blue-100\/15:focus {
+  background-color: rgb(219 234 254 / 0.15);
+}
+
+.focus\:bg-blue-100\/20:focus {
+  background-color: rgb(219 234 254 / 0.2);
+}
+
+.focus\:bg-blue-100\/25:focus {
+  background-color: rgb(219 234 254 / 0.25);
+}
+
+.focus\:bg-blue-100\/30:focus {
+  background-color: rgb(219 234 254 / 0.3);
+}
+
+.focus\:bg-blue-100\/35:focus {
+  background-color: rgb(219 234 254 / 0.35);
+}
+
+.focus\:bg-blue-100\/40:focus {
+  background-color: rgb(219 234 254 / 0.4);
+}
+
+.focus\:bg-blue-100\/45:focus {
+  background-color: rgb(219 234 254 / 0.45);
+}
+
+.focus\:bg-blue-100\/5:focus {
+  background-color: rgb(219 234 254 / 0.05);
+}
+
+.focus\:bg-blue-100\/50:focus {
+  background-color: rgb(219 234 254 / 0.5);
+}
+
+.focus\:bg-blue-100\/55:focus {
+  background-color: rgb(219 234 254 / 0.55);
+}
+
+.focus\:bg-blue-100\/60:focus {
+  background-color: rgb(219 234 254 / 0.6);
+}
+
+.focus\:bg-blue-100\/65:focus {
+  background-color: rgb(219 234 254 / 0.65);
+}
+
+.focus\:bg-blue-100\/70:focus {
+  background-color: rgb(219 234 254 / 0.7);
+}
+
+.focus\:bg-blue-100\/75:focus {
+  background-color: rgb(219 234 254 / 0.75);
+}
+
+.focus\:bg-blue-100\/80:focus {
+  background-color: rgb(219 234 254 / 0.8);
+}
+
+.focus\:bg-blue-100\/85:focus {
+  background-color: rgb(219 234 254 / 0.85);
+}
+
+.focus\:bg-blue-100\/90:focus {
+  background-color: rgb(219 234 254 / 0.9);
+}
+
+.focus\:bg-blue-100\/95:focus {
+  background-color: rgb(219 234 254 / 0.95);
+}
+
+.focus\:bg-blue-500:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-blue-500\/0:focus {
+  background-color: rgb(59 130 246 / 0);
+}
+
+.focus\:bg-blue-500\/10:focus {
+  background-color: rgb(59 130 246 / 0.1);
+}
+
+.focus\:bg-blue-500\/100:focus {
+  background-color: rgb(59 130 246 / 1);
+}
+
+.focus\:bg-blue-500\/15:focus {
+  background-color: rgb(59 130 246 / 0.15);
+}
+
+.focus\:bg-blue-500\/20:focus {
+  background-color: rgb(59 130 246 / 0.2);
+}
+
+.focus\:bg-blue-500\/25:focus {
+  background-color: rgb(59 130 246 / 0.25);
+}
+
+.focus\:bg-blue-500\/30:focus {
+  background-color: rgb(59 130 246 / 0.3);
+}
+
+.focus\:bg-blue-500\/35:focus {
+  background-color: rgb(59 130 246 / 0.35);
+}
+
+.focus\:bg-blue-500\/40:focus {
+  background-color: rgb(59 130 246 / 0.4);
+}
+
+.focus\:bg-blue-500\/45:focus {
+  background-color: rgb(59 130 246 / 0.45);
+}
+
+.focus\:bg-blue-500\/5:focus {
+  background-color: rgb(59 130 246 / 0.05);
+}
+
+.focus\:bg-blue-500\/50:focus {
+  background-color: rgb(59 130 246 / 0.5);
+}
+
+.focus\:bg-blue-500\/55:focus {
+  background-color: rgb(59 130 246 / 0.55);
+}
+
+.focus\:bg-blue-500\/60:focus {
+  background-color: rgb(59 130 246 / 0.6);
+}
+
+.focus\:bg-blue-500\/65:focus {
+  background-color: rgb(59 130 246 / 0.65);
+}
+
+.focus\:bg-blue-500\/70:focus {
+  background-color: rgb(59 130 246 / 0.7);
+}
+
+.focus\:bg-blue-500\/75:focus {
+  background-color: rgb(59 130 246 / 0.75);
+}
+
+.focus\:bg-blue-500\/80:focus {
+  background-color: rgb(59 130 246 / 0.8);
+}
+
+.focus\:bg-blue-500\/85:focus {
+  background-color: rgb(59 130 246 / 0.85);
+}
+
+.focus\:bg-blue-500\/90:focus {
+  background-color: rgb(59 130 246 / 0.9);
+}
+
+.focus\:bg-blue-500\/95:focus {
+  background-color: rgb(59 130 246 / 0.95);
+}
+
+.focus\:bg-blue-700:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-blue-700\/0:focus {
+  background-color: rgb(29 78 216 / 0);
+}
+
+.focus\:bg-blue-700\/10:focus {
+  background-color: rgb(29 78 216 / 0.1);
+}
+
+.focus\:bg-blue-700\/100:focus {
+  background-color: rgb(29 78 216 / 1);
+}
+
+.focus\:bg-blue-700\/15:focus {
+  background-color: rgb(29 78 216 / 0.15);
+}
+
+.focus\:bg-blue-700\/20:focus {
+  background-color: rgb(29 78 216 / 0.2);
+}
+
+.focus\:bg-blue-700\/25:focus {
+  background-color: rgb(29 78 216 / 0.25);
+}
+
+.focus\:bg-blue-700\/30:focus {
+  background-color: rgb(29 78 216 / 0.3);
+}
+
+.focus\:bg-blue-700\/35:focus {
+  background-color: rgb(29 78 216 / 0.35);
+}
+
+.focus\:bg-blue-700\/40:focus {
+  background-color: rgb(29 78 216 / 0.4);
+}
+
+.focus\:bg-blue-700\/45:focus {
+  background-color: rgb(29 78 216 / 0.45);
+}
+
+.focus\:bg-blue-700\/5:focus {
+  background-color: rgb(29 78 216 / 0.05);
+}
+
+.focus\:bg-blue-700\/50:focus {
+  background-color: rgb(29 78 216 / 0.5);
+}
+
+.focus\:bg-blue-700\/55:focus {
+  background-color: rgb(29 78 216 / 0.55);
+}
+
+.focus\:bg-blue-700\/60:focus {
+  background-color: rgb(29 78 216 / 0.6);
+}
+
+.focus\:bg-blue-700\/65:focus {
+  background-color: rgb(29 78 216 / 0.65);
+}
+
+.focus\:bg-blue-700\/70:focus {
+  background-color: rgb(29 78 216 / 0.7);
+}
+
+.focus\:bg-blue-700\/75:focus {
+  background-color: rgb(29 78 216 / 0.75);
+}
+
+.focus\:bg-blue-700\/80:focus {
+  background-color: rgb(29 78 216 / 0.8);
+}
+
+.focus\:bg-blue-700\/85:focus {
+  background-color: rgb(29 78 216 / 0.85);
+}
+
+.focus\:bg-blue-700\/90:focus {
+  background-color: rgb(29 78 216 / 0.9);
+}
+
+.focus\:bg-blue-700\/95:focus {
+  background-color: rgb(29 78 216 / 0.95);
+}
+
+.focus\:bg-green-100:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-green-100\/0:focus {
+  background-color: rgb(220 252 231 / 0);
+}
+
+.focus\:bg-green-100\/10:focus {
+  background-color: rgb(220 252 231 / 0.1);
+}
+
+.focus\:bg-green-100\/100:focus {
+  background-color: rgb(220 252 231 / 1);
+}
+
+.focus\:bg-green-100\/15:focus {
+  background-color: rgb(220 252 231 / 0.15);
+}
+
+.focus\:bg-green-100\/20:focus {
+  background-color: rgb(220 252 231 / 0.2);
+}
+
+.focus\:bg-green-100\/25:focus {
+  background-color: rgb(220 252 231 / 0.25);
+}
+
+.focus\:bg-green-100\/30:focus {
+  background-color: rgb(220 252 231 / 0.3);
+}
+
+.focus\:bg-green-100\/35:focus {
+  background-color: rgb(220 252 231 / 0.35);
+}
+
+.focus\:bg-green-100\/40:focus {
+  background-color: rgb(220 252 231 / 0.4);
+}
+
+.focus\:bg-green-100\/45:focus {
+  background-color: rgb(220 252 231 / 0.45);
+}
+
+.focus\:bg-green-100\/5:focus {
+  background-color: rgb(220 252 231 / 0.05);
+}
+
+.focus\:bg-green-100\/50:focus {
+  background-color: rgb(220 252 231 / 0.5);
+}
+
+.focus\:bg-green-100\/55:focus {
+  background-color: rgb(220 252 231 / 0.55);
+}
+
+.focus\:bg-green-100\/60:focus {
+  background-color: rgb(220 252 231 / 0.6);
+}
+
+.focus\:bg-green-100\/65:focus {
+  background-color: rgb(220 252 231 / 0.65);
+}
+
+.focus\:bg-green-100\/70:focus {
+  background-color: rgb(220 252 231 / 0.7);
+}
+
+.focus\:bg-green-100\/75:focus {
+  background-color: rgb(220 252 231 / 0.75);
+}
+
+.focus\:bg-green-100\/80:focus {
+  background-color: rgb(220 252 231 / 0.8);
+}
+
+.focus\:bg-green-100\/85:focus {
+  background-color: rgb(220 252 231 / 0.85);
+}
+
+.focus\:bg-green-100\/90:focus {
+  background-color: rgb(220 252 231 / 0.9);
+}
+
+.focus\:bg-green-100\/95:focus {
+  background-color: rgb(220 252 231 / 0.95);
+}
+
+.focus\:bg-green-500:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-green-500\/0:focus {
+  background-color: rgb(34 197 94 / 0);
+}
+
+.focus\:bg-green-500\/10:focus {
+  background-color: rgb(34 197 94 / 0.1);
+}
+
+.focus\:bg-green-500\/100:focus {
+  background-color: rgb(34 197 94 / 1);
+}
+
+.focus\:bg-green-500\/15:focus {
+  background-color: rgb(34 197 94 / 0.15);
+}
+
+.focus\:bg-green-500\/20:focus {
+  background-color: rgb(34 197 94 / 0.2);
+}
+
+.focus\:bg-green-500\/25:focus {
+  background-color: rgb(34 197 94 / 0.25);
+}
+
+.focus\:bg-green-500\/30:focus {
+  background-color: rgb(34 197 94 / 0.3);
+}
+
+.focus\:bg-green-500\/35:focus {
+  background-color: rgb(34 197 94 / 0.35);
+}
+
+.focus\:bg-green-500\/40:focus {
+  background-color: rgb(34 197 94 / 0.4);
+}
+
+.focus\:bg-green-500\/45:focus {
+  background-color: rgb(34 197 94 / 0.45);
+}
+
+.focus\:bg-green-500\/5:focus {
+  background-color: rgb(34 197 94 / 0.05);
+}
+
+.focus\:bg-green-500\/50:focus {
+  background-color: rgb(34 197 94 / 0.5);
+}
+
+.focus\:bg-green-500\/55:focus {
+  background-color: rgb(34 197 94 / 0.55);
+}
+
+.focus\:bg-green-500\/60:focus {
+  background-color: rgb(34 197 94 / 0.6);
+}
+
+.focus\:bg-green-500\/65:focus {
+  background-color: rgb(34 197 94 / 0.65);
+}
+
+.focus\:bg-green-500\/70:focus {
+  background-color: rgb(34 197 94 / 0.7);
+}
+
+.focus\:bg-green-500\/75:focus {
+  background-color: rgb(34 197 94 / 0.75);
+}
+
+.focus\:bg-green-500\/80:focus {
+  background-color: rgb(34 197 94 / 0.8);
+}
+
+.focus\:bg-green-500\/85:focus {
+  background-color: rgb(34 197 94 / 0.85);
+}
+
+.focus\:bg-green-500\/90:focus {
+  background-color: rgb(34 197 94 / 0.9);
+}
+
+.focus\:bg-green-500\/95:focus {
+  background-color: rgb(34 197 94 / 0.95);
+}
+
+.focus\:bg-green-700:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-green-700\/0:focus {
+  background-color: rgb(21 128 61 / 0);
+}
+
+.focus\:bg-green-700\/10:focus {
+  background-color: rgb(21 128 61 / 0.1);
+}
+
+.focus\:bg-green-700\/100:focus {
+  background-color: rgb(21 128 61 / 1);
+}
+
+.focus\:bg-green-700\/15:focus {
+  background-color: rgb(21 128 61 / 0.15);
+}
+
+.focus\:bg-green-700\/20:focus {
+  background-color: rgb(21 128 61 / 0.2);
+}
+
+.focus\:bg-green-700\/25:focus {
+  background-color: rgb(21 128 61 / 0.25);
+}
+
+.focus\:bg-green-700\/30:focus {
+  background-color: rgb(21 128 61 / 0.3);
+}
+
+.focus\:bg-green-700\/35:focus {
+  background-color: rgb(21 128 61 / 0.35);
+}
+
+.focus\:bg-green-700\/40:focus {
+  background-color: rgb(21 128 61 / 0.4);
+}
+
+.focus\:bg-green-700\/45:focus {
+  background-color: rgb(21 128 61 / 0.45);
+}
+
+.focus\:bg-green-700\/5:focus {
+  background-color: rgb(21 128 61 / 0.05);
+}
+
+.focus\:bg-green-700\/50:focus {
+  background-color: rgb(21 128 61 / 0.5);
+}
+
+.focus\:bg-green-700\/55:focus {
+  background-color: rgb(21 128 61 / 0.55);
+}
+
+.focus\:bg-green-700\/60:focus {
+  background-color: rgb(21 128 61 / 0.6);
+}
+
+.focus\:bg-green-700\/65:focus {
+  background-color: rgb(21 128 61 / 0.65);
+}
+
+.focus\:bg-green-700\/70:focus {
+  background-color: rgb(21 128 61 / 0.7);
+}
+
+.focus\:bg-green-700\/75:focus {
+  background-color: rgb(21 128 61 / 0.75);
+}
+
+.focus\:bg-green-700\/80:focus {
+  background-color: rgb(21 128 61 / 0.8);
+}
+
+.focus\:bg-green-700\/85:focus {
+  background-color: rgb(21 128 61 / 0.85);
+}
+
+.focus\:bg-green-700\/90:focus {
+  background-color: rgb(21 128 61 / 0.9);
+}
+
+.focus\:bg-green-700\/95:focus {
+  background-color: rgb(21 128 61 / 0.95);
+}
+
+.focus\:bg-orange-100:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 237 213 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-orange-100\/0:focus {
+  background-color: rgb(255 237 213 / 0);
+}
+
+.focus\:bg-orange-100\/10:focus {
+  background-color: rgb(255 237 213 / 0.1);
+}
+
+.focus\:bg-orange-100\/100:focus {
+  background-color: rgb(255 237 213 / 1);
+}
+
+.focus\:bg-orange-100\/15:focus {
+  background-color: rgb(255 237 213 / 0.15);
+}
+
+.focus\:bg-orange-100\/20:focus {
+  background-color: rgb(255 237 213 / 0.2);
+}
+
+.focus\:bg-orange-100\/25:focus {
+  background-color: rgb(255 237 213 / 0.25);
+}
+
+.focus\:bg-orange-100\/30:focus {
+  background-color: rgb(255 237 213 / 0.3);
+}
+
+.focus\:bg-orange-100\/35:focus {
+  background-color: rgb(255 237 213 / 0.35);
+}
+
+.focus\:bg-orange-100\/40:focus {
+  background-color: rgb(255 237 213 / 0.4);
+}
+
+.focus\:bg-orange-100\/45:focus {
+  background-color: rgb(255 237 213 / 0.45);
+}
+
+.focus\:bg-orange-100\/5:focus {
+  background-color: rgb(255 237 213 / 0.05);
+}
+
+.focus\:bg-orange-100\/50:focus {
+  background-color: rgb(255 237 213 / 0.5);
+}
+
+.focus\:bg-orange-100\/55:focus {
+  background-color: rgb(255 237 213 / 0.55);
+}
+
+.focus\:bg-orange-100\/60:focus {
+  background-color: rgb(255 237 213 / 0.6);
+}
+
+.focus\:bg-orange-100\/65:focus {
+  background-color: rgb(255 237 213 / 0.65);
+}
+
+.focus\:bg-orange-100\/70:focus {
+  background-color: rgb(255 237 213 / 0.7);
+}
+
+.focus\:bg-orange-100\/75:focus {
+  background-color: rgb(255 237 213 / 0.75);
+}
+
+.focus\:bg-orange-100\/80:focus {
+  background-color: rgb(255 237 213 / 0.8);
+}
+
+.focus\:bg-orange-100\/85:focus {
+  background-color: rgb(255 237 213 / 0.85);
+}
+
+.focus\:bg-orange-100\/90:focus {
+  background-color: rgb(255 237 213 / 0.9);
+}
+
+.focus\:bg-orange-100\/95:focus {
+  background-color: rgb(255 237 213 / 0.95);
+}
+
+.focus\:bg-orange-500:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 115 22 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-orange-500\/0:focus {
+  background-color: rgb(249 115 22 / 0);
+}
+
+.focus\:bg-orange-500\/10:focus {
+  background-color: rgb(249 115 22 / 0.1);
+}
+
+.focus\:bg-orange-500\/100:focus {
+  background-color: rgb(249 115 22 / 1);
+}
+
+.focus\:bg-orange-500\/15:focus {
+  background-color: rgb(249 115 22 / 0.15);
+}
+
+.focus\:bg-orange-500\/20:focus {
+  background-color: rgb(249 115 22 / 0.2);
+}
+
+.focus\:bg-orange-500\/25:focus {
+  background-color: rgb(249 115 22 / 0.25);
+}
+
+.focus\:bg-orange-500\/30:focus {
+  background-color: rgb(249 115 22 / 0.3);
+}
+
+.focus\:bg-orange-500\/35:focus {
+  background-color: rgb(249 115 22 / 0.35);
+}
+
+.focus\:bg-orange-500\/40:focus {
+  background-color: rgb(249 115 22 / 0.4);
+}
+
+.focus\:bg-orange-500\/45:focus {
+  background-color: rgb(249 115 22 / 0.45);
+}
+
+.focus\:bg-orange-500\/5:focus {
+  background-color: rgb(249 115 22 / 0.05);
+}
+
+.focus\:bg-orange-500\/50:focus {
+  background-color: rgb(249 115 22 / 0.5);
+}
+
+.focus\:bg-orange-500\/55:focus {
+  background-color: rgb(249 115 22 / 0.55);
+}
+
+.focus\:bg-orange-500\/60:focus {
+  background-color: rgb(249 115 22 / 0.6);
+}
+
+.focus\:bg-orange-500\/65:focus {
+  background-color: rgb(249 115 22 / 0.65);
+}
+
+.focus\:bg-orange-500\/70:focus {
+  background-color: rgb(249 115 22 / 0.7);
+}
+
+.focus\:bg-orange-500\/75:focus {
+  background-color: rgb(249 115 22 / 0.75);
+}
+
+.focus\:bg-orange-500\/80:focus {
+  background-color: rgb(249 115 22 / 0.8);
+}
+
+.focus\:bg-orange-500\/85:focus {
+  background-color: rgb(249 115 22 / 0.85);
+}
+
+.focus\:bg-orange-500\/90:focus {
+  background-color: rgb(249 115 22 / 0.9);
+}
+
+.focus\:bg-orange-500\/95:focus {
+  background-color: rgb(249 115 22 / 0.95);
+}
+
+.focus\:bg-orange-700:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(194 65 12 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-orange-700\/0:focus {
+  background-color: rgb(194 65 12 / 0);
+}
+
+.focus\:bg-orange-700\/10:focus {
+  background-color: rgb(194 65 12 / 0.1);
+}
+
+.focus\:bg-orange-700\/100:focus {
+  background-color: rgb(194 65 12 / 1);
+}
+
+.focus\:bg-orange-700\/15:focus {
+  background-color: rgb(194 65 12 / 0.15);
+}
+
+.focus\:bg-orange-700\/20:focus {
+  background-color: rgb(194 65 12 / 0.2);
+}
+
+.focus\:bg-orange-700\/25:focus {
+  background-color: rgb(194 65 12 / 0.25);
+}
+
+.focus\:bg-orange-700\/30:focus {
+  background-color: rgb(194 65 12 / 0.3);
+}
+
+.focus\:bg-orange-700\/35:focus {
+  background-color: rgb(194 65 12 / 0.35);
+}
+
+.focus\:bg-orange-700\/40:focus {
+  background-color: rgb(194 65 12 / 0.4);
+}
+
+.focus\:bg-orange-700\/45:focus {
+  background-color: rgb(194 65 12 / 0.45);
+}
+
+.focus\:bg-orange-700\/5:focus {
+  background-color: rgb(194 65 12 / 0.05);
+}
+
+.focus\:bg-orange-700\/50:focus {
+  background-color: rgb(194 65 12 / 0.5);
+}
+
+.focus\:bg-orange-700\/55:focus {
+  background-color: rgb(194 65 12 / 0.55);
+}
+
+.focus\:bg-orange-700\/60:focus {
+  background-color: rgb(194 65 12 / 0.6);
+}
+
+.focus\:bg-orange-700\/65:focus {
+  background-color: rgb(194 65 12 / 0.65);
+}
+
+.focus\:bg-orange-700\/70:focus {
+  background-color: rgb(194 65 12 / 0.7);
+}
+
+.focus\:bg-orange-700\/75:focus {
+  background-color: rgb(194 65 12 / 0.75);
+}
+
+.focus\:bg-orange-700\/80:focus {
+  background-color: rgb(194 65 12 / 0.8);
+}
+
+.focus\:bg-orange-700\/85:focus {
+  background-color: rgb(194 65 12 / 0.85);
+}
+
+.focus\:bg-orange-700\/90:focus {
+  background-color: rgb(194 65 12 / 0.9);
+}
+
+.focus\:bg-orange-700\/95:focus {
+  background-color: rgb(194 65 12 / 0.95);
+}
+
+.focus\:bg-red-100:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-red-100\/0:focus {
+  background-color: rgb(254 226 226 / 0);
+}
+
+.focus\:bg-red-100\/10:focus {
+  background-color: rgb(254 226 226 / 0.1);
+}
+
+.focus\:bg-red-100\/100:focus {
+  background-color: rgb(254 226 226 / 1);
+}
+
+.focus\:bg-red-100\/15:focus {
+  background-color: rgb(254 226 226 / 0.15);
+}
+
+.focus\:bg-red-100\/20:focus {
+  background-color: rgb(254 226 226 / 0.2);
+}
+
+.focus\:bg-red-100\/25:focus {
+  background-color: rgb(254 226 226 / 0.25);
+}
+
+.focus\:bg-red-100\/30:focus {
+  background-color: rgb(254 226 226 / 0.3);
+}
+
+.focus\:bg-red-100\/35:focus {
+  background-color: rgb(254 226 226 / 0.35);
+}
+
+.focus\:bg-red-100\/40:focus {
+  background-color: rgb(254 226 226 / 0.4);
+}
+
+.focus\:bg-red-100\/45:focus {
+  background-color: rgb(254 226 226 / 0.45);
+}
+
+.focus\:bg-red-100\/5:focus {
+  background-color: rgb(254 226 226 / 0.05);
+}
+
+.focus\:bg-red-100\/50:focus {
+  background-color: rgb(254 226 226 / 0.5);
+}
+
+.focus\:bg-red-100\/55:focus {
+  background-color: rgb(254 226 226 / 0.55);
+}
+
+.focus\:bg-red-100\/60:focus {
+  background-color: rgb(254 226 226 / 0.6);
+}
+
+.focus\:bg-red-100\/65:focus {
+  background-color: rgb(254 226 226 / 0.65);
+}
+
+.focus\:bg-red-100\/70:focus {
+  background-color: rgb(254 226 226 / 0.7);
+}
+
+.focus\:bg-red-100\/75:focus {
+  background-color: rgb(254 226 226 / 0.75);
+}
+
+.focus\:bg-red-100\/80:focus {
+  background-color: rgb(254 226 226 / 0.8);
+}
+
+.focus\:bg-red-100\/85:focus {
+  background-color: rgb(254 226 226 / 0.85);
+}
+
+.focus\:bg-red-100\/90:focus {
+  background-color: rgb(254 226 226 / 0.9);
+}
+
+.focus\:bg-red-100\/95:focus {
+  background-color: rgb(254 226 226 / 0.95);
+}
+
+.focus\:bg-red-500:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-red-500\/0:focus {
+  background-color: rgb(239 68 68 / 0);
+}
+
+.focus\:bg-red-500\/10:focus {
+  background-color: rgb(239 68 68 / 0.1);
+}
+
+.focus\:bg-red-500\/100:focus {
+  background-color: rgb(239 68 68 / 1);
+}
+
+.focus\:bg-red-500\/15:focus {
+  background-color: rgb(239 68 68 / 0.15);
+}
+
+.focus\:bg-red-500\/20:focus {
+  background-color: rgb(239 68 68 / 0.2);
+}
+
+.focus\:bg-red-500\/25:focus {
+  background-color: rgb(239 68 68 / 0.25);
+}
+
+.focus\:bg-red-500\/30:focus {
+  background-color: rgb(239 68 68 / 0.3);
+}
+
+.focus\:bg-red-500\/35:focus {
+  background-color: rgb(239 68 68 / 0.35);
+}
+
+.focus\:bg-red-500\/40:focus {
+  background-color: rgb(239 68 68 / 0.4);
+}
+
+.focus\:bg-red-500\/45:focus {
+  background-color: rgb(239 68 68 / 0.45);
+}
+
+.focus\:bg-red-500\/5:focus {
+  background-color: rgb(239 68 68 / 0.05);
+}
+
+.focus\:bg-red-500\/50:focus {
+  background-color: rgb(239 68 68 / 0.5);
+}
+
+.focus\:bg-red-500\/55:focus {
+  background-color: rgb(239 68 68 / 0.55);
+}
+
+.focus\:bg-red-500\/60:focus {
+  background-color: rgb(239 68 68 / 0.6);
+}
+
+.focus\:bg-red-500\/65:focus {
+  background-color: rgb(239 68 68 / 0.65);
+}
+
+.focus\:bg-red-500\/70:focus {
+  background-color: rgb(239 68 68 / 0.7);
+}
+
+.focus\:bg-red-500\/75:focus {
+  background-color: rgb(239 68 68 / 0.75);
+}
+
+.focus\:bg-red-500\/80:focus {
+  background-color: rgb(239 68 68 / 0.8);
+}
+
+.focus\:bg-red-500\/85:focus {
+  background-color: rgb(239 68 68 / 0.85);
+}
+
+.focus\:bg-red-500\/90:focus {
+  background-color: rgb(239 68 68 / 0.9);
+}
+
+.focus\:bg-red-500\/95:focus {
+  background-color: rgb(239 68 68 / 0.95);
+}
+
+.focus\:bg-red-700:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:bg-red-700\/0:focus {
+  background-color: rgb(185 28 28 / 0);
+}
+
+.focus\:bg-red-700\/10:focus {
+  background-color: rgb(185 28 28 / 0.1);
+}
+
+.focus\:bg-red-700\/100:focus {
+  background-color: rgb(185 28 28 / 1);
+}
+
+.focus\:bg-red-700\/15:focus {
+  background-color: rgb(185 28 28 / 0.15);
+}
+
+.focus\:bg-red-700\/20:focus {
+  background-color: rgb(185 28 28 / 0.2);
+}
+
+.focus\:bg-red-700\/25:focus {
+  background-color: rgb(185 28 28 / 0.25);
+}
+
+.focus\:bg-red-700\/30:focus {
+  background-color: rgb(185 28 28 / 0.3);
+}
+
+.focus\:bg-red-700\/35:focus {
+  background-color: rgb(185 28 28 / 0.35);
+}
+
+.focus\:bg-red-700\/40:focus {
+  background-color: rgb(185 28 28 / 0.4);
+}
+
+.focus\:bg-red-700\/45:focus {
+  background-color: rgb(185 28 28 / 0.45);
+}
+
+.focus\:bg-red-700\/5:focus {
+  background-color: rgb(185 28 28 / 0.05);
+}
+
+.focus\:bg-red-700\/50:focus {
+  background-color: rgb(185 28 28 / 0.5);
+}
+
+.focus\:bg-red-700\/55:focus {
+  background-color: rgb(185 28 28 / 0.55);
+}
+
+.focus\:bg-red-700\/60:focus {
+  background-color: rgb(185 28 28 / 0.6);
+}
+
+.focus\:bg-red-700\/65:focus {
+  background-color: rgb(185 28 28 / 0.65);
+}
+
+.focus\:bg-red-700\/70:focus {
+  background-color: rgb(185 28 28 / 0.7);
+}
+
+.focus\:bg-red-700\/75:focus {
+  background-color: rgb(185 28 28 / 0.75);
+}
+
+.focus\:bg-red-700\/80:focus {
+  background-color: rgb(185 28 28 / 0.8);
+}
+
+.focus\:bg-red-700\/85:focus {
+  background-color: rgb(185 28 28 / 0.85);
+}
+
+.focus\:bg-red-700\/90:focus {
+  background-color: rgb(185 28 28 / 0.9);
+}
+
+.focus\:bg-red-700\/95:focus {
+  background-color: rgb(185 28 28 / 0.95);
 }
 
 .focus\:outline-none:focus {
@@ -2744,6 +5934,2144 @@ input[type="checkbox"]:checked:before {
   }
 }
 
+@media (min-width: 1024px) {
+  .lg\:bg-blue-100 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-blue-100\/0 {
+    background-color: rgb(219 234 254 / 0);
+  }
+
+  .lg\:bg-blue-100\/10 {
+    background-color: rgb(219 234 254 / 0.1);
+  }
+
+  .lg\:bg-blue-100\/100 {
+    background-color: rgb(219 234 254 / 1);
+  }
+
+  .lg\:bg-blue-100\/15 {
+    background-color: rgb(219 234 254 / 0.15);
+  }
+
+  .lg\:bg-blue-100\/20 {
+    background-color: rgb(219 234 254 / 0.2);
+  }
+
+  .lg\:bg-blue-100\/25 {
+    background-color: rgb(219 234 254 / 0.25);
+  }
+
+  .lg\:bg-blue-100\/30 {
+    background-color: rgb(219 234 254 / 0.3);
+  }
+
+  .lg\:bg-blue-100\/35 {
+    background-color: rgb(219 234 254 / 0.35);
+  }
+
+  .lg\:bg-blue-100\/40 {
+    background-color: rgb(219 234 254 / 0.4);
+  }
+
+  .lg\:bg-blue-100\/45 {
+    background-color: rgb(219 234 254 / 0.45);
+  }
+
+  .lg\:bg-blue-100\/5 {
+    background-color: rgb(219 234 254 / 0.05);
+  }
+
+  .lg\:bg-blue-100\/50 {
+    background-color: rgb(219 234 254 / 0.5);
+  }
+
+  .lg\:bg-blue-100\/55 {
+    background-color: rgb(219 234 254 / 0.55);
+  }
+
+  .lg\:bg-blue-100\/60 {
+    background-color: rgb(219 234 254 / 0.6);
+  }
+
+  .lg\:bg-blue-100\/65 {
+    background-color: rgb(219 234 254 / 0.65);
+  }
+
+  .lg\:bg-blue-100\/70 {
+    background-color: rgb(219 234 254 / 0.7);
+  }
+
+  .lg\:bg-blue-100\/75 {
+    background-color: rgb(219 234 254 / 0.75);
+  }
+
+  .lg\:bg-blue-100\/80 {
+    background-color: rgb(219 234 254 / 0.8);
+  }
+
+  .lg\:bg-blue-100\/85 {
+    background-color: rgb(219 234 254 / 0.85);
+  }
+
+  .lg\:bg-blue-100\/90 {
+    background-color: rgb(219 234 254 / 0.9);
+  }
+
+  .lg\:bg-blue-100\/95 {
+    background-color: rgb(219 234 254 / 0.95);
+  }
+
+  .lg\:bg-blue-500 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-blue-500\/0 {
+    background-color: rgb(59 130 246 / 0);
+  }
+
+  .lg\:bg-blue-500\/10 {
+    background-color: rgb(59 130 246 / 0.1);
+  }
+
+  .lg\:bg-blue-500\/100 {
+    background-color: rgb(59 130 246 / 1);
+  }
+
+  .lg\:bg-blue-500\/15 {
+    background-color: rgb(59 130 246 / 0.15);
+  }
+
+  .lg\:bg-blue-500\/20 {
+    background-color: rgb(59 130 246 / 0.2);
+  }
+
+  .lg\:bg-blue-500\/25 {
+    background-color: rgb(59 130 246 / 0.25);
+  }
+
+  .lg\:bg-blue-500\/30 {
+    background-color: rgb(59 130 246 / 0.3);
+  }
+
+  .lg\:bg-blue-500\/35 {
+    background-color: rgb(59 130 246 / 0.35);
+  }
+
+  .lg\:bg-blue-500\/40 {
+    background-color: rgb(59 130 246 / 0.4);
+  }
+
+  .lg\:bg-blue-500\/45 {
+    background-color: rgb(59 130 246 / 0.45);
+  }
+
+  .lg\:bg-blue-500\/5 {
+    background-color: rgb(59 130 246 / 0.05);
+  }
+
+  .lg\:bg-blue-500\/50 {
+    background-color: rgb(59 130 246 / 0.5);
+  }
+
+  .lg\:bg-blue-500\/55 {
+    background-color: rgb(59 130 246 / 0.55);
+  }
+
+  .lg\:bg-blue-500\/60 {
+    background-color: rgb(59 130 246 / 0.6);
+  }
+
+  .lg\:bg-blue-500\/65 {
+    background-color: rgb(59 130 246 / 0.65);
+  }
+
+  .lg\:bg-blue-500\/70 {
+    background-color: rgb(59 130 246 / 0.7);
+  }
+
+  .lg\:bg-blue-500\/75 {
+    background-color: rgb(59 130 246 / 0.75);
+  }
+
+  .lg\:bg-blue-500\/80 {
+    background-color: rgb(59 130 246 / 0.8);
+  }
+
+  .lg\:bg-blue-500\/85 {
+    background-color: rgb(59 130 246 / 0.85);
+  }
+
+  .lg\:bg-blue-500\/90 {
+    background-color: rgb(59 130 246 / 0.9);
+  }
+
+  .lg\:bg-blue-500\/95 {
+    background-color: rgb(59 130 246 / 0.95);
+  }
+
+  .lg\:bg-blue-700 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-blue-700\/0 {
+    background-color: rgb(29 78 216 / 0);
+  }
+
+  .lg\:bg-blue-700\/10 {
+    background-color: rgb(29 78 216 / 0.1);
+  }
+
+  .lg\:bg-blue-700\/100 {
+    background-color: rgb(29 78 216 / 1);
+  }
+
+  .lg\:bg-blue-700\/15 {
+    background-color: rgb(29 78 216 / 0.15);
+  }
+
+  .lg\:bg-blue-700\/20 {
+    background-color: rgb(29 78 216 / 0.2);
+  }
+
+  .lg\:bg-blue-700\/25 {
+    background-color: rgb(29 78 216 / 0.25);
+  }
+
+  .lg\:bg-blue-700\/30 {
+    background-color: rgb(29 78 216 / 0.3);
+  }
+
+  .lg\:bg-blue-700\/35 {
+    background-color: rgb(29 78 216 / 0.35);
+  }
+
+  .lg\:bg-blue-700\/40 {
+    background-color: rgb(29 78 216 / 0.4);
+  }
+
+  .lg\:bg-blue-700\/45 {
+    background-color: rgb(29 78 216 / 0.45);
+  }
+
+  .lg\:bg-blue-700\/5 {
+    background-color: rgb(29 78 216 / 0.05);
+  }
+
+  .lg\:bg-blue-700\/50 {
+    background-color: rgb(29 78 216 / 0.5);
+  }
+
+  .lg\:bg-blue-700\/55 {
+    background-color: rgb(29 78 216 / 0.55);
+  }
+
+  .lg\:bg-blue-700\/60 {
+    background-color: rgb(29 78 216 / 0.6);
+  }
+
+  .lg\:bg-blue-700\/65 {
+    background-color: rgb(29 78 216 / 0.65);
+  }
+
+  .lg\:bg-blue-700\/70 {
+    background-color: rgb(29 78 216 / 0.7);
+  }
+
+  .lg\:bg-blue-700\/75 {
+    background-color: rgb(29 78 216 / 0.75);
+  }
+
+  .lg\:bg-blue-700\/80 {
+    background-color: rgb(29 78 216 / 0.8);
+  }
+
+  .lg\:bg-blue-700\/85 {
+    background-color: rgb(29 78 216 / 0.85);
+  }
+
+  .lg\:bg-blue-700\/90 {
+    background-color: rgb(29 78 216 / 0.9);
+  }
+
+  .lg\:bg-blue-700\/95 {
+    background-color: rgb(29 78 216 / 0.95);
+  }
+
+  .lg\:bg-green-100 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-green-100\/0 {
+    background-color: rgb(220 252 231 / 0);
+  }
+
+  .lg\:bg-green-100\/10 {
+    background-color: rgb(220 252 231 / 0.1);
+  }
+
+  .lg\:bg-green-100\/100 {
+    background-color: rgb(220 252 231 / 1);
+  }
+
+  .lg\:bg-green-100\/15 {
+    background-color: rgb(220 252 231 / 0.15);
+  }
+
+  .lg\:bg-green-100\/20 {
+    background-color: rgb(220 252 231 / 0.2);
+  }
+
+  .lg\:bg-green-100\/25 {
+    background-color: rgb(220 252 231 / 0.25);
+  }
+
+  .lg\:bg-green-100\/30 {
+    background-color: rgb(220 252 231 / 0.3);
+  }
+
+  .lg\:bg-green-100\/35 {
+    background-color: rgb(220 252 231 / 0.35);
+  }
+
+  .lg\:bg-green-100\/40 {
+    background-color: rgb(220 252 231 / 0.4);
+  }
+
+  .lg\:bg-green-100\/45 {
+    background-color: rgb(220 252 231 / 0.45);
+  }
+
+  .lg\:bg-green-100\/5 {
+    background-color: rgb(220 252 231 / 0.05);
+  }
+
+  .lg\:bg-green-100\/50 {
+    background-color: rgb(220 252 231 / 0.5);
+  }
+
+  .lg\:bg-green-100\/55 {
+    background-color: rgb(220 252 231 / 0.55);
+  }
+
+  .lg\:bg-green-100\/60 {
+    background-color: rgb(220 252 231 / 0.6);
+  }
+
+  .lg\:bg-green-100\/65 {
+    background-color: rgb(220 252 231 / 0.65);
+  }
+
+  .lg\:bg-green-100\/70 {
+    background-color: rgb(220 252 231 / 0.7);
+  }
+
+  .lg\:bg-green-100\/75 {
+    background-color: rgb(220 252 231 / 0.75);
+  }
+
+  .lg\:bg-green-100\/80 {
+    background-color: rgb(220 252 231 / 0.8);
+  }
+
+  .lg\:bg-green-100\/85 {
+    background-color: rgb(220 252 231 / 0.85);
+  }
+
+  .lg\:bg-green-100\/90 {
+    background-color: rgb(220 252 231 / 0.9);
+  }
+
+  .lg\:bg-green-100\/95 {
+    background-color: rgb(220 252 231 / 0.95);
+  }
+
+  .lg\:bg-green-500 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-green-500\/0 {
+    background-color: rgb(34 197 94 / 0);
+  }
+
+  .lg\:bg-green-500\/10 {
+    background-color: rgb(34 197 94 / 0.1);
+  }
+
+  .lg\:bg-green-500\/100 {
+    background-color: rgb(34 197 94 / 1);
+  }
+
+  .lg\:bg-green-500\/15 {
+    background-color: rgb(34 197 94 / 0.15);
+  }
+
+  .lg\:bg-green-500\/20 {
+    background-color: rgb(34 197 94 / 0.2);
+  }
+
+  .lg\:bg-green-500\/25 {
+    background-color: rgb(34 197 94 / 0.25);
+  }
+
+  .lg\:bg-green-500\/30 {
+    background-color: rgb(34 197 94 / 0.3);
+  }
+
+  .lg\:bg-green-500\/35 {
+    background-color: rgb(34 197 94 / 0.35);
+  }
+
+  .lg\:bg-green-500\/40 {
+    background-color: rgb(34 197 94 / 0.4);
+  }
+
+  .lg\:bg-green-500\/45 {
+    background-color: rgb(34 197 94 / 0.45);
+  }
+
+  .lg\:bg-green-500\/5 {
+    background-color: rgb(34 197 94 / 0.05);
+  }
+
+  .lg\:bg-green-500\/50 {
+    background-color: rgb(34 197 94 / 0.5);
+  }
+
+  .lg\:bg-green-500\/55 {
+    background-color: rgb(34 197 94 / 0.55);
+  }
+
+  .lg\:bg-green-500\/60 {
+    background-color: rgb(34 197 94 / 0.6);
+  }
+
+  .lg\:bg-green-500\/65 {
+    background-color: rgb(34 197 94 / 0.65);
+  }
+
+  .lg\:bg-green-500\/70 {
+    background-color: rgb(34 197 94 / 0.7);
+  }
+
+  .lg\:bg-green-500\/75 {
+    background-color: rgb(34 197 94 / 0.75);
+  }
+
+  .lg\:bg-green-500\/80 {
+    background-color: rgb(34 197 94 / 0.8);
+  }
+
+  .lg\:bg-green-500\/85 {
+    background-color: rgb(34 197 94 / 0.85);
+  }
+
+  .lg\:bg-green-500\/90 {
+    background-color: rgb(34 197 94 / 0.9);
+  }
+
+  .lg\:bg-green-500\/95 {
+    background-color: rgb(34 197 94 / 0.95);
+  }
+
+  .lg\:bg-green-700 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-green-700\/0 {
+    background-color: rgb(21 128 61 / 0);
+  }
+
+  .lg\:bg-green-700\/10 {
+    background-color: rgb(21 128 61 / 0.1);
+  }
+
+  .lg\:bg-green-700\/100 {
+    background-color: rgb(21 128 61 / 1);
+  }
+
+  .lg\:bg-green-700\/15 {
+    background-color: rgb(21 128 61 / 0.15);
+  }
+
+  .lg\:bg-green-700\/20 {
+    background-color: rgb(21 128 61 / 0.2);
+  }
+
+  .lg\:bg-green-700\/25 {
+    background-color: rgb(21 128 61 / 0.25);
+  }
+
+  .lg\:bg-green-700\/30 {
+    background-color: rgb(21 128 61 / 0.3);
+  }
+
+  .lg\:bg-green-700\/35 {
+    background-color: rgb(21 128 61 / 0.35);
+  }
+
+  .lg\:bg-green-700\/40 {
+    background-color: rgb(21 128 61 / 0.4);
+  }
+
+  .lg\:bg-green-700\/45 {
+    background-color: rgb(21 128 61 / 0.45);
+  }
+
+  .lg\:bg-green-700\/5 {
+    background-color: rgb(21 128 61 / 0.05);
+  }
+
+  .lg\:bg-green-700\/50 {
+    background-color: rgb(21 128 61 / 0.5);
+  }
+
+  .lg\:bg-green-700\/55 {
+    background-color: rgb(21 128 61 / 0.55);
+  }
+
+  .lg\:bg-green-700\/60 {
+    background-color: rgb(21 128 61 / 0.6);
+  }
+
+  .lg\:bg-green-700\/65 {
+    background-color: rgb(21 128 61 / 0.65);
+  }
+
+  .lg\:bg-green-700\/70 {
+    background-color: rgb(21 128 61 / 0.7);
+  }
+
+  .lg\:bg-green-700\/75 {
+    background-color: rgb(21 128 61 / 0.75);
+  }
+
+  .lg\:bg-green-700\/80 {
+    background-color: rgb(21 128 61 / 0.8);
+  }
+
+  .lg\:bg-green-700\/85 {
+    background-color: rgb(21 128 61 / 0.85);
+  }
+
+  .lg\:bg-green-700\/90 {
+    background-color: rgb(21 128 61 / 0.9);
+  }
+
+  .lg\:bg-green-700\/95 {
+    background-color: rgb(21 128 61 / 0.95);
+  }
+
+  .lg\:bg-orange-100 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 237 213 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-orange-100\/0 {
+    background-color: rgb(255 237 213 / 0);
+  }
+
+  .lg\:bg-orange-100\/10 {
+    background-color: rgb(255 237 213 / 0.1);
+  }
+
+  .lg\:bg-orange-100\/100 {
+    background-color: rgb(255 237 213 / 1);
+  }
+
+  .lg\:bg-orange-100\/15 {
+    background-color: rgb(255 237 213 / 0.15);
+  }
+
+  .lg\:bg-orange-100\/20 {
+    background-color: rgb(255 237 213 / 0.2);
+  }
+
+  .lg\:bg-orange-100\/25 {
+    background-color: rgb(255 237 213 / 0.25);
+  }
+
+  .lg\:bg-orange-100\/30 {
+    background-color: rgb(255 237 213 / 0.3);
+  }
+
+  .lg\:bg-orange-100\/35 {
+    background-color: rgb(255 237 213 / 0.35);
+  }
+
+  .lg\:bg-orange-100\/40 {
+    background-color: rgb(255 237 213 / 0.4);
+  }
+
+  .lg\:bg-orange-100\/45 {
+    background-color: rgb(255 237 213 / 0.45);
+  }
+
+  .lg\:bg-orange-100\/5 {
+    background-color: rgb(255 237 213 / 0.05);
+  }
+
+  .lg\:bg-orange-100\/50 {
+    background-color: rgb(255 237 213 / 0.5);
+  }
+
+  .lg\:bg-orange-100\/55 {
+    background-color: rgb(255 237 213 / 0.55);
+  }
+
+  .lg\:bg-orange-100\/60 {
+    background-color: rgb(255 237 213 / 0.6);
+  }
+
+  .lg\:bg-orange-100\/65 {
+    background-color: rgb(255 237 213 / 0.65);
+  }
+
+  .lg\:bg-orange-100\/70 {
+    background-color: rgb(255 237 213 / 0.7);
+  }
+
+  .lg\:bg-orange-100\/75 {
+    background-color: rgb(255 237 213 / 0.75);
+  }
+
+  .lg\:bg-orange-100\/80 {
+    background-color: rgb(255 237 213 / 0.8);
+  }
+
+  .lg\:bg-orange-100\/85 {
+    background-color: rgb(255 237 213 / 0.85);
+  }
+
+  .lg\:bg-orange-100\/90 {
+    background-color: rgb(255 237 213 / 0.9);
+  }
+
+  .lg\:bg-orange-100\/95 {
+    background-color: rgb(255 237 213 / 0.95);
+  }
+
+  .lg\:bg-orange-500 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(249 115 22 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-orange-500\/0 {
+    background-color: rgb(249 115 22 / 0);
+  }
+
+  .lg\:bg-orange-500\/10 {
+    background-color: rgb(249 115 22 / 0.1);
+  }
+
+  .lg\:bg-orange-500\/100 {
+    background-color: rgb(249 115 22 / 1);
+  }
+
+  .lg\:bg-orange-500\/15 {
+    background-color: rgb(249 115 22 / 0.15);
+  }
+
+  .lg\:bg-orange-500\/20 {
+    background-color: rgb(249 115 22 / 0.2);
+  }
+
+  .lg\:bg-orange-500\/25 {
+    background-color: rgb(249 115 22 / 0.25);
+  }
+
+  .lg\:bg-orange-500\/30 {
+    background-color: rgb(249 115 22 / 0.3);
+  }
+
+  .lg\:bg-orange-500\/35 {
+    background-color: rgb(249 115 22 / 0.35);
+  }
+
+  .lg\:bg-orange-500\/40 {
+    background-color: rgb(249 115 22 / 0.4);
+  }
+
+  .lg\:bg-orange-500\/45 {
+    background-color: rgb(249 115 22 / 0.45);
+  }
+
+  .lg\:bg-orange-500\/5 {
+    background-color: rgb(249 115 22 / 0.05);
+  }
+
+  .lg\:bg-orange-500\/50 {
+    background-color: rgb(249 115 22 / 0.5);
+  }
+
+  .lg\:bg-orange-500\/55 {
+    background-color: rgb(249 115 22 / 0.55);
+  }
+
+  .lg\:bg-orange-500\/60 {
+    background-color: rgb(249 115 22 / 0.6);
+  }
+
+  .lg\:bg-orange-500\/65 {
+    background-color: rgb(249 115 22 / 0.65);
+  }
+
+  .lg\:bg-orange-500\/70 {
+    background-color: rgb(249 115 22 / 0.7);
+  }
+
+  .lg\:bg-orange-500\/75 {
+    background-color: rgb(249 115 22 / 0.75);
+  }
+
+  .lg\:bg-orange-500\/80 {
+    background-color: rgb(249 115 22 / 0.8);
+  }
+
+  .lg\:bg-orange-500\/85 {
+    background-color: rgb(249 115 22 / 0.85);
+  }
+
+  .lg\:bg-orange-500\/90 {
+    background-color: rgb(249 115 22 / 0.9);
+  }
+
+  .lg\:bg-orange-500\/95 {
+    background-color: rgb(249 115 22 / 0.95);
+  }
+
+  .lg\:bg-orange-700 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(194 65 12 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-orange-700\/0 {
+    background-color: rgb(194 65 12 / 0);
+  }
+
+  .lg\:bg-orange-700\/10 {
+    background-color: rgb(194 65 12 / 0.1);
+  }
+
+  .lg\:bg-orange-700\/100 {
+    background-color: rgb(194 65 12 / 1);
+  }
+
+  .lg\:bg-orange-700\/15 {
+    background-color: rgb(194 65 12 / 0.15);
+  }
+
+  .lg\:bg-orange-700\/20 {
+    background-color: rgb(194 65 12 / 0.2);
+  }
+
+  .lg\:bg-orange-700\/25 {
+    background-color: rgb(194 65 12 / 0.25);
+  }
+
+  .lg\:bg-orange-700\/30 {
+    background-color: rgb(194 65 12 / 0.3);
+  }
+
+  .lg\:bg-orange-700\/35 {
+    background-color: rgb(194 65 12 / 0.35);
+  }
+
+  .lg\:bg-orange-700\/40 {
+    background-color: rgb(194 65 12 / 0.4);
+  }
+
+  .lg\:bg-orange-700\/45 {
+    background-color: rgb(194 65 12 / 0.45);
+  }
+
+  .lg\:bg-orange-700\/5 {
+    background-color: rgb(194 65 12 / 0.05);
+  }
+
+  .lg\:bg-orange-700\/50 {
+    background-color: rgb(194 65 12 / 0.5);
+  }
+
+  .lg\:bg-orange-700\/55 {
+    background-color: rgb(194 65 12 / 0.55);
+  }
+
+  .lg\:bg-orange-700\/60 {
+    background-color: rgb(194 65 12 / 0.6);
+  }
+
+  .lg\:bg-orange-700\/65 {
+    background-color: rgb(194 65 12 / 0.65);
+  }
+
+  .lg\:bg-orange-700\/70 {
+    background-color: rgb(194 65 12 / 0.7);
+  }
+
+  .lg\:bg-orange-700\/75 {
+    background-color: rgb(194 65 12 / 0.75);
+  }
+
+  .lg\:bg-orange-700\/80 {
+    background-color: rgb(194 65 12 / 0.8);
+  }
+
+  .lg\:bg-orange-700\/85 {
+    background-color: rgb(194 65 12 / 0.85);
+  }
+
+  .lg\:bg-orange-700\/90 {
+    background-color: rgb(194 65 12 / 0.9);
+  }
+
+  .lg\:bg-orange-700\/95 {
+    background-color: rgb(194 65 12 / 0.95);
+  }
+
+  .lg\:bg-red-100 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-red-100\/0 {
+    background-color: rgb(254 226 226 / 0);
+  }
+
+  .lg\:bg-red-100\/10 {
+    background-color: rgb(254 226 226 / 0.1);
+  }
+
+  .lg\:bg-red-100\/100 {
+    background-color: rgb(254 226 226 / 1);
+  }
+
+  .lg\:bg-red-100\/15 {
+    background-color: rgb(254 226 226 / 0.15);
+  }
+
+  .lg\:bg-red-100\/20 {
+    background-color: rgb(254 226 226 / 0.2);
+  }
+
+  .lg\:bg-red-100\/25 {
+    background-color: rgb(254 226 226 / 0.25);
+  }
+
+  .lg\:bg-red-100\/30 {
+    background-color: rgb(254 226 226 / 0.3);
+  }
+
+  .lg\:bg-red-100\/35 {
+    background-color: rgb(254 226 226 / 0.35);
+  }
+
+  .lg\:bg-red-100\/40 {
+    background-color: rgb(254 226 226 / 0.4);
+  }
+
+  .lg\:bg-red-100\/45 {
+    background-color: rgb(254 226 226 / 0.45);
+  }
+
+  .lg\:bg-red-100\/5 {
+    background-color: rgb(254 226 226 / 0.05);
+  }
+
+  .lg\:bg-red-100\/50 {
+    background-color: rgb(254 226 226 / 0.5);
+  }
+
+  .lg\:bg-red-100\/55 {
+    background-color: rgb(254 226 226 / 0.55);
+  }
+
+  .lg\:bg-red-100\/60 {
+    background-color: rgb(254 226 226 / 0.6);
+  }
+
+  .lg\:bg-red-100\/65 {
+    background-color: rgb(254 226 226 / 0.65);
+  }
+
+  .lg\:bg-red-100\/70 {
+    background-color: rgb(254 226 226 / 0.7);
+  }
+
+  .lg\:bg-red-100\/75 {
+    background-color: rgb(254 226 226 / 0.75);
+  }
+
+  .lg\:bg-red-100\/80 {
+    background-color: rgb(254 226 226 / 0.8);
+  }
+
+  .lg\:bg-red-100\/85 {
+    background-color: rgb(254 226 226 / 0.85);
+  }
+
+  .lg\:bg-red-100\/90 {
+    background-color: rgb(254 226 226 / 0.9);
+  }
+
+  .lg\:bg-red-100\/95 {
+    background-color: rgb(254 226 226 / 0.95);
+  }
+
+  .lg\:bg-red-500 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-red-500\/0 {
+    background-color: rgb(239 68 68 / 0);
+  }
+
+  .lg\:bg-red-500\/10 {
+    background-color: rgb(239 68 68 / 0.1);
+  }
+
+  .lg\:bg-red-500\/100 {
+    background-color: rgb(239 68 68 / 1);
+  }
+
+  .lg\:bg-red-500\/15 {
+    background-color: rgb(239 68 68 / 0.15);
+  }
+
+  .lg\:bg-red-500\/20 {
+    background-color: rgb(239 68 68 / 0.2);
+  }
+
+  .lg\:bg-red-500\/25 {
+    background-color: rgb(239 68 68 / 0.25);
+  }
+
+  .lg\:bg-red-500\/30 {
+    background-color: rgb(239 68 68 / 0.3);
+  }
+
+  .lg\:bg-red-500\/35 {
+    background-color: rgb(239 68 68 / 0.35);
+  }
+
+  .lg\:bg-red-500\/40 {
+    background-color: rgb(239 68 68 / 0.4);
+  }
+
+  .lg\:bg-red-500\/45 {
+    background-color: rgb(239 68 68 / 0.45);
+  }
+
+  .lg\:bg-red-500\/5 {
+    background-color: rgb(239 68 68 / 0.05);
+  }
+
+  .lg\:bg-red-500\/50 {
+    background-color: rgb(239 68 68 / 0.5);
+  }
+
+  .lg\:bg-red-500\/55 {
+    background-color: rgb(239 68 68 / 0.55);
+  }
+
+  .lg\:bg-red-500\/60 {
+    background-color: rgb(239 68 68 / 0.6);
+  }
+
+  .lg\:bg-red-500\/65 {
+    background-color: rgb(239 68 68 / 0.65);
+  }
+
+  .lg\:bg-red-500\/70 {
+    background-color: rgb(239 68 68 / 0.7);
+  }
+
+  .lg\:bg-red-500\/75 {
+    background-color: rgb(239 68 68 / 0.75);
+  }
+
+  .lg\:bg-red-500\/80 {
+    background-color: rgb(239 68 68 / 0.8);
+  }
+
+  .lg\:bg-red-500\/85 {
+    background-color: rgb(239 68 68 / 0.85);
+  }
+
+  .lg\:bg-red-500\/90 {
+    background-color: rgb(239 68 68 / 0.9);
+  }
+
+  .lg\:bg-red-500\/95 {
+    background-color: rgb(239 68 68 / 0.95);
+  }
+
+  .lg\:bg-red-700 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:bg-red-700\/0 {
+    background-color: rgb(185 28 28 / 0);
+  }
+
+  .lg\:bg-red-700\/10 {
+    background-color: rgb(185 28 28 / 0.1);
+  }
+
+  .lg\:bg-red-700\/100 {
+    background-color: rgb(185 28 28 / 1);
+  }
+
+  .lg\:bg-red-700\/15 {
+    background-color: rgb(185 28 28 / 0.15);
+  }
+
+  .lg\:bg-red-700\/20 {
+    background-color: rgb(185 28 28 / 0.2);
+  }
+
+  .lg\:bg-red-700\/25 {
+    background-color: rgb(185 28 28 / 0.25);
+  }
+
+  .lg\:bg-red-700\/30 {
+    background-color: rgb(185 28 28 / 0.3);
+  }
+
+  .lg\:bg-red-700\/35 {
+    background-color: rgb(185 28 28 / 0.35);
+  }
+
+  .lg\:bg-red-700\/40 {
+    background-color: rgb(185 28 28 / 0.4);
+  }
+
+  .lg\:bg-red-700\/45 {
+    background-color: rgb(185 28 28 / 0.45);
+  }
+
+  .lg\:bg-red-700\/5 {
+    background-color: rgb(185 28 28 / 0.05);
+  }
+
+  .lg\:bg-red-700\/50 {
+    background-color: rgb(185 28 28 / 0.5);
+  }
+
+  .lg\:bg-red-700\/55 {
+    background-color: rgb(185 28 28 / 0.55);
+  }
+
+  .lg\:bg-red-700\/60 {
+    background-color: rgb(185 28 28 / 0.6);
+  }
+
+  .lg\:bg-red-700\/65 {
+    background-color: rgb(185 28 28 / 0.65);
+  }
+
+  .lg\:bg-red-700\/70 {
+    background-color: rgb(185 28 28 / 0.7);
+  }
+
+  .lg\:bg-red-700\/75 {
+    background-color: rgb(185 28 28 / 0.75);
+  }
+
+  .lg\:bg-red-700\/80 {
+    background-color: rgb(185 28 28 / 0.8);
+  }
+
+  .lg\:bg-red-700\/85 {
+    background-color: rgb(185 28 28 / 0.85);
+  }
+
+  .lg\:bg-red-700\/90 {
+    background-color: rgb(185 28 28 / 0.9);
+  }
+
+  .lg\:bg-red-700\/95 {
+    background-color: rgb(185 28 28 / 0.95);
+  }
+
+  .lg\:hover\:bg-blue-100:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-blue-100\/0:hover {
+    background-color: rgb(219 234 254 / 0);
+  }
+
+  .lg\:hover\:bg-blue-100\/10:hover {
+    background-color: rgb(219 234 254 / 0.1);
+  }
+
+  .lg\:hover\:bg-blue-100\/100:hover {
+    background-color: rgb(219 234 254 / 1);
+  }
+
+  .lg\:hover\:bg-blue-100\/15:hover {
+    background-color: rgb(219 234 254 / 0.15);
+  }
+
+  .lg\:hover\:bg-blue-100\/20:hover {
+    background-color: rgb(219 234 254 / 0.2);
+  }
+
+  .lg\:hover\:bg-blue-100\/25:hover {
+    background-color: rgb(219 234 254 / 0.25);
+  }
+
+  .lg\:hover\:bg-blue-100\/30:hover {
+    background-color: rgb(219 234 254 / 0.3);
+  }
+
+  .lg\:hover\:bg-blue-100\/35:hover {
+    background-color: rgb(219 234 254 / 0.35);
+  }
+
+  .lg\:hover\:bg-blue-100\/40:hover {
+    background-color: rgb(219 234 254 / 0.4);
+  }
+
+  .lg\:hover\:bg-blue-100\/45:hover {
+    background-color: rgb(219 234 254 / 0.45);
+  }
+
+  .lg\:hover\:bg-blue-100\/5:hover {
+    background-color: rgb(219 234 254 / 0.05);
+  }
+
+  .lg\:hover\:bg-blue-100\/50:hover {
+    background-color: rgb(219 234 254 / 0.5);
+  }
+
+  .lg\:hover\:bg-blue-100\/55:hover {
+    background-color: rgb(219 234 254 / 0.55);
+  }
+
+  .lg\:hover\:bg-blue-100\/60:hover {
+    background-color: rgb(219 234 254 / 0.6);
+  }
+
+  .lg\:hover\:bg-blue-100\/65:hover {
+    background-color: rgb(219 234 254 / 0.65);
+  }
+
+  .lg\:hover\:bg-blue-100\/70:hover {
+    background-color: rgb(219 234 254 / 0.7);
+  }
+
+  .lg\:hover\:bg-blue-100\/75:hover {
+    background-color: rgb(219 234 254 / 0.75);
+  }
+
+  .lg\:hover\:bg-blue-100\/80:hover {
+    background-color: rgb(219 234 254 / 0.8);
+  }
+
+  .lg\:hover\:bg-blue-100\/85:hover {
+    background-color: rgb(219 234 254 / 0.85);
+  }
+
+  .lg\:hover\:bg-blue-100\/90:hover {
+    background-color: rgb(219 234 254 / 0.9);
+  }
+
+  .lg\:hover\:bg-blue-100\/95:hover {
+    background-color: rgb(219 234 254 / 0.95);
+  }
+
+  .lg\:hover\:bg-blue-500:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-blue-500\/0:hover {
+    background-color: rgb(59 130 246 / 0);
+  }
+
+  .lg\:hover\:bg-blue-500\/10:hover {
+    background-color: rgb(59 130 246 / 0.1);
+  }
+
+  .lg\:hover\:bg-blue-500\/100:hover {
+    background-color: rgb(59 130 246 / 1);
+  }
+
+  .lg\:hover\:bg-blue-500\/15:hover {
+    background-color: rgb(59 130 246 / 0.15);
+  }
+
+  .lg\:hover\:bg-blue-500\/20:hover {
+    background-color: rgb(59 130 246 / 0.2);
+  }
+
+  .lg\:hover\:bg-blue-500\/25:hover {
+    background-color: rgb(59 130 246 / 0.25);
+  }
+
+  .lg\:hover\:bg-blue-500\/30:hover {
+    background-color: rgb(59 130 246 / 0.3);
+  }
+
+  .lg\:hover\:bg-blue-500\/35:hover {
+    background-color: rgb(59 130 246 / 0.35);
+  }
+
+  .lg\:hover\:bg-blue-500\/40:hover {
+    background-color: rgb(59 130 246 / 0.4);
+  }
+
+  .lg\:hover\:bg-blue-500\/45:hover {
+    background-color: rgb(59 130 246 / 0.45);
+  }
+
+  .lg\:hover\:bg-blue-500\/5:hover {
+    background-color: rgb(59 130 246 / 0.05);
+  }
+
+  .lg\:hover\:bg-blue-500\/50:hover {
+    background-color: rgb(59 130 246 / 0.5);
+  }
+
+  .lg\:hover\:bg-blue-500\/55:hover {
+    background-color: rgb(59 130 246 / 0.55);
+  }
+
+  .lg\:hover\:bg-blue-500\/60:hover {
+    background-color: rgb(59 130 246 / 0.6);
+  }
+
+  .lg\:hover\:bg-blue-500\/65:hover {
+    background-color: rgb(59 130 246 / 0.65);
+  }
+
+  .lg\:hover\:bg-blue-500\/70:hover {
+    background-color: rgb(59 130 246 / 0.7);
+  }
+
+  .lg\:hover\:bg-blue-500\/75:hover {
+    background-color: rgb(59 130 246 / 0.75);
+  }
+
+  .lg\:hover\:bg-blue-500\/80:hover {
+    background-color: rgb(59 130 246 / 0.8);
+  }
+
+  .lg\:hover\:bg-blue-500\/85:hover {
+    background-color: rgb(59 130 246 / 0.85);
+  }
+
+  .lg\:hover\:bg-blue-500\/90:hover {
+    background-color: rgb(59 130 246 / 0.9);
+  }
+
+  .lg\:hover\:bg-blue-500\/95:hover {
+    background-color: rgb(59 130 246 / 0.95);
+  }
+
+  .lg\:hover\:bg-blue-700:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-blue-700\/0:hover {
+    background-color: rgb(29 78 216 / 0);
+  }
+
+  .lg\:hover\:bg-blue-700\/10:hover {
+    background-color: rgb(29 78 216 / 0.1);
+  }
+
+  .lg\:hover\:bg-blue-700\/100:hover {
+    background-color: rgb(29 78 216 / 1);
+  }
+
+  .lg\:hover\:bg-blue-700\/15:hover {
+    background-color: rgb(29 78 216 / 0.15);
+  }
+
+  .lg\:hover\:bg-blue-700\/20:hover {
+    background-color: rgb(29 78 216 / 0.2);
+  }
+
+  .lg\:hover\:bg-blue-700\/25:hover {
+    background-color: rgb(29 78 216 / 0.25);
+  }
+
+  .lg\:hover\:bg-blue-700\/30:hover {
+    background-color: rgb(29 78 216 / 0.3);
+  }
+
+  .lg\:hover\:bg-blue-700\/35:hover {
+    background-color: rgb(29 78 216 / 0.35);
+  }
+
+  .lg\:hover\:bg-blue-700\/40:hover {
+    background-color: rgb(29 78 216 / 0.4);
+  }
+
+  .lg\:hover\:bg-blue-700\/45:hover {
+    background-color: rgb(29 78 216 / 0.45);
+  }
+
+  .lg\:hover\:bg-blue-700\/5:hover {
+    background-color: rgb(29 78 216 / 0.05);
+  }
+
+  .lg\:hover\:bg-blue-700\/50:hover {
+    background-color: rgb(29 78 216 / 0.5);
+  }
+
+  .lg\:hover\:bg-blue-700\/55:hover {
+    background-color: rgb(29 78 216 / 0.55);
+  }
+
+  .lg\:hover\:bg-blue-700\/60:hover {
+    background-color: rgb(29 78 216 / 0.6);
+  }
+
+  .lg\:hover\:bg-blue-700\/65:hover {
+    background-color: rgb(29 78 216 / 0.65);
+  }
+
+  .lg\:hover\:bg-blue-700\/70:hover {
+    background-color: rgb(29 78 216 / 0.7);
+  }
+
+  .lg\:hover\:bg-blue-700\/75:hover {
+    background-color: rgb(29 78 216 / 0.75);
+  }
+
+  .lg\:hover\:bg-blue-700\/80:hover {
+    background-color: rgb(29 78 216 / 0.8);
+  }
+
+  .lg\:hover\:bg-blue-700\/85:hover {
+    background-color: rgb(29 78 216 / 0.85);
+  }
+
+  .lg\:hover\:bg-blue-700\/90:hover {
+    background-color: rgb(29 78 216 / 0.9);
+  }
+
+  .lg\:hover\:bg-blue-700\/95:hover {
+    background-color: rgb(29 78 216 / 0.95);
+  }
+
+  .lg\:hover\:bg-green-100:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-green-100\/0:hover {
+    background-color: rgb(220 252 231 / 0);
+  }
+
+  .lg\:hover\:bg-green-100\/10:hover {
+    background-color: rgb(220 252 231 / 0.1);
+  }
+
+  .lg\:hover\:bg-green-100\/100:hover {
+    background-color: rgb(220 252 231 / 1);
+  }
+
+  .lg\:hover\:bg-green-100\/15:hover {
+    background-color: rgb(220 252 231 / 0.15);
+  }
+
+  .lg\:hover\:bg-green-100\/20:hover {
+    background-color: rgb(220 252 231 / 0.2);
+  }
+
+  .lg\:hover\:bg-green-100\/25:hover {
+    background-color: rgb(220 252 231 / 0.25);
+  }
+
+  .lg\:hover\:bg-green-100\/30:hover {
+    background-color: rgb(220 252 231 / 0.3);
+  }
+
+  .lg\:hover\:bg-green-100\/35:hover {
+    background-color: rgb(220 252 231 / 0.35);
+  }
+
+  .lg\:hover\:bg-green-100\/40:hover {
+    background-color: rgb(220 252 231 / 0.4);
+  }
+
+  .lg\:hover\:bg-green-100\/45:hover {
+    background-color: rgb(220 252 231 / 0.45);
+  }
+
+  .lg\:hover\:bg-green-100\/5:hover {
+    background-color: rgb(220 252 231 / 0.05);
+  }
+
+  .lg\:hover\:bg-green-100\/50:hover {
+    background-color: rgb(220 252 231 / 0.5);
+  }
+
+  .lg\:hover\:bg-green-100\/55:hover {
+    background-color: rgb(220 252 231 / 0.55);
+  }
+
+  .lg\:hover\:bg-green-100\/60:hover {
+    background-color: rgb(220 252 231 / 0.6);
+  }
+
+  .lg\:hover\:bg-green-100\/65:hover {
+    background-color: rgb(220 252 231 / 0.65);
+  }
+
+  .lg\:hover\:bg-green-100\/70:hover {
+    background-color: rgb(220 252 231 / 0.7);
+  }
+
+  .lg\:hover\:bg-green-100\/75:hover {
+    background-color: rgb(220 252 231 / 0.75);
+  }
+
+  .lg\:hover\:bg-green-100\/80:hover {
+    background-color: rgb(220 252 231 / 0.8);
+  }
+
+  .lg\:hover\:bg-green-100\/85:hover {
+    background-color: rgb(220 252 231 / 0.85);
+  }
+
+  .lg\:hover\:bg-green-100\/90:hover {
+    background-color: rgb(220 252 231 / 0.9);
+  }
+
+  .lg\:hover\:bg-green-100\/95:hover {
+    background-color: rgb(220 252 231 / 0.95);
+  }
+
+  .lg\:hover\:bg-green-500:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-green-500\/0:hover {
+    background-color: rgb(34 197 94 / 0);
+  }
+
+  .lg\:hover\:bg-green-500\/10:hover {
+    background-color: rgb(34 197 94 / 0.1);
+  }
+
+  .lg\:hover\:bg-green-500\/100:hover {
+    background-color: rgb(34 197 94 / 1);
+  }
+
+  .lg\:hover\:bg-green-500\/15:hover {
+    background-color: rgb(34 197 94 / 0.15);
+  }
+
+  .lg\:hover\:bg-green-500\/20:hover {
+    background-color: rgb(34 197 94 / 0.2);
+  }
+
+  .lg\:hover\:bg-green-500\/25:hover {
+    background-color: rgb(34 197 94 / 0.25);
+  }
+
+  .lg\:hover\:bg-green-500\/30:hover {
+    background-color: rgb(34 197 94 / 0.3);
+  }
+
+  .lg\:hover\:bg-green-500\/35:hover {
+    background-color: rgb(34 197 94 / 0.35);
+  }
+
+  .lg\:hover\:bg-green-500\/40:hover {
+    background-color: rgb(34 197 94 / 0.4);
+  }
+
+  .lg\:hover\:bg-green-500\/45:hover {
+    background-color: rgb(34 197 94 / 0.45);
+  }
+
+  .lg\:hover\:bg-green-500\/5:hover {
+    background-color: rgb(34 197 94 / 0.05);
+  }
+
+  .lg\:hover\:bg-green-500\/50:hover {
+    background-color: rgb(34 197 94 / 0.5);
+  }
+
+  .lg\:hover\:bg-green-500\/55:hover {
+    background-color: rgb(34 197 94 / 0.55);
+  }
+
+  .lg\:hover\:bg-green-500\/60:hover {
+    background-color: rgb(34 197 94 / 0.6);
+  }
+
+  .lg\:hover\:bg-green-500\/65:hover {
+    background-color: rgb(34 197 94 / 0.65);
+  }
+
+  .lg\:hover\:bg-green-500\/70:hover {
+    background-color: rgb(34 197 94 / 0.7);
+  }
+
+  .lg\:hover\:bg-green-500\/75:hover {
+    background-color: rgb(34 197 94 / 0.75);
+  }
+
+  .lg\:hover\:bg-green-500\/80:hover {
+    background-color: rgb(34 197 94 / 0.8);
+  }
+
+  .lg\:hover\:bg-green-500\/85:hover {
+    background-color: rgb(34 197 94 / 0.85);
+  }
+
+  .lg\:hover\:bg-green-500\/90:hover {
+    background-color: rgb(34 197 94 / 0.9);
+  }
+
+  .lg\:hover\:bg-green-500\/95:hover {
+    background-color: rgb(34 197 94 / 0.95);
+  }
+
+  .lg\:hover\:bg-green-700:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-green-700\/0:hover {
+    background-color: rgb(21 128 61 / 0);
+  }
+
+  .lg\:hover\:bg-green-700\/10:hover {
+    background-color: rgb(21 128 61 / 0.1);
+  }
+
+  .lg\:hover\:bg-green-700\/100:hover {
+    background-color: rgb(21 128 61 / 1);
+  }
+
+  .lg\:hover\:bg-green-700\/15:hover {
+    background-color: rgb(21 128 61 / 0.15);
+  }
+
+  .lg\:hover\:bg-green-700\/20:hover {
+    background-color: rgb(21 128 61 / 0.2);
+  }
+
+  .lg\:hover\:bg-green-700\/25:hover {
+    background-color: rgb(21 128 61 / 0.25);
+  }
+
+  .lg\:hover\:bg-green-700\/30:hover {
+    background-color: rgb(21 128 61 / 0.3);
+  }
+
+  .lg\:hover\:bg-green-700\/35:hover {
+    background-color: rgb(21 128 61 / 0.35);
+  }
+
+  .lg\:hover\:bg-green-700\/40:hover {
+    background-color: rgb(21 128 61 / 0.4);
+  }
+
+  .lg\:hover\:bg-green-700\/45:hover {
+    background-color: rgb(21 128 61 / 0.45);
+  }
+
+  .lg\:hover\:bg-green-700\/5:hover {
+    background-color: rgb(21 128 61 / 0.05);
+  }
+
+  .lg\:hover\:bg-green-700\/50:hover {
+    background-color: rgb(21 128 61 / 0.5);
+  }
+
+  .lg\:hover\:bg-green-700\/55:hover {
+    background-color: rgb(21 128 61 / 0.55);
+  }
+
+  .lg\:hover\:bg-green-700\/60:hover {
+    background-color: rgb(21 128 61 / 0.6);
+  }
+
+  .lg\:hover\:bg-green-700\/65:hover {
+    background-color: rgb(21 128 61 / 0.65);
+  }
+
+  .lg\:hover\:bg-green-700\/70:hover {
+    background-color: rgb(21 128 61 / 0.7);
+  }
+
+  .lg\:hover\:bg-green-700\/75:hover {
+    background-color: rgb(21 128 61 / 0.75);
+  }
+
+  .lg\:hover\:bg-green-700\/80:hover {
+    background-color: rgb(21 128 61 / 0.8);
+  }
+
+  .lg\:hover\:bg-green-700\/85:hover {
+    background-color: rgb(21 128 61 / 0.85);
+  }
+
+  .lg\:hover\:bg-green-700\/90:hover {
+    background-color: rgb(21 128 61 / 0.9);
+  }
+
+  .lg\:hover\:bg-green-700\/95:hover {
+    background-color: rgb(21 128 61 / 0.95);
+  }
+
+  .lg\:hover\:bg-orange-100:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 237 213 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-orange-100\/0:hover {
+    background-color: rgb(255 237 213 / 0);
+  }
+
+  .lg\:hover\:bg-orange-100\/10:hover {
+    background-color: rgb(255 237 213 / 0.1);
+  }
+
+  .lg\:hover\:bg-orange-100\/100:hover {
+    background-color: rgb(255 237 213 / 1);
+  }
+
+  .lg\:hover\:bg-orange-100\/15:hover {
+    background-color: rgb(255 237 213 / 0.15);
+  }
+
+  .lg\:hover\:bg-orange-100\/20:hover {
+    background-color: rgb(255 237 213 / 0.2);
+  }
+
+  .lg\:hover\:bg-orange-100\/25:hover {
+    background-color: rgb(255 237 213 / 0.25);
+  }
+
+  .lg\:hover\:bg-orange-100\/30:hover {
+    background-color: rgb(255 237 213 / 0.3);
+  }
+
+  .lg\:hover\:bg-orange-100\/35:hover {
+    background-color: rgb(255 237 213 / 0.35);
+  }
+
+  .lg\:hover\:bg-orange-100\/40:hover {
+    background-color: rgb(255 237 213 / 0.4);
+  }
+
+  .lg\:hover\:bg-orange-100\/45:hover {
+    background-color: rgb(255 237 213 / 0.45);
+  }
+
+  .lg\:hover\:bg-orange-100\/5:hover {
+    background-color: rgb(255 237 213 / 0.05);
+  }
+
+  .lg\:hover\:bg-orange-100\/50:hover {
+    background-color: rgb(255 237 213 / 0.5);
+  }
+
+  .lg\:hover\:bg-orange-100\/55:hover {
+    background-color: rgb(255 237 213 / 0.55);
+  }
+
+  .lg\:hover\:bg-orange-100\/60:hover {
+    background-color: rgb(255 237 213 / 0.6);
+  }
+
+  .lg\:hover\:bg-orange-100\/65:hover {
+    background-color: rgb(255 237 213 / 0.65);
+  }
+
+  .lg\:hover\:bg-orange-100\/70:hover {
+    background-color: rgb(255 237 213 / 0.7);
+  }
+
+  .lg\:hover\:bg-orange-100\/75:hover {
+    background-color: rgb(255 237 213 / 0.75);
+  }
+
+  .lg\:hover\:bg-orange-100\/80:hover {
+    background-color: rgb(255 237 213 / 0.8);
+  }
+
+  .lg\:hover\:bg-orange-100\/85:hover {
+    background-color: rgb(255 237 213 / 0.85);
+  }
+
+  .lg\:hover\:bg-orange-100\/90:hover {
+    background-color: rgb(255 237 213 / 0.9);
+  }
+
+  .lg\:hover\:bg-orange-100\/95:hover {
+    background-color: rgb(255 237 213 / 0.95);
+  }
+
+  .lg\:hover\:bg-orange-500:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(249 115 22 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-orange-500\/0:hover {
+    background-color: rgb(249 115 22 / 0);
+  }
+
+  .lg\:hover\:bg-orange-500\/10:hover {
+    background-color: rgb(249 115 22 / 0.1);
+  }
+
+  .lg\:hover\:bg-orange-500\/100:hover {
+    background-color: rgb(249 115 22 / 1);
+  }
+
+  .lg\:hover\:bg-orange-500\/15:hover {
+    background-color: rgb(249 115 22 / 0.15);
+  }
+
+  .lg\:hover\:bg-orange-500\/20:hover {
+    background-color: rgb(249 115 22 / 0.2);
+  }
+
+  .lg\:hover\:bg-orange-500\/25:hover {
+    background-color: rgb(249 115 22 / 0.25);
+  }
+
+  .lg\:hover\:bg-orange-500\/30:hover {
+    background-color: rgb(249 115 22 / 0.3);
+  }
+
+  .lg\:hover\:bg-orange-500\/35:hover {
+    background-color: rgb(249 115 22 / 0.35);
+  }
+
+  .lg\:hover\:bg-orange-500\/40:hover {
+    background-color: rgb(249 115 22 / 0.4);
+  }
+
+  .lg\:hover\:bg-orange-500\/45:hover {
+    background-color: rgb(249 115 22 / 0.45);
+  }
+
+  .lg\:hover\:bg-orange-500\/5:hover {
+    background-color: rgb(249 115 22 / 0.05);
+  }
+
+  .lg\:hover\:bg-orange-500\/50:hover {
+    background-color: rgb(249 115 22 / 0.5);
+  }
+
+  .lg\:hover\:bg-orange-500\/55:hover {
+    background-color: rgb(249 115 22 / 0.55);
+  }
+
+  .lg\:hover\:bg-orange-500\/60:hover {
+    background-color: rgb(249 115 22 / 0.6);
+  }
+
+  .lg\:hover\:bg-orange-500\/65:hover {
+    background-color: rgb(249 115 22 / 0.65);
+  }
+
+  .lg\:hover\:bg-orange-500\/70:hover {
+    background-color: rgb(249 115 22 / 0.7);
+  }
+
+  .lg\:hover\:bg-orange-500\/75:hover {
+    background-color: rgb(249 115 22 / 0.75);
+  }
+
+  .lg\:hover\:bg-orange-500\/80:hover {
+    background-color: rgb(249 115 22 / 0.8);
+  }
+
+  .lg\:hover\:bg-orange-500\/85:hover {
+    background-color: rgb(249 115 22 / 0.85);
+  }
+
+  .lg\:hover\:bg-orange-500\/90:hover {
+    background-color: rgb(249 115 22 / 0.9);
+  }
+
+  .lg\:hover\:bg-orange-500\/95:hover {
+    background-color: rgb(249 115 22 / 0.95);
+  }
+
+  .lg\:hover\:bg-orange-700:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(194 65 12 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-orange-700\/0:hover {
+    background-color: rgb(194 65 12 / 0);
+  }
+
+  .lg\:hover\:bg-orange-700\/10:hover {
+    background-color: rgb(194 65 12 / 0.1);
+  }
+
+  .lg\:hover\:bg-orange-700\/100:hover {
+    background-color: rgb(194 65 12 / 1);
+  }
+
+  .lg\:hover\:bg-orange-700\/15:hover {
+    background-color: rgb(194 65 12 / 0.15);
+  }
+
+  .lg\:hover\:bg-orange-700\/20:hover {
+    background-color: rgb(194 65 12 / 0.2);
+  }
+
+  .lg\:hover\:bg-orange-700\/25:hover {
+    background-color: rgb(194 65 12 / 0.25);
+  }
+
+  .lg\:hover\:bg-orange-700\/30:hover {
+    background-color: rgb(194 65 12 / 0.3);
+  }
+
+  .lg\:hover\:bg-orange-700\/35:hover {
+    background-color: rgb(194 65 12 / 0.35);
+  }
+
+  .lg\:hover\:bg-orange-700\/40:hover {
+    background-color: rgb(194 65 12 / 0.4);
+  }
+
+  .lg\:hover\:bg-orange-700\/45:hover {
+    background-color: rgb(194 65 12 / 0.45);
+  }
+
+  .lg\:hover\:bg-orange-700\/5:hover {
+    background-color: rgb(194 65 12 / 0.05);
+  }
+
+  .lg\:hover\:bg-orange-700\/50:hover {
+    background-color: rgb(194 65 12 / 0.5);
+  }
+
+  .lg\:hover\:bg-orange-700\/55:hover {
+    background-color: rgb(194 65 12 / 0.55);
+  }
+
+  .lg\:hover\:bg-orange-700\/60:hover {
+    background-color: rgb(194 65 12 / 0.6);
+  }
+
+  .lg\:hover\:bg-orange-700\/65:hover {
+    background-color: rgb(194 65 12 / 0.65);
+  }
+
+  .lg\:hover\:bg-orange-700\/70:hover {
+    background-color: rgb(194 65 12 / 0.7);
+  }
+
+  .lg\:hover\:bg-orange-700\/75:hover {
+    background-color: rgb(194 65 12 / 0.75);
+  }
+
+  .lg\:hover\:bg-orange-700\/80:hover {
+    background-color: rgb(194 65 12 / 0.8);
+  }
+
+  .lg\:hover\:bg-orange-700\/85:hover {
+    background-color: rgb(194 65 12 / 0.85);
+  }
+
+  .lg\:hover\:bg-orange-700\/90:hover {
+    background-color: rgb(194 65 12 / 0.9);
+  }
+
+  .lg\:hover\:bg-orange-700\/95:hover {
+    background-color: rgb(194 65 12 / 0.95);
+  }
+
+  .lg\:hover\:bg-red-100:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-red-100\/0:hover {
+    background-color: rgb(254 226 226 / 0);
+  }
+
+  .lg\:hover\:bg-red-100\/10:hover {
+    background-color: rgb(254 226 226 / 0.1);
+  }
+
+  .lg\:hover\:bg-red-100\/100:hover {
+    background-color: rgb(254 226 226 / 1);
+  }
+
+  .lg\:hover\:bg-red-100\/15:hover {
+    background-color: rgb(254 226 226 / 0.15);
+  }
+
+  .lg\:hover\:bg-red-100\/20:hover {
+    background-color: rgb(254 226 226 / 0.2);
+  }
+
+  .lg\:hover\:bg-red-100\/25:hover {
+    background-color: rgb(254 226 226 / 0.25);
+  }
+
+  .lg\:hover\:bg-red-100\/30:hover {
+    background-color: rgb(254 226 226 / 0.3);
+  }
+
+  .lg\:hover\:bg-red-100\/35:hover {
+    background-color: rgb(254 226 226 / 0.35);
+  }
+
+  .lg\:hover\:bg-red-100\/40:hover {
+    background-color: rgb(254 226 226 / 0.4);
+  }
+
+  .lg\:hover\:bg-red-100\/45:hover {
+    background-color: rgb(254 226 226 / 0.45);
+  }
+
+  .lg\:hover\:bg-red-100\/5:hover {
+    background-color: rgb(254 226 226 / 0.05);
+  }
+
+  .lg\:hover\:bg-red-100\/50:hover {
+    background-color: rgb(254 226 226 / 0.5);
+  }
+
+  .lg\:hover\:bg-red-100\/55:hover {
+    background-color: rgb(254 226 226 / 0.55);
+  }
+
+  .lg\:hover\:bg-red-100\/60:hover {
+    background-color: rgb(254 226 226 / 0.6);
+  }
+
+  .lg\:hover\:bg-red-100\/65:hover {
+    background-color: rgb(254 226 226 / 0.65);
+  }
+
+  .lg\:hover\:bg-red-100\/70:hover {
+    background-color: rgb(254 226 226 / 0.7);
+  }
+
+  .lg\:hover\:bg-red-100\/75:hover {
+    background-color: rgb(254 226 226 / 0.75);
+  }
+
+  .lg\:hover\:bg-red-100\/80:hover {
+    background-color: rgb(254 226 226 / 0.8);
+  }
+
+  .lg\:hover\:bg-red-100\/85:hover {
+    background-color: rgb(254 226 226 / 0.85);
+  }
+
+  .lg\:hover\:bg-red-100\/90:hover {
+    background-color: rgb(254 226 226 / 0.9);
+  }
+
+  .lg\:hover\:bg-red-100\/95:hover {
+    background-color: rgb(254 226 226 / 0.95);
+  }
+
+  .lg\:hover\:bg-red-500:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-red-500\/0:hover {
+    background-color: rgb(239 68 68 / 0);
+  }
+
+  .lg\:hover\:bg-red-500\/10:hover {
+    background-color: rgb(239 68 68 / 0.1);
+  }
+
+  .lg\:hover\:bg-red-500\/100:hover {
+    background-color: rgb(239 68 68 / 1);
+  }
+
+  .lg\:hover\:bg-red-500\/15:hover {
+    background-color: rgb(239 68 68 / 0.15);
+  }
+
+  .lg\:hover\:bg-red-500\/20:hover {
+    background-color: rgb(239 68 68 / 0.2);
+  }
+
+  .lg\:hover\:bg-red-500\/25:hover {
+    background-color: rgb(239 68 68 / 0.25);
+  }
+
+  .lg\:hover\:bg-red-500\/30:hover {
+    background-color: rgb(239 68 68 / 0.3);
+  }
+
+  .lg\:hover\:bg-red-500\/35:hover {
+    background-color: rgb(239 68 68 / 0.35);
+  }
+
+  .lg\:hover\:bg-red-500\/40:hover {
+    background-color: rgb(239 68 68 / 0.4);
+  }
+
+  .lg\:hover\:bg-red-500\/45:hover {
+    background-color: rgb(239 68 68 / 0.45);
+  }
+
+  .lg\:hover\:bg-red-500\/5:hover {
+    background-color: rgb(239 68 68 / 0.05);
+  }
+
+  .lg\:hover\:bg-red-500\/50:hover {
+    background-color: rgb(239 68 68 / 0.5);
+  }
+
+  .lg\:hover\:bg-red-500\/55:hover {
+    background-color: rgb(239 68 68 / 0.55);
+  }
+
+  .lg\:hover\:bg-red-500\/60:hover {
+    background-color: rgb(239 68 68 / 0.6);
+  }
+
+  .lg\:hover\:bg-red-500\/65:hover {
+    background-color: rgb(239 68 68 / 0.65);
+  }
+
+  .lg\:hover\:bg-red-500\/70:hover {
+    background-color: rgb(239 68 68 / 0.7);
+  }
+
+  .lg\:hover\:bg-red-500\/75:hover {
+    background-color: rgb(239 68 68 / 0.75);
+  }
+
+  .lg\:hover\:bg-red-500\/80:hover {
+    background-color: rgb(239 68 68 / 0.8);
+  }
+
+  .lg\:hover\:bg-red-500\/85:hover {
+    background-color: rgb(239 68 68 / 0.85);
+  }
+
+  .lg\:hover\:bg-red-500\/90:hover {
+    background-color: rgb(239 68 68 / 0.9);
+  }
+
+  .lg\:hover\:bg-red-500\/95:hover {
+    background-color: rgb(239 68 68 / 0.95);
+  }
+
+  .lg\:hover\:bg-red-700:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:hover\:bg-red-700\/0:hover {
+    background-color: rgb(185 28 28 / 0);
+  }
+
+  .lg\:hover\:bg-red-700\/10:hover {
+    background-color: rgb(185 28 28 / 0.1);
+  }
+
+  .lg\:hover\:bg-red-700\/100:hover {
+    background-color: rgb(185 28 28 / 1);
+  }
+
+  .lg\:hover\:bg-red-700\/15:hover {
+    background-color: rgb(185 28 28 / 0.15);
+  }
+
+  .lg\:hover\:bg-red-700\/20:hover {
+    background-color: rgb(185 28 28 / 0.2);
+  }
+
+  .lg\:hover\:bg-red-700\/25:hover {
+    background-color: rgb(185 28 28 / 0.25);
+  }
+
+  .lg\:hover\:bg-red-700\/30:hover {
+    background-color: rgb(185 28 28 / 0.3);
+  }
+
+  .lg\:hover\:bg-red-700\/35:hover {
+    background-color: rgb(185 28 28 / 0.35);
+  }
+
+  .lg\:hover\:bg-red-700\/40:hover {
+    background-color: rgb(185 28 28 / 0.4);
+  }
+
+  .lg\:hover\:bg-red-700\/45:hover {
+    background-color: rgb(185 28 28 / 0.45);
+  }
+
+  .lg\:hover\:bg-red-700\/5:hover {
+    background-color: rgb(185 28 28 / 0.05);
+  }
+
+  .lg\:hover\:bg-red-700\/50:hover {
+    background-color: rgb(185 28 28 / 0.5);
+  }
+
+  .lg\:hover\:bg-red-700\/55:hover {
+    background-color: rgb(185 28 28 / 0.55);
+  }
+
+  .lg\:hover\:bg-red-700\/60:hover {
+    background-color: rgb(185 28 28 / 0.6);
+  }
+
+  .lg\:hover\:bg-red-700\/65:hover {
+    background-color: rgb(185 28 28 / 0.65);
+  }
+
+  .lg\:hover\:bg-red-700\/70:hover {
+    background-color: rgb(185 28 28 / 0.7);
+  }
+
+  .lg\:hover\:bg-red-700\/75:hover {
+    background-color: rgb(185 28 28 / 0.75);
+  }
+
+  .lg\:hover\:bg-red-700\/80:hover {
+    background-color: rgb(185 28 28 / 0.8);
+  }
+
+  .lg\:hover\:bg-red-700\/85:hover {
+    background-color: rgb(185 28 28 / 0.85);
+  }
+
+  .lg\:hover\:bg-red-700\/90:hover {
+    background-color: rgb(185 28 28 / 0.9);
+  }
+
+  .lg\:hover\:bg-red-700\/95:hover {
+    background-color: rgb(185 28 28 / 0.95);
+  }
+}
+
 @media (min-width: 1280px) {
   .xl\:block {
     display: block;
@@ -2753,8 +8081,16 @@ input[type="checkbox"]:checked:before {
     display: none;
   }
 
+  .xl\:h-full {
+    height: 100%;
+  }
+
   .xl\:max-w-7xl {
     max-width: 80rem;
+  }
+
+  .xl\:grow {
+    flex-grow: 1;
   }
 
   .xl\:opacity-0 {

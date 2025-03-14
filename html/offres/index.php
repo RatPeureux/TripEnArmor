@@ -26,7 +26,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <?php
@@ -141,7 +141,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <div id="menu">
                 <?php
                 $pagination = 3;
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu+filtres.php';
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu+filtres.php';
                 ?>
             </div>
 
@@ -155,8 +155,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     <h1 class="text-3xl ">Toutes les offres</h1>
 
                     <div class="hidden md:flex gap-4">
-                        <a class="self-end flex items-center gap-2 hover:text-primary duration-100"
-                            id="sort-button-tab">
+                        <a class="self-end flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab"
+                            tabindex="0">
                             <i class="text xl fa-solid fa-sort"></i>
                             <p>Trier par</p>
                         </a>
@@ -171,21 +171,21 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 <?php
                 // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
                 if (!$toutesLesOffres) { ?>
-                    <div class="md:min-w-full flex flex-col gap-4">
-                        <?php echo "<p class='mt-4  text-2xl'>Il n'existe aucune offre...</p>"; ?>
-                    </div>
+                        <div class="md:min-w-full flex flex-col gap-4">
+                            <?php echo "<p class='mt-4  text-2xl'>Il n'existe aucune offre...</p>"; ?>
+                        </div>
                 <?php } else { ?>
-                    <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
-                        <?php $i = 0;
-                        foreach ($toutesLesOffres as $offre) {
-                            if ($i > -1) {
-                                // Afficher la carte (!!! défnir la variable $mode_carte !!!)
-                                $mode_carte = 'membre';
-                                require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
-                                $i++;
-                            }
-                        } ?>
-                    </div>
+                        <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
+                            <?php $i = 0;
+                            foreach ($toutesLesOffres as $offre) {
+                                if ($i > -1) {
+                                    // Afficher la carte (!!! défnir la variable $mode_carte !!!)
+                                    $mode_carte = 'membre';
+                                    require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
+                                    $i++;
+                                }
+                            } ?>
+                        </div>
                 <?php } ?>
             </main>
         </div>
@@ -198,7 +198,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 

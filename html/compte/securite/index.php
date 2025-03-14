@@ -15,27 +15,27 @@ if (isset($_POST['mdp'])) {
         $controllerMembre->updateMembre($membre['id_compte'], false, $mdp, false, false, false, false);
 
         ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var successMessage = document.getElementById('success-message');
-                successMessage.textContent = 'Le mot de passe a bien été modifié.';
-                setTimeout(function () {
-                    successMessage.textContent = '';
-                }, 7500);
-            });
-        </script>
-        <?php
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var successMessage = document.getElementById('success-message');
+                                        successMessage.textContent = 'Le mot de passe a bien été modifié.';
+                                        setTimeout(function () {
+                                            successMessage.textContent = '';
+                                        }, 7500);
+                                    });
+                                </script>
+                                <?php
     } else { ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var errorMessage = document.getElementById('error-message');
-                errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
-                setTimeout(function () {
-                    errorMessage.textContent = '';
-                }, 7500);
-            });
-        </script>
-    <?php }
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var errorMessage = document.getElementById('error-message');
+                                        errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
+                                        setTimeout(function () {
+                                            errorMessage.textContent = '';
+                                        }, 7500);
+                                    });
+                                </script>
+                <?php }
 
     unset($_POST['mdp']);
     unset($_POST['newMdp']);
@@ -63,14 +63,14 @@ if (isset($_POST['mdp'])) {
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="w-full flex justify-center grow">
         <div class="max-w-[1280px] w-full p-2 flex justify-center">
             <div id="menu">
                 <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
                 ?>
             </div>
 
@@ -156,7 +156,7 @@ if (isset($_POST['mdp'])) {
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 

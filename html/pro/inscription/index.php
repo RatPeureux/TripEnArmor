@@ -23,173 +23,173 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     $statut = isset($_SESSION['data_en_cours_inscription']['statut']) ? $_SESSION['data_en_cours_inscription']['statut'] : '';
     ?>
 
-    <!DOCTYPE html>
-    <html lang="fr">
+                <!DOCTYPE html>
+                <html lang="fr">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="icon" href="/public/images/favicon.png">
-        <link rel="stylesheet" href="/styles/style.css">
-        <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+                    <link rel="icon" href="/public/images/favicon.png">
+                    <link rel="stylesheet" href="/styles/style.css">
+                    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
-        <title>Création de compte - Professionnel - PACT</title>
-    </head>
+                    <title>Création de compte - Professionnel - PACT</title>
+                </head>
 
-    <body class="h-screen bg-white p-4 overflow-hidden">
-        <div class="h-full flex flex-col items-center justify-center">
-            <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
-                <!-- Logo de l'application -->
-                <a href="/">
-                    <img src="/public/icones/logo.svg" alt="moine" width="108">
-                </a>
+                <body class="h-screen bg-white p-4 overflow-hidden">
+                    <div class="h-full flex flex-col items-center justify-center">
+                        <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
+                            <!-- Logo de l'application -->
+                            <a href="/">
+                                <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="108">
+                            </a>
 
-                <h2 class="mx-auto text-center text-2xl pt-4 my-4">Se créer un compte PACT PRO</h2>
+                            <h2 class="mx-auto text-center text-2xl pt-4 my-4">Se créer un compte PACT PRO</h2>
 
-                <form class="bg-white w-full p-5 border-2 border-secondary" action="/pro/inscription/" method="POST"
-                    onsubmit="return validateForm()">
-                    <p class="pb-3">Je créé un compte Professionnel</p>
+                            <form class="bg-white w-full p-5 border-2 border-secondary" action="/pro/inscription/" method="POST"
+                                onsubmit="return validateForm()">
+                                <p class="pb-3">Je créé un compte Professionnel</p>
 
-                    <!-- Choix du statut de l'organisation -->
-                    <label class="text-sm" for="statut">Je suis un organisme&nbsp;</label>
-                    <select class="text-sm mt-1.5 mb-3 bg-base100 p-1" id="statut" name="statut"
-                        title="Sélécionner le statut de l'organisme (public OU privé)" onchange="updateLabel()" required>
-                        <option value="" disabled <?php if ($statut == "")
-                            echo 'selected' ?>> --- </option>
-                            <option value="public" <?php if ($statut == "public")
-                            echo 'selected'; ?>>public</option>
-                        <option value="privé" <?php if ($statut == "privé")
-                            echo 'selected' ?>>privé</option>
-                        </select>
-                        <br>
+                                <!-- Choix du statut de l'organisation -->
+                                <label class="text-sm" for="statut">Je suis un organisme&nbsp;</label>
+                                <select class="text-sm mt-1.5 mb-3 bg-base100 p-1" id="statut" name="statut"
+                                    title="Sélécionner le statut de l'organisme (public OU privé)" onchange="updateLabel()" required>
+                                    <option value="" disabled <?php if ($statut == "")
+                                        echo 'selected' ?>> --- </option>
+                                                    <option value="public" <?php if ($statut == "public")
+                                        echo 'selected'; ?>>public</option>
+                                    <option value="privé" <?php if ($statut == "privé")
+                                        echo 'selected' ?>>privé</option>
+                                                </select>
+                                                <br>
 
-                        <!-- Champ pour le nom -->
-                        <label class="text-sm" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
-                        <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="nom" name="nom"
-                            title="Saisir le nom de l'organisation (max 100 caractères)"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" required>
+                                                <!-- Champ pour le nom -->
+                                                <label class="text-sm" for="nom" id="nom">Dénomination sociale / Nom de l'organisation</label>
+                                                <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="nom" name="nom"
+                                                    title="Saisir le nom de l'organisation (max 100 caractères)"
+                                                    value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" required>
 
-                    <!-- Champ pour l'adresse mail -->
-                    <label class=" text-sm" for="mail">Adresse mail</label>
-                    <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="email" id="mail" name="mail"
-                        title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
-                        value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" required>
-                    <!-- Message d'erreur pour l'adresse mail -->
-                    <span class="error text-rouge-logo text-sm"><?php echo $_SESSION['error'] ?? '' ?></span>
+                                <!-- Champ pour l'adresse mail -->
+                                <label class=" text-sm" for="mail">Adresse mail</label>
+                                <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="email" id="mail" name="mail"
+                                    title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
+                                    value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" required>
+                                <!-- Message d'erreur pour l'adresse mail -->
+                                <span class="error text-rouge-logo text-sm"><?php echo $_SESSION['error'] ?? '' ?></span>
 
-                    <!-- Champ pour le mot de passe -->
-                    <div class="relative w-full">
-                        <label class="text-sm" for="mdp">Mot de passe</label>
-                        <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="mdp" name="mdp"
-                            pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
-                            title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
-                        <!-- Icône pour afficher/masquer le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                            id="togglePassword1"></i>
+                                <!-- Champ pour le mot de passe -->
+                                <div class="relative w-full">
+                                    <label class="text-sm" for="mdp">Mot de passe</label>
+                                    <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="mdp" name="mdp"
+                                        pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
+                                        title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                                        value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
+                                    <!-- Icône pour afficher/masquer le mot de passe -->
+                                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                                        id="togglePassword1"></i>
+                                </div>
+
+                                <!-- Champ pour confirmer le mot de passe -->
+                                <div class="relative w-full">
+                                    <label class="text-sm" for="confMdp">Confirmer le mot de passe</label>
+                                    <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="confMdp" name="confMdp"
+                                        pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
+                                        title="Confirmer le mot de passe saisit ci-dessus"
+                                        value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
+                                    <!-- Icône pour afficher/masquer le mot de passe -->
+                                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
+                                        id="togglePassword2"></i>
+                                </div>
+
+                                <!-- Mots de passe ne correspondent pas -->
+                                <span id="error-message" class="error text-rouge-logo text-sm"></span>
+
+                                <!-- Bouton pour continuer -->
+                                <input type="submit" value="Continuer"
+                                    class="text-sm py-2 px-4 rounded-full cursor-pointer w-full h-12 my-1.5 bg-secondary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+
+                                <!-- Lien vers la page de connexion -->
+                                <a href="/pro/connexion"
+                                    class="text-sm py-2 px-4 rounded-full w-full h-12 p-1 bg-transparent text-secondary   inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
+                                    J'ai déjà un compte
+                                </a>
+                            </form>
+                        </div>
                     </div>
 
-                    <!-- Champ pour confirmer le mot de passe -->
-                    <div class="relative w-full">
-                        <label class="text-sm" for="confMdp">Confirmer le mot de passe</label>
-                        <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="confMdp" name="confMdp"
-                            pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
-                            title="Confirmer le mot de passe saisit ci-dessus"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
-                        <!-- Icône pour afficher/masquer le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                            id="togglePassword2"></i>
-                    </div>
+                    <script>
+                        // Gestion des icônes pour afficher/masquer le mot de passe
+                        const togglePassword1 = document.getElementById('togglePassword1');
+                        const togglePassword2 = document.getElementById('togglePassword2');
+                        const mdp = document.getElementById('mdp');
+                        const confMdp = document.getElementById('confMdp');
 
-                    <!-- Mots de passe ne correspondent pas -->
-                    <span id="error-message" class="error text-rouge-logo text-sm"></span>
+                        if (togglePassword1) {
+                            togglePassword1.addEventListener('click', function () {
+                                if (mdp.type === 'password') {
+                                    mdp.type = 'text';
+                                    this.classList.remove('fa-eye');
+                                    this.classList.add('fa-eye-slash');
+                                } else {
+                                    mdp.type = 'password';
+                                    this.classList.remove('fa-eye-slash');
+                                    this.classList.add('fa-eye');
+                                }
+                            });
+                        }
 
-                    <!-- Bouton pour continuer -->
-                    <input type="submit" value="Continuer"
-                        class="text-sm py-2 px-4 rounded-full cursor-pointer w-full h-12 my-1.5 bg-secondary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                        if (togglePassword2) {
+                            togglePassword2.addEventListener('click', function () {
+                                if (confMdp.type === 'password') {
+                                    confMdp.type = 'text';
+                                    this.classList.remove('fa-eye');
+                                    this.classList.add('fa-eye-slash');
+                                } else {
+                                    confMdp.type = 'password';
+                                    this.classList.remove('fa-eye-slash');
+                                    this.classList.add('fa-eye');
+                                }
+                            });
+                        }
 
-                    <!-- Lien vers la page de connexion -->
-                    <a href="/pro/connexion"
-                        class="text-sm py-2 px-4 rounded-full w-full h-12 p-1 bg-transparent text-secondary   inline-flex items-center justify-center border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
-                        J'ai déjà un compte
-                    </a>
-                </form>
-            </div>
-        </div>
+                        // Fonction de validation du formulaire
+                        function validateForm() {
+                            var mdp = document.getElementById("mdp").value;
+                            var confMdp = document.getElementById("confMdp").value;
+                            var errorMessage = document.getElementById("error-message");
 
-        <script>
-            // Gestion des icônes pour afficher/masquer le mot de passe
-            const togglePassword1 = document.getElementById('togglePassword1');
-            const togglePassword2 = document.getElementById('togglePassword2');
-            const mdp = document.getElementById('mdp');
-            const confMdp = document.getElementById('confMdp');
+                            // Vérifie si les mots de passe correspondent
+                            if (mdp !== confMdp) {
+                                errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
+                                return false; // Empêche l'envoi du formulaire
+                            }
 
-            if (togglePassword1) {
-                togglePassword1.addEventListener('click', function () {
-                    if (mdp.type === 'password') {
-                        mdp.type = 'text';
-                        this.classList.remove('fa-eye');
-                        this.classList.add('fa-eye-slash');
-                    } else {
-                        mdp.type = 'password';
-                        this.classList.remove('fa-eye-slash');
-                        this.classList.add('fa-eye');
-                    }
-                });
-            }
+                            errorMessage.textContent = ""; // Réinitialise le message d'erreur
+                            return true; // Permet l'envoi du formulaire
+                        }
 
-            if (togglePassword2) {
-                togglePassword2.addEventListener('click', function () {
-                    if (confMdp.type === 'password') {
-                        confMdp.type = 'text';
-                        this.classList.remove('fa-eye');
-                        this.classList.add('fa-eye-slash');
-                    } else {
-                        confMdp.type = 'password';
-                        this.classList.remove('fa-eye-slash');
-                        this.classList.add('fa-eye');
-                    }
-                });
-            }
+                        // Fonction pour mettre à jour le label en fonction du statut choisit
+                        function updateLabel() {
+                            const statut = document.getElementById('statut');
+                            const labelNom = document.getElementById('nom');
 
-            // Fonction de validation du formulaire
-            function validateForm() {
-                var mdp = document.getElementById("mdp").value;
-                var confMdp = document.getElementById("confMdp").value;
-                var errorMessage = document.getElementById("error-message");
+                            if (statut) {
+                                if (statut.value === 'public') {
+                                    labelNom.textContent = 'Nom de l\'organisation';
+                                } else {
+                                    labelNom.textContent = 'Dénomination sociale';
+                                }
+                            }
+                        }
+                    </script>
 
-                // Vérifie si les mots de passe correspondent
-                if (mdp !== confMdp) {
-                    errorMessage.textContent = "Les mots de passe ne correspondent pas."; // Affiche un message d'erreur
-                    return false; // Empêche l'envoi du formulaire
-                }
+                </body>
 
-                errorMessage.textContent = ""; // Réinitialise le message d'erreur
-                return true; // Permet l'envoi du formulaire
-            }
-
-            // Fonction pour mettre à jour le label en fonction du statut choisit
-            function updateLabel() {
-                const statut = document.getElementById('statut');
-                const labelNom = document.getElementById('nom');
-
-                if (statut) {
-                    if (statut.value === 'public') {
-                        labelNom.textContent = 'Nom de l\'organisation';
-                    } else {
-                        labelNom.textContent = 'Dénomination sociale';
-                    }
-                }
-            }
-        </script>
-
-    </body>
-
-    </html>
+                </html>
 
 
-    <!-- 2ème étape de l'inscription -->
+                <!-- 2ème étape de l'inscription -->
 <?php } elseif (!isset($_POST['num_tel'])) {
     // Garder les informations remplies par l'utilisateur
     if (!empty($_POST)) {
@@ -216,280 +216,280 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     $statut = isset($_SESSION['data_en_cours_inscription']['statut']) ? $_SESSION['data_en_cours_inscription']['statut'] : '';
     ?>
 
-    <!DOCTYPE html>
-    <html lang="fr">
+                <!DOCTYPE html>
+                <html lang="fr">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="icon" href="/public/images/favicon.png">
-        <link rel="stylesheet" href="/styles/style.css">
-        <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-        <script
-            src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
-        <script src="/scripts/autocomplete.js"></script>
-        <script src="/scripts/formats.js" type="module"></script>
+                    <link rel="icon" href="/public/images/favicon.png">
+                    <link rel="stylesheet" href="/styles/style.css">
+                    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+                    <script
+                        src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCzthw-y9_JgvN-ZwEtbzcYShDBb0YXwA8&language=fr"></script>
+                    <script src="/scripts/autocomplete.js"></script>
+                    <script src="/scripts/formats.js" type="module"></script>
 
-        <title>Création de compte - Professionnel - PACT</title>
-    </head>
+                    <title>Création de compte - Professionnel - PACT</title>
+                </head>
 
-    <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
-        <!-- Inclusion -->
-        <?php
-        include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/fiches_inscription_pro.php';
-        ?>
-
-        <!-- Logo de l'application -->
-        <a href="/" class="absolute left-0 top-0 p-4">
-            <img src="/public/icones/logo.svg" alt="moine" width="81">
-        </a>
-
-        <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
-
-            <h2 class="mx-auto text-center text-2xl pt-12 sm:pt-0 my-4">Dites-nous en plus !</h2>
-
-            <form class="mb-4 bg-white w-full p-5 border-2 border-secondary" action="/pro/inscription/" method="POST">
-                <div class="mb-3">
-                    <label class="text-sm" for="nom">Je suis un organisme
-                        <?php echo $statut ?></label>
-                </div>
-
-                <?php if ($statut == "privé") { ?>
-                    <!-- Champ pour la dénomination sociale (en lecture seule) -->
-                    <label class="text-sm" for="nom">Dénomination sociale</label>
-                    <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="nom" name="nom"
-                        title="Saisir votre dénomination sociale"
-                        value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" readonly>
-                <?php } else { ?>
-                    <!-- Champ pour le nom de l'organisation (en lecture seule) -->
-                    <label class="text-sm" for="nom">Nom de l'organisation</label>
-                    <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="nom" name="nom"
-                        title="Nom de l'organisation" value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>"
-                        readonly>
-                <?php } ?>
-
-                <!-- Champ pour l'adresse mail (en lecture seule) -->
-                <label class="text-sm" for="mail">Adresse mail</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="email" id="mail" name="mail"
-                    title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
-                    value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" readonly>
-
-                <!-- Choix du type d'organisme public -->
-                <?php if ($statut == 'public') {
-                    $type_orga = isset($_SESSION['data_en_cours_inscription']['type_orga']) ? $_SESSION['data_en_cours_inscription']['type_orga'] : ''
-                        ?>
-                    <label class="text-sm" for="type_orga">Je suis une&nbsp;</label>
-                    <select class="text-sm mt-1.5 mb-3 bg-base100 p-1" id="type_orga" name="type_orga"
-                        title="Choisir le type de l'organisme (association OU autre)" required>
-                        <option value="" disabled <?php if ($type_orga == '')
-                            echo 'selected'; ?>> --- </option>
-                        <option value="public" <?php if ($type_orga == 'association')
-                            echo 'selected'; ?>>association</option>
-                        <option value="privé" <?php if ($type_orga == 'organisation autre')
-                            echo 'selected'; ?>>organisation autre
-                        </option>
-                    </select>
-                    <br>
-                <?php } else { ?>
-                    <!-- Inscription du numéro de SIREN -->
-                    <label class="text-sm" for="num_siren">Numéro SIRET</label>
-                    <input class="p-2 bg-base100 w-full h-12 mb-1.5" id="num_siren" name="num_siren"
-                        pattern="^\d{3} \d{3} \d{3} \d{5}$" title="Le numéro SIRET doit être composé de 14 chiffres"
-                        placeholder="Ex: 12345678901234"
-                        value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
-                <?php } ?>
-
-                <!-- Champs pour l'adresse -->
-                <label class="text-sm" for="user_input_autocomplete_address">Adresse</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="user_input_autocomplete_address"
-                    title="Saisir l'adresse de l'organisation" name="user_input_autocomplete_address"
-                    placeholder="Ex : 10 Rue des Fleurs"
-                    value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?? '' ?>"
-                    required>
-
-                <label class="text-sm" for="complement">Complément d'adresse</label>
-                <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="complement" name="complement"
-                    title="Saisir un complément d'adresse (facultatif)" placeholder="Bâtiment A, Appartement 5"
-                    value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?? '' ?>">
-
-                <div class="flex flex-nowrap space-x-3 mb-1.5">
-                    <div class="w-28">
-                        <label class="text-sm" for="postal_code">Code postal</label>
-                        <input class="text-right p-2 bg-base100 w-28 h-12" id="postal_code" name="postal_code"
-                            pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['postal_code'] ?? '' ?>" required>
-                    </div>
-                    <div class="w-full">
-                        <label class="text-sm" for="locality">Ville</label>
-                        <input class="p-2 bg-base100 w-full h-12" id="locality" name="locality"
-                            pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir votre ville"
-                            placeholder="Rennes"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['locality'] ?? '' ?>" required>
-                    </div>
-                </div>
-
-                <!-- Champ pour le numéro de téléphone -->
-                <div class="w-full flex flex-col">
-                    <label class="text-sm" for="num_tel">Téléphone</label>
-                    <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 " id="num_tel" name="num_tel"
-                        pattern="^0\d( \d{2}){4}"
-                        title="Le numéro de téléphone doit commencer par un 0 et comporter 10 chiffres"
-                        placeholder="01 23 45 67 89"
-                        value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?? '' ?>" required>
-                </div>
-                <!-- Message d'erreur pour le téléphone -->
-                <?php
-                if (isset($_GET['invalid_phone_number'])) { ?>
-                    <span class="error text-rouge-logo text-sm"><?php echo $_SESSION['error'] ?? '' ?></span>
+                <body class="h-screen bg-white pt-4 px-4 overflow-x-hidden">
+                    <!-- Inclusion -->
                     <?php
-                }
-                ?>
+                    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/fiches_inscription_pro.php';
+                    ?>
 
-                <?php if ($statut == "privé") { ?>
-                    <!-- Choix de saisie des informations bancaires -->
-                    <div class="group">
-                        <div class="mb-1.5 flex items-start">
-                            <input class="mt-0.5 mr-1.5" type="checkbox" id="plus" name="plus"
-                                title="Accepter pour renseigner un IBAN ?" onchange="toggleIBAN()">
-                            <label class="ml-1 text-sm" for="plus">Je souhaite saisir mes informations bancaires dès
-                                maintenant
-                                !</label>
-                        </div>
+                    <!-- Logo de l'application -->
+                    <a href="/" class="absolute left-0 top-0 p-4">
+                        <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="81">
+                    </a>
 
-                        <!-- Champ pour l'IBAN -->
-                        <div id="iban-container" class="hidden">
-                            <label class="text-sm" for="iban">IBAN</label>
-                            <input class="p-2 bg-base100 w-full h-12 mb-3 " type="text" id="iban" name="iban"
-                                pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Format : FRXX XXXX XXXX XXXX XXXX XXXX XXX"
-                                placeholder="FRXX XXXX XXXX XXXX XXXX XXXX XXX"
-                                value="<?php echo $_SESSION['data_en_cours_inscription']['iban'] ?? '' ?>">
-                        </div>
+                    <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
+
+                        <h2 class="mx-auto text-center text-2xl pt-12 sm:pt-0 my-4">Dites-nous en plus !</h2>
+
+                        <form class="mb-4 bg-white w-full p-5 border-2 border-secondary" action="/pro/inscription/" method="POST">
+                            <div class="mb-3">
+                                <label class="text-sm" for="nom">Je suis un organisme
+                                    <?php echo $statut ?></label>
+                            </div>
+
+                            <?php if ($statut == "privé") { ?>
+                                            <!-- Champ pour la dénomination sociale (en lecture seule) -->
+                                            <label class="text-sm" for="nom">Dénomination sociale</label>
+                                            <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="nom" name="nom"
+                                                title="Saisir votre dénomination sociale"
+                                                value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>" readonly>
+                            <?php } else { ?>
+                                            <!-- Champ pour le nom de l'organisation (en lecture seule) -->
+                                            <label class="text-sm" for="nom">Nom de l'organisation</label>
+                                            <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="nom" name="nom"
+                                                title="Nom de l'organisation" value="<?php echo $_SESSION['data_en_cours_inscription']['nom'] ?? '' ?>"
+                                                readonly>
+                            <?php } ?>
+
+                            <!-- Champ pour l'adresse mail (en lecture seule) -->
+                            <label class="text-sm" for="mail">Adresse mail</label>
+                            <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="email" id="mail" name="mail"
+                                title="L'adresse mail doit comporter un '@' et un '.'" placeholder="exemple@gmail.com"
+                                value="<?php echo $_SESSION['data_en_cours_inscription']['mail'] ?? '' ?>" readonly>
+
+                            <!-- Choix du type d'organisme public -->
+                            <?php if ($statut == 'public') {
+                                $type_orga = isset($_SESSION['data_en_cours_inscription']['type_orga']) ? $_SESSION['data_en_cours_inscription']['type_orga'] : ''
+                                    ?>
+                                            <label class="text-sm" for="type_orga">Je suis une&nbsp;</label>
+                                            <select class="text-sm mt-1.5 mb-3 bg-base100 p-1" id="type_orga" name="type_orga"
+                                                title="Choisir le type de l'organisme (association OU autre)" required>
+                                                <option value="" disabled <?php if ($type_orga == '')
+                                                    echo 'selected'; ?>> --- </option>
+                                                <option value="public" <?php if ($type_orga == 'association')
+                                                    echo 'selected'; ?>>association</option>
+                                                <option value="privé" <?php if ($type_orga == 'organisation autre')
+                                                    echo 'selected'; ?>>organisation autre
+                                                </option>
+                                            </select>
+                                            <br>
+                            <?php } else { ?>
+                                            <!-- Inscription du numéro de SIREN -->
+                                            <label class="text-sm" for="num_siren">Numéro SIRET</label>
+                                            <input class="p-2 bg-base100 w-full h-12 mb-1.5" id="num_siren" name="num_siren"
+                                                pattern="^\d{3} \d{3} \d{3} \d{5}$" title="Le numéro SIRET doit être composé de 14 chiffres"
+                                                placeholder="Ex: 12345678901234"
+                                                value="<?php echo $_SESSION['data_en_cours_inscription']['num_siren'] ?? '' ?>" required>
+                            <?php } ?>
+
+                            <!-- Champs pour l'adresse -->
+                            <label class="text-sm" for="user_input_autocomplete_address">Adresse</label>
+                            <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="user_input_autocomplete_address"
+                                title="Saisir l'adresse de l'organisation" name="user_input_autocomplete_address"
+                                placeholder="Ex : 10 Rue des Fleurs"
+                                value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?? '' ?>"
+                                required>
+
+                            <label class="text-sm" for="complement">Complément d'adresse</label>
+                            <input class="p-2 bg-base100 w-full h-12 mb-1.5" type="text" id="complement" name="complement"
+                                title="Saisir un complément d'adresse (facultatif)" placeholder="Bâtiment A, Appartement 5"
+                                value="<?php echo $_SESSION['data_en_cours_inscription']['complement'] ?? '' ?>">
+
+                            <div class="flex flex-nowrap space-x-3 mb-1.5">
+                                <div class="w-28">
+                                    <label class="text-sm" for="postal_code">Code postal</label>
+                                    <input class="text-right p-2 bg-base100 w-28 h-12" id="postal_code" name="postal_code"
+                                        pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345"
+                                        value="<?php echo $_SESSION['data_en_cours_inscription']['postal_code'] ?? '' ?>" required>
+                                </div>
+                                <div class="w-full">
+                                    <label class="text-sm" for="locality">Ville</label>
+                                    <input class="p-2 bg-base100 w-full h-12" id="locality" name="locality"
+                                        pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$" title="Saisir votre ville"
+                                        placeholder="Rennes"
+                                        value="<?php echo $_SESSION['data_en_cours_inscription']['locality'] ?? '' ?>" required>
+                                </div>
+                            </div>
+
+                            <!-- Champ pour le numéro de téléphone -->
+                            <div class="w-full flex flex-col">
+                                <label class="text-sm" for="num_tel">Téléphone</label>
+                                <input class="text-center p-2 bg-base100 w-36 h-12 mb-3 " id="num_tel" name="num_tel"
+                                    pattern="^0\d( \d{2}){4}"
+                                    title="Le numéro de téléphone doit commencer par un 0 et comporter 10 chiffres"
+                                    placeholder="01 23 45 67 89"
+                                    value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?? '' ?>" required>
+                            </div>
+                            <!-- Message d'erreur pour le téléphone -->
+                            <?php
+                            if (isset($_GET['invalid_phone_number'])) { ?>
+                                            <span class="error text-rouge-logo text-sm"><?php echo $_SESSION['error'] ?? '' ?></span>
+                                            <?php
+                            }
+                            ?>
+
+                            <?php if ($statut == "privé") { ?>
+                                            <!-- Choix de saisie des informations bancaires -->
+                                            <div class="group">
+                                                <div class="mb-1.5 flex items-start">
+                                                    <input class="mt-0.5 mr-1.5" type="checkbox" id="plus" name="plus"
+                                                        title="Accepter pour renseigner un IBAN ?" onchange="toggleIBAN()">
+                                                    <label class="ml-1 text-sm" for="plus">Je souhaite saisir mes informations bancaires dès
+                                                        maintenant
+                                                        !</label>
+                                                </div>
+
+                                                <!-- Champ pour l'IBAN -->
+                                                <div id="iban-container" class="hidden">
+                                                    <label class="text-sm" for="iban">IBAN</label>
+                                                    <input class="p-2 bg-base100 w-full h-12 mb-3 " type="text" id="iban" name="iban"
+                                                        pattern="^(FR)\d{2}( \d{4}){5} \d{3}$" title="Format : FRXX XXXX XXXX XXXX XXXX XXXX XXX"
+                                                        placeholder="FRXX XXXX XXXX XXXX XXXX XXXX XXX"
+                                                        value="<?php echo $_SESSION['data_en_cours_inscription']['iban'] ?? '' ?>">
+                                                </div>
+                                            </div>
+                            <?php } ?>
+
+                            <!-- Choix d'acceptation des termes et conditions -->
+                            <div class="mb-1.5 text-sm flex items-start gap-1">
+                                <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
+                                    required>
+                                <label for="termes">J’accepte les <span onclick="toggleCGU()"
+                                        class="underline cursor-pointer">Conditions générales d'utilisation</span> et je confirme avoir
+                                    lu la <span onclick="togglePolitique()" class="underline cursor-pointer">Politique de
+                                        confidentialité et d'utilisation des cookies</span>.</label>
+                            </div>
+
+                            <!-- Bouton pour créer le compte -->
+                            <input type="submit" value="Créer mon compte"
+                                class="text-sm py-2 px-4 rounded-full cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+
+                            <!-- Garder les informations de POST même si les champs ne sont plus visibles -->
+                            <input type="hidden" name="statut"
+                                value="<?php echo $_SESSION['data_en_cours_inscription']['statut'] ?? '' ?>">
+                            <input type="hidden" name="mdp" value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>">
+                            <input type="hidden" name="confMdp"
+                                value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>">
+                        </form>
                     </div>
-                <?php } ?>
 
-                <!-- Choix d'acceptation des termes et conditions -->
-                <div class="mb-1.5 text-sm flex items-start gap-1">
-                    <input class="mt-0.5 mr-1.5" type="checkbox" id="termes" name="termes" title="Accepter pour continuer"
-                        required>
-                    <label for="termes">J’accepte les <span onclick="toggleCGU()"
-                            class="underline cursor-pointer">Conditions générales d'utilisation</span> et je confirme avoir
-                        lu la <span onclick="togglePolitique()" class="underline cursor-pointer">Politique de
-                            confidentialité et d'utilisation des cookies</span>.</label>
-                </div>
+                    <script>
+                        // Fonction pour afficher ou masquer le champ IBAN
+                        function toggleIBAN() {
+                            const checkbox = document.getElementById('plus');
+                            const ibanContainer = document.getElementById('iban-container');
+                            const iban = document.getElementById('iban');
 
-                <!-- Bouton pour créer le compte -->
-                <input type="submit" value="Créer mon compte"
-                    class="text-sm py-2 px-4 rounded-full cursor-pointer w-full mt-1.5 h-12 bg-secondary text-white   inline-flex items-center justify-center border border-transparent focus:scale-[0.97] hover:bg-secondary/90 hover:border-secondary/90 hover:text-white">
+                            // Afficher ou masquer le conteneur IBAN
+                            ibanContainer.classList.toggle('hidden', !checkbox.checked);
 
-                <!-- Garder les informations de POST même si les champs ne sont plus visibles -->
-                <input type="hidden" name="statut"
-                    value="<?php echo $_SESSION['data_en_cours_inscription']['statut'] ?? '' ?>">
-                <input type="hidden" name="mdp" value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>">
-                <input type="hidden" name="confMdp"
-                    value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>">
-            </form>
-        </div>
+                            if (checkbox.checked) {
+                                iban.value = 'FR'; // Ajoute le préfixe 'FR'
+                                iban.disabled = false; // Active le champ
+                            } else {
+                                iban.value = ''; // Supprime toute saisie
+                                iban.disabled = true; // Désactive le champ
+                            }
+                        }
+                        // Synchroniser les cases à cocher
+                        function syncCheckboxes() {
+                            // Récupère toutes les cases à cocher ayant le même name "termes"
+                            const checkboxes = document.querySelectorAll('input[name="termes"]');
 
-        <script>
-            // Fonction pour afficher ou masquer le champ IBAN
-            function toggleIBAN() {
-                const checkbox = document.getElementById('plus');
-                const ibanContainer = document.getElementById('iban-container');
-                const iban = document.getElementById('iban');
+                            checkboxes.forEach((checkbox) => {
+                                // Ajoute un écouteur sur le changement d'état
+                                checkbox.addEventListener('change', () => {
+                                    // Applique le même état à toutes les cases
+                                    checkboxes.forEach((cb) => cb.checked = checkbox.checked);
+                                });
+                            });
+                        }
 
-                // Afficher ou masquer le conteneur IBAN
-                ibanContainer.classList.toggle('hidden', !checkbox.checked);
+                        syncCheckboxes();
 
-                if (checkbox.checked) {
-                    iban.value = 'FR'; // Ajoute le préfixe 'FR'
-                    iban.disabled = false; // Active le champ
-                } else {
-                    iban.value = ''; // Supprime toute saisie
-                    iban.disabled = true; // Désactive le champ
-                }
-            }
-            // Synchroniser les cases à cocher
-            function syncCheckboxes() {
-                // Récupère toutes les cases à cocher ayant le même name "termes"
-                const checkboxes = document.querySelectorAll('input[name="termes"]');
+                        function toggleCheckbox() {
+                            const checkbox = document.querySelector('#termes');
+                            checkbox.checked = (checkbox.checked) ? false : true; // Cocher la case
+                        }
 
-                checkboxes.forEach((checkbox) => {
-                    // Ajoute un écouteur sur le changement d'état
-                    checkbox.addEventListener('change', () => {
-                        // Applique le même état à toutes les cases
-                        checkboxes.forEach((cb) => cb.checked = checkbox.checked);
-                    });
-                });
-            }
+                        // Fonction pour afficher ou masquer les cgu pendant l'inscription
+                        function toggleCGU() {
+                            const cgu = document.querySelector('#cgu');
 
-            syncCheckboxes();
+                            if (!cgu.classList.contains('active')) {
+                                toggleCheckbox();
+                            }
 
-            function toggleCheckbox() {
-                const checkbox = document.querySelector('#termes');
-                checkbox.checked = (checkbox.checked) ? false : true; // Cocher la case
-            }
+                            // Toggle la classe 'active' pour le CGU
+                            cgu.classList.toggle('active');
+                        }
 
-            // Fonction pour afficher ou masquer les cgu pendant l'inscription
-            function toggleCGU() {
-                const cgu = document.querySelector('#cgu');
+                        // Fonction pour afficher ou masquer la politique de confidentialité et d'utilisation des cookies pendant l'inscription
+                        function togglePolitique() {
+                            const politique = document.querySelector('#politique');
 
-                if (!cgu.classList.contains('active')) {
-                    toggleCheckbox();
-                }
+                            if (!politique.classList.contains('active')) {
+                                toggleCheckbox();
+                            }
 
-                // Toggle la classe 'active' pour le CGU
-                cgu.classList.toggle('active');
-            }
+                            // Toggle la classe 'active' pour la politique
+                            politique.classList.toggle('active');
+                        }
 
-            // Fonction pour afficher ou masquer la politique de confidentialité et d'utilisation des cookies pendant l'inscription
-            function togglePolitique() {
-                const politique = document.querySelector('#politique');
+                        // Fonction pour afficher ou masquer les mentions légales pendant l'inscription
+                        function toggleMentions() {
+                            const mentions = document.querySelector('#mentions');
 
-                if (!politique.classList.contains('active')) {
-                    toggleCheckbox();
-                }
+                            if (!mentions.classList.contains('active')) {
+                                toggleCheckbox();
+                            }
 
-                // Toggle la classe 'active' pour la politique
-                politique.classList.toggle('active');
-            }
+                            // Toggle la classe 'active' pour les mentions légales
+                            mentions.classList.toggle('active');
+                        }
 
-            // Fonction pour afficher ou masquer les mentions légales pendant l'inscription
-            function toggleMentions() {
-                const mentions = document.querySelector('#mentions');
+                        function versCGU() {
+                            document.querySelector('#cgu')?.classList.toggle('active'); // Alterne la classe 'active'
+                            document.querySelector('#politique')?.classList.remove('active'); // Supprime la classe 'active'
+                            document.querySelector('#mentions')?.classList.remove('active'); // Supprime la classe 'active'
+                        }
 
-                if (!mentions.classList.contains('active')) {
-                    toggleCheckbox();
-                }
+                        function versPolitique() {
+                            document.querySelector('#politique')?.classList.toggle('active'); // Alterne la classe 'active'
+                            document.querySelector('#cgu')?.classList.remove('active'); // Supprime la classe 'active'
+                            document.querySelector('#mentions')?.classList.remove('active'); // Supprime la classe 'active'
+                        }
 
-                // Toggle la classe 'active' pour les mentions légales
-                mentions.classList.toggle('active');
-            }
+                        function versMentions() {
+                            document.querySelector('#mentions')?.classList.toggle('active'); // Alterne la classe 'active'
+                            document.querySelector('#cgu')?.classList.remove('active'); // Supprime la classe 'active'
+                            document.querySelector('#politique')?.classList.remove('active'); // Supprime la classe 'active'
+                        }
+                    </script>
 
-            function versCGU() {
-                document.querySelector('#cgu')?.classList.toggle('active'); // Alterne la classe 'active'
-                document.querySelector('#politique')?.classList.remove('active'); // Supprime la classe 'active'
-                document.querySelector('#mentions')?.classList.remove('active'); // Supprime la classe 'active'
-            }
+                </body>
 
-            function versPolitique() {
-                document.querySelector('#politique')?.classList.toggle('active'); // Alterne la classe 'active'
-                document.querySelector('#cgu')?.classList.remove('active'); // Supprime la classe 'active'
-                document.querySelector('#mentions')?.classList.remove('active'); // Supprime la classe 'active'
-            }
+                </html>
 
-            function versMentions() {
-                document.querySelector('#mentions')?.classList.toggle('active'); // Alterne la classe 'active'
-                document.querySelector('#cgu')?.classList.remove('active'); // Supprime la classe 'active'
-                document.querySelector('#politique')?.classList.remove('active'); // Supprime la classe 'active'
-            }
-        </script>
-
-    </body>
-
-    </html>
-
-    <!-- 3ème étape de création (essayer d'insérer dans la base) -->
+                <!-- 3ème étape de création (essayer d'insérer dans la base) -->
 <?php } else {
     // Garder les informations remplies par l'utilisateur
     if (!empty($_POST)) {

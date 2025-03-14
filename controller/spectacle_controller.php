@@ -6,7 +6,7 @@ class SpectacleController
 {
     private $model;
 
-    function __construct()
+    public function __construct()
     {
         $this->model = 'Spectacle';
     }
@@ -40,9 +40,9 @@ class SpectacleController
         return $spectacle;
     }
 
-    public function updateSpectacle($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $capacite = false, $duree = false)
+    public function updateSpectacle($id, $est_en_ligne, $description = false, $resume = false, $prix_mini = false, $titre = false, $id_pro = false, $id_type_offre = false, $id_adresse = false, $capacite = false, $duree = false, $avec_guide = false)
     {
-        if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $capacite === false && $avec_guide === false) {
+        if ($description === false && $resume === false && $prix_mini === false && $titre === false && $id_pro === false && $id_type_offre === false && $id_adresse === false && $capacite === false && $duree === false && $avec_guide === false) {
             $this->model::log("Aucune information n'a été modifiée.");
             return -1;
         } else {
@@ -59,6 +59,7 @@ class SpectacleController
                 $id_type_offre !== false ? $id_type_offre : $spectacle["id_type_offre"],
                 $id_adresse !== false ? $id_adresse : $spectacle["id_adresse"],
                 $capacite !== false ? $capacite : $spectacle["capacite"],
+                $duree !== false ? $duree : $spectacle['duree'],
                 $avec_guide !== false ? $avec_guide : $spectacle["avec_guide"]
             );
 

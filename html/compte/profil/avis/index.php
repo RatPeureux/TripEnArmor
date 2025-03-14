@@ -40,7 +40,7 @@ $membre = verifyMember();
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <?php
@@ -59,7 +59,7 @@ $membre = verifyMember();
         <div class="max-w-[1280px] w-full p-2 flex justify-center">
             <div id="menu">
                 <?php
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
                 ?>
             </div>
 
@@ -77,7 +77,7 @@ $membre = verifyMember();
                 <div class="flex justify-between items-center">
                     <p class="text-2xl mb-4">Mes avis</p>
 
-                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button">
+                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button" tabindex="0">
                         <i class="text xl fa-solid fa-sort"></i>
                         <p>Trier par</p>
                     </a>
@@ -121,30 +121,30 @@ $membre = verifyMember();
                             $offre = Offre::getOffreById($avis['id_offre']);
                             $id_avis = $avis['id_avis']; ?>
 
-                                            <div id="<?php if ($offre['est_en_ligne']) {
-                                                echo "clickable_div_$id_avis";
-                                            }
-                                            ?>" class="shadow-lg <?php if (!$offre['est_en_ligne']) {
-                                                echo 'opacity-50';
-                                            } ?>" title="<?php if (!$offre['est_en_ligne']) {
-                                                 echo 'offre indisponible';
-                                             } ?>">
-                                                <?php
-                                                $mode = 'mon_avis';
-                                                include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
-                                                ?>
-                                            </div>
+                                                                    <div id="<?php if ($offre['est_en_ligne']) {
+                                                                        echo "clickable_div_$id_avis";
+                                                                    }
+                                                                    ?>" class="shadow-lg <?php if (!$offre['est_en_ligne']) {
+                                                                        echo 'opacity-50';
+                                                                    } ?>" title="<?php if (!$offre['est_en_ligne']) {
+                                                                         echo 'offre indisponible';
+                                                                     } ?>">
+                                                                        <?php
+                                                                        $mode = 'mon_avis';
+                                                                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
+                                                                        ?>
+                                                                    </div>
 
-                                            <script>
-                                                document.querySelector('#clickable_div_<?php echo $id_avis ?>')?.addEventListener('click', function () {
-                                                    window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
-                                                });
-                                            </script><?php
+                                                                    <script>
+                                                                        document.querySelector('#clickable_div_<?php echo $id_avis ?>')?.addEventListener('click', function () {
+                                                                            window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
+                                                                        });
+                                                                    </script><?php
                         }
                     } else {
                         ?>
-                                <h1 class="text-lg ">Vous n'avez publié aucun avis.</h1>
-                                <?php
+                                            <h1 class="text-lg ">Vous n'avez publié aucun avis.</h1>
+                                            <?php
                     }
                     ?>
                 </div>
@@ -154,7 +154,7 @@ $membre = verifyMember();
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 

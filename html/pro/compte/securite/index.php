@@ -23,26 +23,26 @@ if (isset($_POST['mdp'])) {
         } else {
             $controllerProPublic->updateProPublic($pro['id_compte'], false, $mdp, false, false, false, false);
         } ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var successMessage = document.getElementById('success-message');
-                successMessage.textContent = 'Le mot de passe a bien été modifié.';
-                setTimeout(function () {
-                    successMessage.textContent = '';
-                }, 7500);
-            });
-        </script>
-    <?php } else { ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var errorMessage = document.getElementById('error-message');
-                errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
-                setTimeout(function () {
-                    errorMessage.textContent = '';
-                }, 7500);
-            });
-        </script>
-    <?php }
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var successMessage = document.getElementById('success-message');
+                                        successMessage.textContent = 'Le mot de passe a bien été modifié.';
+                                        setTimeout(function () {
+                                            successMessage.textContent = '';
+                                        }, 7500);
+                                    });
+                                </script>
+                <?php } else { ?>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var errorMessage = document.getElementById('error-message');
+                                        errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
+                                        setTimeout(function () {
+                                            errorMessage.textContent = '';
+                                        }, 7500);
+                                    });
+                                </script>
+                <?php }
 
     unset($_POST['mdp']);
     unset($_POST['newMdp']);
@@ -70,7 +70,7 @@ if (isset($_POST['mdp'])) {
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
@@ -158,7 +158,7 @@ if (isset($_POST['mdp'])) {
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 
     <script>

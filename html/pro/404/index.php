@@ -12,7 +12,7 @@ unset($_SESSION['data_en_cours_inscription']);
 
 // Vérifier si le pro est bien connecté
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-$pro = verifyPro();?>
+$pro = verifyPro(); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -32,20 +32,20 @@ $pro = verifyPro();?>
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <main class="grow flex justify-center w-full  m-auto max-w-[1280px] p-2">
         <div class="flex flex-col items-center justify-center">
             <h1 class="font-cormorant text-[10rem]">404</h1>
             <p>Ce n'est pas la page que vous recherchez.</p>
-            <img src="/public/images/404.gif" class="mt-10 mb-28 m-auto " alt="tottereau" width="250">
+            <img src="/public/images/404.gif" class="mt-10 mb-28 m-auto " alt="Totoro : Tottereau" width="250">
         </div>
     </main>
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 

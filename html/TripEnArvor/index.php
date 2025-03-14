@@ -25,14 +25,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 <body class="min-h-screen flex flex-col">
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <div class="grow self-center flex justify-center w-full md:max-w-[1280px] p-2">
         <!-- Inclusion du menu -->
         <div id="menu">
             <?php
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/menu.php';
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
             ?>
         </div>
 
@@ -40,11 +40,11 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <p class="text-3xl">L’association TripEnArvor et son projet PACT</p>
 
             <div class="block md:hidden w-full flex items-center justify-center">
-                <img src="/public/images/TripEnArvor.png" alt="Logo de TripEnArvor" width="100">
+                <img src="/public/images/TripEnArvor.png" alt="Logo de TripEnArvor : Moine macareux" width="100">
             </div>
             <div class="flex items-center gap-4">
                 <div class="hidden md:block flex items-center justify-center">
-                    <img src="/public/images/TripEnArvor.png" alt="Logo de TripEnArvor" width="150">
+                    <img src="/public/images/TripEnArvor.png" alt="Logo de TripEnArvor : Moine macareux" width="150">
                 </div>
                 <div class="flex flex-col gap-4">
                     <p class="text-2xl">Présentation de l’association</p>
@@ -71,7 +71,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <!-- Inclusion du footer -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 
 </body>

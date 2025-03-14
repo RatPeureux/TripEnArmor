@@ -36,7 +36,7 @@ if (!function_exists('chaineVersMot')) {
 
     <!-- Inclusion du header -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/header-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
     <?php
@@ -167,14 +167,14 @@ if (!function_exists('chaineVersMot')) {
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="hidden md:flex justify-center items-center gap-8">
-                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100"
-                        id="filter-button-tab">
+                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="filter-button-tab"
+                        tabindex="0">
                         <i class="text xl fa-solid fa-filter"></i>
                         <p>Filtrer</p>
                     </a>
 
-                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100"
-                        id="sort-button-tab">
+                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab"
+                        tabindex="0">
                         <i class="text xl fa-solid fa-sort"></i>
                         <p>Trier par</p>
                     </a>
@@ -189,22 +189,22 @@ if (!function_exists('chaineVersMot')) {
             <?php
             // Obtenir les informations des offres du pro
             if (!$toutesMesOffres) { ?>
-                <div class="md:min-w-full flex flex-col justify-center gap-4">
-                    <p class='mt-4 text-2xl'>Vous n'avez aucune offre...</p>"
-                    <p class='mt-4  text-2xl'>Créer votre toute première offre dès maintenant !</p>"
-                    <div class="flex justify-center">
-                        <a href="/pro/offre/creer" class="self-center w-full h-80 text-center  text-gray-500 py-2 px-4  inline-flex items-center justify-center border border-dashed border-gray-500 hover:border-primary hover:text-primary animate-scale
+                    <div class="md:min-w-full flex flex-col justify-center gap-4">
+                        <p class='mt-4 text-2xl'>Vous n'avez aucune offre...</p>"
+                        <p class='mt-4  text-2xl'>Créer votre toute première offre dès maintenant !</p>"
+                        <div class="flex justify-center">
+                            <a href="/pro/offre/creer" class="self-center w-full h-80 text-center  text-gray-500 py-2 px-4  inline-flex items-center justify-center border border-dashed border-gray-500 hover:border-primary hover:text-primary animate-scale
                     focus:scale-[0.97]"> Créer votre première offre dès maintenant ! </a>
+                        </div>
                     </div>
-                </div>
             <?php } else { ?>
-                <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
-                    <?php foreach ($toutesMesOffres as $offre) {
-                        // Afficher la carte (!!! défnir la variable $mode_carte !!!)
-                        $mode_carte = 'pro';
-                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
-                    } ?>
-                </div>
+                    <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
+                        <?php foreach ($toutesMesOffres as $offre) {
+                            // Afficher la carte (!!! défnir la variable $mode_carte !!!)
+                            $mode_carte = 'pro';
+                            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre.php';
+                        } ?>
+                    </div>
             <?php } ?>
 
         </div>
@@ -235,7 +235,7 @@ if (!function_exists('chaineVersMot')) {
 
     <!-- FOOTER -->
     <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/html/../view/footer-pro.php';
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
 </body>
 

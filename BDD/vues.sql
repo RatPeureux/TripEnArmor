@@ -25,11 +25,12 @@ from _offre
 
 --------------------------------------------------------------------- Moyenne des notes pour chaque offre (id_offre)
 CREATE OR REPLACE VIEW vue_moyenne AS
-SELECT _offre.id_offre, AVG(_avis.note), COUNT(_avis.note)
-FROM _offre
-    JOIN _avis ON _avis.id_offre = _offre.id_offre
+SELECT sae_db._offre.id_offre, AVG(sae_db._avis.note), COUNT(sae_db._avis.note)
+FROM sae_db._offre
+    LEFT JOIN sae_db._avis ON sae_db._avis.id_offre = sae_db._offre.id_offre
+	where sae_db._avis.fin_blacklistage IS NULL
 GROUP BY
-    _offre.id_offre;
+    sae_db._offre.id_offre;
 
 --------------------------------------------------------------------- vue pour connaître les tags d'une offre quelconque (restaurant + autres offres)
 create or replace view vue_offre_tag as
@@ -58,14 +59,38 @@ SELECT
     id_offre,
     type_offre,
     prix_ht,
-    -- Calcul du prix total HT (duree * prix_ht)
-    ROUND(((COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) - date_debut + 1) * prix_ht)::NUMERIC, 2) AS prix_ht_total,
+    -- Calcul du prix total HT (duree * prix_ht) en utilisant la logique de recalcul du date_debut
+    ROUND((
+        (
+						1 +
+            COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) - 
+            CASE
+                WHEN
+                    EXTRACT(MONTH FROM date_debut) != EXTRACT(MONTH FROM CURRENT_DATE)
+                    OR EXTRACT(YEAR FROM date_debut) != EXTRACT(YEAR FROM CURRENT_DATE)
+                THEN DATE_TRUNC('MONTH', CURRENT_DATE)::DATE
+                ELSE date_debut
+            END
+        ) * prix_ht
+    )::NUMERIC, 2) AS prix_ht_total,
     prix_ttc,
-    -- Calcul du prix total TTC (duree * prix_ttc)
-	ROUND(((COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) - date_debut + 1) * prix_ttc)::NUMERIC, 2) AS prix_ttc_total,
+    -- Calcul du prix total TTC (duree * prix_ttc) en utilisant la logique de recalcul du date_debut
+    ROUND((
+        (
+						1 +
+            COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) - 
+            CASE
+                WHEN
+                    EXTRACT(MONTH FROM date_debut) != EXTRACT(MONTH FROM CURRENT_DATE)
+                    OR EXTRACT(YEAR FROM date_debut) != EXTRACT(YEAR FROM CURRENT_DATE)
+                THEN DATE_TRUNC('MONTH', CURRENT_DATE)::DATE
+                ELSE date_debut
+            END
+        ) * prix_ttc
+    )::NUMERIC, 2) AS prix_ttc_total,
     -- Calcul de la TVA (arrondi à 2 décimales)
-    ROUND(((prix_ttc::NUMERIC / prix_ht::NUMERIC) - 1), 2) * 100 AS tva,
-    -- Si date_debut est antérieure à date_fin et dans un mois différent, on remplace par le 1er jour du mois de date_fin
+    ROUND(((prix_ttc::NUMERIC / prix_ht::NUMERIC) - 1) * 100, 2) AS tva,
+    -- Calcul du date_debut basé sur la condition
     CASE
         WHEN
             EXTRACT(MONTH FROM date_debut) != EXTRACT(MONTH FROM CURRENT_DATE)
@@ -73,10 +98,21 @@ SELECT
         THEN DATE_TRUNC('MONTH', CURRENT_DATE)::DATE
         ELSE date_debut
     END AS date_debut,
-	COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) AS date_fin,
-    -- Calcul de la durée (nombre de jours entre date_debut et date_fin)
-    COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) - date_debut + 1 AS duree
-FROM 
+    -- Calcul du date_fin (avec COALESCE si date_fin est NULL)
+    COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) AS date_fin,
+    -- Calcul de la durée (nombre de jours entre date_debut_calculated et date_fin)
+    (
+    1 +
+        COALESCE(date_fin, (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 MONTH' - INTERVAL '1 day')::DATE) -
+        CASE
+            WHEN
+                EXTRACT(MONTH FROM date_debut) != EXTRACT(MONTH FROM CURRENT_DATE)
+                OR EXTRACT(YEAR FROM date_debut) != EXTRACT(YEAR FROM CURRENT_DATE)
+            THEN DATE_TRUNC('MONTH', CURRENT_DATE)::DATE
+            ELSE date_debut
+        END
+    ) AS duree
+FROM
     _periodes_en_ligne
 WHERE
     date_fin IS NULL
@@ -85,8 +121,9 @@ WHERE
         EXTRACT(YEAR FROM date_fin) = EXTRACT(YEAR FROM CURRENT_DATE)
         AND EXTRACT(MONTH FROM date_fin) = EXTRACT(MONTH FROM CURRENT_DATE)
     )
-ORDER BY 
+ORDER BY
     id_offre, date_debut;
+
 
 ----------------------------- Vue pour connaître les détails d'une souscription de chaque offre dans temps
 create or replace view vue_souscription_offre_option_details as
@@ -139,7 +176,6 @@ CREATE OR REPLACE VIEW sae_db.vue_avis_reaction_counter
    FROM sae_db._avis_reactions
   GROUP BY id_avis;
 
-
 ------------------------------------ Vue pour connaître les totaux TTC des offres pour le mois actuel
 CREATE OR REPLACE VIEW vue_totaux_ttc_offre AS
 WITH totaux_periodes AS (
@@ -163,4 +199,30 @@ FULL JOIN
 GROUP BY
     COALESCE(v.id_offre, tp.id_offre), tp.total_periode;
 
+-------------------------------------------------------------------- Connaître le nombre d'avis blacklistés par offre en cours
+CREATE OR REPLACE VIEW vue_offre_blacklistes_en_cours AS
+SELECT
+    o.id_offre,
+    a.id_avis
+FROM _offre o
+JOIN _avis a ON a.id_offre = o.id_offre AND a.fin_blacklistage IS NOT NULL AND fin_blacklistage >= CURRENT_DATE
+ORDER BY fin_blacklistage;
 
+------------------- Avis blacklistés par offre (au total)
+CREATE OR REPLACE VIEW vue_offre_blacklistes AS
+SELECT
+    o.id_offre,
+    a.id_avis
+FROM _offre o
+JOIN _avis a ON a.id_offre = o.id_offre AND a.fin_blacklistage IS NOT NULL;
+
+-------------------------------------------------------------------- Connaître les indicateurs clés sur les avis par offre
+CREATE OR REPLACE VIEW vue_offre_chiffres_cles AS
+SELECT
+    o.id_offre, 
+    COUNT(CASE WHEN a.fin_blacklistage IS NOT NULL THEN a.id_avis END) AS nb_blacklistes,
+    COUNT(CASE WHEN a.est_lu = false THEN a.id_avis END) AS nb_non_lus,
+    COUNT(CASE WHEN a.reponse IS NULL THEN a.id_avis END) AS nb_sans_reponse
+FROM _offre o
+LEFT JOIN _avis a ON a.id_offre = o.id_offre
+GROUP BY o.id_offre;

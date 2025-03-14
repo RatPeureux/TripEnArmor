@@ -3,6 +3,7 @@
     - $id_avis
     - $id_membre
     - $mode         : soit 'avis', soit 'mon_avis' pour un affichage différent
+    - $is_reference : soit true soit false pour savoir si l'on peut cliquer sur une flèche menant à l'offre correspondant à l'avis
 -->
 
 <?php
@@ -25,6 +26,23 @@ $proPriveController = new ProPriveController();
 $avisController = new avisController();
 $restaurationController = new RestaurationController();
 
+// Obtenir la variables regroupant les infos majeures
+$membre = $membreController->getInfosMembre($id_membre);
+$restauration = $restaurationController->getInfosRestauration($avis['id_offre']);
+$avis = $avisController->getAvisById($id_avis);
+
+// Vérifier si on est connecté avec le compte du pro qui peut répondre
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+$stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
+$stmt->bindParam(':id_offre', $avis['id_offre']);
+$stmt->execute();
+$id_pro_must_have = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+$pro_can_answer = (isConnectedAsPro() && $id_pro_must_have == $_SESSION['id_pro']) ? true : false;
+
+// Savoir si l'avis actuel est blacklisté
+$is_blacklisted = (isset($avis['fin_blacklistage']) && $avis['fin_blacklistage'] != null) ? true : false;
+
 if (!function_exists('to_nom_note')) {
     function to_nom_note($nom_attribut_note): string
     {
@@ -32,30 +50,36 @@ if (!function_exists('to_nom_note')) {
     }
 }
 ?>
-
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
-<div class="avis w-full <?php echo $is_mon_avis ? 'border-primary border-2' : '' ?> p-2 flex flex-col gap-1 text-sm">
+<div
+    class="avis w-full <?php echo $is_mon_avis ? 'border-primary border-2' : '' ?> p-2 flex flex-col gap-1 text-sm <?php echo $is_blacklisted ? 'bg-slate-100' : '' ?> <?php echo ($pro_can_answer === true && !$avis['est_lu']) ? 'border-y border-secondary' : '' ?>">
     <?php
-    // Obtenir la variables regroupant les infos du membre
-    $membre = $membreController->getInfosMembre($id_membre);
-    $avis = $avisController->getAvisById($id_avis);
-    $restauration = $restaurationController->getInfosRestauration($avis['id_offre']);
-
-    // Vérifier si on est connecté avec le compte du pro qui peut répondre
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-    $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
-    $stmt->bindParam(':id_offre', $avis['id_offre']);
-    $stmt->execute();
-    $id_pro_must_have = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
-
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-    $pro_can_answer = (isConnectedAsPro() && $id_pro_must_have == $_SESSION['id_pro']) ? true : false;
-
     // Vérifier si celui qui consulte l'avis est le pro lié à l'offre correspondant à l'avis -> mettre l'attribut est_lu à true
     if ($pro_can_answer) {
         $stmt = $dbh->prepare("UPDATE sae_db._avis SET est_lu = TRUE WHERE id_avis = ?");
         $stmt->bindParam(1, $id_avis);
         $stmt->execute();
+    }
+
+    // Possiblité de blacklister : type_offre = premium, tickets blacklistage restants et pro_can_answer
+    $pro_can_blacklist = false;
+    $stmt = $dbh->prepare(
+        "
+        SELECT * FROM sae_db._avis
+        JOIN sae_db._offre ON sae_db._offre.id_offre = sae_db._avis.id_offre
+        WHERE sae_db._offre.id_offre = :id_offre;
+    "
+    );
+    $stmt->bindParam(':id_offre', $avis['id_offre']);
+    $stmt->execute();
+    $id_type_offre = $stmt->fetch(PDO::FETCH_ASSOC)['id_type_offre'];
+
+    $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_blacklistes_en_cours WHERE id_offre = :id_offre");
+    $stmt->bindParam(':id_offre', $avis['id_offre']);
+    $stmt->execute();
+    $nb_blacklistes_en_cours = $stmt->rowCount();
+    if ($stmt->rowCount() < 3 && $pro_can_answer && $id_type_offre == '2') {
+        $pro_can_blacklist = true;
     }
     ?>
 
@@ -122,9 +146,27 @@ if (!function_exists('to_nom_note')) {
             }
             ?>
         </div>
-        <div class="self-end ml-auto">
+        <div class="flex items-center self-end ml-auto gap-5">
             <?php
-            if (!$is_mon_avis) {
+            // Possibilité de blacklister
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/fonctions.php';
+            $duree_blacklistage = parse_config_file('DUREE_BLACKLISTAGE');
+            if (!$is_blacklisted && $pro_can_blacklist) { ?>
+                    <a onclick="return confirm('Voulez-vous vraiment blacklister cet avis définitivement ? Cela coute un ticket (il vous en reste <?php echo 3 - $nb_blacklistes_en_cours ?>) qui vous sera restitué dans <?php echo $duree_blacklistage ?> jours.')"
+                        href="/scripts/blacklister-avis.php?id_avis=<?php echo $id_avis ?>&duree_blacklistage=<?php echo $duree_blacklistage ?>">
+                        <i title="blacklister l'avis" class="text-xl fa-regular fa-eye-slash hover:text-primary"></i>
+                    </a>
+            <?php }
+
+            // Flèche de référence vers l'offre correspondante
+            if (isset($is_reference) && $is_reference) { ?>
+                    <a title="voir l'offre correspondante" class="hover:text-primary"
+                        href="/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>">
+                        <i class="text-xl fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+            <?php }
+
+            if (!$is_mon_avis && !$is_blacklisted) {
                 ?>
                     <!-- Drapeau de signalement -->
                     <i class="fa-regular fa-flag text-xl hover:text-primary hover:cursor-pointer"
@@ -141,13 +183,13 @@ if (!function_exists('to_nom_note')) {
                         ?>
                     </div>
                     <?php
-            } else {
+            } else if ($is_mon_avis) {
                 ?>
-                    <!-- Poubelle de suppression d'avis -->
-                    <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $avis['id_offre'] ?>"
-                        onclick="return confirm('Supprimer votre avis ?')">
-                        <i class="fa-solid fa-trash text-xl"></i>
-                    </a>
+                            <!-- Poubelle de suppression d'avis -->
+                            <a href="/scripts/delete_avis.php?id_avis=<?php echo $id_avis ?>&id_offre=<?php echo $avis['id_offre'] ?>"
+                                onclick="return confirm('Supprimer votre avis ?')">
+                                <i class="fa-solid fa-trash text-xl"></i>
+                            </a>
                     <?php
             }
             ?>
@@ -228,16 +270,21 @@ if (!function_exists('to_nom_note')) {
     <?php if (!is_null($avis['reponse'])) { ?>
             <div class="p-4">
                 <div class="flex gap-8 items-center text-gris">
+
                     <!-- Bouton pour afficher la réponse -->
                     <div class="flex gap-2 hover:cursor-pointer"
                         onclick="this.querySelector('i').classList.toggle('rotate-90'); document.getElementById('reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden');">
                         <i class="fa-solid fa-angle-right"></i>
-                        <p><?php echo $pro_can_answer ? 'Réponse du pro' : 'Votre réponse' ?></p>
+                        <p><?php echo $pro_can_answer ? 'Votre réponse' : 'Réponse du pro' ?></p>
                     </div>
+
                     <!-- Bouton pour supprimer la réponse si connecté avec bon compte pro -->
                     <?php
                     if ($pro_can_answer) { ?>
-                            <a onclick="window.location.href = '/scripts/delete_reponse.php?id_avis=<?php echo $id_avis ?>'">
+                            <a onclick="
+                    if (confirm('Voulez-vous vraiment supprimer votre réponse ?')) {
+window.location.href = '/scripts/delete_reponse.php?id_avis=<?php echo $id_avis ?>'
+                    }">
                                 <svg width="15" height="18" viewBox="0 0 10 12" fill="none"
                                     class="stroke-black hover:!stroke-primary hover:cursor-pointer">
                                     <path
@@ -258,19 +305,30 @@ if (!function_exists('to_nom_note')) {
                     <div class="p-4 flex flex-col gap-2 justify-start">
                         <!-- Bouton de rédaction de réponse -->
                         <div class="flex gap-4 items-center">
-                            <a class="p-1 hover:cursor-pointer self-start border border-primary"
+                            <a class="p-1 hover:cursor-pointer self-start border border-secondary hover:bg-secondary hover:text-white"
                                 onclick="document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden')">Répondre</a>
-                            <i class="fa-regular fa-paper-plane hover:cursor-pointer" title="Envoyer" onclick="
-                            let content = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value;
-                            let encodedContent = encodeURIComponent(content);
-                            if (encodedContent.length > 0) {
-                                window.location.href = '/scripts/send_reponse.php?id_avis=<?php echo $id_avis ?>&reponse=' + encodedContent;
-                            }">
-                            </i>
+                            <a id="send-reponse-avis-<?php echo $id_avis ?>" class="hidden">
+                                <i class="fa-regular fa-paper-plane hover:cursor-pointer" title="Envoyer" onclick="let content = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value; let encodedContent = encodeURIComponent(content); if (encodedContent.length > 0) {
+                                    window.location.href = '/scripts/send_reponse.php?id_avis=<?php echo $id_avis ?>&reponse=' + encodedContent;
+                                }">
+                                </i>
+                            </a>
                         </div>
 
                         <!-- Champ de rédaction -->
                         <textarea id="formulaire-reponse-avis-<?php echo $id_avis ?>" class="hidden border border-gris"></textarea>
+                        <!-- Proposer d'envoyer la réponse que quand il y a du texte rentré -->
+                        <script>
+                            $("#formulaire-reponse-avis-<?php echo $id_avis ?>").on('input', function () {
+                                let send_button = document.getElementById('send-reponse-avis-<?php echo $id_avis ?>');
+                                let longeur_message = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value.length;
+                                if (longeur_message > 0) {
+                                    send_button.classList.remove('hidden');
+                                } else {
+                                    send_button.classList.add('hidden');
+                                }
+                            });
+                        </script>
                     </div>
     <?php } ?>
 
@@ -372,7 +430,5 @@ if (!function_exists('to_nom_note')) {
                         </a>
         <?php } ?>
     </div>
-
     <hr>
-
 </div>

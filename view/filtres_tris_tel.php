@@ -7,7 +7,8 @@
     </a>
 
     <div>
-        <a class="cursor-pointer p-2 flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tel">
+        <a class="cursor-pointer p-2 flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tel"
+            tabindex="0">
             <i class="text xl fa-solid fa-sort"></i>
             <p>Trier par</p>
         </a>
@@ -192,19 +193,19 @@
                     <p class="arrow" id="arrow-f4-tel">></p>
                 </div>
                 <div class="developped hidden flex items-center" id="developped-f4-tel">
-                    <label class="text-sm">Intervalle des prix entre&nbsp;</label>
+                    <label class="text-sm">Intervalle des notes entre&nbsp;</label>
                     <div class="flex items-center">
                         <input id="min-note-tel" type="number" value="0" min="0" max="5" step="0.5"
                             class="border border-black p-1 text-sm text-right w-[39px] focus:ring-0">
                         &nbsp;
-                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='oeuf plein'>
+                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='1 point de note'>
                     </div>
                     <label class="text-sm">&nbsp;et&nbsp;</label>
                     <div class="flex items-center">
                         <input id="max-note-tel" type="number" value="5" min="0" max="5" step="0.5"
                             class="border border-black p-1 text-sm text-right w-[39px] focus:ring-0">
                         &nbsp;
-                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='oeuf plein'>
+                        <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='1 point de note'>
                     </div>
                 </div>
             </div>

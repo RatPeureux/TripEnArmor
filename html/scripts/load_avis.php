@@ -12,12 +12,17 @@ if (isset($_GET['id_offre']) && isset($_GET['idx_avis']) && isset($_GET['id_memb
     // Id du membre qui charge les avis (pour afficher son avis de manière spéciale)
     $id_membre = $_GET['id_membre'];
 
-    // Requête SQL retournant les informations des prochains avis (selon $idx_avis)
+    // Requête (adaptative) SQL retournant les informations des prochains avis (selon $idx_avis et que nous soyons un membre avec un avis posté)
+    $query = "SELECT * FROM sae_db._avis WHERE id_offre = :id_offre AND fin_blacklistage IS NULL ";
     if ($id_membre != '-1') {
-        $stmt = $dbh->prepare("SELECT * FROM sae_db._avis WHERE id_offre = :id_offre AND id_membre != :id_membre LIMIT 3 OFFSET :idx_avis");
+        $query = $query . "AND id_membre != :id_membre ";
+    }
+    $query = $query . "ORDER BY est_lu LIMIT 3 OFFSET :idx_avis";
+
+    $stmt = $dbh->prepare($query);
+
+    if ($id_membre != '-1') {
         $stmt->bindParam(':id_membre', $id_membre);
-    } else {
-        $stmt = $dbh->prepare("SELECT * FROM sae_db._avis WHERE id_offre = :id_offre LIMIT 3 OFFSET :idx_avis");
     }
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->bindParam(':idx_avis', $idx_avis);
