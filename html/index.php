@@ -20,9 +20,9 @@ $offers = [
 
     <script src="/scripts/main.js" type="module"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
     <title>PACT</title>
@@ -98,7 +98,7 @@ $offers = [
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
             if (isConnectedAsMember()) { ?>
                 <!-- Si connecté -->
-                <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
+                <a href="/scripts/logout.php" class="hidden md:flex flex-col items-center"
                     onclick="return confirmLogout()">
                     <div class="text-black border border-secondary px-4 py-2 rounded-full">
                         <p>Se déconnecter</p>
@@ -276,7 +276,7 @@ $offers = [
                 offers: <?php echo json_encode($offers); ?>
             };
         </script>
-        <script src="map.js"></script>
+        <script src="/scripts/map.js"></script>
     </main>
 
     <!-- FOOTER -->
