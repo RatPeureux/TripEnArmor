@@ -173,7 +173,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 </div>
             </div>
 
-            <div id="map" class="w-full h-[400px] border border-gray-300"></div>
+            <div id="map" class="w-full h-[400px] border border-gray-300 mb-4"></div>
 
             <script>
                 window.mapConfig = {
