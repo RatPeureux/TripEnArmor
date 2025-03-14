@@ -266,183 +266,250 @@ if (!function_exists('to_nom_note')) {
         <p class="text-justify"><?php echo $avis['commentaire'] ?></p>
     </div>
 
-    <!-- Réponse du pro s'il y en a une -->
-    <?php if (!is_null($avis['reponse'])) { ?>
-        <div class="p-4">
-            <div class="flex gap-8 items-center text-gris">
-                <div class="p-4">
-                    <div class="flex gap-8 items-center text-gris">
+    <!-- Images de l'avis -->
+    <div class="flex space-x-1 py-2">
+        <?php
+        $images = [
+            "/temp/resto0.jpg",
+            "/temp/resto1.jpg",
+            "/temp/resto2.jpg",
+            "/temp/resto3.jpg",
+            "/temp/resto4.jpg",
+            "/temp/resto5.jpg"
+        ];
+        ?>
 
-                        <!-- Bouton pour afficher la réponse -->
-                        <div class="flex gap-2 hover:cursor-pointer"
-                            onclick="this.querySelector('i').classList.toggle('rotate-90'); document.getElementById('reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden');">
-                            <i class="fa-solid fa-angle-right"></i>
-                            <p><?php echo $pro_can_answer ? 'Votre réponse' : 'Réponse du pro' ?></p>
-                        </div>
-                        <?php
-                        if ($pro_can_answer) { ?>
-                            <a
-                                onclick=" if (confirm('Voulez-vous vraiment supprimer votre réponse ?')) {
-                                    window.location.href='/scripts/delete_reponse.php?id_avis=<?php echo $id_avis ?>' }">
-                                <svg width="15" height="18" viewBox="0 0 10 12" fill="none"
-                                    class="stroke-black hover:!stroke-primary hover:cursor-pointer">
-                                    <path
-                                        d="M3.46444 0.619944L3.46445 0.619949L3.46589 0.61705C3.50119 0.545792 3.57425 0.5 3.65625 0.5H6.34375C6.42575 0.5 6.49881 0.545792 6.53411 0.61705L6.5341 0.617055L6.53556 0.619945L6.69627 0.939141L6.83481 1.21429H7.14286H9.28571C9.40466 1.21429 9.5 1.30962 9.5 1.42857C9.5 1.54752 9.40466 1.64286 9.28571 1.64286H0.714286C0.595339 1.64286 0.5 1.54752 0.5 1.42857C0.5 1.30962 0.595339 1.21429 0.714286 1.21429H2.85714H3.1652L3.30373 0.939141L3.46444 0.619944ZM1.6865 10.3925L1.24653 3.35714H8.75347L8.3135 10.3925C8.3135 10.3926 8.31349 10.3926 8.31349 10.3926C8.29439 10.6941 8.04399 10.9286 7.7433 10.9286H2.2567C1.95606 10.9286 1.70568 10.6942 1.68652 10.3927C1.68651 10.3927 1.68651 10.3926 1.6865 10.3925Z" />
-                                </svg>
-                            </a>
-                            <?php
-                        }
-                        ?>
+        <?php foreach ($images as $index => $image): ?>
+            <?php if ($index < 4): ?>
+                <img src="<?php echo $image; ?>" alt=""
+                    class="object-cover w-12 h-16 <?php echo $index === 0 ? 'rounded-tl-lg rounded-bl-lg' : ''; ?>"
+                    onclick="openImageModal(<?php echo $index; ?>)">
+            <?php elseif ($index === 4): ?>
+                <div class="bg-base100 w-12 h-16 rounded-tr-lg rounded-br-lg">
+                    <a href="javascript:void(0);" class="w-full h-full flex justify-center items-center text-small text-gris"
+                        onclick="openImageModal(4)">+<?php echo count($images) - 4; ?></a>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+
+    <!-- Modal for image slider -->
+    <div id="imageModal" class="fixed inset-0 hidden bg-black bg-opacity-75 items-center justify-center z-50">
+        <div class="relative" onclick="event.stopPropagation();"></div>
+        <button class="absolute top-0 right-0 m-3 text-white bg-primary rounded-lg py-2 px-2"
+            onclick="closeImageModal()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="modalImage" src="" alt="" class="max-w-full max-h-full">
+        <button
+            class="absolute left-0 top-1/2 transform -translate-y-1/2 text-white bg-primary rounded-lg px-2 py-2 ml-1"
+            onclick="prevImage()">
+            <i class="fa-solid fa-less-than"></i>
+        </button>
+        <button
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white bg-primary rounded-lg px-2 py-2 mr-1"
+            onclick="nextImage()">
+            <i class="fa-solid fa-greater-than"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+    const images = <?php echo json_encode($images); ?>;
+    let currentIndex = 0;
+
+    function openImageModal(index) {
+        currentIndex = index;
+        document.getElementById('modalImage').src = images[currentIndex];
+        document.getElementById('imageModal').classList.remove('hidden');
+        document.getElementById('imageModal').classList.add('flex');
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+        document.getElementById('modalImage').src = images[currentIndex];
+    }
+
+    function nextImage() {
+        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+        document.getElementById('modalImage').src = images[currentIndex];
+    }
+
+    function closeImageModal() {
+        document.getElementById('imageModal').classList.remove('flex');
+        document.getElementById('imageModal').classList.add('hidden');
+    }
+</script>
+</div>
+
+<!-- Réponse du pro s'il y en a une -->
+<?php if (!is_null($avis['reponse'])) { ?>
+    <div class="p-4">
+        <div class="flex gap-8 items-center text-gris">
+            <div class="p-4">
+                <div class="flex gap-8 items-center text-gris">
+
+                    <!-- Bouton pour afficher la réponse -->
+                    <div class="flex gap-2 hover:cursor-pointer"
+                        onclick="this.querySelector('i').classList.toggle('rotate-90'); document.getElementById('reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden');">
+                        <i class="fa-solid fa-angle-right"></i>
+                        <p><?php echo $pro_can_answer ? 'Votre réponse' : 'Réponse du pro' ?></p>
                     </div>
+                    <?php
+                    if ($pro_can_answer) { ?>
+                        <a
+                            onclick=" if (confirm('Voulez-vous vraiment supprimer votre réponse ?')) {
+                                    window.location.href='/scripts/delete_reponse.php?id_avis=<?php echo $id_avis ?>' }">
+                            <svg width="15" height="18" viewBox="0 0 10 12" fill="none"
+                                class="stroke-black hover:!stroke-primary hover:cursor-pointer">
+                                <path
+                                    d="M3.46444 0.619944L3.46445 0.619949L3.46589 0.61705C3.50119 0.545792 3.57425 0.5 3.65625 0.5H6.34375C6.42575 0.5 6.49881 0.545792 6.53411 0.61705L6.5341 0.617055L6.53556 0.619945L6.69627 0.939141L6.83481 1.21429H7.14286H9.28571C9.40466 1.21429 9.5 1.30962 9.5 1.42857C9.5 1.54752 9.40466 1.64286 9.28571 1.64286H0.714286C0.595339 1.64286 0.5 1.54752 0.5 1.42857C0.5 1.30962 0.595339 1.21429 0.714286 1.21429H2.85714H3.1652L3.30373 0.939141L3.46444 0.619944ZM1.6865 10.3925L1.24653 3.35714H8.75347L8.3135 10.3925C8.3135 10.3926 8.31349 10.3926 8.31349 10.3926C8.29439 10.6941 8.04399 10.9286 7.7433 10.9286H2.2567C1.95606 10.9286 1.70568 10.6942 1.68652 10.3927C1.68651 10.3927 1.68651 10.3926 1.6865 10.3925Z" />
+                            </svg>
+                        </a>
+                        <?php
+                    }
+                    ?>
+                </div>
+                </a>
+            </div>
+
+            <!-- Texte de la réponse -->
+            <p id="reponse-avis-<?php echo $id_avis ?>" class="hidden italic"> <?php echo $avis['reponse'] ?></p>
+        </div>
+
+        <!-- Sinon formulaire de reponse pour le pro s'il est bien connecté -->
+    <?php } else if ($pro_can_answer) { ?>
+            <div class="p-4 flex flex-col gap-2 justify-start">
+                <!-- Bouton de rédaction de réponse -->
+                <div class="flex gap-4 items-center">
+                    <a class="p-1 hover:cursor-pointer self-start border border-secondary hover:bg-secondary hover:text-white rounded-full px-4 py-2"
+                        onclick="document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden')">Répondre</a>
+                    <a id="send-reponse-avis-<?php echo $id_avis ?>" class="hidden">
+                        <i class="fa-regular fa-paper-plane hover:cursor-pointer" title="Envoyer" onclick="let content = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value; let encodedContent = encodeURIComponent(content); if (encodedContent.length > 0) {
+                                    window.location.href = '/scripts/send_reponse.php?id_avis=<?php echo $id_avis ?>&reponse=' + encodedContent;
+                                }">
+                        </i>
                     </a>
                 </div>
 
-                <!-- Texte de la réponse -->
-                <p id="reponse-avis-<?php echo $id_avis ?>" class="hidden italic"> <?php echo $avis['reponse'] ?></p>
+                <!-- Champ de rédaction -->
+                <textarea id="formulaire-reponse-avis-<?php echo $id_avis ?>" class="hidden border border-gris"></textarea>
+                <!-- Proposer d'envoyer la réponse que quand il y a du texte rentré -->
+                <script>
+                    $("#formulaire-reponse-avis-<?php echo $id_avis ?>").on('input', function () {
+                        let send_button = document.getElementById('send-reponse-avis-<?php echo $id_avis ?>');
+                        let longeur_message = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value.length;
+                        if (longeur_message > 0) {
+                            send_button.classList.remove('hidden');
+                        } else {
+                            send_button.classList.add('hidden');
+                        }
+                    });
+                </script>
             </div>
+    <?php } ?>
 
-            <!-- Sinon formulaire de reponse pour le pro s'il est bien connecté -->
-        <?php } else if ($pro_can_answer) { ?>
-                <div class="p-4 flex flex-col gap-2 justify-start">
-                    <!-- Bouton de rédaction de réponse -->
-                    <div class="flex gap-4 items-center">
-                        <a class="p-1 hover:cursor-pointer self-start border border-secondary hover:bg-secondary hover:text-white"
-                            onclick="document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden')">Répondre</a>
-                        <a id="send-reponse-avis-<?php echo $id_avis ?>" class="hidden">
-                            <i class="fa-regular fa-paper-plane hover:cursor-pointer" title="Envoyer" onclick="let content = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value; let encodedContent = encodeURIComponent(content); if (encodedContent.length > 0) {
-                                    window.location.href = '/scripts/send_reponse.php?id_avis=<?php echo $id_avis ?>&reponse=' + encodedContent;
-                                }">
-                            </i>
-                        </a>
-                    </div>
+    <!-- POUCES -->
+    <?php
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-                    <!-- Champ de rédaction -->
-                    <textarea id="formulaire-reponse-avis-<?php echo $id_avis ?>" class="hidden border border-gris"></textarea>
-                    <!-- Proposer d'envoyer la réponse que quand il y a du texte rentré -->
-                    <script>
-                        $("#formulaire-reponse-avis-<?php echo $id_avis ?>").on('input', function () {
-                            let send_button = document.getElementById('send-reponse-avis-<?php echo $id_avis ?>');
-                            let longeur_message = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value.length;
-                            if (longeur_message > 0) {
-                                send_button.classList.remove('hidden');
-                            } else {
-                                send_button.classList.add('hidden');
-                            }
-                        });
-                    </script>
-                </div>
-        <?php } ?>
+    $statement = $dbh->prepare("SELECT * FROM sae_db.vue_avis_reaction_counter WHERE id_avis = ?");
+    $statement->bindParam(1, $id_avis);
+    $statement->execute();
+    $nb_reactions = $statement->fetch(PDO::FETCH_ASSOC); ?>
+    <div>
+        <div class="flex flex-row-reverse gap-3 items-center">
+            <?php
+            ?>
 
-        <!-- POUCES -->
-        <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+            <!-- AFFICHER LES POUCES VITRINES POUR LE PRO -->
+            <?php if (isset($_SESSION['id_pro'])) { ?>
 
-        $statement = $dbh->prepare("SELECT * FROM sae_db.vue_avis_reaction_counter WHERE id_avis = ?");
-        $statement->bindParam(1, $id_avis);
-        $statement->execute();
-        $nb_reactions = $statement->fetch(PDO::FETCH_ASSOC); ?>
-        <div>
-            <div class="rounded-md px-3">
-                <img src="html/temp/2018-04-16.jpg" alt="" class="object-cover w-full h-full">
-                <img src="html/temp/image.jpg" alt="" class="object-cover w-full h-full">
-                <img src="html/temp/resto.jpg" alt="" class="object-cover w-full h-full">
-                <img src="html/temp/resto1.jpg" alt="" class="object-cover w-full h-full">
-                <p>TEST</p>
-            </div>
-            <div class="flex flex-row-reverse gap-3 items-center">
-                <?php
-                ?>
+                <!-- Nombre de pouces rouges -->
+                <p class="font-bold w-2 text-center">
+                    <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
+                </p>
+                <i class="fa-regular fa-thumbs-down text-2xl mt-1 text-rouge-logo"
+                    onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
 
-                <!-- AFFICHER LES POUCES VITRINES POUR LE PRO -->
-                <?php if (isset($_SESSION['id_pro'])) { ?>
+                <!-- Nombre de pouces bleus -->
+                <p class="font-bold w-2 text-center">
+                    <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
+                </p>
+                <i class="fa-regular fa-thumbs-up text-2xl mb-1 text-secondary"
+                    onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
 
-                    <!-- Nombre de pouces rouges -->
-                    <p class="font-bold w-2 text-center">
-                        <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
-                    </p>
-                    <i class="fa-regular fa-thumbs-down text-2xl mt-1 text-rouge-logo"
-                        onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
+                <!-- AFFICHER LES POUCES INTERACTIFS PORU LE MEMBRE -->
+            <?php } else if (isset($_SESSION['id_membre'])) {
 
-                    <!-- Nombre de pouces bleus -->
-                    <p class="font-bold w-2 text-center">
-                        <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
-                    </p>
-                    <i class="fa-regular fa-thumbs-up text-2xl mb-1 text-secondary"
-                        onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
+                $query = "SELECT type_de_reaction FROM sae_db._avis_reactions WHERE id_avis = ? AND id_membre = ?";
+                $statement = $dbh->prepare($query);
+                $statement->bindParam(1, $id_avis);
+                $statement->bindParam(2, $_SESSION['id_membre']);
 
-                    <!-- AFFICHER LES POUCES INTERACTIFS PORU LE MEMBRE -->
-                <?php } else if (isset($_SESSION['id_membre'])) {
+                if ($statement->execute()) {
+                    $reaction = $statement->fetch(PDO::FETCH_ASSOC);
+                } else {
+                    echo "ERREUR : Impossible d'obtenir cette réaction";
+                    return -1;
+                }
 
-                    $query = "SELECT type_de_reaction FROM sae_db._avis_reactions WHERE id_avis = ? AND id_membre = ?";
-                    $statement = $dbh->prepare($query);
-                    $statement->bindParam(1, $id_avis);
-                    $statement->bindParam(2, $_SESSION['id_membre']);
-
-                    if ($statement->execute()) {
-                        $reaction = $statement->fetch(PDO::FETCH_ASSOC);
-                    } else {
-                        echo "ERREUR : Impossible d'obtenir cette réaction";
-                        return -1;
-                    }
-
-                    if ($reaction) { ?>
-                            <!-- Pouce bleu pour le membre -->
-                        <?php if ($reaction['type_de_reaction'] == true) { ?>
-                                <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
-                                <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
-                                </p>
-                                <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1"
-                                    id="thumb-down-<?php echo $id_avis; ?>"
-                                    onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
-                                <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
-                                <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
-                                </p>
-                                <i class="cursor-pointer fa-solid fa-thumbs-up text-2xl mb-1 text-secondary"
-                                    id="thumb-up-<?php echo $id_avis; ?>"
-                                    onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
-                                <!-- Pouce rouge pour le membre -->
-                        <?php } else { ?>
-                                <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
-                                <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
-                                </p>
-                                <i class="cursor-pointer fa-solid fa-thumbs-down text-2xl mt-1 text-rouge-logo"
-                                    id="thumb-down-<?php echo $id_avis; ?>"
-                                    onclick="sendReaction(<?php echo $id_avis; ?>, 'downTOnull')"></i>
-                                <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
-                                <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
-                                </p>
-                                <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1" id="thumb-up-<?php echo $id_avis; ?>"
-                                    onclick="sendReaction(<?php echo $id_avis; ?>, 'downTOup')"></i>
-                        <?php } ?>
-                            <!-- Aucun pouce pour le membre -->
+                if ($reaction) { ?>
+                        <!-- Pouce bleu pour le membre -->
+                    <?php if ($reaction['type_de_reaction'] == true) { ?>
+                            <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
+                            <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
+                            </p>
+                            <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1" id="thumb-down-<?php echo $id_avis; ?>"
+                                onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOdown')"></i>
+                            <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
+                            <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
+                            </p>
+                            <i class="cursor-pointer fa-solid fa-thumbs-up text-2xl mb-1 text-secondary"
+                                id="thumb-up-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
+                            <!-- Pouce rouge pour le membre -->
                     <?php } else { ?>
                             <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
                             <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
                             </p>
-                            <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1"
-                                id="thumb-down-<?php echo $id_avis; ?>" onclick="sendReaction(<?php echo $id_avis; ?>, 'down')"></i>
+                            <i class="cursor-pointer fa-solid fa-thumbs-down text-2xl mt-1 text-rouge-logo"
+                                id="thumb-down-<?php echo $id_avis; ?>"
+                                onclick="sendReaction(<?php echo $id_avis; ?>, 'downTOnull')"></i>
                             <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
                             <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
                             </p>
                             <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1" id="thumb-up-<?php echo $id_avis; ?>"
-                                onclick="sendReaction(<?php echo $id_avis; ?>, 'up')"></i>
+                                onclick="sendReaction(<?php echo $id_avis; ?>, 'downTOup')"></i>
                     <?php } ?>
-
-                        <!-- POUCES POUR LES VISITEURS -->
+                        <!-- Aucun pouce pour le membre -->
+                <?php } else { ?>
                         <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
                         <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
                         </p>
-                        <a href="/connexion">
-                            <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1"></i>
-                        </a>
+                        <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1" id="thumb-down-<?php echo $id_avis; ?>"
+                            onclick="sendReaction(<?php echo $id_avis; ?>, 'down')"></i>
                         <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
                         <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
                         </p>
-                        <a href="/connexion">
-                            <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1"></i>
-                        </a>
+                        <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1" id="thumb-up-<?php echo $id_avis; ?>"
+                            onclick="sendReaction(<?php echo $id_avis; ?>, 'up')"></i>
                 <?php } ?>
-            </div>
+
+                    <!-- POUCES POUR LES VISITEURS -->
+                    <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
+                    <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
+                    </p>
+                    <a href="/connexion">
+                        <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1"></i>
+                    </a>
+                    <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
+                    <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
+                    </p>
+                    <a href="/connexion">
+                        <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1"></i>
+                    </a>
+            <?php } ?>
         </div>
-        <hr>
     </div>
+    <hr>
+</div>

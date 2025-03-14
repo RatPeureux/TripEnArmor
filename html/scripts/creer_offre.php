@@ -79,9 +79,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // *********************************************************************************************************************** Insertion
     /* Ordre de l'insertion :
     1. [x] Adresse
-    3. [x] Image
     5. [x] Offre
     6. [x] Offre_Tag / Restauration_Tag
+    3. [x] Image
     7. [x] Offre_Image
     8. [x] Offre_Langue
     9. [x] TypeRepas 
