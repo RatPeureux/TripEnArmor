@@ -31,3 +31,16 @@ if (!function_exists('parse_config_file')) {
     }
 }
 
+if (!function_exists('chaineVersMot')) {
+    function chaineVersMot($str): string
+    {
+        return str_replace('_', " d'", ucfirst($str));
+    }
+}
+
+if (!function_exists('to_nom_note')) {
+    function to_nom_note($nom_attribut_note): string
+    {
+        return str_replace('_', ' ', explode('_', $nom_attribut_note, 2)[1]);
+    }
+}

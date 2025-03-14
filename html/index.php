@@ -64,14 +64,12 @@ session_start();
     $meilleuresNotes = $offresAvecNotes;
     ?>
 
-
-    <header class="flex justify-between items-center z-30 w-full h-16 top-0 mx-auto max-w-[1280px] px-4">
-        <div class="flex items-center justify-between md:gap-4">
-            <!-- Logo -->
-            <a href="/" class="flex items-center gap-2">
-                <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="50">
-            </a>
-        </div>
+    <!-- Inclusion du header -->
+<?php
+    $is_header_accueil = true;
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
+    unset($is_header_accueil);
+    ?>
 
         <!-- Menu -->
         <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
@@ -79,36 +77,6 @@ session_start();
                 Une</a>
             <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
         </div>
-
-        <!-- Actions Utilisateur -->
-        <div class="flex items-center text-sm gap-4">
-            <?php
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-            if (isConnectedAsMember()) { ?>
-                    <!-- Si connecté -->
-                    <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
-                        onclick="return confirmLogout()">
-                        <div class="text-black border border-secondary px-4 py-2 rounded-full">
-                            <p>Se déconnecter</p>
-                        </div>
-                    </a>
-                    <a href="/compte">
-                        <i class="text-3xl fa-regular fa-user"></i>
-                    </a>
-            <?php } else { ?>
-                    <!-- Si non connecté -->
-                    <a href="/connexion" class="md:hidden">
-                        <i class="text-3xl fa-regular fa-user"></i>
-                    </a>
-                    <a href="/connexion" class="hidden md:block">
-                        <div
-                            class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
-                            <p>Se connecter</p>
-                        </div>
-                    </a>
-            <?php } ?>
-        </div>
-    </header>
 
     <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
         <div class="w-full flex justify-center gap-10 text-center">

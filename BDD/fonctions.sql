@@ -392,7 +392,7 @@ BEGIN
     END IF; 
   ELSE
     -- Cas où l'avis ne concerne pas une offre premium (donc pas le droit au blacklistage)
-    IF EXISTS (SELECT 1 FROM _offre WHERE id_offre = NEW.id_offre) THEN
+    IF EXISTS (SELECT 1 FROM sae_db._offre WHERE id_offre = NEW.id_offre) THEN
       -- Si id_type_offre != 2, fin_blacklistage doit être nul
       IF NEW.fin_blacklistage IS NOT NULL THEN
         RAISE NOTICE 'Les offres avec id_type_offre différent de 2 ne peuvent avoir fin_blacklistage non nul';

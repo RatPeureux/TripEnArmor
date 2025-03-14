@@ -8,13 +8,7 @@ unset($_SESSION['data_en_cours_connexion']);
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 $pro = verifyPro();
 
-// Fonction utilitaires
-if (!function_exists('chaineVersMot')) {
-    function chaineVersMot($str): string
-    {
-        return str_replace('_', " d'", ucfirst($str));
-    }
-}
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
 ?>
 
 <!DOCTYPE html>

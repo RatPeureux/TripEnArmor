@@ -1,11 +1,6 @@
 <?php
 // FONCTION UTILES
-if (!function_exists('chaineVersMot')) {
-    function chaineVersMot($str): string
-    {
-        return str_replace('_', " d'", ucfirst($str));
-    }
-}
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
 
 // Obtenir les différentes variables avec les infos nécessaires via des requêtes SQL
 require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
