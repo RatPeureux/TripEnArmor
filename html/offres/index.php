@@ -160,18 +160,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <!-- Conteneur des tags (!!! RECHERCHE) -->
             <div class="flex flex-wrap gap-4" id="tags-container"></div>
 
-            <h2 class="text-3xl mb-2">Carte de nos offres</h2>
-            <div id="map" class="w-full h-[400px] border border-gray-300"></div>
-
-            <script>
-                window.mapConfig = {
-                    center: [48.1, -2.5],
-                    zoom: 8,
-                    offers: <?php echo json_encode($offers); ?>
-                };
-            </script>
-            <script src="/scripts/map.js"></script>
-
             <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
             <div class="flex justify-between items-end mb-2 mt-6">
                 <h1 class="text-3xl ">Toutes les offres</h1>
@@ -184,6 +172,17 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     </a>
                 </div>
             </div>
+
+            <div id="map" class="w-full h-[400px] border border-gray-300"></div>
+
+            <script>
+                window.mapConfig = {
+                    center: [48.1, -2.5],
+                    zoom: 8,
+                    offers: <?php echo json_encode($offers); ?>
+                };
+            </script>
+            <script src="/scripts/map.js"></script>
 
             <!-- Inclusion des interfaces de tris (tablette et +) -->
             <?php
