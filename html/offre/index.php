@@ -380,19 +380,19 @@ $offer = array_values(array_filter($offers, fn($o) => $o['id'] == $offerId))[0];
                             <?php
                         }
                         ?>
-
-                        <h2 class="text-3xl mb-2">Carte de nos offres</h2>
-                        <div id="map" class="w-1/3 h-[400px] shadow-lg border border-gray-300"></div>
-
-                        <script>
-                            window.mapConfig = {
-                                center: [<?php echo $offer['lat']; ?>, <?php echo $offer['lng']; ?>],
-                                zoom: 12,
-                                offers: <?php echo json_encode($offers); ?>
-                            };
-                        </script>
-                        <script src="/scripts/map.js"></script>
                     </div>
+
+                    <h2 class="text-3xl mb-2">Carte de nos offres</h2>
+                    <div id="map" class="w-1/3 h-[400px] shadow-lg border border-gray-300"></div>
+
+                    <script>
+                        window.mapConfig = {
+                            center: [<?php echo $offer['lat']; ?>, <?php echo $offer['lng']; ?>],
+                            zoom: 12,
+                            offers: <?php echo json_encode($offers); ?>
+                        };
+                    </script>
+                    <script src="/scripts/map.js"></script>
                 </div>
 
 
