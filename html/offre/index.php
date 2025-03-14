@@ -332,7 +332,7 @@ $offer = array_values(array_filter($offers, fn($o) => $o['id'] == $offerId))[0];
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
 
-                <div>
+                <div class="flex flex-col w-full space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-start">
                     <!-- CAROUSSEL -->
                     <div
                         class="w-full h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container">
@@ -364,6 +364,23 @@ $offer = array_values(array_filter($offers, fn($o) => $o['id'] == $offerId))[0];
                             ?>
                         </div>
 
+                        <!-- Pagination en bas du slider -->
+                        <div class="swiper-pagination"></div>
+
+                        <!-- Boutons de navigation sur la slider -->
+                        <?php if ($images['details']) { ?>
+                            <div class="flex items-center gap-8 justify-center">
+                                <a
+                                    class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                    ‹</a>
+                                <a
+                                    class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                    ›</a>
+                            </div>
+                            <?php
+                        }
+                        ?>
+
                         <h2 class="text-3xl mb-2">Carte de nos offres</h2>
                         <div id="map" class="w-1/3 h-[400px] shadow-lg border border-gray-300"></div>
 
@@ -376,23 +393,6 @@ $offer = array_values(array_filter($offers, fn($o) => $o['id'] == $offerId))[0];
                         </script>
                         <script src="/scripts/map.js"></script>
                     </div>
-
-                    <!-- Pagination en bas du slider -->
-                    <div class="swiper-pagination"></div>
-
-                    <!-- Boutons de navigation sur la slider -->
-                    <?php if ($images['details']) { ?>
-                        <div class="flex items-center gap-8 justify-center">
-                            <a
-                                class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
-                                ‹</a>
-                            <a
-                                class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
-                                ›</a>
-                        </div>
-                        <?php
-                    }
-                    ?>
                 </div>
 
 
