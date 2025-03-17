@@ -382,7 +382,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
                     // Récupérer l'ID de l'offre depuis l'URL
-                    $id_offre = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+                    $id_offre = isset($_GET['détails']) ? (int) $_GET['détails'] : 0;
 
                     // Récupérer les détails de l'offre
                     $stmt = $dbh->prepare("
@@ -393,17 +393,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                     ");
                     $stmt->bindParam(':id_offre', $id_offre);
                     $stmt->execute();
-                    $offre = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $offre_adresse_map = $stmt->fetch(PDO::FETCH_ASSOC);
                     ?>
                     <script>
                         window.mapConfig = {
-                            center: [<?= $offre['lat'] ?? '48.5' ?>, <?= $offre['lng'] ?? '-2.5' ?>], // Coordonnées de l'offre
+                            center: [<?= $offre_adresse_map['lat'] ?? '48.5' ?>, <?= $offre_adresse_map['lng'] ?? '-2.5' ?>], // Coordonnées de l'offre
                             zoom: 14, // Zoom plus proche
                             selectedOffer: {
-                                id: <?= $offre['id_offre'] ?>,
-                                name: "<?= addslashes($offre['titre']) ?>",
-                                lat: <?= $offre['lat'] ?? '0' ?>,
-                                lng: <?= $offre['lng'] ?? '0' ?>
+                                id: <?= $offre_adresse_map['id_offre'] ?>,
+                                name: "<?= addslashes($offre_adresse_map['titre']) ?>",
+                                lat: <?= $offre_adresse_map['lat'] ?? '0' ?>,
+                                lng: <?= $offre_adresse_map['lng'] ?? '0' ?>
                             }
                         };
                     </script>
