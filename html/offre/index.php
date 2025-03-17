@@ -382,7 +382,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
                     // Récupérer l'ID de l'offre depuis l'URL
-                    $id_offre = isset($_GET['détails']) ? (int) $_GET['détails'] : 0;
+                    $id_offre_map = isset($_GET['détails']) ? (int) $_GET['détails'] : 0;
 
                     // Récupérer les détails de l'offre
                     $stmt = $dbh->prepare("
@@ -391,7 +391,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                         JOIN sae_db._adresse a ON o.id_adresse = a.id_adresse
                         WHERE o.id_offre = :id_offre
                     ");
-                    $stmt->bindParam(':id_offre', $id_offre);
+                    $stmt->bindParam(':id_offre', $id_offre_map);
                     $stmt->execute();
                     $offre_adresse_map = $stmt->fetch(PDO::FETCH_ASSOC);
                     ?>
