@@ -205,7 +205,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <link rel="stylesheet" href="/styles/style.css">
 
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-        <script src="/scripts/autocomplete.js"></script>
         <script src="/scripts/formats.js"></script>
 
         <title>Création de compte - PACT</title>
@@ -280,11 +279,15 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 ?>
 
                 <!-- Champs pour l'adresse -->
-                <p id="select-on-map" class="p-2 border border-black self-start cursor-pointer hover:border-secondary hover:text-white hover:bg-secondary" onclick="showMap();">Choisir l'adresse</p>
+                <p id="select-on-map"
+                    class="p-2 border border-black self-start cursor-pointer hover:border-secondary hover:text-white hover:bg-secondary"
+                    onclick="showMap();">Choisir l'adresse</p>
 
                 <!-- Champs cachés pour les coordonnées -->
-                <input class='hidden' id='lat' name='lat' value="<?php echo $_SESSION['data_en_cours_inscription']['lat'] ?? '0' ?>">
-                <input class='hidden' id='lng' name='lng' value="<?php echo $_SESSION['data_en_cours_inscription']['lng'] ?? '0' ?>">
+                <input class='hidden' id='lat' name='lat'
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['lat'] ?? '0' ?>">
+                <input class='hidden' id='lng' name='lng'
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['lng'] ?? '0' ?>">
 
                 <label class="text-sm" for="user_input_autocomplete_address">Adresse</label>
                 <input class="p-2 bg-slate-200 w-full h-12 mb-1.5" type="text" id="user_input_autocomplete_address"
@@ -438,6 +441,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
     // Est-ce que ce pseudo a déjà été utilisé ?
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+    $dbh->beginTransaction();
+
     $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :pseudo");
     $stmt->bindParam(":pseudo", $_POST['pseudo']);
     $stmt->execute();
@@ -488,40 +493,31 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         $lng = $_POST['lng'];
 
         // Exécuter la requête pour l'adresse
-        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement, lat, lng) VALUES (:code, :ville, :numero, :odonyme, :complement, :lat, :lng)");
-        $stmtAdresse->bindParam(':code', $code);
-        $stmtAdresse->bindParam(':ville', $ville);
-        $stmtAdresse->bindParam(':numero', $infosSupAdresse['numero']);
-        $stmtAdresse->bindParam(':odonyme', $infosSupAdresse['odonyme']);
-        $stmtAdresse->bindParam(':complement', $complement);
-        $stmtAdresse->bindParam(':lat', $lat);
-        $stmtAdresse->bindParam(':lng', $lng);
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/../controller/adresse_controller.php';
+        $adresseController = new AdresseController();
+        try {
+            $id_adresse = $adresseController->createAdresse($code, $ville, $infosSupAdresse['numero'], $infosSupAdresse['odonyme'], $complement, $lat, $lng);
+        } catch (Exception $e) {
+            $dbh->rollBack();
+        }
 
-        if ($stmtAdresse->execute()) {
-            $id_adresse = $dbh->lastInsertId();
+        // Infos pour insérer dans le membre
+        $prenom = $_POST['prenom'];
+        $nom = $_POST['nom'];
+        $mail = $_POST['mail'];
+        $mdp = $_POST['mdp'];
+        $pseudo = $_POST['pseudo'];
+        $tel = $_POST['num_tel'];
+        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-            // Infos pour insérer dans le membre
-            $prenom = $_POST['prenom'];
-            $nom = $_POST['nom'];
-            $mail = $_POST['mail'];
-            $mdp = $_POST['mdp'];
-            $pseudo = $_POST['pseudo'];
-            $tel = $_POST['num_tel'];
-            $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
-
-            // Préparer l'insertion dans la table _membre
-            $stmtMembre = $dbh->prepare("INSERT INTO sae_db._membre (email, mdp_hash, num_tel, id_adresse, pseudo, nom, prenom) VALUES (:mail, :mdp, :num_tel, :id_adresse, :pseudo, :nom, :prenom)");
-            $stmtMembre->bindParam(':mail', $mail);
-            $stmtMembre->bindParam(':mdp', $mdp_hash);
-            $stmtMembre->bindParam(':num_tel', $tel);
-            $stmtMembre->bindParam(':pseudo', $pseudo);
-            $stmtMembre->bindParam(':nom', $nom);
-            $stmtMembre->bindParam(':prenom', $prenom);
-            $stmtMembre->bindParam(':id_adresse', $id_adresse);
-
-            if ($stmtMembre->execute()) {
-                $id_membre = $dbh->lastInsertId();
-            }
+        // Préparer l'insertion dans la table _membre
+        try {
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/../controller/membre_controller.php';
+            $membreController = new MembreController();
+            $id_membre = $membreController->createMembre($mail, $mdp_hash, $tel, $id_adresse, $pseudo, $prenom, $nom);
+            $dbh->commit();
+        } catch (Exception $e) {
+            $dbh->rollBack();
         }
     }
 

@@ -40,43 +40,21 @@ session_start();
     ");
     $stmt->execute();
     $aLaUnes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // // Récupérer toutes les moyennes en une seule requête
-    // $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
-    // $notesMoyennes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // // Associer les moyennes aux offres
-    // $notesAssociees = [];
-    // foreach ($notesMoyennes as $note) {
-    //     $notesAssociees[$note['id_offre']] = floatval($note['avg']);
-    // }
-
-    // // Créer un tableau temporaire enrichi
-    // $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
-    //     $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
-    //     return $offre;
-    // }, $toutesLesOffres);
-
-    // usort($offresAvecNotes, function ($a, $b) {
-    //     return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
-    // });
-
-    // $meilleuresNotes = $offresAvecNotes;
     ?>
 
     <!-- Inclusion du header -->
-<?php
+    <?php
     $is_header_accueil = true;
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     unset($is_header_accueil);
     ?>
 
-        <!-- Menu -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
-            <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la
-                Une</a>
-            <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
-        </div>
+    <!-- Menu -->
+    <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
+        <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la
+            Une</a>
+        <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
+    </div>
 
     <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
         <div class="w-full flex justify-center gap-10 text-center">
@@ -150,19 +128,19 @@ session_start();
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$aLaUnes) { ?>
-                <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
-                    <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
-                </div>
+            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
+                <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
+            </div>
         <?php } else { ?>
-                <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
-                    <?php $i = 0;
-                    foreach ($aLaUnes as $offre) {
-                        if ($i > -1) {
-                            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
-                            $i++;
-                        }
-                    } ?>
-                </div>
+            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
+                <?php $i = 0;
+                foreach ($aLaUnes as $offre) {
+                    if ($i > -1) {
+                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
+                        $i++;
+                    }
+                } ?>
+            </div>
         <?php } ?>
 
         <!-- <h1 class="text-3xl ">Nos meilleures offres</h1>

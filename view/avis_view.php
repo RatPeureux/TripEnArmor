@@ -343,7 +343,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
                 <img src="html/temp/image.jpg" alt="" class="object-cover w-full h-full">
                 <img src="html/temp/resto.jpg" alt="" class="object-cover w-full h-full">
                 <img src="html/temp/resto1.jpg" alt="" class="object-cover w-full h-full">
-                <p>TEST</p>
             </div>
             <div class="flex flex-row-reverse gap-3 items-center">
                 <?php

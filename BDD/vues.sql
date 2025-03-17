@@ -25,12 +25,12 @@ from _offre
 
 --------------------------------------------------------------------- Moyenne des notes pour chaque offre (id_offre)
 CREATE OR REPLACE VIEW vue_moyenne AS
-SELECT sae_db._offre.id_offre, AVG(sae_db._avis.note), COUNT(sae_db._avis.note)
-FROM sae_db._offre
-    LEFT JOIN sae_db._avis ON sae_db._avis.id_offre = sae_db._offre.id_offre
-	where sae_db._avis.fin_blacklistage IS NULL
+SELECT _offre.id_offre, AVG(_avis.note), COUNT(_avis.note)
+FROM _offre
+    LEFT JOIN _avis ON _avis.id_offre = _offre.id_offre
+	where _avis.fin_blacklistage IS NULL
 GROUP BY
-    sae_db._offre.id_offre;
+    _offre.id_offre;
 
 --------------------------------------------------------------------- vue pour connaître les tags d'une offre quelconque (restaurant + autres offres)
 create or replace view vue_offre_tag as
@@ -160,7 +160,7 @@ WHERE
     );
 
 ------------------------------------ Vue pour connaître le nombre total de like / dislikes par avis
-CREATE OR REPLACE VIEW sae_db.vue_avis_reaction_counter
+CREATE OR REPLACE VIEW vue_avis_reaction_counter
  AS
  SELECT id_avis,
     count(
@@ -173,7 +173,7 @@ CREATE OR REPLACE VIEW sae_db.vue_avis_reaction_counter
             WHEN type_de_reaction = false THEN 1
             ELSE NULL::integer
         END) AS nb_dislikes
-   FROM sae_db._avis_reactions
+   FROM _avis_reactions
   GROUP BY id_avis;
 
 ------------------------------------ Vue pour connaître les totaux TTC des offres pour le mois actuel

@@ -584,8 +584,7 @@ VALUES (
         1
     );
 
-INSERT INTO
-    sae_db._avis_restauration_note (
+INSERT INTO _avis_restauration_note (
         id_avis,
         id_restauration,
         note_ambiance,

@@ -15,27 +15,27 @@ if (isset($_POST['mdp'])) {
         $controllerMembre->updateMembre($membre['id_compte'], false, $mdp, false, false, false, false);
 
         ?>
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        var successMessage = document.getElementById('success-message');
-                                        successMessage.textContent = 'Le mot de passe a bien été modifié.';
-                                        setTimeout(function () {
-                                            successMessage.textContent = '';
-                                        }, 7500);
-                                    });
-                                </script>
-                                <?php
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var successMessage = document.getElementById('success-message');
+                successMessage.textContent = 'Le mot de passe a bien été modifié.';
+                setTimeout(function () {
+                    successMessage.textContent = '';
+                }, 1000);
+            });
+        </script>
+        <?php
     } else { ?>
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        var errorMessage = document.getElementById('error-message');
-                                        errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
-                                        setTimeout(function () {
-                                            errorMessage.textContent = '';
-                                        }, 7500);
-                                    });
-                                </script>
-                <?php }
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = 'Le mot de passe actuel est incorrect.';
+                setTimeout(function () {
+                    errorMessage.textContent = '';
+                }, 1000);
+            });
+        </script>
+    <?php }
 
     unset($_POST['mdp']);
     unset($_POST['newMdp']);
@@ -134,6 +134,12 @@ if (isset($_POST['mdp'])) {
                 <?php
                 // Connexion avec la bdd
                 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+                // Controllers
+                include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
+                $controllerMembre = new MembreController();
+                $key = $controllerMembre->getInfosMembre($id_membre)['api_key'];
+
                 $stmt = $dbh->prepare("SELECT api_key FROM sae_db._membre WHERE id_compte = ?");
                 $stmt->bindParam(1, $membre['id_compte']);
                 $stmt->execute();

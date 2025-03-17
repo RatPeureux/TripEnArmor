@@ -231,7 +231,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
 
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-        <script src="/scripts/autocomplete.js"></script>
         <script src="/scripts/formats.js" type="module"></script>
 
         <title>Création de compte - Professionnel - PACT</title>
@@ -323,14 +322,19 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 <?php } ?>
 
                 <!-- Champs pour l'adresse -->
-                <p id="select-on-map" class="p-2 border border-black self-start cursor-pointer hover:border-secondary hover:text-white hover:bg-secondary" onclick="showMap();">Choisir l'adresse</p>
+                <p id="select-on-map"
+                    class="p-2 border border-black self-start cursor-pointer hover:border-secondary hover:text-white hover:bg-secondary"
+                    onclick="showMap();">Choisir l'adresse</p>
 
                 <!-- Champs cachés pour les coordonnées -->
-                <input class='hidden' id='lat' name='lat' value="<?php echo $_SESSION['data_en_cours_inscription']['lat'] ?? '0' ?>">
-                <input class='hidden' id='lng' name='lng' value="<?php echo $_SESSION['data_en_cours_inscription']['lng'] ?? '0' ?>">
+                <input class='hidden' id='lat' name='lat'
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['lat'] ?? '0' ?>">
+                <input class='hidden' id='lng' name='lng'
+                    value="<?php echo $_SESSION['data_en_cours_inscription']['lng'] ?? '0' ?>">
 
                 <label class="text-sm" for="user_input_autocomplete_address">Adresse</label>
-                <input class="p-2 bg-slate-200 w-full h-12 mb-1.5" type="text" id="user_input_autocomplete_address" title="Saisir l'adresse de l'organisation" name="user_input_autocomplete_address"
+                <input class="p-2 bg-slate-200 w-full h-12 mb-1.5" type="text" id="user_input_autocomplete_address"
+                    title="Saisir l'adresse de l'organisation" name="user_input_autocomplete_address"
                     placeholder="Ex : 10 Rue des Fleurs"
                     value="<?php echo $_SESSION['data_en_cours_inscription']['user_input_autocomplete_address'] ?? '' ?>"
                     required>
@@ -580,78 +584,59 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         $lng = $_POST['lng'];
 
         // Exécuter la requête pour l'adresse
-        $stmtAdresse = $dbh->prepare("INSERT INTO sae_db._adresse (code_postal, ville, numero, odonyme, complement, lat, lng) VALUES (:code, :ville, :numero, :odonyme, :complement, :lat, :lng)");
-        $stmtAdresse->bindParam(':complement', $complement);
-        $stmtAdresse->bindParam(':odonyme', $infosSupAdresse['odonyme']);
-        $stmtAdresse->bindParam(':numero', $infosSupAdresse['numero']);
-        $stmtAdresse->bindParam(':code', $code);
-        $stmtAdresse->bindParam(':ville', $ville);
-        $stmtAdresse->bindParam(':lat', $lat);
-        $stmtAdresse->bindParam(':lng', $lng);
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/../controller/adresse_controller.php';
+        $adresseController = new AdresseController();
+        $id_adresse = $adresseController->createAdresse($code, $ville, $infosSupAdresse['numero'], $infosSupAdresse['odonyme'], $complement, $lat, $lng);
 
-        if ($stmtAdresse->execute()) {
-            $id_adresse = $dbh->lastInsertId();
+        // Récupérer les information du compte à créer
+        $statut = $_POST['statut'];
+        $type_orga = $_POST['type_orga'];
+        $num_siren = $_POST['num_siren'];
+        $nom_pro = $_POST['nom'];
+        $mail = $_POST['mail'];
+        $mdp = $_POST['mdp'];
+        $tel = $_POST['num_tel'];
+        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
+        $iban = $_POST['iban'] ?? null;
 
-            // Récupérer les information du compte à créer
-            $statut = $_POST['statut'];
-            $type_orga = $_POST['type_orga'];
-            $num_siren = $_POST['num_siren'];
-            $nom_pro = $_POST['nom'];
-            $mail = $_POST['mail'];
-            $mdp = $_POST['mdp'];
-            $tel = $_POST['num_tel'];
-            $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
-            if (isset($_POST['iban'])) {
-                $iban = $_POST['iban'];
+        // Préparer l'insertion dans la table _professionnel (séparer public / privé)
+        if ($statut === "public") {
+            require_once $_SERVER["DOCUMENT_ROOT"] . '/../controller/pro_public_controller.php';
+            $proPublicController = new ProPublicController();
+            try {
+                BDD::startTransaction();
+                $id_pro = $proPublicController->createProPublic($mail, $mdp_hash, $tel, $id_adresse, $nom_pro, $type_orga);
+            } catch (Exception $e) {
+                BDD::rollbackTransaction();
+            }
+        } else {
+            // Extraire les valeurs du RIB à partir de l'IBAN
+            if ($iban) {
+                $rib = extraireRibDepuisIban($iban);
+                
+                require_once $_SERVER["DOCUMENT_ROOT"] . '/../controller/rib_controller.php';
+                $ribController = new RibController();
+                try {
+                    BDD::startTransaction();
+                    $id_pro = $ribController->createRib($rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
+                } catch (Exception $e) {
+                    BDD::rollbackTransaction();
+                }
             }
 
-            // Préparer l'insertion dans la table _professionnel (séparer public / privé)
-            if ($statut === "public") {
-                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_public (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga) VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :type_orga)");
-                $stmtProfessionnel->bindParam(':type_orga', $type_orga);
-                $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
-                $stmtProfessionnel->bindParam(':mail', $mail);
-                $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
-                $stmtProfessionnel->bindParam(':num_tel', $tel);
-                $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
-
-                // Exécuter la requête pour le professionnel
-                $stmtProfessionnel->execute();
-            } else {
-                // Extraire les valeurs du RIB à partir de l'IBAN
-                $id_rib = -1;
-                if ($iban) {
-                    $rib = extraireRibDepuisIban($iban);
-                    $stmtRib = $dbh->prepare("INSERT INTO sae_db._rib (code_banque, code_guichet, numero_compte, cle) VALUES (:code_banque, :code_guichet, :numero_compte, :cle)");
-                    $stmtRib->bindParam(':code_banque', $rib['code_banque']);
-                    $stmtRib->bindParam(':code_guichet', $rib['code_guichet']);
-                    $stmtRib->bindParam(':numero_compte', $rib['numero_compte']);
-                    $stmtRib->bindParam(':cle', $rib['cle']);
-                    if ($stmtRib->execute()) {
-                        $id_rib = $dbh->lastInsertId();
-                    }
-                }
-
-                $stmtProfessionnel = $dbh->prepare("INSERT INTO sae_db._pro_prive (email, mdp_hash, num_tel, id_adresse, nom_pro, num_siren" . ($id_rib != -1 ? ", id_rib" : "") . ") VALUES (:mail, :mdp, :num_tel, :id_adresse, :nom_pro, :num_siren" . ($id_rib != -1 ? ", :id_rib" : "") . ")");
-                // Lier les paramètres pour le professionnel
-                $stmtProfessionnel->bindParam(':num_siren', $num_siren);
-                $stmtProfessionnel->bindParam(':nom_pro', $nom_pro);
-                $stmtProfessionnel->bindParam(':mail', $mail);
-                $stmtProfessionnel->bindParam(':mdp', $mdp_hash);
-                $stmtProfessionnel->bindParam(':num_tel', $tel);
-                $stmtProfessionnel->bindParam(':id_adresse', $id_adresse);
-                if ($id_rib != -1) {
-                    $stmtProfessionnel->bindParam(':id_rib', $id_rib);
-                }
-
-                // Exécuter la requête pour le professionnel
-                $stmtProfessionnel->execute();
+            require_once $_SERVER["DOCUMENT_ROOT"] . '/../controller/pro_prive_controller.php';
+            $proPriveController = new ProPriveController();
+            try {
+                BDD::startTransaction();
+                $id_pro = $proPriveController->createProPrive($mail, $mdp_hash, $tel, $id_adresse, $nom_pro, $num_siren, $id_rib);
+            } catch (Exception $e) {
+                BDD::rollbackTransaction();
             }
         }
     }
 
     // Quand tout est bien réalisé, rediriger vers l'accueil du pro en étant connecté
-    $_SESSION['id_pro'] = $dbh->lastInsertId();
+    $_SESSION['id_pro'] = $id_pro;
     unset($_SESSION['id_membre']);
     header("location: /pro");
 } ?>
