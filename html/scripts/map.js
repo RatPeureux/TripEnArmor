@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       .bindPopup(`
                           <strong>${offer.titre}</strong><br>
                           ${offer.resume}<br>
-                          <a href="/offre.php?id=${offer.id_offre}" target="_blank">Voir l'offre</a>
+                          <a href="/offre/?détails=${offer.id_offre}" target="_blank">Voir l'offre</a>
                       `);
                   clusterGroup.addLayer(marker);
               }
