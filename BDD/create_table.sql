@@ -25,7 +25,9 @@ CREATE TABLE _adresse ( -- Léo -- Léo
     ville VARCHAR(255) NOT NULL,
     numero VARCHAR(255) NOT NULL,
     odonyme VARCHAR(255) NOT NULL,
-    complement VARCHAR(255)
+    complement VARCHAR(255),
+    lat FLOAT NOT NULL DEFAULT 0,
+    lng FLOAT NOT NULL DEFAULT 0
 );
 -------------------------------------------------------------------------------------------------------- Comptes
 -- ARCHITECTURE DES TABLES CI-DESSOUS :

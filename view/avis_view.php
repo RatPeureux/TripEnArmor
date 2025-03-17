@@ -43,12 +43,8 @@ $pro_can_answer = (isConnectedAsPro() && $id_pro_must_have == $_SESSION['id_pro'
 // Savoir si l'avis actuel est blacklisté
 $is_blacklisted = (isset($avis['fin_blacklistage']) && $avis['fin_blacklistage'] != null) ? true : false;
 
-if (!function_exists('to_nom_note')) {
-    function to_nom_note($nom_attribut_note): string
-    {
-        return str_replace('_', ' ', explode('_', $nom_attribut_note, 2)[1]);
-    }
-}
+// FONCTION UTILES
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
 ?>
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
 <div
