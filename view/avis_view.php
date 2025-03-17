@@ -145,7 +145,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
         <div class="flex items-center self-end ml-auto gap-5">
             <?php
             // Possibilité de blacklister
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/fonctions.php';
             $duree_blacklistage = parse_config_file('DUREE_BLACKLISTAGE');
             if (!$is_blacklisted && $pro_can_blacklist) { ?>
                 <a onclick="return confirm('Voulez-vous vraiment blacklister cet avis définitivement ? Cela coute un ticket (il vous en reste <?php echo 3 - $nb_blacklistes_en_cours ?>) qui vous sera restitué dans <?php echo $duree_blacklistage ?> jours.')"

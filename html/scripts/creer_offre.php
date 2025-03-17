@@ -1,4 +1,7 @@
 <?php
+// FONCTION UTILES
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
+
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/bdd.php';
@@ -17,23 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         return $minPrice;
     }
 
-    // Fonction pour extraire des informations depuis une adresse complète
-    function extraireInfoAdresse($adresse)
-    {
-        // Utiliser une expression régulière pour extraire le numéro et l'odonyme
-        if (preg_match('/^(\d+)\s+(.*)$/', $adresse, $matches)) {
-            return [
-                'numero' => $matches[1],
-                'odonyme' => $matches[2],
-            ];
-        }
-
-        // Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
-        return [
-            'numero' => '',
-            'odonyme' => $adresse,
-        ];
-    }
     // *********************************************************************************************************************** Récupération des données du POST
     // Récupération des données du formulaire
     // *** Données standard

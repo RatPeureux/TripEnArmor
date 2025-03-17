@@ -52,7 +52,6 @@ if (isConnectedAsPro()) {
         </div>
     </header>
 
-
 <?php } else { ?>
 
     <!-- HEADER MEMBRE / VISITEUR -->

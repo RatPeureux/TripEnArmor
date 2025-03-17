@@ -1,6 +1,14 @@
 <?php
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
+$offers = [
+    ["id" => 37, "name" => "Hôtel Rennes", "lat" => 48.1173, "lng" => -1.6778],
+    ["id" => 2, "name" => "Hôtel Brest", "lat" => 48.3904, "lng" => -4.4861],
+];
+
+$offerId = $_GET['détails'] ?? 2;
+$offer = array_values(array_filter($offers, fn($o) => $o['id'] == $offerId))[0];
+
 ?>
 
 <!DOCTYPE html>
@@ -9,6 +17,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails d'une offre - PACT</title>
 
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -21,8 +30,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 
     <!-- Pour les requêtes ajax -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
-    <title>Détails d'une offre - PACT</title>
 </head>
 
 <body class="flex flex-col">
@@ -319,52 +332,67 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
 
-                <!-- CAROUSSEL -->
-                <div class="w-full h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container">
-                    <!-- Wrapper -->
-                    <?php
-                    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
-                    $controllerImage = new ImageController();
-                    $images = $controllerImage->getImagesOfOffre($id_offre);
-                    ?>
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide !w-full">
-                            <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
-                                echo "offres/" . $images['carte'];
-                            } else {
-                                echo $categorie_offre . '.jpg';
-                            } ?>' alt="Image de slider">
-                        </div>
+                <div
+                    class="flex flex-col w-full space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-start md:space-x-4">
+                    <!-- CAROUSSEL -->
+                    <div
+                        class="w-2/3 h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container">
+                        <!-- Wrapper -->
                         <?php
-                        if ($images['details']) {
-                            foreach ($images['details'] as $image) {
-                                ?>
-                                <div class="swiper-slide !w-full">
-                                    <img class="object-cover w-full h-full"
-                                        src='/public/images/<?php echo "offres/" . $image; ?>' alt="Image de slider">
-                                </div>
-                                <?php
+                        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+                        $controllerImage = new ImageController();
+                        $images = $controllerImage->getImagesOfOffre($id_offre);
+                        ?>
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide !w-full">
+                                <img class="object-cover w-full h-full" src='/public/images/<?php if ($images['carte']) {
+                                    echo "offres/" . $images['carte'];
+                                } else {
+                                    echo $categorie_offre . '.jpg';
+                                } ?>' alt="Image de slider">
+                            </div>
+                            <?php
+                            if ($images['details']) {
+                                foreach ($images['details'] as $image) {
+                                    ?>
+                                    <div class="swiper-slide !w-full">
+                                        <img class="object-cover w-full h-full"
+                                            src='/public/images/<?php echo "offres/" . $image; ?>' alt="Image de slider">
+                                    </div>
+                                    <?php
+                                }
                             }
+                            ?>
+                        </div>
+
+                        <!-- Pagination en bas du slider -->
+                        <div class="swiper-pagination"></div>
+
+                        <!-- Boutons de navigation sur la slider -->
+                        <?php if ($images['details']) { ?>
+                            <div class="flex items-center gap-8 justify-center">
+                                <a
+                                    class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                    ‹</a>
+                                <a
+                                    class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                    ›</a>
+                            </div>
+                            <?php
                         }
                         ?>
                     </div>
 
-                    <!-- Pagination en bas du slider -->
-                    <div class="swiper-pagination"></div>
+                    <div id="map" class="w-full md:w-1/3 h-[400px] border border-gray-300"></div>
 
-                    <!-- Boutons de navigation sur la slider -->
-                    <?php if ($images['details']) { ?>
-                        <div class="flex items-center gap-8 justify-center">
-                            <a
-                                class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
-                                ‹</a>
-                            <a
-                                class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
-                                ›</a>
-                        </div>
-                        <?php
-                    }
-                    ?>
+                    <script>
+                        window.mapConfig = {
+                            center: [<?php echo $offer['lat']; ?>, <?php echo $offer['lng']; ?>],
+                            zoom: 12,
+                            offers: <?php echo json_encode($offers); ?>
+                        };
+                    </script>
+                    <script src="/scripts/map.js"></script>
                 </div>
 
 

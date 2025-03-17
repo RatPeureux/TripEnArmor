@@ -26,6 +26,9 @@ if (!$offre) {
     die('Erreur : Offre introuvable.');
 }
 
+// FONCTION UTILES
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
+
 // Récupération des informations annexes (debug)
 $typeOffreController = new TypeOffreController();
 $typesOffres = $typeOffreController->getInfosTypeOffre($offre['id_type_offre']);
@@ -231,23 +234,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return $minPrice;
         }
 
-        // Fonction pour extraire des informations depuis une adresse complète
-        function extraireInfoAdresse($adresse)
-        {
-            // Utiliser une expression régulière pour extraire le numéro et l'odonyme
-            if (preg_match('/^(\d+)\s+(.*)$/', $adresse, $matches)) {
-                return [
-                    'numero' => $matches[1],
-                    'odonyme' => $matches[2],
-                ];
-            }
-
-            // Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
-            return [
-                'numero' => '',
-                'odonyme' => $adresse,
-            ];
-        }
         // ******************************************************************************************************************** Récupération des données du POST
         // Récupération des données du formulaire
         // *** Données standard
@@ -551,7 +537,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- GEOSEARCH JS -->
         <script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
         <!-- CONFIGURER LA MAP -->
-        <script src="/scripts/map.js" type="module"></script>
+        <script src="/scripts/selectOnMap.js" type="module"></script>
 
         <!-- Conteneur principal pour le contenu -->
         <div class="flex flex-col w-full justify-between items-center align-baseline min-h-screen">

@@ -1,5 +1,11 @@
 <?php
 session_start();
+$offers = [
+    ["name" => "Hôtel Rennes", "lat" => 48.1173, "lng" => -1.6778],
+    ["name" => "Hôtel Brest", "lat" => 48.3904, "lng" => -4.4861],
+    ["name" => "Hôtel Quimper", "lat" => 48.0000, "lng" => -4.1000],
+    ["name" => "Hôtel Vannes", "lat" => 47.6582, "lng" => -2.7608],
+];
 ?>
 
 <!DOCTYPE html>
@@ -11,9 +17,15 @@ session_start();
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
 
-    <script src="/scripts/main.js" type="module"></script>
-
     <title>PACT</title>
+
+    <script type="module" src="/scripts/main.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
     <script src="/scripts/filtersAndSorts.js"></script>
 </head>
@@ -50,12 +62,6 @@ session_start();
     ?>
 
     <!-- Menu -->
-    <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
-        <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la
-            Une</a>
-        <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
-    </div>
-
     <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
         <div class="w-full flex justify-center gap-10 text-center">
             <img src="public/images/plumeGN.png" alt="Plume du moine macareux"
@@ -121,8 +127,8 @@ session_start();
         </div>
 
         <a class="cursor-pointer group" href="/offres/a-la-une">
-            <h1 class="text-3xl ">À la Une<span
-                    class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
+            <h2 class="text-3xl ">À la Une<span
+                    class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h2>
         </a>
 
         <?php
@@ -199,6 +205,18 @@ session_start();
                     } ?>
                 </div>
         <?php } ?> -->
+
+        <h2 class="text-3xl mb-2">Carte des offres</h2>
+        <div id="map" class="w-full h-[600px] border border-gray-300"></div>
+
+        <script>
+            window.mapConfig = {
+                center: [48.1, -2.5],
+                zoom: 8,
+                offers: <?php echo json_encode($offers); ?>
+            };
+        </script>
+        <script src="/scripts/map.js"></script>
     </main>
 
     <!-- FOOTER -->

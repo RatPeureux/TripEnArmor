@@ -12,6 +12,9 @@ if (!isset($_SESSION['data_en_cours_inscription'])) {
     unset($_SESSION['error']);
 }
 
+// FONCTION UTILES
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
+
 // 1ère étape de la création
 if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
@@ -263,7 +266,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <!-- GEOSEARCH JS -->
         <script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
         <!-- CONFIGURER LA MAP -->
-        <script src="/scripts/map.js" type="module"></script>
+        <script src="/scripts/selectOnMap.js" type="module"></script>
 
         <!-- Formulaire -->
         <div class="w-full max-w-96 h-fit flex flex-col items-end sm:w-96 m-auto">
@@ -553,22 +556,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             'code_guichet' => $code_guichet,
             'numero_compte' => $numero_compte,
             'cle' => $cle,
-        ];
-    }
-    function extraireInfoAdresse($adresse)
-    {
-        // Utiliser une expression régulière pour extraire le numéro et l'odonyme
-        if (preg_match('/^(\d+)\s+(.*)$/', $adresse, $matches)) {
-            return [
-                'numero' => $matches[1],
-                'odonyme' => $matches[2],
-            ];
-        }
-
-        // Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
-        return [
-            'numero' => '',
-            'odonyme' => $adresse,
         ];
     }
 

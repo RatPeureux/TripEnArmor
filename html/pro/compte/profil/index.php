@@ -119,7 +119,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
     <!-- GEOSEARCH JS -->
     <script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
     <!-- CONFIGURER LA MAP -->
-    <script src="/scripts/map.js" type="module"></script>
+    <script src="/scripts/selectOnMap.js" type="module"></script>
 
     <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
         <div class="m-auto flex flex-col">

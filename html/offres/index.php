@@ -1,5 +1,11 @@
 <?php
 session_start();
+$offers = [
+    ["name" => "Hôtel Rennes", "lat" => 48.1173, "lng" => -1.6778],
+    ["name" => "Hôtel Brest", "lat" => 48.3904, "lng" => -4.4861],
+    ["name" => "Hôtel Quimper", "lat" => 48.0000, "lng" => -4.1000],
+    ["name" => "Hôtel Vannes", "lat" => 47.6582, "lng" => -2.7608],
+];
 // Enlever les informations gardées lors des étapes de connexion / inscription quand on revient à la page d'accueil (seul point de sortie de la connexion / inscription)
 unset($_SESSION['data_en_cours_connexion']);
 unset($_SESSION['data_en_cours_inscription']);
@@ -17,9 +23,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
 
-    <script type="module" src="/scripts/main.js"></script>
-
     <title>Toutes les offres - PACT</title>
+
+    <script type="module" src="/scripts/main.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
@@ -150,7 +161,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <div class="flex flex-wrap gap-4" id="tags-container"></div>
 
             <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
-            <div class="flex justify-between items-end mb-2">
+            <div class="flex justify-between items-end mb-2 mt-6">
                 <h1 class="text-3xl ">Toutes les offres</h1>
 
                 <div class="hidden md:flex gap-4">
@@ -161,6 +172,17 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     </a>
                 </div>
             </div>
+
+            <div id="map" class="w-full h-[400px] border border-gray-300 mb-4"></div>
+
+            <script>
+                window.mapConfig = {
+                    center: [48.1, -2.5],
+                    zoom: 8,
+                    offers: <?php echo json_encode($offers); ?>
+                };
+            </script>
+            <script src="/scripts/map.js"></script>
 
             <!-- Inclusion des interfaces de tris (tablette et +) -->
             <?php
