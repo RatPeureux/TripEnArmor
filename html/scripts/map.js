@@ -41,4 +41,20 @@ document.addEventListener("DOMContentLoaded", function () {
 			map.addLayer(clusterGroup);
 		})
 		.catch(error => console.error("Erreur lors du chargement des offres :", error));
+	
+	function hideMarkerWithId(id) {
+		clusterGroup.eachLayer(function (layer) {
+			if (layer.feature.properties.id === id) {
+				clusterGroup.removeLayer(layer);
+			}
+		});
+	}
+
+	function showMarkerWithId(id) {
+		clusterGroup.eachLayer(function (layer) {
+			if (layer.feature.properties.id === id) {
+				clusterGroup.addLayer(layer);
+			}
+		});
+	}
 });
