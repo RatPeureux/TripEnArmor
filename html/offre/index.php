@@ -383,7 +383,7 @@ $offer = array_values(array_filter($offers, fn($o) => $o['id'] == $offerId))[0];
                         ?>
                     </div>
 
-                    <div id="map" class="w-1/3 h-[400px] border border-gray-300"></div>
+                    <div id="map" class="w-full md:w-1/3 h-[400px] border border-gray-300"></div>
 
                     <script>
                         window.mapConfig = {
