@@ -398,7 +398,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                     <script>
                         window.mapConfig = {
                             center: [<?= $offre_adresse_map['lat'] ?? '48.5' ?>, <?= $offre_adresse_map['lng'] ?? '-2.5' ?>], // Coordonnées de l'offre
-                            zoom: 14, // Zoom plus proche
+                            zoom: 16, // Zoom plus proche
                             selectedOffer: {
                                 id: <?= $offre_adresse_map['id_offre'] ?>,
                                 name: "<?= addslashes($offre_adresse_map['titre']) ?>",
