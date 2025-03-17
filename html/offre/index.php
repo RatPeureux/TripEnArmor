@@ -1,13 +1,6 @@
 <?php
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
-$offers = [
-    ["id" => 37, "name" => "Hôtel Rennes", "lat" => 48.1173, "lng" => -1.6778],
-    ["id" => 2, "name" => "Hôtel Brest", "lat" => 48.3904, "lng" => -4.4861],
-];
-
-$offerId = $_GET['détails'] ?? 2;
-$offer = array_values(array_filter($offers, fn($o) => $o['id'] == $offerId))[0];
 
 ?>
 
@@ -384,12 +377,34 @@ $offer = array_values(array_filter($offers, fn($o) => $o['id'] == $offerId))[0];
                     </div>
 
                     <div id="map" class="w-full md:w-1/3 h-[400px] border border-gray-300"></div>
+                    <?php
+                    // Connexion à la BDD
+                    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
+                    // Récupérer l'ID de l'offre depuis l'URL
+                    $id_offre = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+
+                    // Récupérer les détails de l'offre
+                    $stmt = $dbh->prepare("
+                        SELECT o.*, a.lat, a.lng
+                        FROM sae_db._offre o
+                        JOIN sae_db._adresse a ON o.id_adresse = a.id_adresse
+                        WHERE o.id_offre = :id_offre
+                    ");
+                    $stmt->bindParam(':id_offre', $id_offre);
+                    $stmt->execute();
+                    $offre = $stmt->fetch(PDO::FETCH_ASSOC);
+                    ?>
                     <script>
                         window.mapConfig = {
-                            center: [<?php echo $offer['lat']; ?>, <?php echo $offer['lng']; ?>],
-                            zoom: 12,
-                            offers: <?php echo json_encode($offers); ?>
+                            center: [<?= $offre['lat'] ?? '48.5' ?>, <?= $offre['lng'] ?? '-2.5' ?>], // Coordonnées de l'offre
+                            zoom: 14, // Zoom plus proche
+                            selectedOffer: {
+                                id: <?= $offre['id_offre'] ?>,
+                                name: "<?= addslashes($offre['titre']) ?>",
+                                lat: <?= $offre['lat'] ?? '0' ?>,
+                                lng: <?= $offre['lng'] ?? '0' ?>
+                            }
                         };
                     </script>
                     <script src="/scripts/map.js"></script>

@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Récupérer les données JSON injectées dans le script HTML
   const mapData = window.mapConfig;
 
-  // Initialiser la carte avec le centre et le zoom définis
+  // Initialiser la carte centrée sur l’offre ou par défaut
   var map = L.map("map").setView(mapData.center, mapData.zoom);
 
   // Ajouter la couche OpenStreetMap
@@ -10,15 +9,23 @@ document.addEventListener("DOMContentLoaded", function () {
       attribution: "&copy; OpenStreetMap contributors",
   }).addTo(map);
 
-  // Ajouter un cluster group
   var clusterGroup = L.markerClusterGroup();
 
-  // Charger les offres via AJAX
-  fetch("/api/get_offers.php") // Assurez-vous que l'URL est correcte
+  // Si une offre spécifique est sélectionnée, on l'affiche en premier
+  if (mapData.selectedOffer && mapData.selectedOffer.lat && mapData.selectedOffer.lng) {
+      var selectedMarker = L.marker([mapData.selectedOffer.lat, mapData.selectedOffer.lng])
+          .bindPopup(`<strong>${mapData.selectedOffer.name}</strong>`);
+      clusterGroup.addLayer(selectedMarker);
+      map.addLayer(clusterGroup);
+
+      // Zoomer directement sur l'offre spécifique
+      map.setView([mapData.selectedOffer.lat, mapData.selectedOffer.lng], 14);
+  }
+
+  // Charger les autres offres dynamiquement via AJAX
+  fetch("/api/get_offers.php")
       .then(response => response.json())
       .then(data => {
-          console.log("Offres reçues :", data);
-
           data.forEach(offer => {
               if (offer.adresse && offer.adresse.lat && offer.adresse.lng) {
                   var marker = L.marker([offer.adresse.lat, offer.adresse.lng])
