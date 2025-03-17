@@ -16,15 +16,15 @@ $offers = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
+    
+    <title>PACT</title>
 
-    <script src="/scripts/main.js" type="module"></script>
+    <script type="module" src="/scripts/main.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-
-    <title>PACT</title>
 
     <script src="/scripts/filtersAndSorts.js"></script>
 </head>
@@ -76,18 +76,18 @@ $offers = [
     ?>
 
     <!-- Inclusion du header -->
-<?php
+    <?php
     $is_header_accueil = true;
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     unset($is_header_accueil);
     ?>
 
-        <!-- Menu -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
-            <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la
-                Une</a>
-            <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
-        </div>
+    <!-- Menu -->
+    <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
+        <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la
+            Une</a>
+        <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
+    </div>
 
     <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
         <div class="w-full flex justify-center gap-10 text-center">
@@ -154,7 +154,8 @@ $offers = [
         </div>
 
         <a class="cursor-pointer group" href="/offres/a-la-une">
-            <h2 class="text-3xl ">À la Une<span class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h2>
+            <h2 class="text-3xl ">À la Une<span
+                    class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h2>
         </a>
 
         <?php
