@@ -16,6 +16,8 @@ $contexte_passage = isset($_POST['contexte_passage']) ? $_POST['contexte_passage
 $id_membre = isset($_POST['id_membre']) ? $_POST['id_membre'] : null;
 $id_offre = isset($_POST['id_offre']) ? intval($_POST['id_offre']) : null;
 
+$photo_avis = isset($_POST['photo_avis']) ? $_POST['photo_avis'] : null;
+
 // Créer l'avis dans la BDD
 if ($titre && isset($note) && $date_experience && $id_membre && $id_offre) {
     $id_avis_inserted = $avisController->createAvis($titre, $date_experience, $id_membre, $id_offre, floatval($note), $contexte_passage, $commentaire)['id_avis'];
@@ -43,3 +45,15 @@ if ($id_avis_inserted) {
 if (isset($id_avis_inserted)) {
     header('Location: /offre?détails=' . $id_offre);
 }
+
+
+// Gestion de l'upload des images pour l'avis
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+$imageController = new ImageController();
+
+if (isset($photo_avis)) {
+    for ($i = 0; $i < count($photo_avis); $i++) {
+        $imageController->uploadImage($photo_avis[$i], 'avis', $_FILES['photo-avis']['name'][$i], explode('.', $_FILES['photo-avis']['name'][$i])[1], $id_avis_inserted);
+    }
+}
+

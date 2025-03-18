@@ -43,27 +43,7 @@ class ImageController
         return $result;
     }
 
-    public function getImageAvis($id_avis)
-    {
-        $allImages = scandir($this->uploadDir . "avis/");
-        $result = false;
-
-        if ($allImages) {
-            foreach ($allImages as $image) {
-                $name = explode(".", $image)[0];
-                $subparts = explode("_", $name);
-
-                if ($subparts[0] == $id_avis) {
-                    $result = $image;
-                    break;
-                }
-            }
-        }
-
-        return $result;
-    }
-
-    public function uploadImage($id, $champ, $actual_path, $extension, $nom_objet="offres")
+    public function uploadImage($id, $champ, $actual_path, $extension, $nom_objet = "offres")
     {
         if (!file_exists($this->uploadDir)) {
             mkdir($this->uploadDir, 0777, true);
@@ -72,7 +52,27 @@ class ImageController
         return $result;
     }
 
-    public function uploadImageAvis($id, $champ, $actual_path, $extension) {
+    public function uploadImageAvis($id, $champ, $actual_path, $extension)
+    {
         $this->uploadImage($id, $champ, $actual_path, $extension, "avis");
+    }
+
+    public function getImagesAvis($id_avis)
+    {
+        $allImages = scandir($this->uploadDir . "avis/");
+        $result = [];
+
+        if ($allImages) {
+            foreach ($allImages as $image) {
+                $name = explode(".", $image)[0];
+                $subparts = explode("_", $name);
+
+                if ($subparts[0] == $id_avis) {
+                    $result[] = $image;
+                }
+            }
+        }
+
+        return $result;
     }
 }

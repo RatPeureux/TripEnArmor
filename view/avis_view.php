@@ -20,16 +20,20 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_control
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_public_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/restauration_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+
 $membreController = new MembreController();
 $proPublicController = new ProPublicController();
 $proPriveController = new ProPriveController();
 $avisController = new avisController();
 $restaurationController = new RestaurationController();
+$controllerImage = new ImageController();
 
 // Obtenir la variables regroupant les infos majeures
 $membre = $membreController->getInfosMembre($id_membre);
-$restauration = $restaurationController->getInfosRestauration($avis['id_offre']);
 $avis = $avisController->getAvisById($id_avis);
+$restauration = $restaurationController->getInfosRestauration($avis['id_offre']);
+$images = $controllerImage->getImagesAvis($id_avis);
 
 // Vérifier si on est connecté avec le compte du pro qui peut répondre
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
@@ -269,14 +273,7 @@ if (!function_exists('to_nom_note')) {
     <!-- Images de l'avis -->
     <div class="flex space-x-1 py-2">
         <?php
-        $images = [
-            "/temp/resto0.jpg",
-            "/temp/resto1.jpg",
-            "/temp/resto2.jpg",
-            "/temp/resto3.jpg",
-            "/temp/resto4.jpg",
-            "/temp/resto5.jpg"
-        ];
+        print_r($images);
         ?>
 
         <?php foreach ($images as $index => $image): ?>
@@ -296,18 +293,15 @@ if (!function_exists('to_nom_note')) {
     <!-- Modal for image slider -->
     <div id="imageModal" class="fixed inset-0 hidden bg-black bg-opacity-75 items-center justify-center z-50">
         <div class="relative" onclick="event.stopPropagation();"></div>
-        <button class="absolute top-0 right-0 m-3 text-white bg-primary rounded-lg py-2 px-2"
-            onclick="closeImageModal()">
+        <button class="absolute top-0 right-0 m-3 text-white bg-primary py-2 px-2" onclick="closeImageModal()">
             <i class="fa-solid fa-xmark"></i>
         </button>
         <img id="modalImage" src="" alt="" class="max-w-full max-h-full">
-        <button
-            class="absolute left-0 top-1/2 transform -translate-y-1/2 text-white bg-primary rounded-lg px-2 py-2 ml-1"
+        <button class="absolute left-0 top-1/2 transform -translate-y-1/2 text-white bg-primary px-2 py-2 ml-2"
             onclick="prevImage()">
             <i class="fa-solid fa-less-than"></i>
         </button>
-        <button
-            class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white bg-primary rounded-lg px-2 py-2 mr-1"
+        <button class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white bg-primary px-2 py-2 mr-2"
             onclick="nextImage()">
             <i class="fa-solid fa-greater-than"></i>
         </button>
@@ -439,7 +433,7 @@ if (!function_exists('to_nom_note')) {
                 <i class="fa-regular fa-thumbs-up text-2xl mb-1 text-secondary"
                     onclick="sendReaction(<?php echo $id_avis; ?>, 'upTOnull')"></i>
 
-                <!-- AFFICHER LES POUCES INTERACTIFS PORU LE MEMBRE -->
+                <!-- AFFICHER LES POUCES INTERACTIFS POUR LE MEMBRE -->
             <?php } else if (isset($_SESSION['id_membre'])) {
 
                 $query = "SELECT type_de_reaction FROM sae_db._avis_reactions WHERE id_avis = ? AND id_membre = ?";
@@ -493,7 +487,9 @@ if (!function_exists('to_nom_note')) {
                         </p>
                         <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1" id="thumb-up-<?php echo $id_avis; ?>"
                             onclick="sendReaction(<?php echo $id_avis; ?>, 'up')"></i>
-                <?php } ?>
+                <?php }
+            } else {
+                ?>
 
                     <!-- POUCES POUR LES VISITEURS -->
                     <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">

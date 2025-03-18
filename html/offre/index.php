@@ -803,7 +803,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                     </button>
 
                                     <form id="avis_formulaire" action="/scripts/creation_avis.php" method="POST"
-                                        class="hidden flex flex-col gap-4">
+                                        class="hidden flex flex-col text-sm gap-4">
 
                                         <!-- Titre de l'avis -->
                                         <div>
@@ -932,6 +932,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                                 <option value="pour le travail">pour le travail</option>
                                                 <option value="en famille">en famille</option>
                                             </select>
+                                        </div>
+
+                                        <!-- Photos de l'avis  -->
+                                        <div>
+                                            <label for="photo_avis">Photo : </label>
+                                            <input type="file" name="photo_avis[]" id="photo_avis" accept="image/*" multiple>
+                                            <p class="text-sm text-base300 mt-2">10 photos maximum.</p>
+                                            <script>
+                                                document.getElementById('photo_avis').addEventListener('change', function () {
+                                                    if (this.files.length > 10) {
+                                                        alert('Vous ne pouvez sélectionner que 10 fichiers au maximum.');
+                                                        this.value = '';
+                                                    }
+                                                });
+                                            </script>
                                         </div>
 
                                         <!-- Champs cachés pour transmettre des donées à la création de l'offre -->
