@@ -14,7 +14,7 @@ class ImageController
             "carte" => false,
             "plan" => false,
             "photo-resto" => false,
-            "details" => false
+            "details" => []
         ];
         $allImages = scandir($this->uploadDir);
 
@@ -31,10 +31,7 @@ class ImageController
                     } else if ($subparts[1] == "photo-resto") {
                         $result["carte-resto"] = $image;
                     } else {
-                        if ($result["details"] === false) {
-                            $result["details"] = [];
-                        }
-                        $result["details"][] = $image;
+                        array_push($result["details"], $image);
                     }
                 }
             }

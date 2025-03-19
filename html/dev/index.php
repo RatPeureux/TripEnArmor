@@ -1,10 +1,4 @@
 <?php
-$offers = [
-    ["name" => "Hôtel Rennes", "lat" => 48.1173, "lng" => -1.6778],
-    ["name" => "Hôtel Brest", "lat" => 48.3904, "lng" => -4.4861],
-    ["name" => "Hôtel Quimper", "lat" => 48.0000, "lng" => -4.1000],
-    ["name" => "Hôtel Vannes", "lat" => 47.6582, "lng" => -2.7608],
-];
 ?>
 
 <!DOCTYPE html>
@@ -30,8 +24,7 @@ $offers = [
     <script>
         window.mapConfig = {
             center: [48.1, -2.5],
-            zoom: 7,
-            offers: <?php echo json_encode($offers); ?>
+            zoom: 7
         };
     </script>
     <script src="/scripts/map.js"></script>

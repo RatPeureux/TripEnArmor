@@ -22,8 +22,8 @@ module.exports = {
         ],
       },
       colors: {
-        "rouge-logo": "#EA4335",
         primary: "#F2771B",
+        "rouge-logo": "#EA4335",
         secondary: "#0a0035",
         base100: "#F1F3F4",
         base200: "#E0E0E0",

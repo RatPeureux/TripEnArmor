@@ -1,11 +1,5 @@
 <?php
 session_start();
-$offers = [
-    ["name" => "Hôtel Rennes", "lat" => 48.1173, "lng" => -1.6778],
-    ["name" => "Hôtel Brest", "lat" => 48.3904, "lng" => -4.4861],
-    ["name" => "Hôtel Quimper", "lat" => 48.0000, "lng" => -4.1000],
-    ["name" => "Hôtel Vannes", "lat" => 47.6582, "lng" => -2.7608],
-];
 // Enlever les informations gardées lors des étapes de connexion / inscription quand on revient à la page d'accueil (seul point de sortie de la connexion / inscription)
 unset($_SESSION['data_en_cours_connexion']);
 unset($_SESSION['data_en_cours_inscription']);
@@ -178,8 +172,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <script>
                 window.mapConfig = {
                     center: [48.1, -2.5],
-                    zoom: 8,
-                    offers: <?php echo json_encode($offers); ?>
+                    zoom: 8
                 };
             </script>
             <script src="/scripts/map.js"></script>

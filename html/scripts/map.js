@@ -1,25 +1,61 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Récupérer les données JSON injectées dans le script HTML
-  const mapData = window.mapConfig;
+	const mapData = window.mapConfig;
 
-  // Initialiser la carte avec le centre et le zoom définis
-  var map = L.map("map").setView(mapData.center, mapData.zoom);
+	var map = L.map("map").setView(mapData.center, mapData.zoom);
 
-  // Ajouter la couche OpenStreetMap
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "&copy; OpenStreetMap contributors",
-  }).addTo(map);
+	L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+		attribution: "&copy; OpenStreetMap contributors",
+	}).addTo(map);
 
-  // Ajouter un cluster group
-  var clusterGroup = L.markerClusterGroup();
+	var clusterGroup = L.markerClusterGroup();
 
-  // Ajouter les marqueurs des offres
-  mapData.offers.forEach((offer) => {
-    var marker = L.marker([offer.lat, offer.lng]).bindPopup(offer.name);
-    clusterGroup.addLayer(marker);
-  });
+	// Ajouter l’offre sélectionnée UNIQUEMENT si elle existe
+	if (mapData.selectedOffer && mapData.selectedOffer.lat && mapData.selectedOffer.lng) {
+		var selectedMarker = L.marker([mapData.selectedOffer.lat, mapData.selectedOffer.lng])
+			.bindPopup(`<strong>${mapData.selectedOffer.name}</strong>`)
+			.addTo(map); // On l'ajoute directement à la carte (hors cluster)
 
-  // Ajouter le cluster à la carte
-  map.addLayer(clusterGroup);
+		// Ajuster le zoom pour bien voir l’offre
+		map.setView([mapData.selectedOffer.lat, mapData.selectedOffer.lng], 14);
+	}
+
+	// Charger les autres offres via AJAX
+	fetch("/api/get_offers.php")
+		.then(response => response.json())
+		.then(data => {
+			data.forEach(offer => {
+				// Vérifier qu’on n’ajoute pas l’offre déjà affichée
+				if (!mapData.selectedOffer || offer.id_offre !== mapData.selectedOffer.id) {
+					if (offer.adresse && offer.adresse.lat && offer.adresse.lng) {
+						var marker = L.marker([offer.adresse.lat, offer.adresse.lng])
+							.bindPopup(`
+                              <strong>${offer.titre}</strong><br>
+                              ${offer.resume}<br>
+                              <a href="/scripts/go_to_details/?id_offre=${offer.id_offre}" target="_blank">Voir l'offre</a>
+                          `);
+						clusterGroup.addLayer(marker);
+					}
+				}
+			});
+
+			map.addLayer(clusterGroup);
+		})
+		.catch(error => console.error("Erreur lors du chargement des offres :", error));
+	
+	function hideMarkerWithId(id) {
+		clusterGroup.eachLayer(function (layer) {
+			if (layer.feature.properties.id === id) {
+				clusterGroup.removeLayer(layer);
+			}
+		});
+	}
+
+	function showMarkerWithId(id) {
+		clusterGroup.eachLayer(function (layer) {
+			if (layer.feature.properties.id === id) {
+				clusterGroup.addLayer(layer);
+			}
+		});
+	}
 });
 

@@ -129,15 +129,14 @@ $prix_a_afficher;
 if ($categorie_offre == 'restauration') {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/../controller/restauration_controller.php';
     $restaurationController = new RestaurationController();
-    $prix_a_afficher = $restaurationController->getInfosRestauration($id_offre);
+    $prix_a_afficher = $restaurationController->getInfosRestauration($id_offre)['gamme_prix'];
 } else if ($tarif_min && $tarif_max) {
     $prix_a_afficher = $tarif_min . '-' . $tarif_max . '€';
 } else {
     // Edge case: offre sans aucun tarif
     $prix_a_afficher = "Gratuit";
 }
-$title_prix = $categorie_offre == 'restauration' ? '€ = X euros, €€ = XX euros, €€€ = XX euros' : 'fourchette des prix';
-
+$title_prix = $categorie_offre == 'restauration' ? '€ : -25€, €€ : 25-40€, €€€ : +40€' : 'fourchette des prix';
 
 // Tags pour le restaurant (pour la carte, on prend les types de repas) ou autres si ce n'est pas un restaurant
 if ($categorie_offre == 'restauration') {

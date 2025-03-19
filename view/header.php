@@ -83,25 +83,25 @@ if (isConnectedAsPro()) {
                     <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
                 </div>
             <?php } else { ?>
-            <!-- Barre de recherche -->
-            <div class="relative flex-1 max-w-lg mx-4">
-                <div class="relative flex items-center">
-                    <input type="text" id="search-field" placeholder="Rechercher par tags..."
-                        class="rounded-full w-full border border-primary p-2  pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
-                        aria-label="Recherche" autocomplete="off">
-                    <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">
-                        <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
+                <!-- Barre de recherche -->
+                <div class="relative flex-1 max-w-lg mx-4">
+                    <div class="relative flex items-center">
+                        <input type="text" id="search-field" placeholder="Rechercher par tags..."
+                            class="rounded-full w-full border border-primary p-2  pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                            aria-label="Recherche" autocomplete="off">
+                        <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">
+                            <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
+                        </div>
+                        <!-- Bouton de suppression -->
+                        <button class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white  px-2 py-1"
+                            id="clear-tags-btn">
+                            <i class="text-xl fa-solid fa-times cursor-pointer"></i>
+                        </button>
                     </div>
-                    <!-- Bouton de suppression -->
-                    <button class="hidden absolute right-2 min-w-max flex items-center justify-center bg-white  px-2 py-1"
-                        id="clear-tags-btn">
-                        <i class="text-xl fa-solid fa-times cursor-pointer"></i>
-                    </button>
+                    <!-- Dropdown de recherche -->
+                    <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
+                        id="search-menu"></div>
                 </div>
-                <!-- Dropdown de recherche -->
-                <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
-                    id="search-menu"></div>
-            </div>
             <?php } ?>
 
             <!-- Actions Utilisateur -->
@@ -123,12 +123,9 @@ if (isConnectedAsPro()) {
                     <a href="/connexion" class="md:hidden">
                         <i class="text-3xl fa-regular fa-user"></i>
                     </a>
-                    <a href="/connexion" class="hidden md:block">
-                        <div
-                            class="text-white text-sm border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
-                            <p class="">
-                                Se connecter</p>
-                        </div>
+                    <a href="/connexion"
+                        class="hidden md:block text-sm border border-secondary text-secondary px-4 py-2 rounded-full hover:bg-secondary hover:text-white">
+                        Se connecter
                     </a>
                 <?php } ?>
             </div>
