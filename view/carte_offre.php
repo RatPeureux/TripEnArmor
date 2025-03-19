@@ -63,16 +63,17 @@ foreach ($horaires as $jour => $horaire) {
 }
 
 if ($mode_carte == 'membre') {
+
   // !!! CARD COMPONENT MEMBER !!!
   // Composant dynamique (généré avec les données en php)
   // Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
   ?>
-  <a class="card border hover:border-secondary  <?php if ($option) {
+  <a class="card border <?php if ($option) {
     echo "active ";
   } ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
+
     <!-- CARTE VERSION TÉLÉPHONE -->
     <div class='md:hidden relative bg-base100  flex flex-col'>
-
       <!-- En-tête -->
       <div class='en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 '>
         <h3 class='text-xl text-center'>
@@ -234,7 +235,7 @@ if ($mode_carte == 'membre') {
     </div>
 
     <!-- CARTE VERSION TABLETTE -->
-    <div class='md:block hidden relative bg-base100'>
+    <div class='md:block hidden relative bg-base100 border-none'>
       <div class="flex flex-row">
         <!-- Partie gauche -->
         <div class='gauche grow relative shrink-0 basis-1/2 overflow-hidden'>
@@ -382,7 +383,7 @@ if ($mode_carte == 'membre') {
               ?>
               </p>
             </div>
-            <p class='overflow-hidden line-clamp-5 text-sm'>
+            <p class='overflow-hidden line-clamp-3 text-sm'>
               <?php echo $resume ?>
             </p>
           </div>
@@ -410,9 +411,6 @@ if ($mode_carte == 'membre') {
   </a>
   <?php
 } else {
-
-
-
 
   // !!! CARD COMPONENT PRO !!!
   // Composant dynamique (généré avec les données en php)

@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+// Connexion avec la bdd
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+// Authentification
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 ?>
 
@@ -10,12 +12,20 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/style.css">
-
+    
     <title>Toutes les offres - PACT</title>
+    
+    <!-- FONT AWESOME -->
+    <link rel="icon" href="/public/images/favicon.png">
 
+    <!-- TAILWIND -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- NOS FICHIERS -->
+    <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
+    
+    <!-- LEAFLET -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
@@ -31,9 +41,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     ?>
 
     <?php
-    // Connexion avec la bdd
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
     // Obtenez l'ensemble des offres avec le tri approprié
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true");
     $stmt->execute();
@@ -134,7 +141,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     }
     ?>
 
-    <!-- MAIN (TABLETTE et TÉLÉPHONE -->
+    <!-- MAIN (TABLETTE et TÉLÉPHONE) -->
     <div class="w-full grow flex items-start justify-center mx-auto p-2 md:max-w-[1280px]">
 
         <!-- Inclusion du menu et de l'interface de filtres (tablette et +) -->
