@@ -2891,6 +2891,10 @@ video {
   --tw-bg-opacity: 0.75;
 }
 
+.bg-cover {
+  background-size: cover;
+}
+
 .fill-\[\#070\] {
   fill: #070;
 }
@@ -3152,6 +3156,11 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
 }
 
+.text-base300 {
+  --tw-text-opacity: 1;
+  color: rgb(204 204 204 / var(--tw-text-opacity));
+}
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -3205,11 +3214,6 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-base300 {
-  --tw-text-opacity: 1;
-  color: rgb(204 204 204 / var(--tw-text-opacity));
 }
 
 .underline {

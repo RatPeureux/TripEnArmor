@@ -803,7 +803,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                     </button>
 
                                     <form id="avis_formulaire" action="/scripts/creation_avis.php" method="POST"
-                                        class="hidden flex flex-col text-sm gap-4">
+                                        class="hidden flex flex-col text-sm gap-4" enctype="multipart/form-data">
 
                                         <!-- Titre de l'avis -->
                                         <div>
@@ -937,7 +937,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                         <!-- Photos de l'avis  -->
                                         <div>
                                             <label for="photo_avis">Photo : </label>
-                                            <input type="file" name="photo_avis[]" id="photo_avis" accept="image/*" multiple>
+                                            <input type="file" name="photo_avis" id="photo_avis"
+                                                accept=".svg,.png,.jpg,.jpeg,.webp" multiple>
                                             <p class="text-sm text-base300 mt-2">10 photos maximum.</p>
                                             <script>
                                                 document.getElementById('photo_avis').addEventListener('change', function () {
@@ -966,7 +967,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                                 class="text-sm py-2 px-4 rounded-full bg-secondary text-white self-end">
                                         </div>
 
-                                        <hr class="w-1/2 border border-black self-end my-2  bg-black">
+                                        <hr class="w-full border border-black self-end my-2  bg-black">
                                     </form>
 
                                     <script>

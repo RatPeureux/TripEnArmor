@@ -272,13 +272,9 @@ if (!function_exists('to_nom_note')) {
 
     <!-- Images de l'avis -->
     <div class="flex space-x-1 py-2">
-        <?php
-        print_r($images);
-        ?>
-
         <?php foreach ($images as $index => $image): ?>
             <?php if ($index < 4): ?>
-                <img src="<?php echo $image; ?>" alt=""
+                <img src="public/images/avis/<?php echo $image; ?>" alt=""
                     class="object-cover w-12 h-16 <?php echo $index === 0 ? 'rounded-tl-lg rounded-bl-lg' : ''; ?>"
                     onclick="openImageModal(<?php echo $index; ?>)">
             <?php elseif ($index === 4): ?>
@@ -292,48 +288,48 @@ if (!function_exists('to_nom_note')) {
 
     <!-- Modal for image slider -->
     <div id="imageModal" class="fixed inset-0 hidden bg-black bg-opacity-75 items-center justify-center z-50">
-        <div class="relative" onclick="event.stopPropagation();"></div>
-        <button class="absolute top-0 right-0 m-3 text-white bg-primary py-2 px-2" onclick="closeImageModal()">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <img id="modalImage" src="" alt="" class="max-w-full max-h-full">
-        <button class="absolute left-0 top-1/2 transform -translate-y-1/2 text-white bg-primary px-2 py-2 ml-2"
-            onclick="prevImage()">
-            <i class="fa-solid fa-less-than"></i>
-        </button>
-        <button class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white bg-primary px-2 py-2 mr-2"
-            onclick="nextImage()">
-            <i class="fa-solid fa-greater-than"></i>
-        </button>
+        <div class="relative" onclick="event.stopPropagation();">
+            <button class="absolute top-0 right-0 m-3 text-white bg-primary py-2 px-2" onclick="closeImageModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img id="modalImage" src="" alt="" class="max-w-screen max-h-screen">
+            <button class="absolute left-0 top-1/2 transform -translate-y-1/2 text-white bg-primary px-2 py-2 ml-2"
+                onclick="prevImage()">
+                <i class="fa-solid fa-less-than"></i>
+            </button>
+            <button class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white bg-primary px-2 py-2 mr-2"
+                onclick="nextImage()">
+                <i class="fa-solid fa-greater-than"></i>
+            </button>
+        </div>
     </div>
-</div>
 
-<script>
-    const images = <?php echo json_encode($images); ?>;
-    let currentIndex = 0;
+    <script>
+        const images = <?php echo json_encode($images); ?>;
+        let currentIndex = 0;
 
-    function openImageModal(index) {
-        currentIndex = index;
-        document.getElementById('modalImage').src = images[currentIndex];
-        document.getElementById('imageModal').classList.remove('hidden');
-        document.getElementById('imageModal').classList.add('flex');
-    }
+        function openImageModal(index) {
+            currentIndex = index;
+            document.getElementById('modalImage').src = 'public/images/avis/' + images[currentIndex];
+            document.getElementById('imageModal').classList.remove('hidden');
+            document.getElementById('imageModal').classList.add('flex');
+        }
 
-    function prevImage() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        document.getElementById('modalImage').src = images[currentIndex];
-    }
+        function prevImage() {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            document.getElementById('modalImage').src = 'public/images/avis/' + images[currentIndex];
+        }
 
-    function nextImage() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        document.getElementById('modalImage').src = images[currentIndex];
-    }
+        function nextImage() {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            document.getElementById('modalImage').src = 'public/images/avis/' + images[currentIndex];
+        }
 
-    function closeImageModal() {
-        document.getElementById('imageModal').classList.remove('flex');
-        document.getElementById('imageModal').classList.add('hidden');
-    }
-</script>
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.remove('flex');
+            document.getElementById('imageModal').classList.add('hidden');
+        }
+    </script>
 </div>
 
 <!-- Réponse du pro s'il y en a une -->
