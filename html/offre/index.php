@@ -19,13 +19,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
 
+    <!-- NOS FICHIERS -->
     <script type="module" src="/scripts/main.js"></script>
+    <script src="/scripts/fonctions.js"></script>
     <link rel="stylesheet" href="/styles/style.css">
 
     <!-- TAILWIND -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- Pour les requêtes ajax -->
+    <!-- AJAX -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- LEAFLET -->
@@ -551,7 +553,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                 <div class="flex items-center px-2 gap-4">
                                     <i class="w-6 text-center fa-solid fa-money-bill"></i>
                                     <p class="prix text-sm mt-1" title="<?php echo $title_prix ?>">
-                                        <?php echo $prix_a_afficher; ?></p>
+                                        <?php echo $prix_a_afficher; ?>
+                                    </p>
                                 </div>
                             </div>
                             <!-- Description détaillée -->
@@ -987,23 +990,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 
                                         <hr class="w-1/2 border border-black self-end my-2  bg-black">
                                     </form>
-
-                                    <script>
-                                        // Eviter de pouvoir sélectionner un date ultérieure au jour actuel
-                                        function setMaxDate() {
-                                            const today = new Date();
-                                            const year = today.getFullYear();
-                                            const month = String(today.getMonth() + 1).padStart(2, '0');
-                                            const day = String(today.getDate()).padStart(2, '0');
-                                            const maxDate = `${year}-${month}-${day}`;
-
-                                            document.getElementById("date_experience").setAttribute("max", maxDate);
-                                        }
-
-                                        // Call the function when the page loads
-                                        window.onload = setMaxDate;
-                                    </script>
-
                                 </div>
                                 <?php
                             }
@@ -1012,9 +998,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                             <?php
                             // UTILISATEUR PAS CONNECTÉ
                         } else if (!isset($_SESSION['id_pro'])) { ?>
-                                <p class="text-sm italic"><a href='/connexion' class="underline">Connectez-vous</a>
-                                    pour rédiger un
-                                    avis</p>
+                                <p class="text-sm italic"><a href='/connexion' class="underline">Connectez-vous</a> pour rédiger
+                                    un avis</p>
                             <?php
                         }
                         ?>
@@ -1035,7 +1020,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                         <img id="loading-indicator" class="w-8 h-6" style="display: none;"
                             src="/public/images/loading.gif" alt="Chargement...">
                     </div>
-
                 </div>
 
                 <!-- A garder ici car il y a du PHP -->
@@ -1122,112 +1106,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
             setupToggle('blacklistes-arrow', 'blacklistes-button', 'avis-blacklistes-container');
         <?php } ?>
         setupToggle('avis-arrow', 'avis-button', 'avis-container');
-        // setupToggle('grille-arrow', 'grille-button', 'grille-info');
-
-        function sendReaction(idAvis, action) {
-            const thumbDown = document.getElementById('thumb-down-' + idAvis);
-            const thumbUp = document.getElementById('thumb-up-' + idAvis);
-            const dislikeCountElement = document.getElementById(`dislike-count-${idAvis}`);
-            const likeCountElement = document.getElementById(`like-count-${idAvis}`);
-
-            // Réinitialisation des icônes
-            thumbDown.classList.remove('fa-solid', 'text-rouge-logo');
-            thumbDown.classList.add('fa-regular');
-
-            thumbUp.classList.remove('fa-solid', 'text-secondary');
-            thumbUp.classList.add('fa-regular');
-
-            // Restauration des événements onclick par défaut
-            thumbDown.onclick = function () {
-                sendReaction(idAvis, 'down'); // Nouvelle action
-            };
-
-            thumbUp.onclick = function () {
-                sendReaction(idAvis, 'up'); // Nouvelle action
-            };
-
-            // Gestion de la réaction "down"
-            if (action === 'down' || action === 'upTOdown') {
-                thumbDown.classList.remove('fa-regular');
-                thumbDown.classList.add('fa-solid', 'text-rouge-logo');
-
-                // Incrémentation du compteur de dislikes
-                const currentDislikes = parseInt(dislikeCountElement.textContent) || 0;
-                dislikeCountElement.textContent = currentDislikes + 1;
-
-                // Décrémentation du compteur de likes si l'utilisateur change de réaction
-                if (action === 'upTOdown') {
-                    const currentLikes = parseInt(likeCountElement.textContent) || 0;
-                    likeCountElement.textContent = currentLikes - 1;
-                }
-
-                // Mise à jour des événements onclick
-                thumbDown.onclick = function () {
-                    sendReaction(idAvis, 'downTOnull'); // Nouvelle action pour annuler
-                };
-
-                thumbUp.onclick = function () {
-                    sendReaction(idAvis, 'downTOup'); // Nouvelle action
-                };
-            }
-
-            // Gestion de la réaction "up"
-            if (action === 'up' || action === 'downTOup') {
-                thumbUp.classList.remove('fa-regular');
-                thumbUp.classList.add('fa-solid', 'text-secondary');
-
-                // Incrémentation du compteur de likes
-                const currentLikes = parseInt(likeCountElement.textContent) || 0;
-                likeCountElement.textContent = currentLikes + 1;
-
-                // Décrémentation du compteur de dislikes si l'utilisateur change de réaction
-                if (action === 'downTOup') {
-                    const currentDislikes = parseInt(dislikeCountElement.textContent) || 0;
-                    dislikeCountElement.textContent = currentDislikes - 1;
-                }
-
-                // Mise à jour des événements onclick
-                thumbUp.onclick = function () {
-                    sendReaction(idAvis, 'upTOnull'); // Nouvelle action pour annuler
-                };
-
-                thumbDown.onclick = function () {
-                    sendReaction(idAvis, 'upTOdown'); // Nouvelle action
-                };
-            }
-
-            if (action === 'upTOnull') {
-                const currentLikes = parseInt(likeCountElement.textContent) || 0;
-                likeCountElement.textContent = currentLikes - 1;
-            }
-
-            if (action === 'downTOnull') {
-                const currentDislikes = parseInt(dislikeCountElement.textContent) || 0;
-                dislikeCountElement.textContent = currentDislikes - 1;
-            }
-
-            // Envoi de la requête pour mettre à jour la réaction
-            const url = `/scripts/thumb.php?id_avis=${idAvis}&action=${action}`;
-
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erreur réseau');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const resultDiv = document.getElementById(`reaction-result-${idAvis}`);
-                    if (data.success) {
-                        resultDiv.innerHTML = `Réaction mise à jour : ${data.message}`;
-                    } else {
-                        resultDiv.innerHTML = `Erreur : ${data.message}`;
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la requête:', error);
-                });
-        }
     </script>
 </body>
 

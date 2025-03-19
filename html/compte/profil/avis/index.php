@@ -1,15 +1,13 @@
 <?php
 session_start();
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
+// Connexion avec la bdd
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 $membre = verifyMember();
 $id_membre = $_SESSION['id_membre'];
 
-// Connexion avec la bdd
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
 $controllerMembre = new MembreController();
 $membre = $controllerMembre->getInfosMembre($id_membre);
 
@@ -17,8 +15,6 @@ if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
     $controllerMembre->updateMembre($membre['id_compte'], false, false, false, false, $_POST['pseudo'], false);
     unset($_POST['pseudo']);
 }
-
-$membre = verifyMember();
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +27,7 @@ $membre = verifyMember();
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
+    <script src="/scripts/fonctions.js"></script>
     <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Mes avis - PACT</title>
@@ -77,7 +74,8 @@ $membre = verifyMember();
                 <div class="flex justify-between items-center">
                     <p class="text-2xl mb-4">Mes avis</p>
 
-                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button" tabindex="0">
+                    <a class="cursor-pointer flex items-center gap-2 hover:text-primary duration-100" id="sort-button"
+                        tabindex="0">
                         <i class="text xl fa-solid fa-sort"></i>
                         <p>Trier par</p>
                     </a>
@@ -121,30 +119,30 @@ $membre = verifyMember();
                             $offre = Offre::getOffreById($avis['id_offre']);
                             $id_avis = $avis['id_avis']; ?>
 
-                                                                    <div id="<?php if ($offre['est_en_ligne']) {
-                                                                        echo "clickable_div_$id_avis";
-                                                                    }
-                                                                    ?>" class="shadow-lg <?php if (!$offre['est_en_ligne']) {
-                                                                        echo 'opacity-50';
-                                                                    } ?>" title="<?php if (!$offre['est_en_ligne']) {
-                                                                         echo 'offre indisponible';
-                                                                     } ?>">
-                                                                        <?php
-                                                                        $mode = 'mon_avis';
-                                                                        include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
-                                                                        ?>
-                                                                    </div>
+                            <div id="<?php if ($offre['est_en_ligne']) {
+                                echo "clickable_div_$id_avis";
+                            }
+                            ?>" class="shadow-lg <?php if (!$offre['est_en_ligne']) {
+                                echo 'opacity-50';
+                            } ?>" title="<?php if (!$offre['est_en_ligne']) {
+                                 echo 'offre indisponible';
+                             } ?>">
+                                <?php
+                                $mode = 'mon_avis';
+                                include dirname($_SERVER['DOCUMENT_ROOT']) . '/view/avis_view.php';
+                                ?>
+                            </div>
 
-                                                                    <script>
-                                                                        document.querySelector('#clickable_div_<?php echo $id_avis ?>')?.addEventListener('click', function () {
-                                                                            window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
-                                                                        });
-                                                                    </script><?php
+                            <script>
+                                document.querySelector('#clickable_div_<?php echo $id_avis ?>')?.addEventListener('click', function () {
+                                    window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
+                                });
+                            </script><?php
                         }
                     } else {
                         ?>
-                                            <h1 class="text-lg ">Vous n'avez publié aucun avis.</h1>
-                                            <?php
+                        <h1 class="text-lg ">Vous n'avez publié aucun avis.</h1>
+                        <?php
                     }
                     ?>
                 </div>
@@ -163,109 +161,4 @@ $membre = verifyMember();
 <script>
     // Initialisation du toggle pour le bouton et la section
     setupToggle('sort-button', 'sort-section');
-
-    function sendReaction(idAvis, action) {
-        const thumbDown = document.getElementById('thumb-down-' + idAvis);
-        const thumbUp = document.getElementById('thumb-up-' + idAvis);
-        const dislikeCountElement = document.getElementById(`dislike-count-${idAvis}`);
-        const likeCountElement = document.getElementById(`like-count-${idAvis}`);
-
-        // Réinitialisation des icônes
-        thumbDown.classList.remove('fa-solid', 'text-rouge-logo');
-        thumbDown.classList.add('fa-regular');
-
-        thumbUp.classList.remove('fa-solid', 'text-secondary');
-        thumbUp.classList.add('fa-regular');
-
-        // Restauration des événements onclick par défaut
-        thumbDown.onclick = function () {
-            sendReaction(idAvis, 'down'); // Nouvelle action
-        };
-
-        thumbUp.onclick = function () {
-            sendReaction(idAvis, 'up'); // Nouvelle action
-        };
-
-        // Gestion de la réaction "down"
-        if (action === 'down' || action === 'upTOdown') {
-            thumbDown.classList.remove('fa-regular');
-            thumbDown.classList.add('fa-solid', 'text-rouge-logo');
-
-            // Incrémentation du compteur de dislikes
-            const currentDislikes = parseInt(dislikeCountElement.textContent) || 0;
-            dislikeCountElement.textContent = currentDislikes + 1;
-
-            // Décrémentation du compteur de likes si l'utilisateur change de réaction
-            if (action === 'upTOdown') {
-                const currentLikes = parseInt(likeCountElement.textContent) || 0;
-                likeCountElement.textContent = currentLikes - 1;
-            }
-
-            // Mise à jour des événements onclick
-            thumbDown.onclick = function () {
-                sendReaction(idAvis, 'downTOnull'); // Nouvelle action pour annuler
-            };
-
-            thumbUp.onclick = function () {
-                sendReaction(idAvis, 'downTOup'); // Nouvelle action
-            };
-        }
-
-        // Gestion de la réaction "up"
-        if (action === 'up' || action === 'downTOup') {
-            thumbUp.classList.remove('fa-regular');
-            thumbUp.classList.add('fa-solid', 'text-secondary');
-
-            // Incrémentation du compteur de likes
-            const currentLikes = parseInt(likeCountElement.textContent) || 0;
-            likeCountElement.textContent = currentLikes + 1;
-
-            // Décrémentation du compteur de dislikes si l'utilisateur change de réaction
-            if (action === 'downTOup') {
-                const currentDislikes = parseInt(dislikeCountElement.textContent) || 0;
-                dislikeCountElement.textContent = currentDislikes - 1;
-            }
-
-            // Mise à jour des événements onclick
-            thumbUp.onclick = function () {
-                sendReaction(idAvis, 'upTOnull'); // Nouvelle action pour annuler
-            };
-
-            thumbDown.onclick = function () {
-                sendReaction(idAvis, 'upTOdown'); // Nouvelle action
-            };
-        }
-
-        if (action === 'upTOnull') {
-            const currentLikes = parseInt(likeCountElement.textContent) || 0;
-            likeCountElement.textContent = currentLikes - 1;
-        }
-
-        if (action === 'downTOnull') {
-            const currentDislikes = parseInt(dislikeCountElement.textContent) || 0;
-            dislikeCountElement.textContent = currentDislikes - 1;
-        }
-
-        // Envoi de la requête pour mettre à jour la réaction
-        const url = `/scripts/thumb.php?id_avis=${idAvis}&action=${action}`;
-
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erreur réseau');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const resultDiv = document.getElementById(`reaction-result-${idAvis}`);
-                if (data.success) {
-                    resultDiv.innerHTML = `Réaction mise à jour : ${data.message}`;
-                } else {
-                    resultDiv.innerHTML = `Erreur : ${data.message}`;
-                }
-            })
-            .catch(error => {
-                console.error('Erreur lors de la requête:', error);
-            });
-    }
 </script>

@@ -1,5 +1,9 @@
 <?php
 session_start();
+// Enlever les informations gardées lors des étapes de connexion / inscription quand on revient à la page d'accueil (seul point de sortie de la connexion / inscription)
+unset($_SESSION['data_en_cours_connexion']);
+unset($_SESSION['data_en_cours_inscription']);
+unset($_SESSION['error']);
 ?>
 
 <!DOCTYPE html>
@@ -8,20 +12,23 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/style.css">
-
+    
     <title>PACT</title>
 
+    <!-- FONT AWESOME -->
+    <link rel="icon" href="/public/images/favicon.png">
+    
+    <!-- NOS FICHIERS -->
     <script type="module" src="/scripts/main.js"></script>
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="/scripts/filtersAndSorts.js"></script>
 
+    <!-- LEAFLET -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-
-    <script src="/scripts/filtersAndSorts.js"></script>
 </head>
 
 <body class="flex flex-col min-h-screen">

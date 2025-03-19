@@ -4,7 +4,6 @@ import { } from './toggleFiltres.js';
 import { } from './confirmLogout.js';
 import { } from './confirmDelete.js';
 import { } from './formats.js';
-import { } from './fonctions.js';
 
 // Load fontawesome CLI to load icons
 const script = document.createElement('script');

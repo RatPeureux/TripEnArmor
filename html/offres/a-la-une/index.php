@@ -149,7 +149,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <div id="menu">
                 <?php
                 $pagination = 2;
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu+filtres.php';
+                $menu_avec_filtres = true;
+                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
                 ?>
             </div>
 

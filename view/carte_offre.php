@@ -252,7 +252,7 @@ if ($mode_carte == 'membre') {
         </div>
 
         <!-- Partie droite (infos principales) -->
-        <div class='infos flex flex-col basis-1/2 p-3 max-h-[280px] justify-between relative'>
+        <div class='infos flex flex-col basis-1/2 p-3 h-[280px] justify-between relative'>
           <!-- En tête avec titre -->
           <div class='en-tete relative top-0 max-w-full '>
             <div class="flex w-full">
@@ -439,7 +439,7 @@ if ($mode_carte == 'membre') {
     </div>
 
     <!-- PARTIE DE DROITE (infos principales) -->
-    <div class="max-h-[500px] infos relative flex flex-col items-center basis-1/2 self-stretch px-5 py-3 justify-between">
+    <div class="h-[500px] infos relative flex flex-col items-center basis-1/2 self-stretch px-5 py-3 justify-between">
 
       <div class="w-full">
         <!-- A droite, en haut -->
