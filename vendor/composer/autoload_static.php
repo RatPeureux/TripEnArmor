@@ -6,10 +6,23 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitd751713988987e9331980363e24189ce
 {
+    public static $files = array (
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'T' => 
         array (
             'TripEnArmor\\' => 12,
+        ),
+        'P' => 
+        array (
+            'Psr\\Clock\\' => 10,
+            'ParagonIE\\ConstantTime\\' => 23,
+        ),
+        'O' => 
+        array (
+            'OTPHP\\' => 6,
         ),
     );
 
@@ -17,6 +30,18 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         'TripEnArmor\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Psr\\Clock\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/clock/src',
+        ),
+        'ParagonIE\\ConstantTime\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
+        ),
+        'OTPHP\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spomky-labs/otphp/src',
         ),
     );
 

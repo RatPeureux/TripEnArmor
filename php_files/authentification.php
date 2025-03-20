@@ -62,7 +62,6 @@ function verifyPro()
         return $result;
     }
 }
-
 function verifyMember()
 {
     // Vérifie si l'utilisateur est connecté en tant que membre, sinon le renvoie à la page de connexion
@@ -90,6 +89,9 @@ function verifyMember()
         $result["email"] = $membre["email"];
         $result["tel"] = $membre["num_tel"];
         $result["id_adresse"] = $membre["id_adresse"];
+        $result["api_key"] = $membre["api_key"];
+        $result["uri_activation"] = $membre["uri_activation"];
+        $result["totp_active"] = $membre["totp_active"];
 
         return $result;
     }

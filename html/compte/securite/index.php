@@ -1,8 +1,11 @@
 <?php
 session_start();
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
+// Connexion avec la bdd
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+// Vérifier que l'on est bien connecté
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 $membre = verifyMember();
 
 if (isset($_POST['mdp'])) {
@@ -51,10 +54,19 @@ if (isset($_POST['mdp'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- FONT AWESOME -->
+    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+
+    <!-- NOS FICHIERS -->
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
-    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+
+    <!-- AJAX -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- TAILWIND -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <title>Sécurité du compte - PACT</title>
 </head>
@@ -74,7 +86,7 @@ if (isset($_POST['mdp'])) {
                 ?>
             </div>
 
-            <div class="flex flex-col md:mx-10 grow">
+            <div id="main-div" class="flex flex-col md:mx-10 grow">
                 <p class="text-xl p-4">
                     <a href="/compte">Mon compte</a>
                     >
@@ -129,17 +141,142 @@ if (isset($_POST['mdp'])) {
 
                 </form>
 
-                <hr class="mb-8">
+
+                <!-- POUVOIR ACTIVER LE TOTP -->
+                <?php if ($membre['totp_active'] == false) { ?>
+                    <hr class="my-4">
+
+                    <div class="flex gap-2 items-center self-start">
+                        <a id="load-totp-btn"
+                            onclick="if(confirm('Vous allez voir un QR code pour activer votre option TOTP. Une fois activée, vous ne pourrez pas récupérer ce code. Nous vous recommandons de le noter à un endroit sûr.')) loadTOTP();"
+                            class="max-w-sm px-4 py-2 text-sm hover:text-primary hover:border hover:border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Activer
+                            l'option TOTP</a>
+                        <!-- Symbole de chargement -->
+                        <img id="loading-indicator" class="w-8 h-6" style="display: none;" src="/public/images/loading.gif"
+                            alt="Chargement...">
+                    </div>
+
+                    <!-- CONTENIR LES INFOS CLÉS DU TOTP -->
+                    <div id="totp-container"></div>
+
+                    <!-- ÉCRIRE LE CODE SECRET POUR CONFIRMER L'ACTIVATION -->
+                    <div id="confirm-totp-div" class="flex flex-col items-stretch gap-2 hidden">
+                        <label for="confirmTOTP">Pour confirmer l'activation de l'option TOTP, veuillez resaisir le code
+                            secret donné ci-dessus en gras :</label>
+                        <input class="border border-black" type="text" name="confirmTOTP" id="confirmTOTP">
+                        <a id="confirm-totp-btn" onclick="
+                        if (document.getElementById('confirmTOTP').value == document.getElementById('secret-span').innerHTML) {
+                            if(confirm('Une fois l\'option activée, vous devrez désormais utiliser votre TOTP pour vous connecter.'))
+                            {
+                                confirmTOTP();
+                            }
+                        } else {
+                            alert('Le code secret saisi n\'est pas le bon');
+                        }"
+                            class="self-start max-w-sm px-4 py-2 text-sm hover:text-primary hover:border hover:border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Confirmer</a>
+                        <!-- Symbole de chargement -->
+                        <img id="loading-indicator-confirm" class="w-8 h-6" style="display: none;"
+                            src="/public/images/loading.gif" alt="Chargement...">
+                    </div>
+                <?php } ?>
+
+
+                <script>
+                    // Initialiser l'OTP et transmettre (une fois) les codes secrets
+                    function loadTOTP() {
+                        // Afficher le loader pendant le chargement
+                        $('#loading-indicator').show();
+
+                        // Désactiver le bouton pendant le chargement
+                        $('#load-totp-btn').prop('disabled', true);
+
+                        $.ajax({
+                            url: '/scripts/get_totp.php',
+                            type: 'GET',
+                            data: {},
+
+                            // Si on a une réponse
+                            success: function (response) {
+                                if (response) {
+                                    data = JSON.parse(response);
+                                    try {
+                                        $('#totp-container').append("<p>Votre secret TOTP : <span class=font-bold id='secret-span'>" + data.secret + "</span></p>");
+                                        $('#totp-container').append("<br>");
+                                        $('#totp-container').append("<p>Scannez ce QR code avec votre application d'authentification OTP : </p><img src=" + data.qr_code_uri + ">");
+                                        document.getElementById('confirm-totp-div').classList.remove('hidden');
+                                    } catch (e) {
+                                        console.log(e);
+                                    }
+
+                                    $('#load-totp-btn').prop('disabled', true).text('');
+                                    document.getElementById('load-totp-btn').classList.add('hidden');
+                                } else {
+                                    $('#totp-container').append('Erreur lors de la réception des données TOTP');
+                                }
+                            },
+
+                            // A la fin de la requête
+                            complete: function () {
+                                // Masquer le loader après la requête
+                                $('#loading-indicator').hide();
+                                // Réactiver le bouton après la requête (que ce soit réussi ou non)
+                                $('#load-totp-btn').prop('disabled', false);
+                            }
+                        });
+                    }
+
+                    // Confirmer l'OTP en BDD
+                    function confirmTOTP() {
+
+                        // Afficher le loader pendant le chargement
+                        $('#loading-indicator-confirm').show();
+
+                        // Désactiver le bouton pendant le chargement
+                        $('#confirm-totp-btn').prop('disabled', true);
+
+                        $.ajax({
+                            url: '/scripts/confirm_totp.php',
+                            type: 'GET',
+                            data: {
+                                secret: document.getElementById('confirmTOTP').value
+                            },
+
+                            // Si on a une réponse
+                            success: function (response) {
+                                data = JSON.parse(response);
+                                try {
+                                    $('#main-div').append("<p class='text-green-500'>" + data.message + "</p>");
+                                    document.getElementById('totp-container').classList.add('hidden');
+                                    document.getElementById('confirm-totp-div').classList.add('hidden');
+                                } catch (e) {
+                                    console.log(e);
+                                }
+
+                                $('#confirm-totp-btn').prop('disabled', true).text('');
+                                document.getElementById('confirm-totp-btn').classList.add('hidden');
+                            },
+
+                            error: function (xhr, status, error) {
+                                console.log('Erreur : ' + error);
+                                console.log('Statut : ' + status);
+                                console.log('Réponse : ' + xhr.responseText);
+                            },
+
+                            // A la fin de la requête
+                            complete: function () {
+                                // Masquer le loader après la requête
+                                $('#loading-indicator').hide();
+                                // Réactiver le bouton après la requête (que ce soit réussi ou non)
+                                $('#load-totp-btn').prop('disabled', false);
+                            }
+                        });
+                    }
+                </script>
+
+                <hr class="my-4">
 
                 <?php
-                // Connexion avec la bdd
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-                // Controllers
-                include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
-                $controllerMembre = new MembreController();
-                $key = $controllerMembre->getInfosMembre($id_membre)['api_key'];
-
+                $key = $membre['api_key'];
                 $stmt = $dbh->prepare("SELECT api_key FROM sae_db._membre WHERE id_compte = ?");
                 $stmt->bindParam(1, $membre['id_compte']);
                 $stmt->execute();

@@ -3,31 +3,32 @@
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - Carte des offres</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
-    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-    <style>
-        #map { height: 600px; width: 100%; }
-    </style>
+
+    <title>Test</title>
+
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="/scripts/main.js"></script>
+
 </head>
+
 <body>
 
-    <h2 class="text-center text-xl font-bold">Carte des Offres</h2>
-    <div id="map"></div>
+    <?php
+    require dirname($_SERVER['DOCUMENT_ROOT']) . '/vendor/autoload.php';
+    use OTPHP\TOTP;
 
-    <script>
-        window.mapConfig = {
-            center: [48.1, -2.5],
-            zoom: 7
-        };
-    </script>
-    <script src="/scripts/map.js"></script>
+    $totp = TOTP::generate(); // New TOTP
+    $totp->setLabel('alice@google.com'); // The label (string)
+    
+    $goqr_me = $totp->getQrCodeUri(
+        'https://api.qrserver.com/v1/create-qr-code/?color=5330FF&bgcolor=70FF7E&data=[DATA]&qzone=2&margin=0&size=300x300&ecc=M',
+        '[DATA]'
+    );
+    echo "<img src='{$goqr_me}'>";
+    ?>
 
 </body>
+
 </html>

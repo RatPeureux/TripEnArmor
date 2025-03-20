@@ -43,7 +43,9 @@ CREATE TABLE _compte (
     email VARCHAR(255) NOT NULL,
     mdp_hash VARCHAR(255) NOT NULL,
     num_tel VARCHAR(255) NOT NULL,
-    id_adresse INTEGER
+    id_adresse INTEGER,
+    uri_activation VARCHAR(255),
+    totp_active BOOLEAN DEFAULT FALSE NOT NULL
 );
 
 -- Table _membre

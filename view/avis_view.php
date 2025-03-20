@@ -148,7 +148,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
             $duree_blacklistage = parse_config_file('DUREE_BLACKLISTAGE');
             if (!$is_blacklisted && $pro_can_blacklist) { ?>
                 <a onclick="return confirm('Voulez-vous vraiment blacklister cet avis définitivement ? Cela coute un ticket (il vous en reste <?php echo 3 - $nb_blacklistes_en_cours ?>) qui vous sera restitué dans <?php echo $duree_blacklistage ?> jours.')"
-                    href="/scripts/blacklister-avis.php?id_avis=<?php echo $id_avis ?>&duree_blacklistage=<?php echo $duree_blacklistage ?>">
+                    href="/scripts/blacklister_avis.php?id_avis=<?php echo $id_avis ?>&duree_blacklistage=<?php echo $duree_blacklistage ?>">
                     <i title="blacklister l'avis" class="text-xl fa-regular fa-eye-slash hover:text-primary"></i>
                 </a>
             <?php }

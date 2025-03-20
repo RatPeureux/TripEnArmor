@@ -49,7 +49,7 @@
   </div>
 
   <!-- AJOUTER LES FILTRES AU MENU SI BESOIN -->
-  <?php if ($menu_avec_filtres) { ?>
+  <?php if (isset($menu_avec_filtres) && $menu_avec_filtres) { ?>
     <a class="mt-6 mx-2 mb-1 self-end flex items-center gap-2 cursor-pointer hover:text-primary" id="filtre-button"
       tabindex="0">
       <i class="text xl fa-solid fa-filter"></i>
