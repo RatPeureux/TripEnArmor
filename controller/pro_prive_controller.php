@@ -29,7 +29,9 @@ class ProPriveController
                 "id_adresse" => $proPrive["id_adresse"],
                 "nom_pro" => $proPrive["nom_pro"],
                 "num_siren" => $proPrive["num_siren"],
-                "id_rib" => $proPrive["id_rib"]
+                "id_rib" => $proPrive["id_rib"],
+                "secret_totp" => $proPrive["secret_totp"],
+                "totp_active" => $proPrive["totp_active"]
             ];
         } else {
             return false;

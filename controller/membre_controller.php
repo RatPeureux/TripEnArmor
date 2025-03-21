@@ -13,7 +13,7 @@ class MembreController
 
     public function createMembre($email, $mdp, $tel, $adresseId, $pseudo, $prenom, $nom)
     {
-        $membreID = $this->model::createCompte($email, $mdp, $tel, $adresseId, $pseudo, $prenom, $nom);
+        $membreID = $this->model::createMembre($email, $mdp, $tel, $adresseId, $pseudo, $prenom, $nom);
 
         $this->model::log("Un membre a été créé.");
         return $membreID;

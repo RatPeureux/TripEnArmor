@@ -14,7 +14,7 @@ function isConnectedAsPro(): bool
 function verifyPro()
 {
     // Vérifie si l'utilisateur est connecté en tant que pro, sinon le renvoie à la page de connexion
-    if (!isConnectedAsPro()) {
+    if (!isset($_SESSION['id_pro'])) {
         header('location: /401');
         exit();
     } else {
@@ -25,6 +25,8 @@ function verifyPro()
             "email" => "",
             "tel" => "",
             "id_adresse" => "",
+            "secret_totp" => "",
+            "totp_active" => "",
             "data" => [
             ]
         ];
@@ -34,13 +36,15 @@ function verifyPro()
         if (!$pro) {
             require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/controller/pro_public_controller.php";
             $proController = new ProPublicController();
-
             $pro = $proController->getInfosProPublic($_SESSION['id_pro']);
+
             $result["id_compte"] = $pro["id_compte"];
             $result["nom_pro"] = $pro["nom_pro"];
             $result["email"] = $pro["email"];
             $result["tel"] = $pro["num_tel"];
             $result["id_adresse"] = $pro["id_adresse"];
+            $result["secret_totp"] = $pro["secret_totp"];
+            $result["totp_active"] = $pro["totp_active"];
             $result["data"]["type_orga"] = $pro["type_orga"];
             $result["data"]["type"] = "public";
 
@@ -54,6 +58,8 @@ function verifyPro()
             $result["email"] = $pro["email"];
             $result["tel"] = $pro["tel"];
             $result["id_adresse"] = $pro["id_adresse"];
+            $result["secret_totp"] = $pro["secret_totp"];
+            $result["totp_active"] = $pro["totp_active"];
             $result["data"]["numero_siren"] = $pro["num_siren"];
             $result["data"]["id_rib"] = $pro["id_rib"];
             $result["data"]["type"] = "prive";
@@ -90,7 +96,7 @@ function verifyMember()
         $result["tel"] = $membre["num_tel"];
         $result["id_adresse"] = $membre["id_adresse"];
         $result["api_key"] = $membre["api_key"];
-        $result["uri_activation"] = $membre["uri_activation"];
+        $result["secret_totp"] = $membre["secret_totp"];
         $result["totp_active"] = $membre["totp_active"];
 
         return $result;

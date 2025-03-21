@@ -1,8 +1,8 @@
 <?php
 session_start(); // Démarre la session au début du script
 
+// Si déjà connecté, rediriger sur page d'accueil
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-
 if (isConnectedAsMember()) {
     header('location: /');
     exit();
@@ -22,6 +22,7 @@ if (empty($_POST)) { ?>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <!-- NOS FICHIERS -->
         <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
         <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
@@ -85,28 +86,28 @@ if (empty($_POST)) { ?>
                 </form>
             </div>
         </div>
+
+        <script>
+            // Récupération de l'élément pour afficher/masquer le mot de passe
+            const togglePassword = document.getElementById('togglePassword');
+            const mdp = document.getElementById('mdp');
+
+            // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
+            if (togglePassword) {
+                togglePassword.addEventListener('click', function () {
+                    if (mdp.type === 'password') {
+                        mdp.type = 'text';
+                        this.classList.remove('fa-eye');
+                        this.classList.add('fa-eye-slash');
+                    } else {
+                        mdp.type = 'password';
+                        this.classList.remove('fa-eye-slash');
+                        this.classList.add('fa-eye');
+                    }
+                });
+            }
+        </script>
     </body>
-
-    <script>
-        // Récupération de l'élément pour afficher/masquer le mot de passe
-        const togglePassword = document.getElementById('togglePassword');
-        const mdp = document.getElementById('mdp');
-
-        // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-        if (togglePassword) {
-            togglePassword.addEventListener('click', function () {
-                if (mdp.type === 'password') {
-                    mdp.type = 'text';
-                    this.classList.remove('fa-eye');
-                    this.classList.add('fa-eye-slash');
-                } else {
-                    mdp.type = 'password';
-                    this.classList.remove('fa-eye-slash');
-                    this.classList.add('fa-eye');
-                }
-            });
-        }
-    </script>
 
     </html>
 
@@ -119,7 +120,7 @@ if (empty($_POST)) { ?>
         // Vérifie si la requête est une soumission de formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            //  Pour garder les informations dans le formulaire si erreur
+            //  Pour garder les informations dans le formulaire en cas d'erreur
             $_SESSION['data_en_cours_connexion'] = $_POST;
             $id = $_POST['id'];
             $mdp = $_POST['mdp'];
@@ -131,31 +132,40 @@ if (empty($_POST)) { ?>
 
             // Prépare une requête SQL pour trouver l'utilisateur par nom, email ou numéro de téléphone
             $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :id OR email = :id OR num_tel = :id");
-            $stmt->bindParam(':id', $id); // Lie le paramètre à la valeur de l'id
-            $stmt->execute(); // Exécute la requête
-            $user = $stmt->fetch(PDO::FETCH_ASSOC); // Récupère les données de l'utilisateur
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             // Vérifie si l'utilisateur existe et si le mot de passe est correct
             if ($user) {
                 if (password_verify($mdp, $user['mdp_hash'])) {
-                    // Connecte le membre et retirer toute éventuelle information de connexino à un compte pro
-                    $_SESSION['id_membre'] = $user['id_compte'];
+                    // Connecte le membre et retire toute éventuelle information de connexion à un compte pro
                     unset($_SESSION['id_pro']);
-                    header('location: /'); // Redirige vers la page connectée
-                    exit();
+
+                    // Vérifier si le membre a besoin d'une connexion OTP
+                    if ($user['totp_active'] == true) {
+                        $_SESSION['tmp_id_compte_a2f'] = $user['id_compte'];
+                        header('Location: /a2f');
+                        exit();
+                    } else {
+                        $_SESSION['id_membre'] = $user['id_compte'];
+                        header('Location: /'); // Redirige vers la page en étant connecté(e)
+                        exit();
+                    }
+
                 } else {
-                    $_SESSION['error'] = "Mot de passe incorrect"; // Stocke le message d'erreur dans la session
-                    header('location: /connexion'); // Retourne à la page de connexion
+                    $_SESSION['error'] = "Mot de passe ou identifiant incorrect";
+                    header('location: /connexion');
                     exit();
                 }
             } else {
-                $_SESSION['error'] = "Nous ne trouvons pas de compte avec cet identifiant"; // Stocke le message d'erreur dans la session
-                header('location: /connexion'); // Retourne à la page de connexion
+                $_SESSION['error'] = "Mot de passe ou identifiant incorrect";
+                header('location: /connexion');
                 exit();
             }
         }
     } catch (PDOException $e) {
-        echo "Erreur !: " . $e->getMessage(); // Affiche une erreur si la connexion échoue
+        echo "Erreur !: " . $e->getMessage();
     }
 }
 ?>

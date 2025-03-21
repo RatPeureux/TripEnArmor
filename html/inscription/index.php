@@ -327,6 +327,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         placeholder="01 23 45 67 89"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?? '' ?>" required>
                 </div>
+                
                 <!-- Message d'erreur pour le téléphone -->
                 <?php
                 if (isset($_GET['invalid_phone_number'])) { ?>

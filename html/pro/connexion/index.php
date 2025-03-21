@@ -36,10 +36,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $isPasswordValid = password_verify($mdp, $user['mdp_hash']);
             if ($isPasswordValid) {
                 // Connecte le pro, enlève toute éventuelle connexion à un membre
-                $_SESSION['id_pro'] = $user['id_compte'];
                 unset($_SESSION['id_membre']);
-                header('location: /pro'); // Redirige vers la page connectée
-                exit();
+                
+                // Vérifier si le membre a besoin d'une connexion OTP
+                if ($user['totp_active'] == true) {
+                    $_SESSION['tmp_id_compte_a2f'] = $user['id_compte'];
+                    header('Location: /a2f');
+                    exit();
+                } else {
+                    $_SESSION['id_pro'] = $user['id_compte'];
+                    header('location: /pro'); // Redirige vers la page connectée
+                    exit();
+                }
             } else {
                 $_SESSION['error'] = "Mot de passe incorrect"; // Stocke le message d'erreur dans la session
                 header('location: /pro/connexion'); // Retourne à la page de connexion
