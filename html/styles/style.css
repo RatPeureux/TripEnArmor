@@ -1085,10 +1085,6 @@ video {
   max-height: 400px;
 }
 
-.max-h-full {
-  max-height: 100%;
-}
-
 .max-h-screen {
   max-height: 100vh;
 }
@@ -2889,10 +2885,6 @@ video {
 
 .bg-opacity-75 {
   --tw-bg-opacity: 0.75;
-}
-
-.bg-cover {
-  background-size: cover;
 }
 
 .fill-\[\#070\] {
