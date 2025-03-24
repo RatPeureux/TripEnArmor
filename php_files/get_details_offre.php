@@ -43,11 +43,10 @@ $date_mise_a_jour = $offre['date_mise_a_jour'];
 $titre_offre = $offre['titre'];
 
 if (!$est_en_ligne) {
-    echo $id_offre;
-    echo $est_en_ligne;
     header('location: /401');
     exit();
 }
+
 
 // Otenir la moyenne des notes de l'offre
 $stmt = $dbh->prepare("SELECT avg, count FROM sae_db.vue_moyenne WHERE id_offre = :id_offre");
@@ -91,10 +90,11 @@ $type_offre = $stmt->fetch(PDO::FETCH_ASSOC)['nom'];
 
 // Détails de l'adresse
 $id_adresse = $offre['id_adresse'];
-$stmt = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :id_adresse");
-$stmt->bindParam(':id_adresse', $id_adresse);
-$stmt->execute();
-$adresse = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Exécuter la requête pour l'adresse
+require_once $_SERVER['DOCUMENT_ROOT'] . '/../controller/adresse_controller.php';
+$adresseController = new AdresseController();
+$adresse = $adresseController->getInfosAdresse($id_adresse);
 $code_postal = $adresse['code_postal'];
 $ville = $adresse['ville'];
 
@@ -106,10 +106,9 @@ $ville = $adresse['ville'];
 
 // Afficher les prix ou la gamme de prix si c'est un restaurant
 // 1. Obtenir prix minimal & maximal (sert pour détails de l'offre)
-$stmt = $dbh->prepare("SELECT * FROM sae_db._tarif_public WHERE id_offre = :id_offre");
-$stmt->bindParam(':id_offre', var: $id_offre);
-$stmt->execute();
-$allTarifs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+require_once $_SERVER['DOCUMENT_ROOT'] . '/../controller/tarif_public_controller.php';
+$tarifPublicController = new TarifPublicController();
+$allTarifs = $tarifPublicController->getTarifsByIdOffre($id_offre);
 $tarif_min = 99999;
 $tarif_max = 0;
 if ($allTarifs) {
@@ -125,20 +124,19 @@ if ($allTarifs) {
     $tarif_min = $offre['prix_mini'];
     $tarif_max = '';
 }
+
 $prix_a_afficher;
 if ($categorie_offre == 'restauration') {
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._restauration WHERE id_offre = :id_offre");
-    $stmt->bindParam(':id_offre', $id_offre);
-    $stmt->execute();
-    $prix_a_afficher = $stmt->fetch(PDO::FETCH_ASSOC)['gamme_prix'];
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/../controller/restauration_controller.php';
+    $restaurationController = new RestaurationController();
+    $prix_a_afficher = $restaurationController->getInfosRestauration($id_offre)['gamme_prix'];
 } else if ($tarif_min && $tarif_max) {
     $prix_a_afficher = $tarif_min . '-' . $tarif_max . '€';
 } else {
     // Edge case: offre sans aucun tarif
     $prix_a_afficher = "Gratuit";
 }
-$title_prix = $categorie_offre == 'restauration' ? '€ = X euros, €€ = XX euros, €€€ = XX euros' : 'fourchette des prix';
-
+$title_prix = $categorie_offre == 'restauration' ? '€ : -25€, €€ : 25-40€, €€€ : +40€' : 'fourchette des prix';
 
 // Tags pour le restaurant (pour la carte, on prend les types de repas) ou autres si ce n'est pas un restaurant
 if ($categorie_offre == 'restauration') {

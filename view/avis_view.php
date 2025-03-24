@@ -47,12 +47,8 @@ $pro_can_answer = (isConnectedAsPro() && $id_pro_must_have == $_SESSION['id_pro'
 // Savoir si l'avis actuel est blacklisté
 $is_blacklisted = (isset($avis['fin_blacklistage']) && $avis['fin_blacklistage'] != null) ? true : false;
 
-if (!function_exists('to_nom_note')) {
-    function to_nom_note($nom_attribut_note): string
-    {
-        return str_replace('_', ' ', explode('_', $nom_attribut_note, 2)[1]);
-    }
-}
+// FONCTION UTILES
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
 ?>
 <!-- CARTE DE L'AVIS COMPORTANT TOUTES LES INFORMATIONS NÉCESSAIRES (MEMBRE) -->
 <div
@@ -153,11 +149,10 @@ if (!function_exists('to_nom_note')) {
         <div class="flex items-center self-end ml-auto gap-5">
             <?php
             // Possibilité de blacklister
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/fonctions.php';
             $duree_blacklistage = parse_config_file('DUREE_BLACKLISTAGE');
             if (!$is_blacklisted && $pro_can_blacklist) { ?>
                 <a onclick="return confirm('Voulez-vous vraiment blacklister cet avis définitivement ? Cela coute un ticket (il vous en reste <?php echo 3 - $nb_blacklistes_en_cours ?>) qui vous sera restitué dans <?php echo $duree_blacklistage ?> jours.')"
-                    href="/scripts/blacklister-avis.php?id_avis=<?php echo $id_avis ?>&duree_blacklistage=<?php echo $duree_blacklistage ?>">
+                    href="/scripts/blacklister_avis.php?id_avis=<?php echo $id_avis ?>&duree_blacklistage=<?php echo $duree_blacklistage ?>">
                     <i title="blacklister l'avis" class="text-xl fa-regular fa-eye-slash hover:text-primary"></i>
                 </a>
             <?php }
@@ -363,8 +358,9 @@ if (!function_exists('to_nom_note')) {
                 </a>
             </div>
 
-            <!-- Texte de la réponse -->
-            <p id="reponse-avis-<?php echo $id_avis ?>" class="hidden italic"> <?php echo $avis['reponse'] ?></p>
+                <!-- Texte de la réponse -->
+                <p id="reponse-avis-<?php echo $id_avis ?>" class="hidden italic"> <?php echo $avis['reponse'] ?></p>
+            </div>
         </div>
 
         <!-- Sinon formulaire de reponse pour le pro s'il est bien connecté -->
@@ -372,7 +368,7 @@ if (!function_exists('to_nom_note')) {
             <div class="p-4 flex flex-col gap-2 justify-start">
                 <!-- Bouton de rédaction de réponse -->
                 <div class="flex gap-4 items-center">
-                    <a class="p-1 hover:cursor-pointer self-start border border-secondary hover:bg-secondary hover:text-white rounded-full px-4 py-2"
+                    <a class="p-1 hover:cursor-pointer self-start border border-secondary hover:bg-secondary hover:text-white"
                         onclick="document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden')">Répondre</a>
                     <a id="send-reponse-avis-<?php echo $id_avis ?>" class="hidden">
                         <i class="fa-regular fa-paper-plane hover:cursor-pointer" title="Envoyer" onclick="let content = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value; let encodedContent = encodeURIComponent(content); if (encodedContent.length > 0) {
@@ -437,6 +433,12 @@ if (!function_exists('to_nom_note')) {
                 $statement->bindParam(1, $id_avis);
                 $statement->bindParam(2, $_SESSION['id_membre']);
 
+                if ($statement->execute()) {
+                    $reaction = $statement->fetch(PDO::FETCH_ASSOC);
+                } else {
+                    echo "ERREUR : Impossible d'obtenir cette réaction";
+                    return -1;
+                }
                 if ($statement->execute()) {
                     $reaction = $statement->fetch(PDO::FETCH_ASSOC);
                 } else {

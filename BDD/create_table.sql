@@ -25,7 +25,9 @@ CREATE TABLE _adresse ( -- Léo -- Léo
     ville VARCHAR(255) NOT NULL,
     numero VARCHAR(255) NOT NULL,
     odonyme VARCHAR(255) NOT NULL,
-    complement VARCHAR(255)
+    complement VARCHAR(255),
+    lat FLOAT NOT NULL DEFAULT 0,
+    lng FLOAT NOT NULL DEFAULT 0
 );
 -------------------------------------------------------------------------------------------------------- Comptes
 -- ARCHITECTURE DES TABLES CI-DESSOUS :
@@ -41,7 +43,9 @@ CREATE TABLE _compte (
     email VARCHAR(255) NOT NULL,
     mdp_hash VARCHAR(255) NOT NULL,
     num_tel VARCHAR(255) NOT NULL,
-    id_adresse INTEGER
+    id_adresse INTEGER,
+    secret_totp VARCHAR(255),
+    totp_active BOOLEAN DEFAULT FALSE NOT NULL
 );
 
 -- Table _membre

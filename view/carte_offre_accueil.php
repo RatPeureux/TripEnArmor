@@ -1,11 +1,6 @@
 <?php
 // FONCTION UTILES
-if (!function_exists('chaineVersMot')) {
-    function chaineVersMot($str): string
-    {
-        return str_replace('_', " d'", ucfirst($str));
-    }
-}
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
 
 // Obtenir les différentes variables avec les infos nécessaires via des requêtes SQL
 require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
@@ -71,7 +66,7 @@ foreach ($horaires as $jour => $horaire) {
 // Composant dynamique (généré avec les données en php)
 // Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
 ?>
-<a class="card <?php if ($option) {
+<a class="card border hover:border-secondary <?php if ($option) {
     echo "active ";
 } ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
