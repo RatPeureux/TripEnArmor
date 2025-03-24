@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -13,16 +12,25 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     <title>Détails d'une offre - PACT</title>
 
     <link rel="icon" href="/public/images/favicon.png">
+
+    <!-- SWIPER -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="/styles/style.css">
-
-    <script type="module" src="/scripts/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/scripts/loadCaroussel.js" type="module"></script>
 
-    <!-- Pour les requêtes ajax -->
+    <!-- NOS FICHIERS -->
+    <script type="module" src="/scripts/main.js"></script>
+    <script src="/scripts/fonctions.js"></script>
+    <link rel="stylesheet" href="/styles/style.css">
+
+    <!-- TAILWIND -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- AJAX -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- LEAFLET -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
@@ -42,14 +50,30 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
-    // Avoir une variable $pro qui contient les informations du pro actuel.
-    $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
-    $stmt->bindParam(':id_offre', $id_offre);
-    $stmt->execute();
-    $id_pro = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
+    // Obtenir l'ensemble des informations de l'offre
+    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
+    if ($id_offre) {
+        $stmt->bindParam(':id_offre', $id_offre);
+    } else {
+        header('location: /404');
+        exit();
+    }
 
+    $stmt->execute();
+    $offre = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (empty($offre)) {
+        header('location: /404');
+        exit();
+    }
+
+    // Vérifier si on est connecté avec le compte du pro qui peut répondre
+    $id_pro_de_offre = $offre['id_pro'];
+    $pro_can_answer = (isConnectedAsPro() && $id_pro_de_offre == $_SESSION['id_pro']) ? true : false;
+
+    // Récupérer les informations du professionnel
     $stmt = $dbh->prepare("SELECT * FROM sae_db._professionnel WHERE id_compte = :id_pro");
-    $stmt->bindParam(':id_pro', $id_pro);
+    $stmt->bindParam(':id_pro', $id_pro_de_offre);
     $stmt->execute();
     $pro = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($pro) {
@@ -91,16 +115,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
         $result["data"]["type"] = "prive";
     }
 
-    // Vérifier si on est connecté avec le compte du pro qui peut répondre
-    $pro_can_answer = false;
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-    $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
-    $stmt->bindParam(':id_offre', $id_offre);
-    $stmt->execute();
-    $id_pro_must_have = $stmt->fetch(PDO::FETCH_ASSOC)['id_pro'];
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-    $pro_can_answer = (isConnectedAsPro() && $id_pro_must_have == $_SESSION['id_pro']) ? true : false;
-
     // Possiblité de blacklister : type_offre = premium, tickets blacklistage restants et pro_can_answer
     $pro_can_blacklist = false;
     $stmt = $dbh->prepare(
@@ -117,34 +131,16 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db.vue_offre_blacklistes_en_cours WHERE id_offre = :id_offre");
     $stmt->bindParam(':id_offre', $id_offre);
     $stmt->execute();
-    $nb_blacklistes_en_cours = $stmt->rowCount();
-    if ($stmt->rowCount() < 3 && $pro_can_answer && $id_type_offre == '2') {
-        $pro_can_blacklist = true;
-    }
+    $pro_can_blacklist = ($stmt->rowCount() < 3 && $pro_can_answer && $id_type_offre == '2') ? true : false;
 
-    // Obtenir l'ensemble des informations de l'offre
-    $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
-    if (isset($_GET['détails']) && $_GET['détails'] !== '') {
-        $stmt->bindParam(':id_offre', $_GET['détails']);
-    } else {
-        header('location: /404');
-        exit();
-    }
-
-    $stmt->execute();
-    $offre = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (empty($offre)) {
-        header('location: /404');
-        exit();
-    }
-
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php'; ?>
+    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/get_details_offre.php';
+    ?>
 
     <!-- Inclusion du header -->
     <?php
     require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
 
+    // Différentes catégoreies : différents affichages
     switch ($categorie_offre) {
         case 'restauration':
 
@@ -253,6 +249,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
             break;
     }
 
+    // Toujours des horaires peu importe le type de l'offre
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controller.php';
     $controllerHoraire = new HoraireController();
     $horaires = $controllerHoraire->getHorairesOfOffre($id_offre);
@@ -324,12 +321,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
-
                 <div
                     class="flex flex-col w-full space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-start md:space-x-4">
+
                     <!-- CAROUSSEL -->
                     <div
-                        class="w-2/3 h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container">
+                        class="w-2/3 h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container border">
                         <!-- Wrapper -->
                         <?php
                         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
@@ -362,13 +359,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                         <div class="swiper-pagination"></div>
 
                         <!-- Boutons de navigation sur la slider -->
-                        <?php if ($images['details']) { ?>
+                        <?php if ($images['details'] || true) { ?>
                             <div class="flex items-center gap-8 justify-center">
                                 <a
-                                    class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 !bg-primary !text-white after:!text-base">
+                                    class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
                                     ‹</a>
                                 <a
-                                    class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 !bg-primary !text-white after:!text-base">
+                                    class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
                                     ›</a>
                             </div>
                             <?php
@@ -377,13 +374,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                     </div>
 
                     <div id="map" class="w-full md:w-1/3 h-[400px] border border-gray-300"></div>
+
                     <?php
-                    // Connexion à la BDD
-                    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-                    // Récupérer l'ID de l'offre depuis l'URL
-                    $id_offre_map = isset($_GET['détails']) ? (int) $_GET['détails'] : 0;
-
                     // Récupérer les détails de l'offre
                     $stmt = $dbh->prepare("
                         SELECT o.*, a.lat, a.lng
@@ -391,14 +383,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                         JOIN sae_db._adresse a ON o.id_adresse = a.id_adresse
                         WHERE o.id_offre = :id_offre
                     ");
-                    $stmt->bindParam(':id_offre', $id_offre_map);
+                    $stmt->bindParam(':id_offre', $id_offre);
                     $stmt->execute();
                     $offre_adresse_map = $stmt->fetch(PDO::FETCH_ASSOC);
                     ?>
                     <script>
                         window.mapConfig = {
                             center: [<?= $offre_adresse_map['lat'] ?? '48.5' ?>, <?= $offre_adresse_map['lng'] ?? '-2.5' ?>], // Coordonnées de l'offre
-                            zoom: 16, 
+                            zoom: 16,
                             selectedOffer: {
                                 id: <?= $offre_adresse_map['id_offre'] ?>,
                                 name: "<?= addslashes($offre_adresse_map['titre']) ?>",
@@ -560,7 +552,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                 </div>
                                 <div class="flex items-center px-2 gap-4">
                                     <i class="w-6 text-center fa-solid fa-money-bill"></i>
-                                    <p class="prix text-sm mt-1"><?php echo $prix_a_afficher ?></p>
+                                    <p class="prix text-sm mt-1" title="<?php echo $title_prix ?>">
+                                        <?php echo $prix_a_afficher; ?>
+                                    </p>
                                 </div>
                             </div>
                             <!-- Description détaillée -->
@@ -823,7 +817,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                             // - a déjà écrit un avis, auquel cas on le voit en premier et on peut le modifier
                             // - n'a pas déjà écrit d'avis, auquel cas un formulaire de création d'avis apparaît
                         
-                            // vérifier si l'utilisateur a écrit un avis
+                            // Vérifier si l'utilisateur a écrit un avis
                             include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
                             $avisController = new AvisController;
                             $mon_avis = $avisController->getAvisByIdMembreEtOffre($_SESSION['id_membre'], $id_offre);
@@ -996,23 +990,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 
                                         <hr class="w-1/2 border border-black self-end my-2  bg-black">
                                     </form>
-
-                                    <script>
-                                        // Eviter de pouvoir sélectionner un date ultérieure au jour actuel
-                                        function setMaxDate() {
-                                            const today = new Date();
-                                            const year = today.getFullYear();
-                                            const month = String(today.getMonth() + 1).padStart(2, '0');
-                                            const day = String(today.getDate()).padStart(2, '0');
-                                            const maxDate = `${year}-${month}-${day}`;
-
-                                            document.getElementById("date_experience").setAttribute("max", maxDate);
-                                        }
-
-                                        // Call the function when the page loads
-                                        window.onload = setMaxDate;
-                                    </script>
-
                                 </div>
                                 <?php
                             }
@@ -1021,9 +998,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                             <?php
                             // UTILISATEUR PAS CONNECTÉ
                         } else if (!isset($_SESSION['id_pro'])) { ?>
-                                <p class="text-sm italic"><a href='/connexion' class="underline">Connectez-vous</a>
-                                    pour rédiger un
-                                    avis</p>
+                                <p class="text-sm italic"><a href='/connexion' class="underline">Connectez-vous</a> pour rédiger
+                                    un avis</p>
                             <?php
                         }
                         ?>
@@ -1044,7 +1020,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                         <img id="loading-indicator" class="w-8 h-6" style="display: none;"
                             src="/public/images/loading.gif" alt="Chargement...">
                     </div>
-
                 </div>
 
                 <!-- A garder ici car il y a du PHP -->
@@ -1052,7 +1027,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                     $(document).ready(function () {
                         // Paramètres à passer au fichier PHP de chargement des avis
                         let idx_avis = 0;
-                        const id_offre = <?php echo $_SESSION['id_offre'] ?>;
+                        const id_offre = <?php echo $_SESSION['id_offre'] ?? '0' ?>;
                         const id_membre = <?php if (isset($_SESSION['id_membre'])) {
                             echo $_SESSION['id_membre'];
                         } else {
@@ -1125,133 +1100,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     ?>
 
     <script>
-        // Configurer les flèches pour faire des dropdown menu stylés
-        function setupToggle(arrowID, buttonID, infoID) {
-            const button = document.getElementById(buttonID);
-            const arrow = document.getElementById(arrowID);
-            const info = document.getElementById(infoID);
-            arrow.classList.toggle('rotate-90');
-
-            if (button) {
-                button.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    arrow.classList.toggle('rotate-90');
-                    info.classList.toggle('hidden');
-                });
-            }
-        }
         setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
         setupToggle('compl-arrow', 'compl-button', 'compl-info');
         <?php if ($pro_can_answer) { ?>
             setupToggle('blacklistes-arrow', 'blacklistes-button', 'avis-blacklistes-container');
         <?php } ?>
         setupToggle('avis-arrow', 'avis-button', 'avis-container');
-        // setupToggle('grille-arrow', 'grille-button', 'grille-info');
-
-        function sendReaction(idAvis, action) {
-            const thumbDown = document.getElementById('thumb-down-' + idAvis);
-            const thumbUp = document.getElementById('thumb-up-' + idAvis);
-            const dislikeCountElement = document.getElementById(`dislike-count-${idAvis}`);
-            const likeCountElement = document.getElementById(`like-count-${idAvis}`);
-
-            // Réinitialisation des icônes
-            thumbDown.classList.remove('fa-solid', 'text-rouge-logo');
-            thumbDown.classList.add('fa-regular');
-
-            thumbUp.classList.remove('fa-solid', 'text-secondary');
-            thumbUp.classList.add('fa-regular');
-
-            // Restauration des événements onclick par défaut
-            thumbDown.onclick = function () {
-                sendReaction(idAvis, 'down'); // Nouvelle action
-            };
-
-            thumbUp.onclick = function () {
-                sendReaction(idAvis, 'up'); // Nouvelle action
-            };
-
-            // Gestion de la réaction "down"
-            if (action === 'down' || action === 'upTOdown') {
-                thumbDown.classList.remove('fa-regular');
-                thumbDown.classList.add('fa-solid', 'text-rouge-logo');
-
-                // Incrémentation du compteur de dislikes
-                const currentDislikes = parseInt(dislikeCountElement.textContent) || 0;
-                dislikeCountElement.textContent = currentDislikes + 1;
-
-                // Décrémentation du compteur de likes si l'utilisateur change de réaction
-                if (action === 'upTOdown') {
-                    const currentLikes = parseInt(likeCountElement.textContent) || 0;
-                    likeCountElement.textContent = currentLikes - 1;
-                }
-
-                // Mise à jour des événements onclick
-                thumbDown.onclick = function () {
-                    sendReaction(idAvis, 'downTOnull'); // Nouvelle action pour annuler
-                };
-
-                thumbUp.onclick = function () {
-                    sendReaction(idAvis, 'downTOup'); // Nouvelle action
-                };
-            }
-
-            // Gestion de la réaction "up"
-            if (action === 'up' || action === 'downTOup') {
-                thumbUp.classList.remove('fa-regular');
-                thumbUp.classList.add('fa-solid', 'text-secondary');
-
-                // Incrémentation du compteur de likes
-                const currentLikes = parseInt(likeCountElement.textContent) || 0;
-                likeCountElement.textContent = currentLikes + 1;
-
-                // Décrémentation du compteur de dislikes si l'utilisateur change de réaction
-                if (action === 'downTOup') {
-                    const currentDislikes = parseInt(dislikeCountElement.textContent) || 0;
-                    dislikeCountElement.textContent = currentDislikes - 1;
-                }
-
-                // Mise à jour des événements onclick
-                thumbUp.onclick = function () {
-                    sendReaction(idAvis, 'upTOnull'); // Nouvelle action pour annuler
-                };
-
-                thumbDown.onclick = function () {
-                    sendReaction(idAvis, 'upTOdown'); // Nouvelle action
-                };
-            }
-
-            if (action === 'upTOnull') {
-                const currentLikes = parseInt(likeCountElement.textContent) || 0;
-                likeCountElement.textContent = currentLikes - 1;
-            }
-
-            if (action === 'downTOnull') {
-                const currentDislikes = parseInt(dislikeCountElement.textContent) || 0;
-                dislikeCountElement.textContent = currentDislikes - 1;
-            }
-
-            // Envoi de la requête pour mettre à jour la réaction
-            const url = `/scripts/thumb.php?id_avis=${idAvis}&action=${action}`;
-
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erreur réseau');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const resultDiv = document.getElementById(`reaction-result-${idAvis}`);
-                    if (data.success) {
-                        resultDiv.innerHTML = `Réaction mise à jour : ${data.message}`;
-                    } else {
-                        resultDiv.innerHTML = `Erreur : ${data.message}`;
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la requête:', error);
-                });
-        }
     </script>
 </body>
 

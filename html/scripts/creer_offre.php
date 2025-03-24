@@ -1,4 +1,7 @@
 <?php
+// FONCTION UTILES
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
+
 // Partie pour traiter la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/model/bdd.php';
@@ -17,23 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         return $minPrice;
     }
 
-    // Fonction pour extraire des informations depuis une adresse complète
-    function extraireInfoAdresse($adresse)
-    {
-        // Utiliser une expression régulière pour extraire le numéro et l'odonyme
-        if (preg_match('/^(\d+)\s+(.*)$/', $adresse, $matches)) {
-            return [
-                'numero' => $matches[1],
-                'odonyme' => $matches[2],
-            ];
-        }
-
-        // Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
-        return [
-            'numero' => '',
-            'odonyme' => $adresse,
-        ];
-    }
     // *********************************************************************************************************************** Récupération des données du POST
     // Récupération des données du formulaire
     // *** Données standard
@@ -42,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $adresse = $_POST['user_input_autocomplete_address'];
     $code = $_POST['postal_code'];
     $ville = $_POST['locality'];
+    $lat = $_POST['lat'];
+    $lng = $_POST['lng'];
     $resume = $_POST['resume'];
     $description = $_POST['description'];
     $accessibilite = $_POST['accessibilite'];
@@ -73,29 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prestations = $_POST['newPrestationName'] ?? [];
     $horaires = $_POST['horaires'] ?? [];
 
-    // Récupérer d'autres valeurs
-
-
     // *********************************************************************************************************************** Insertion
-    /* Ordre de l'insertion :
-    1. [x] Adresse
-    3. [x] Image
-    5. [x] Offre
-    6. [x] Offre_Tag / Restauration_Tag
-    7. [x] Offre_Image
-    8. [x] Offre_Langue
-    9. [x] TypeRepas 
-    10. [x] Offre_Prestation
-    11. Horaires
-    12. [x] Tarif_Public
-    */
     BDD::startTransaction();
     try {
         // Insérer l'adresse dans la base de données
         $realAdresse = extraireInfoAdresse($adresse);
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
         $adresseController = new AdresseController();
-        $id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null);
+        $id_adresse = $adresseController->createAdresse($code, $ville, $realAdresse['numero'], $realAdresse['odonyme'], null, $lat, $lng);
         if (!$id_adresse) {
             echo "Erreur lors de la création de l'adresse.";
             BDD::rollbackTransaction();

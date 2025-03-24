@@ -409,3 +409,45 @@ BEFORE INSERT OR UPDATE ON _avis
 FOR EACH ROW
 EXECUTE FUNCTION check_trois_blacklistages_par_offre();
 
+----------------------------------------- Anonymisation des comptes membre et des avis liés
+CREATE OR REPLACE FUNCTION anonymiser_membre()
+RETURNS TRIGGER AS $$
+DECLARE
+    id_anonyme INT;
+    id_ancien INT;
+BEGIN
+    -- Mettre l'ancien ID dans une variable
+    SELECT OLD.id_compte INTO id_ancien;
+
+    -- Prendre l'ID du compte anonyme
+    SELECT id_compte INTO id_anonyme
+    FROM sae_db._membre
+    WHERE pseudo = 'Anonyme' AND prenom = 'Anonyme' AND nom = '';
+    
+    -- Check if 'Anonyme' account exists
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Le compte anonyme n''existe pas';
+    END IF;
+
+    -- Lier tous les avis au compte anonyme
+    UPDATE sae_db._avis
+    SET id_membre = id_anonyme
+    WHERE id_membre = id_ancien;
+    
+    -- Supprimer les adresses liées au compte
+    DELETE FROM sae_db._adresse
+    WHERE id_adresse IN (
+        SELECT id_adresse
+        FROM sae_db._membre
+        WHERE id_compte = id_ancien
+    );
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS tg_anonymiser_membre ON sae_db._membre;
+CREATE TRIGGER tg_anonymiser_membre
+AFTER DELETE ON sae_db._membre
+FOR EACH ROW
+EXECUTE FUNCTION anonymiser_membre();

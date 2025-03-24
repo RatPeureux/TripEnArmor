@@ -11,7 +11,7 @@ $avisController = new AvisController();
     <?php
     $nb_blacklistes_en_cours = 3 - $nb_tickets;
     if ($nb_blacklistes_en_cours == 0) { ?>
-            <p>Vous avez tous vos tickets</p>
+        <p>Vous avez tous vos tickets</p>
     <?php } else {
         $echeances = [];
         foreach ($blacklistes_en_cours as $b_en_cours) {
@@ -28,14 +28,12 @@ $avisController = new AvisController();
             }
         }
         foreach ($echeances as $date => $nb_t) { ?>
-                    <div>
-                        <p>Le <?php echo $date ?> :</p>
-                        <p class='ml-5'>Vous récupérerez <?php echo $nb_t ?> ticket(s)</p>
-                    </div>
-                    <?php
+            <div>
+                <p>Le <?php echo $date ?> :</p>
+                <p class='ml-5'>Vous récupérerez <?php echo $nb_t ?> ticket(s)</p>
+            </div>
+            <?php
         }
     }
     ?>
-    <p></p>
-
 </div>

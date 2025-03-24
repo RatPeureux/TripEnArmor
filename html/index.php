@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+// Enlever les informations gardées lors des étapes de connexion / inscription quand on revient à la page d'accueil (seul point de sortie de la connexion / inscription)
+unset($_SESSION['data_en_cours_connexion']);
+unset($_SESSION['data_en_cours_inscription']);
+unset($_SESSION['error']);
 ?>
 
 <!DOCTYPE html>
@@ -8,19 +13,23 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/style.css">
     
     <title>PACT</title>
 
+    <!-- FONT AWESOME -->
+    <link rel="icon" href="/public/images/favicon.png">
+    
+    <!-- NOS FICHIERS -->
     <script type="module" src="/scripts/main.js"></script>
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="/scripts/filtersAndSorts.js"></script>
+
+    <!-- LEAFLET -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-
-    <script src="/scripts/filtersAndSorts.js"></script>
 </head>
 
 <body class="flex flex-col min-h-screen">
@@ -45,28 +54,6 @@ session_start();
     ");
     $stmt->execute();
     $aLaUnes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // // Récupérer toutes les moyennes en une seule requête
-    // $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
-    // $notesMoyennes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    // // Associer les moyennes aux offres
-    // $notesAssociees = [];
-    // foreach ($notesMoyennes as $note) {
-    //     $notesAssociees[$note['id_offre']] = floatval($note['avg']);
-    // }
-    
-    // // Créer un tableau temporaire enrichi
-    // $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
-    //     $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
-    //     return $offre;
-    // }, $toutesLesOffres);
-    
-    // usort($offresAvecNotes, function ($a, $b) {
-    //     return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
-    // });
-    
-    // $meilleuresNotes = $offresAvecNotes;
     ?>
 
     <!-- Inclusion du header -->
@@ -77,12 +64,6 @@ session_start();
     ?>
 
     <!-- Menu -->
-    <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
-        <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la
-            Une</a>
-        <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
-    </div>
-
     <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
         <div class="w-full flex justify-center gap-10 text-center">
             <img src="public/images/plumeGN.png" alt="Plume du moine macareux"

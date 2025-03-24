@@ -44,3 +44,21 @@ if (!function_exists('to_nom_note')) {
         return str_replace('_', ' ', explode('_', $nom_attribut_note, 2)[1]);
     }
 }
+
+if (!function_exists('extraireInfoAdresse')) {
+    function extraireInfoAdresse($adresse)
+    {
+        // Utiliser une expression régulière pour extraire le numéro et l'odonyme
+        if (preg_match('/^(\d+)\s+(.*)$/', $adresse, $matches)) {
+            return [
+                'numero' => $matches[1],
+                'odonyme' => $matches[2],
+            ];
+        }
+        // Si l'adresse ne correspond pas au format attendu, retourner des valeurs par défaut
+        return [
+            'numero' => '',
+            'odonyme' => $adresse,
+        ];
+    }
+}
