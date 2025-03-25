@@ -27,7 +27,8 @@ $note_service = isset($_POST['note_service']) ? floatval($_POST['note_service'])
 $note_cuisine = isset($_POST['note_cuisine']) ? floatval($_POST['note_cuisine']) : null;
 $note_rapport = isset($_POST['note_rapport']) ? floatval($_POST['note_rapport']) : null;
 
-if ($id_avis_inserted) {
+// Si c'est un restaurant
+if ($id_avis_inserted && $note_cuisine) {
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("INSERT INTO sae_db._avis_restauration_note (id_avis, id_restauration, note_ambiance, note_service, note_cuisine, rapport_qualite_prix)
     VALUES (:id_avis, :id_restauration, :note_ambiance, :note_service, :note_cuisine, :rapport_qualite_prix)");
@@ -40,6 +41,8 @@ if ($id_avis_inserted) {
     $stmt->execute();
 }
 
+// Tout s'est bien passé
+$_SESSION['message_pour_notification'] = 'Votre avis a été créé et publié';
 if (isset($id_avis_inserted)) {
-    header('Location: /offre?détails=' . $id_offre);
+    header('Location: /scripts/go_to_details?id_offre=' . $id_offre);
 }

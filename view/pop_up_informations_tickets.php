@@ -3,7 +3,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/controller/avis_controller.p
 $avisController = new AvisController();
 ?>
 
-<div class="z-30 p-5 bg-white border border-black flex flex-col gap-5">
+<div class="z-30 p-5 bg-white border border-black flex flex-col gap-5 max-w-[350px]">
 
     <!-- Information sur vos tickets concernant -->
     <h2 class="text-2xl text-center">Tickets de blacklistage</h2>
@@ -34,6 +34,9 @@ $avisController = new AvisController();
             </div>
             <?php
         }
+        ?>
+        <p class="italic text-small">Ou lorsque l'un des avis blacklistés sera supprimé par l'utilisateur</p>
+        <?php
     }
     ?>
 </div>

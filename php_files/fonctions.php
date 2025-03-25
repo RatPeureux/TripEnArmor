@@ -62,3 +62,30 @@ if (!function_exists('extraireInfoAdresse')) {
         ];
     }
 }
+
+if (!function_exists('extraireRibDepuisIban')) {
+    function extraireRibDepuisIban($iban)
+    {
+        // Supprimer les espaces
+        $iban = str_replace(' ', '', $iban);
+        $code_banque = substr($iban, 4, 5);
+        $code_guichet = substr($iban, 9, 5);
+        $numero_compte = substr($iban, 14, 11);
+        $cle = substr($iban, 25, 2);
+
+        return [
+            'code_banque' => $code_banque,
+            'code_guichet' => $code_guichet,
+            'numero_compte' => $numero_compte,
+            'cle' => $cle,
+        ];
+    }
+}
+
+if (!function_exists('extraireIbanDepuisRib')) {
+    function extraireIbanDepuisRib($rib)
+    {
+        $res = 'FR76' . $rib['code_banque'] . $rib['code_guichet'] . $rib['numero_compte'] . $rib['cle'];
+        return implode(' ', str_split($res, 4));
+    }
+}

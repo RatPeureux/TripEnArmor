@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
+// Récupérer les infos du pro
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 $pro = verifyPro();
 ?>
 <!DOCTYPE html>
@@ -12,11 +12,10 @@ $pro = verifyPro();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- NOS FICHIERS -->
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-    <script src="/styles/config.js"></script>
     <script type="module" src="/scripts/main.js"></script>
-    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Mon compte - Professionnel - PACT</title>
 </head>

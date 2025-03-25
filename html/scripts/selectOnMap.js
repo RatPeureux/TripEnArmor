@@ -57,7 +57,7 @@ map.on('geosearch/showlocation', function (event) {
                     document.getElementById("postal_code").value = postalCode;
                     document.getElementById("locality").value = city;
 
-                    // Déclencher manuellement les événements 'input' ou 'change'
+                    // Déclencher manuellement les événements 'input' pour activer certains boutons éventuellement
                     document.getElementById("user_input_autocomplete_address").dispatchEvent(new Event('input'));
                     document.getElementById("postal_code").dispatchEvent(new Event('input'));
                     document.getElementById("locality").dispatchEvent(new Event('input'));

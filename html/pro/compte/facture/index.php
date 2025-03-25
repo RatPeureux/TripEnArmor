@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+// Connexion à la BDD
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+// Vérifier que l'on est bien pro
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 $pro = verifyPro();
 ?>
@@ -11,11 +16,12 @@ $pro = verifyPro();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- NOS FICHIERS -->
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
-    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
+    <!-- Gestion des PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -34,7 +40,6 @@ $pro = verifyPro();
 
     <?php
     // OBTENIR TOUTES LES OFFRES DU PRO
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmtOffre = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_pro = :id_pro");
     $stmtOffre->bindParam(':id_pro', $_SESSION['id_pro'], PDO::PARAM_INT);
 
@@ -141,7 +146,7 @@ $pro = verifyPro();
 
         <!-- Prévisualiser une facture pour une offre -->
         <?php
-        require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+        // Controllers
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/facture_controller.php';
         $factureController = new FactureController();
 
@@ -384,7 +389,6 @@ $pro = verifyPro();
                 // Fermer l'affichage de la facture car ce n'est pas l'objectif lors du téléchargement
                 closeFacture();
             }
-
 
             // Trier la table selon différents critères
             function sortTable(n) {

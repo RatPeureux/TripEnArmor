@@ -8,6 +8,10 @@
 
 <?php
 session_start();
+
+// Connexion à la BDD
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
 if ($mode == 'avis') {
     $is_mon_avis = false;
 } else if ($mode == 'mon_avis') {
@@ -32,7 +36,6 @@ $restauration = $restaurationController->getInfosRestauration($avis['id_offre'])
 $avis = $avisController->getAvisById($id_avis);
 
 // Vérifier si on est connecté avec le compte du pro qui peut répondre
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 $stmt = $dbh->prepare("SELECT id_pro FROM sae_db._offre WHERE id_offre = :id_offre");
 $stmt->bindParam(':id_offre', $avis['id_offre']);
 $stmt->execute();
@@ -219,7 +222,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
     // Notes pour les restaurants
     if ($restauration) { ?>
         <div class='flex md:flex-row flex-col justify-between flex-wrap'>
-            <?php require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+            <?php
             $stmt = $dbh->prepare("SELECT * FROM sae_db._avis_restauration_note WHERE id_avis = :id_avis AND id_restauration = :id_restauration");
             $stmt->bindParam(":id_avis", $id_avis);
             $stmt->bindParam(":id_restauration", $restauration['id_offre']);
@@ -331,8 +334,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
 
     <!-- POUCES -->
     <?php
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
     $statement = $dbh->prepare("SELECT * FROM sae_db.vue_avis_reaction_counter WHERE id_avis = ?");
     $statement->bindParam(1, $id_avis);
     $statement->execute();
