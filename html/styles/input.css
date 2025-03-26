@@ -76,6 +76,16 @@ label:has(+ select[required])::after {
   background-color: var(--primary-color) !important;
 }
 
+/* Afficher les notifications à droite en bas */
+.right-5 {
+  right: .5rem;
+}
+
+/* Eviter que le layer de la carte ne cache les notifications */
+.leaflet-pane {
+  z-index: 40 !important;
+}
+
 /* Checkboxs */
 input[type="checkbox"] {
   appearance: none;

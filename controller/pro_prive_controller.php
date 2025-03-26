@@ -31,7 +31,8 @@ class ProPriveController
                 "num_siren" => $proPrive["num_siren"],
                 "id_rib" => $proPrive["id_rib"],
                 "secret_totp" => $proPrive["secret_totp"],
-                "totp_active" => $proPrive["totp_active"]
+                "totp_active" => $proPrive["totp_active"],
+                "api_key" => $proPrive["api_key"]
             ];
         } else {
             return false;

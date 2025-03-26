@@ -714,10 +714,6 @@ video {
   bottom: 0px;
 }
 
-.bottom-5 {
-  bottom: 1.25rem;
-}
-
 .bottom-\[72px\] {
   bottom: 72px;
 }
@@ -740,10 +736,6 @@ video {
 
 .right-4 {
   right: 1rem;
-}
-
-.right-5 {
-  right: 1.25rem;
 }
 
 .top-0 {
@@ -1146,10 +1138,6 @@ video {
   width: 0.75rem;
 }
 
-.w-32 {
-  width: 8rem;
-}
-
 .w-36 {
   width: 9rem;
 }
@@ -1200,6 +1188,10 @@ video {
 
 .w-\[50px\] {
   width: 50px;
+}
+
+.w-\[70px\] {
+  width: 70px;
 }
 
 .w-fit {
@@ -1292,10 +1284,6 @@ video {
 
 .max-w-\[60\%\] {
   max-width: 60%;
-}
-
-.max-w-\[600px\] {
-  max-width: 600px;
 }
 
 .max-w-\[720px\] {
@@ -1651,10 +1639,6 @@ video {
 
 .break-words {
   overflow-wrap: break-word;
-}
-
-.rounded {
-  border-radius: 0.25rem;
 }
 
 .rounded-full {
@@ -3202,11 +3186,6 @@ video {
   color: rgb(34 197 94 / var(--tw-text-opacity));
 }
 
-.text-green-600 {
-  --tw-text-opacity: 1;
-  color: rgb(22 163 74 / var(--tw-text-opacity));
-}
-
 .text-gris {
   --tw-text-opacity: 1;
   color: rgb(130 130 130 / var(--tw-text-opacity));
@@ -3368,6 +3347,18 @@ label:has(+ select[required])::after {
 
 .swiper-pagination-bullet-active {
   background-color: var(--primary-color) !important;
+}
+
+/* Afficher les notifications à droite en bas */
+
+.right-5 {
+  right: .5rem;
+}
+
+/* Eviter que le layer de la carte ne cache les notifications */
+
+.leaflet-pane {
+  z-index: 40 !important;
 }
 
 /* Checkboxs */
@@ -3592,6 +3583,16 @@ input[type="checkbox"]:checked:before {
   border-color: rgb(10 0 53 / 0.9);
 }
 
+.hover\:border-white:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
+.hover\:\!bg-primary:hover {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(242 119 27 / var(--tw-bg-opacity)) !important;
+}
+
 .hover\:\!bg-white:hover {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
@@ -3600,6 +3601,11 @@ input[type="checkbox"]:checked:before {
 .hover\:bg-base100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(241 243 244 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-black:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-blue-100:hover {

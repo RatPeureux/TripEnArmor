@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 ?>
 
@@ -9,9 +10,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails d'une offre - PACT</title>
 
-    <link rel="icon" href="/public/images/favicon.png">
+    <title>Détails d'une offre - PACT</title>
 
     <!-- SWIPER -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -20,8 +20,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     <script src="/scripts/loadCaroussel.js" type="module"></script>
 
     <!-- NOS FICHIERS -->
+    <link rel="icon" href="/public/images/favicon.png">
     <script type="module" src="/scripts/main.js"></script>
-    <script src="/scripts/fonctions.js"></script>
     <link rel="stylesheet" href="/styles/style.css">
 
     <!-- AJAX -->
@@ -33,7 +33,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-
 </head>
 
 <body class="flex flex-col">
@@ -1113,13 +1112,16 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     ?>
 
     <script>
-        setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
-        setupToggle('compl-arrow', 'compl-button', 'compl-info');
-        <?php if ($pro_can_answer) { ?>
-            setupToggle('blacklistes-arrow', 'blacklistes-button', 'avis-blacklistes-container');
-        <?php } ?>
-        setupToggle('avis-arrow', 'avis-button', 'avis-container');
+        document.addEventListener('DOMContentLoaded', () => {
+            setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
+            setupToggle('compl-arrow', 'compl-button', 'compl-info');
+            <?php if ($pro_can_answer) { ?>
+                setupToggle('blacklistes-arrow', 'blacklistes-button', 'avis-blacklistes-container');
+            <?php } ?>
+            setupToggle('avis-arrow', 'avis-button', 'avis-container');
+        });
     </script>
+
 </body>
 
 </html>

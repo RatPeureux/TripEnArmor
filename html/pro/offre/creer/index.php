@@ -319,7 +319,9 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
 
             BDD::commitTransaction();
 
+            // Tout s'est bien passé (ouf !)
             header('location: /pro');
+            $_SESSION['message_pour_notification'] = 'Votre offre a été créée';
         } catch (Exception $e) {
             echo "Erreur lors de l'insertion : " . $e->getMessage();
             BDD::rollbackTransaction();

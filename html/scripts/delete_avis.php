@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $id_avis = $_GET['id_avis'];
 $id_offre = $_GET['id_offre'];
 
@@ -20,6 +22,9 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.p
 $avisController = new AvisController();
 $avisController->deleteAvis($id_avis);
 
+
+// Tout s'est bien passé
+$_SESSION['message_pour_notification'] = 'Votre avis a été supprimé';
 if (isset($_SERVER['HTTP_REFERER'])) {
     // Revenir à la page sur laquelle on était
     header("Location: " . $_SERVER['HTTP_REFERER']);
@@ -29,4 +34,3 @@ if (isset($_SERVER['HTTP_REFERER'])) {
     header("location: /offre?id=$id_offre");
     exit();
 }
-
