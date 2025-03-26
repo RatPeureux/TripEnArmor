@@ -13,7 +13,7 @@
             <p>Trier par</p>
         </a>
         <!-- DROPDOWN MENU TRIS TÉLÉPHONE -->
-        <div class="hidden md:hidden absolute bottom-[72px] right-2 z-20 bg-white border border-black shadow-md max-w-48 p-2 flex flex-col gap-4"
+        <div class="hidden md:hidden absolute bottom-[72px] right-2 z-50 bg-white border border-black shadow-md max-w-48 p-2 flex flex-col gap-4"
             id="sort-section-tel">
             <a href="<?php
             // Base URL sans les paramètres
