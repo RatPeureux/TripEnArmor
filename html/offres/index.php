@@ -166,6 +166,11 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 </div>
             </div>
 
+            <!-- Inclusion des interfaces de tris (tablette et +) -->
+            <?php
+            include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/tris_tab.php';
+            ?>
+
             <div id="map" class="w-full h-[400px] border border-gray-300 mb-4"></div>
 
             <script>
@@ -175,11 +180,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 };
             </script>
             <script src="/scripts/map.js"></script>
-
-            <!-- Inclusion des interfaces de tris (tablette et +) -->
-            <?php
-            include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/tris_tab.php';
-            ?>
 
             <?php
             // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette

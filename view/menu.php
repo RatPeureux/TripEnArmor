@@ -197,6 +197,8 @@
         </div>
       </div>
     </div>
+
+    <script src="/scripts/filtersAndSorts.js"></script>
   <?php } ?>
 </div>
 

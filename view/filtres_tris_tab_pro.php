@@ -1,7 +1,7 @@
 <!-- DROPDOWN MENU TRIS TABLETTE-->
-<div class="hidden md:hidden relative" id="sort-section-tab">
+<div class="hidden md:hidden relative z-50" id="sort-section-tab">
     <div
-        class="absolute top-0 right-0 z-20 self-end bg-white border border-black shadow-md max-w-48 p-2 flex flex-col gap-4">
+        class="absolute top-0 right-0 self-end bg-white border border-black shadow-md max-w-48 p-2 flex flex-col gap-4">
         <a href="<?php
         // Base URL sans les paramètres
         $baseUrl = strtok($_SERVER['PHP_SELF'], '?');

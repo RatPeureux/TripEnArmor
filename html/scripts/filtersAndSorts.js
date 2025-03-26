@@ -467,8 +467,8 @@ document.addEventListener("DOMContentLoaded", function () {
 				matchesTag
 			) {
 				offre.classList.remove("hidden");
-				anyVisible = true; // Au moins une offre est visible
-				showMarkerWithId(offre.id)
+				anyVisible = true;
+				showMarkerWithId(offre.id);
 			} else {
 				offre.classList.add("hidden");
 				hideMarkerWithId(offre.id);
