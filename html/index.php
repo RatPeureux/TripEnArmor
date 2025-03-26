@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+// Enlever les informations gardées lors des étapes de connexion / inscription quand on revient à la page d'accueil (seul point de sortie de la connexion / inscription)
+unset($_SESSION['data_en_cours_connexion']);
+unset($_SESSION['data_en_cours_inscription']);
+unset($_SESSION['error']);
 ?>
 
 <!DOCTYPE html>
@@ -8,14 +13,23 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/style.css">
-
-    <script src="/scripts/main.js" type="module"></script>
-
+    
     <title>PACT</title>
 
+    <!-- FONT AWESOME -->
+    <link rel="icon" href="/public/images/favicon.png">
+    
+    <!-- NOS FICHIERS -->
+    <script type="module" src="/scripts/main.js"></script>
+    <link rel="stylesheet" href="/styles/style.css">
     <script src="/scripts/filtersAndSorts.js"></script>
+
+    <!-- LEAFLET -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 </head>
 
 <body class="flex flex-col min-h-screen">
@@ -40,76 +54,16 @@ session_start();
     ");
     $stmt->execute();
     $aLaUnes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // // Récupérer toutes les moyennes en une seule requête
-    // $stmt = $dbh->query("SELECT id_offre, avg FROM sae_db.vue_moyenne");
-    // $notesMoyennes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // // Associer les moyennes aux offres
-    // $notesAssociees = [];
-    // foreach ($notesMoyennes as $note) {
-    //     $notesAssociees[$note['id_offre']] = floatval($note['avg']);
-    // }
-
-    // // Créer un tableau temporaire enrichi
-    // $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
-    //     $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
-    //     return $offre;
-    // }, $toutesLesOffres);
-
-    // usort($offresAvecNotes, function ($a, $b) {
-    //     return $b['note_moyenne'] <=> $a['note_moyenne']; // Tri décroissant
-    // });
-
-    // $meilleuresNotes = $offresAvecNotes;
     ?>
 
+    <!-- Inclusion du header -->
+    <?php
+    $is_header_accueil = true;
+    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
+    unset($is_header_accueil);
+    ?>
 
-    <header class="flex justify-between items-center z-30 w-full h-16 top-0 mx-auto max-w-[1280px] px-4">
-        <div class="flex items-center justify-between md:gap-4">
-            <!-- Logo -->
-            <a href="/" class="flex items-center gap-2">
-                <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="50">
-            </a>
-        </div>
-
-        <!-- Menu -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
-            <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la
-                Une</a>
-            <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
-        </div>
-
-        <!-- Actions Utilisateur -->
-        <div class="flex items-center text-sm gap-4">
-            <?php
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-            if (isConnectedAsMember()) { ?>
-                    <!-- Si connecté -->
-                    <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
-                        onclick="return confirmLogout()">
-                        <div class="text-black border border-secondary px-4 py-2 rounded-full">
-                            <p>Se déconnecter</p>
-                        </div>
-                    </a>
-                    <a href="/compte">
-                        <i class="text-3xl fa-regular fa-user"></i>
-                    </a>
-            <?php } else { ?>
-                    <!-- Si non connecté -->
-                    <a href="/connexion" class="md:hidden">
-                        <i class="text-3xl fa-regular fa-user"></i>
-                    </a>
-                    <a href="/connexion" class="hidden md:block">
-                        <div
-                            class="text-white border border-secondary bg-secondary px-4 py-2 rounded-full hover:bg-secondary/90">
-                            <p>Se connecter</p>
-                        </div>
-                    </a>
-            <?php } ?>
-        </div>
-    </header>
-
+    <!-- Menu -->
     <main class="self-center align-center w-full grow justify-between max-w-[1280px] px-2 pb-2">
         <div class="w-full flex justify-center gap-10 text-center">
             <img src="public/images/plumeGN.png" alt="Plume du moine macareux"
@@ -175,26 +129,26 @@ session_start();
         </div>
 
         <a class="cursor-pointer group" href="/offres/a-la-une">
-            <h1 class="text-3xl ">À la Une<span
-                    class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h1>
+            <h2 class="text-3xl ">À la Une<span
+                    class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h2>
         </a>
 
         <?php
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$aLaUnes) { ?>
-                <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
-                    <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
-                </div>
+            <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
+                <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
+            </div>
         <?php } else { ?>
-                <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
-                    <?php $i = 0;
-                    foreach ($aLaUnes as $offre) {
-                        if ($i > -1) {
-                            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
-                            $i++;
-                        }
-                    } ?>
-                </div>
+            <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
+                <?php $i = 0;
+                foreach ($aLaUnes as $offre) {
+                    if ($i > -1) {
+                        require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
+                        $i++;
+                    }
+                } ?>
+            </div>
         <?php } ?>
 
         <!-- <h1 class="text-3xl ">Nos meilleures offres</h1>
@@ -253,6 +207,17 @@ session_start();
                     } ?>
                 </div>
         <?php } ?> -->
+
+        <h2 class="text-3xl mb-2">Carte des offres</h2>
+        <div id="map" class="w-full h-[600px] border border-gray-300"></div>
+
+        <script>
+            window.mapConfig = {
+                center: [48.1, -2.5],
+                zoom: 8,
+            };
+        </script>
+        <script src="/scripts/map.js"></script>
     </main>
 
     <!-- FOOTER -->

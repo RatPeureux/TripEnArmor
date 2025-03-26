@@ -8,13 +8,8 @@ unset($_SESSION['data_en_cours_connexion']);
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 $pro = verifyPro();
 
-// Fonction utilitaires
-if (!function_exists('chaineVersMot')) {
-    function chaineVersMot($str): string
-    {
-        return str_replace('_', " d'", ucfirst($str));
-    }
-}
+// Fonctions utiles
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
 ?>
 
 <!DOCTYPE html>
@@ -24,9 +19,11 @@ if (!function_exists('chaineVersMot')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- FONT AWESOME -->
     <link rel="icon" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/style.css">
 
+    <!-- NOS FICHIERS -->
+    <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
 
     <title>Mes offres - Professionnel - PACT</title>
@@ -206,8 +203,8 @@ if (!function_exists('chaineVersMot')) {
                     } ?>
                 </div>
             <?php } ?>
-
         </div>
+
         <div class="w-full h-fit xl:h-full xl:max-w-7xl xl:grow p-4">
             <div class="flex 3xl:flex-col min-[1760px]:flex-row justify-between items-center mb-4">
                 <h2 class="text-3xl">
@@ -218,7 +215,7 @@ if (!function_exists('chaineVersMot')) {
                     <button type="submit"
                         class="rounded-full bg-secondary text-white text-sm py-2 px-4 border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]"
                         tabindex="0">
-                        Tout supprimer
+                        Marquer comme lu
                     </button>
                 </form>
             </div>

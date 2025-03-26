@@ -4,21 +4,15 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
 $membre = verifyMember();
-$id_membre = $_SESSION['id_membre'];
+$id_membre = $membre['id_compte'];
 
 // Connexion avec la bdd
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
-$controllerMembre = new MembreController();
-$membre = $controllerMembre->getInfosMembre($id_membre);
 
 if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
     $controllerMembre->updateMembre($membre['id_compte'], false, false, false, false, $_POST['pseudo'], false);
     unset($_POST['pseudo']);
 }
-
-$membre = verifyMember();
 ?>
 
 <!DOCTYPE html>
@@ -37,23 +31,6 @@ $membre = verifyMember();
 </head>
 
 <body class="min-h-screen flex flex-col">
-    <?php
-    $id_membre = $_SESSION['id_membre'];
-
-    // Connexion avec la bdd
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
-    // Récupération des informations du compte
-    $stmt = $dbh->prepare('SELECT * FROM sae_db._membre WHERE id_compte = :id_membre');
-    $stmt->bindParam(':id_membre', $id_membre);
-    $stmt->execute();
-    $id_membre = $stmt->fetch(PDO::FETCH_ASSOC)['id_compte'];
-
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
-    $controllerMembre = new MembreController();
-    $membre = $controllerMembre->getInfosMembre($id_membre);
-    ?>
-
     <!-- Inclusion du header -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';

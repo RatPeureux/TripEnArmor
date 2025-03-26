@@ -18,30 +18,29 @@ class AdresseController
     {
         $adresse = $this->model::getAdresseById($id);
 
-
         $res = [
             "code_postal" => $adresse["code_postal"],
             "ville" => $adresse["ville"],
             "numero" => $adresse["numero"],
             "odonyme" => $adresse["odonyme"],
-            "complement" => $adresse["complement"]
+            "complement" => $adresse["complement"],
+            "lat" => $adresse['lat'],
+            "lng" => $adresse['lng'],
         ];
-
 
         $this->model::log("Les informations de l'adresse $id ont été lues.");
         return $res;
     }
 
-    public function createAdresse($code_postal, $ville, $numero, $odonyme, $complement)
+    public function createAdresse($code_postal, $ville, $numero, $odonyme, $complement, $lat, $lng)
     {
-        $adresse = $this->model::createAdresse($code_postal, $ville, $numero, $odonyme, $complement);
-
+        $adresse = $this->model::createAdresse($code_postal, $ville, $numero, $odonyme, $complement, $lat, $lng);
 
         $this->model::log("Une adresse a été créée.");
         return $adresse;
     }
 
-    public function updateAdresse($id, $code_postal = false, $ville = false, $numero = null, $odonyme = null, $complement = null)
+    public function updateAdresse($id, $code_postal = false, $ville = false, $numero = null, $odonyme = null, $complement = null, $lat = null, $lng = null)
     {
         if ($ville === false && $numero === false && $odonyme === false && $complement === false) {
             $this->model::log("Aucune information n'a été modifiée.");
@@ -50,28 +49,23 @@ class AdresseController
             $adresse = $this->model::getAdresseById($id);
         }
 
-
         $res = $this->model::updateAdresse(
             $id,
             $code_postal !== false ? $code_postal : $adresse["code_postal"],
             $ville !== false ? $ville : $adresse["ville"],
             $numero !== false ? $numero : $adresse["numero"],
             $odonyme !== false ? $odonyme : $adresse["odonyme"],
-            $complement !== false ? $complement : $adresse["complement"]
+            $complement !== false ? $complement : $adresse["complement"],
+            $lat !== false ? $lat : $adresse["lat"],
+            $lng !== false ? $lng : $adresse["lng"]
         );
-
 
         if (!$res) {
             throw new Exception("Échec de la mise à jour.");
         }
 
-
-        echo "Mise à jour réussie.";
         return $res;
     }
-
-
-
 
     public function deleteAdresse($id)
     {
@@ -82,4 +76,3 @@ class AdresseController
         return $adresse;
     }
 }
-

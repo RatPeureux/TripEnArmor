@@ -46,10 +46,10 @@ $stmt->bindParam(':id_pro', $id_pro);
 $stmt->execute();
 $pro_details = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$stmtAdresse = $dbh->prepare("SELECT * FROM sae_db._adresse WHERE id_adresse = :id_adresse");
-$stmtAdresse->bindParam(':id_adresse', $pro_details['id_adresse'], PDO::PARAM_INT);
-$stmtAdresse->execute();
-$adresse_details = $stmtAdresse->fetch(PDO::FETCH_ASSOC);
+// Infos sur l'adresse
+require_once $_SERVER['DOCUMENT_ROOT'] . '/../controller/adresse_controller.php';
+$adresseController = new AdresseController();
+$adresse_details = $adresseController->getInfosAdresse($id_adresse);
 
 // Dates et numéro de facture
 $date_emission = new DateTime($facture['date_emission']);

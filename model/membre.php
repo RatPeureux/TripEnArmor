@@ -9,7 +9,7 @@ class Membre extends BDD
     static function createMembre($email, $mdp, $tel, $adresseId, $pseudo, $prenom, $nom)
     {
         self::initBDD();
-        $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse, pseudo, nom, prenom" . self::$nom_table . "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id_compte";
+        $query = "INSERT INTO " . self::$nom_table . " (email, mdp_hash, num_tel, id_adresse, pseudo, nom, prenom) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id_compte";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);
@@ -20,7 +20,7 @@ class Membre extends BDD
         $statement->bindParam(7, $nom);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id_compte'];
+            return $statement->fetch()['id_compte'];
         } else {
             echo "ERREUR: Impossible de créer le compte membre";
             return -1;

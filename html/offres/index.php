@@ -1,10 +1,8 @@
 <?php
 session_start();
-// Enlever les informations gardées lors des étapes de connexion / inscription quand on revient à la page d'accueil (seul point de sortie de la connexion / inscription)
-unset($_SESSION['data_en_cours_connexion']);
-unset($_SESSION['data_en_cours_inscription']);
-unset($_SESSION['error']);
-
+// Connexion avec la bdd
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+// Authentification
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 ?>
 
@@ -14,12 +12,25 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/style.css">
-
-    <script type="module" src="/scripts/main.js"></script>
-
+    
     <title>Toutes les offres - PACT</title>
+    
+    <!-- FONT AWESOME -->
+    <link rel="icon" href="/public/images/favicon.png">
+
+    <!-- TAILWIND -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- NOS FICHIERS -->
+    <link rel="stylesheet" href="/styles/style.css">
+    <script type="module" src="/scripts/main.js"></script>
+    
+    <!-- LEAFLET -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
@@ -30,9 +41,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     ?>
 
     <?php
-    // Connexion avec la bdd
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
-
     // Obtenez l'ensemble des offres avec le tri approprié
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE est_en_ligne = true");
     $stmt->execute();
@@ -133,14 +141,15 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     }
     ?>
 
-    <!-- MAIN (TABLETTE et TÉLÉPHONE -->
+    <!-- MAIN (TABLETTE et TÉLÉPHONE) -->
     <div class="w-full grow flex items-start justify-center mx-auto p-2 md:max-w-[1280px]">
 
         <!-- Inclusion du menu et de l'interface de filtres (tablette et +) -->
         <div id="menu">
             <?php
             $pagination = 3;
-            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu+filtres.php';
+            $menu_avec_filtres = true;
+            require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
             ?>
         </div>
 
@@ -150,7 +159,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <div class="flex flex-wrap gap-4" id="tags-container"></div>
 
             <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
-            <div class="flex justify-between items-end mb-2">
+            <div class="flex justify-between items-end mb-2 mt-6">
                 <h1 class="text-3xl ">Toutes les offres</h1>
 
                 <div class="hidden md:flex gap-4">
@@ -161,6 +170,16 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                     </a>
                 </div>
             </div>
+
+            <div id="map" class="w-full h-[400px] border border-gray-300 mb-4"></div>
+
+            <script>
+                window.mapConfig = {
+                    center: [48.1, -2.5],
+                    zoom: 8
+                };
+            </script>
+            <script src="/scripts/map.js"></script>
 
             <!-- Inclusion des interfaces de tris (tablette et +) -->
             <?php

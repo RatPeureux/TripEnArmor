@@ -29,7 +29,7 @@ class ProPublic extends BDD
     static function getProPublicById($id)
     {
         self::initBDD();
-        $query = "SELECT * FROM " . self::$nom_table . " WHERE id_compte = ?";
+        $query = "SELECT * FROM " . self::$nom_table . " p JOIN sae_db._compte c ON c.id_compte = p.id_compte WHERE p.id_compte = ?";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $id);
 
