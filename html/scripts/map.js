@@ -43,30 +43,16 @@ fetch("/api/get_offers.php")
 	.catch(error => console.error("Erreur lors du chargement des offres :", error));
 
 function hideMarkerWithId(id) {
-	console.log(clusterGroup);
-	clusterGroup.eachLayer(layer => {
-		console.log("je suis dans le eachLayer");
-		if (layer.getPopup()) {
-			const popupContent = layer.getPopup().getContent();
-			if (popupContent.includes(`id_offre=${id}`)) {
-				clusterGroup.removeLayer(layer);
-				console.log("Marker hidden with id:", id);
-			}
-		}
+	console.log("In hideMarker")
+	clusterGroup.eachLayer(function (layer) {
+		console.log(layer);
 	});
 }
 
 function showMarkerWithId(id) {
-	console.log(clusterGroup);
-	clusterGroup.eachLayer(layer => {
+	console.log("In showMarkerWithId");
+	clusterGroup.eachLayer(function (layer) {
 		console.log(layer);
-		if (layer.getPopup()) {
-			const popupContent = layer.getPopup().getContent();
-			if (popupContent.includes(`id_offre=${id}`)) {
-				map.addLayer(layer);
-				console.log("after showMarkerWithId", id);
-			}
-		}
 	});
 }
 
