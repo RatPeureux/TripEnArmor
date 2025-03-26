@@ -8,6 +8,8 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 var clusterGroup = L.markerClusterGroup();
+var visibleMarkers = {};
+var hiddenMarkers = {};
 
 // Ajouter l’offre sélectionnée UNIQUEMENT si elle existe
 if (mapData.selectedOffer && mapData.selectedOffer.lat && mapData.selectedOffer.lng) {
@@ -33,6 +35,7 @@ fetch("/api/get_offers.php")
 							${offer.resume}<br>
 							<a href="/scripts/go_to_details.php?id_offre=${offer.id_offre}" target="_blank">Voir l'offre</a>
 						`);
+					visibleMarkers[offer.id_offre] = marker;
 					clusterGroup.addLayer(marker);
 				}
 			}
@@ -43,30 +46,32 @@ fetch("/api/get_offers.php")
 	.catch(error => console.error("Erreur lors du chargement des offres :", error));
 
 function hideMarkerWithId(id) {
-	console.log(clusterGroup);
-	clusterGroup.eachLayer(layer => {
-		console.log("je suis dans le eachLayer");
-		if (layer.getPopup()) {
-			const popupContent = layer.getPopup().getContent();
-			if (popupContent.includes(`id_offre=${id}`)) {
-				clusterGroup.removeLayer(layer);
-				console.log("Marker hidden with id:", id);
-			}
+	console.log("In Hide")
+	console.log(id);
+	for (var key in visibleMarkers) {
+		console.log(key);
+		if (key == id) {
+			var layer = visibleMarkers[key];
+			console.log(layer);
+			clusterGroup.removeLayer(layer);
+			visibleMarkers[key] = null;
+			hiddenMarkers[key] = layer;
 		}
-	});
+	}
 }
 
 function showMarkerWithId(id) {
-	console.log(clusterGroup);
-	clusterGroup.eachLayer(layer => {
-		console.log(layer);
-		if (layer.getPopup()) {
-			const popupContent = layer.getPopup().getContent();
-			if (popupContent.includes(`id_offre=${id}`)) {
-				map.addLayer(layer);
-				console.log("after showMarkerWithId", id);
-			}
+	console.log("In Show")
+	console.log("Id :", id);
+	for (var key in hiddenMarkers) {
+		console.log("Key :", key);
+		if (key == id) {
+			var layer = hiddenMarkers[key];
+			console.log(layer);
+			clusterGroup.addLayer(layer);
+			hiddenMarkers[key] = null;
+			visibleMarkers[key] = layer;
 		}
-	});
+	}
 }
 
