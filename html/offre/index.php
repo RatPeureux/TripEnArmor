@@ -24,9 +24,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     <script src="/scripts/fonctions.js"></script>
     <link rel="stylesheet" href="/styles/style.css">
 
-    <!-- TAILWIND -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
     <!-- AJAX -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
