@@ -141,7 +141,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <!-- Inclusion du menu et de l'interface de filtres (tablette et +) -->
             <div id="menu">
                 <?php
-                $pagination = 4;
+                $pagination = 3;
                 $menu_avec_filtres = true;
                 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
                 ?>

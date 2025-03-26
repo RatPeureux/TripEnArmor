@@ -428,10 +428,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 
 			let matchesPrice =
-				filterState.prix[0] === "0" &&
-				filterState.prix[1] === document.getElementById("max-price-tab")?.max;
+				filterState.prix[0] === "0" && filterState.prix[1] === document.getElementById("max-price-tab")?.max;
 			if (price && !matchesPrice) {
-				if (price.getAttribute("title") !== "Gamme des prix") {
+				if (!price.getAttribute("title").includes("Gamme des prix")) {
 					matchesPrice = price.getAttribute("title").match(/Min (\d+),/)
 						? filterState.prix[0] <=
 						parseInt(
@@ -443,8 +442,13 @@ document.addEventListener("DOMContentLoaded", function () {
 							10
 						) <= filterState.prix[1]
 						: false;
-				} else {
-					matchesPrice =
+				}
+			}
+
+			let matchesGamme = true;
+			if (price) {
+				if (price.getAttribute("title").includes("Gamme des prix")) {
+					matchesGamme = 
 						filterState.gammes.length === 0 ||
 						filterState.gammes.includes(price.textContent.trim());
 				}
@@ -471,13 +475,16 @@ document.addEventListener("DOMContentLoaded", function () {
 				matchesLocalisation &&
 				matchesNote &&
 				matchesPrice &&
+				matchesGamme &&
 				matchesTag
 			) {
 				offre.classList.remove("hidden");
 				anyVisible = true;
+
 				showMarkerWithId(offerId);
 			} else {
 				offre.classList.add("hidden");
+
 				hideMarkerWithId(offerId);
 			}
 		});
