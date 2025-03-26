@@ -468,10 +468,18 @@ document.addEventListener("DOMContentLoaded", function () {
 			) {
 				offre.classList.remove("hidden");
 				anyVisible = true;
-				showMarkerWithId(offre.id);
+				var idOffre = new URLSearchParams(offre.querySelector("a")?.getAttribute("href")).get("id_offre");
+				console.log(": "+idOffre);
+				if (idOffre) {
+					showMarkerWithId(idOffre);
+				}
 			} else {
 				offre.classList.add("hidden");
-				hideMarkerWithId(offre.id);
+				var idOffre = new URLSearchParams(offre.querySelector("a")?.getAttribute("href")).get("id_offre");
+				console.log(": "+idOffre);
+				if (idOffre) {
+					hideMarkerWithId(idOffre);
+				}
 			}
 		});
 

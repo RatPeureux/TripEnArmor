@@ -62,10 +62,10 @@ function hideMarkerWithId(id) {
 
 function showMarkerWithId(id) {
 	console.log("In Show")
-	console.log(id);
+	console.log("Id :", id);
 	for (var key in hiddenMarkers) {
+		console.log("Key :", key);
 		if (key == id) {
-			console.log(key);
 			var layer = hiddenMarkers[key];
 			console.log(layer);
 			clusterGroup.addLayer(layer);
