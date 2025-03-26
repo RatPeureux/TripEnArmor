@@ -457,6 +457,13 @@ document.addEventListener("DOMContentLoaded", function () {
 					filterState.tags.every((tag) => tags?.includes(tag));
 			}
 
+			let offerId = null;
+			const href = offre?.getAttribute("href");
+			if (href) {
+				const urlParams = new URLSearchParams(href.split('?')[1]);
+				offerId = urlParams.get("id_offre");
+			}
+
 			// Appliquer les filtres croisés
 			if (
 				matchesCategory &&
@@ -468,18 +475,10 @@ document.addEventListener("DOMContentLoaded", function () {
 			) {
 				offre.classList.remove("hidden");
 				anyVisible = true;
-				var idOffre = new URLSearchParams(offre.querySelector("a")?.getAttribute("href")).get("id_offre");
-				console.log(": "+idOffre);
-				if (idOffre) {
-					showMarkerWithId(idOffre);
-				}
+				showMarkerWithId(offerId);
 			} else {
 				offre.classList.add("hidden");
-				var idOffre = new URLSearchParams(offre.querySelector("a")?.getAttribute("href")).get("id_offre");
-				console.log(": "+idOffre);
-				if (idOffre) {
-					hideMarkerWithId(idOffre);
-				}
+				hideMarkerWithId(offerId);
 			}
 		});
 
