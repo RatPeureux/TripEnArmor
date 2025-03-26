@@ -49,7 +49,7 @@ if ($id_avis_inserted && $note_cuisine) {
 // Tout s'est bien passé
 $_SESSION['message_pour_notification'] = 'Votre avis a été créé et publié';
 if (isset($id_avis_inserted)) {
-    header('Location: /scripts/go_to_details?id_offre=' . $id_offre);
+    header('Location: /scripts/go_to_details.php?id_offre=' . $id_offre);
 }
 
 
