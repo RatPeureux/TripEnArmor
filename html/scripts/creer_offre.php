@@ -62,6 +62,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $horaires = $_POST['horaires'] ?? [];
 
     // *********************************************************************************************************************** Insertion
+    /* Ordre de l'insertion :
+    1. [x] Adresse
+    5. [x] Offre
+    6. [x] Offre_Tag / Restauration_Tag
+    3. [x] Image
+    7. [x] Offre_Image
+    8. [x] Offre_Langue
+    9. [x] TypeRepas 
+    10. [x] Offre_Prestation
+    11. Horaires
+    12. [x] Tarif_Public
+    */
     BDD::startTransaction();
     try {
         // Insérer l'adresse dans la base de données
