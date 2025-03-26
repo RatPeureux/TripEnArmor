@@ -46,9 +46,13 @@ fetch("/api/get_offers.php")
 	.catch(error => console.error("Erreur lors du chargement des offres :", error));
 
 function hideMarkerWithId(id) {
+	console.log("In Hide")
+	console.log(id);
 	for (var key in visibleMarkers) {
+		console.log(key);
 		if (key == id) {
 			var layer = visibleMarkers[key];
+			console.log(layer);
 			clusterGroup.removeLayer(layer);
 			visibleMarkers[key] = null;
 			hiddenMarkers[key] = layer;
@@ -57,9 +61,13 @@ function hideMarkerWithId(id) {
 }
 
 function showMarkerWithId(id) {
+	console.log("In Show")
+	console.log(id);
 	for (var key in hiddenMarkers) {
 		if (key == id) {
+			console.log(key);
 			var layer = hiddenMarkers[key];
+			console.log(layer);
 			clusterGroup.addLayer(layer);
 			hiddenMarkers[key] = null;
 			visibleMarkers[key] = layer;
