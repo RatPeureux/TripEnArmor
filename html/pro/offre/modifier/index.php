@@ -524,7 +524,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ?>
 
         <!-- Map à afficher pour choisir l'adresse -->
-        <div id="map-container" class="z-30 fixed top-0 left-0 h-full w-full flex hidden items-center justify-center">
+        <div id="map-container" class="z-30 fixed top-0 left-0 h-full w-full hidden flex items-center justify-center">
             <!-- Background blur -->
             <div class="fixed top-0 left-0 w-full h-full bg-blur/25 backdrop-blur"
                 onclick="document.getElementById('map-container').classList.add('hidden');">
@@ -645,7 +645,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <div class="w-full flex space-x-12">
                         <div class="w-full">
-                            <div class="w-full flex flex-col justify-center items-center space-y-4 part1 hidden">
+                            <div class="w-full hidden flex flex-col justify-center items-center space-y-4 part1">
                                 <h2 class="w-full text-2xl text-secondary">Informations</h2>
 
                                 <!-- Titre -->
@@ -696,7 +696,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <input id="postal_code" name="postal_code" type="number"
                                         pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345"
                                         value="<?php print_r($adresse['code_postal']); ?>"
-                                        class="border border-secondary  p-2 bg-white w-24 w-full" required>
+                                        class="border border-secondary  p-2 bg-white w-24" required>
                                 </div>
 
                                 <div class="w-full justify-between">
@@ -755,7 +755,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         rows="5"><?php print_r($offre['accessibilite']); ?></textarea>
                                 </div>
                             </div>
-                            <div class="w-full flex flex-col justify-center items-center space-y-4 part2 hidden">
+                            <div class="w-full hidden flex flex-col justify-center items-center space-y-4 part2">
                                 <h2 class="w-full text-2xl text-secondary">Informations supplémentaires</h2>
 
                                 <!-- Sélection du type d'activité -->
@@ -767,7 +767,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
 
                                 <div
-                                    class="flex flex-col w-full optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
+                                    class="hidden flex flex-col w-full optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction">
                                     <!-- Section pour choisir un tag -->
                                     <label for="tag-input" class="block text-nowrap">Tags :</label>
                                     <select type="text" id="tag-input"
@@ -779,21 +779,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                 <!-- Conteneurs des tags pour chaque type d'activité -->
                                 <div>
-                                    <div class="tag-container flex flex-wrap p-2 optionActivite hidden" id="activiteTags">
+                                    <div class="tag-container hidden flex flex-wrap p-2 optionActivite" id="activiteTags">
                                     </div>
-                                    <div class="tag-container flex flex-wrap p-2 optionVisite hidden" id="visiteTags"></div>
-                                    <div class="tag-container flex flex-wrap p-2 optionSpectacle hidden" id="spectacleTags">
+                                    <div class="tag-container hidden flex flex-wrap p-2 optionVisite" id="visiteTags"></div>
+                                    <div class="tag-container hidden flex flex-wrap p-2 optionSpectacle" id="spectacleTags">
                                     </div>
-                                    <div class="tag-container flex flex-wrap p-2 optionParcAttraction hidden"
+                                    <div class="tag-container hidden flex flex-wrap p-2 optionParcAttraction"
                                         id="parcAttractionTags"></div>
-                                    <div class="tag-container flex flex-wrap p-2 optionRestauration hidden"
+                                    <div class="tag-container hidden flex flex-wrap p-2 optionRestauration"
                                         id="restaurationTags"></div>
                                 </div>
 
                                 <!-- PARAMÈTRES DÉPENDANT DE LA CATÉGORIE DE L'OFFRE -->
                                 <!-- Visite guidée -->
                                 <!-- Visite -->
-                                <div class="flex justify-between items-center w-full space-x-2 optionVisite hidden">
+                                <div class="hidden flex justify-between items-center w-full space-x-2 optionVisite">
                                     <div class="inline-flex items-center space-x-4" onclick="toggleCheckbox('guide')">
                                         <p>Visite guidée :</p>
                                         <input type="checkbox" name="guide" id="guide" class="sr-only peer">
@@ -827,7 +827,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <!-- Âge requis -->
                                 <!-- Activité, Parc d'attractions -->
                                 <div
-                                    class="flex justify-start items-center w-full space-x-2 optionActivite optionParcAttraction hidden">
+                                    class="hidden flex justify-start items-center w-full space-x-2 optionActivite optionParcAttraction">
                                     <label for="age" class="text-nowrap">Âge requis :</label>
                                     <input type="number" id="age" pattern="/d+/" min="0" max="125" name="age"
                                         class="border border-secondary  p-2 bg-white w-fit text-right">
@@ -837,7 +837,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <!-- Durée (HEURE & MIN) -->
                                 <!-- Activité, Visite, Spectacle -->
                                 <div
-                                    class="flex justify-start items-center w-full space-x-1 optionActivite optionVisite optionSpectacle hidden">
+                                    class="hidden flex justify-start items-center w-full space-x-1 optionActivite optionVisite optionSpectacle">
                                     <label for="duree" class="text-nowrap">Durée :</label>
                                     <input type="number" name="hours" id="duree" pattern="/d+/" min="0" max="23"
                                         class="border border-secondary  p-2 bg-white w-fit text-right">
@@ -849,7 +849,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                 <!-- Gamme de prix -->
                                 <!-- Restauration -->
-                                <div class="flex justify-start items-center w-full space-x-4 optionRestauration hidden">
+                                <div class="hidden flex justify-start items-center w-full space-x-4 optionRestauration">
                                     <label for="gamme" class="text-nowrap">Gamme de prix :</label>
                                     <div class="flex  space-x-2">
                                         <div>
@@ -869,7 +869,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                 <!-- Capacité d'accueil -->
                                 <!-- Spectacle -->
-                                <div class="flex justify-start items-center w-full space-x-2 optionSpectacle hidden">
+                                <div class="hidden flex justify-start items-center w-full space-x-2 optionSpectacle">
                                     <label for="capacite" class="text-nowrap">Capacité d'accueil :</label>
                                     <input type="number" name="capacite" id="capacite" pattern="/d+/" onchange="" min="0"
                                         class="border border-secondary  p-2 bg-white w-fit text-right">
@@ -878,7 +878,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                 <!-- Nombre d'attractions -->
                                 <!-- Parc d'attractions -->
-                                <div class="flex justify-start items-center w-full space-x-2 optionParcAttraction hidden">
+                                <div class="hidden flex justify-start items-center w-full space-x-2 optionParcAttraction">
                                     <label for="nb_attractions" class="text-nowrap">Nombre d'attraction :</label>
                                     <input type="number" name="nb_attractions" id="nb_attractions" pattern="/d+/"
                                         onchange="" min="0" class="border border-secondary  p-2 bg-white w-fit text-right">
@@ -886,7 +886,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
 
                                 <!-- Repas servis -->
-                                <div class="space-x-2 w-full flex justify-start items-center optionRestauration hidden">
+                                <div class="space-x-2 w-full hidden flex justify-start items-center optionRestauration">
                                     <p>Repas servis :</p>
                                     <div class="w-fit p-2  border border-transparent"
                                         onclick="toggleCheckbox('repasPetitDejeuner')">
@@ -917,7 +917,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                                 <!-- Plan du parc d'attraction -->
                                 <!-- Parc d'attraction -->
-                                <div class="flex flex-col justify-between w-full optionParcAttraction hidden">
+                                <div class="hidden flex flex-col justify-between w-full optionParcAttraction">
                                     <label for="photo-plan" class="text-nowrap w-full">Plan du parc d'attraction :</label>
                                     <input type="file" name="photo-plan" id="photo-plan"
                                         class="text-center text-secondary block w-full
@@ -1309,7 +1309,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         ?>
                                     </div>
 
-                                    <div class="flex items-start hidden" id="option-data">
+                                    <div class="hidden flex items-start" id="option-data">
                                         <div class="flex flex-col justify-center w-full">
                                             <label for="start_date" class="text-nowrap">Début de la souscription :</label>
                                             <input type="date" id="start_date" name="start_date"
@@ -1363,7 +1363,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                             <!-- Modifier l'offre -->
                             <div
-                                class="w-full flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction hidden">
+                                class="w-full hidden flex justify-center items-center optionActivite optionVisite optionSpectacle optionRestauration optionParcAttraction">
                                 <button type="submit"
                                     class="bg-secondary text-white font-medium py-2 px-4 inline-flex items-center border border-transparent hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97] w-1/2 m-1 disabled:bg-gray-300 disabled:border-gray-300">Modifier
                                     l'offre</button>
@@ -1372,7 +1372,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <!-- Mettre la preview à droite du fleuve -->
                         <div
-                            class="w-full min-w-[450px] max-w-[450px] h-screen flex justify-center items-center sticky top-0 part1 hidden">
+                            class="w-full min-w-[450px] max-w-[450px] h-screen hidden flex justify-center items-center sticky top-0 part1">
                             <div class="h-fit w-full">
                                 <!-- Affiche de la carte en fonction de l'option choisie et des informations rentrées au préalable. -->
                                 <!-- Script > listener sur "change" sur les inputs radios (1 sur chaque) ; si input en relief ou À la une, ajouter(.add('active')) à la classlist(.classList) du div {card-preview} "active", sinon l'enlever(.remove('active')) -->

@@ -40,6 +40,20 @@ document.addEventListener("DOMContentLoaded", function () {
           section.classList.add("md:hidden");
         }
       });
+
+      button.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault(); // Empêche le comportement par défaut (ex: navigation)
+          // Alterne entre affichage (md:block) et masquage (md:hidden) de la section
+          if (section.classList.contains("md:hidden")) {
+            section.classList.remove("md:hidden");
+            section.classList.add("md:block");
+          } else {
+            section.classList.remove("md:block");
+            section.classList.add("md:hidden");
+          }
+        }
+      });
     }
   }
 
@@ -70,22 +84,20 @@ document.addEventListener("DOMContentLoaded", function () {
   function developpedFilter(buttonId, arrowId, developpedId) {
     const button = document.getElementById(buttonId); // Récupère le bouton
     const arrow = document.getElementById(arrowId); // Récupère l'icône flèche
-    if (developpedId == "developped-f6-tab") {
-      const developped = document.getElementsByClassName(developpedId); // Récupère les élem avec l'id "..-f6-tab". Pourquoi il y en a plusieurs ? jsp, pb de codage...
-    } else {
-      const developped = document.getElementById(developpedId); // Récupère la section développable
-    }
+    const developped = document.getElementById(developpedId); // Récupère la section développable
 
     if (button && arrow && developped) {
       // Vérifie que les éléments existent
       button.addEventListener("click", function (event) {
         event.preventDefault(); // Empêche le comportement par défaut
         arrow.classList.toggle("rotate-90"); // Alterne la rotation de l'icône
-        if (developpedId == "developped-f6-tab") {
-          developped.forEach((el) => {
-            el.classList.toggle("hidden");
-          });
-        } else {
+        developped.classList.toggle("hidden"); // Alterne la visibilité de la section
+      });
+
+      button.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault(); // Empêche le comportement par défaut
+          arrow.classList.toggle("rotate-90"); // Alterne la rotation de l'icône
           developped.classList.toggle("hidden"); // Alterne la visibilité de la section
         }
       });
@@ -96,11 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function developpedFilterAutoClose(buttonId, arrowId, developpedId) {
     const button = document.getElementById(buttonId); // Récupère le bouton
     const arrow = document.getElementById(arrowId); // Récupère l'icône flèche
-    if (developpedId == "developped-f2-tab") {
-      const developped = document.getElementsByClassName(developpedId); // Récupère les élem avec l'id "..-f6-tab". Pourquoi il y en a plusieurs ? jsp, pb de codage...
-    } else {
-      const developped = document.getElementById(developpedId); // Récupère la section développable
-    }
+    const developped = document.getElementById(developpedId); // Récupère la section développable
 
     if (button && arrow && developped) {
       // Vérifie que les éléments existent
@@ -108,21 +116,9 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault(); // Empêche le comportement par défaut
 
         // Alterne l'état de la section actuelle
-        if (developpedId == "developped-f2-tab") {
-          const isCurrentlyHidden = developped[0].classList.contains("hidden");
-        } else {
-          developped.classList.toggle("hidden", !isCurrentlyHidden); // Ajuste la visibilité
-        }
         const isCurrentlyHidden = developped.classList.contains("hidden");
         arrow.classList.toggle("rotate-90", isCurrentlyHidden); // Ajuste la rotation uniquement si la section est cachée
-
-        if (developpedId == "developped-f2-tab") {
-          developped.forEach((el) => {
-            el.classList.toggle("hidden");
-          });
-        } else {
-          developped.classList.toggle("hidden", !isCurrentlyHidden); // Ajuste la visibilité
-        }
+        developped.classList.toggle("hidden", !isCurrentlyHidden); // Ajuste la visibilité
 
         // Ferme les autres sections
         document.querySelectorAll(".developped")?.forEach((section) => {
@@ -150,41 +146,13 @@ document.addEventListener("DOMContentLoaded", function () {
   developpedFilter("button-f7-tab", "arrow-f7-tab", "developped-f7-tab");
 
   // Initialisation des filtres pour téléphone
-  developpedFilterAutoClose(
-    "button-f1-tel",
-    "arrow-f1-tel",
-    "developped-f1-tel"
-  );
-  developpedFilterAutoClose(
-    "button-f2-tel",
-    "arrow-f2-tel",
-    "developped-f2-tel"
-  );
-  developpedFilterAutoClose(
-    "button-f3-tel",
-    "arrow-f3-tel",
-    "developped-f3-tel"
-  );
-  developpedFilterAutoClose(
-    "button-f4-tel",
-    "arrow-f4-tel",
-    "developped-f4-tel"
-  );
-  developpedFilterAutoClose(
-    "button-f5-tel",
-    "arrow-f5-tel",
-    "developped-f5-tel"
-  );
-  developpedFilterAutoClose(
-    "button-f6-tel",
-    "arrow-f6-tel",
-    "developped-f6-tel"
-  );
-  developpedFilterAutoClose(
-    "button-f7-tel",
-    "arrow-f7-tel",
-    "developped-f7-tel"
-  );
+  developpedFilterAutoClose("button-f1-tel", "arrow-f1-tel", "developped-f1-tel");
+  developpedFilterAutoClose("button-f2-tel", "arrow-f2-tel", "developped-f2-tel");
+  developpedFilterAutoClose("button-f3-tel", "arrow-f3-tel", "developped-f3-tel");
+  developpedFilterAutoClose("button-f4-tel", "arrow-f4-tel", "developped-f4-tel");
+  developpedFilterAutoClose("button-f5-tel", "arrow-f5-tel", "developped-f5-tel");
+  developpedFilterAutoClose("button-f6-tel", "arrow-f6-tel", "developped-f6-tel");
+  developpedFilterAutoClose("button-f7-tel", "arrow-f7-tel", "developped-f7-tel");
 
   // !!!
   function enforceDynamicBounds(leftInputId, rightInputId) {
@@ -549,7 +517,7 @@ document.addEventListener("DOMContentLoaded", function () {
         message.textContent = "Aucune offre ne correspond à vos critères.";
         message.classList.add("mt-4");
         message.classList.add("text-2xl");
-        document.querySelector("#no-matches").appendChild(message); // Ajouter dans le conteneur des offres
+        document?.querySelector("#no-matches").appendChild(message); // Ajouter dans le conteneur des offres
       }
     } else {
       // Supprime le message si des offres sont visibles
