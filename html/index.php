@@ -16,10 +16,8 @@ unset($_SESSION['error']);
     
     <title>PACT</title>
 
-    <!-- FONT AWESOME -->
-    <link rel="icon" href="/public/images/favicon.png">
-    
     <!-- NOS FICHIERS -->
+    <link rel="icon" href="/public/images/favicon.png">
     <script type="module" src="/scripts/main.js"></script>
     <link rel="stylesheet" href="/styles/style.css">
     <script src="/scripts/filtersAndSorts.js"></script>

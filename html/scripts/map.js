@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 							.bindPopup(`
                               <strong>${offer.titre}</strong><br>
                               ${offer.resume}<br>
-                              <a href="/scripts/go_to_details/?id_offre=${offer.id_offre}" target="_blank">Voir l'offre</a>
+                              <a href="/scripts/go_to_details.php?id_offre=${offer.id_offre}" target="_blank">Voir l'offre</a>
                           `);
 						clusterGroup.addLayer(marker);
 					}

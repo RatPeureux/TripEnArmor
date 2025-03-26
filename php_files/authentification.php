@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/connect_params.php';
 session_start();
+
 function isConnectedAsMember(): bool
 {
     return isset($_SESSION['id_membre']);
@@ -27,6 +27,7 @@ function verifyPro()
             "id_adresse" => "",
             "secret_totp" => "",
             "totp_active" => "",
+            "api_key" => "",
             "data" => [
             ]
         ];
@@ -45,6 +46,7 @@ function verifyPro()
             $result["id_adresse"] = $pro["id_adresse"];
             $result["secret_totp"] = $pro["secret_totp"];
             $result["totp_active"] = $pro["totp_active"];
+            $result["api_key"] = $pro["api_key"];
             $result["data"]["type_orga"] = $pro["type_orga"];
             $result["data"]["type"] = "public";
 
@@ -60,6 +62,7 @@ function verifyPro()
             $result["id_adresse"] = $pro["id_adresse"];
             $result["secret_totp"] = $pro["secret_totp"];
             $result["totp_active"] = $pro["totp_active"];
+            $result["api_key"] = $pro["api_key"];
             $result["data"]["numero_siren"] = $pro["num_siren"];
             $result["data"]["id_rib"] = $pro["id_rib"];
             $result["data"]["type"] = "prive";

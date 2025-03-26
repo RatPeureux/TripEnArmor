@@ -1,5 +1,5 @@
 <?php
-session_start(); // Démarre la session au début du script
+session_start(); 
 
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 
@@ -9,7 +9,9 @@ if (isConnectedAsPro()) {
 }
 
 // Vider les messages d'erreur si c'est la première fois qu'on vient sur la page de connexion
-if (isset($_SESSION['data_en_cous_connexion'])) {
+if (!isset($_SESSION['data_en_cous_connexion'])) {
+    unset($_SESSION['data_en_cours_totp']);
+    unset($_SESSION['data_en_cours_inscription']);
     unset($_SESSION['error']);
 }
 
@@ -45,21 +47,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit();
                 } else {
                     $_SESSION['id_pro'] = $user['id_compte'];
-                    header('location: /pro'); // Redirige vers la page connectée
+                    $_SESSION['message_pour_notification'] = 'Connecté(e) en tant que Professionnel(le)';
+                    header('location: /pro');
                     exit();
                 }
             } else {
-                $_SESSION['error'] = "Mot de passe incorrect"; // Stocke le message d'erreur dans la session
-                header('location: /pro/connexion'); // Retourne à la page de connexion
+                $_SESSION['error'] = "Mot de passe incorrect";
+                header('location: /pro/connexion');
                 exit();
             }
         } else {
-            $_SESSION['error'] = "Nous ne trouvons pas de compte avec cet identifiant"; // Stocke le message d'erreur dans la session
-            header('location: /pro/connexion'); // Retourne à la page de connexion
+            $_SESSION['error'] = "Nous ne trouvons pas de compte avec cet identifiant";
+            header('location: /pro/connexion');
             exit();
         }
     } catch (PDOException $e) {
-        echo "Erreur !: " . $e->getMessage(); // Affiche une erreur si la connexion échoue
+        echo "Erreur !: " . $e->getMessage();
     }
 }
 ?>
@@ -72,9 +75,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- NOS FICHIERS -->
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+    <script type="module" src="/scripts/main.js"></script>
 
     <title>Connexion au compte - Professionnel - PACT</title>
 </head>
@@ -106,8 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                         value="<?php echo $_SESSION['data_en_cours_connexion']['mdp'] ?? '' ?>" required>
                     <!-- Icône pour afficher/masquer le mot de passe -->
-                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                        id="togglePassword"></i>
+                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                 </div>
 
                 <span id="error-message" class="error text-rouge-logo text-sm">

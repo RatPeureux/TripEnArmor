@@ -1,9 +1,7 @@
 // Import utilitaries
-import { } from './toggleMenu.js';
-import { } from './toggleFiltres.js';
-import { } from './confirmLogout.js';
-import { } from './confirmDelete.js';
+import { } from './utils.js';
 import { } from './formats.js';
+import { } from './totp.js';
 
 // Load fontawesome CLI to load icons
 const script = document.createElement('script');

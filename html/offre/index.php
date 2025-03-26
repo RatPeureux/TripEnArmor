@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 ?>
 
@@ -9,9 +10,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails d'une offre - PACT</title>
 
-    <link rel="icon" href="/public/images/favicon.png">
+    <title>Détails d'une offre - PACT</title>
 
     <!-- SWIPER -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -20,12 +20,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     <script src="/scripts/loadCaroussel.js" type="module"></script>
 
     <!-- NOS FICHIERS -->
+    <link rel="icon" href="/public/images/favicon.png">
     <script type="module" src="/scripts/main.js"></script>
-    <script src="/scripts/fonctions.js"></script>
     <link rel="stylesheet" href="/styles/style.css">
-
-    <!-- TAILWIND -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- AJAX -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -36,7 +33,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-
 </head>
 
 <body class="flex flex-col">
@@ -840,7 +836,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                     </button>
 
                                     <form id="avis_formulaire" action="/scripts/creation_avis.php" method="POST"
-                                        class="hidden flex flex-col gap-4">
+                                        class="hidden flex flex-col text-sm gap-4" enctype="multipart/form-data">
 
                                         <!-- Titre de l'avis -->
                                         <div>
@@ -971,6 +967,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                             </select>
                                         </div>
 
+                                        <!-- Photos de l'avis  -->
+                                        <div>
+                                            <label for="photo_avis">Photo : </label>
+                                            <input type="file" name="photo_avis" id="photo_avis"
+                                                accept=".svg,.png,.jpg,.jpeg,.webp" multiple>
+                                            <p class="text-sm text-base300 mt-2">10 photos maximum.</p>
+                                            <script>
+                                                document.getElementById('photo_avis').addEventListener('change', function () {
+                                                    if (this.files.length > 10) {
+                                                        alert('Vous ne pouvez sélectionner que 10 fichiers au maximum.');
+                                                        this.value = '';
+                                                    }
+                                                });
+                                            </script>
+                                        </div>
+
                                         <!-- Champs cachés pour transmettre des donées à la création de l'offre -->
                                         <input type="text" id='id_offre' name='id_offre' hidden
                                             value="<?php echo $_SESSION['id_offre'] ?>">
@@ -988,7 +1000,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                                 class="text-sm py-2 px-4 rounded-full bg-secondary text-white self-end">
                                         </div>
 
-                                        <hr class="w-1/2 border border-black self-end my-2  bg-black">
+                                        <hr class="w-full border border-black self-end my-2  bg-black">
                                     </form>
                                 </div>
                                 <?php
@@ -1100,13 +1112,16 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     ?>
 
     <script>
-        setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
-        setupToggle('compl-arrow', 'compl-button', 'compl-info');
-        <?php if ($pro_can_answer) { ?>
-            setupToggle('blacklistes-arrow', 'blacklistes-button', 'avis-blacklistes-container');
-        <?php } ?>
-        setupToggle('avis-arrow', 'avis-button', 'avis-container');
+        document.addEventListener('DOMContentLoaded', () => {
+            setupToggle('horaire-arrow', 'horaire-button', 'horaire-info');
+            setupToggle('compl-arrow', 'compl-button', 'compl-info');
+            <?php if ($pro_can_answer) { ?>
+                setupToggle('blacklistes-arrow', 'blacklistes-button', 'avis-blacklistes-container');
+            <?php } ?>
+            setupToggle('avis-arrow', 'avis-button', 'avis-container');
+        });
     </script>
+
 </body>
 
 </html>

@@ -1,8 +1,15 @@
 <?php
 session_start();
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/modifier_offre_controller.php';
+
+// Connexion à la BDD
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+// Vérifier que l'on est bien un pro
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+$pro = verifyPro();
+
+// Controllers
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/modifier_offre_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_offre_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/cat_offre_controller.php';
@@ -11,7 +18,6 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/horaire_controlle
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/type_repas_restaurant_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
-$pro = verifyPro();
 
 // Récupération de l'ID de l'offre
 $id_offre = $_GET['id_offre'];
@@ -189,9 +195,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-
-
-// Vérification de l'utilisateur connecté
 ?>
 
 <!DOCTYPE html>
@@ -491,7 +494,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Insérer les options dans la base de données
             if ($option == "A la une" || $option == "En relief") {
-                require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
                 $stmt = $dbh->prepare("INSERT INTO sae_db._souscription (nb_semaines, date_lancement) VALUES (:nb_semaines, :date_lancement) RETURNING id_souscription");
                 $stmt->bindParam(':nb_semaines', $duree_option);
                 $stmt->bindParam(':date_lancement', $debut_option);
@@ -672,10 +674,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     onclick="showMap();">Choisir l'adresse</p>
 
                                 <!-- Champs cachés pour les coordonnées -->
-                                <input class='hidden' id='lat' name='lat'
-                                    value="<?php echo $_SESSION['data_en_cours_inscription']['lat'] ?? '0' ?>">
-                                <input class='hidden' id='lng' name='lng'
-                                    value="<?php echo $_SESSION['data_en_cours_inscription']['lng'] ?? '0' ?>">
+                                <input class='hidden' id='lat' name='lat' value='0'>
+                                <input class='hidden' id='lng' name='lng' value='0'>
 
                                 <div class="justify-between items-center w-full mb-2">
                                     <label for="user_input_autocomplete_address" class="text-nowrap">Adresse :</label>
@@ -1288,8 +1288,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <label for="option-rien">Sans option</label>
                                         </div>
                                         <?php
-                                        require_once dirname($_SERVER["DOCUMENT_ROOT"]) . "/php_files/connect_to_bdd.php";
-
                                         $stmt = $dbh->prepare('SELECT * FROM sae_db._option ORDER BY prix_ht ASC');
                                         $stmt->execute();
                                         $options = $stmt->fetchAll(PDO::FETCH_ASSOC);

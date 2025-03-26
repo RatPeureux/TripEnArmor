@@ -1,5 +1,11 @@
 <?php
+// Nécessaire pour afficher les notifications en cas d'actions spécifiques dans certains fichiers
+// (le header étant inclus dans chacun d'eux...)
+require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/notifications.php';
+
+// Afficher le bon header en fonction du rôle
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
+
 if (isConnectedAsPro()) {
     ?>
     <!-- HEADER PRO -->
@@ -114,8 +120,8 @@ if (isConnectedAsPro()) {
                     </a>
                     <a href="/scripts/logout.php" class="hidden md:block flex flex-col items-center"
                         onclick="return confirmLogout()">
-                        <div class="text-black text-sm border border-secondary px-4 py-2 rounded-full">
-                            <p class="">Se déconnecter</p>
+                        <div class="hover:bg-secondary hover:text-white hover:border-white text-black text-sm border border-secondary px-4 py-2 rounded-full">
+                            <p>Se déconnecter</p>
                         </div>
                     </a>
                 <?php } else { ?>
