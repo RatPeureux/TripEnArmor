@@ -245,7 +245,7 @@ if ($mode_carte == 'membre') {
           $controllerImage = new ImageController();
           $images = $controllerImage->getImagesOfOffre($id_offre);
           ?>
-          <img class=' w-full h-full object-cover object-center' src='/public/images/<?php if ($images['carte']) {
+          <img class=' w-full h-full max-h-[317px] object-cover object-center' src='/public/images/<?php if ($images['carte']) {
             echo "offres/" . $images['carte'];
           } else {
             echo $categorie_offre . '.jpg';
@@ -262,7 +262,7 @@ if ($mode_carte == 'membre') {
               </h3>
               <?php
               // Moyenne des notes quand il y en a une
-              if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
+              if (isset($moyenne) && 0 < $moyenne && $moyenne <= 5) {
                 $n = $moyenne;
                 ?>
                 <div class="notes flex gap-1">
