@@ -46,6 +46,7 @@ class ImageController
             mkdir($this->uploadDir, 0777, true);
         }
         $result = move_uploaded_file($actual_path, $this->uploadDir . $nom_objet . "/" . $id . "_" . $champ . '.' . $extension);
+        echo $result;
         return $result;
     }
 
@@ -57,7 +58,9 @@ class ImageController
     public function getImagesAvis($id_avis)
     {
         $allImages = scandir($this->uploadDir . "avis/");
-        $result = [];
+        $result = [
+            "avis" => []
+        ];
 
         if ($allImages) {
             foreach ($allImages as $image) {
@@ -65,7 +68,9 @@ class ImageController
                 $subparts = explode("_", $name);
 
                 if ($subparts[0] == $id_avis) {
-                    $result[] = $image;
+                    if ($subparts[1] == "avis") {
+                        $result["avis"] = $image;
+                    }
                 }
             }
         }
