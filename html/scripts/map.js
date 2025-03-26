@@ -8,6 +8,8 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 var clusterGroup = L.markerClusterGroup();
+var visibleMarkers = {};
+var hiddenMarkers = {};
 
 // Ajouter l’offre sélectionnée UNIQUEMENT si elle existe
 if (mapData.selectedOffer && mapData.selectedOffer.lat && mapData.selectedOffer.lng) {
@@ -33,6 +35,7 @@ fetch("/api/get_offers.php")
 							${offer.resume}<br>
 							<a href="/scripts/go_to_details.php?id_offre=${offer.id_offre}" target="_blank">Voir l'offre</a>
 						`);
+					visibleMarkers[offer.id_offre] = marker;
 					clusterGroup.addLayer(marker);
 				}
 			}
@@ -43,16 +46,24 @@ fetch("/api/get_offers.php")
 	.catch(error => console.error("Erreur lors du chargement des offres :", error));
 
 function hideMarkerWithId(id) {
-	console.log("In hideMarker")
-	clusterGroup.eachLayer(function (layer) {
-		console.log(layer);
-	});
+	for (var key in visibleMarkers) {
+		if (key == id) {
+			var layer = visibleMarkers[key];
+			map.removeLayer(layer);
+			visibleMarkers[key] = null;
+			hiddenMarkers[key] = layer;
+		}
+	}
 }
 
 function showMarkerWithId(id) {
-	console.log("In showMarkerWithId");
-	clusterGroup.eachLayer(function (layer) {
-		console.log(layer);
-	});
+	for (var key in hiddenMarkers) {
+		if (key == id) {
+			var layer = hiddenMarkers[key];
+			map.addLayer(layer);
+			hiddenMarkers[key] = null;
+			visibleMarkers[key] = layer;
+		}
+	}
 }
 
