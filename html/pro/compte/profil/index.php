@@ -1,15 +1,21 @@
 <?php
 session_start();
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
+// Connexion avec la bdd
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+// Obtenir les informations du pro
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 $pro = verifyPro();
 
+// Controllers
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/adresse_controller.php';
 $controllerAdresse = new AdresseController();
 $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
 
 if (isset($_POST['nom']) && !empty($_POST['nom'])) {
+    $_SESSION['message_pour_notification'] = 'Informations mises à jour';
+
     if ($pro['data']['type'] == 'prive') {
         include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/pro_prive_controller.php';
         $controllerProPrive = new ProPriveController();
@@ -25,6 +31,8 @@ if (isset($_POST['nom']) && !empty($_POST['nom'])) {
 
 // Récupérer les valeurs des différents champs
 if (isset($_POST['user_input_autocomplete_address']) || isset($_POST['complement']) || isset($_POST['postal_code']) || isset($_POST['locality'])) {
+    $_SESSION['message_pour_notification'] = 'Informations mises à jour';
+
     $numero = null;
     $odonyme = null;
     $complement = null;
@@ -71,9 +79,6 @@ if (isset($_POST['user_input_autocomplete_address']) || isset($_POST['complement
 
 $pro = verifyPro();
 $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
-
-// Connexion avec la bdd
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -87,11 +92,10 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
 
+    <!-- NOS FICHIERS -->
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
-
     <script type="module" src="/scripts/main.js"></script>
-    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Profil du compte - Professionnel - PACT</title>
 </head>
@@ -157,10 +161,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                     onclick="showMap();">Choisir l'adresse</p>
 
                 <!-- Champs cachés pour les coordonnées -->
-                <input class='hidden' id='lat' name='lat'
-                    value="<?php echo $_SESSION['data_en_cours_inscription']['lat'] ?? '0' ?>">
-                <input class='hidden' id='lng' name='lng'
-                    value="<?php echo $_SESSION['data_en_cours_inscription']['lng'] ?? '0' ?>">
+                <input class='hidden' id='lat' name='lat' value="<?php echo $adresse['lat'] ?? '0' ?>">
+                <input class='hidden' id='lng' name='lng' value="<?php echo $adresse['lng'] ?? '0' ?>">
 
                 <label class="text-xl" for="user_input_autocomplete_address">Adresse postale</label>
                 <input value="<?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] ?>"
@@ -172,19 +174,21 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
                     class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 " type="text" id="complement"
                     name="complement">
 
-                <div class=" flex flex-nowrap space-x-3 mb-1.5">
-                    <div class="w-32">
-                        <label class="text-xl" for="postal_code">Code postal</label>
-                        <input id="postal_code" name="postal_code" value="<?php echo $adresse['code_postal'] ?>"
-                            class="border text-sm border-secondary p-2 text-right bg-white max-w-32 h-12 mb-3 "
+                <div class="flex gap-8 items-center">
+                    <div class="flex flex-col">
+                        <label class="text-lg" for="postal_code">Code postal</label>
+                        <input type="text" id="postal_code" name="postal_code"
+                            value="<?php echo $adresse['code_postal'] ?>"
+                            class="w-[70px] text-center border border-secondary p-2 text-sm bg-white max-w-32 h-12 mb-3 "
                             pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345">
                     </div>
-                    <div class="w-full">
-                        <label class="text-xl" for="locality">Ville</label>
+
+                    <div>
+                        <label class="text-lg" for="locality">Ville</label>
                         <input id="locality" name="locality" value="<?php echo $adresse['ville'] ?>"
-                            class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
-                            title="Saisir votre ville" placeholder="Rennes">
+                            title="Saisir votre ville" placeholder="Rennes"
+                            class="border border-secondary text-sm p-2 bg-white w-full h-12 mb-3 ">
                     </div>
                 </div>
 
@@ -209,58 +213,25 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php
         </div>
     </main>
 
-
     <!-- FOOTER -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
+
     <script>
-        const initialValues = {
-            nom: document.getElementById("nom").value,
-            adresse: document.getElementById("user_input_autocomplete_address").value,
-            complement: document.getElementById("complement").value,
-            code: document.getElementById("postal_code").value,
-            ville: document.getElementById("locality").value,
+        const inputs = {
+            nom: document.getElementById("nom"),
+            adresse: document.getElementById("user_input_autocomplete_address"),
+            complement: document.getElementById("complement"),
+            code: document.getElementById("postal_code"),
+            ville: document.getElementById("locality"),
         };
 
-        function activeSave1() {
-            const save1 = document.getElementById("save1");
-            const nom = document.getElementById("nom").value;
+        const save1 = document.getElementById("save1");
+        const save2 = document.getElementById("save2");
 
-            if (nom !== initialValues.nom) {
-                save1.disabled = false;
-                save1.classList.remove("opacity-50");
-                save1.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            } else {
-                save1.disabled = true;
-                save1.classList.add("opacity-50");
-                save1.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            }
-        }
-
-        function activeSave2() {
-            const save2 = document.getElementById("save2");
-            const adresse = document.getElementById("user_input_autocomplete_address").value;
-            const complement = document.getElementById("complement").value;
-            const code = document.getElementById("postal_code").value;
-            const ville = document.getElementById("locality").value;
-
-            if (adresse !== initialValues.adresse || complement !== initialValues.complement || code !== initialValues.code || ville !== initialValues.ville) {
-                save2.disabled = false;
-                save2.classList.remove("opacity-50");
-                save2.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            } else {
-                save2.disabled = true;
-                save2.classList.add("opacity-50");
-                save2.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            }
-        }
-
-        document.getElementById("nom").addEventListener("input", activeSave1);
-        document.getElementById("user_input_autocomplete_address").addEventListener("input", activeSave2);
-        document.getElementById("complement").addEventListener("input", activeSave2);
-        document.getElementById("postal_code").addEventListener("input", activeSave2);
-        document.getElementById("locality").addEventListener("input", activeSave2);
+        triggerSaveBtnOnInputsChange([inputs.nom], save1);
+        triggerSaveBtnOnInputsChange([inputs.adresse, inputs.complement, inputs.code, inputs.ville], save2);
     </script>
 
 </body>

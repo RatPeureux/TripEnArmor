@@ -15,13 +15,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     
     <title>Toutes les offres - PACT</title>
     
-    <!-- FONT AWESOME -->
-    <link rel="icon" href="/public/images/favicon.png">
-
-    <!-- TAILWIND -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
     <!-- NOS FICHIERS -->
+    <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
     

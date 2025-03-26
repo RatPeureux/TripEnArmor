@@ -1,5 +1,5 @@
 <?php
-session_start(); // Démarre la session au début du script
+session_start();
 
 // Si déjà connecté, rediriger sur page d'accueil
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
@@ -10,6 +10,8 @@ if (isConnectedAsMember()) {
 
 // Vider les messages d'erreur si c'est la première fois qu'on vient sur la page de connexion
 if (!isset($_SESSION['data_en_cours_connexion'])) {
+    unset($_SESSION['data_en_cours_totp']);
+    unset($_SESSION['data_en_cours_inscription']);
     unset($_SESSION['error']);
 }
 
@@ -25,10 +27,7 @@ if (empty($_POST)) { ?>
         <!-- NOS FICHIERS -->
         <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
-        <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-
-        <!-- TAILWIND -->
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <script type="module" src="/scripts/main.js"></script>
 
         <title>Connexion au compte - PACT</title>
     </head>
@@ -60,8 +59,7 @@ if (empty($_POST)) { ?>
                             title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             value="<?php echo $_SESSION['data_en_cours_connexion']['mdp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                            id="togglePassword"></i>
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <span id="error-message" class="error text-rouge-logo text-sm">
@@ -149,7 +147,8 @@ if (empty($_POST)) { ?>
                         exit();
                     } else {
                         $_SESSION['id_membre'] = $user['id_compte'];
-                        header('Location: /'); // Redirige vers la page en étant connecté(e)
+                        $_SESSION['message_pour_notification'] = 'Connecté(e) en tant que Membre';
+                        header('Location: /');
                         exit();
                     }
 
@@ -165,7 +164,7 @@ if (empty($_POST)) { ?>
             }
         }
     } catch (PDOException $e) {
-        echo "Erreur !: " . $e->getMessage();
+        echo "Erreur : " . $e->getMessage();
     }
 }
 ?>

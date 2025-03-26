@@ -1,6 +1,4 @@
 <?php
-require(dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php'); // Inclusion des paramètres de connexion à la base de données
-
 // Définition d'une classe abstraite BDD qui sert de modèle pour les classes qui interagiront avec la base de données.
 abstract class BDD
 {
@@ -15,8 +13,7 @@ abstract class BDD
     static public function initBDD()
     {
         if (self::$isInit === false) {
-            // Récupération des paramètres de connexion globaux définis dans connect_params.php
-            global $driver, $server, $port, $dbname, $user, $pass;
+            require dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
 
             // Création d'une nouvelle connexion PDO avec les paramètres de la base de données
             self::$db = new PDO("$driver:host=$server;port=$port;dbname=$dbname", $user, $pass);

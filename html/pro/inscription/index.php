@@ -1,14 +1,12 @@
 <?php
-session_start(); // Démarre la session au début du script
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+session_start();
 
-if (isConnectedAsPro()) {
-    header('location: /pro');
-    exit();
-}
+// Connexion à la BDD
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 // Réinistialiser les messages d'erreur quand on arrive pour la première fois sur la page
 if (!isset($_SESSION['data_en_cours_inscription'])) {
+    unset($_SESSION['data_en_cours_connexion']);
     unset($_SESSION['error']);
 }
 
@@ -33,9 +31,10 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <!-- NOS FICHIERS -->
         <link rel="icon" href="/public/images/favicon.png">
+        <script type="module" src="/scripts/main.js"></script>
         <link rel="stylesheet" href="/styles/style.css">
-        <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
         <title>Création de compte - Professionnel - PACT</title>
     </head>
@@ -89,8 +88,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                            id="togglePassword1"></i>
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <!-- Champ pour confirmer le mot de passe -->
@@ -101,8 +99,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                             title="Confirmer le mot de passe saisit ci-dessus"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                            id="togglePassword2"></i>
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <!-- Mots de passe ne correspondent pas -->
@@ -199,7 +196,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que cette adresse mail est déjà utilisée ?
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
     $stmt->bindParam(":mail", $_POST['mail']);
     $stmt->execute();
@@ -225,16 +221,16 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <!-- NOS FICHIERS -->
+        <script type="module" src="/scripts/main.js"></script>
         <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
+        <script src="/scripts/formats.js" type="module"></script>
 
         <!-- POUR LEAFLET ET L'AUTOCOMPLETION -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
             integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
-
-        <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-        <script src="/scripts/formats.js" type="module"></script>
 
         <title>Création de compte - Professionnel - PACT</title>
     </head>
@@ -531,7 +527,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que le numéro de téléphone renseigné a déjà été utilisé ?
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE num_tel = :num_tel");
     $stmt->bindParam(":num_tel", $_POST['num_tel']);
     $stmt->execute();
@@ -541,22 +536,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         $_SESSION['error'] = "Ce numéro de téléphone est déjà utilisé";
         // Revenir sur sur l'inscription comme au début
         header("location: /pro/inscription?valid_mail=true&invalid_phone_number=true");
-    }
-    function extraireRibDepuisIban($iban)
-    {
-        // Supprimer les espaces
-        $iban = str_replace(' ', '', $iban);
-        $code_banque = substr($iban, 4, 5);
-        $code_guichet = substr($iban, 9, 5);
-        $numero_compte = substr($iban, 14, 11);
-        $cle = substr($iban, 25, 2);
-
-        return [
-            'code_banque' => $code_banque,
-            'code_guichet' => $code_guichet,
-            'numero_compte' => $numero_compte,
-            'cle' => $cle,
-        ];
     }
 
     // Partie pour traiter la soumission du second formulaire
@@ -623,7 +602,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Quand tout est bien réalisé, rediriger vers l'accueil du pro en étant connecté
-    $_SESSION['id_pro'] = $id_pro;
     unset($_SESSION['id_membre']);
+    $_SESSION['id_pro'] = $id_pro;
+    $_SESSION['message_pour_notification'] = 'Votre compte Professionnel a été créé';
     header("location: /pro");
 } ?>

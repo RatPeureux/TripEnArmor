@@ -1,12 +1,15 @@
 <?php
 session_start();
+
 // Connexion avec la bdd
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
+// Récupérer les infos du membre
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 $membre = verifyMember();
 $id_membre = $_SESSION['id_membre'];
 
+// Controllers
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
 $controllerMembre = new MembreController();
 $membre = $controllerMembre->getInfosMembre($id_membre);
@@ -24,11 +27,10 @@ if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- NOS FICHIERS -->
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
-    <script src="/scripts/fonctions.js"></script>
-    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Mes avis - PACT</title>
 </head>
@@ -42,9 +44,6 @@ if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
 
     <?php
     $id_membre = $_SESSION['id_membre'];
-
-    // Connexion avec la bdd
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Récupération des informations du compte
     $stmt = $dbh->prepare('SELECT * FROM sae_db._membre WHERE id_compte = :id_membre');

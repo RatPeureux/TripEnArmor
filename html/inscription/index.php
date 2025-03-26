@@ -1,15 +1,12 @@
 <?php
-session_start(); // Démarre la session au début du script
+session_start(); 
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-
-if (isConnectedAsMember()) {
-    header('location: /');
-    exit();
-}
+// Se connecter à la BDD
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
 // Réinistialiser les messages d'erreur quand on arrive pour la première fois sur la page
 if (!isset($_SESSION['data_en_cours_inscription'])) {
+    unset($_SESSION['data_en_cours_connexion']);
     unset($_SESSION['error']);
 }
 
@@ -32,9 +29,10 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <!-- NOS FICHIERS -->
         <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
-        <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
+        <script type="module" src="/scripts/main.js"></script>
 
         <title>Création de compte- PACT</title>
     </head>
@@ -83,8 +81,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
                         <!-- Oeil pour afficher le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                            id="togglePassword1"></i>
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <!-- Champ pour confirmer le mot de passe -->
@@ -95,8 +92,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                             title="Confirmer le mot de passe saisit ci-dessus"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
                         <!-- Oeil pour afficher le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer"
-                            id="togglePassword2"></i>
+                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <!-- Mots de passe ne correspondent pas -->
@@ -177,7 +173,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que cette adresse mail est déjà utilisée ?
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
     $stmt->bindParam(":mail", $_POST['mail']);
     $stmt->execute();
@@ -204,11 +199,11 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
             integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+
+        <!-- NOS FICHIERS -->
         <link rel="icon" href="/public/images/favicon.png">
         <link rel="stylesheet" href="/styles/style.css">
-
-        <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
-        <script src="/scripts/formats.js"></script>
+        <script src="/scripts/formats.js" defer></script>
 
         <title>Création de compte - PACT</title>
     </head>
@@ -327,7 +322,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                         placeholder="01 23 45 67 89"
                         value="<?php echo $_SESSION['data_en_cours_inscription']['num_tel'] ?? '' ?>" required>
                 </div>
-                
+
                 <!-- Message d'erreur pour le téléphone -->
                 <?php
                 if (isset($_GET['invalid_phone_number'])) { ?>
@@ -444,7 +439,6 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que ce pseudo a déjà été utilisé ?
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
     $dbh->beginTransaction();
 
     $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :pseudo");
@@ -511,8 +505,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Quand tout est bien réalisé, rediriger vers l'accueil en étant connecté
-    $_SESSION['id_membre'] = $id_membre;
     unset($_SESSION['id_pro']);
+    $_SESSION['id_membre'] = $id_membre;
+    $_SESSION['message_pour_notification'] = 'Votre compte Membre a été créé';
     header("location: /");
 }
 ?>

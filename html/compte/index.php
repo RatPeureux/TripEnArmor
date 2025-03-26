@@ -1,13 +1,13 @@
 <?php
 session_start();
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
-
-$membre = verifyMember();
-$id_membre = $membre['id_compte'];
 
 // Connexion avec la bdd
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
+// Récupérer les informations du membre
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+$membre = verifyMember();
+$id_membre = $membre['id_compte'];
 
 if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
     $controllerMembre->updateMembre($membre['id_compte'], false, false, false, false, $_POST['pseudo'], false);
@@ -22,10 +22,10 @@ if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- NOS FICHIERS -->
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
-    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Mon compte - PACT</title>
 </head>

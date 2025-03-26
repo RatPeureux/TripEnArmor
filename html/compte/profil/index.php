@@ -1,23 +1,27 @@
 <?php
 session_start();
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_params.php';
-
-$membre = verifyMember();
-$id_membre = $_SESSION['id_membre'];
 
 // Connexion avec la bdd
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
+// Obtenir les informations sur le membre
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+$membre = verifyMember();
+$id_membre = $membre['id_compte'];
+
+// Controllers
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/membre_controller.php';
 $controllerMembre = new MembreController();
 $membre = $controllerMembre->getInfosMembre($id_membre);
 
 if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
+    $_SESSION['message_pour_notification'] = 'Informations mises à jour';
+
     $controllerMembre->updateMembre($membre['id_compte'], false, false, false, false, $_POST['pseudo'], false);
     unset($_POST['pseudo']);
 }
 
+// Rafraîchir les infos du membre avec celles mises à jours juste avant
 $membre = verifyMember();
 ?>
 
@@ -28,10 +32,10 @@ $membre = verifyMember();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- NOS FICHIERS -->
     <link rel="icon" href="/public/images/favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/scripts/main.js"></script>
-    <script src="https://kit.fontawesome.com/d815dd872f.js" crossorigin="anonymous"></script>
 
     <title>Profil du compte - PACT</title>
 </head>
@@ -75,7 +79,6 @@ $membre = verifyMember();
                     
                 </form>
 
-
                 <hr class="mb-8">
 
                 <div class="max-w-[23rem] mx-auto">
@@ -98,31 +101,15 @@ $membre = verifyMember();
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
     ?>
+
+    <script>
+        // Lier l'input du pseudo au bouton 'enregistrer les modifications'
+        window.onload = () => {
+            const pseudo = document.getElementById('pseudo');
+            const saveBtn = document.getElementById('save');
+            triggerSaveBtnOnInputsChange([pseudo], saveBtn);
+        }
+    </script>
 </body>
 
 </html>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const initialValues = {
-            pseudo: document.getElementById("pseudo").value,
-        };
-
-        function activeSave() {
-            const save = document.getElementById("save");
-            const pseudo = document.getElementById("pseudo").value;
-
-            if (pseudo !== initialValues.pseudo) {
-                save.disabled = false;
-                save.classList.remove("opacity-50");
-                save.classList.add("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            } else {
-                save.disabled = true;
-                save.classList.add("opacity-50");
-                save.classList.remove("cursor-pointer", "hover:text-white", "hover:border-orange-600", "hover:bg-orange-600", "focus:scale-[0.97]");
-            }
-        }
-
-        document.getElementById("pseudo").addEventListener("input", activeSave);
-    });
-</script>
