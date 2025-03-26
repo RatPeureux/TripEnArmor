@@ -316,11 +316,19 @@ session_start();
                 titre.addEventListener('click', () => handleH1Click(titre));
             });
 
+            titres.forEach(titre => {
+                titre.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        handleH1Click(titre);
+                    }
+                });
+            });
+
             // Ajoute un écouteur sur le select
             selectMenu.addEventListener('change', handleSelectChange);
 
             // Gestion de l'affichage des offres "À la Une"
-            const offres = document.querySelectorAll('#no-matches .card');
+            const offres = document?.querySelectorAll('#no-matches .card');
             let anyVisible = false;
 
             offres?.forEach((offre) => {
@@ -332,11 +340,7 @@ session_start();
                 }
             });
 
-            const noMatchesContainer = document.querySelector('#no-matches');
-            if (!noMatchesContainer) {
-                console.error('Le conteneur #no-matches est introuvable.');
-                return;
-            }
+            const noMatchesContainer = document?.querySelector('#no-matches');
 
             const noMatchesMessage = document.getElementById('no-matches-message');
             if (!anyVisible) {

@@ -1621,7 +1621,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <!-- FOOTER -->
                             <div class="w-full">
                                 <?php
-                                include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer-pro.php';
+                                include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
                                 ?>
                             </div>
                         </div>

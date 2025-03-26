@@ -163,7 +163,7 @@
                     <p>Disponibilité</p>
                     <p class="arrow" id="arrow-f2-tel">></p>
                 </div>
-                <div class="developped hidden text-sm flex flex-wrap gap-4 developped-f2-tel">
+                <div class="developped hidden text-sm flex flex-wrap gap-4" id="developped-f2-tel">
                     <div class="flex items-center gap-2">
                         <input type="checkbox" class="mb-1" id="ouvert-tel">
                         <label for="ouvert-tel">Ouvert</label>
@@ -192,18 +192,18 @@
                     <p>Note générale</p>
                     <p class="arrow" id="arrow-f4-tel">></p>
                 </div>
-                <div class="developped hidden flex items-center" id="developped-f4-tel">
+                <div class="developped text-sm hidden flex items-center" id="developped-f4-tel">
                     <label class="text-sm">Intervalle des notes entre&nbsp;</label>
                     <div class="flex items-center">
                         <input id="min-note-tel" type="number" value="0" min="0" max="5" step="0.5"
-                            class="border border-black p-1 text-sm text-right w-[39px] focus:ring-0">
+                            class="w-8 border border-black p-1 text-right">
                         &nbsp;
                         <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='1 point de note'>
                     </div>
                     <label class="text-sm">&nbsp;et&nbsp;</label>
                     <div class="flex items-center">
                         <input id="max-note-tel" type="number" value="5" min="0" max="5" step="0.5"
-                            class="border border-black p-1 text-sm text-right w-[39px] focus:ring-0">
+                            class="w-8 border border-black p-1 text-right">
                         &nbsp;
                         <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='1 point de note'>
                     </div>
@@ -217,13 +217,13 @@
                 <div class="developped text-sm hidden flex flex-wrap items-center" id="developped-f5-tel">
                     <div>
                         <label>Offre allant du&nbsp;</label>
-                        <input type="date" class="border border-black p-1 text-right mr-4" id="min-date-tel"
+                        <input type="date" class="w-[44px] border border-black p-1 text-right mr-4" id="min-date-tel"
                             name="min-date-tel">
                         &nbsp;
                     </div>
                     <div>
                         <label>au&nbsp;</label>
-                        <input type="date" class="border border-black p-1 text-right" id="max-date-tel"
+                        <input type="date" class="w-[44px] border border-black p-1 text-right" id="max-date-tel"
                             name="max-date-tel">
                     </div>
                 </div>
@@ -244,7 +244,7 @@
                             class="w-[44px] border border-black p-1 text-sm text-right focus:ring-0">
                         <label class="text-sm">&nbsp;€</label>
                     </div>
-                    <div class="text-sm flex flex-wrap gap-4 developped-f2-tel">
+                    <div class="text-sm flex flex-wrap gap-4">
                         <label class="text-sm">Restauration :&nbsp;</label>
                         <div class="flex items-center gap-2">
                             <input type="checkbox" class="mb-1" id="€-tel">
