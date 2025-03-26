@@ -3,6 +3,7 @@ session_start();
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
 $avisController = new AvisController;
 
+echo "$_POST\n";
 print_r($_POST);
 
 // Obtenir les informations nécessaires pour la création de l'avis
@@ -52,7 +53,9 @@ if (isset($id_avis_inserted)) {
 // Gestion de l'upload des images pour l'avis
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
 $imageController = new ImageController();
+echo "photos avis\n";
 print_r($photo_avis);
+echo "FILES\n";
 print_r($_FILES);
 exit;
 die();
