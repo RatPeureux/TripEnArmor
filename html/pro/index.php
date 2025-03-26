@@ -208,11 +208,11 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
                 <h2 class="text-3xl">
                     Notifications
                 </h2>
-
                 <form action="/scripts/mark_all_as_read.php" method="POST" class="underline cursor-pointer">
                     <input type="hidden" name="id_pro" value="<?php echo $_SESSION['id_pro']; ?>">
                     <button type="submit"
-                        class="rounded-full bg-secondary text-white text-sm py-2 px-4 border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]">
+                        class="rounded-full bg-secondary text-white text-sm py-2 px-4 border border-secondary hover:text-white hover:bg-secondary/90 hover:border-secondary/90 focus:scale-[0.97]"
+                        tabindex="0">
                         Marquer comme lu
                     </button>
                 </form>

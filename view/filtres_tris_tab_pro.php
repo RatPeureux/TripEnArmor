@@ -1,7 +1,7 @@
 <!-- DROPDOWN MENU TRIS TABLETTE-->
-<div class="hidden md:hidden relative" id="sort-section-tab">
+<div class="hidden md:hidden relative z-50" id="sort-section-tab">
     <div
-        class="absolute top-0 right-0 z-20 self-end bg-white border border-black shadow-md max-w-48 p-2 flex flex-col gap-4">
+        class="absolute top-0 right-0 self-end bg-white border border-black shadow-md max-w-48 p-2 flex flex-col gap-4">
         <a href="<?php
         // Base URL sans les paramètres
         $baseUrl = strtok($_SERVER['PHP_SELF'], '?');
@@ -190,7 +190,7 @@
             <p>Disponibilité</p>
             <p id="arrow-f2-tab">></p>
         </div>
-        <div class="hidden text-sm flex flex-wrap gap-4 developped-f2-tab">
+        <div class="hidden text-sm flex flex-wrap gap-4" id="developped-f2-tab">
             <div class="flex items-center gap-2">
                 <input type="checkbox" class="mb-1" id="ouvert-tab">
                 <label for="ouvert-tab">Ouvert</label>
@@ -253,7 +253,7 @@
             <p>Prix</p>
             <p id="arrow-f6-tab">></p>
         </div>
-        <div class="hidden flex flex-wrap items-center justify-between gap-2 developped-f6-tab">
+        <div class="hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tab">
             <div class="flex items-center">
                 <label class="text-sm">Intervalle des prix entre&nbsp;</label>
                 <input id="min-price-tab" type="number" value="0" min="0" max="99"
@@ -264,7 +264,7 @@
                     class="w-[44px] border border-black p-1 text-sm text-right focus:ring-0">
                 <label class="text-sm">&nbsp;€</label>
             </div>
-            <div class="text-sm flex flex-wrap gap-4 developped-f2-tab">
+            <div class="text-sm flex flex-wrap gap-4">
                 <label class="text-sm">Restauration :&nbsp;</label>
                 <div class="flex items-center gap-2">
                     <input type="checkbox" class="mb-1" id="€-tab">
@@ -289,7 +289,7 @@
                     <p>Type d'offre</p>
                     <p id="arrow-f7-tab">></p>
                 </div>
-                <div class="hidden flex items-center gap-4" id="developped-f7-tab">
+                <div class="hidden text-sm flex items-center gap-4" id="developped-f7-tab">
                     <div class="flex items-center gap-2">
                         <input type="checkbox" class="mb-1" id="standard-tab">
                         <label for="standard-tab">Standard</label>

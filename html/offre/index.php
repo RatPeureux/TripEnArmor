@@ -544,6 +544,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                             echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement']
                                                 ?>
                                         </p>
+                                        <p class="text-blue-500 underline underline-offset-2">
+                                            <a href="https://www.google.com/maps?q=<?php echo str_replace(" ", "%20", ( $offre['titre'] . ' ' . $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] . ', ' . $ville . ', ' . $code_postal)) ?>" target="_blank">
+                                                Y aller >
+                                            </a>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="flex items-center px-2 gap-4">

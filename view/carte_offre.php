@@ -68,7 +68,7 @@ if ($mode_carte == 'membre') {
   // Composant dynamique (généré avec les données en php)
   // Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
   ?>
-  <a class="card border <?php if ($option) {
+  <a class="card border hover:border-secondary <?php if ($option) {
     echo "active ";
   } ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
@@ -416,7 +416,7 @@ if ($mode_carte == 'membre') {
   // Composant dynamique (généré avec les données en php)
   // Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
   ?>
-  <div class="card 
+  <div class="card border hover:border-secondary 
 <?php if ($option)
       echo 'active' ?> 
     relative max-w-[1280px] bg-base100  flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
@@ -656,17 +656,18 @@ if ($mode_carte == 'membre') {
             <div id="info_pro" class="flex justify-around items-center text-small">
               <div class="flex items-center justify-arround gap-3">
                 <i class="fa-solid fa-rotate"></i>
-                <p>Modifiée le <?php
-                if (isset($date_mise_a_jour)) {
-                  echo $date_mise_a_jour;
-                } else {
-                  echo $date_publication;
-                }
-                if (isset($date_mise_a_jour)) {
-                  echo $date_mise_a_jour;
-                } else {
-                  echo $date_publication;
-                } ?>
+                <p>Modifiée le
+                  <?php
+                  if (isset($date_mise_a_jour)) {
+                    echo $date_mise_a_jour;
+                  } else {
+                    echo $date_publication;
+                  }
+                  if (isset($date_mise_a_jour)) {
+                    echo $date_mise_a_jour;
+                  } else {
+                    echo $date_publication;
+                  } ?>
                 </p>
               </div>
               <div class="flex items-center gap-3">
@@ -747,10 +748,10 @@ if ($mode_carte == 'membre') {
 
                   <!-- Consulter les informations sur ses tickets -->
                   <div title="Vous avez <?php echo $nb_tickets ?> ticket(s) de blacklistage"
-                    class="text-small italic flex gap-2 items-center">
+                    class="text-small flex gap-2 items-center">
                     <i onclick="document.getElementById('pop-up-tickets-<?php echo $id_offre ?>').classList.remove('hidden')"
-                      class="fa-solid fa-ticket hover:text-primary hover:cursor-pointer"></i>
-                    <p><?php echo $nb_tickets ?> / 3</p>
+                      class="fa-solid fa-ticket"></i>
+                    <p class="hover:text-primary cursor-pointer"><?php echo $nb_tickets ?> / 3</p>
                   </div>
                   <div id="pop-up-tickets-<?php echo $id_offre ?>"
                     class="z-30 fixed top-0 left-0 h-full w-full flex hidden items-center justify-center">

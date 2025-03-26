@@ -62,7 +62,7 @@
           <p>Catégorie</p>
           <p class="arrow" id="arrow-f1-tab">></p>
         </div>
-        <div class="alldevelopped hidden text-sm flex flex-wrap gap-4" id="developped-f1-tab">
+        <div class="alldevelopped hidden flex text-sm flex-wrap gap-4" id="developped-f1-tab">
           <div class="flex items-center gap-2">
             <input type="checkbox" class="mb-1" id="restauration-tab">
             <label for="restauration-tab">Restauration</label>
@@ -94,7 +94,7 @@
           <p>Disponibilité</p>
           <p class="arrow" id="arrow-f2-tab">></p>
         </div>
-        <div class="alldevelopped hidden text-sm flex flex-wrap gap-4 developped-f2-tab">
+        <div class="alldevelopped hidden flex text-sm flex-wrap gap-4" id="developped-f2-tab">
           <div class="flex items-center gap-2">
             <input type="checkbox" class="mb-1" id="ouvert-tab">
             <label for="ouvert-tab">Ouvert</label>
@@ -126,14 +126,14 @@
           <div class="flex items-center">
             <div class="flex items-center">
               <input id="min-note-tab" type="number" value="0" min="0" max="5" step="0.5"
-                class="border border-black p-1 text-sm text-right w-[39px] focus:ring-0">
+                class="w-[44px] border border-black p-1 text-sm text-right focus:ring-0">
               &nbsp;
               <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='1 point de note'>
             </div>
             <label class="text-sm">&nbsp;et&nbsp;</label>
             <div class="flex items-center">
               <input id="max-note-tab" type="number" value="5" min="0" max="5" step="0.5"
-                class="border border-black p-1 text-sm text-right w-[39px] focus:ring-0">
+                class="w-[44px] border border-black p-1 text-sm text-right focus:ring-0">
               &nbsp;
               <img src="/public/icones/egg-full.svg" class="mb-1" width="11" alt='1 point de note'>
             </div>
@@ -162,7 +162,7 @@
           <p>Prix</p>
           <p class="arrow" id="arrow-f6-tab">></p>
         </div>
-        <div class="alldevelopped hidden flex flex-wrap items-center justify-between gap-2 developped-f6-tab">
+        <div class="alldevelopped hidden flex flex-wrap items-center justify-between gap-2" id="developped-f6-tab">
           <div class="flex flex-col">
             <label class="text-sm">Intervalle des prix entre&nbsp;</label>
             <div class="flex items-center">
@@ -175,7 +175,7 @@
               <label class="text-sm">&nbsp;€</label>
             </div>
           </div>
-          <div class="text-sm flex flex-wrap developped-f6-tab">
+          <div class="text-sm flex flex-wrap">
             <label class="text-sm">Restauration :&nbsp;</label>
             <div class="w-full flex items-center justify-between">
               <div class="flex items-center gap-2">
@@ -197,6 +197,8 @@
         </div>
       </div>
     </div>
+
+    <script src="/scripts/filtersAndSorts.js"></script>
   <?php } ?>
 </div>
 
