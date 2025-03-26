@@ -15,6 +15,9 @@
     <a class="p-3  <?php if (isset($pagination) && $pagination == 3) {
       echo 'active';
     } ?>" href="/offres">Toutes les offres</a>
+    <a class="p-3  <?php if (isset($pagination) && $pagination == 4) {
+      echo 'active';
+    } ?>" href="/offres/nouvelles">Nouvelles offres</a>
   </div>
 </div>
 
@@ -44,6 +47,11 @@
         <a class="<?php if (isset($pagination) && $pagination == 3) {
           echo 'active';
         } ?>" href="/offres">Toutes les offres</a>
+      </div>
+      <div class="p-3">
+        <a <?php if (isset($pagination) && $pagination == 4) {
+          echo 'active';
+        } ?>" href="/offres/nouvelles">Nouvelles offres</a>
       </div>
     </div>
   </div>

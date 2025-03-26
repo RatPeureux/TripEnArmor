@@ -457,6 +457,13 @@ document.addEventListener("DOMContentLoaded", function () {
 					filterState.tags.every((tag) => tags?.includes(tag));
 			}
 
+			let offerId = null;
+			const href = offre?.getAttribute("href");
+			if (href) {
+				const urlParams = new URLSearchParams(href.split('?')[1]);
+				offerId = urlParams.get("id_offre");
+			}
+
 			// Appliquer les filtres croisés
 			if (
 				matchesCategory &&
@@ -468,10 +475,10 @@ document.addEventListener("DOMContentLoaded", function () {
 			) {
 				offre.classList.remove("hidden");
 				anyVisible = true;
-				showMarkerWithId(offre.id);
+				showMarkerWithId(offerId);
 			} else {
 				offre.classList.add("hidden");
-				hideMarkerWithId(offre.id);
+				hideMarkerWithId(offerId);
 			}
 		});
 
