@@ -103,17 +103,15 @@ if (isset($_POST['mdp'])) {
                     </div>
 
                     <input type="submit" id="saveBtn" value="Modifier mon mot de passe"
-                        class="self-end opacity-50 max-w-sm px-4 py-2 text-sm text-white bg-primary cursor-pointer border border-transparent rounded-full"
+                        class="self-end opacity-50 max-w-sm px-4 py-2 mb-4 text-sm text-white bg-primary cursor-pointer border border-transparent rounded-full"
                         disabled>
                 </form>
 
-                <hr class="my-4">
+                <hr class="mb-8">
 
                 <!-- PARTIE SUR LE TOTP -->
-                <div id="div-for-totp" class="flex flex-col items-start gap-4 self-stretch">
-                    <p class="text-2xl mb-4">Option TOTP</p>
-                    <a onclick="document.getElementById('pop-up-info-totp').classList.remove('hidden')"
-                        class="italic underline cursor-pointer">Késako ?</a>
+                <div id="div-for-totp" class="flex flex-col items-start gap-2 mb-4">
+                    <p class="text-2xl mb-2">Option TOTP</p>
 
                     <div id="pop-up-info-totp"
                         class="z-30 fixed top-0 left-0 h-full w-full flex hidden items-center justify-center">
@@ -130,10 +128,10 @@ if (isset($_POST['mdp'])) {
                     <!-- POUVOIR ACTIVER LE TOTP -->
                     <?php if ($membre['totp_active'] == false) { ?>
 
-                        <div class="flex gap-2 items-center self-start">
+                        <div class="flex items-center self-start">
                             <a id="load-totp-btn"
                                 onclick="if(confirm('Vous allez voir un code secret ainsi q\'un QR code à scanner avec une application dédiée sur votre téléphone. Une fois l\'option activée, vous ne pourrez pas récupérer ce code. Nous vous recommandons de le noter à un endroit sûr.')) loadTOTP();"
-                                class="max-w-sm px-4 py-2 text-sm border border-primary hover:text-white hover:border-white hover:!bg-primary text-primary rounded-full cursor-pointer">Activer
+                                class="max-w-sm px-4 py-2 text-sm border border-primary bg-primary hover:text-primary hover:bg-white text-white rounded-full cursor-pointer">Activer
                                 l'option TOTP</a>
                             <!-- Symbole de chargement -->
                             <img id="loading-indicator" class="w-8 h-6" style="display: none;"
@@ -144,7 +142,7 @@ if (isset($_POST['mdp'])) {
                         <div id="totp-container" class="break-words max-w-full"></div>
 
                         <!-- ÉCRIRE LE CODE SECRET POUR CONFIRMER L'ACTIVATION -->
-                        <div id="confirm-totp-div" class="flex flex-col items-stretch gap-2 hidden">
+                        <div id="confirm-totp-div" class="flex flex-col items-stretch hidden">
                             <label for="confirmTOTP">Pour confirmer l'activation de l'option TOTP, veuillez ressaisir le
                                 code
                                 secret donné ci-dessus en gras :</label>
@@ -167,12 +165,15 @@ if (isset($_POST['mdp'])) {
                         <p class="text-green-400">Votre option TOTP est activée.</p>
                     <?php } ?>
 
+                    <a onclick="document.getElementById('pop-up-info-totp').classList.remove('hidden')"
+                        class="underline cursor-pointer text-sm">Késako ?</a>
+
                 </div>
 
-                <hr class="my-4">
+                <hr class="mb-8">
 
                 <!-- PARTIE SUR LA CLÉ API -->
-                <div class="flex">
+                <div class="flex mb-4">
                     <p class="text-sm">Clé API Tchatator :</p>
                     &nbsp;
                     <p id="apiKey" class="text-sm cursor-pointer blur-sm hover:blur-none" onclick="copyToClipboard(this)">
@@ -180,11 +181,13 @@ if (isset($_POST['mdp'])) {
                     </p>
                 </div>
 
-                <hr class="my-4">
+                <hr class="mb-8">
 
                 <!-- SUPPRIMER SON COMPTE -->
                 <a onclick="document.getElementById('pop-up-suppression-compte').classList.remove('hidden')"
-                    class="text-sm italic underline cursor-pointer">Supprimer mon compte</a>
+                    class="max-w-[23rem] w-full mx-auto text-white text-sm border border-rouge-logo bg-rouge-logo px-4 py-2 rounded-full hover:bg-rouge-logo/90 flex items-center justify-center">
+                    Supprimer mon compte
+                </a>
 
                 <div id="pop-up-suppression-compte"
                     class="z-30 fixed top-0 left-0 h-full w-full flex hidden items-center justify-center">
