@@ -1,5 +1,6 @@
 <?php
-session_start(); 
+print_r($_POST);
+session_start();
 
 // Se connecter à la BDD
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
@@ -81,7 +82,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
                         <!-- Oeil pour afficher le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <!-- Champ pour confirmer le mot de passe -->
@@ -92,7 +94,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                             title="Confirmer le mot de passe saisit ci-dessus"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
                         <!-- Oeil pour afficher le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <!-- Mots de passe ne correspondent pas -->
@@ -176,10 +179,9 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE email = :mail");
     $stmt->bindParam(":mail", $_POST['mail']);
     $stmt->execute();
-    $result = $stmt->fetchAll();
 
     // Si il y a au moins un compte déjà avec cette adresse mail
-    if (count($result) > 0) {
+    if ($stmt->rowCount() > 0) {
         $_SESSION['error'] = "Cette adresse mail est déjà utilisée";
         // Revenir sur sur l'inscription comme au début
         header("location: /inscription");
@@ -439,33 +441,35 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
     }
 
     // Est-ce que ce pseudo a déjà été utilisé ?
-    $dbh->beginTransaction();
-
     $stmt = $dbh->prepare("SELECT * FROM sae_db._membre WHERE pseudo = :pseudo");
     $stmt->bindParam(":pseudo", $_POST['pseudo']);
     $stmt->execute();
-    $result = $stmt->fetchAll();
     // Si il y a au moins un compte déjà avec ce numéro de téléphone
-    if (count($result) > 0) {
+    if ($stmt->rowCount() > 0) {
         $_SESSION['error'] = "Ce pseudonyme est déjà utilisé";
         // Revenir sur sur l'inscription comme au début
         header("location: /inscription?valid_mail=true&invalid_pseudo=true");
+        exit();
     }
 
     // Est-ce que le numéro de téléphone renseigné a déjà été utilisé ?
     $stmt = $dbh->prepare("SELECT * FROM sae_db._compte WHERE num_tel = :num_tel");
     $stmt->bindParam(":num_tel", $_POST['num_tel']);
     $stmt->execute();
-    $result = $stmt->fetchAll();
     // Si il y a au moins un compte déjà avec ce numéro de téléphone
-    if (count($result) > 0) {
+    if ($stmt->rowCount() > 0) {
         $_SESSION['error'] = "Ce numéro de téléphone est déjà utilisé";
         // Revenir sur sur l'inscription comme au début
         header("location: /inscription?valid_mail=true&invalid_phone_number=true");
+        exit();
     }
 
     // Partie pour traiter la soumission du second formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_tel'])) {
+
+        // Transaction (sécur adresse)
+        $dbh->beginTransaction();
+
         // Assurer que tous les champs obligatoires sont remplis
         $adresse = $_POST['user_input_autocomplete_address'];
         $infosSupAdresse = extraireInfoAdresse($adresse);

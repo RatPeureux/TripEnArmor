@@ -213,13 +213,9 @@ if (isset($_POST['mdp'])) {
         const saveBtn = document.getElementById('saveBtn');
 
         function triggerSaveBtn() {
-            console.log("dans 1");
             if (mdp.value.match(mdp.pattern) && newMdp.value.match(mdp.pattern) && confNewMdp.value.match(mdp.pattern)) {
-                console.log("dans 2");
                 if (mdp.value !== newMdp.value) {
-                    console.log("dans 3");
                     if (newMdp.value === confNewMdp.value) {
-                        console.log("dans 4");
                         saveBtn.disabled = false;
                         saveBtn.classList.remove("opacity-50");
                     } else {

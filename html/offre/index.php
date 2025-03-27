@@ -1051,6 +1051,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                             echo '-1';
                         } ?>;
 
+                        // Nombre d'avis à charger en plus
+                        const X = 3
+
                         // Charger les X premiers avis
                         loadAvis();
 
@@ -1078,17 +1081,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 
                                 // Durant l'exécution de la requête
                                 success: function (response) {
-                                    const lesAvisCharges = response;
-                                    if (lesAvisCharges.length > 0) {
-                                        // Ajouter le contenu HTML généré par loaded avis.
-                                        try {
-                                            $('#avis-container').append(lesAvisCharges);
-                                        } catch (e) {
-                                            console.log(e.getMessage());
-                                        }
+                                    let data = JSON.parse(response);
 
+                                    const lesAvisCharges = data.avis_html;
+                                    const avisCount = data.avis_count;
+
+                                    try {
+                                        $('#avis-container').append(lesAvisCharges);
+                                    } catch (e) {
+                                        console.log(e.getMessage());
+                                    }
+
+                                    // Véirifier que l'on aura des avis à afficher (>= X+1)
+                                    if (avisCount >= (X + 1)) {
                                         // Pour l'éventuel prochain chargement, incrémenter le curseur
-                                        idx_avis += 3;
+                                        idx_avis += X;
                                     } else {
                                         // Ne plus pouvoir cliquer sur le bouton quand il n'y a plus d'avis
                                         $('#load-more-btn').prop('disabled', true).text('');
