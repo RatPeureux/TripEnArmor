@@ -17,10 +17,10 @@
     <!-- COMMENTAIRE (optionnel) -->
     <label for="commentaire-signalement-<?php echo $id_avis ?>" class="text-lg">Commentaire</label>
     <textarea name="commentaire-signalement-<?php echo $id_avis ?>" id="commentaire-signalement-<?php echo $id_avis ?>"
-        class="mb-5 w-[400px] h-[150px] border border-black"></textarea>
+        class="mb-5 w-[400px] h-[150px] border border-black p-2"></textarea>
 
     <!-- Bouton de signalement -->
-    <input type="submit" class="hover:cursor-pointer self-end max-w-sm h-12 px-4 text-sm text-white bg-primary"
+    <input type="submit" class="hover:cursor-pointer self-end max-w-sm h-12 px-4 py-2 text-sm text-white bg-primary rounded-full"
         value="Signaler"></input>
 </form>
 

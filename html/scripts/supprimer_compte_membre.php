@@ -22,7 +22,8 @@ if ($_POST['textConfirmDelete'] !== 'je veux supprimer mon compte') {
 $stmt = $dbh->prepare("DELETE FROM sae_db._membre WHERE id_compte = :id_compte");
 $stmt->bindParam(':id_compte', $membre['id_compte']);
 if ($stmt->execute()) {
-    unset($_SESSION['id_compte']);
+    $_SESSION['message_pour_notification'] = 'Votre compte a été supprimé';
+    unset($_SESSION['id_membre']);
     header('Location: /');
     exit();
 } else {
