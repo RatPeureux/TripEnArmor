@@ -32,6 +32,4 @@ if ($stmt->execute()) {
         "qr_code_uri" => $QrCodeUri
     ];
     echo json_encode($to_ret);
-} else {
-    echo json_encode("bruh");
 }

@@ -84,27 +84,6 @@ if (empty($_POST)) { ?>
                 </form>
             </div>
         </div>
-
-        <script>
-            // Récupération de l'élément pour afficher/masquer le mot de passe
-            const togglePassword = document.getElementById('togglePassword');
-            const mdp = document.getElementById('mdp');
-
-            // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-            if (togglePassword) {
-                togglePassword.addEventListener('click', function () {
-                    if (mdp.type === 'password') {
-                        mdp.type = 'text';
-                        this.classList.remove('fa-eye');
-                        this.classList.add('fa-eye-slash');
-                    } else {
-                        mdp.type = 'password';
-                        this.classList.remove('fa-eye-slash');
-                        this.classList.add('fa-eye');
-                    }
-                });
-            }
-        </script>
     </body>
 
     </html>

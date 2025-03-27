@@ -57,7 +57,7 @@ window.triggerSaveBtnOnInputsChange = triggerSaveBtnOnInputsChange;
 // Afficher un toast de notification
 let notificationCount = 0;
 function displayNotification(message) {
-
+    
     // Créer l'élément notif
     const toast = document.createElement('div');
     toast.className = 'fixed right-5 bg-secondary text-white p-4 z-50 border border-white flex items-center gap-4';

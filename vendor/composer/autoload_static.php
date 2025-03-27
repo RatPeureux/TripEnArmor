@@ -19,6 +19,7 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         array (
             'Psr\\Clock\\' => 10,
             'ParagonIE\\ConstantTime\\' => 23,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'O' => 
         array (
@@ -38,6 +39,10 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         'ParagonIE\\ConstantTime\\' => 
         array (
             0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'OTPHP\\' => 
         array (
