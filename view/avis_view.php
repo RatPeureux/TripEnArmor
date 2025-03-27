@@ -273,9 +273,12 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
         <?php
         if ($images) {
             foreach ($images as $index => $image): ?>
-                <?php if ($index < 4): ?>
+                <?php if (count($images) === 1): ?>
+                    <img src="public/images/avis/<?php echo $image; ?>" alt="" class="object-cover w-12 h-16 rounded-lg"
+                        onclick="openImageModal(<?php echo $index; ?>)">
+                <?php elseif ($index < 4): ?>
                     <img src="public/images/avis/<?php echo $image; ?>" alt=""
-                        class="object-cover w-12 h-16 <?php echo $index === 0 ? 'rounded-tl-lg rounded-bl-lg' : ''; ?>"
+                        class="object-cover w-12 h-16 <?php echo $index === 0 ? 'rounded-tl-lg rounded-bl-lg' : ''; ?> <?php echo $index === count($images) - 1 ? 'rounded-tr-lg rounded-br-lg' : ''; ?>"
                         onclick="openImageModal(<?php echo $index; ?>)">
                 <?php elseif ($index === 4): ?>
                     <div class="bg-base100 w-12 h-16 rounded-tr-lg rounded-br-lg">
