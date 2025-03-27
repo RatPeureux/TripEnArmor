@@ -162,7 +162,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
             // Flèche de référence vers l'offre correspondante
             if (isset($is_reference) && $is_reference) { ?>
                 <a title="voir l'offre correspondante" class="hover:text-primary"
-                    href="/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>">
+                    href="/offre?id_offre=<?php echo $avis['id_offre'] ?>">
                     <i class="text-xl fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             <?php }

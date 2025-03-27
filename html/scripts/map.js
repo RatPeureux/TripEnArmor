@@ -33,7 +33,7 @@ fetch("/api/get_offers.php")
 						.bindPopup(`
 							<strong>${offer.titre}</strong><br>
 							${offer.resume}<br>
-							<a href="/scripts/go_to_details.php?id_offre=${offer.id_offre}" target="_blank">Voir l'offre</a>
+							<a href="/offre?id_offre=${offer.id_offre}" target="_blank">Voir l'offre</a>
 						`);
 					visibleMarkers[offer.id_offre] = marker;
 					clusterGroup.addLayer(marker);
