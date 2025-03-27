@@ -70,7 +70,7 @@ if ($mode_carte == 'membre') {
   ?>
   <a class="card border hover:border-secondary <?php if ($option) {
     echo "active ";
-  } ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
+  } ?> " href='/offre?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
     <!-- CARTE VERSION TÉLÉPHONE -->
     <div class='md:hidden relative bg-base100  flex flex-col'>
@@ -426,7 +426,7 @@ if ($mode_carte == 'membre') {
     relative max-w-[1280px] bg-base100  flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
     <!-- PARTIE DE GAUCHE, image-->
     <div class="gauche relative shrink-0 basis-1/2 overflow-hidden">
-      <a href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>'>
+      <a href='/offre?id_offre=<?php echo $id_offre ?>'>
         <?php
         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
         $controllerImage = new ImageController();
@@ -544,7 +544,7 @@ if ($mode_carte == 'membre') {
                 class="fa-solid fa-gear text-3xl hover:text-primary hover:rotate-[24deg] duration-300"></i>
             </a>
             <!-- détails de l'offre -->
-            <a href="/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>" title="Voir l'offre">
+            <a href="/offre?id_offre=<?php echo $id_offre ?>" title="Voir l'offre">
               <i class="fa-solid fa-arrow-up-right-from-square text-3xl hover:text-primary duration-300"></i>
             </a>
           </div>
@@ -721,13 +721,13 @@ if ($mode_carte == 'membre') {
             <hr class="mx-5 border-black">
             <div class="flex items-center justify-around">
               <!-- Non lus -->
-              <a href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>#avis-button' title="Avis non consultés"
+              <a href='/offre?id_offre=<?php echo $id_offre ?>#avis-button' title="Avis non consultés"
                 class="hover:text-primary">
                 <i class="text-lg fa-solid fa-exclamation text-rouge-logo"></i>
                 <?php echo $chiffres_cles['nb_non_lus'] ?>
               </a>
               <!-- Non répondus -->
-              <a href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>#avis-button' title="Avis sans réponse"
+              <a href='/offre?id_offre=<?php echo $id_offre ?>#avis-button' title="Avis sans réponse"
                 class="hover:text-primary">
                 <i class="text-lg fa-solid fa-reply-all text-rouge-logo"></i>
                 <?php echo $chiffres_cles['nb_sans_reponse'] ?>
@@ -744,7 +744,7 @@ if ($mode_carte == 'membre') {
 
                 <div class="flex flex-col gap-1 items-center justify-center">
                   <!-- Consulter les avis blacklistés -->
-                  <a href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>#blacklistes-button'
+                  <a href='/offre?id_offre=<?php echo $id_offre ?>#blacklistes-button'
                     title="Avis blacklistés" class="hover:text-primary">
                     <i class="text-lg fa-regular fa-eye-slash text-rouge-logo"></i>
                     <?php echo $chiffres_cles['nb_blacklistes'] ?>

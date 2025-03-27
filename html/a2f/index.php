@@ -121,18 +121,22 @@ if (empty($_POST)) { ?>
                     unset($_SESSION['tmp_id_compte_a2f'], $_SESSION['error']);
                     $_SESSION['message_pour_notification'] = 'Connecté(e) en tant que Membre';
                     header('Location: /');
+                    exit();
                 } else if ($proPublicController->getInfosProPublic($_SESSION['tmp_id_compte_a2f']) || $proPriveController->getInfosProPrive($_SESSION['tmp_id_compte_a2f'])) {
                     $_SESSION['id_pro'] = $_SESSION['tmp_id_compte_a2f'];
                     unset($_SESSION['tmp_id_compte_a2f'], $_SESSION['error']);
                     $_SESSION['message_pour_notification'] = 'Connecté(e) en tant que Professionnel(le)';
                     header('Location: /pro');
+                    exit();
                 } else {
                     $_SESSION['error'] = "Connexion impossible : votre identifiant de compte ne corresond à aucun compte dans la base de données";
                     header('Location: /a2f');
+                    exit();
                 }
             } else {
                 $_SESSION['error'] = 'TOTP invalide';
                 header('Location: /a2f');
+                exit();
             }
         }
     } catch (PDOException $e) {

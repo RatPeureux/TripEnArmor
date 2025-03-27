@@ -510,6 +510,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             header('location: /pro');
+            exit();
         } catch (Exception $e) {
             echo "Erreur lors de l'insertion : " . $e->getMessage();
             BDD::rollbackTransaction();
