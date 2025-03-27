@@ -225,6 +225,10 @@ if ($mode_carte == 'membre') {
             </div>
             <?php
           }
+          if (empty($tarif_min) && empty($tarif_max)) {
+            $tarif_min = 0;
+            $tarif_max = 0;
+          }
           ?>
           <p class='prix text-sm'
             title='<?php echo (chaineVersMot($categorie_offre) !== 'Restauration') ? "Fourchette des prix : Min " . $tarif_min . ", Max " . $tarif_max : "Gamme des prix" ?>'>

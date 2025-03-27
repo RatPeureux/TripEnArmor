@@ -19,34 +19,25 @@ if (isConnectedAsPro()) {
                 </h1>
             </a>
 
-            <!-- Barre de recherche ou menu pur l'accueil -->
-            <?php if (isset($is_header_accueil) && $is_header_accueil) { ?>
-                <!-- Menu -->
-                <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
-                    <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la Une</a>
-                    <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
-                </div>
-            <?php } else { ?>
-                <!-- Barre de recherche -->
-                <div class="relative flex-1 max-w-lg mx-4">
-                    <div class="w-full relative flex items-center">
-                        <input type="text" id="search-field" placeholder="Rechercher par tags..."
-                            class="rounded-full w-full border border-primary p-2 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
-                            aria-label="Recherche" autocomplete="off">
-                        <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">
-                            <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
-                        </div>
-                        <!-- Bouton de suppression -->
-                        <button class="hidden flex absolute right-2 min-w-max items-center justify-center bg-white  px-2 py-1"
-                            id="clear-tags-btn">
-                            <i class="text-xl fa-solid fa-times cursor-pointer"></i>
-                        </button>
+            <!-- Barre de recherche -->
+            <div class="relative flex-1 max-w-lg mx-4">
+                <div class="w-full relative flex items-center">
+                    <input type="text" id="search-field" placeholder="Rechercher par tags..."
+                        class="rounded-full w-full border border-primary p-2 pl-10 pr-14 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                        aria-label="Recherche" autocomplete="off">
+                    <div class="absolute right-4 flex items-center justify-center transform -translate-y-1/2">
+                        <i class="fa-solid fa-magnifying-glass fa-lg cursor-pointer" id="search-btn"></i>
                     </div>
-                    <!-- Dropdown de recherche -->
-                    <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
-                        id="search-menu"></div>
+                    <!-- Bouton de suppression -->
+                    <button class="hidden flex absolute right-2 min-w-max items-center justify-center bg-white  px-2 py-1"
+                        id="clear-tags-btn">
+                        <i class="text-xl fa-solid fa-times cursor-pointer"></i>
+                    </button>
                 </div>
-            <?php } ?>
+                <!-- Dropdown de recherche -->
+                <div class="absolute top-full left-0 right-0 bg-white border border-base200  shadow-md mt-2 hidden z-10"
+                    id="search-menu"></div>
+            </div>
 
             <!-- Partie droite -->
             <div class="flex items-center gap-4">
@@ -84,6 +75,7 @@ if (isConnectedAsPro()) {
                 <!-- Menu -->
                 <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
                     <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la Une</a>
+                    <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/nouvelles">Nouvelles offres</a>
                     <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
                 </div>
             <?php } else { ?>

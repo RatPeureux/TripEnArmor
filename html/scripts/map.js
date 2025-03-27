@@ -50,7 +50,7 @@ function hideMarkerWithId(id) {
 		if (key == id) {
 			var layer = visibleMarkers[key];
 			clusterGroup.removeLayer(layer);
-			visibleMarkers[key] = null;
+			delete visibleMarkers[key];
 			hiddenMarkers[key] = layer;
 		}
 	}
@@ -61,9 +61,8 @@ function showMarkerWithId(id) {
 		if (key == id) {
 			var layer = hiddenMarkers[key];
 			clusterGroup.addLayer(layer);
-			hiddenMarkers[key] = null;
+			delete hiddenMarkers[key];
 			visibleMarkers[key] = layer;
 		}
 	}
 }
-
