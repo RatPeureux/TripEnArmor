@@ -93,6 +93,14 @@ document.addEventListener("DOMContentLoaded", function () {
 				arrow.classList.toggle("rotate-90"); // Alterne la rotation de l'icône
 				developped.classList.toggle("hidden"); // Alterne la visibilité de la section
 			});
+
+			button.addEventListener("keydown", function (event) {
+			  if (event.key === "Enter") {
+				event.preventDefault(); // Empêche le comportement par défaut
+				arrow.classList.toggle("rotate-90"); // Alterne la rotation de l'icône
+				developped.classList.toggle("hidden"); // Alterne la visibilité de la section
+			  }
+			});
 		}
 	}
 
@@ -136,37 +144,13 @@ document.addEventListener("DOMContentLoaded", function () {
 	developpedFilter("button-f5-tab", "arrow-f5-tab", "developped-f5-tab");
 	developpedFilter("button-f6-tab", "arrow-f6-tab", "developped-f6-tab");
 
-	// Initialisation des filtres pour téléphone
-	developpedFilterAutoClose(
-		"button-f1-tel",
-		"arrow-f1-tel",
-		"developped-f1-tel"
-	);
-	developpedFilterAutoClose(
-		"button-f2-tel",
-		"arrow-f2-tel",
-		"developped-f2-tel"
-	);
-	developpedFilterAutoClose(
-		"button-f3-tel",
-		"arrow-f3-tel",
-		"developped-f3-tel"
-	);
-	developpedFilterAutoClose(
-		"button-f4-tel",
-		"arrow-f4-tel",
-		"developped-f4-tel"
-	);
-	developpedFilterAutoClose(
-		"button-f5-tel",
-		"arrow-f5-tel",
-		"developped-f5-tel"
-	);
-	developpedFilterAutoClose(
-		"button-f6-tel",
-		"arrow-f6-tel",
-		"developped-f6-tel"
-	);
+  // Initialisation des filtres pour téléphone
+  developpedFilterAutoClose("button-f1-tel", "arrow-f1-tel", "developped-f1-tel");
+  developpedFilterAutoClose("button-f2-tel", "arrow-f2-tel", "developped-f2-tel");
+  developpedFilterAutoClose("button-f3-tel", "arrow-f3-tel", "developped-f3-tel");
+  developpedFilterAutoClose("button-f4-tel", "arrow-f4-tel", "developped-f4-tel");
+  developpedFilterAutoClose("button-f5-tel", "arrow-f5-tel", "developped-f5-tel");
+  developpedFilterAutoClose("button-f6-tel", "arrow-f6-tel", "developped-f6-tel");
 
 	// !!!
 	function enforceDynamicBounds(leftInputId, rightInputId) {
@@ -444,10 +428,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 
 			let matchesPrice =
-				filterState.prix[0] === "0" &&
-				filterState.prix[1] === document.getElementById("max-price-tab")?.max;
+				filterState.prix[0] === "0" && filterState.prix[1] === document.getElementById("max-price-tab")?.max;
 			if (price && !matchesPrice) {
-				if (price.getAttribute("title") !== "Gamme des prix") {
+				if (!price.getAttribute("title").includes("Gamme des prix")) {
 					matchesPrice = price.getAttribute("title").match(/Min (\d+),/)
 						? filterState.prix[0] <=
 						parseInt(
@@ -459,8 +442,13 @@ document.addEventListener("DOMContentLoaded", function () {
 							10
 						) <= filterState.prix[1]
 						: false;
-				} else {
-					matchesPrice =
+				}
+			}
+
+			let matchesGamme = true;
+			if (price) {
+				if (price.getAttribute("title").includes("Gamme des prix")) {
+					matchesGamme = 
 						filterState.gammes.length === 0 ||
 						filterState.gammes.includes(price.textContent.trim());
 				}
@@ -473,6 +461,13 @@ document.addEventListener("DOMContentLoaded", function () {
 					filterState.tags.every((tag) => tags?.includes(tag));
 			}
 
+			let offerId = null;
+			const href = offre?.getAttribute("href");
+			if (href) {
+				const urlParams = new URLSearchParams(href.split('?')[1]);
+				offerId = urlParams.get("id_offre");
+			}
+
 			// Appliquer les filtres croisés
 			if (
 				matchesCategory &&
@@ -480,14 +475,17 @@ document.addEventListener("DOMContentLoaded", function () {
 				matchesLocalisation &&
 				matchesNote &&
 				matchesPrice &&
+				matchesGamme &&
 				matchesTag
 			) {
 				offre.classList.remove("hidden");
-				anyVisible = true; // Au moins une offre est visible
-				showMarkerWithId(offre.id)
+				anyVisible = true;
+
+				showMarkerWithId(offerId);
 			} else {
 				offre.classList.add("hidden");
-				hideMarkerWithId(offre.id);
+
+				hideMarkerWithId(offerId);
 			}
 		});
 
@@ -501,7 +499,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				message.textContent = "Aucune offre ne correspond à vos critères.";
 				message.classList.add("mt-4");
 				message.classList.add("text-2xl");
-				document.querySelector("#no-matches").appendChild(message); // Ajouter dans le conteneur des offres
+				document?.querySelector("#no-matches").appendChild(message); // Ajouter dans le conteneur des offres
 			}
 		} else {
 			// Supprime le message si des offres sont visibles

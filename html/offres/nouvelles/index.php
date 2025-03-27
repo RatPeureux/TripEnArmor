@@ -17,7 +17,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <script type="module" src="/scripts/main.js"></script>
 
-    <title>À la Une - PACT</title>
+    <title>Nouvelles offres - PACT</title>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
@@ -31,15 +31,13 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
     // Obtenez l'ensemble des offres avec le tri approprié
     $stmt = $dbh->prepare("
         select *
-        from sae_db._souscription natural join sae_db._offre
-        where nom_option = 'A la une'
-        and est_en_ligne = true
-        AND (date_annulation IS NULL OR CURRENT_DATE < date_annulation)
-        AND CURRENT_DATE <= date_lancement + (nb_semaines * INTERVAL '1 week')
-        AND CURRENT_DATE >= date_lancement 
+        from sae_db._offre
+        where est_en_ligne = true
+        order BY date_creation DESC
+        limit 10
     ");
     $stmt->execute();
-    $aLaUne = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $nouvellesOffres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (isset($_GET['sort'])) {
         // Récupérer toutes les moyennes en une seule requête
@@ -56,7 +54,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
         $offresAvecNotes = array_map(function ($offre) use ($notesAssociees) {
             $offre['note_moyenne'] = $notesAssociees[$offre['id_offre']] ?? null; // Note null si non trouvée
             return $offre;
-        }, $aLaUne);
+        }, $nouvellesOffres);
 
         // Effectuer le tri
         if ($_GET['sort'] === 'note-ascending') {
@@ -94,7 +92,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             // Réassigner les offres triées
             $toutesLesOffres = $offresAvecNotes;
         } else if ($_GET['sort'] == 'price-ascending') {
-            usort($aLaUne, function ($a, $b) {
+            usort($nouvellesOffres, function ($a, $b) {
                 if (is_null($a['prix_mini']) && is_null($b['prix_mini'])) {
                     return 0;
                 }
@@ -107,7 +105,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 return $a['prix_mini'] <=> $b['prix_mini'];
             });
         } else if ($_GET['sort'] == 'price-descending') {
-            usort($aLaUne, function ($a, $b) {
+            usort($nouvellesOffres, function ($a, $b) {
                 if (is_null($a['prix_mini']) && is_null($b['prix_mini'])) {
                     return 0;
                 }
@@ -124,7 +122,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     $prix_mini_max = 0;
 
-    foreach ($aLaUne as $offre) {
+    foreach ($nouvellesOffres as $offre) {
         $prix_mini = $offre['prix_mini'];
         if ($prix_mini !== null && $prix_mini !== '') {
             if ($prix_mini_max === 0) {
@@ -143,7 +141,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
             <!-- Inclusion du menu et de l'interface de filtres (tablette et +) -->
             <div id="menu">
                 <?php
-                $pagination = 2;
+                $pagination = 3;
                 $menu_avec_filtres = true;
                 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
                 ?>
@@ -156,7 +154,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
-                    <h1 class="text-3xl ">À la Une</h1>
+                    <h1 class="text-3xl ">Nouvelles offres</h1>
 
                     <div class="hidden md:flex gap-4">
                         <a class="self-end flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab"
@@ -174,14 +172,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
                 <?php
                 // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
-                if (!$aLaUne) { ?>
+                if (!$nouvellesOffres) { ?>
                     <div class="md:min-w-full flex flex-col gap-4">
                         <?php echo "<p class='mt-4  text-2xl'>Il n'existe aucune offre...</p>"; ?>
                     </div>
                 <?php } else { ?>
                     <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
                         <?php $i = 0;
-                        foreach ($aLaUne as $offre) {
+                        foreach ($nouvellesOffres as $offre) {
                             if ($i > -1) {
                                 // Afficher la carte (!!! défnir la variable $mode_carte !!!)
                                 $mode_carte = 'membre';

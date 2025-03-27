@@ -5,7 +5,7 @@ class ImageController
     private $uploadDir;
     public function __construct()
     {
-        $this->uploadDir = dirname($_SERVER['DOCUMENT_ROOT']) . '/html/public/images/';
+        $this->uploadDir = dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/html/public/images/';
     }
 
     public function getImagesOfOffre($id_offre)
@@ -49,11 +49,6 @@ class ImageController
         return $result;
     }
 
-    public function uploadImageAvis($id, $champ, $actual_path, $extension)
-    {
-        $this->uploadImage($id, $champ, $actual_path, $extension, "avis");
-    }
-
     public function getImagesAvis($id_avis)
     {
         $allImages = scandir($this->uploadDir . "avis/");
@@ -65,7 +60,9 @@ class ImageController
                 $subparts = explode("_", $name);
 
                 if ($subparts[0] == $id_avis) {
-                    $result[] = $image;
+                    if ($subparts[1] == "photo-avis") {
+                        $result[] = $image;
+                    }
                 }
             }
         }

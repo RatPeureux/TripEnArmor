@@ -1036,6 +1036,10 @@ video {
   max-height: 400px;
 }
 
+.max-h-\[317px\] {
+  max-height: 317px;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1568,6 +1572,10 @@ video {
 
 .rounded-full {
   border-radius: 9999px;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .rounded-tl-lg {
@@ -2133,9 +2141,18 @@ video {
   color: rgb(74 222 128 / var(--tw-text-opacity));
 }
 
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
+}
+
+.underline-offset-2 {
+  text-underline-offset: 2px;
 }
 
 .opacity-50 {

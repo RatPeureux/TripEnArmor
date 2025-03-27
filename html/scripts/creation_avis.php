@@ -3,9 +3,6 @@ session_start();
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/avis_controller.php';
 $avisController = new AvisController;
 
-echo "$_POST\n";
-print_r($_POST);
-
 // Obtenir les informations nécessaires pour la création de l'avis
 $titre = isset($_POST['titre']) ? $_POST['titre'] : 'Avis';
 $commentaire = isset($_POST['commentaire']) ? $_POST['commentaire'] : '';
@@ -46,28 +43,20 @@ if ($id_avis_inserted && $note_cuisine) {
     $stmt->execute();
 }
 
+// Gestion de l'upload des images pour l'avis
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
+$imageController = new ImageController();
+if (isset($_FILES['photo_avis']) && isset($id_avis_inserted)) {
+    $photoAvisFiles = $_FILES['photo_avis'];
+    for ($i = 0; $i < count($photoAvisFiles["name"]); $i++) {
+        $tmpName = $photoAvisFiles["tmp_name"][$i];
+        $fileType = explode('/', $photoAvisFiles['type'][$i])[1];
+        $imageController->uploadImage($id_avis_inserted, "photo-avis_" . $i, $tmpName, $fileType, "avis");
+    }
+}
+
 // Tout s'est bien passé
 $_SESSION['message_pour_notification'] = 'Votre avis a été créé et publié';
 if (isset($id_avis_inserted)) {
     header('Location: /scripts/go_to_details.php?id_offre=' . $id_offre);
 }
-
-// Gestion de l'upload des images pour l'avis
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
-$imageController = new ImageController();
-echo "photos avis\n";
-print_r($photo_avis);
-echo "FILES\n";
-print_r($_FILES);
-exit;
-die();
-if (isset($_FILES) && $_FILES) {
-    for ($i = 0; $i < count($_FILES['photo-avis']['name']); $i++) {
-        if (!$imageController->uploadImage($id_avis_inserted, 'avis', $_FILES['photo-avis']['tmp_name'][$i], explode('/', $_FILES['photo-avis']['type'][$i])[1])) {
-            echo "Erreur lors de l'upload de l'image de l'avis.";
-            BDD::rollbackTransaction();
-            exit;
-        }
-    }
-}
-

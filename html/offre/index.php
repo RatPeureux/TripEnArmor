@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 ?>
 
@@ -544,6 +543,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                             echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement']
                                                 ?>
                                         </p>
+                                        <p class="text-blue-500 underline underline-offset-2">
+                                            <a href="https://www.google.com/maps?q=<?php echo str_replace(" ", "%20", ($offre['titre'] . ' ' . $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] . ', ' . $ville . ', ' . $code_postal)) ?>"
+                                                target="_blank">
+                                                Y aller >
+                                            </a>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="flex items-center px-2 gap-4">
@@ -970,7 +975,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                         <!-- Photos de l'avis  -->
                                         <div>
                                             <label for="photo_avis">Photo : </label>
-                                            <input type="file" name="photo_avis" id="photo_avis"
+                                            <input type="file" name="photo_avis[]" id="photo_avis"
                                                 accept=".svg,.png,.jpg,.jpeg,.webp" multiple>
                                             <p class="text-sm text-base300 mt-2">10 photos maximum.</p>
                                             <script>
