@@ -31,10 +31,10 @@ $pro = verifyPro();
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
-    <main class="grow flex flex-col max-w-[1280px] md:w-full mx-auto p-2">
+    <main class="grow flex flex-col md:w-full mx-auto p-6">
         <p class="text-xl p-4"><?php echo $pro['nom_pro'] ?></p>
 
-        <hr class="mb-4">
+        <hr class="mb-8">
 
         <div class="grow max-w-[23rem] mx-auto gap-12 flex flex-col items-center justify-center">
             <a href="/pro/compte/profil"
@@ -58,7 +58,7 @@ $pro = verifyPro();
                 class="border hover:border-secondary cursor-pointer w-full bg-base100 space-x-8 flex items-center px-8 py-4">
                 <i class="w-[50px] text-center text-4xl fa-solid fa-shield"></i>
                 <div class="w-full">
-                    <p class="text-2xl">Sécurité</p>
+                    <p class="text-lg">Sécurité</p>
                     <p class="text-sm">Modifier mes informations sensibles.</p>
                     <p class="text-sm">Protéger mon compte.</p>
                     <p class="text-sm">Récupérer ma clé API : Tchatator.</p>

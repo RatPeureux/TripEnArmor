@@ -91,7 +91,7 @@ $pro = verifyPro();
     ?>
 
     <!-- Partie principale de la page -->
-    <main class="grow md:w-full mt-0 m-auto max-w-[1280px] p-2 flex flex-col gap-10">
+    <main class="grow md:w-full mt-0 m-auto p-6 flex flex-col gap-10">
         <!-- Chemin de navigation -->
         <div>
             <p class="text-xl p-4">

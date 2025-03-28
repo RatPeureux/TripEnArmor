@@ -26,7 +26,7 @@ if (isset($_POST['mdp'])) {
             $controllerProPrive->updateProPrive($pro['id_compte'], false, $mdp, false, false, false, false);
         } else {
             $controllerProPublic->updateProPublic($pro['id_compte'], false, $mdp, false, false, false, false);
-        } 
+        }
     }
 
     unset($_POST['mdp']);
@@ -61,7 +61,7 @@ if (isset($_POST['mdp'])) {
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
+    <main class="md:w-full mt-0 m-auto p-6">
         <div class="m-auto flex flex-col">
             <p class="text-xl p-4">
                 <a href="/pro/compte">Mon compte</a>
@@ -86,7 +86,8 @@ if (isset($_POST['mdp'])) {
                     <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
                         title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                         type="password" id="mdp" name="mdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$">
-                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                    <i
+                        class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                 </div>
 
                 <div class="relative w-full">
@@ -94,7 +95,8 @@ if (isset($_POST['mdp'])) {
                     <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
                         title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                         type="password" id="newMdp" name="newMdp">
-                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                    <i
+                        class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                 </div>
 
                 <div class="relative w-full">
@@ -102,21 +104,20 @@ if (isset($_POST['mdp'])) {
                     <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
                         title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                         type="password" id="confNewMdp" name="confNewMdp">
-                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                    <i
+                        class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                 </div>
 
                 <input type="submit" id="save" value="Modifier mon mot de passe"
-                    class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary border border-transparent rounded-full"
+                    class="self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary border border-transparent rounded-full"
                     disabled>
             </form>
 
-            <hr class="my-4">
+            <hr class="mb-8">
 
             <!-- PARTIE SUR LE TOTP -->
-            <div id="div-for-totp" class="flex flex-col items-start gap-4 self-stretch">
-                <p class="text-2xl mb-4">Option TOTP</p>
-                <a onclick="document.getElementById('pop-up-info-totp').classList.remove('hidden')"
-                    class="italic underline cursor-pointer">Késako ?</a>
+            <div id="div-for-totp" class="flex flex-col items-start gap-2 mb-4">
+                <p class="text-2xl mb-2">Option TOTP</p>
 
                 <div id="pop-up-info-totp"
                     class="z-30 fixed top-0 left-0 h-full w-full flex hidden items-center justify-center">
@@ -133,10 +134,10 @@ if (isset($_POST['mdp'])) {
                 <!-- POUVOIR ACTIVER LE TOTP -->
                 <?php if ($pro['totp_active'] == false) { ?>
 
-                    <div class="flex gap-2 items-center self-start">
+                    <div class="flex items-center self-start">
                         <a id="load-totp-btn"
                             onclick="if(confirm('Vous allez voir un code secret ainsi q\'un QR code à scanner avec une application dédiée sur votre téléphone. Une fois l\'option activée, vous ne pourrez pas récupérer ce code. Nous vous recommandons de le noter à un endroit sûr.')) loadTOTP();"
-                            class="max-w-sm px-4 py-2 text-sm hover:text-primary hover:border hover:border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Activer
+                            class="max-w-sm px-4 py-2 text-sm hover:text-primary border border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Activer
                             l'option TOTP</a>
                         <!-- Symbole de chargement -->
                         <img id="loading-indicator" class="w-8 h-6" style="display: none;" src="/public/images/loading.gif"
@@ -147,7 +148,7 @@ if (isset($_POST['mdp'])) {
                     <div id="totp-container" class="break-words max-w-full"></div>
 
                     <!-- ÉCRIRE LE CODE SECRET POUR CONFIRMER L'ACTIVATION -->
-                    <div id="confirm-totp-div" class="flex flex-col items-stretch gap-2 hidden">
+                    <div id="confirm-totp-div" class="flex flex-col items-stretch hidden">
                         <label for="confirmTOTP">Pour confirmer l'activation de l'option TOTP, veuillez ressaisir le code
                             secret donné ci-dessus en gras :</label>
                         <input class="border border-black p-1" type="text" name="confirmTOTP" id="confirmTOTP">
@@ -169,9 +170,11 @@ if (isset($_POST['mdp'])) {
                     <p class="text-green-400">Votre option TOTP est activée.</p>
                 <?php } ?>
 
+                <a onclick="document.getElementById('pop-up-info-totp').classList.remove('hidden')"
+                    class="underline cursor-pointer text-sm">Késako ?</a>
             </div>
 
-            <hr class="my-4">
+            <hr class="mb-8">
 
             <div class="flex">
                 <p class="text-sm">Clé API Tchatator :</p>

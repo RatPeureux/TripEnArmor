@@ -59,7 +59,7 @@ if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
                 ?>
             </div>
 
-            <div class="flex flex-col md:mx-10 grow">
+            <div class="flex flex-col p-4 md:p-2 md:mx-10 grow">
                 <p class="text-xl p-4">
                     <a href="/compte">Mon compte</a>
                     >
