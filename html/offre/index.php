@@ -1004,7 +1004,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                             </div>
 
                                             <input type="submit" value="+ Publier"
-                                                class="text-sm py-2 px-4 rounded-full bg-secondary text-white self-end">
+                                                class="text-sm py-2 px-4 rounded-full bg-secondary text-white self-end cursor-pointer">
                                         </div>
 
                                         <hr class="w-full border border-black self-end my-2  bg-black">
