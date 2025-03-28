@@ -42,7 +42,7 @@ if (isConnectedAsPro()) {
                             <a href="/pro/confidentialite-et-cookies" class="underline hover:text-primary">Politique en matière de cookies</a>
                         </div>
 
-                        <a href="mailto:pact.tripenarvor@gmail.com" class="hover:text-primary">Contacter le support</a>
+                        <a href="mailto:pact.tripenarvor@gmail.com" class="underline hover:text-primary">Contacter le support</a>
                     </div>
 
                     <div class="w-full flex items-center justify-between flex-col md:flex-row gap-4">

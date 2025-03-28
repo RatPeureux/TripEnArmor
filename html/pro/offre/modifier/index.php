@@ -191,6 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    $_SESSION['message_pour_notification'] = 'Votre offre a été modifiée';
     header('Location: /pro');
     exit;
 }
@@ -509,6 +510,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute();
             }
 
+            $_SESSION['message_pour_notification'] = 'Votre offre a été modifiée';
             header('location: /pro');
             exit();
         } catch (Exception $e) {

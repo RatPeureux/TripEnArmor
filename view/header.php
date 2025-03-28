@@ -75,7 +75,7 @@ if (isConnectedAsPro()) {
                 <!-- Menu -->
                 <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-sm">
                     <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/a-la-une">À la Une</a>
-                    <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/nouvelles">Nouvelles offres</a>
+                    <a class="text-nowrap p-2 hover:bg-base100 border-r border-base100 px-4" href="/offres/nouveautes">Nouveautés</a>
                     <a class="text-nowrap p-2 hover:bg-base100 px-4" href="/offres">Toutes les offres</a>
                 </div>
             <?php } else { ?>

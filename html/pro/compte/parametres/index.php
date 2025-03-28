@@ -106,7 +106,7 @@ if ($pro['data']['id_rib'] != null) {
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
+    <main class="md:w-full mt-0 m-auto p-6">
         <div class="m-auto flex flex-col">
             <p class="text-xl p-4">
                 <a href="/pro/compte">Mon compte</a>
@@ -132,7 +132,7 @@ if ($pro['data']['id_rib'] != null) {
                     title="Le numéro doit commencer par un 0 et comporter 10 chiffres" placeholder="01 23 45 67 89">
 
                 <input type="submit" id="save1" value="Enregistrer les modifications"
-                    class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                    class="self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                     disabled>
             </form>
 
@@ -149,7 +149,7 @@ if ($pro['data']['id_rib'] != null) {
                         placeholder="FRXX XXXX XXXX XXXX XXXX XXXX XXX" title="Format : FRXX XXXX XXXX XXXX XXXX XXXX XXX ">
 
                     <input type="submit" id="save2" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                        class="self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
 
                 </form>
@@ -165,7 +165,7 @@ if ($pro['data']['id_rib'] != null) {
                         class="border text-sm border-secondary p-2 bg-white max-w-44 h-12 mb-3 ">
 
                     <input type="submit" id="save3" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                        class="self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
                 </form>
 
@@ -180,14 +180,12 @@ if ($pro['data']['id_rib'] != null) {
                         name="type_orga">
 
                     <input type="submit" id="save4" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                        class="self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
 
                 </form>
                 <?php
             } ?>
-
-            <hr class="hidden mb-8">
         </div>
     </main>
 

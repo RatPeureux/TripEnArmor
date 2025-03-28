@@ -107,7 +107,7 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
-    <!-- Map à afficher pour choisir l'adresse -->
+    <!-- Map à afficher pour Trouver mon adresse -->
     <div id="map-container" class="z-30 fixed top-0 left-0 h-full w-full flex hidden items-center justify-center">
         <!-- Background blur -->
         <div class="fixed top-0 left-0 w-full h-full bg-blur/25 backdrop-blur"
@@ -125,7 +125,7 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
     <!-- CONFIGURER LA MAP -->
     <script src="/scripts/selectOnMap.js" type="module"></script>
 
-    <main class="md:w-full mt-0 m-auto max-w-[1280px] p-2">
+    <main class="md:w-full mt-0 m-auto p-6">
         <div class="m-auto flex flex-col">
             <p class="text-xl p-4">
                 <a href="/pro/compte">Mon compte</a>
@@ -138,7 +138,7 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
             <p class="text-3xl mb-4">Informations publiques</p>
 
             <form action="/pro/compte/profil/" class="flex flex-col" method="post">
-                <label class="text-xl"
+                <label class="text-lg"
                     for="nom"><?php if ($pro['data']['type'] == 'prive') { ?>Dénomination<?php } else { ?>Nom
                         de l'organisation<?php } ?></label>
                 <input value="<?php echo $pro['nom_pro'] ?>"
@@ -146,7 +146,7 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
                     name="nom">
 
                 <input type="submit" id="save1" value="Enregistrer les modifications"
-                    class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                    class="self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                     disabled>
 
             </form>
@@ -157,19 +157,19 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
 
                 <!-- Champs pour l'adresse -->
                 <p id="select-on-map"
-                    class="p-2 border border-black self-start cursor-pointer hover:border-secondary hover:text-white hover:bg-secondary"
-                    onclick="showMap();">Choisir l'adresse</p>
+                    class="p-2 self-start cursor-pointer mb-3 bg-secondary hover:bg-white text-white hover:text-secondary border border-secondary rounded-full"
+                    onclick="showMap();">Trouver mon adresse</p>
 
                 <!-- Champs cachés pour les coordonnées -->
                 <input class='hidden' id='lat' name='lat' value="<?php echo $adresse['lat'] ?? '0' ?>">
                 <input class='hidden' id='lng' name='lng' value="<?php echo $adresse['lng'] ?? '0' ?>">
 
-                <label class="text-xl" for="user_input_autocomplete_address">Adresse postale</label>
+                <label class="text-lg" for="user_input_autocomplete_address">Adresse postale</label>
                 <input value="<?php echo $adresse['numero'] . ' ' . $adresse['odonyme'] ?>"
                     class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 " type="text"
                     id="user_input_autocomplete_address" name="user_input_autocomplete_address">
 
-                <label class=" text-xl" for="complement">Complément adresse postale</label>
+                <label class=" text-lg" for="complement">Complément adresse postale</label>
                 <input value="<?php echo $adresse['complement'] ?>"
                     class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 " type="text" id="complement"
                     name="complement">
@@ -183,7 +183,7 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
                             pattern="^(0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}$" title="Format : 12345" placeholder="12345">
                     </div>
 
-                    <div>
+                    <div class="flex flex-col">
                         <label class="text-lg" for="locality">Ville</label>
                         <input id="locality" name="locality" value="<?php echo $adresse['ville'] ?>"
                             pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
@@ -193,7 +193,7 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
                 </div>
 
                 <input type="submit" id="save2" value="Enregistrer les modifications"
-                    class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                    class="self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                     disabled>
 
             </form>

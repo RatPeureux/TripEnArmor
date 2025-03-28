@@ -33,7 +33,6 @@ if (!$pro) {
     $pro["data"]["type"] = "prive";
 }
 
-
 // Détails globaux de l'offre
 $id_offre = $offre['id_offre'];
 $description = $offre['description'];
@@ -41,12 +40,6 @@ $resume = $offre['resume'];
 $est_en_ligne = $offre['est_en_ligne'];
 $date_mise_a_jour = $offre['date_mise_a_jour'];
 $titre_offre = $offre['titre'];
-
-if (!$est_en_ligne) {
-    header('location: /401');
-    exit();
-}
-
 
 // Otenir la moyenne des notes de l'offre
 $stmt = $dbh->prepare("SELECT avg, count FROM sae_db.vue_moyenne WHERE id_offre = :id_offre");

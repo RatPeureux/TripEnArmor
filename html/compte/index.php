@@ -36,17 +36,17 @@ if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
-    <main class="grow max-w-[1280px] md:w-full mx-auto p-2 flex">
+    <main class="grow max-w-[1280px] md:w-full mx-auto flex">
         <div id="menu">
             <?php
             require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/menu.php';
             ?>
         </div>
 
-        <div class="grow flex flex-col md:mx-10">
+        <div class="grow flex flex-col p-4 md:p-2 md:mx-10">
             <p class="text-xl p-4"><?php echo $membre['prenom'] . ' ' . $membre['nom'] ?></p>
 
-            <hr class="mb-4">
+            <hr class="mb-8">
 
             <div class="grow flex justify-center max-w-[23rem] mx-auto gap-12 flex flex-col items-center">
                 <a href="/compte/profil"

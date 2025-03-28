@@ -17,7 +17,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 
     <script type="module" src="/scripts/main.js"></script>
 
-    <title>Nouvelles offres - PACT</title>
+    <title>Nouveautés - PACT</title>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
@@ -147,14 +147,14 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 ?>
             </div>
 
-            <main class="grow p-4 md:p-2 flex flex-col md:mx-10 md:">
+            <main class="grow p-4 md:p-2 flex flex-col md:mx-10">
 
                 <!-- Conteneur des tags (!!! RECHERCHE) -->
                 <div class="flex flex-wrap gap-4" id="tags-container"></div>
 
                 <!-- BOUTONS DE FILTRES ET DE TRIS TABLETTE -->
                 <div class="flex justify-between items-end mb-2">
-                    <h1 class="text-3xl ">Nouvelles offres</h1>
+                    <h1 class="text-3xl ">Nouveautés</h1>
 
                     <div class="hidden md:flex gap-4">
                         <a class="self-end flex items-center gap-2 hover:text-primary duration-100" id="sort-button-tab"
