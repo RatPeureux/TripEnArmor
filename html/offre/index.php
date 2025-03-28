@@ -43,7 +43,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
         header('Location: /');
         exit();
     }
-    
+
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
@@ -545,7 +545,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                             echo $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement']
                                                 ?>
                                         </p>
-                                        <p class="text-blue-500 underline underline-offset-2">
+                                        <p class="text-secondary underline underline-offset-2">
                                             <a href="https://www.google.com/maps?q=<?php echo str_replace(" ", "%20", ($offre['titre'] . ' ' . $adresse['numero'] . ' ' . $adresse['odonyme'] . ' ' . $adresse['complement'] . ', ' . $ville . ', ' . $code_postal)) ?>"
                                                 target="_blank">
                                                 Y aller >
@@ -617,14 +617,34 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                                 <p><?php echo $tags_type_repas; ?></p>
                                             </div>
                                             <?php
-                                            if ($images) {
+                                            if ($images && isset($images['carte-resto']) && !empty($images['carte-resto'])) {
                                                 ?>
-                                                <img src="/public/images/offres/<?php echo $images['photo-resto']; ?>"
-                                                    alt="Carte du restaurant" class="max-h-[400px] max-w-[350px] md:max-w-[500px]">
+                                                <p class="text-sm">Carte du restaurant : </p>
+
+                                                <img src="/public/images/offres/<?php echo htmlspecialchars($images['carte-resto']); ?>"
+                                                    alt="Carte du restaurant" class="object-cover w-12 h-16 rounded-lg"
+                                                    onclick="document.getElementById('imageModalCarteResto').style.display = 'flex';">
+
+                                                <!-- Modal pour afficher une seule image de la carte -->
+                                                <?php if ($images && isset($images['carte-resto'])) { ?>
+                                                    <div id="imageModalCarteResto"
+                                                        class="fixed inset-0 flex bg-black bg-opacity-75 items-center justify-center z-50"
+                                                        style="display: none;">
+                                                        <div class="relative" onclick="event.stopPropagation();">
+                                                            <button class="absolute top-0 right-0 m-3 text-white bg-primary py-2 px-2"
+                                                                onclick="document.getElementById('imageModalCarteResto').style.display = 'none';">
+                                                                <i class="fa-solid fa-xmark"></i>
+                                                            </button>
+                                                            <img id="modalImageCarteResto" class="max-w-screen max-h-screen"
+                                                                src="/public/images/offres/<?php echo $images['carte-resto']; ?>"
+                                                                alt="Carte du restaurant">
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
                                                 <?php
                                             } else {
                                                 ?>
-                                                <p class="text-sm">Aucune carte pour le restaurant.</p>
+                                                <p class="text-sm">Aucune carte pour le menu du restaurant.</p>
                                                 <?php
                                             } ?>
                                             <?php
@@ -991,8 +1011,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                         </div>
 
                                         <!-- Champs cachés pour transmettre des donées à la création de l'offre -->
-                                        <input type="text" id='id_offre' name='id_offre' hidden
-                                            value="<?php echo $id_offre ?>">
+                                        <input type="text" id='id_offre' name='id_offre' hidden value="<?php echo $id_offre ?>">
                                         <input type="text" id='id_membre' name='id_membre' hidden
                                             value="<?php echo $_SESSION['id_membre'] ?>">
 

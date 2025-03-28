@@ -26,7 +26,7 @@ if (empty($_POST)) { ?><!DOCTYPE html>
         <link rel="stylesheet" href="/styles/style.css">
         <script type="module" src="/scripts/main.js"></script>
 
-        <title>Réinitialisation mdp - PACT</title>
+        <title>Réinitialisation du mot de passe - PACT</title>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
@@ -39,7 +39,7 @@ if (empty($_POST)) { ?><!DOCTYPE html>
 
                 <h2 class="mx-auto text-center text-2xl pt-4 my-4">Réinitialisation du mot de passe</h2>
 
-                <form class="bg-white w-full p-5 border-2 border-secondary" action="" method="POST">
+                <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST">
                     <p class="text-sm">Nous allons vous envoyer un mail pour réinitialiser votre mot de passe</p>
 
                     <br>
@@ -62,7 +62,7 @@ if (empty($_POST)) { ?><!DOCTYPE html>
 
                     <!-- Bouton de connexion -->
                     <input type="submit" value="Envoyer"
-                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-secondary hover:bg-black text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97">
+                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-primary hover:bg-orange-600 text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97">
                 </form>
             </div>
         </div>
@@ -107,27 +107,27 @@ if (empty($_POST)) { ?><!DOCTYPE html>
                     $mail->addAddress($email);
                     $mail->CharSet = 'UTF-8';
                     $mail->isHTML(true);
-                    $mail->Subject = "Réinitialisation mdp PACT";
-                    $mail->Body = 'Cliquez <a href="localhost/scripts/reset_mdp.php?token=' . $token . '">ici</a> pour réinitialiser votre mot de passe.';
+                    $mail->Subject = "Réinitialisation du mot de passe PACT";
+                    $mail->Body = 'Cliquez <a href="localhost/connexion/reinitialisation/confirmation?token=' . $token . '">ici</a> pour réinitialiser votre mot de passe.';
 
                     try {
                         $mail->send();
                         unset($_SESSION['error']);
-                        header('Location: /reset-mdp?mail_sent=true');
+                        header('Location: /connexion/reinitialisation?mail_sent=true');
                         exit();
                     } catch (Exception $e) {
                         $_SESSION['error'] = 'Erreur lors de l\'envoi du mail. Veuillez réessayer plus tard.';
-                        header('Location: /reset-mdp');
+                        header('Location: /connexion/reinitialisation');
                         exit();
                     }
                 } else {
                     $_SESSION['error'] = 'Cette adresse email ne correspond à aucun compte';
-                    header('Location: /reset-mdp');
+                    header('Location: /connexion/reinitialisation');
                     exit();
                 }
             } else {
                 $_SESSION['error'] = 'Cette adresse email ne correspond à aucun compte';
-                header('Location: /reset-mdp');
+                header('Location: /connexion/reinitialisation');
                 exit();
             }
         }

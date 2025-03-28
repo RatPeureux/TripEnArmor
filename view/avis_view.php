@@ -281,10 +281,10 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
         <div class="flex space-x-1 py-2">
             <?php foreach ($images as $index => $image): ?>
                 <?php if (count($images) === 1): ?>
-                    <img src="public/images/avis/<?php echo $image; ?>" class="object-cover w-12 h-16 rounded-lg"
+                    <img src="/public/images/avis/<?php echo $image; ?>" class="object-cover w-12 h-16 rounded-lg"
                         onclick="openImageModal(<?php echo $id_avis ?>, etatImageModal, <?php echo $index; ?>, imagesAvis<?php echo $id_avis ?>)">
                 <?php elseif ($index < 4): ?>
-                    <img src="public/images/avis/<?php echo $image; ?>"
+                    <img src="/public/images/avis/<?php echo $image; ?>"
                         class="object-cover w-12 h-16 <?php echo $index === 0 ? 'rounded-tl-lg rounded-bl-lg' : ''; ?> <?php echo $index === count($images) - 1 ? 'rounded-tr-lg rounded-br-lg' : ''; ?>"
                         onclick="openImageModal(<?php echo $id_avis ?>, etatImageModal, <?php echo $index; ?>, imagesAvis<?php echo $id_avis ?>)">
                 <?php elseif ($index === 4): ?>

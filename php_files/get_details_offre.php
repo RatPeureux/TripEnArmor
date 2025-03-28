@@ -41,7 +41,8 @@ $est_en_ligne = $offre['est_en_ligne'];
 $date_mise_a_jour = $offre['date_mise_a_jour'];
 $titre_offre = $offre['titre'];
 
-// Otenir la moyenne des notes de l'offre
+
+// Obtenir la moyenne des notes de l'offre
 $stmt = $dbh->prepare("SELECT avg, count FROM sae_db.vue_moyenne WHERE id_offre = :id_offre");
 $stmt->bindParam(':id_offre', $id_offre);
 $stmt->execute();
