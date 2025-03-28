@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+// Nécessaire pour afficher les notifications en cas d'actions spécifiques dans certains fichiers
+// (le header étant inclus dans chacun d'eux...)
+require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/notifications.php';
+
 // Si déjà connecté, rediriger sur page d'accueil
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 if (isConnectedAsMember()) {
@@ -12,6 +16,7 @@ if (isConnectedAsMember()) {
 if (!isset($_SESSION['data_en_cours_connexion'])) {
     unset($_SESSION['data_en_cours_totp']);
     unset($_SESSION['data_en_cours_inscription']);
+    unset($_SESSION['data_en_cours_reset']);
     unset($_SESSION['error']);
 }
 
@@ -72,7 +77,7 @@ if (empty($_POST)) { ?>
 
                     <!-- Liens pour mot de passe oublié et création de compte -->
                     <div class="flex items-center flex-nowrap h-12 space-x-1.5">
-                        <a
+                        <a href="/reset-mdp"
                             class="text-sm text-center w-full text-wrap bg-transparent text-primary underline  focus:scale-[0.97]">
                             Mot de passe oublié ?
                         </a>

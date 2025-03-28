@@ -451,3 +451,31 @@ CREATE TRIGGER tg_anonymiser_membre
 AFTER DELETE ON sae_db._membre
 FOR EACH ROW
 EXECUTE FUNCTION anonymiser_membre();
+
+--------------------------------------------------------------------------- Un membre ne peut publier qu'un avis par offre
+CREATE OR REPLACE FUNCTION check_unique_avis_per_member()
+RETURNS TRIGGER AS $$
+DECLARE
+    id_anonyme INT;
+BEGIN
+    -- Récupérer l'id du compte anonyme
+    SELECT id_compte INTO id_anonyme
+    FROM sae_db._membre
+    WHERE pseudo = 'Anonyme' AND prenom = 'Anonyme' AND nom = '';
+    
+    -- Vérifier que la ligne insérée ou mise à jour respecte l'unicité, sauf pour le compte anonyme
+    IF NEW.id_membre <> id_anonyme THEN
+        IF EXISTS (
+            SELECT 1 FROM sae_db._avis
+            WHERE id_membre = NEW.id_membre AND id_offre = NEW.id_offre
+        ) THEN
+            RAISE EXCEPTION 'Un membre ne peut pas avoir plusieurs avis sur la même offre, sauf pour le compte anonyme.';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_unique_avis_per_member
+BEFORE INSERT OR UPDATE ON sae_db._avis
+FOR EACH ROW EXECUTE FUNCTION check_unique_avis_per_member();

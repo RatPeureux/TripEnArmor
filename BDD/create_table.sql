@@ -205,9 +205,7 @@ CREATE TABLE _avis (
     id_offre INT NOT NULL, -- Offre à laquelle est lié l'avis
     reponse TEXT DEFAULT NULL,
     est_lu BOOLEAN NOT NULL DEFAULT FALSE,
-    -- Contrainte pour empêcher plusieurs avis initiaux d'un même membre sur une offre
-    CONSTRAINT unique_avis_per_member UNIQUE (id_membre, id_offre),
-		fin_blacklistage DATE DEFAULT NULL
+    -- Contrainte avis_unique_par_offre définie dans fonctions.sql
 );
 
 -------------------------------------------------------------------------------------------------------- Facture

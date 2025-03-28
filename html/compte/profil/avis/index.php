@@ -134,7 +134,7 @@ if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])) {
 
                             <script>
                                 document.querySelector('#clickable_div_<?php echo $id_avis ?>')?.addEventListener('click', function () {
-                                    window.location.href = '/scripts/go_to_details.php?id_offre=<?php echo $avis['id_offre'] ?>';
+                                    window.location.href = '/offre?id_offre=<?php echo $avis['id_offre'] ?>';
                                 });
                             </script><?php
                         }

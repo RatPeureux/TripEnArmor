@@ -37,11 +37,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 <body class="flex flex-col">
 
     <?php
-    $id_offre = $_SESSION['id_offre'];
-    if (isset($_SESSION['id_membre'])) {
-        $id_membre = $_SESSION['id_membre'];
+    if (isset($_GET['id_offre']) && $_GET['id_offre']) {
+        $id_offre = $_GET['id_offre'];
+    } else {
+        header('Location: /');
+        exit();
     }
-
+    
     // Connexion avec la bdd
     require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
@@ -990,7 +992,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 
                                         <!-- Champs cachés pour transmettre des donées à la création de l'offre -->
                                         <input type="text" id='id_offre' name='id_offre' hidden
-                                            value="<?php echo $_SESSION['id_offre'] ?>">
+                                            value="<?php echo $id_offre ?>">
                                         <input type="text" id='id_membre' name='id_membre' hidden
                                             value="<?php echo $_SESSION['id_membre'] ?>">
 
@@ -1044,12 +1046,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                     $(document).ready(function () {
                         // Paramètres à passer au fichier PHP de chargement des avis
                         let idx_avis = 0;
-                        const id_offre = <?php echo $_SESSION['id_offre'] ?? '0' ?>;
+                        const id_offre = <?php echo $id_offre ?? '0' ?>;
                         const id_membre = <?php if (isset($_SESSION['id_membre'])) {
                             echo $_SESSION['id_membre'];
                         } else {
                             echo '-1';
                         } ?>;
+
+                        // Nombre d'avis à charger en plus
+                        const X = 3
 
                         // Charger les X premiers avis
                         loadAvis();
@@ -1078,17 +1083,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 
                                 // Durant l'exécution de la requête
                                 success: function (response) {
-                                    const lesAvisCharges = response;
-                                    if (lesAvisCharges.length > 0) {
-                                        // Ajouter le contenu HTML généré par loaded avis.
-                                        try {
-                                            $('#avis-container').append(lesAvisCharges);
-                                        } catch (e) {
-                                            console.log(e.getMessage());
-                                        }
+                                    let data = JSON.parse(response);
 
+                                    const lesAvisCharges = data.avis_html;
+                                    const avisCount = data.avis_count;
+
+                                    try {
+                                        $('#avis-container').append(lesAvisCharges);
+                                    } catch (e) {
+                                        console.log(e.getMessage());
+                                    }
+
+                                    // Véirifier que l'on aura des avis à afficher (>= X+1)
+                                    if (avisCount >= (X + 1)) {
                                         // Pour l'éventuel prochain chargement, incrémenter le curseur
-                                        idx_avis += 3;
+                                        idx_avis += X;
                                     } else {
                                         // Ne plus pouvoir cliquer sur le bouton quand il n'y a plus d'avis
                                         $('#load-more-btn').prop('disabled', true).text('');

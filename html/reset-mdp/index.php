@@ -26,7 +26,7 @@ if (empty($_POST)) { ?><!DOCTYPE html>
         <link rel="stylesheet" href="/styles/style.css">
         <script type="module" src="/scripts/main.js"></script>
 
-        <title>Reset le mot de passe - PACT</title>
+        <title>Réinitialisation mdp - PACT</title>
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
@@ -37,7 +37,7 @@ if (empty($_POST)) { ?><!DOCTYPE html>
                     <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="108">
                 </a>
 
-                <h2 class="mx-auto text-center text-2xl pt-4 my-4">Réinitialisation</h2>
+                <h2 class="mx-auto text-center text-2xl pt-4 my-4">Réinitialisation du mot de passe</h2>
 
                 <form class="bg-white w-full p-5 border-2 border-secondary" action="" method="POST">
                     <p class="text-sm">Nous allons vous envoyer un mail pour réinitialiser votre mot de passe</p>
@@ -50,8 +50,14 @@ if (empty($_POST)) { ?><!DOCTYPE html>
                         title="Saisir votre mot mail (doit contenir un '@')"
                         value="<?php echo $_SESSION['data_en_cours_reset']['email'] ?? '' ?>" required>
 
+                    <!-- Message d'erreur -->
                     <span id="error-message" class="error text-rouge-logo text-sm">
                         <?php echo $_SESSION['error'] ?? '' ?>
+                    </span>
+
+                    <!-- Message de succès -->
+                    <span class="error text-green-500 text-sm">
+                        <?php echo $_GET['mail_sent'] ? 'Un lien de réinitialisation a été envoyé à votre boîte mail. Pensez à vérifier les spams.' : '' ?>
                     </span>
 
                     <!-- Bouton de connexion -->
@@ -71,7 +77,7 @@ if (empty($_POST)) { ?><!DOCTYPE html>
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['data_en_cours_reset'] = $_POST;
 
-            // Vérifier si le mail existe pour un compte
+            // Ce mail existe-t-il dans la base ?
             $stmt = $dbh->prepare('SELECT * from sae_db._compte WHERE email = :email');
             $stmt->bindParam(':email', $_POST['email']);
             if ($stmt->execute() && $stmt->rowCount() > 0) {
@@ -86,43 +92,43 @@ if (empty($_POST)) { ?><!DOCTYPE html>
                         SET reset_token_hash = :reset_token_hash,
                             reset_token_expires_at = :reset_token_expires_at
                         WHERE email = :email";
+
                 $stmt = $dbh->prepare($sql);
                 $stmt->bindParam('reset_token_hash', $token_hash);
                 $stmt->bindParam('reset_token_expires_at', $expiry);
                 $stmt->bindParam('email', $email);
                 $stmt->execute();
 
-                $response = ['status' => 'error', 'message' => ''];
-
                 if ($stmt->rowCount()) {
                     // Préparer le service d'envoie de mail
-                    $mail = require dirname($_SERVER['DOCUMENT_ROOT']) . "/mailer.php";
+                    $mail = require dirname($_SERVER['DOCUMENT_ROOT']) . "/php_files/mailer.php";
 
                     $mail->setFrom("noreply@example.com");
                     $mail->addAddress($email);
+                    $mail->CharSet = 'UTF-8';
+                    $mail->isHTML(true);
                     $mail->Subject = "Réinitialisation mdp PACT";
-                    $mail->Body = "Cliquez <a href='http://example.com/reset-password.php?token=" . $token . "'>ici</a> pour réinitialiser votre mot de passe";
+                    $mail->Body = 'Cliquez <a href="localhost/scripts/reset_mdp.php?token=' . $token . '">ici</a> pour réinitialiser votre mot de passe.';
 
                     try {
                         $mail->send();
-                        $response['status'] = 'success';
-                        $response['message'] = 'Mail envoyé. Pensez à consulter vos spams.';
+                        unset($_SESSION['error']);
+                        header('Location: /reset-mdp?mail_sent=true');
+                        exit();
                     } catch (Exception $e) {
-                        $response['message'] = "Impossible d'envoyer le mail : {$mail->ErrorInfo}";
+                        $_SESSION['error'] = 'Erreur lors de l\'envoi du mail. Veuillez réessayer plus tard.';
+                        header('Location: /reset-mdp');
+                        exit();
                     }
                 } else {
-                    $response['message'] = 'Le compte avec cet email n\'existe pas.';
-                }
-
-                if ($response['status'] === 'success') {
-                    echo 'Succès : ' . $response['message'];
-                } else {
-                    print_r($response);
-                    echo 'Erreur :' . $response['message'];
+                    $_SESSION['error'] = 'Cette adresse email ne correspond à aucun compte';
+                    header('Location: /reset-mdp');
+                    exit();
                 }
             } else {
                 $_SESSION['error'] = 'Cette adresse email ne correspond à aucun compte';
-                header('Location: /reset_mdp');
+                header('Location: /reset-mdp');
+                exit();
             }
         }
     } catch (PDOException $e) {
