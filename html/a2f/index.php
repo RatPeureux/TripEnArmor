@@ -84,7 +84,7 @@ if (empty($_POST)) { ?>
                             value="<?php echo $_SESSION['data_en_cours_totp']['mdp-totp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
                         <i
-                            class="fa-regular fa-eye fa-lg absolute top-1/2 -translate-y-1/2 right-4 cursor-pointer eye-toggle-passowrd"></i>
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 -translate-y-1/2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <span id="error-message" class="error text-rouge-logo text-sm">
@@ -99,27 +99,6 @@ if (empty($_POST)) { ?>
 
             </div>
         </div>
-
-        <script>
-            // Récupération de l'élément pour afficher/masquer le mot de passe
-            const togglePassword = document.getElementById('togglePassword');
-            const mdp = document.getElementById('mdp');
-
-            // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-            if (togglePassword) {
-                togglePassword.addEventListener('click', function () {
-                    if (mdp.type === 'password') {
-                        mdp.type = 'text';
-                        this.classList.remove('fa-eye');
-                        this.classList.add('fa-eye-slash');
-                    } else {
-                        mdp.type = 'password';
-                        this.classList.remove('fa-eye-slash');
-                        this.classList.add('fa-eye');
-                    }
-                });
-            }
-        </script>
     </body>
 
 <?php } else {
@@ -142,18 +121,22 @@ if (empty($_POST)) { ?>
                     unset($_SESSION['tmp_id_compte_a2f'], $_SESSION['error']);
                     $_SESSION['message_pour_notification'] = 'Connecté(e) en tant que Membre';
                     header('Location: /');
+                    exit();
                 } else if ($proPublicController->getInfosProPublic($_SESSION['tmp_id_compte_a2f']) || $proPriveController->getInfosProPrive($_SESSION['tmp_id_compte_a2f'])) {
                     $_SESSION['id_pro'] = $_SESSION['tmp_id_compte_a2f'];
                     unset($_SESSION['tmp_id_compte_a2f'], $_SESSION['error']);
                     $_SESSION['message_pour_notification'] = 'Connecté(e) en tant que Professionnel(le)';
                     header('Location: /pro');
+                    exit();
                 } else {
                     $_SESSION['error'] = "Connexion impossible : votre identifiant de compte ne corresond à aucun compte dans la base de données";
                     header('Location: /a2f');
+                    exit();
                 }
             } else {
                 $_SESSION['error'] = 'TOTP invalide';
                 header('Location: /a2f');
+                exit();
             }
         }
     } catch (PDOException $e) {

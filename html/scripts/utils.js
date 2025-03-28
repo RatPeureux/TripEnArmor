@@ -57,7 +57,7 @@ window.triggerSaveBtnOnInputsChange = triggerSaveBtnOnInputsChange;
 // Afficher un toast de notification
 let notificationCount = 0;
 function displayNotification(message) {
-
+    
     // Créer l'élément notif
     const toast = document.createElement('div');
     toast.className = 'fixed right-5 bg-secondary text-white p-4 z-50 border border-white flex items-center gap-4';
@@ -286,3 +286,28 @@ function sendReaction(idAvis, action) {
         });
 }
 window.sendReaction = sendReaction;
+
+// Fonctions pratiques pour visualiser les images dans les avis
+function openImageModal(id_avis, etatImageModal, index, imagesAvis) {
+    etatImageModal.currentIndex = index;
+    document.getElementById('imageModal' + id_avis).classList.remove('hidden');
+    document.getElementById('modalImage' + id_avis).src = 'public/images/avis/' + imagesAvis[etatImageModal.currentIndex];
+}
+window.openImageModal = openImageModal;
+
+function prevImage(id_avis, etatImageModal, imagesAvis) {
+    etatImageModal.currentIndex = (etatImageModal.currentIndex > 0) ? etatImageModal.currentIndex - 1 : imagesAvis.length - 1;
+    document.getElementById('modalImage' + id_avis).src = 'public/images/avis/' + imagesAvis[etatImageModal.currentIndex];
+}
+window.prevImage = prevImage;
+
+function nextImage(id_avis, etatImageModal, imagesAvis) {
+    etatImageModal.currentIndex = (etatImageModal.currentIndex < imagesAvis.length - 1) ? etatImageModal.currentIndex + 1 : 0;
+    document.getElementById('modalImage' + id_avis).src = 'public/images/avis/' + imagesAvis[etatImageModal.currentIndex];
+}
+window.nextImage = nextImage;
+
+function closeImageModal(id_avis) {
+    document.getElementById('imageModal' + id_avis).classList.add('hidden');
+}
+window.closeImageModal = closeImageModal;

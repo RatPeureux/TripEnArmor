@@ -1,8 +1,12 @@
 <?php
 session_start(); 
 
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
+// Nécessaire pour afficher les notifications en cas d'actions spécifiques dans certains fichiers
+// (le header étant inclus dans chacun d'eux...)
+require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/notifications.php';
 
+// Est-on déjà connecté ?
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.php';
 if (isConnectedAsPro()) {
     header('location: /pro');
     exit();
@@ -12,6 +16,7 @@ if (isConnectedAsPro()) {
 if (!isset($_SESSION['data_en_cous_connexion'])) {
     unset($_SESSION['data_en_cours_totp']);
     unset($_SESSION['data_en_cours_inscription']);
+    unset($_SESSION['data_en_cours_reset']);
     unset($_SESSION['error']);
 }
 
@@ -123,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Liens pour mot de passe oublié et création de compte -->
                 <div class="flex items-center flex-nowrap h-12 space-x-1.5">
-                    <a
+                    <a href="reset-mdp"
                         class="text-sm text-center w-full text-wrap bg-transparent text-secondary underline  focus:scale-[0.97]">
                         Mot de passe oublié ?
                     </a>
@@ -135,27 +140,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
-
-    <script>
-    // Récupération de l'élément pour afficher/masquer le mot de passe
-    const togglePassword = document.getElementById('togglePassword');
-    const mdp = document.getElementById('mdp');
-
-    // Événement pour afficher le mot de passe lorsque l'utilisateur clique sur l'icône
-    if (togglePassword) {
-        togglePassword.addEventListener('click', function () {
-            if (mdp.type === 'password') {
-                mdp.type = 'text';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            } else {
-                mdp.type = 'password';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
-            }
-        });
-    }
-    </script>
-
 </body>
 </html>

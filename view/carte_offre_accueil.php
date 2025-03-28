@@ -68,7 +68,7 @@ foreach ($horaires as $jour => $horaire) {
 ?>
 <a class="card border hover:border-secondary <?php if ($option) {
     echo "active ";
-} ?> " href='/scripts/go_to_details.php?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
+} ?> " href='/offre?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
     <!-- CARTE VERSION TABLETTE -->
     <div class='hidden xl:block w-max h-full relative bg-base100 flex flex-col group'>
