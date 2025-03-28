@@ -298,10 +298,9 @@ window.sendReaction = sendReaction;
 
 // Fonctions pratiques pour visualiser les images dans les avis
 function openImageModal(id_avis, etatImageModal, index, imagesAvis) {
-  etatImageModal.currentIndex = index;
-  document.getElementById("imageModal" + id_avis).classList.remove("hidden");
-  document.getElementById("modalImage" + id_avis).src =
-    "public/images/avis/" + imagesAvis[etatImageModal.currentIndex];
+    etatImageModal.currentIndex = index;
+    document.getElementById('imageModal' + id_avis).classList.remove('hidden');
+    document.getElementById('modalImage' + id_avis).src = '/public/images/avis/' + imagesAvis[etatImageModal.currentIndex];
 }
 window.openImageModal = openImageModal;
 
@@ -317,22 +316,14 @@ function openImageModalOffre(carte_resto) {
 window.openImageModalOffre = openImageModalOffre;
 
 function prevImage(id_avis, etatImageModal, imagesAvis) {
-  etatImageModal.currentIndex =
-    etatImageModal.currentIndex > 0
-      ? etatImageModal.currentIndex - 1
-      : imagesAvis.length - 1;
-  document.getElementById("modalImage" + id_avis).src =
-    "public/images/avis/" + imagesAvis[etatImageModal.currentIndex];
+    etatImageModal.currentIndex = (etatImageModal.currentIndex > 0) ? etatImageModal.currentIndex - 1 : imagesAvis.length - 1;
+    document.getElementById('modalImage' + id_avis).src = '/public/images/avis/' + imagesAvis[etatImageModal.currentIndex];
 }
 window.prevImage = prevImage;
 
 function nextImage(id_avis, etatImageModal, imagesAvis) {
-  etatImageModal.currentIndex =
-    etatImageModal.currentIndex < imagesAvis.length - 1
-      ? etatImageModal.currentIndex + 1
-      : 0;
-  document.getElementById("modalImage" + id_avis).src =
-    "public/images/avis/" + imagesAvis[etatImageModal.currentIndex];
+    etatImageModal.currentIndex = (etatImageModal.currentIndex < imagesAvis.length - 1) ? etatImageModal.currentIndex + 1 : 0;
+    document.getElementById('modalImage' + id_avis).src = '/public/images/avis/' + imagesAvis[etatImageModal.currentIndex];
 }
 window.nextImage = nextImage;
 
