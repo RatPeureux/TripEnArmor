@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '0c154143466debd2a9631936eea6b71820ccd413',
+        'reference' => '9ed140cf04a91da4b90fd023dac33f32c3e9d05b',
         'name' => 'etudiant/tripenarmor',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '0c154143466debd2a9631936eea6b71820ccd413',
+            'reference' => '9ed140cf04a91da4b90fd023dac33f32c3e9d05b',
             'dev_requirement' => false,
         ),
         'paragonie/constant_time_encoding' => array(

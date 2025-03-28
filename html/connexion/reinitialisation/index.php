@@ -62,7 +62,7 @@ if (empty($_POST)) { ?><!DOCTYPE html>
 
                     <!-- Bouton de connexion -->
                     <input type="submit" value="Envoyer"
-                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-primary hover:bg-black text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97">
+                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-primary hover:bg-orange-600 text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97">
                 </form>
             </div>
         </div>

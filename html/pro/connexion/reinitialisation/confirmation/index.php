@@ -39,13 +39,13 @@ if ($stmt->execute()) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Confirmation réinitialisation du mot de passe - Professionnel - PACT</title>
+        <title>Changement de mot de passe - Professionnel - PACT</title>
 
         <!-- NOS FICHIERS -->
         <link rel="stylesheet" href="/styles/style.css">
     </head>
 
-    <body>
+    <body class="h-screen bg-white p-4 overflow-hidden">
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
@@ -53,7 +53,7 @@ if ($stmt->execute()) {
                     <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="108">
                 </a>
 
-                <h2 class="mx-auto text-center text-2xl pt-4 my-4">Confirmation réinitialisation du mot de passe</h2>
+                <h2 class="mx-auto text-center text-2xl pt-4 my-4">Changement de mot de passe</h2>
 
                 <form class="bg-white w-full p-5 border-2 border-secondary" action="" method="POST">
                     <!-- Pour envoyer le token en le cachant -->

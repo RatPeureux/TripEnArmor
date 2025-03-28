@@ -39,13 +39,13 @@ if ($stmt->execute()) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Confirmation réinitialisation du mot de passe - PACT</title>
+        <title>Changement de mot de passe - PACT</title>
 
         <!-- NOS FICHIERS -->
         <link rel="stylesheet" href="/styles/style.css">
     </head>
 
-    <body>
+    <body class="h-screen bg-white p-4 overflow-hidden">
         <div class="h-full flex flex-col items-center justify-center">
             <div class="relative w-full max-w-96 h-fit flex flex-col items-center justify-center sm:w-96 m-auto">
                 <!-- Logo de l'application -->
@@ -53,7 +53,7 @@ if ($stmt->execute()) {
                     <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="108">
                 </a>
 
-                <h2 class="mx-auto text-center text-2xl pt-4 my-4">Confirmation réinitialisation du mot de passe</h2>
+                <h2 class="mx-auto text-center text-2xl pt-4 my-4">Changement de mot de passe</h2>
 
                 <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST">
                     <!-- Pour envoyer le token en le cachant -->
@@ -85,7 +85,7 @@ if ($stmt->execute()) {
 
                     <!-- Bouton de connexion -->
                     <input type="submit" value="Confirmer"
-                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-primary hover:bg-black text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97">
+                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-primary hover:bg-orange-600 text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97">
                 </form>
             </div>
         </div>
