@@ -614,15 +614,16 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                                 <p class="text-sm">Repas servis&nbsp;:&nbsp;</p>
                                                 <p><?php echo $tags_type_repas; ?></p>
                                             </div>
+                                            <p class="text-sm">Carte du restaurant : </p>
                                             <?php
                                             if ($images) {
                                                 ?>
-                                                <img src="/public/images/offres/<?php echo $images['photo-resto']; ?>"
-                                                    alt="Carte du restaurant" class="max-h-[400px] max-w-[350px] md:max-w-[500px]">
+                                                <img src="/public/images/offres/<?php echo $images['carte-resto']; ?>"
+                                                    alt="Carte du restaurant" class="object-cover w-12 h-16 rounded-lg">
                                                 <?php
                                             } else {
                                                 ?>
-                                                <p class="text-sm">Aucune carte pour le restaurant.</p>
+                                                <p class="text-sm">Aucune carte pour le menu du restaurant.</p>
                                                 <?php
                                             } ?>
                                             <?php
