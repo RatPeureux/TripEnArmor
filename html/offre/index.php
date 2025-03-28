@@ -618,23 +618,25 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                                             </div>
                                             <p class="text-sm">Carte du restaurant : </p>
                                             <?php
-                                            if ($images) {
+                                            if ($images && isset($images['carte-resto']) && !empty($images['carte-resto'])) {
                                                 ?>
-                                                <img src="/public/images/offres/<?php echo $images['carte-resto']; ?>"
-                                                    alt="Carte du restaurant" class="object-cover w-12 h-16 rounded-lg">
+                                                <img src="/public/images/offres/<?php echo htmlspecialchars($images['carte-resto']); ?>"
+                                                    alt="Carte du restaurant" class="object-cover w-12 h-16 rounded-lg"
+                                                    onclick="document.getElementById('imageModalCarteResto').style.display = 'flex';">
 
-                                                <!-- Modal pour afficher une seule image de l'avis -->
-                                                <?php if ($images) { ?>
-                                                    <div id="imageModal<?php echo $id_avis ?>"
-                                                        class="fixed inset-0 hidden flex bg-black bg-opacity-75 items-center justify-center z-50">
+                                                <!-- Modal pour afficher une seule image de la carte -->
+                                                <?php if ($images && isset($images['carte-resto'])) { ?>
+                                                    <div id="imageModalCarteResto"
+                                                        class="fixed inset-0 flex bg-black bg-opacity-75 items-center justify-center z-50"
+                                                        style="display: none;">
                                                         <div class="relative" onclick="event.stopPropagation();">
                                                             <button class="absolute top-0 right-0 m-3 text-white bg-primary py-2 px-2"
-                                                                onclick="closeImageModal(<?php echo $id_avis ?>)">
+                                                                onclick="document.getElementById('imageModalCarteResto').style.display = 'none';">
                                                                 <i class="fa-solid fa-xmark"></i>
                                                             </button>
-                                                            <img id="modalImage<?php echo $id_avis ?>" class="max-w-screen max-h-screen"
+                                                            <img id="modalImageCarteResto" class="max-w-screen max-h-screen"
                                                                 src="/public/images/offres/<?php echo $images['carte-resto']; ?>"
-                                                                alt="Image de l'avis">
+                                                                alt="Carte du restaurant">
                                                         </div>
                                                     </div>
                                                 <?php } ?>
