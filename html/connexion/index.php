@@ -77,8 +77,8 @@ if (empty($_POST)) { ?>
 
                     <!-- Liens pour mot de passe oublié et création de compte -->
                     <div class="flex items-center flex-nowrap h-12 space-x-1.5">
-                        <a href="/reset-mdp"
-                            class="text-sm text-center w-full text-wrap bg-transparent text-primary underline  focus:scale-[0.97]">
+                        <a href="/connexion/reinitialisation"
+                            class="text-sm text-center w-full text-wrap bg-transparent text-primary underline focus:scale-[0.97]">
                             Mot de passe oublié ?
                         </a>
                         <a href="/inscription"
