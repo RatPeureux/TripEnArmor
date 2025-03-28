@@ -55,7 +55,7 @@ $membre = verifyMember();
                 ?>
             </div>
 
-            <div class="flex flex-col md:mx-10 grow">
+            <div class="flex flex-col p-4 md:p-2 md:mx-10 grow">
                 <p class="text-xl p-4">
                     <a href="/compte">Mon compte</a>
                     >
@@ -74,7 +74,7 @@ $membre = verifyMember();
                         name="pseudo">
 
                     <input type="submit" id="save" value="Enregistrer les modifications"
-                        class="self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                        class="self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
                     
                 </form>

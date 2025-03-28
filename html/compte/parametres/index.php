@@ -124,7 +124,7 @@ $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
 
 <body class="min-h-screen flex flex-col justify-between">
 
-    <!-- Map à afficher pour choisir l'adresse -->
+    <!-- Map à afficher pour Trouver mon adresse -->
     <div id="map-container" class="z-30 fixed top-0 left-0 h-full w-full flex hidden items-center justify-center">
         <!-- Background blur -->
         <div class="fixed top-0 left-0 w-full h-full bg-blur/25 backdrop-blur"
@@ -155,19 +155,19 @@ $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
                 ?>
             </div>
 
-            <div class="flex flex-col md:mx-10 gap-8 grow">
+            <div class="flex flex-col p-4 md:p-2 md:mx-10 grow">
                 <p class="text-xl p-4">
                     <a href="/compte">Mon compte</a>
                     >
                     <a href="/compte/parametres" class="underline">Paramètres</a>
                 </p>
 
-                <hr>
+                <hr class="mb-8">
 
                 <p class="text-2xl">Informations privées</p>
 
                 <form action="/compte/parametres/" class="flex flex-col" method="post">
-                    <div class="flex flex-nowrap space-x-3">
+                    <div class="flex flex-nowrap space-x-3 mb-3">
                         <div class="w-full">
                             <label class="text-lg" for="prenom">Prénom</label>
                             <input value="<?php echo $membre['prenom'] ?>"
@@ -183,14 +183,14 @@ $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
                     </div>
 
                     <input type="submit" id="save1" value="Enregistrer les modifications"
-                        class="cursor-pointer self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                        class="cursor-pointer self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
 
                 </form>
 
-                <hr>
+                <hr class="mb-8">
 
-                <form action="/compte/parametres/" class="flex flex-col" method="post">
+                <form action="/compte/parametres/" class="flex flex-col gap-2" method="post">
                     <label class="text-lg" for="email">Adresse mail</label>
                     <input value="<?php echo $membre['email'] ?>" placeholder="exemple@gmail.com"
                         title="L'adresse mail doit comporter un '@' et un '.'"
@@ -204,20 +204,20 @@ $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
                         placeholder="01 23 45 67 89">
 
                     <input type="submit" id="save2" value="Enregistrer les modifications"
-                        class="cursor-pointer self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                        class="cursor-pointer self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
 
                 </form>
 
-                <hr>
+                <hr class="mb-8">
 
                 <!-- Champs pour l'adresse -->
                 <form action="/compte/parametres" class="flex flex-col gap-2" method="post">
 
                     <!-- Bouton de sélection sur la carte -->
                     <p id="select-on-map"
-                        class="p-2 border border-black self-start cursor-pointer hover:border-secondary hover:text-white hover:bg-secondary"
-                        onclick="showMap();">Choisir l'adresse</p>
+                        class="p-2 self-start cursor-pointer bg-secondary hover:bg-white text-white hover:text-secondary border border-secondary rounded-full"
+                        onclick="showMap();">Trouver mon adresse</p>
 
                     <!-- Champs cachés pour les coordonnées -->
                     <input class='hidden' id='lat' name='lat' value="<?php echo $adresse['lat'] ?? '0' ?>">
@@ -234,7 +234,7 @@ $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
                         id="complement" name="complement">
 
                     <div class="flex gap-8 items-center">
-                        <div class="flex flex-col">
+                        <div class="flex flex-col gap-2">
                             <label class="text-lg" for="postal_code">Code postal</label>
                             <input type="text" id="postal_code" name="postal_code"
                                 value="<?php echo $adresse['code_postal'] ?>"
@@ -243,7 +243,7 @@ $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
                                 placeholder="12345">
                         </div>
 
-                        <div>
+                        <div class="flex flex-col gap-2">
                             <label class="text-lg" for="locality">Ville</label>
                             <input id="locality" name="locality" value="<?php echo $adresse['ville'] ?>"
                                 pattern="^[a-zA-Zéèêëàâôûç\-'\s]+(?:\s[A-Z][a-zA-Zéèêëàâôûç\-']+)*$"
@@ -253,10 +253,8 @@ $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
                     </div>
 
                     <input type="submit" id="save3" value="Enregistrer les modifications"
-                        class="cursor-pointer self-end opacity-50 max-w-sm my-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
+                        class="cursor-pointer self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-
-                    <hr class="hidden">
 
                     <a href="/scripts/delete_membre.php" onclick="return confirmDelete()"
                         class="hidden mx-auto max-w-[23rem] w-full h-12 p-1  text-sm text-center text-wrap text-rouge-logo bg-transparent  flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
