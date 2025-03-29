@@ -148,7 +148,7 @@ if (isset($_POST['mdp'])) {
                     <div id="totp-container" class="break-words max-w-full"></div>
 
                     <!-- ÉCRIRE LE CODE SECRET POUR CONFIRMER L'ACTIVATION -->
-                    <div id="confirm-totp-div" class="flex flex-col items-stretch hidden">
+                    <div id="confirm-totp-div" class="flex flex-col gap-2 items-stretch hidden">
                         <label for="confirmTOTP">Pour confirmer l'activation de l'option TOTP, veuillez ressaisir le code
                             secret donné ci-dessus en gras :</label>
                         <input class="border border-black p-1" type="text" name="confirmTOTP" id="confirmTOTP">
@@ -161,7 +161,7 @@ if (isset($_POST['mdp'])) {
                             } else {
                                 alert('Le code secret saisi n\'est pas le bon');
                             }"
-                            class="self-start max-w-sm px-4 py-2 text-sm hover:text-primary hover:border hover:border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Confirmer</a>
+                            class="self-start px-4 py-2 text-sm hover:text-primary border border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Confirmer</a>
                         <!-- Symbole de chargement -->
                         <img id="loading-indicator-confirm" class="w-8 h-6" style="display: none;"
                             src="/public/images/loading.gif" alt="Chargement...">

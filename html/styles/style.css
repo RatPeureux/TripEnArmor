@@ -824,10 +824,6 @@ video {
   margin-top: 0.5rem;
 }
 
-.mb-0 {
-  margin-bottom: 0px;
-}
-
 .ml-auto {
   margin-left: auto;
 }
@@ -1034,10 +1030,6 @@ video {
 
 .max-h-\[500px\] {
   max-height: 500px;
-}
-
-.max-h-\[400px\] {
-  max-height: 400px;
 }
 
 .min-h-screen {
@@ -2131,11 +2123,6 @@ video {
   color: rgb(242 119 27 / var(--tw-text-opacity));
 }
 
-.text-blue-500 {
-  --tw-text-opacity: 1;
-  color: rgb(59 130 246 / var(--tw-text-opacity));
-}
-
 .text-base300 {
   --tw-text-opacity: 1;
   color: rgb(204 204 204 / var(--tw-text-opacity));
@@ -2523,10 +2510,6 @@ input[type="checkbox"]:checked:before {
   cursor: pointer;
 }
 
-.hover\:border:hover {
-  border-width: 1px;
-}
-
 .hover\:border-secondary:hover {
   --tw-border-opacity: 1;
   border-color: rgb(10 0 53 / var(--tw-border-opacity));
@@ -2553,11 +2536,6 @@ input[type="checkbox"]:checked:before {
 
 .hover\:border-secondary\/90:hover {
   border-color: rgb(10 0 53 / 0.9);
-}
-
-.hover\:border-red-600:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(220 38 38 / var(--tw-border-opacity));
 }
 
 .hover\:bg-secondary:hover {
@@ -2602,14 +2580,9 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(10 0 53 / 0.9);
 }
 
-.hover\:bg-red-600:hover {
+.hover\:bg-white:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
-.hover\:\!bg-primary:hover {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(242 119 27 / var(--tw-bg-opacity)) !important;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-transparent:hover {
@@ -2674,11 +2647,6 @@ input[type="checkbox"]:checked:before {
 .hover\:bg-blue-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-white:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .hover\:fill-\[\#EA4335\]:hover {
@@ -2931,10 +2899,6 @@ input[type="checkbox"]:checked:before {
     margin-bottom: 4rem;
   }
 
-  .md\:mb-12 {
-    margin-bottom: 3rem;
-  }
-
   .md\:block {
     display: block;
   }
@@ -2973,10 +2937,6 @@ input[type="checkbox"]:checked:before {
 
   .md\:max-w-\[1280px\] {
     max-width: 1280px;
-  }
-
-  .md\:max-w-\[500px\] {
-    max-width: 500px;
   }
 
   .md\:flex-row {

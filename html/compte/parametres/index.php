@@ -255,11 +255,6 @@ $adresse = $controllerAdresse->getInfosAdresse($membre['id_adresse']);
                     <input type="submit" id="save3" value="Enregistrer les modifications"
                         class="cursor-pointer self-end opacity-50 max-w-sm mb-4 px-4 py-2 text-sm text-white bg-primary  border border-transparent rounded-full"
                         disabled>
-
-                    <a href="/scripts/delete_membre.php" onclick="return confirmDelete()"
-                        class="hidden mx-auto max-w-[23rem] w-full h-12 p-1  text-sm text-center text-wrap text-rouge-logo bg-transparent  flex items-center justify-center border border-rouge-logo hover:text-white hover:bg-red-600 hover:border-red-600 focus:scale-[0.97]">
-                        Supprimer mon compte
-                    </a>
                 </form>
             </div>
         </div>

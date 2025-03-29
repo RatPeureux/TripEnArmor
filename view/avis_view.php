@@ -1,12 +1,12 @@
 <!-- 
     POUR APPELER LA VUE AVIS, DÉFINIR LES VARIABLES SUIVANTES EN AMONT :
     - $id_avis
-    - $id_membre
     - $mode         : soit 'avis', soit 'mon_avis' pour un affichage différent
     - $is_reference : soit true soit false pour savoir si l'on peut cliquer sur une flèche menant à l'offre correspondant à l'avis
 -->
 <?php
 session_start();
+echo $id_avis;
 
 // Connexion à la BDD
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
@@ -33,8 +33,8 @@ $restaurationController = new RestaurationController();
 $controllerImage = new ImageController();
 
 // Obtenir la variables regroupant les infos majeures
-$membre = $membreController->getInfosMembre($id_membre);
 $avis = $avisController->getAvisById($id_avis);
+$membre = $membreController->getInfosMembre($avis['id_membre']);
 $restauration = $restaurationController->getInfosRestauration($avis['id_offre']);
 $images = $controllerImage->getImagesAvis($id_avis);
 
@@ -150,15 +150,37 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
         </div>
         <div class="flex items-center self-end ml-auto gap-5">
             <?php
-            // Possibilité de blacklister
+            // Le pro peut-il blacklister ?
             $duree_blacklistage = parse_config_file('DUREE_BLACKLISTAGE');
-            if (!$is_blacklisted && $pro_can_blacklist) { ?>
-                <a onclick="return confirm('Voulez-vous vraiment blacklister cet avis définitivement ? Cela coute un ticket (il vous en reste <?php echo 3 - $nb_blacklistes_en_cours ?>) qui vous sera restitué dans <?php echo $duree_blacklistage ?> jours.')"
-                    href="/scripts/blacklister_avis.php?id_avis=<?php echo $id_avis ?>&duree_blacklistage=<?php echo $duree_blacklistage ?>">
-                    <i title="blacklister l'avis" class="text-xl fa-regular fa-eye-slash hover:text-primary"></i>
-                </a>
-            <?php }
+            // Décomposer la durée de blacklistage en jours, heures... etc
+            list($jours, $heures, $minutes, $secondes) = explode(' ', $duree_blacklistage);
+            $jours = isset($jours) ? (int) $jours : 0;
+            $heures = isset($heures) ? (int) $heures : 0;
+            $minutes = isset($minutes) ? (int) $minutes : 0;
+            $secondes = isset($secondes) ? (int) $secondes : 0;
 
+            // Nécessaire de faire un form pour envoyer en POST car il ne faut pas pouvoir modifier les durées à la main
+            if (!$is_blacklisted && $pro_can_blacklist) { ?>
+                <form id="blacklistForm" action="/scripts/blacklister_avis.php" method="POST"
+                    onsubmit="return confirmBlacklist()">
+                    <input type="hidden" name="id_avis" value="<?php echo $id_avis; ?>" />
+                    <input type="hidden" name="jours" value="<?php echo $jours; ?>" />
+                    <input type="hidden" name="heures" value="<?php echo $heures; ?>" />
+                    <input type="hidden" name="minutes" value="<?php echo $minutes; ?>" />
+                    <input type="hidden" name="secondes" value="<?php echo $secondes; ?>" />
+                    <button type="submit" class="no-style-btn">
+                        <i title="blacklister l'avis" class="text-xl fa-regular fa-eye-slash hover:text-primary"></i>
+                    </button>
+                </form>
+            <?php } ?>
+
+            <script>
+                function confirmBlacklist() {
+                    return confirm('Voulez-vous vraiment blacklister cet avis définitivement ? Cela coute un ticket (il vous en reste <?php echo 3 - $nb_blacklistes_en_cours ?>) qui vous sera restitué dans <?php echo $jours ?> jour(s), <?php echo $heures ?> heure(s), <?php echo $minutes ?> minute(s) et <?php echo $secondes ?> seconde(s)');
+                }
+            </script>
+
+            <?php
             // Flèche de référence vers l'offre correspondante
             if (isset($is_reference) && $is_reference) { ?>
                 <a title="voir l'offre correspondante" class="hover:text-primary"
