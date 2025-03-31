@@ -135,7 +135,7 @@ unset($_SESSION['error']);
         // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
         if (!$aLaUnes) { ?>
             <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-8 md:mb-16">
-                <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
+                <?php echo "<p class=' text-2xl'>Aucune offre ne souscrit à l'option \"À la Une\".</p>"; ?>
             </div>
         <?php } else { ?>
             <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-8 md:mb-16" id="no-matches-2">
@@ -148,63 +148,6 @@ unset($_SESSION['error']);
                 } ?>
             </div>
         <?php } ?>
-
-        <!-- <h1 class="text-3xl ">Nos meilleures offres</h1>
-
-        <?php
-        // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
-        if (!$meilleuresNotes) { ?>
-                <div class="h-72 md:min-w-full flex items-center justify-center gap-4 mb-0 md:mb-12">
-                    <?php echo "<p class=' text-2xl'>Il n'existe aucune offre...</p>"; ?>
-                </div>
-        <?php } else { ?>
-                <div class="overflow-x-auto scroll-hidden md:min-w-full flex gap-4 mb-4 md:mb-12" id="no-matches">
-                    <?php
-                    $categoriesOrdre = [
-                        'restauration' => null,
-                        'spectacle' => null,
-                        'activite' => null,
-                        'visite' => null,
-                        'parc_attraction' => null,
-                    ];
-
-                    // Parcourir les offres
-                    foreach ($meilleuresNotes as $offre) {
-
-                        $stmt = $dbh->prepare("SELECT count FROM sae_db.vue_moyenne WHERE id_offre = :id_offre");
-                        $stmt->bindParam(':id_offre', $offre['id_offre']);
-                        $stmt->execute();
-                        $moyenne = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                        if ($moyenne) {
-                            $stmt = $dbh->prepare("SELECT type_offre FROM sae_db.vue_offre_categorie WHERE id_offre = :id_offre");
-                            $stmt->bindParam(':id_offre', $offre['id_offre']);
-                            $stmt->execute();
-                            $categorie = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                            if ($categorie && isset($categorie['type_offre'])) {
-                                $typeOffre = $categorie['type_offre'];
-
-                                // Ajouter l'offre dans la catégorie correspondante si elle n'est pas encore définie
-                                if (array_key_exists($typeOffre, $categoriesOrdre) && $categoriesOrdre[$typeOffre] === null) {
-                                    $categoriesOrdre[$typeOffre] = $offre;
-                                }
-                            }
-                        }
-                    }
-
-                    // Reconstituer $temp dans l'ordre des catégories
-                    $meilleuresNotes = array_filter($categoriesOrdre); // Filtrer les catégories non attribuées
-                
-                    $iOffres = 0;
-                    foreach ($meilleuresNotes as $offre) {
-                        if ($iOffres < 5) {
-                            require dirname($_SERVER['DOCUMENT_ROOT']) . '/view/carte_offre_accueil.php';
-                        }
-                        $iOffres++;
-                    } ?>
-                </div>
-        <?php } ?> -->
 
         <h2 class="text-3xl mb-2">Carte des offres</h2>
         <div id="map" class="w-full h-[600px] border border-gray-300"></div>

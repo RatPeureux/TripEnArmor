@@ -174,7 +174,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 // Obtenir les informations de toutes les offres et les ajouter dans les mains du tel ou de la tablette
                 if (!$nouvellesOffres) { ?>
                     <div class="md:min-w-full flex flex-col gap-4">
-                        <?php echo "<p class='mt-4  text-2xl'>Il n'existe aucune offre...</p>"; ?>
+                        <?php echo "<p class='mt-4  text-2xl'>Il n'y a aucune nouvelle offre...</p>"; ?>
                     </div>
                 <?php } else { ?>
                     <div class="md:min-w-full flex flex-col gap-4" id="no-matches">
