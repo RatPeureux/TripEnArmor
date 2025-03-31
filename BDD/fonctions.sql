@@ -469,7 +469,7 @@ BEGIN
             SELECT 1 FROM sae_db._avis
             WHERE id_membre = NEW.id_membre AND id_offre = NEW.id_offre
         ) THEN
-            RAISE EXCEPTION 'Un membre ne peut pas avoir plusieurs avis sur la même offre, sauf pour le compte anonyme.';
+            RAISE EXCEPTION 'Un membre ne peut pas avoir plusieurs avis sur la même offre, sauf pour le compte anonyme, id n°%', NEW.id_membre;
         END IF;
     END IF;
     RETURN NEW;
@@ -477,5 +477,5 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trigger_unique_avis_per_member
-BEFORE INSERT OR UPDATE ON sae_db._avis
+BEFORE INSERT ON sae_db._avis
 FOR EACH ROW EXECUTE FUNCTION check_unique_avis_per_member();
