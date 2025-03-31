@@ -169,7 +169,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
                     <input type="hidden" name="minutes" value="<?php echo $minutes; ?>" />
                     <input type="hidden" name="secondes" value="<?php echo $secondes; ?>" />
                     <button type="submit" class="no-style-btn">
-                        <i title="blacklister l'avis" class="text-xl fa-regular fa-eye-slash hover:text-primary"></i>
+                        <i title="blacklister l'avis" class="text-xl fa-solid fa-ban hover:text-rouge-logo"></i>
                     </button>
                 </form>
             <?php } ?>
@@ -379,7 +379,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
             <div class="p-4 flex flex-col gap-2 justify-start">
                 <!-- Bouton de rédaction de réponse -->
                 <div class="flex gap-4 items-center">
-                    <a class="p-1 rounded-full hover:cursor-pointer self-start border border-secondary hover:bg-secondary hover:text-white"
+                    <a class="px-2 py-1 rounded-full hover:cursor-pointer self-start border border-secondary hover:bg-secondary hover:text-white"
                         onclick="document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').classList.toggle('hidden')">Répondre</a>
                     <a id="send-reponse-avis-<?php echo $id_avis ?>" class="hidden">
                         <i class="fa-regular fa-paper-plane hover:cursor-pointer" title="Envoyer" onclick="let content = document.getElementById('formulaire-reponse-avis-<?php echo $id_avis ?>').value; let encodedContent = encodeURIComponent(content); if (encodedContent.length > 0) {
@@ -390,7 +390,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
                 </div>
 
                 <!-- Champ de rédaction -->
-                <textarea id="formulaire-reponse-avis-<?php echo $id_avis ?>" class="hidden border border-gris"></textarea>
+                <textarea id="formulaire-reponse-avis-<?php echo $id_avis ?>" class="hidden border border-gris p-1"></textarea>
                 <!-- Proposer d'envoyer la réponse que quand il y a du texte rentré -->
                 <script>
                     $("#formulaire-reponse-avis-<?php echo $id_avis ?>").on('input', function () {

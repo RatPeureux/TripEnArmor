@@ -794,6 +794,11 @@ video {
   margin-bottom: 0.375rem;
 }
 
+.mx-0 {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -894,6 +899,10 @@ video {
 
 .mt-1\.5 {
   margin-top: 0.375rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
 }
 
 .\!mt-10 {
@@ -1104,10 +1113,6 @@ video {
 
 .w-36 {
   width: 9rem;
-}
-
-.w-2\/3 {
-  width: 66.666667%;
 }
 
 .\!w-full {
@@ -1659,13 +1664,13 @@ video {
   border-color: rgb(241 243 244 / var(--tw-border-opacity));
 }
 
-.border-transparent {
-  border-color: transparent;
-}
-
 .border-rouge-logo {
   --tw-border-opacity: 1;
   border-color: rgb(234 67 53 / var(--tw-border-opacity));
+}
+
+.border-transparent {
+  border-color: transparent;
 }
 
 .border-gray-500 {
@@ -1934,10 +1939,6 @@ video {
 
 .pt-1\.5 {
   padding-top: 0.375rem;
-}
-
-.pt-2 {
-  padding-top: 0.5rem;
 }
 
 .pb-16 {
@@ -2213,7 +2214,7 @@ label:has(+ select[required])::after {
 
 /* Activation des menus */
 
-#menu > .active,
+#menu>.active,
 #filtres.active,
 #cgu.active,
 #politique.active,
@@ -2264,6 +2265,33 @@ label:has(+ select[required])::after {
   border-color: white;
 }
 
+/* Pour faire fonctionner les line-clamp */
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* Pour faire fonctionner les line-clamp */
+
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+/* Pour faire fonctionner les line-clamp */
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 /* Slider d'images (détails d'une offre) */
 
 .swiper-pagination-bullet {
@@ -2284,8 +2312,8 @@ label:has(+ select[required])::after {
 
 /* Eviter que le layer de la carte ne cache les notifications */
 
-.leaflet-pane {
-  z-index: 40 !important;
+.leaflet-pane, .leaflet-control, .leaflet-top, .leaflet-left, .leaflet-bottom {
+  z-index: 30 !important;
 }
 
 /* Checkboxs */
@@ -2563,9 +2591,8 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-black:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+.hover\:bg-transparent:hover {
+  background-color: transparent;
 }
 
 .hover\:bg-rouge-logo\/90:hover {
@@ -2575,6 +2602,11 @@ input[type="checkbox"]:checked:before {
 .hover\:\!bg-white:hover {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
+}
+
+.hover\:bg-primary:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(242 119 27 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-primary\/90:hover {
@@ -2588,10 +2620,6 @@ input[type="checkbox"]:checked:before {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-transparent:hover {
-  background-color: transparent;
 }
 
 .hover\:bg-red-100:hover {
@@ -2669,6 +2697,11 @@ input[type="checkbox"]:checked:before {
 .hover\:text-secondary:hover {
   --tw-text-opacity: 1;
   color: rgb(10 0 53 / var(--tw-text-opacity));
+}
+
+.hover\:text-rouge-logo:hover {
+  --tw-text-opacity: 1;
+  color: rgb(234 67 53 / var(--tw-text-opacity));
 }
 
 .hover\:text-primary:hover {
@@ -2909,6 +2942,10 @@ input[type="checkbox"]:checked:before {
     margin-bottom: 4rem;
   }
 
+  .md\:mt-0 {
+    margin-top: 0px;
+  }
+
   .md\:block {
     display: block;
   }
@@ -2935,6 +2972,10 @@ input[type="checkbox"]:checked:before {
 
   .md\:w-full {
     width: 100%;
+  }
+
+  .md\:w-2\/3 {
+    width: 66.666667%;
   }
 
   .md\:w-1\/3 {

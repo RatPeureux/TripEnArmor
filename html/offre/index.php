@@ -319,11 +319,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
                 <div
-                    class="flex flex-col w-full space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-start md:space-x-4">
+                    class="flex flex-col items-center w-full space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-start md:space-x-4">
 
                     <!-- CAROUSSEL -->
                     <div
-                        class="w-2/3 h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container border">
+                        class="md:w-2/3 h-80 md:h-[400px] overflow-hidden relative swiper mx-0 w-full default-carousel swiper-container border">
                         <!-- Wrapper -->
                         <?php
                         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
@@ -403,10 +403,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="space-y-2 px-2 md:px-0 w-full">
                     <div class="flex flex-col justify-between md:flex-row w-full">
-                        <div class="flex flex-col md:flex-row w-fit">
+                        <div class="flex flex-col md:flex-row w-fit mt-5 md:mt-0">
                             <h1 class="text-3xl "><?php echo $offre['titre'] ?></h1>
                             <p class="hidden text-3xl md:flex">&nbsp;-&nbsp;</p>
-                            <p class="professionnel text-3xl"><?php echo $nom_pro ?></p>
+                            <p class="text-3xl italic"><?php echo $nom_pro ?></p>
                         </div>
                         <?php
                         // Moyenne des notes quand il y en a une
@@ -1036,7 +1036,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                             <?php
                             // UTILISATEUR PAS CONNECTÉ
                         } else if (!isset($_SESSION['id_pro'])) { ?>
-                                <p class="text-sm italic"><a href='/connexion' class="underline">Connectez-vous</a> pour rédiger
+                                <p class="text-sm italic"><a href='/connexion' class="px-2 py-1 border border-primary text-primary hover:text-white hover:bg-primary rounded-full">Connectez-vous</a> pour rédiger
                                     un avis</p>
                             <?php
                         }

@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 if (isConnectedAsPro()) {
     ?>
     <!-- HEADER PRO -->
-    <header class="w-full z-50 bg-white flex items-center px-4 h-16">
+    <header class="w-full z-40 bg-white flex items-center px-4 h-16">
         <div class="flex w-full items-center justify-between relative mx-auto">
             <!-- Partie gauche -->
             <a href="/pro" class="flex gap-2 items-center">
@@ -51,7 +51,7 @@ if (isConnectedAsPro()) {
 <?php } else { ?>
 
     <!-- HEADER MEMBRE / VISITEUR -->
-    <header class="flex z-50 items-center w-full bg-white px-4 h-16 top-0 mx-auto max-w-[1280px]">
+    <header class="flex z-40 items-center w-full bg-white px-4 h-16 top-0 mx-auto max-w-[1280px]">
         <div class="w-full flex items-center justify-between">
             <!-- Menu Burger pour les petits écrans -->
             <div class="flex items-center gap-4 md:hidden">
