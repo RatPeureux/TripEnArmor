@@ -88,7 +88,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <!-- Champ pour confirmer le mot de passe -->
@@ -99,7 +100,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                             title="Confirmer le mot de passe saisit ci-dessus"
                             value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
                         <!-- Icône pour afficher/masquer le mot de passe -->
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <!-- Mots de passe ne correspondent pas -->
@@ -255,8 +257,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <!-- Champs pour l'adresse -->
                 <p id="select-on-map"
-                    class="p-2 border border-black self-start cursor-pointer hover:border-secondary hover:text-white hover:bg-secondary"
-                    onclick="showMap();">Choisir l'adresse</p>
+                    class="text-sm p-2 border rounded-full text-center border-black self-start cursor-pointer hover:border-secondary hover:text-white hover:bg-secondary"
+                    onclick="showMap();">Trouver mon adresse</p>
 
                 <!-- Champs cachés pour les coordonnées -->
                 <input class='hidden' id='lat' name='lat'
@@ -512,7 +514,7 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             // Extraire les valeurs du RIB à partir de l'IBAN
             if ($iban) {
                 $rib = extraireRibDepuisIban($iban);
-                
+
                 require_once $_SERVER["DOCUMENT_ROOT"] . '/../controller/rib_controller.php';
                 $ribController = new RibController();
                 try {

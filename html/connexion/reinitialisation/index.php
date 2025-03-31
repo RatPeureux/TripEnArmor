@@ -108,7 +108,7 @@ if (empty($_POST)) { ?><!DOCTYPE html>
                     $mail->CharSet = 'UTF-8';
                     $mail->isHTML(true);
                     $mail->Subject = "Réinitialisation du mot de passe PACT";
-                    $mail->Body = 'Cliquez <a href="localhost/connexion/reinitialisation/confirmation?token=' . $token . '">ici</a> pour réinitialiser votre mot de passe.';
+                    $mail->Body = 'Cliquez <a href="fnoc.ventsdouest.dev/connexion/reinitialisation/confirmation?token=' . $token . '">ici</a> pour réinitialiser votre mot de passe.';
 
                     try {
                         $mail->send();

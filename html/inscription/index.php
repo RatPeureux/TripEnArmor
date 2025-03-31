@@ -280,8 +280,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
 
                 <!-- Champs pour l'adresse -->
                 <p id="select-on-map"
-                    class="p-2 border border-black self-start cursor-pointer hover:border-secondary hover:text-white hover:bg-secondary"
-                    onclick="showMap();">Choisir l'adresse</p>
+                    class="text-sm p-2 border rounded-full text-center border-black self-start cursor-pointer hover:border-secondary hover:text-white hover:bg-secondary"
+                    onclick="showMap();">Trouver mon adresse</p>
 
                 <!-- Champs cachés pour les coordonnées -->
                 <input class='hidden' id='lat' name='lat'

@@ -147,7 +147,7 @@ if ($stmt->execute()) {
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':token_hash', $token_hash);
         $stmt->bindParam(':mdp_hash', $mdp_hash);
-        if ($stmt->execute()) {
+        if ($stmt->execute() && $stmt->rowCount() > 0) {
             // Rediriger sur la bonne page de connexion
             if ($role == 'membre') {
                 $_SESSION['message_pour_notification'] = 'Votre mot de passe a été réinitialisé';
