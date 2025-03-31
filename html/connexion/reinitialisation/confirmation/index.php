@@ -22,9 +22,29 @@ $stmt = $dbh->prepare($query);
 $stmt->bindParam(':token_hash', $token_hash);
 if ($stmt->execute()) {
     $result = $stmt->fetch();
-    if (!$result) {
-        die('Le token de reset donné ne correspond à aucun dans la base de données');
+    $role = 'visiteur';
+
+    // Connaître le rôle de la personne (membre ou pro) 
+    if ($membreController->getInfosMembre($result['id_compte'])) {
+        $role = 'membre';
+    } else if ($proPublicController->getInfosProPublic($result['id_compte']) || $proPriveController->getInfosProPrive($result['id_compte'])) {
+        $role = 'professionnel';
     }
+
+    // Mettre la bonne couleur clé en fonction du rôle (orange ou bleu)
+    $couleur_role = ($role == 'professionnel') ? 'secondary' : 'primary';
+
+    // // Si aucun compte trouvé
+    if (!$result) {
+        if ($role == 'professionnel') {
+            header('Location: /pro/');
+        } else {
+            header('Location: /');
+        }
+        exit();
+    }
+
+    // Lien expiré
     if (strtotime($result['reset_token_expires_at']) <= time()) {
         die('Votre lien a expiré');
     }
@@ -39,10 +59,12 @@ if ($stmt->execute()) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Changement de mot de passe - PACT</title>
+        <title>Changement de mot de passe - Professionnel - PACT</title>
 
         <!-- NOS FICHIERS -->
         <link rel="stylesheet" href="/styles/style.css">
+        <script type="module" src="/scripts/main.js"></script>
+
     </head>
 
     <body class="h-screen bg-white p-4 overflow-hidden">
@@ -55,9 +77,14 @@ if ($stmt->execute()) {
 
                 <h2 class="mx-auto text-center text-2xl pt-4 my-4">Changement de mot de passe</h2>
 
-                <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST">
-                    <!-- Pour envoyer le token en le cachant -->
-                    <input type="hidden" name="token" value="<?php echo htmlspecialchars($token) ?>">
+                <form class="bg-white w-full p-5 border-2 border-<?php echo $couleur_role ?>" action="" method="POST">
+                    <p class="text-sm">Définissez un nouveau mot de passe fiable, respectant les conditions
+                        de sécurité minimum suivantes :</p>
+                    <ul class="mb-3 text-sm">
+                        <li>- 8 caratères</li>
+                        <li>- 1 majuscule</li>
+                        <li>- 1 caractère numérique</li>
+                    </ul>
 
                     <!-- Champ pour le nouveau mot de passe -->
                     <div class="relative w-full">
@@ -84,8 +111,8 @@ if ($stmt->execute()) {
                     </div>
 
                     <!-- Bouton de connexion -->
-                    <input type="submit" value="Confirmer"
-                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-primary hover:bg-orange-600 text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97">
+                    <input type="submit" value="Confirmer" onclick="return validatePassword()"
+                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-<?php echo $couleur_role ?> hover:bg-transparent hover:text-<?php echo $couleur_role ?> text-white border border-transparent hover:border-<?php echo $couleur_role ?> focus:scale-[0.97]">
                 </form>
             </div>
         </div>
@@ -107,46 +134,41 @@ if ($stmt->execute()) {
 
 <?php } else {
     // 2ème étape : changer le mdp dans la base de données
-    $token = $_POST['token'];
-    $token_hash = hash('sha256', $token);
+    try {
+        // Pour éviter la casse du mot de passe si erreur
+        $dbh->beginTransaction();
 
-    // Vérifier que le token est valide
-    $query = "SELECT * FROM sae_db._compte
-              WHERE reset_token_hash = :token_hash";
-    $stmt = $dbh->prepare($query);
-    $stmt->bindParam(':token_hash', $token_hash);
-    if ($stmt->execute()) {
-        $result = $stmt->fetch();
-        if (!$result) {
-            die('Le token de reset donné ne correspond à aucun dans la base de données');
+        $mdp_hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
+        $query = "UPDATE sae_db._compte
+                    SET mdp_hash = :mdp_hash,
+                    reset_token_hash = NULL,
+                    reset_token_expires_at = NULL
+                    WHERE reset_token_hash = :token_hash";
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam(':token_hash', $token_hash);
+        $stmt->bindParam(':mdp_hash', $mdp_hash);
+        if ($stmt->execute()) {
+            // Rediriger sur la bonne page de connexion
+            if ($role == 'membre') {
+                $_SESSION['message_pour_notification'] = 'Votre mot de passe a été réinitialisé';
+                $dbh->commit();
+                header('Location: /connexion');
+            } else if ($role == 'professionnel') {
+                $_SESSION['message_pour_notification'] = 'Votre mot de passe a été réinitialisé';
+                $dbh->commit();
+                header('Location: /pro/connexion');
+            } else {
+                $_SESSION['error'] = "Réinitialisation impossible : votre identifiant de compte ne corresond à aucun compte dans la base de données";
+                $dbh->rollBack();
+                header('Location: /connexion/reinitialisation');
+            }
+        } else {
+            echo 'Erreur : impossible d\'exécuter la requête de changement de mot de passe';
+            exit();
         }
-        if (strtotime($result['reset_token_expires_at'] <= time())) {
-            die('Le token de reset donné a expiré');
-        }
-    }
-
-    // Tout est en ordre, le changement de mot de passe peut opérer
-    $mdp_hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
-    $query = "UPDATE sae_db._compte
-                SET mdp_hash = :mdp_hash,
-                reset_token_hash = NULL,
-                reset_token_expires_at = NULL
-                WHERE email = :email";
-    $stmt = $dbh->prepare($query);
-    $stmt->bindParam(':mdp_hash', $mdp_hash);
-    $stmt->bindParam(':email', $result['email']);
-
-    // Rediriger sur la bonne page de connexion
-    $_SESSION['message_pour_notification'] = 'Votre mot de passe a été réinitialisé';
-    if ($membreController->getInfosMembre($result['id_compte'])) {
-        header('Location: /connexion');
-        exit();
-    } else if ($proPublicController->getInfosProPublic($result['id_compte']) || $proPriveController->getInfosProPrive($result['id_compte'])) {
-        header('Location: /pro/connexion');
-        exit();
-    } else {
-        $_SESSION['error'] = "Réinitialisation impossible : votre identifiant de compte ne corresond à aucun compte dans la base de données";
-        header('Location: /connexion/reinitialisation');
+    } catch (Exception $e) {
+        echo 'Erreur : ' . $e->getMessage();
+        $dbh->rollBack();
         exit();
     }
 }

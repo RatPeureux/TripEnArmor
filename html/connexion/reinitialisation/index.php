@@ -39,7 +39,7 @@ if (empty($_POST)) { ?><!DOCTYPE html>
 
                 <h2 class="mx-auto text-center text-2xl pt-4 my-4">Réinitialisation du mot de passe</h2>
 
-                <form class="bg-white w-full p-5 border-2 border-primary" action="" method="POST">
+                <form class="bg-white w-full p-5 border-2 border-black" action="" method="POST">
                     <p class="text-sm">Nous allons vous envoyer un mail pour réinitialiser votre mot de passe</p>
 
                     <br>
@@ -57,12 +57,12 @@ if (empty($_POST)) { ?><!DOCTYPE html>
 
                     <!-- Message de succès -->
                     <span class="error text-green-500 text-sm">
-                        <?php echo $_GET['mail_sent'] ? 'Un lien de réinitialisation a été envoyé à votre boîte mail. Pensez à vérifier les spams.' : '' ?>
+                        <?php echo (isset($_GET['mail_sent']) && $_GET['mail_sent']) ? 'Un lien de réinitialisation a été envoyé à votre boîte mail. Pensez à vérifier les spams.' : '' ?>
                     </span>
 
                     <!-- Bouton de connexion -->
                     <input type="submit" value="Envoyer"
-                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-primary hover:bg-orange-600 text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97">
+                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-black text-white hover:bg-transparent hover:text-black hover:border-black inline-flex items-center justify-center border border-transparent focus:scale-[0.97">
                 </form>
             </div>
         </div>

@@ -2538,6 +2538,11 @@ input[type="checkbox"]:checked:before {
   border-color: rgb(10 0 53 / 0.9);
 }
 
+.hover\:border-black:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
 .hover\:bg-secondary:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(10 0 53 / var(--tw-bg-opacity));
@@ -2674,6 +2679,11 @@ input[type="checkbox"]:checked:before {
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.hover\:text-black:hover {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .hover\:blur-none:hover {
