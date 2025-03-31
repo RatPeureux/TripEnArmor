@@ -68,7 +68,7 @@ if (empty($_POST)) { ?>
 
                 <h2 class="mx-auto text-center text-2xl pt-4 my-4">Authentification TOTP</h2>
 
-                <form class="bg-white w-full p-5 border-2 border-secondary" action="/a2f" method="POST">
+                <form class="bg-white w-full p-5 border-2 border-secondary" action="/a2f/" method="POST">
 
                     <!-- Message d'information -->
                     <p class="text-sm">Consultez votre application d'authentification OTP pour connaître le TOTP à saisir.

@@ -752,10 +752,10 @@ if ($mode_carte == 'membre') {
 
                   <!-- Consulter les informations sur ses tickets -->
                   <div title="Vous avez <?php echo $nb_tickets ?> ticket(s) de blacklistage"
-                    class="text-small flex gap-2 items-center">
+                    class="text-small flex gap-2 items-center hover:text-primary cursor-pointer">
                     <i onclick="document.getElementById('pop-up-tickets-<?php echo $id_offre ?>').classList.remove('hidden')"
                       class="fa-solid fa-ticket"></i>
-                    <p class="hover:text-primary cursor-pointer"><?php echo $nb_tickets ?> / 3</p>
+                    <p><?php echo $nb_tickets ?> / 3</p>
                   </div>
                   <div id="pop-up-tickets-<?php echo $id_offre ?>"
                     class="z-30 fixed top-0 left-0 h-full w-full flex hidden items-center justify-center">
