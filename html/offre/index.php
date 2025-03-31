@@ -1,6 +1,31 @@
 <?php
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
+
+// Récupérer l'ID de l'offre actuelle
+$id_offre = $_GET['id_offre'] ?? null;
+
+if ($id_offre) {
+    // Lire le cookie existant et forcer un tableau
+    $consulteesRecemments = isset($_COOKIE['recentes']) ? json_decode($_COOKIE['recentes'], true) : [];
+
+    // Vérifier que c'est bien un tableau, sinon le réinitialiser
+    if (!is_array($consulteesRecemments)) {
+        $consulteesRecemments = [];
+    }
+
+    // Supprimer l'ID s'il est déjà présent pour éviter les doublons
+    $consulteesRecemments = array_diff($consulteesRecemments, [$id_offre]);
+
+    // Ajouter l'ID au début du tableau
+    array_unshift($consulteesRecemments, $id_offre);
+
+    // Limiter à 10 offres récentes
+    $consulteesRecemments = array_slice($consulteesRecemments, 0, 10);
+
+    // Stocker dans un cookie (valable 7 jours)
+    setcookie('recentes', json_encode($consulteesRecemments), time() + (86400 * 7), "/");
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,6 +34,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/public/images/favicon.png">
+    <link rel="stylesheet" href="/styles/style.css">
 
     <title>Détails d'une offre - PACT</title>
 
@@ -19,9 +46,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     <script src="/scripts/loadCaroussel.js" type="module"></script>
 
     <!-- NOS FICHIERS -->
-    <link rel="icon" href="/public/images/favicon.png">
     <script type="module" src="/scripts/main.js"></script>
-    <link rel="stylesheet" href="/styles/style.css">
 
     <!-- AJAX -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
