@@ -261,7 +261,7 @@ if ($mode_carte == 'membre') {
           <!-- En tête avec titre -->
           <div class='en-tete relative top-0 max-w-full '>
             <div class="flex w-full">
-              <h3 class='text-xl  grow'>
+              <h3 class='text-xl grow'>
                 <?php echo $titre_offre ?>
               </h3>
               <?php
@@ -336,7 +336,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="tags p-1 bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+                    echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1 text-md'>$tagsAffiche</p>");
                     ?>
                   </div>
                   <?php
@@ -344,7 +344,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="tags p-1 bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+                    echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1 text-md'>Aucun tag à afficher</p>");
                     ?>
                   </div>
                   <?php
@@ -370,7 +370,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="tags p-1 bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>$tagsAffiche</p>");
                     ?>
                   </div>
                   <?php
@@ -378,7 +378,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="tags p-1  bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>Aucun tag à afficher</p>");
                     ?>
                   </div>
                   <?php
@@ -451,8 +451,8 @@ if ($mode_carte == 'membre') {
           <div>
             <p class="text-2xl truncate"><?php echo $titre_offre ?></p>
             <div class="flex">
-              <p class="truncate"><?php echo $pro['nom_pro'] ?></p>
-              <p class="categorie text"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
+              <p class="truncate text-sm"><?php echo $pro['nom_pro'] ?></p>
+              <p class="categorie text-sm"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
             </div>
           </div>
           <?php
@@ -486,7 +486,7 @@ if ($mode_carte == 'membre') {
                 }
                 ?>
               </div>
-              <p class='text-sm flex items-center pt-2'><?php echo number_format($moyenne, 1, ',', '') ?></p>
+              <p class='text-sm flex items-center pt-1.5'><?php echo number_format($moyenne, 1, ',', '') ?></p>
             </div>
             <?php
           }
@@ -576,7 +576,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="p-1bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>$tagsAffiche</p>");
                     ?>
                   </div>
                   <?php
@@ -584,7 +584,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="p-1  bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>Aucun tag à afficher</p>");
                     ?>
                   </div>
                   <?php
@@ -610,7 +610,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="tags p-1  bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
+                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>$tagsAffiche</p>");
                     ?>
                   </div>
                   <?php
@@ -618,7 +618,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="tags p-1 bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
+                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>Aucun tag à afficher</p>");
                     ?>
                   </div>
                   <?php
@@ -627,7 +627,7 @@ if ($mode_carte == 'membre') {
               ?>
             </div>
           </div>
-          <p class="line-clamp-3">
+          <p class="line-clamp-3 text-sm">
             <?php echo $resume ?>
           </p>
         </div>
@@ -660,7 +660,7 @@ if ($mode_carte == 'membre') {
             <div id="info_pro" class="flex justify-around items-center text-small">
               <div class="flex items-center justify-arround gap-3">
                 <i class="fa-solid fa-rotate"></i>
-                <p>Modifiée le
+                <p class="text-sm">Modifiée le
                   <?php
                   if (isset($date_mise_a_jour)) {
                     echo $date_mise_a_jour;
@@ -688,10 +688,10 @@ if ($mode_carte == 'membre') {
                     $date_lancement_formatted = $date_lancement->format('d/m/Y');
                     $date_fin = $date_lancement->modify('+' . $souscription[0]['nb_semaines'] . ' weeks')->format('d/m/Y');
                     ?>
-                    <p>
+                    <p class="text-sm">
                       <?php echo $souscription[0]["nom_option"] ?>
                     </p>
-                    <p>
+                    <p class="text-sm">
                       <?php echo $date_lancement_formatted ?> -
                       <?php echo $date_fin; ?>
                     </p>
@@ -705,7 +705,7 @@ if ($mode_carte == 'membre') {
             </div>
 
             <!-- Type offre -->
-            <p class="type-offre text-center grow" title="type de l'offre">
+            <p class="type-offre text-center grow text-sm" title="type de l'offre">
               <?php echo 'Type : ' . $type_offre ?>
             </p>
           </div>
@@ -722,13 +722,13 @@ if ($mode_carte == 'membre') {
             <div class="flex items-center justify-around">
               <!-- Non lus -->
               <a href='/offre?id_offre=<?php echo $id_offre ?>#avis-button' title="Avis non consultés"
-                class="hover:text-primary">
+                class="hover:text-primary text-sm">
                 <i class="text-lg fa-solid fa-exclamation text-rouge-logo"></i>
                 <?php echo $chiffres_cles['nb_non_lus'] ?>
               </a>
               <!-- Non répondus -->
               <a href='/offre?id_offre=<?php echo $id_offre ?>#avis-button' title="Avis sans réponse"
-                class="hover:text-primary">
+                class="hover:text-primary text-sm">
                 <i class="text-lg fa-solid fa-reply-all text-rouge-logo"></i>
                 <?php echo $chiffres_cles['nb_sans_reponse'] ?>
               </a>
@@ -744,18 +744,18 @@ if ($mode_carte == 'membre') {
 
                 <div class="flex flex-col gap-1 items-center justify-center">
                   <!-- Consulter les avis blacklistés -->
-                  <a href='/offre?id_offre=<?php echo $id_offre ?>#blacklistes-button'
-                    title="Avis blacklistés" class="hover:text-primary">
+                  <a href='/offre?id_offre=<?php echo $id_offre ?>#blacklistes-button' title="Avis blacklistés"
+                    class="hover:text-primary text-sm">
                     <i class="text-lg fa-regular fa-eye-slash text-rouge-logo"></i>
                     <?php echo $chiffres_cles['nb_blacklistes'] ?>
                   </a>
 
                   <!-- Consulter les informations sur ses tickets -->
                   <div title="Vous avez <?php echo $nb_tickets ?> ticket(s) de blacklistage"
-                    class="text-small flex gap-2 items-center hover:text-primary cursor-pointer">
+                    class="text-sm flex gap-2 items-center hover:text-primary cursor-pointer">
                     <i onclick="document.getElementById('pop-up-tickets-<?php echo $id_offre ?>').classList.remove('hidden')"
                       class="fa-solid fa-ticket"></i>
-                    <p><?php echo $nb_tickets ?> / 3</p>
+                    <p class="text-sm"><?php echo $nb_tickets ?> / 3</p>
                   </div>
                   <div id="pop-up-tickets-<?php echo $id_offre ?>"
                     class="z-30 fixed top-0 left-0 h-full w-full flex hidden items-center justify-center">
