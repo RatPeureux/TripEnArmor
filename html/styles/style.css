@@ -847,10 +847,6 @@ video {
   margin-top: 2.5rem !important;
 }
 
-.mb-0 {
-  margin-bottom: 0px;
-}
-
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -982,6 +978,10 @@ video {
 
 .block {
   display: block;
+}
+
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -3166,11 +3166,6 @@ video {
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
 
-.text-blue-500 {
-  --tw-text-opacity: 1;
-  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
-}
-
 .text-gray-500 {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity, 1));
@@ -3279,6 +3274,10 @@ video {
 
 .duration-300 {
   transition-duration: 300ms;
+}
+
+.\[hostname\:port\] {
+  hostname: port;
 }
 
 :root {
@@ -5951,10 +5950,6 @@ input[type="checkbox"]:checked:before {
   .md\:mx-10 {
     margin-left: 2.5rem;
     margin-right: 2.5rem;
-  }
-
-  .md\:mb-12 {
-    margin-bottom: 3rem;
   }
 
   .md\:mb-16 {
