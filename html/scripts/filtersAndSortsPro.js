@@ -517,7 +517,7 @@ document.addEventListener("DOMContentLoaded", function () {
         message.textContent = "Aucune offre ne correspond à vos critères.";
         message.classList.add("mt-4");
         message.classList.add("text-2xl");
-        document?.querySelector("#no-matches").appendChild(message); // Ajouter dans le conteneur des offres
+        document?.querySelector("#no-matches")?.appendChild(message); // Ajouter dans le conteneur des offres
       }
     } else {
       // Supprime le message si des offres sont visibles
