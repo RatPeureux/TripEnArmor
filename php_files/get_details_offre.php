@@ -33,7 +33,6 @@ if (!$pro) {
     $pro["data"]["type"] = "prive";
 }
 
-
 // Détails globaux de l'offre
 $id_offre = $offre['id_offre'];
 $description = $offre['description'];

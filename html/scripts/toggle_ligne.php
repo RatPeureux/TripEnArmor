@@ -16,6 +16,7 @@ if (isset($_GET['id_offre'])) {
     $stmt->execute();
     $offre = $stmt->fetch(PDO::FETCH_ASSOC);
     $next_valeur_en_ligne = $offre['est_en_ligne'] ? 'false' : 'true';
+
     $type_offre = $offre['nom'];
     $prix_ht = $offre['prix_ht'];
     $prix_ttc = $offre['prix_ttc'];
@@ -63,5 +64,11 @@ if (isset($_GET['id_offre'])) {
     }
 }
 
+// Message de notification
+if ($next_valeur_en_ligne && $next_valeur_en_ligne === 'false') {
+    $_SESSION['message_pour_notification'] = 'Votre offre est hors ligne';
+} else {
+    $_SESSION['message_pour_notification'] = 'Votre offre est en ligne';
+}
 header('Location: /pro');
 exit();
