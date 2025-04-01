@@ -2531,6 +2531,12 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.after\:\!text-base::after {
+  content: var(--tw-content);
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+}
+
 .after\:transition-all::after {
   content: var(--tw-content);
   transition-property: all;

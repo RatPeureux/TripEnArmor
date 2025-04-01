@@ -164,7 +164,7 @@ if (isset($_POST['mdp'])) {
                             } else {
                                 alert('Le code secret saisi n\'est pas le bon');
                             }"
-                                class="self-start px-4 py-2 text-sm hover:text-primary border border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Confirmer</a>
+                                class="mt-2 self-start px-4 py-2 text-sm hover:text-primary border border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Confirmer</a>
                             <!-- Symbole de chargement -->
                             <img id="loading-indicator-confirm" class="w-8 h-6" style="display: none;"
                                 src="/public/images/loading.gif" alt="Chargement...">
@@ -181,7 +181,7 @@ if (isset($_POST['mdp'])) {
                 <hr class="mb-8">
 
                 <!-- PARTIE SUR LA CLÉ API -->
-                <!-- <div class="flex mb-4">
+                <!-- <div class="flex mb-4 hidden">
                     <p class="text-sm">Clé API Tchatator :</p>
                     &nbsp;
                     <p id="apiKey" class="text-sm cursor-pointer blur-sm hover:blur-none"

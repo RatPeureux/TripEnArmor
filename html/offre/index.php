@@ -1064,6 +1064,9 @@ if ($id_offre) {
                                 <p class="text-sm italic"><a href='/connexion'
                                         class="px-2 py-1 border border-primary text-primary hover:text-white hover:bg-primary rounded-full">Connectez-vous</a>
                                     pour rédiger
+                                <p class="text-sm italic"><a href='/connexion'
+                                        class="px-2 py-1 border border-primary text-primary hover:text-white hover:bg-primary rounded-full">Connectez-vous</a>
+                                    pour rédiger
                                     un avis</p>
                             <?php
                         }
