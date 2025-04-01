@@ -1,4 +1,7 @@
 <?php
+// Connexion avec la bdd
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 
@@ -68,9 +71,6 @@ if ($id_offre) {
         header('Location: /');
         exit();
     }
-
-    // Connexion avec la bdd
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Obtenir l'ensemble des informations de l'offre
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
@@ -381,14 +381,14 @@ if ($id_offre) {
                         <div class="swiper-pagination"></div>
 
                         <!-- Boutons de navigation sur la slider -->
-                        <?php if ($images['details'] || true) { ?>
-                            <div class="flex items-center text-white gap-8 justify-center">
+                        <?php if ($images['details']) { ?>
+                            <div class="flex items-center gap-8 justify-center">
                                 <a
-                                    class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
-                                </a>
+                                    class="swiper-button-prev group !flex justify-center items-center !top-1/2 !left-5 text-lg !text-white bg-primary hover:!bg-white hover:!text-primary border border-primary after:!content['']">
+                                    ‹</a>
                                 <a
-                                    class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
-                                </a>
+                                    class="swiper-button-next group !flex justify-center items-center !top-1/2 !right-5 text-lg !text-white bg-primary hover:!bg-white hover:!text-primary border border-primary after:!content['']">
+                                    ›</a>
                             </div>
                             <?php
                         }
@@ -1061,6 +1061,9 @@ if ($id_offre) {
                             <?php
                             // UTILISATEUR PAS CONNECTÉ
                         } else if (!isset($_SESSION['id_pro'])) { ?>
+                                <p class="text-sm italic"><a href='/connexion'
+                                        class="px-2 py-1 border border-primary text-primary hover:text-white hover:bg-primary rounded-full">Connectez-vous</a>
+                                    pour rédiger
                                 <p class="text-sm italic"><a href='/connexion'
                                         class="px-2 py-1 border border-primary text-primary hover:text-white hover:bg-primary rounded-full">Connectez-vous</a>
                                     pour rédiger
