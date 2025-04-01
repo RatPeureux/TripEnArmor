@@ -385,10 +385,10 @@ if ($id_offre) {
                             <div class="flex items-center gap-8 justify-center">
                                 <a
                                     class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
-                                    &lt;</a>
+                                </a>
                                 <a
                                     class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
-                                    &gt;</a>
+                                </a>
                             </div>
                             <?php
                         }
@@ -1061,7 +1061,9 @@ if ($id_offre) {
                             <?php
                             // UTILISATEUR PAS CONNECTÉ
                         } else if (!isset($_SESSION['id_pro'])) { ?>
-                                <p class="text-sm italic"><a href='/connexion' class="px-2 py-1 border border-primary text-primary hover:text-white hover:bg-primary rounded-full">Connectez-vous</a> pour rédiger
+                                <p class="text-sm italic"><a href='/connexion'
+                                        class="px-2 py-1 border border-primary text-primary hover:text-white hover:bg-primary rounded-full">Connectez-vous</a>
+                                    pour rédiger
                                     un avis</p>
                             <?php
                         }
