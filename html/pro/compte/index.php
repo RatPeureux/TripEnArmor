@@ -61,22 +61,22 @@ $pro = verifyPro();
                     <p class="text-lg">Sécurité</p>
                     <p class="text-sm">Modifier mes informations sensibles.</p>
                     <p class="text-sm">Protéger mon compte.</p>
-                    <p class="text-sm">Récupérer ma clé API : Tchatator.</p>
+                    <!-- <p class="text-sm">Récupérer ma clé API : Tchatator.</p> -->
                 </div>
             </a>
 
             <?php
             if (($pro['data']['type']) == 'prive') {
                 ?>
-                    <a href="/pro/compte/facture"
-                        class="border hover:border-secondary cursor-pointer w-full space-x-8 flex items-center px-8 py-4 bg-base100">
-                        <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
-                        <div class="w-full">
-                            <p class="text-lg">Factures</p>
-                            <p class="text-sm">Faire le point sur mes paiements réels ou prévisionnels.</p>
-                        </div>
-                    </a>
-                    <?php
+                <a href="/pro/compte/facture"
+                    class="border hover:border-secondary cursor-pointer w-full space-x-8 flex items-center px-8 py-4 bg-base100">
+                    <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
+                    <div class="w-full">
+                        <p class="text-lg">Factures</p>
+                        <p class="text-sm">Faire le point sur mes paiements réels ou prévisionnels.</p>
+                    </div>
+                </a>
+                <?php
             }
             ?>
 

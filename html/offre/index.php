@@ -360,10 +360,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                             <div class="flex items-center gap-8 justify-center">
                                 <a
                                     class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
-                                    ‹</a>
+                                </a>
                                 <a
                                     class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
-                                    ›</a>
+                                </a>
                             </div>
                             <?php
                         }

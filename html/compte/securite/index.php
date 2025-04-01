@@ -83,7 +83,8 @@ if (isset($_POST['mdp'])) {
                         <input class="border border-secondary text-sm  p-2 bg-white w-full h-12"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             type="password" id="mdp" name="mdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$">
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <div class="relative w-full">
@@ -91,7 +92,8 @@ if (isset($_POST['mdp'])) {
                         <input class="border border-secondary text-sm p-2 bg-white w-full h-12"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             type="password" id="newMdp" name="newMdp">
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <div class="relative w-full">
@@ -99,7 +101,8 @@ if (isset($_POST['mdp'])) {
                         <input class="border border-secondary text-sm p-2 bg-white w-full h-12"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             type="password" id="confNewMdp" name="confNewMdp">
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <input type="submit" id="saveBtn" value="Modifier mon mot de passe"
@@ -142,7 +145,7 @@ if (isset($_POST['mdp'])) {
                         <div id="totp-container" class="break-words max-w-full"></div>
 
                         <!-- ÉCRIRE LE CODE SECRET POUR CONFIRMER L'ACTIVATION -->
-                        <div id="confirm-totp-div" class="flex flex-col items-stretch hidden">
+                        <div id="confirm-totp-div" class="flex flex-col gap-2 items-stretch hidden">
                             <label for="confirmTOTP">Pour confirmer l'activation de l'option TOTP, veuillez ressaisir le
                                 code
                                 secret donné ci-dessus en gras :</label>
@@ -173,15 +176,16 @@ if (isset($_POST['mdp'])) {
                 <hr class="mb-8">
 
                 <!-- PARTIE SUR LA CLÉ API -->
-                <div class="flex mb-4">
+                <!-- <div class="flex mb-4 hidden">
                     <p class="text-sm">Clé API Tchatator :</p>
                     &nbsp;
-                    <p id="apiKey" class="text-sm cursor-pointer blur-sm hover:blur-none" onclick="copyToClipboard(this)">
+                    <p id="apiKey" class="text-sm cursor-pointer blur-sm hover:blur-none"
+                        onclick="copyToClipboard(this)">
                         <?php echo $membre['api_key']; ?>
                     </p>
                 </div>
 
-                <hr class="mb-8">
+                <hr class="mb-8"> -->
 
                 <!-- SUPPRIMER SON COMPTE -->
                 <a onclick="document.getElementById('pop-up-suppression-compte').classList.remove('hidden')"
