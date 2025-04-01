@@ -1,6 +1,31 @@
 <?php
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
+
+// Récupérer l'ID de l'offre actuelle
+$id_offre = $_GET['id_offre'] ?? null;
+
+if ($id_offre) {
+    // Lire le cookie existant et forcer un tableau
+    $consulteesRecemments = isset($_COOKIE['recentes']) ? json_decode($_COOKIE['recentes'], true) : [];
+
+    // Vérifier que c'est bien un tableau, sinon le réinitialiser
+    if (!is_array($consulteesRecemments)) {
+        $consulteesRecemments = [];
+    }
+
+    // Supprimer l'ID s'il est déjà présent pour éviter les doublons
+    $consulteesRecemments = array_diff($consulteesRecemments, [$id_offre]);
+
+    // Ajouter l'ID au début du tableau
+    array_unshift($consulteesRecemments, $id_offre);
+
+    // Limiter à 10 offres récentes
+    $consulteesRecemments = array_slice($consulteesRecemments, 0, 10);
+
+    // Stocker dans un cookie (valable 7 jours)
+    setcookie('recentes', json_encode($consulteesRecemments), time() + (86400 * 7), "/");
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,6 +34,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/public/images/favicon.png">
+    <link rel="stylesheet" href="/styles/style.css">
 
     <title>Détails d'une offre - PACT</title>
 
@@ -19,9 +46,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
     <script src="/scripts/loadCaroussel.js" type="module"></script>
 
     <!-- NOS FICHIERS -->
-    <link rel="icon" href="/public/images/favicon.png">
     <script type="module" src="/scripts/main.js"></script>
-    <link rel="stylesheet" href="/styles/style.css">
 
     <!-- AJAX -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -319,11 +344,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
             <!-- PARTIE DROITE (offre & détails) -->
             <div class="grow md:p-4 flex flex-col items-center md:gap-4">
                 <div
-                    class="flex flex-col w-full space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-start md:space-x-4">
+                    class="flex flex-col items-center w-full space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-start md:space-x-4">
 
                     <!-- CAROUSSEL -->
                     <div
-                        class="w-2/3 h-80 md:h-[400px] overflow-hidden relative swiper default-carousel swiper-container border">
+                        class="md:w-2/3 h-80 md:h-[400px] overflow-hidden relative swiper mx-0 w-full default-carousel swiper-container border">
                         <!-- Wrapper -->
                         <?php
                         require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/controller/image_controller.php';
@@ -403,10 +428,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                 <!-- RESTE DES INFORMATIONS SUR L'OFFRE -->
                 <div class="space-y-2 px-2 md:px-0 w-full">
                     <div class="flex flex-col justify-between md:flex-row w-full">
-                        <div class="flex flex-col md:flex-row w-fit">
+                        <div class="flex flex-col md:flex-row w-fit mt-5 md:mt-0">
                             <h1 class="text-3xl "><?php echo $offre['titre'] ?></h1>
                             <p class="hidden text-3xl md:flex">&nbsp;-&nbsp;</p>
-                            <p class="professionnel text-3xl"><?php echo $nom_pro ?></p>
+                            <p class="text-3xl italic"><?php echo $nom_pro ?></p>
                         </div>
                         <?php
                         // Moyenne des notes quand il y en a une
@@ -1036,7 +1061,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
                             <?php
                             // UTILISATEUR PAS CONNECTÉ
                         } else if (!isset($_SESSION['id_pro'])) { ?>
-                                <p class="text-sm italic"><a href='/connexion' class="underline">Connectez-vous</a> pour rédiger
+                                <p class="text-sm italic"><a href='/connexion' class="px-2 py-1 border border-primary text-primary hover:text-white hover:bg-primary rounded-full">Connectez-vous</a> pour rédiger
                                     un avis</p>
                             <?php
                         }

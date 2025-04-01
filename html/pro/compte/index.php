@@ -81,7 +81,7 @@ $pro = verifyPro();
             ?>
 
             <a href="/scripts/logout.php" onclick="return confirmLogout()"
-                class="w-full text-white text-sm border border-rouge-logo bg-rouge-logo px-4 py-2 rounded-full hover:bg-rouge-logo/90 flex items-center justify-center">
+                class="w-full text-white text-sm border border-rouge-logo bg-rouge-logo px-4 py-2 rounded-full hover:bg-transparent hover:text-rouge-logo flex items-center justify-center">
                 Se déconnecter
             </a>
         </div>

@@ -205,6 +205,7 @@ CREATE TABLE _avis (
     id_offre INT NOT NULL, -- Offre à laquelle est lié l'avis
     reponse TEXT DEFAULT NULL,
     est_lu BOOLEAN NOT NULL DEFAULT FALSE,
+    fin_blacklistage TIMESTAMP DEFAULT NULL,
     -- Contrainte avis_unique_par_offre définie dans fonctions.sql
 );
 

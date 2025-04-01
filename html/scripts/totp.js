@@ -16,7 +16,7 @@ function loadTOTP() {
             if (response) {
                 let data = JSON.parse(response);
                 try {
-                    $('#totp-container').append("<div class='max-w-[600px]'><p class='w-full'>Votre code secret TOTP : <span class=font-bold id='secret-span'>" + data.secret + "</span></p><div>");
+                    $('#totp-container').append("<p class='w-full'>Votre code secret TOTP : <span class='font-bold' id='secret-span'>" + data.secret + "</span></p>");
                     $('#totp-container').append("<br>");
                     $('#totp-container').append("<p>Scannez ce QR code avec votre application d'authentification OTP : </p><img src=" + data.qr_code_uri + ">");
                     document.getElementById('confirm-totp-div').classList.remove('hidden');
