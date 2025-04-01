@@ -108,7 +108,7 @@
   --tw-contain-style:  ;
 }
 
-/* ! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com */
+/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -989,37 +989,8 @@ video {
   display: block;
 }
 
-.mt-5 {
-  margin-top: 1.25rem;
-}
-
-.mt-6 {
-  margin-top: 1.5rem;
-}
-
-.line-clamp-1 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-}
-
-.line-clamp-2 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-.line-clamp-3 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-}
-
-.block {
-  display: block;
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -1779,12 +1750,12 @@ video {
 
 .border-rouge-logo {
   --tw-border-opacity: 1;
-  border-color: rgb(234 67 53 / var(--tw-border-opacity));
+  border-color: rgb(234 67 53 / var(--tw-border-opacity, 1));
 }
 
 .border-secondary {
   --tw-border-opacity: 1;
-  border-color: rgb(10 0 53 / var(--tw-border-opacity));
+  border-color: rgb(10 0 53 / var(--tw-border-opacity, 1));
 }
 
 .border-transparent {
@@ -1897,12 +1868,12 @@ video {
 
 .bg-blue-200 {
   --tw-bg-opacity: 1;
-  background-color: rgb(191 219 254 / var(--tw-bg-opacity));
+  background-color: rgb(191 219 254 / var(--tw-bg-opacity, 1));
 }
 
 .bg-blue-500 {
   --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
 }
 
 .bg-blue-500\/0 {
@@ -2275,7 +2246,7 @@ video {
 
 .bg-green-700 {
   --tw-bg-opacity: 1;
-  background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
 }
 
 .bg-green-700\/0 {
@@ -2364,91 +2335,7 @@ video {
 
 .bg-orange-100 {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 237 213 / var(--tw-bg-opacity));
-}
-
-.bg-orange-100\/0 {
-  background-color: rgb(255 237 213 / 0);
-}
-
-.bg-orange-100\/10 {
-  background-color: rgb(255 237 213 / 0.1);
-}
-
-.bg-orange-100\/100 {
-  background-color: rgb(255 237 213 / 1);
-}
-
-.bg-orange-100\/15 {
-  background-color: rgb(255 237 213 / 0.15);
-}
-
-.bg-orange-100\/20 {
-  background-color: rgb(255 237 213 / 0.2);
-}
-
-.bg-orange-100\/25 {
-  background-color: rgb(255 237 213 / 0.25);
-}
-
-.bg-orange-100\/30 {
-  background-color: rgb(255 237 213 / 0.3);
-}
-
-.bg-orange-100\/35 {
-  background-color: rgb(255 237 213 / 0.35);
-}
-
-.bg-orange-100\/40 {
-  background-color: rgb(255 237 213 / 0.4);
-}
-
-.bg-orange-100\/45 {
-  background-color: rgb(255 237 213 / 0.45);
-}
-
-.bg-orange-100\/5 {
-  background-color: rgb(255 237 213 / 0.05);
-}
-
-.bg-orange-100\/50 {
-  background-color: rgb(255 237 213 / 0.5);
-}
-
-.bg-orange-100\/55 {
-  background-color: rgb(255 237 213 / 0.55);
-}
-
-.bg-orange-100\/60 {
-  background-color: rgb(255 237 213 / 0.6);
-}
-
-.bg-orange-100\/65 {
-  background-color: rgb(255 237 213 / 0.65);
-}
-
-.bg-orange-100\/70 {
-  background-color: rgb(255 237 213 / 0.7);
-}
-
-.bg-orange-100\/75 {
-  background-color: rgb(255 237 213 / 0.75);
-}
-
-.bg-orange-100\/80 {
-  background-color: rgb(255 237 213 / 0.8);
-}
-
-.bg-orange-100\/85 {
-  background-color: rgb(255 237 213 / 0.85);
-}
-
-.bg-orange-100\/90 {
-  background-color: rgb(255 237 213 / 0.9);
-}
-
-.bg-orange-100\/95 {
-  background-color: rgb(255 237 213 / 0.95);
+  background-color: rgb(255 237 213 / var(--tw-bg-opacity, 1));
 }
 
 .bg-orange-100\/0 {
@@ -2537,91 +2424,7 @@ video {
 
 .bg-orange-500 {
   --tw-bg-opacity: 1;
-  background-color: rgb(249 115 22 / var(--tw-bg-opacity));
-}
-
-.bg-orange-500\/0 {
-  background-color: rgb(249 115 22 / 0);
-}
-
-.bg-orange-500\/10 {
-  background-color: rgb(249 115 22 / 0.1);
-}
-
-.bg-orange-500\/100 {
-  background-color: rgb(249 115 22 / 1);
-}
-
-.bg-orange-500\/15 {
-  background-color: rgb(249 115 22 / 0.15);
-}
-
-.bg-orange-500\/20 {
-  background-color: rgb(249 115 22 / 0.2);
-}
-
-.bg-orange-500\/25 {
-  background-color: rgb(249 115 22 / 0.25);
-}
-
-.bg-orange-500\/30 {
-  background-color: rgb(249 115 22 / 0.3);
-}
-
-.bg-orange-500\/35 {
-  background-color: rgb(249 115 22 / 0.35);
-}
-
-.bg-orange-500\/40 {
-  background-color: rgb(249 115 22 / 0.4);
-}
-
-.bg-orange-500\/45 {
-  background-color: rgb(249 115 22 / 0.45);
-}
-
-.bg-orange-500\/5 {
-  background-color: rgb(249 115 22 / 0.05);
-}
-
-.bg-orange-500\/50 {
-  background-color: rgb(249 115 22 / 0.5);
-}
-
-.bg-orange-500\/55 {
-  background-color: rgb(249 115 22 / 0.55);
-}
-
-.bg-orange-500\/60 {
-  background-color: rgb(249 115 22 / 0.6);
-}
-
-.bg-orange-500\/65 {
-  background-color: rgb(249 115 22 / 0.65);
-}
-
-.bg-orange-500\/70 {
-  background-color: rgb(249 115 22 / 0.7);
-}
-
-.bg-orange-500\/75 {
-  background-color: rgb(249 115 22 / 0.75);
-}
-
-.bg-orange-500\/80 {
-  background-color: rgb(249 115 22 / 0.8);
-}
-
-.bg-orange-500\/85 {
-  background-color: rgb(249 115 22 / 0.85);
-}
-
-.bg-orange-500\/90 {
-  background-color: rgb(249 115 22 / 0.9);
-}
-
-.bg-orange-500\/95 {
-  background-color: rgb(249 115 22 / 0.95);
+  background-color: rgb(249 115 22 / var(--tw-bg-opacity, 1));
 }
 
 .bg-orange-500\/0 {
@@ -2710,7 +2513,7 @@ video {
 
 .bg-orange-700 {
   --tw-bg-opacity: 1;
-  background-color: rgb(194 65 12 / var(--tw-bg-opacity));
+  background-color: rgb(194 65 12 / var(--tw-bg-opacity, 1));
 }
 
 .bg-orange-700\/0 {
@@ -3081,12 +2884,12 @@ video {
 
 .bg-slate-100 {
   --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
 }
 
 .bg-slate-200 {
   --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1));
 }
 
 .bg-transparent {
@@ -3095,7 +2898,7 @@ video {
 
 .bg-white {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
 .bg-opacity-75 {
@@ -3478,8 +3281,8 @@ video {
   transition-duration: 300ms;
 }
 
-.duration-300 {
-  transition-duration: 300ms;
+.\[hostname\:port\] {
+  hostname: port;
 }
 
 :root {
@@ -3716,7 +3519,7 @@ input[type="checkbox"]:checked:before {
 
 .file\:text-secondary::file-selector-button {
   --tw-text-opacity: 1;
-  color: rgb(10 0 53 / var(--tw-text-opacity));
+  color: rgb(10 0 53 / var(--tw-text-opacity, 1));
 }
 
 .after\:absolute::after {
@@ -3752,13 +3555,13 @@ input[type="checkbox"]:checked:before {
 .after\:border-gray-300::after {
   content: var(--tw-content);
   --tw-border-opacity: 1;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
 
 .after\:bg-white::after {
   content: var(--tw-content);
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
 .after\:\!text-base::after {
@@ -3809,7 +3612,7 @@ input[type="checkbox"]:checked:before {
 
 .hover\:border-secondary:hover {
   --tw-border-opacity: 1;
-  border-color: rgb(10 0 53 / var(--tw-border-opacity));
+  border-color: rgb(10 0 53 / var(--tw-border-opacity, 1));
 }
 
 .hover\:border-secondary\/90:hover {
@@ -4372,91 +4175,7 @@ input[type="checkbox"]:checked:before {
 
 .hover\:bg-orange-100:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 237 213 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-orange-100\/0:hover {
-  background-color: rgb(255 237 213 / 0);
-}
-
-.hover\:bg-orange-100\/10:hover {
-  background-color: rgb(255 237 213 / 0.1);
-}
-
-.hover\:bg-orange-100\/100:hover {
-  background-color: rgb(255 237 213 / 1);
-}
-
-.hover\:bg-orange-100\/15:hover {
-  background-color: rgb(255 237 213 / 0.15);
-}
-
-.hover\:bg-orange-100\/20:hover {
-  background-color: rgb(255 237 213 / 0.2);
-}
-
-.hover\:bg-orange-100\/25:hover {
-  background-color: rgb(255 237 213 / 0.25);
-}
-
-.hover\:bg-orange-100\/30:hover {
-  background-color: rgb(255 237 213 / 0.3);
-}
-
-.hover\:bg-orange-100\/35:hover {
-  background-color: rgb(255 237 213 / 0.35);
-}
-
-.hover\:bg-orange-100\/40:hover {
-  background-color: rgb(255 237 213 / 0.4);
-}
-
-.hover\:bg-orange-100\/45:hover {
-  background-color: rgb(255 237 213 / 0.45);
-}
-
-.hover\:bg-orange-100\/5:hover {
-  background-color: rgb(255 237 213 / 0.05);
-}
-
-.hover\:bg-orange-100\/50:hover {
-  background-color: rgb(255 237 213 / 0.5);
-}
-
-.hover\:bg-orange-100\/55:hover {
-  background-color: rgb(255 237 213 / 0.55);
-}
-
-.hover\:bg-orange-100\/60:hover {
-  background-color: rgb(255 237 213 / 0.6);
-}
-
-.hover\:bg-orange-100\/65:hover {
-  background-color: rgb(255 237 213 / 0.65);
-}
-
-.hover\:bg-orange-100\/70:hover {
-  background-color: rgb(255 237 213 / 0.7);
-}
-
-.hover\:bg-orange-100\/75:hover {
-  background-color: rgb(255 237 213 / 0.75);
-}
-
-.hover\:bg-orange-100\/80:hover {
-  background-color: rgb(255 237 213 / 0.8);
-}
-
-.hover\:bg-orange-100\/85:hover {
-  background-color: rgb(255 237 213 / 0.85);
-}
-
-.hover\:bg-orange-100\/90:hover {
-  background-color: rgb(255 237 213 / 0.9);
-}
-
-.hover\:bg-orange-100\/95:hover {
-  background-color: rgb(255 237 213 / 0.95);
+  background-color: rgb(255 237 213 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-orange-100\/0:hover {
@@ -4545,7 +4264,7 @@ input[type="checkbox"]:checked:before {
 
 .hover\:bg-orange-500:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(249 115 22 / var(--tw-bg-opacity));
+  background-color: rgb(249 115 22 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-orange-500\/0:hover {
@@ -4634,12 +4353,12 @@ input[type="checkbox"]:checked:before {
 
 .hover\:bg-orange-600:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(234 88 12 / var(--tw-bg-opacity));
+  background-color: rgb(234 88 12 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-orange-700:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(194 65 12 / var(--tw-bg-opacity));
+  background-color: rgb(194 65 12 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-orange-700\/0:hover {
@@ -5017,7 +4736,7 @@ input[type="checkbox"]:checked:before {
 
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:fill-\[\#070\]:hover {
@@ -5073,7 +4792,7 @@ input[type="checkbox"]:checked:before {
 
 .hover\:file\:text-white::file-selector-button:hover {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
 .focus\:scale-\[0\.97\]:focus {
@@ -5351,91 +5070,7 @@ input[type="checkbox"]:checked:before {
 
 .focus\:bg-green-100:focus {
   --tw-bg-opacity: 1;
-  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
-}
-
-.focus\:bg-green-100\/0:focus {
-  background-color: rgb(220 252 231 / 0);
-}
-
-.focus\:bg-green-100\/10:focus {
-  background-color: rgb(220 252 231 / 0.1);
-}
-
-.focus\:bg-green-100\/100:focus {
-  background-color: rgb(220 252 231 / 1);
-}
-
-.focus\:bg-green-100\/15:focus {
-  background-color: rgb(220 252 231 / 0.15);
-}
-
-.focus\:bg-green-100\/20:focus {
-  background-color: rgb(220 252 231 / 0.2);
-}
-
-.focus\:bg-green-100\/25:focus {
-  background-color: rgb(220 252 231 / 0.25);
-}
-
-.focus\:bg-green-100\/30:focus {
-  background-color: rgb(220 252 231 / 0.3);
-}
-
-.focus\:bg-green-100\/35:focus {
-  background-color: rgb(220 252 231 / 0.35);
-}
-
-.focus\:bg-green-100\/40:focus {
-  background-color: rgb(220 252 231 / 0.4);
-}
-
-.focus\:bg-green-100\/45:focus {
-  background-color: rgb(220 252 231 / 0.45);
-}
-
-.focus\:bg-green-100\/5:focus {
-  background-color: rgb(220 252 231 / 0.05);
-}
-
-.focus\:bg-green-100\/50:focus {
-  background-color: rgb(220 252 231 / 0.5);
-}
-
-.focus\:bg-green-100\/55:focus {
-  background-color: rgb(220 252 231 / 0.55);
-}
-
-.focus\:bg-green-100\/60:focus {
-  background-color: rgb(220 252 231 / 0.6);
-}
-
-.focus\:bg-green-100\/65:focus {
-  background-color: rgb(220 252 231 / 0.65);
-}
-
-.focus\:bg-green-100\/70:focus {
-  background-color: rgb(220 252 231 / 0.7);
-}
-
-.focus\:bg-green-100\/75:focus {
-  background-color: rgb(220 252 231 / 0.75);
-}
-
-.focus\:bg-green-100\/80:focus {
-  background-color: rgb(220 252 231 / 0.8);
-}
-
-.focus\:bg-green-100\/85:focus {
-  background-color: rgb(220 252 231 / 0.85);
-}
-
-.focus\:bg-green-100\/90:focus {
-  background-color: rgb(220 252 231 / 0.9);
-}
-
-.focus\:bg-green-100\/95:focus {
-  background-color: rgb(220 252 231 / 0.95);
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
 }
 
 .focus\:bg-green-100\/0:focus {
@@ -5524,91 +5159,7 @@ input[type="checkbox"]:checked:before {
 
 .focus\:bg-green-500:focus {
   --tw-bg-opacity: 1;
-  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-}
-
-.focus\:bg-green-500\/0:focus {
-  background-color: rgb(34 197 94 / 0);
-}
-
-.focus\:bg-green-500\/10:focus {
-  background-color: rgb(34 197 94 / 0.1);
-}
-
-.focus\:bg-green-500\/100:focus {
-  background-color: rgb(34 197 94 / 1);
-}
-
-.focus\:bg-green-500\/15:focus {
-  background-color: rgb(34 197 94 / 0.15);
-}
-
-.focus\:bg-green-500\/20:focus {
-  background-color: rgb(34 197 94 / 0.2);
-}
-
-.focus\:bg-green-500\/25:focus {
-  background-color: rgb(34 197 94 / 0.25);
-}
-
-.focus\:bg-green-500\/30:focus {
-  background-color: rgb(34 197 94 / 0.3);
-}
-
-.focus\:bg-green-500\/35:focus {
-  background-color: rgb(34 197 94 / 0.35);
-}
-
-.focus\:bg-green-500\/40:focus {
-  background-color: rgb(34 197 94 / 0.4);
-}
-
-.focus\:bg-green-500\/45:focus {
-  background-color: rgb(34 197 94 / 0.45);
-}
-
-.focus\:bg-green-500\/5:focus {
-  background-color: rgb(34 197 94 / 0.05);
-}
-
-.focus\:bg-green-500\/50:focus {
-  background-color: rgb(34 197 94 / 0.5);
-}
-
-.focus\:bg-green-500\/55:focus {
-  background-color: rgb(34 197 94 / 0.55);
-}
-
-.focus\:bg-green-500\/60:focus {
-  background-color: rgb(34 197 94 / 0.6);
-}
-
-.focus\:bg-green-500\/65:focus {
-  background-color: rgb(34 197 94 / 0.65);
-}
-
-.focus\:bg-green-500\/70:focus {
-  background-color: rgb(34 197 94 / 0.7);
-}
-
-.focus\:bg-green-500\/75:focus {
-  background-color: rgb(34 197 94 / 0.75);
-}
-
-.focus\:bg-green-500\/80:focus {
-  background-color: rgb(34 197 94 / 0.8);
-}
-
-.focus\:bg-green-500\/85:focus {
-  background-color: rgb(34 197 94 / 0.85);
-}
-
-.focus\:bg-green-500\/90:focus {
-  background-color: rgb(34 197 94 / 0.9);
-}
-
-.focus\:bg-green-500\/95:focus {
-  background-color: rgb(34 197 94 / 0.95);
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
 }
 
 .focus\:bg-green-500\/0:focus {
@@ -5697,7 +5248,7 @@ input[type="checkbox"]:checked:before {
 
 .focus\:bg-green-700:focus {
   --tw-bg-opacity: 1;
-  background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
 }
 
 .focus\:bg-green-700\/0:focus {
@@ -6053,7 +5604,7 @@ input[type="checkbox"]:checked:before {
 
 .focus\:bg-red-100:focus {
   --tw-bg-opacity: 1;
-  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
 }
 
 .focus\:bg-red-100\/0:focus {
@@ -6142,7 +5693,7 @@ input[type="checkbox"]:checked:before {
 
 .focus\:bg-red-500:focus {
   --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
 }
 
 .focus\:bg-red-500\/0:focus {
@@ -6231,7 +5782,7 @@ input[type="checkbox"]:checked:before {
 
 .focus\:bg-red-700:focus {
   --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
 }
 
 .focus\:bg-red-700\/0:focus {
@@ -6337,17 +5888,17 @@ input[type="checkbox"]:checked:before {
 
 .focus\:ring-primary:focus {
   --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(242 119 27 / var(--tw-ring-opacity));
+  --tw-ring-color: rgb(242 119 27 / var(--tw-ring-opacity, 1));
 }
 
 .disabled\:border-gray-300:disabled {
   --tw-border-opacity: 1;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
 
 .disabled\:bg-gray-300:disabled {
   --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
 }
 
 .group:hover .group-hover\:opacity-100 {
@@ -6368,7 +5919,7 @@ input[type="checkbox"]:checked:before {
 
 .peer:checked ~ .peer-checked\:bg-blue-600 {
   --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
 }
 
 .peer:checked ~ .peer-checked\:after\:translate-x-full::after {
@@ -6380,7 +5931,7 @@ input[type="checkbox"]:checked:before {
 .peer:checked ~ .peer-checked\:after\:border-white::after {
   content: var(--tw-content);
   --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+  border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
 }
 
 .peer:focus ~ .peer-focus\:outline-none {
@@ -6396,22 +5947,22 @@ input[type="checkbox"]:checked:before {
 
 .peer:focus ~ .peer-focus\:ring-blue-300 {
   --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(147 197 253 / var(--tw-ring-opacity));
+  --tw-ring-color: rgb(147 197 253 / var(--tw-ring-opacity, 1));
 }
 
 .has-\[\:checked\]\:bg-primary:has(:checked) {
   --tw-bg-opacity: 1;
-  background-color: rgb(242 119 27 / var(--tw-bg-opacity));
+  background-color: rgb(242 119 27 / var(--tw-bg-opacity, 1));
 }
 
 .has-\[\:checked\]\:bg-secondary:has(:checked) {
   --tw-bg-opacity: 1;
-  background-color: rgb(10 0 53 / var(--tw-bg-opacity));
+  background-color: rgb(10 0 53 / var(--tw-bg-opacity, 1));
 }
 
 .has-\[\:checked\]\:text-white:has(:checked) {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
 @media (min-width: 640px) {
@@ -6818,91 +6369,7 @@ input[type="checkbox"]:checked:before {
 
   .lg\:bg-green-100 {
     --tw-bg-opacity: 1;
-    background-color: rgb(220 252 231 / var(--tw-bg-opacity));
-  }
-
-  .lg\:bg-green-100\/0 {
-    background-color: rgb(220 252 231 / 0);
-  }
-
-  .lg\:bg-green-100\/10 {
-    background-color: rgb(220 252 231 / 0.1);
-  }
-
-  .lg\:bg-green-100\/100 {
-    background-color: rgb(220 252 231 / 1);
-  }
-
-  .lg\:bg-green-100\/15 {
-    background-color: rgb(220 252 231 / 0.15);
-  }
-
-  .lg\:bg-green-100\/20 {
-    background-color: rgb(220 252 231 / 0.2);
-  }
-
-  .lg\:bg-green-100\/25 {
-    background-color: rgb(220 252 231 / 0.25);
-  }
-
-  .lg\:bg-green-100\/30 {
-    background-color: rgb(220 252 231 / 0.3);
-  }
-
-  .lg\:bg-green-100\/35 {
-    background-color: rgb(220 252 231 / 0.35);
-  }
-
-  .lg\:bg-green-100\/40 {
-    background-color: rgb(220 252 231 / 0.4);
-  }
-
-  .lg\:bg-green-100\/45 {
-    background-color: rgb(220 252 231 / 0.45);
-  }
-
-  .lg\:bg-green-100\/5 {
-    background-color: rgb(220 252 231 / 0.05);
-  }
-
-  .lg\:bg-green-100\/50 {
-    background-color: rgb(220 252 231 / 0.5);
-  }
-
-  .lg\:bg-green-100\/55 {
-    background-color: rgb(220 252 231 / 0.55);
-  }
-
-  .lg\:bg-green-100\/60 {
-    background-color: rgb(220 252 231 / 0.6);
-  }
-
-  .lg\:bg-green-100\/65 {
-    background-color: rgb(220 252 231 / 0.65);
-  }
-
-  .lg\:bg-green-100\/70 {
-    background-color: rgb(220 252 231 / 0.7);
-  }
-
-  .lg\:bg-green-100\/75 {
-    background-color: rgb(220 252 231 / 0.75);
-  }
-
-  .lg\:bg-green-100\/80 {
-    background-color: rgb(220 252 231 / 0.8);
-  }
-
-  .lg\:bg-green-100\/85 {
-    background-color: rgb(220 252 231 / 0.85);
-  }
-
-  .lg\:bg-green-100\/90 {
-    background-color: rgb(220 252 231 / 0.9);
-  }
-
-  .lg\:bg-green-100\/95 {
-    background-color: rgb(220 252 231 / 0.95);
+    background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
   }
 
   .lg\:bg-green-100\/0 {
@@ -6991,91 +6458,7 @@ input[type="checkbox"]:checked:before {
 
   .lg\:bg-green-500 {
     --tw-bg-opacity: 1;
-    background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-  }
-
-  .lg\:bg-green-500\/0 {
-    background-color: rgb(34 197 94 / 0);
-  }
-
-  .lg\:bg-green-500\/10 {
-    background-color: rgb(34 197 94 / 0.1);
-  }
-
-  .lg\:bg-green-500\/100 {
-    background-color: rgb(34 197 94 / 1);
-  }
-
-  .lg\:bg-green-500\/15 {
-    background-color: rgb(34 197 94 / 0.15);
-  }
-
-  .lg\:bg-green-500\/20 {
-    background-color: rgb(34 197 94 / 0.2);
-  }
-
-  .lg\:bg-green-500\/25 {
-    background-color: rgb(34 197 94 / 0.25);
-  }
-
-  .lg\:bg-green-500\/30 {
-    background-color: rgb(34 197 94 / 0.3);
-  }
-
-  .lg\:bg-green-500\/35 {
-    background-color: rgb(34 197 94 / 0.35);
-  }
-
-  .lg\:bg-green-500\/40 {
-    background-color: rgb(34 197 94 / 0.4);
-  }
-
-  .lg\:bg-green-500\/45 {
-    background-color: rgb(34 197 94 / 0.45);
-  }
-
-  .lg\:bg-green-500\/5 {
-    background-color: rgb(34 197 94 / 0.05);
-  }
-
-  .lg\:bg-green-500\/50 {
-    background-color: rgb(34 197 94 / 0.5);
-  }
-
-  .lg\:bg-green-500\/55 {
-    background-color: rgb(34 197 94 / 0.55);
-  }
-
-  .lg\:bg-green-500\/60 {
-    background-color: rgb(34 197 94 / 0.6);
-  }
-
-  .lg\:bg-green-500\/65 {
-    background-color: rgb(34 197 94 / 0.65);
-  }
-
-  .lg\:bg-green-500\/70 {
-    background-color: rgb(34 197 94 / 0.7);
-  }
-
-  .lg\:bg-green-500\/75 {
-    background-color: rgb(34 197 94 / 0.75);
-  }
-
-  .lg\:bg-green-500\/80 {
-    background-color: rgb(34 197 94 / 0.8);
-  }
-
-  .lg\:bg-green-500\/85 {
-    background-color: rgb(34 197 94 / 0.85);
-  }
-
-  .lg\:bg-green-500\/90 {
-    background-color: rgb(34 197 94 / 0.9);
-  }
-
-  .lg\:bg-green-500\/95 {
-    background-color: rgb(34 197 94 / 0.95);
+    background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
   }
 
   .lg\:bg-green-500\/0 {
@@ -7164,7 +6547,7 @@ input[type="checkbox"]:checked:before {
 
   .lg\:bg-green-700 {
     --tw-bg-opacity: 1;
-    background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+    background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
   }
 
   .lg\:bg-green-700\/0 {
@@ -8054,91 +7437,7 @@ input[type="checkbox"]:checked:before {
 
   .lg\:hover\:bg-green-100:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(220 252 231 / var(--tw-bg-opacity));
-  }
-
-  .lg\:hover\:bg-green-100\/0:hover {
-    background-color: rgb(220 252 231 / 0);
-  }
-
-  .lg\:hover\:bg-green-100\/10:hover {
-    background-color: rgb(220 252 231 / 0.1);
-  }
-
-  .lg\:hover\:bg-green-100\/100:hover {
-    background-color: rgb(220 252 231 / 1);
-  }
-
-  .lg\:hover\:bg-green-100\/15:hover {
-    background-color: rgb(220 252 231 / 0.15);
-  }
-
-  .lg\:hover\:bg-green-100\/20:hover {
-    background-color: rgb(220 252 231 / 0.2);
-  }
-
-  .lg\:hover\:bg-green-100\/25:hover {
-    background-color: rgb(220 252 231 / 0.25);
-  }
-
-  .lg\:hover\:bg-green-100\/30:hover {
-    background-color: rgb(220 252 231 / 0.3);
-  }
-
-  .lg\:hover\:bg-green-100\/35:hover {
-    background-color: rgb(220 252 231 / 0.35);
-  }
-
-  .lg\:hover\:bg-green-100\/40:hover {
-    background-color: rgb(220 252 231 / 0.4);
-  }
-
-  .lg\:hover\:bg-green-100\/45:hover {
-    background-color: rgb(220 252 231 / 0.45);
-  }
-
-  .lg\:hover\:bg-green-100\/5:hover {
-    background-color: rgb(220 252 231 / 0.05);
-  }
-
-  .lg\:hover\:bg-green-100\/50:hover {
-    background-color: rgb(220 252 231 / 0.5);
-  }
-
-  .lg\:hover\:bg-green-100\/55:hover {
-    background-color: rgb(220 252 231 / 0.55);
-  }
-
-  .lg\:hover\:bg-green-100\/60:hover {
-    background-color: rgb(220 252 231 / 0.6);
-  }
-
-  .lg\:hover\:bg-green-100\/65:hover {
-    background-color: rgb(220 252 231 / 0.65);
-  }
-
-  .lg\:hover\:bg-green-100\/70:hover {
-    background-color: rgb(220 252 231 / 0.7);
-  }
-
-  .lg\:hover\:bg-green-100\/75:hover {
-    background-color: rgb(220 252 231 / 0.75);
-  }
-
-  .lg\:hover\:bg-green-100\/80:hover {
-    background-color: rgb(220 252 231 / 0.8);
-  }
-
-  .lg\:hover\:bg-green-100\/85:hover {
-    background-color: rgb(220 252 231 / 0.85);
-  }
-
-  .lg\:hover\:bg-green-100\/90:hover {
-    background-color: rgb(220 252 231 / 0.9);
-  }
-
-  .lg\:hover\:bg-green-100\/95:hover {
-    background-color: rgb(220 252 231 / 0.95);
+    background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
   }
 
   .lg\:hover\:bg-green-100\/0:hover {
@@ -8227,91 +7526,7 @@ input[type="checkbox"]:checked:before {
 
   .lg\:hover\:bg-green-500:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-  }
-
-  .lg\:hover\:bg-green-500\/0:hover {
-    background-color: rgb(34 197 94 / 0);
-  }
-
-  .lg\:hover\:bg-green-500\/10:hover {
-    background-color: rgb(34 197 94 / 0.1);
-  }
-
-  .lg\:hover\:bg-green-500\/100:hover {
-    background-color: rgb(34 197 94 / 1);
-  }
-
-  .lg\:hover\:bg-green-500\/15:hover {
-    background-color: rgb(34 197 94 / 0.15);
-  }
-
-  .lg\:hover\:bg-green-500\/20:hover {
-    background-color: rgb(34 197 94 / 0.2);
-  }
-
-  .lg\:hover\:bg-green-500\/25:hover {
-    background-color: rgb(34 197 94 / 0.25);
-  }
-
-  .lg\:hover\:bg-green-500\/30:hover {
-    background-color: rgb(34 197 94 / 0.3);
-  }
-
-  .lg\:hover\:bg-green-500\/35:hover {
-    background-color: rgb(34 197 94 / 0.35);
-  }
-
-  .lg\:hover\:bg-green-500\/40:hover {
-    background-color: rgb(34 197 94 / 0.4);
-  }
-
-  .lg\:hover\:bg-green-500\/45:hover {
-    background-color: rgb(34 197 94 / 0.45);
-  }
-
-  .lg\:hover\:bg-green-500\/5:hover {
-    background-color: rgb(34 197 94 / 0.05);
-  }
-
-  .lg\:hover\:bg-green-500\/50:hover {
-    background-color: rgb(34 197 94 / 0.5);
-  }
-
-  .lg\:hover\:bg-green-500\/55:hover {
-    background-color: rgb(34 197 94 / 0.55);
-  }
-
-  .lg\:hover\:bg-green-500\/60:hover {
-    background-color: rgb(34 197 94 / 0.6);
-  }
-
-  .lg\:hover\:bg-green-500\/65:hover {
-    background-color: rgb(34 197 94 / 0.65);
-  }
-
-  .lg\:hover\:bg-green-500\/70:hover {
-    background-color: rgb(34 197 94 / 0.7);
-  }
-
-  .lg\:hover\:bg-green-500\/75:hover {
-    background-color: rgb(34 197 94 / 0.75);
-  }
-
-  .lg\:hover\:bg-green-500\/80:hover {
-    background-color: rgb(34 197 94 / 0.8);
-  }
-
-  .lg\:hover\:bg-green-500\/85:hover {
-    background-color: rgb(34 197 94 / 0.85);
-  }
-
-  .lg\:hover\:bg-green-500\/90:hover {
-    background-color: rgb(34 197 94 / 0.9);
-  }
-
-  .lg\:hover\:bg-green-500\/95:hover {
-    background-color: rgb(34 197 94 / 0.95);
+    background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
   }
 
   .lg\:hover\:bg-green-500\/0:hover {
@@ -8400,7 +7615,7 @@ input[type="checkbox"]:checked:before {
 
   .lg\:hover\:bg-green-700:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+    background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
   }
 
   .lg\:hover\:bg-green-700\/0:hover {
@@ -8756,7 +7971,7 @@ input[type="checkbox"]:checked:before {
 
   .lg\:hover\:bg-red-100:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(254 226 226 / var(--tw-bg-opacity));
+    background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
   }
 
   .lg\:hover\:bg-red-100\/0:hover {
@@ -8845,7 +8060,7 @@ input[type="checkbox"]:checked:before {
 
   .lg\:hover\:bg-red-500:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
   }
 
   .lg\:hover\:bg-red-500\/0:hover {
@@ -8934,7 +8149,7 @@ input[type="checkbox"]:checked:before {
 
   .lg\:hover\:bg-red-700:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+    background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
   }
 
   .lg\:hover\:bg-red-700\/0:hover {
@@ -9081,16 +8296,16 @@ input[type="checkbox"]:checked:before {
 @media (prefers-color-scheme: dark) {
   .dark\:border-gray-600 {
     --tw-border-opacity: 1;
-    border-color: rgb(75 85 99 / var(--tw-border-opacity));
+    border-color: rgb(75 85 99 / var(--tw-border-opacity, 1));
   }
 
   .dark\:bg-gray-700 {
     --tw-bg-opacity: 1;
-    background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+    background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
   }
 
   .peer:focus ~ .dark\:peer-focus\:ring-blue-800 {
     --tw-ring-opacity: 1;
-    --tw-ring-color: rgb(30 64 175 / var(--tw-ring-opacity));
+    --tw-ring-color: rgb(30 64 175 / var(--tw-ring-opacity, 1));
   }
 }
