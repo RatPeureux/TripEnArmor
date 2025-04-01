@@ -221,12 +221,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
             ?>
         </div>
     </main>
-
-    <!-- Inclusion des interfaces de filtres/tris (téléphone) -->
-    <?php
-    include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/filtres_tris_tab_pro.php';
-    ?>
-
+    
     <!-- FOOTER -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';
