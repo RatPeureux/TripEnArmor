@@ -62,18 +62,18 @@ foreach ($horaires as $jour => $horaire) {
   }
 }
 
-if ($mode_carte == 'membre') {
 
+
+
+if ($mode_carte == 'membre') {
   // !!! CARD COMPONENT MEMBER !!!
-  // Composant dynamique (généré avec les données en php)
-  // Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
   ?>
   <a class="card border hover:border-secondary <?php if ($option) {
     echo "active ";
   } ?> " href='/offre?id_offre=<?php echo $id_offre ?>' <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
 
     <!-- CARTE VERSION TÉLÉPHONE -->
-    <div class='md:hidden relative bg-base100  flex flex-col'>
+    <div class='md:hidden relative bg-base100 flex flex-col gap-1'>
       <!-- En-tête -->
       <div class='en-tete absolute top-0 w-72 max-w-full bg-blur/50 backdrop-blur left-1/2 -translate-x-1/2 '>
         <h3 class='text-xl text-center'>
@@ -110,9 +110,10 @@ if ($mode_carte == 'membre') {
           } ?></p>
           <p class='text-sm'><?php echo $code_postal ?></p>
         </div>
-        <!-- Description avec les tags-->
-        <div class='description py-2 flex flex-col gap-2 justify-center self-stretch'>
-          <div class='tags p-1 bg-secondary self-center w-full'>
+
+        <!-- Description avec les tags s'il y en a -->
+        <div class='py-2 flex flex-col gap-2 justify-center'>
+          <div class='tags p-1 bg-secondary w-full'>
             <?php
             if ($categorie_offre != 'restauration') {
               require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
@@ -132,21 +133,9 @@ if ($mode_carte == 'membre') {
 
               $tagsAffiche = rtrim($tagsAffiche, ', ');
               if ($tags_offre) {
-                ?>
-                <div class="p-1  bg-secondary self-center w-full">
-                  <?php
-                  echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-                  ?>
-                </div>
-                <?php
+                echo ("<p class='tags text-white text-center overflow-ellipsis'>$tagsAffiche</p>");
               } else {
-                ?>
-                <div class="p-1  bg-secondary self-center w-full">
-                  <?php
-                  echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-                  ?>
-                </div>
-                <?php
+                echo ("<p class='tags text-white text-center overflow-ellipsis'>Aucun tag à afficher</p>");
               }
             } else {
               require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
@@ -168,34 +157,24 @@ if ($mode_carte == 'membre') {
 
               if ($tags_offre) {
                 $tagsAffiche = rtrim($tagsAffiche, ', ');
-                ?>
-                <div class="tags p-1 bg-secondary self-center w-full">
-                  <?php
-                  echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>$tagsAffiche</p>");
-                  ?>
-                </div>
-                <?php
+                echo ("<p class='tags text-white text-center overflow-ellipsis'>$tagsAffiche</p>");
               } else {
-                ?>
-                <div class="tags p-1  bg-secondary self-center w-full">
-                  <?php
-                  echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1'>Aucun tag à afficher</p>");
-                  ?>
-                </div>
-                <?php
+                echo ("<p class='tags text-white text-center overflow-ellipsis'>Aucun tag à afficher</p>");
               }
             }
             ?>
           </div>
-          <p class='overflow-hidden line-clamp-2 text-sm'>
+          <p class='text-sm line-clamp-2 text-justify'>
             <?php echo $resume ?>
           </p>
         </div>
+
+
         <!-- Notation et Prix -->
-        <div class='flex flex-col gap-2 justify-center items-center min-w-16'>
+        <div class='flex flex-col gap-2 justify-center items-center min-w-16 flex-shrink-0'>
           <?php
           // Moyenne des notes quand il y en a une
-          if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
+          if (isset($moyenne) && 0 < (int) $moyenne && (int) $moyenne <= 5) {
             $n = $moyenne;
             ?>
             <div class="note flex gap-1 flex-wrap" title="<?php echo $moyenne; ?>">
@@ -235,8 +214,15 @@ if ($mode_carte == 'membre') {
             <?php echo $prix_a_afficher ?>
           </p>
         </div>
+
       </div>
     </div>
+
+
+
+
+
+
 
     <!-- CARTE VERSION TABLETTE -->
     <div class='md:block hidden relative bg-base100 border-none'>
@@ -266,7 +252,7 @@ if ($mode_carte == 'membre') {
               </h3>
               <?php
               // Moyenne des notes quand il y en a une
-              if (isset($moyenne) && 0 < $moyenne && $moyenne <= 5) {
+              if (isset($moyenne) && 0 < (int) $moyenne && (int) $moyenne <= 5) {
                 $n = $moyenne;
                 ?>
                 <div class="notes flex gap-1">
@@ -310,9 +296,9 @@ if ($mode_carte == 'membre') {
             </p>
           </div>
 
-          <!-- Description + tags -->
-          <div class='description py-2 flex flex-col gap-2 self-stretch grow'>
-            <div class='tags p-1 bg-secondary self-center w-full'>
+          <!-- Description + tags s'il y en a-->
+          <div class='py-2 flex flex-col gap-2 self-stretch grow'>
+            <div class='tags p-1 bg-secondary w-full'>
               <?php
               if ($categorie_offre != 'restauration') {
                 require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_offre_controller.php';
@@ -333,21 +319,9 @@ if ($mode_carte == 'membre') {
                 }
                 if ($tags_offre) {
                   $tagsAffiche = rtrim($tagsAffiche, ', ');
-                  ?>
-                  <div class="tags p-1 bg-secondary self-center w-full">
-                    <?php
-                    echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1 text-md'>$tagsAffiche</p>");
-                    ?>
-                  </div>
-                  <?php
+                  echo ("<p class='text-white text-center overflow-ellipsis text-md'>$tagsAffiche</p>");
                 } else {
-                  ?>
-                  <div class="tags p-1 bg-secondary self-center w-full">
-                    <?php
-                    echo ("<p class='text-white text-center overflow-ellipsis line-clamp-1 text-md'>Aucun tag à afficher</p>");
-                    ?>
-                  </div>
-                  <?php
+                  echo ("<p class='text-white text-center overflow-ellipsis text-md'>Aucun tag à afficher</p>");
                 }
               } else {
                 require_once dirname(path: $_SERVER['DOCUMENT_ROOT']) . '/controller/tag_restaurant_restauration_controller.php';
@@ -367,21 +341,9 @@ if ($mode_carte == 'membre') {
 
                 $tagsAffiche = rtrim($tagsAffiche, ', ');
                 if ($tags_offre) {
-                  ?>
-                  <div class="tags p-1 bg-secondary self-center w-full">
-                    <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>$tagsAffiche</p>");
-                    ?>
-                  </div>
-                  <?php
+                  echo ("<p class='tags text-white text-center overflow-ellipsis text-md'>$tagsAffiche</p>");
                 } else {
-                  ?>
-                  <div class="tags p-1  bg-secondary self-center w-full">
-                    <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>Aucun tag à afficher</p>");
-                    ?>
-                  </div>
-                  <?php
+                  echo ("<p class='tags text-white text-center overflow-ellipsis text-md'>Aucun tag à afficher</p>");
                 }
               }
               ?>
@@ -413,12 +375,16 @@ if ($mode_carte == 'membre') {
       </div>
     </div>
   </a>
-  <?php
-} else {
 
+
+
+
+
+
+
+  <?php
   // !!! CARD COMPONENT PRO !!!
-  // Composant dynamique (généré avec les données en php)
-  // Impossible d'en faire un composant pur (statique), donc écrit en HTML pur (copier la forme dans le php)
+} else {
   ?>
   <div class="card border hover:border-secondary 
 <?php if ($option)
@@ -457,7 +423,7 @@ if ($mode_carte == 'membre') {
           </div>
           <?php
           // Moyenne des notes quand il y en a une
-          if (isset($moyenne) && 0 <= $moyenne && $moyenne <= 5) {
+          if (isset($moyenne) && 0 < (int) $moyenne && (int) $moyenne <= 5) {
             $n = $moyenne;
             ?>
             <div class="flex gap-1 self-end">
@@ -576,7 +542,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="p-1bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>$tagsAffiche</p>");
+                    echo ("<p class='tags text-white text-center overflow-ellipsis text-md'>$tagsAffiche</p>");
                     ?>
                   </div>
                   <?php
@@ -584,7 +550,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="p-1  bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>Aucun tag à afficher</p>");
+                    echo ("<p class='tags text-white text-center overflow-ellipsis text-md'>Aucun tag à afficher</p>");
                     ?>
                   </div>
                   <?php
@@ -610,7 +576,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="tags p-1  bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>$tagsAffiche</p>");
+                    echo ("<p class='tags text-white text-center overflow-ellipsis text-md'>$tagsAffiche</p>");
                     ?>
                   </div>
                   <?php
@@ -618,7 +584,7 @@ if ($mode_carte == 'membre') {
                   ?>
                   <div class="tags p-1 bg-secondary self-center w-full">
                     <?php
-                    echo ("<p class='tags text-white text-center overflow-ellipsis line-clamp-1 text-md'>Aucun tag à afficher</p>");
+                    echo ("<p class='tags text-white text-center overflow-ellipsis text-md'>Aucun tag à afficher</p>");
                     ?>
                   </div>
                   <?php
@@ -746,7 +712,7 @@ if ($mode_carte == 'membre') {
                   <!-- Consulter les avis blacklistés -->
                   <a href='/offre?id_offre=<?php echo $id_offre ?>#blacklistes-button' title="Avis blacklistés"
                     class="hover:text-primary text-sm">
-                    <i class="text-lg fa-regular fa-eye-slash text-rouge-logo"></i>
+                    <i class="text-lg fa-solid fa-ban text-rouge-logo"></i>
                     <?php echo $chiffres_cles['nb_blacklistes'] ?>
                   </a>
 

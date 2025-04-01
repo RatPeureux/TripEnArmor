@@ -44,14 +44,14 @@ if (isset($_POST['mdp'])) {
     <title>Sécurité du compte - PACT</title>
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col justify-between">
 
     <!-- Inclusion du header -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/header.php';
     ?>
 
-    <main class="w-full flex justify-center grow">
+    <main class="w-full flex justify-center grow m-auto p-6">
         <div class="max-w-[1280px] w-full p-2 flex justify-center">
             <div id="menu">
                 <?php
@@ -83,7 +83,8 @@ if (isset($_POST['mdp'])) {
                         <input class="border border-secondary text-sm  p-2 bg-white w-full h-12"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             type="password" id="mdp" name="mdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$">
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <div class="relative w-full">
@@ -91,7 +92,8 @@ if (isset($_POST['mdp'])) {
                         <input class="border border-secondary text-sm p-2 bg-white w-full h-12"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             type="password" id="newMdp" name="newMdp">
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <div class="relative w-full">
@@ -99,7 +101,8 @@ if (isset($_POST['mdp'])) {
                         <input class="border border-secondary text-sm p-2 bg-white w-full h-12"
                             title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
                             type="password" id="confNewMdp" name="confNewMdp">
-                        <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
                     </div>
 
                     <input type="submit" id="saveBtn" value="Modifier mon mot de passe"
@@ -142,10 +145,9 @@ if (isset($_POST['mdp'])) {
                         <div id="totp-container" class="break-words max-w-full"></div>
 
                         <!-- ÉCRIRE LE CODE SECRET POUR CONFIRMER L'ACTIVATION -->
-                        <div id="confirm-totp-div" class="flex flex-col items-stretch hidden">
+                        <div id="confirm-totp-div" class="flex flex-col gap-2 items-stretch hidden">
                             <label for="confirmTOTP">Pour confirmer l'activation de l'option TOTP, veuillez ressaisir le
-                                code
-                                secret donné ci-dessus en gras :</label>
+                                code secret donné ci-dessus en gras :</label>
                             <input class="border border-black p-1" type="text" name="confirmTOTP" id="confirmTOTP">
                             <a id="confirm-totp-btn" onclick="
                             if (document.getElementById('confirmTOTP').value == document.getElementById('secret-span').innerHTML) {
@@ -156,7 +158,7 @@ if (isset($_POST['mdp'])) {
                             } else {
                                 alert('Le code secret saisi n\'est pas le bon');
                             }"
-                                class="mt-2 self-start max-w-sm px-4 py-2 text-sm hover:text-primary hover:border hover:border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Confirmer</a>
+                                class="mt-2 self-start px-4 py-2 text-sm hover:text-primary border border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Confirmer</a>
                             <!-- Symbole de chargement -->
                             <img id="loading-indicator-confirm" class="w-8 h-6" style="display: none;"
                                 src="/public/images/loading.gif" alt="Chargement...">
@@ -176,7 +178,8 @@ if (isset($_POST['mdp'])) {
                 <div class="flex mb-4">
                     <p class="text-sm">Clé API Tchatator :</p>
                     &nbsp;
-                    <p id="apiKey" class="text-sm cursor-pointer blur-sm hover:blur-none" onclick="copyToClipboard(this)">
+                    <p id="apiKey" class="text-sm cursor-pointer blur-sm hover:blur-none"
+                        onclick="copyToClipboard(this)">
                         <?php echo $membre['api_key']; ?>
                     </p>
                 </div>
@@ -185,7 +188,7 @@ if (isset($_POST['mdp'])) {
 
                 <!-- SUPPRIMER SON COMPTE -->
                 <a onclick="document.getElementById('pop-up-suppression-compte').classList.remove('hidden')"
-                    class="max-w-[23rem] w-full mx-auto text-white text-sm border border-rouge-logo bg-rouge-logo px-4 py-2 rounded-full hover:bg-rouge-logo/90 flex items-center justify-center">
+                    class="cursor-pointer underline max-w-[23rem] w-full text-sm">
                     Supprimer mon compte
                 </a>
 

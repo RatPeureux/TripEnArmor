@@ -68,20 +68,20 @@ $pro = verifyPro();
             <?php
             if (($pro['data']['type']) == 'prive') {
                 ?>
-                    <a href="/pro/compte/facture"
-                        class="border hover:border-secondary cursor-pointer w-full space-x-8 flex items-center px-8 py-4 bg-base100">
-                        <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
-                        <div class="w-full">
-                            <p class="text-lg">Factures</p>
-                            <p class="text-sm">Faire le point sur mes paiements réels ou prévisionnels.</p>
-                        </div>
-                    </a>
-                    <?php
+                <a href="/pro/compte/facture"
+                    class="border hover:border-secondary cursor-pointer w-full space-x-8 flex items-center px-8 py-4 bg-base100">
+                    <i class="w-[50px] text-center text-4xl fa-solid fa-file-invoice"></i>
+                    <div class="w-full">
+                        <p class="text-lg">Factures</p>
+                        <p class="text-sm">Faire le point sur mes paiements réels ou prévisionnels.</p>
+                    </div>
+                </a>
+                <?php
             }
             ?>
 
             <a href="/scripts/logout.php" onclick="return confirmLogout()"
-                class="w-full text-white text-sm border border-rouge-logo bg-rouge-logo px-4 py-2 rounded-full hover:bg-rouge-logo/90 flex items-center justify-center">
+                class="w-full text-white text-sm border border-rouge-logo bg-rouge-logo px-4 py-2 rounded-full hover:bg-transparent hover:text-rouge-logo flex items-center justify-center">
                 Se déconnecter
             </a>
         </div>

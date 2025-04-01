@@ -17,7 +17,7 @@ label:has(+ select[required])::after {
 }
 
 /* Activation des menus */
-#menu > .active,
+#menu>.active,
 #filtres.active,
 #cgu.active,
 #politique.active,
@@ -65,6 +65,28 @@ label:has(+ select[required])::after {
   border-color: white;
 }
 
+/* Pour faire fonctionner les line-clamp */
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+/* Pour faire fonctionner les line-clamp */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+/* Pour faire fonctionner les line-clamp */
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 /* Slider d'images (détails d'une offre) */
 .swiper-pagination-bullet {
   background-color: white !important;
@@ -82,8 +104,8 @@ label:has(+ select[required])::after {
 }
 
 /* Eviter que le layer de la carte ne cache les notifications */
-.leaflet-pane {
-  z-index: 40 !important;
+.leaflet-pane, .leaflet-control, .leaflet-top, .leaflet-left, .leaflet-bottom {
+  z-index: 30 !important;
 }
 
 /* Checkboxs */
@@ -160,8 +182,10 @@ input[type="checkbox"]:checked:before {
 }
 
 .scroll-hidden {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 /* Police */

@@ -157,7 +157,7 @@ $adresse = $controllerAdresse->getInfosAdresse($pro['id_adresse']);
 
                 <!-- Champs pour l'adresse -->
                 <p id="select-on-map"
-                    class="p-2 self-start cursor-pointer mb-3 bg-secondary hover:bg-white text-white hover:text-secondary border border-secondary rounded-full"
+                    class="text-sm p-2 border rounded-full text-center border-black self-start cursor-pointer hover:border-secondary hover:text-white hover:bg-secondary"
                     onclick="showMap();">Trouver mon adresse</p>
 
                 <!-- Champs cachés pour les coordonnées -->
