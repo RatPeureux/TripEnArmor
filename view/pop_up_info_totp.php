@@ -10,7 +10,7 @@
         vous pouvez initialiser l'option TOTP avec un code secret affiché UNE FOIS.
         Ensuite, lors de vos prochaines connexions, il vous faudra saisir votre mot
         de passe habituel puis consulter votre application pour connaître le mot
-        de passe temporaire à saisir en plus.
+        de passe temporaire à 6 chiffres à saisir en plus.
         <br>
         <br>
         L'intérêt principal est d'empêcher les pirates qui voudraient intercepter

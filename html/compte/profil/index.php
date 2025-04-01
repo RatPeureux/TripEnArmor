@@ -104,11 +104,11 @@ $membre = verifyMember();
 
     <script>
         // Lier l'input du pseudo au bouton 'enregistrer les modifications'
-        window.onload = () => {
+        window.addEventListener('DOMContentLoaded', () => {
             const pseudo = document.getElementById('pseudo');
             const saveBtn = document.getElementById('save');
             triggerSaveBtnOnInputsChange([pseudo], saveBtn);
-        }
+        });
     </script>
 </body>
 

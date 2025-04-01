@@ -68,7 +68,7 @@ if (empty($_POST)) { ?>
 
                 <h2 class="mx-auto text-center text-2xl pt-4 my-4">Authentification TOTP</h2>
 
-                <form class="bg-white w-full p-5 border-2 border-secondary" action="/a2f/" method="POST">
+                <form class="bg-white w-full p-5 border-2 border-black" action="/a2f/" method="POST">
 
                     <!-- Message d'information -->
                     <p class="text-sm">Consultez votre application d'authentification OTP pour connaître le TOTP à saisir.
@@ -93,7 +93,7 @@ if (empty($_POST)) { ?>
 
                     <!-- Bouton de connexion -->
                     <input type="submit" value="Me connecter"
-                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-secondary hover:bg-black text-white inline-flex items-center justify-center border border-transparent focus:scale-[0.97">
+                        class="cursor-pointer w-full text-sm py-2 px-4 rounded-full h-12 my-1.5 bg-black hover:bg-transparent hover:text-black text-white inline-flex items-center justify-center border border-black focus:scale-[0.97">
 
                 </form>
 

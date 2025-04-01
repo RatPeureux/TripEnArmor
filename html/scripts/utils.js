@@ -150,9 +150,9 @@ function setMaxDateExperience() {
     select_date.setAttribute("max", maxDate);
   }
 }
-window.onload = () => {
+window.addEventListener('DOMContentLoaded', () => {
   setMaxDateExperience();
-};
+});
 
 // Montrer / cacher le menu
 function toggleMenu() {

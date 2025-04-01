@@ -18,9 +18,10 @@ $avisController = new AvisController();
             $avis = $avisController->getAvisById($b_en_cours['id_avis']);
             $date_fin = $avis['fin_blacklistage'];
             $date = new DateTime($date_fin);
-            $date->modify('+1 day');
-            $date_fin = $date->format('Y/m/d');
 
+            setlocale(LC_TIME, 'fr_FR.utf8');
+            $date_fin = strftime('%d %B %Y à %H:%M:%S', $date->getTimestamp()); // Format in "29 mars 2025 14:45:59"
+    
             if (!isset($echeances[$date_fin])) {
                 $echeances[$date_fin] = 1;
             } else {

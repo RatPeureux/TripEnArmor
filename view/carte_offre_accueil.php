@@ -81,33 +81,33 @@ foreach ($horaires as $jour => $horaire) {
             <div class='flex w-full justify-between px-2'>
                 <?php
                 // Moyenne des notes quand il y en a une
-                if (0 <= $moyenne && $moyenne <= 5) {
+                if (0 < (int) $moyenne && (int) $moyenne <= 5) {
                     $n = $moyenne;
                     ?>
-                                <div class="note flex gap-1.5 flex-wrap items-center" title="<?php echo $moyenne; ?>">
-                                    <p class="text-sm mt-1"> <?php echo number_format($moyenne, 1, ',', ''); ?></p>
-                                    <?php for ($i = 0; $i < 5; $i++) {
-                                        if ($n >= 1) {
-                                            ?>
-                                                                    <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
-                                                                    <?php
-                                        } else if ($n > 0) {
-                                            ?>
-                                                                                    <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-                                                                    <?php
-                                        } else {
-                                            ?>
-                                                                                    <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-                                                                    <?php
-                                        }
-                                        $n--;
-                                    }
-                                    ?>
-                                </div>
+                    <div class="note flex gap-1.5 flex-wrap items-center" title="<?php echo $moyenne; ?>">
+                        <p class="text-sm mt-1"> <?php echo number_format($moyenne, 1, ',', ''); ?></p>
+                        <?php for ($i = 0; $i < 5; $i++) {
+                            if ($n >= 1) {
+                                ?>
+                                <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
                                 <?php
+                            } else if ($n > 0) {
+                                ?>
+                                    <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+                                <?php
+                            } else {
+                                ?>
+                                    <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
+                                <?php
+                            }
+                            $n--;
+                        }
+                        ?>
+                    </div>
+                    <?php
                 } else {
                     ?>
-                                <p class='text-sm'><?php echo $pro['nom_pro'] ?></p>
+                    <p class='text-sm'><?php echo $pro['nom_pro'] ?></p>
                 <?php } ?>
                 <p class='text-sm categorie'><?php echo chaineVersMot($categorie_offre) ?></p>
             </div>
@@ -135,33 +135,33 @@ foreach ($horaires as $jour => $horaire) {
             <div class='flex w-full justify-between px-2'>
                 <?php
                 // Moyenne des notes quand il y en a une
-                if (0 <= $moyenne && $moyenne <= 5) {
+                if (0 < (int) $moyenne && (int) $moyenne <= 5) {
                     $n = $moyenne;
                     ?>
-                                <div class="note flex gap-1.5 flex-wrap" title="<?php echo $moyenne; ?>">
-                                    <p class="text-sm mt-1"> <?php echo number_format($moyenne, 1, ',', ''); ?></p>
-                                    <?php for ($i = 0; $i < 5; $i++) {
-                                        if ($n >= 1) {
-                                            ?>
-                                                                    <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
-                                                                    <?php
-                                        } else if ($n > 0) {
-                                            ?>
-                                                                                    <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
-                                                                    <?php
-                                        } else {
-                                            ?>
-                                                                                    <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
-                                                                    <?php
-                                        }
-                                        $n--;
-                                    }
-                                    ?>
-                                    <!-- <p class='text-sm italic flex items-center'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p> -->
-                                </div>
+                    <div class="note flex gap-1.5 flex-wrap" title="<?php echo $moyenne; ?>">
+                        <p class="text-sm mt-1"> <?php echo number_format($moyenne, 1, ',', ''); ?></p>
+                        <?php for ($i = 0; $i < 5; $i++) {
+                            if ($n >= 1) {
+                                ?>
+                                <img class="w-3" src="/public/icones/egg-full.svg" alt="1 point de note">
                                 <?php
+                            } else if ($n > 0) {
+                                ?>
+                                    <img class="w-3" src="/public/icones/egg-half.svg" alt="0.5 point de note">
+                                <?php
+                            } else {
+                                ?>
+                                    <img class="w-3" src="/public/icones/egg-empty.svg" alt="0 point de note">
+                                <?php
+                            }
+                            $n--;
+                        }
+                        ?>
+                        <!-- <p class='text-sm italic flex items-center'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p> -->
+                    </div>
+                    <?php
                 } else { ?>
-                                <p class='text-sm '><?php echo $pro['nom_pro'] ?></p>
+                    <p class='text-sm '><?php echo $pro['nom_pro'] ?></p>
                 <?php } ?>
                 <p class='categorie text-sm'><?php echo chaineVersMot($categorie_offre) ?></p>
             </div>

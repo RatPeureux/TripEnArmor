@@ -205,7 +205,7 @@ SELECT
     o.id_offre,
     a.id_avis
 FROM _offre o
-JOIN _avis a ON a.id_offre = o.id_offre AND a.fin_blacklistage IS NOT NULL AND fin_blacklistage >= CURRENT_DATE
+JOIN _avis a ON a.id_offre = o.id_offre AND a.fin_blacklistage IS NOT NULL AND fin_blacklistage >= CURRENT_TIMESTAMP
 ORDER BY fin_blacklistage;
 
 ------------------- Avis blacklistés par offre (au total)

@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 
 // Nécessaire pour afficher les notifications en cas d'actions spécifiques dans certains fichiers
 // (le header étant inclus dans chacun d'eux...)
@@ -13,7 +13,7 @@ if (isConnectedAsPro()) {
 }
 
 // Vider les messages d'erreur si c'est la première fois qu'on vient sur la page de connexion
-if (!isset($_SESSION['data_en_cous_connexion'])) {
+if (!isset($_SESSION['data_en_cours_connexion'])) {
     unset($_SESSION['data_en_cours_totp']);
     unset($_SESSION['data_en_cours_inscription']);
     unset($_SESSION['data_en_cours_reset']);
@@ -57,12 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit();
                 }
             } else {
-                $_SESSION['error'] = "Mot de passe incorrect";
+                $_SESSION['error'] = "Mot de passe ou identifiant incorrect";
                 header('location: /pro/connexion');
                 exit();
             }
         } else {
-            $_SESSION['error'] = "Nous ne trouvons pas de compte avec cet identifiant";
+            $_SESSION['error'] = "Mot de passe ou identifiant incorrect";
             header('location: /pro/connexion');
             exit();
         }
@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Liens pour mot de passe oublié et création de compte -->
                 <div class="flex items-center flex-nowrap h-12 space-x-1.5">
-                    <a href="reinitialisation"
+                    <a href="/connexion/reinitialisation"
                         class="text-sm text-center w-full text-wrap bg-transparent text-secondary underline  focus:scale-[0.97]">
                         Mot de passe oublié ?
                     </a>
