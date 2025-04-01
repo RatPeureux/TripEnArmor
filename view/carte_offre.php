@@ -384,7 +384,8 @@ if ($mode_carte == 'membre') {
   <div class="card border hover:border-secondary 
 <?php if ($option)
       echo 'active' ?> 
-    relative max-w-[1280px] bg-base100  flex" <?php echo ($ouvert) ? "title='Ouvert'" : "title='Fermé'"; ?>>
+    relative max-w-[1280px] bg-base100 flex" <?php echo $ouvert ? "title='Ouvert'" : "title='Fermé'"; ?>>
+
     <!-- PARTIE DE GAUCHE, image-->
     <div class="gauche relative shrink-0 basis-1/2 overflow-hidden">
       <a href='/offre?id_offre=<?php echo $id_offre ?>'>
@@ -402,26 +403,29 @@ if ($mode_carte == 'membre') {
     </div>
 
     <!-- PARTIE DE DROITE (infos principales) -->
-    <div class="h-[500px] infos relative flex flex-col items-center basis-1/2 self-stretch px-5 py-3 justify-between">
+    <div class="h-[400px] infos relative flex flex-col items-center basis-1/2 self-stretch px-5 py-3 justify-between">
 
       <div class="w-full">
         <!-- A droite, en haut -->
-        <div class="flex w-full items-center justify-between">
+        <div class="flex w-full items-start justify-between">
 
           <!-- Titre de l'offre -->
-          <div>
-            <p class="text-2xl truncate"><?php echo $titre_offre ?></p>
-            <div class="flex">
-              <p class="truncate text-sm"><?php echo $pro['nom_pro'] ?></p>
-              <p class="categorie text-sm"><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
+          <div class="grow">
+            <p class="text-2xl"><?php echo $titre_offre ?></p>
+            <div class="flex items-center text-sm">
+              <p><?php echo $pro['nom_pro'] ?></p>
+              <p><?php echo ', ' . chaineVersMot($categorie_offre) ?></p>
             </div>
           </div>
           <?php
+
           // Moyenne des notes quand il y en a une
           if (isset($moyenne) && 0 < (int) $moyenne && (int) $moyenne <= 5) {
             $n = $moyenne;
             ?>
-            <div class="flex gap-1 self-end">
+            <div class="flex flex-col gap-1 items-center">
+              <p class='text-sm flex items-center pt-1.5'><?php echo number_format($moyenne, 1, ',', '') ?></p>
+
               <div class="note flex gap-1 shrink-0 m-1" title="<?php echo $moyenne; ?>">
                 <?php for ($i = 0; $i < 5; $i++) {
                   if ($n >= 1) {
@@ -447,14 +451,13 @@ if ($mode_carte == 'membre') {
                 }
                 ?>
               </div>
-              <p class='text-sm flex items-center pt-1.5'><?php echo number_format($moyenne, 1, ',', '') ?></p>
             </div>
             <?php
           }
           ?>
 
           <!-- Manipulations sur l'offre -->
-          <div class="flex gap-10 self-start items-center justify-center">
+          <div class="flex gap-5 self-start items-center justify-center">
             <!-- en ligne ? -->
             <?php
             if ($est_en_ligne) {
