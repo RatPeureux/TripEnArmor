@@ -37858,6 +37858,7 @@
 [2025-03-28 15:00:28] : Les tags de l'offre 37 ont été lus.
 [2025-03-28 15:00:29] : L'avis du membre 3 pour l'offre 37 a été lu.
 <<<<<<< HEAD
+<<<<<<< HEAD
 [2025-03-31 13:51:40] : Les informations du professionnel public 6 ont été lues.
 [2025-03-31 13:51:40] : Les informations du professionnel public 6 ont été lues.
 [2025-03-31 13:51:40] : Les informations de l'adresse 11 ont été lues.
@@ -38894,6 +38895,8 @@
 [2025-03-31 15:04:07] : Les informations du tag 15 ont été lues.
 [2025-03-31 15:04:08] : Les informations du tag 7 ont été lues.
 =======
+=======
+>>>>>>> e78456361dba099a7c340f554730eafa515e9cad
 [2025-03-28 14:00:33] : Les informations du membre 7 ont été lues.
 [2025-03-28 14:00:33] : L'avis 42 a été lu.
 [2025-03-28 14:00:33] : Les informations de la restauration 37 ont été lues.
@@ -38928,6 +38931,7 @@
 [2025-03-28 14:10:09] : Les informations de la souscription de l'offre 37 ont été lues.
 =======
 >>>>>>> b6e68fd36b2e5f7aba9704056c03541f56ad38c9
+<<<<<<< HEAD
 >>>>>>> 3f6f1cfacafd9ce306ef5a06c21f1758ce03d729
 [2025-04-01 08:34:42] : Les informations de l'adresse 6 ont été lues.
 [2025-04-01 08:34:42] : Les tarifs de l'offre 1 ont été lus.
@@ -39445,5 +39449,81 @@
 [2025-04-01 09:14:22] : Les informations du tag 8 ont été lues.
 [2025-04-01 09:14:22] : Les informations du tag 9 ont été lues.
 [2025-04-01 09:14:22] : Les informations du tag 10 ont été lues.
+=======
+[2025-04-01 11:37:26] : Les informations de l'adresse 6 ont été lues.
+[2025-04-01 11:37:26] : Les tarifs de l'offre 1 ont été lus.
+[2025-04-01 11:37:26] : Les informations de la restauration 1 ont été lues.
+[2025-04-01 11:37:27] : Les informations de la souscription de l'offre 1 ont été lues.
+[2025-04-01 11:37:27] : Les horaires de l'offre 1 ont été lus.
+[2025-04-01 13:37:27] : Les informations de l'adresse 172 ont été lues.
+[2025-04-01 13:37:27] : Les tarifs de l'offre 37 ont été lus.
+[2025-04-01 13:37:27] : Les informations de la restauration 37 ont été lues.
+[2025-04-01 13:37:28] : Les informations de la souscription de l'offre 37 ont été lues.
+[2025-04-01 13:37:28] : Les horaires de l'offre 37 ont été lus.
+[2025-04-01 13:37:29] : Les informations de l'adresse 174 ont été lues.
+[2025-04-01 13:37:29] : Les tarifs de l'offre 38 ont été lus.
+[2025-04-01 13:37:29] : Les informations de la souscription de l'offre 38 ont été lues.
+[2025-04-01 13:37:29] : Les horaires de l'offre 38 ont été lus.
+[2025-04-01 11:38:02] : Les informations de l'adresse 6 ont été lues.
+[2025-04-01 11:38:02] : Les tarifs de l'offre 1 ont été lus.
+[2025-04-01 11:38:02] : Les informations de la restauration 1 ont été lues.
+[2025-04-01 11:38:03] : Les informations de la souscription de l'offre 1 ont été lues.
+[2025-04-01 11:38:03] : Les informations de la restauration 1 ont été lues.
+[2025-04-01 11:38:03] : Les types de repas de l'offre 1 ont été lus.
+[2025-04-01 11:38:03] : Les informations du type de repas 2 ont été lues.
+[2025-04-01 11:38:03] : Les informations du type de repas 3 ont été lues.
+[2025-04-01 11:38:03] : Les informations du type de repas 4 ont été lues.
+[2025-04-01 11:38:04] : Les horaires de l'offre 1 ont été lus.
+[2025-04-01 13:38:04] : Les tags de l'offre 1 ont été lus.
+[2025-04-01 13:38:04] : Les informations du tag 1 ont été lues.
+[2025-04-01 13:38:04] : Les informations du tag 2 ont été lues.
+[2025-04-01 11:38:06] : Les informations du membre 60 ont été lues.
+[2025-04-01 11:38:06] : L'avis 71 a été lu.
+[2025-04-01 11:38:06] : Les informations de la restauration 1 ont été lues.
+[2025-04-01 11:38:08] : Les informations de l'adresse 6 ont été lues.
+[2025-04-01 11:38:08] : Les tarifs de l'offre 1 ont été lus.
+[2025-04-01 11:38:08] : Les informations de la restauration 1 ont été lues.
+[2025-04-01 11:38:09] : Les informations de la souscription de l'offre 1 ont été lues.
+[2025-04-01 11:38:09] : Les horaires de l'offre 1 ont été lus.
+[2025-04-01 13:38:10] : Les informations de l'adresse 172 ont été lues.
+[2025-04-01 13:38:10] : Les tarifs de l'offre 37 ont été lus.
+[2025-04-01 13:38:10] : Les informations de la restauration 37 ont été lues.
+[2025-04-01 13:38:11] : Les informations de la souscription de l'offre 37 ont été lues.
+[2025-04-01 13:38:11] : Les horaires de l'offre 37 ont été lus.
+[2025-04-01 13:38:11] : Les informations de l'adresse 174 ont été lues.
+[2025-04-01 13:38:12] : Les tarifs de l'offre 38 ont été lus.
+[2025-04-01 13:38:12] : Les informations de la souscription de l'offre 38 ont été lues.
+[2025-04-01 13:38:12] : Les horaires de l'offre 38 ont été lus.
+[2025-04-01 11:39:25] : Les informations de l'adresse 6 ont été lues.
+[2025-04-01 11:39:25] : Les tarifs de l'offre 1 ont été lus.
+[2025-04-01 11:39:25] : Les informations de la restauration 1 ont été lues.
+[2025-04-01 11:39:25] : Les informations de la souscription de l'offre 1 ont été lues.
+[2025-04-01 11:39:25] : Les informations de la restauration 1 ont été lues.
+[2025-04-01 11:39:25] : Les types de repas de l'offre 1 ont été lus.
+[2025-04-01 11:39:26] : Les informations du type de repas 2 ont été lues.
+[2025-04-01 11:39:26] : Les informations du type de repas 3 ont été lues.
+[2025-04-01 11:39:26] : Les informations du type de repas 4 ont été lues.
+[2025-04-01 11:39:26] : Les horaires de l'offre 1 ont été lus.
+[2025-04-01 13:39:26] : Les tags de l'offre 1 ont été lus.
+[2025-04-01 13:39:26] : Les informations du tag 1 ont été lues.
+[2025-04-01 13:39:26] : Les informations du tag 2 ont été lues.
+[2025-04-01 11:39:28] : Les informations du membre 60 ont été lues.
+[2025-04-01 11:39:28] : L'avis 71 a été lu.
+[2025-04-01 11:39:28] : Les informations de la restauration 1 ont été lues.
+[2025-04-01 11:39:30] : Les informations de l'adresse 6 ont été lues.
+[2025-04-01 11:39:30] : Les tarifs de l'offre 1 ont été lus.
+[2025-04-01 11:39:30] : Les informations de la restauration 1 ont été lues.
+[2025-04-01 11:39:30] : Les informations de la souscription de l'offre 1 ont été lues.
+[2025-04-01 11:39:30] : Les horaires de l'offre 1 ont été lus.
+[2025-04-01 13:39:31] : Les informations de l'adresse 172 ont été lues.
+[2025-04-01 13:39:31] : Les tarifs de l'offre 37 ont été lus.
+[2025-04-01 13:39:31] : Les informations de la restauration 37 ont été lues.
+[2025-04-01 13:39:31] : Les informations de la souscription de l'offre 37 ont été lues.
+[2025-04-01 13:39:32] : Les horaires de l'offre 37 ont été lus.
+[2025-04-01 13:39:32] : Les informations de l'adresse 174 ont été lues.
+[2025-04-01 13:39:32] : Les tarifs de l'offre 38 ont été lus.
+[2025-04-01 13:39:32] : Les informations de la souscription de l'offre 38 ont été lues.
+[2025-04-01 13:39:32] : Les horaires de l'offre 38 ont été lus.
+>>>>>>> e78456361dba099a7c340f554730eafa515e9cad
 =======
 >>>>>>> d202a2827f81bab5372baebb50e71b817c928999
