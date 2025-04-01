@@ -156,7 +156,7 @@ if (isset($_POST['mdp'])) {
                             } else {
                                 alert('Le code secret saisi n\'est pas le bon');
                             }"
-                                class="self-start max-w-sm px-4 py-2 text-sm hover:text-primary hover:border hover:border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Confirmer</a>
+                                class="mt-2 self-start max-w-sm px-4 py-2 text-sm hover:text-primary hover:border hover:border-primary hover:bg-transparent text-white bg-primary rounded-full cursor-pointer">Confirmer</a>
                             <!-- Symbole de chargement -->
                             <img id="loading-indicator-confirm" class="w-8 h-6" style="display: none;"
                                 src="/public/images/loading.gif" alt="Chargement...">

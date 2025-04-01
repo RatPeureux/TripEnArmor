@@ -48,6 +48,8 @@ if (isConnectedAsPro()) {
         </div>
     </header>
 
+    <script src="/scripts/filtersAndSortsPro.js"></script>
+
 <?php } else { ?>
 
     <!-- HEADER MEMBRE / VISITEUR -->

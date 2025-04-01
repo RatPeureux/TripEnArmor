@@ -125,7 +125,7 @@ if ($categorie_offre == 'restauration') {
     $restaurationController = new RestaurationController();
     $prix_a_afficher = $restaurationController->getInfosRestauration($id_offre)['gamme_prix'];
 } else if ($tarif_min && $tarif_max) {
-    $prix_a_afficher = $tarif_min . '-' . $tarif_max . '€';
+    $prix_a_afficher = 'À partir de ' . $tarif_min . ' €';
 } else {
     // Edge case: offre sans aucun tarif
     $prix_a_afficher = "Gratuit";
