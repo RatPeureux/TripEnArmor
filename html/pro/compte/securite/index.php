@@ -83,29 +83,35 @@ if (isset($_POST['mdp'])) {
             <form action="/pro/compte/securite/" class="flex flex-col" method="post">
                 <div class="relative w-full">
                     <label class="text-lg" for="mdp">Mot de passe actuel</label>
-                    <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
-                        title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                        type="password" id="mdp" name="mdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$">
-                    <i
-                        class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                    <div class="relative w-full">
+                        <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
+                            title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                            type="password" id="mdp" name="mdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$">
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-1/2 right-4 cursor-pointer eye-toggle-password"></i>
+                    </div>
                 </div>
 
                 <div class="relative w-full">
                     <label class="text-lg" for="newMdp">Nouveau mot de passe</label>
-                    <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
-                        title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                        type="password" id="newMdp" name="newMdp">
-                    <i
-                        class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                    <div class="relative w-full">
+                        <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
+                            title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                            type="password" id="newMdp" name="newMdp">
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-1/2 right-4 cursor-pointer eye-toggle-password"></i>
+                    </div>
                 </div>
 
                 <div class="relative w-full">
                     <label class="text-lg" for="confNewMdp">Confirmation nouveau mot de passe</label>
-                    <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
-                        title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                        type="password" id="confNewMdp" name="confNewMdp">
-                    <i
-                        class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                    <div class="relative w-full">
+                        <input class="border text-sm border-secondary p-2 bg-white w-full h-12 mb-3 "
+                            title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                            type="password" id="confNewMdp" name="confNewMdp">
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-1/2 right-4 cursor-pointer eye-toggle-password"></i>
+                    </div>
                 </div>
 
                 <input type="submit" id="save" value="Modifier mon mot de passe"
@@ -174,7 +180,7 @@ if (isset($_POST['mdp'])) {
                     class="underline cursor-pointer text-sm">Késako ?</a>
             </div>
 
-            <hr class="mb-8">
+            <!-- <hr class="mb-8">
 
             <div class="flex">
                 <p class="text-sm">Clé API Tchatator :</p>
@@ -182,7 +188,7 @@ if (isset($_POST['mdp'])) {
                 <p id="apiKey" class="text-sm cursor-pointer blur-sm hover:blur-none" onclick="copyToClipboard(this)">
                     <?php echo $pro['api_key']; ?>
                 </p>
-            </div>
+            </div> -->
         </div>
     </main>
 
