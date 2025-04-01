@@ -1,5 +1,4 @@
 <?php
-print_r($_POST);
 session_start();
 
 // Se connecter à la BDD
