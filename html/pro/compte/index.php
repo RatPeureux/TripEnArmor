@@ -61,7 +61,7 @@ $pro = verifyPro();
                     <p class="text-lg">Sécurité</p>
                     <p class="text-sm">Modifier mes informations sensibles.</p>
                     <p class="text-sm">Protéger mon compte.</p>
-                    <p class="text-sm">Récupérer ma clé API : Tchatator.</p>
+                    <!-- <p class="text-sm">Récupérer ma clé API : Tchatator.</p> -->
                 </div>
             </a>
 

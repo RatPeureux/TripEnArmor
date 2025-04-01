@@ -175,7 +175,7 @@ if (isset($_POST['mdp'])) {
                 <hr class="mb-8">
 
                 <!-- PARTIE SUR LA CLÉ API -->
-                <div class="flex mb-4">
+                <!-- <div class="flex mb-4 hidden">
                     <p class="text-sm">Clé API Tchatator :</p>
                     &nbsp;
                     <p id="apiKey" class="text-sm cursor-pointer blur-sm hover:blur-none"
@@ -184,7 +184,7 @@ if (isset($_POST['mdp'])) {
                     </p>
                 </div>
 
-                <hr class="mb-8">
+                <hr class="mb-8"> -->
 
                 <!-- SUPPRIMER SON COMPTE -->
                 <a onclick="document.getElementById('pop-up-suppression-compte').classList.remove('hidden')"

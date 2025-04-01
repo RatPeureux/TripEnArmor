@@ -385,10 +385,10 @@ if ($id_offre) {
                             <div class="flex items-center gap-8 justify-center">
                                 <a
                                     class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
-                                    ‹</a>
+                                    &lt;</a>
                                 <a
                                     class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
-                                    ›</a>
+                                    &gt;</a>
                             </div>
                             <?php
                         }
