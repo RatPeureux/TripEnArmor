@@ -500,13 +500,13 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
                     <p class="font-bold w-2 text-center" id="dislike-count-<?php echo $id_avis; ?>">
                     <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_dislikes'] : 0; ?>
                     </p>
-                    <a href="/connexion">
+                    <a href="/connexion/?from=like">
                         <i class="cursor-pointer fa-regular fa-thumbs-down text-2xl mt-1"></i>
                     </a>
                     <p class="font-bold w-2 text-center" id="like-count-<?php echo $id_avis; ?>">
                     <?php echo (!empty($nb_reactions)) ? $nb_reactions['nb_likes'] : 0; ?>
                     </p>
-                    <a href="/connexion">
+                    <a href="/connexion/?from=dislike">
                         <i class="cursor-pointer fa-regular fa-thumbs-up text-2xl mb-1"></i>
                     </a>
             <?php } ?>

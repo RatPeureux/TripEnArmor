@@ -45,7 +45,24 @@ if (empty($_POST)) { ?>
                     <img src="/public/icones/logo.svg" alt="Logo de TripEnArvor : Moine macareux" width="108">
                 </a>
 
-                <h2 class="mx-auto text-center text-2xl pt-4 my-4">Se connecter à la PACT</h2>
+                <h2 class="mx-auto text-center text-2xl pt-4 my-4">
+                    <?php
+                        $from = $_GET["from"];
+                        switch ($from) {
+                            case 'like':
+                                echo "Se connecter à la PACT pour liker ce commentaire";
+                                break;
+                            case 'dislike':
+                                echo "Se connecter à la PACT pour disliker ce commentaire";
+                                break;
+                            case 'avis':
+                                echo "Se connecter à la PACT pour commenter";
+                                break;
+                            default:
+                                echo "Se connecter à la PACT";
+                        }
+                    ?>
+                </h2>
 
                 <form class="bg-white w-full p-5 border-2 border-primary" action="/connexion/" method="POST">
 
