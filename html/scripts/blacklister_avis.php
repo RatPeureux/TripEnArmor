@@ -22,6 +22,7 @@ if (!preg_match('/^\d+ days \d+ hours \d+ minutes \d+ seconds$/', $intervalle)) 
 
 // Essayer de blacklister l'avis
 try {
+    $dbh->exec("SET TIMEZONE TO 'Europe/Paris'");
     $dbh->beginTransaction();
     $query = "UPDATE sae_db._avis SET fin_blacklistage = CURRENT_TIMESTAMP + INTERVAL '$intervalle' WHERE id_avis = :id_avis";
     $stmt = $dbh->prepare($query);

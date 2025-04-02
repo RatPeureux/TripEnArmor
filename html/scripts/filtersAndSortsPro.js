@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  return;
   // !!! TOGGLE AFFICHANT/DÉPLIANT LES INTERFACES DE FILTRES/TRIS
 
   // Fonction pour configurer un bouton avec fermeture automatique au clic à l'extérieur

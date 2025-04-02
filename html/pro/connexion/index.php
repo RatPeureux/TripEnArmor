@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($isPasswordValid) {
                 // Connecte le pro, enlève toute éventuelle connexion à un membre
                 unset($_SESSION['id_membre']);
-                
+
                 // Vérifier si le membre a besoin d'une connexion OTP
                 if ($user['totp_active'] == true) {
                     $_SESSION['tmp_id_compte_a2f'] = $user['id_compte'];
@@ -110,12 +110,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- Champ pour le mot de passe -->
                 <div class="relative w-full">
                     <label class="text-sm" for="mdp">Mot de passe</label>
-                    <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="mdp" name="mdp"
-                        pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
-                        title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                        value="<?php echo $_SESSION['data_en_cours_connexion']['mdp'] ?? '' ?>" required>
-                    <!-- Icône pour afficher/masquer le mot de passe -->
-                    <i class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                    <div class="relative w-full">
+                        <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="mdp" name="mdp"
+                            pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
+                            title="Saisir votre mot de passe (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                            value="<?php echo $_SESSION['data_en_cours_connexion']['mdp'] ?? '' ?>" required>
+                        <!-- Icône pour afficher/masquer le mot de passe -->
+                        <i
+                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-1/2 right-4 cursor-pointer eye-toggle-password"></i>
+                    </div>
                 </div>
 
                 <span id="error-message" class="error text-rouge-logo text-sm">
@@ -141,4 +144,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </body>
+
 </html>

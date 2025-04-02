@@ -108,6 +108,11 @@ label:has(+ select[required])::after {
   z-index: 30 !important;
 }
 
+/* Caroussel */
+.swiper-button-lock::after {
+  content: '' !important;
+}
+
 /* Checkboxs */
 input[type="checkbox"] {
   appearance: none;

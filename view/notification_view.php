@@ -12,7 +12,7 @@ if ($avis && count($avis) !== 0) {
         ?>
         <div class="h-full p-2 hover:bg-gray-100">
             <!-- lien vers l'offre -->
-            <a href='/offre?id_offre=<?php echo $avi['id_offre'] ?>'>
+            <a href='/offre?id_offre=<?php echo $avi['id_offre'] ?>#avis-button'>
                 <div class="w-full flex justify-between items-center">
                     <div class="flex items-center space-x-1">
                         <p class="text-black text-lg"><?php echo $avi['titre']; ?></p>

@@ -1,5 +1,4 @@
 <?php
-print_r($_POST);
 session_start();
 
 // Se connecter à la BDD
@@ -77,25 +76,29 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <!-- Champ pour le mot de passe -->
                     <div class="relative w-full">
                         <label class="text-sm" for="mdp">Mot de passe</label>
-                        <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="mdp" name="mdp"
-                            pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
-                            title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
-                        <!-- Oeil pour afficher le mot de passe -->
-                        <i
-                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <div class="relative w-full">
+                            <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="mdp" name="mdp"
+                                pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
+                                title="Saisir un mot de passe valide (au moins 8 caractères dont 1 majuscule et 1 chiffre)"
+                                value="<?php echo $_SESSION['data_en_cours_inscription']['mdp'] ?? '' ?>" required>
+                            <!-- Oeil pour afficher le mot de passe -->
+                            <i
+                                class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-1/2 right-4 cursor-pointer eye-toggle-password"></i>
+                        </div>
                     </div>
 
                     <!-- Champ pour confirmer le mot de passe -->
                     <div class="relative w-full">
                         <label class="text-sm" for="confMdp">Confirmer le mot de passe</label>
-                        <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="confMdp" name="confMdp"
-                            pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
-                            title="Confirmer le mot de passe saisit ci-dessus"
-                            value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
-                        <!-- Oeil pour afficher le mot de passe -->
-                        <i
-                            class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-2 right-4 cursor-pointer eye-toggle-password"></i>
+                        <div class="relative w-full">
+                            <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="confMdp" name="confMdp"
+                                pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
+                                title="Confirmer le mot de passe saisit ci-dessus"
+                                value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
+                            <!-- Oeil pour afficher le mot de passe -->
+                            <i
+                                class="fa-regular fa-eye fa-lg absolute top-1/2 translate-y-1/2 right-4 cursor-pointer eye-toggle-password"></i>
+                        </div>
                     </div>
 
                     <!-- Mots de passe ne correspondent pas -->

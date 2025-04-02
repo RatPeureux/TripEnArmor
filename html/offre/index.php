@@ -1,4 +1,7 @@
 <?php
+// Connexion avec la bdd
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
+
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/../php_files/authentification.php';
 
@@ -68,9 +71,6 @@ if ($id_offre) {
         header('Location: /');
         exit();
     }
-
-    // Connexion avec la bdd
-    require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/connect_to_bdd.php';
 
     // Obtenir l'ensemble des informations de l'offre
     $stmt = $dbh->prepare("SELECT * FROM sae_db._offre WHERE id_offre = :id_offre");
@@ -381,14 +381,14 @@ if ($id_offre) {
                         <div class="swiper-pagination"></div>
 
                         <!-- Boutons de navigation sur la slider -->
-                        <?php if ($images['details'] || true) { ?>
-                            <div class="flex items-center text-white gap-8 justify-center">
+                        <?php if ($images['details']) { ?>
+                            <div class="flex items-center gap-8 justify-center">
                                 <a
-                                    class="swiper-button-prev group flex justify-center items-center !top-1/2 !left-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
-                                </a>
+                                    class="swiper-button-prev group !flex justify-center items-center !top-1/2 !left-5 text-lg !text-white bg-primary hover:!bg-white hover:!text-primary border border-primary after:!content['']">
+                                    ‹</a>
                                 <a
-                                    class="swiper-button-next group flex justify-center items-center !top-1/2 !right-5 text-lg text-white bg-primary hover:!bg-white hover:text-primary after:!text-base">
-                                </a>
+                                    class="swiper-button-next group !flex justify-center items-center !top-1/2 !right-5 text-lg !text-white bg-primary hover:!bg-white hover:!text-primary border border-primary after:!content['']">
+                                    ›</a>
                             </div>
                             <?php
                         }
@@ -793,18 +793,21 @@ if ($id_offre) {
                     </div>
 
                     <!-- Partie avis blacklistés pour le professionnel -->
-                    <?php if ($pro_can_answer && $id_type_offre == 2) {
-                        $stmt = $dbh->prepare("
-                            SELECT id_avis FROM sae_db.vue_offre_blacklistes
-                            WHERE id_offre = :id_offre
-                        ");
-                        $stmt->bindParam('id_offre', $id_offre);
-                        if ($stmt->execute()) {
-                            $les_id_avis = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                        }
+                    <?php
+                    $stmt = $dbh->prepare("
+                        SELECT id_avis FROM sae_db.vue_offre_blacklistes
+                        WHERE id_offre = :id_offre
+                    ");
+                    $stmt->bindParam('id_offre', $id_offre);
+                    if ($stmt->execute()) {
+                        $les_id_avis = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    }
+
+                    if ($pro_can_answer && $id_type_offre == 2 && $stmt->rowCount() > 0) {
                         ?>
-                        <div class="w-full flex flex-col">
+                        <div class="w-full flex flex-col gap-2">
                             <div id="blacklistes-button" class="flex gap-4 items-center">
+                                <i title="blacklister l'avis" class="text-xl fa-solid fa-ban text-rouge-logo"></i>
                                 <h3 class="text-lg">Avis blacklisté(s) - (<?php echo $stmt->rowCount() ?>)</h3>
                                 <p id="blacklistes-arrow">&gt;</p>
                             </div>
@@ -822,7 +825,7 @@ if ($id_offre) {
                     <?php } ?>
 
                     <!-- Partie avis -->
-                    <div class="!mt-10 flex flex-col gap-2">
+                    <div id="section-avis" class="!mt-10 flex flex-col gap-2">
                         <div id="avis-button" class="w-full flex gap-4 items-center">
                             <h3 class="text-lg">Avis</h3>
                             <p id="avis-arrow">&gt;</p>
@@ -1061,10 +1064,11 @@ if ($id_offre) {
                             <?php
                             // UTILISATEUR PAS CONNECTÉ
                         } else if (!isset($_SESSION['id_pro'])) { ?>
-                                <p class="text-sm italic"><a href='/connexion'
+                                <p class="text-sm italic">
+                                    <a href='/connexion'
                                         class="px-2 py-1 border border-primary text-primary hover:text-white hover:bg-primary rounded-full">Connectez-vous</a>
-                                    pour rédiger
-                                    un avis</p>
+                                    pour rédiger un avis
+                                </p>
                             <?php
                         }
                         ?>
@@ -1147,7 +1151,12 @@ if ($id_offre) {
                                     } else {
                                         // Ne plus pouvoir cliquer sur le bouton quand il n'y a plus d'avis
                                         $('#load-more-btn').prop('disabled', true).text('');
+
+                                        // Si aucun avis sur cette offre, ne pas afficher la partie avis
                                         document.getElementById('load-more-btn').classList.add('hidden');
+                                        if ($('#avis-container').children().length === 0) {
+                                            $('#section-avis')[0].classList.add('hidden');
+                                        }
                                     }
                                 },
 
