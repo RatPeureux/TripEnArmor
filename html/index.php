@@ -260,7 +260,7 @@ unset($_SESSION['error']);
                     message.classList.add('flex', 'justify-center', 'items-center', 'text-2xl', 'h-[27rem]');
                     message.appendChild(content);
                     messageContainer.appendChild(message);
-                    noMatchesContainer.appendChild(messageContainer);
+                    noMatchesContainer?.appendChild(messageContainer);
                 }
             } else {
                 noMatchesMessage?.remove();

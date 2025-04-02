@@ -12,12 +12,20 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/public/images/favicon.png">
-    <link rel="stylesheet" href="/styles/style.css">
-
-    <script type="module" src="/scripts/main.js"></script>
 
     <title>Consultées récemments - PACT</title>
+    
+    <!-- NOS FICHIERS -->
+    <link rel="icon" href="/public/images/favicon.png">
+    <link rel="stylesheet" href="/styles/style.css">
+    <script type="module" src="/scripts/main.js"></script>
+    
+    <!-- LEAFLET -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between">
@@ -169,7 +177,19 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/authentification.p
                 <!-- Inclusion des interfaces de tris (tablette et +) -->
                 <?php
                 include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/tris_tab.php';
+                ?>
+
+                <div id="map" class="hidden w-full h-[400px] border border-gray-300 mb-4"></div>
+    
+                <script>
+                    window.mapConfig = {
+                        center: [48.1, -2.5],
+                        zoom: 8
+                    };
+                </script>
+                <script src="/scripts/map.js"></script>
                
+                <?php 
                 if (!$consulteesRecemments) { ?>
                     <div class="md:min-w-full flex flex-col gap-4">
                         <?php echo "<p class='mt-4  text-2xl'>Aucune offre récemment consultée...</p>"; ?>
