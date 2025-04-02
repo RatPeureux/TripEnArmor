@@ -127,7 +127,7 @@ unset($_SESSION['error']);
         </div>
 
         <a class="cursor-pointer group" href="/offres/a-la-une">
-            <h2 class="text-3xl ">À la Une<span
+            <h2 class="text-3xl mb-2">À la Une<span
                     class="font-normal xl:opacity-0 group-hover:opacity-100 duration-200">&nbsp;&gt;</span></h2>
         </a>
 

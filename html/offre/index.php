@@ -431,7 +431,7 @@ if ($id_offre) {
                         <div class="flex flex-col md:flex-row w-fit mt-5 md:mt-0">
                             <h1 class="text-3xl "><?php echo $offre['titre'] ?></h1>
                             <p class="hidden text-3xl md:flex">&nbsp;-&nbsp;</p>
-                            <p class="text-3xl italic"><?php echo $nom_pro ?></p>
+                            <p class="text-3xl"><?php echo $nom_pro ?></p>
                         </div>
                         <?php
                         // Moyenne des notes quand il y en a une
@@ -1064,7 +1064,7 @@ if ($id_offre) {
                             <?php
                             // UTILISATEUR PAS CONNECTÉ
                         } else if (!isset($_SESSION['id_pro'])) { ?>
-                                <p class="text-sm italic">
+                                <p class="text-sm">
                                     <a href='/connexion/?from=avis'
                                         class="px-2 py-1 border border-primary text-primary hover:text-white hover:bg-primary rounded-full">Connectez-vous</a>
                                     pour rédiger un avis

@@ -370,7 +370,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
             </div>
 
             <!-- Texte de la réponse -->
-            <p id="reponse-avis-<?php echo $id_avis ?>" class="hidden italic"> <?php echo $avis['reponse'] ?></p>
+            <p id="reponse-avis-<?php echo $id_avis ?>" class="hidden"> <?php echo $avis['reponse'] ?></p>
         </div>
 
         <!-- Sinon formulaire de reponse pour le pro s'il est bien connecté -->
