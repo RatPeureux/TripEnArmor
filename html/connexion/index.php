@@ -154,7 +154,7 @@ if (empty($_POST)) { ?>
                         $_SESSION['message_pour_notification'] = 'Connecté(e) en tant que Membre';
                         if ($_GET["id_offre"] != null) {
                             $_SESSION['id_offre'] = $_GET["id_offre"];
-                            header('Location: /offre?id=' . $_GET["id_offre"]);
+                            header('Location: /offre?id_offre=' . $_GET["id_offre"]);
                             exit();
                         }
                         header('Location: /');
