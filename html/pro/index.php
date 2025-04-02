@@ -221,7 +221,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/php_files/fonctions.php';
             ?>
         </div>
     </main>
-    
+
     <!-- FOOTER -->
     <?php
     include_once dirname($_SERVER['DOCUMENT_ROOT']) . '/view/footer.php';

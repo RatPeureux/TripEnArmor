@@ -985,12 +985,12 @@ video {
   height: 12rem;
 }
 
-.h-\[280px\] {
-  height: 280px;
+.h-\[275px\] {
+  height: 275px;
 }
 
-.h-\[500px\] {
-  height: 500px;
+.h-\[400px\] {
+  height: 400px;
 }
 
 .h-screen {
@@ -1015,10 +1015,6 @@ video {
   height: 20rem;
 }
 
-.h-\[400px\] {
-  height: 400px;
-}
-
 .h-6 {
   height: 1.5rem;
 }
@@ -1035,10 +1031,6 @@ video {
 
 .max-h-screen {
   max-height: 100vh;
-}
-
-.max-h-\[317px\] {
-  max-height: 317px;
 }
 
 .max-h-\[500px\] {
@@ -1265,11 +1257,6 @@ video {
 
 .-translate-x-full {
   --tw-translate-x: -100%;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.translate-y-2 {
-  --tw-translate-y: 0.5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1552,12 +1539,6 @@ video {
 
 .overflow-y-scroll {
   overflow-y: scroll;
-}
-
-.truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .overflow-ellipsis {
@@ -2133,6 +2114,11 @@ video {
   color: rgb(242 119 27 / var(--tw-text-opacity));
 }
 
+.\!text-white {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
+}
+
 .text-base300 {
   --tw-text-opacity: 1;
   color: rgb(204 204 204 / var(--tw-text-opacity));
@@ -2141,11 +2127,6 @@ video {
 .text-green-400 {
   --tw-text-opacity: 1;
   color: rgb(74 222 128 / var(--tw-text-opacity));
-}
-
-.\!text-white {
-  --tw-text-opacity: 1 !important;
-  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
 }
 
 .underline {
@@ -2531,12 +2512,6 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.after\:\!text-base::after {
-  content: var(--tw-content);
-  font-size: 1rem !important;
-  line-height: 1.5rem !important;
-}
-
 .after\:transition-all::after {
   content: var(--tw-content);
   transition-property: all;
@@ -2611,6 +2586,11 @@ input[type="checkbox"]:checked:before {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-white:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-transparent:hover {
   background-color: transparent;
 }
@@ -2631,11 +2611,6 @@ input[type="checkbox"]:checked:before {
 
 .hover\:bg-secondary\/90:hover {
   background-color: rgb(10 0 53 / 0.9);
-}
-
-.hover\:bg-white:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-red-100:hover {
