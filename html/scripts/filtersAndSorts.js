@@ -838,6 +838,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			} else {
 				redirectToSearch(value);
 			}
+		} else {
+			window.location.href = "/offres";
 		}
 	}
 
