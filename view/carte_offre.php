@@ -132,7 +132,7 @@ if ($mode_carte == 'membre') {
               } ?>
 
               <!-- Afficher les tags avec virgule -->
-              <p class='tags text-center line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
+              <p class='tags text-center text-white line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
                 <?php echo $tags_offre ? rtrim($tagsAffiche, ', ') : 'Aucun tag à afficher' ?>
               </p>
 
@@ -156,7 +156,7 @@ if ($mode_carte == 'membre') {
               } ?>
 
               <!-- Afficher les tags avec virgule -->
-              <p class='tags text-center line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
+              <p class='tags text-center text-white line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
                 <?php echo $tags_offre ? rtrim($tagsAffiche, ', ') : 'Aucun tag à afficher' ?>
               </p>
               <?php
@@ -312,7 +312,7 @@ if ($mode_carte == 'membre') {
               } ?>
 
               <!-- Afficher les tags avec virgule -->
-              <p class='tags text-center line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
+              <p class='tags text-center text-white line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
                 <?php echo $tags_offre ? rtrim($tagsAffiche, ', ') : 'Aucun tag à afficher' ?>
               </p>
 
@@ -335,7 +335,7 @@ if ($mode_carte == 'membre') {
               ?>
 
               <!-- Afficher les tags avec virgule -->
-              <p class='tags text-center line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
+              <p class='tags text-center text-white line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
                 <?php echo $tags_offre ? rtrim($tagsAffiche, ', ') : 'Aucun tag à afficher' ?>
               </p>
 
@@ -535,7 +535,7 @@ if ($mode_carte == 'membre') {
                 } ?>
 
                 <!-- Afficher les tags avec virgule -->
-                <p class='tags text-center line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
+                <p class='tags text-center text-white line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
                   <?php echo $tags_offre ? rtrim($tagsAffiche, ', ') : 'Aucun tag à afficher' ?>
                 </p>
 
@@ -557,7 +557,7 @@ if ($mode_carte == 'membre') {
                 } ?>
 
                 <!-- Afficher les tags avec virgule -->
-                <p class='tags text-center line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
+                <p class='tags text-center text-white line-clamp-1 <?php echo $option ? 'text-secondary' : '' ?>'>
                   <?php echo $tags_offre ? rtrim($tagsAffiche, ', ') : 'Aucun tag à afficher' ?>
                 </p>
 

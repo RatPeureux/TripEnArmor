@@ -157,7 +157,7 @@ foreach ($horaires as $jour => $horaire) {
                             $n--;
                         }
                         ?>
-                        <!-- <p class='text-sm italic flex items-center'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p> -->
+                        <!-- <p class='text-sm flex items-center'>(<?php echo number_format($moyenne, 2, ',', '') ?>)</p> -->
                     </div>
                     <?php
                 } else { ?>
