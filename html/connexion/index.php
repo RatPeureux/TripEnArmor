@@ -152,18 +152,33 @@ if (empty($_POST)) { ?>
                     } else {
                         $_SESSION['id_membre'] = $user['id_compte'];
                         $_SESSION['message_pour_notification'] = 'Connecté(e) en tant que Membre';
+                        if ($_GET["id_offre"] != null) {
+                            $_SESSION['id_offre'] = $_GET["id_offre"];
+                            header('Location: /offre?id=' . $_GET["id_offre"]);
+                            exit();
+                        }
                         header('Location: /');
                         exit();
                     }
 
                 } else {
                     $_SESSION['error'] = "Mot de passe ou identifiant incorrect";
-                    header('location: /connexion');
+                    $redirectUrl = '/connexion';
+                    if (!empty($_GET)) {
+                        $queryParams = http_build_query($_GET);
+                        $redirectUrl .= '?' . $queryParams;
+                    }
+                    header('Location: ' . $redirectUrl);
                     exit();
                 }
             } else {
                 $_SESSION['error'] = "Mot de passe ou identifiant incorrect";
-                header('location: /connexion');
+                $redirectUrl = '/connexion';
+                if (!empty($_GET)) {
+                    $queryParams = http_build_query($_GET);
+                    $redirectUrl .= '?' . $queryParams;
+                }
+                header('Location: ' . $redirectUrl);
                 exit();
             }
         }
