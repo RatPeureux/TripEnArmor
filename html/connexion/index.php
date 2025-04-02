@@ -64,7 +64,7 @@ if (empty($_POST)) { ?>
                     ?>
                 </h2>
 
-                <form class="bg-white w-full p-5 border-2 border-primary" action="/connexion/" method="POST">
+                <form class="bg-white w-full p-5 border-2 border-primary" action="/connexion/<?php echo isset($_GET['id_offre']) ? '?id_offre=' . $_GET['id_offre'] : ''; ?>" method="POST">
 
                     <!-- Champ pour l'identifiant -->
                     <label class="text-sm" for="id">Identifiant</label>
