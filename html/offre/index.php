@@ -381,13 +381,13 @@ if ($id_offre) {
                         <div class="swiper-pagination"></div>
 
                         <!-- Boutons de navigation sur la slider -->
-                        <?php if ($images['details']) { ?>
+                        <?php if ($images['details'] || true) { ?>
                             <div class="flex items-center gap-8 justify-center">
                                 <a
-                                    class="swiper-button-prev group !flex justify-center items-center !top-1/2 !left-5 text-lg !text-white bg-primary hover:!bg-white hover:!text-primary border border-primary after:!content['']">
+                                    class="swiper-button-prev group !flex justify-center items-center !top-1/2 !left-5 text-lg !text-white bg-primary hover:!bg-white hover:!text-primary border border-primary">
                                     ‹</a>
                                 <a
-                                    class="swiper-button-next group !flex justify-center items-center !top-1/2 !right-5 text-lg !text-white bg-primary hover:!bg-white hover:!text-primary border border-primary after:!content['']">
+                                    class="swiper-button-next group !flex justify-center items-center !top-1/2 !right-5 text-lg !text-white bg-primary hover:!bg-white hover:!text-primary border border-primary">
                                     ›</a>
                             </div>
                             <?php

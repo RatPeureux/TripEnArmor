@@ -21,24 +21,8 @@ class ProPriveController
     {
         $proPrive = $this->model::getProPriveById($id);
 
-        if ($proPrive) {
-            $result = [
-                "id_compte" => $proPrive["id_compte"],
-                "email" => $proPrive["email"],
-                "tel" => $proPrive["num_tel"],
-                "id_adresse" => $proPrive["id_adresse"],
-                "nom_pro" => $proPrive["nom_pro"],
-                "num_siren" => $proPrive["num_siren"],
-                "id_rib" => $proPrive["id_rib"],
-                "secret_totp" => $proPrive["secret_totp"],
-                "totp_active" => $proPrive["totp_active"],
-                "api_key" => $proPrive["api_key"]
-            ];
-        } else {
-            return false;
-        }
-
-        return $result;
+        $this->model::log("Les informations du professionnel privé $id ont été lues.");
+        return $proPrive;
     }
 
     public function getMdpProPrive($id)
