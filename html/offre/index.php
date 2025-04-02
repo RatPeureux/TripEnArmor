@@ -1065,7 +1065,7 @@ if ($id_offre) {
                             // UTILISATEUR PAS CONNECTÉ
                         } else if (!isset($_SESSION['id_pro'])) { ?>
                                 <p class="text-sm">
-                                    <a href='/connexion/?from=avis'
+                                    <a href='/connexion/?from=avis&id_offre=<?php echo $id_offre ?>'
                                         class="px-2 py-1 border border-primary text-primary hover:text-white hover:bg-primary rounded-full">Connectez-vous</a>
                                     pour rédiger un avis
                                 </p>

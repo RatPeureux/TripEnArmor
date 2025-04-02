@@ -50,13 +50,13 @@ if (empty($_POST)) { ?>
                         $from = $_GET["from"];
                         switch ($from) {
                             case 'like':
-                                echo "Se connecter à la PACT pour liker ce commentaire";
+                                echo "Se connecter pour mettre un \"j'aime\" à un commentaire";
                                 break;
                             case 'dislike':
-                                echo "Se connecter à la PACT pour disliker ce commentaire";
+                                echo "Se connecter pour mettre un \"j'aime pas\" à un commentaire";
                                 break;
                             case 'avis':
-                                echo "Se connecter à la PACT pour commenter";
+                                echo "Se connecter pour laisser un avis";
                                 break;
                             default:
                                 echo "Se connecter à la PACT";
