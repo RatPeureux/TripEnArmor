@@ -9,7 +9,7 @@ class ProPublic extends BDD
 
     static function createProPublic($email, $mdp, $tel, $adresseId, $nom_pro, $type_orga)
     {
-        $query = "INSERT INTO (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga" . self::$nom_table . "VALUES (?, ?, ?, ?, ?, ?) RETURNING id_compte";
+        $query = "INSERT INTO " . self::$nom_table . " (email, mdp_hash, num_tel, id_adresse, nom_pro, type_orga) VALUES (?, ?, ?, ?, ?, ?) RETURNING id_compte";
         $statement = self::$db->prepare($query);
         $statement->bindParam(1, $email);
         $statement->bindParam(2, $mdp);
@@ -34,7 +34,7 @@ class ProPublic extends BDD
         $statement->bindParam(1, $id);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+            return $statement->fetch(PDO::FETCH_ASSOC);
         } else {
             return -1;
         }

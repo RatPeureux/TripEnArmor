@@ -98,8 +98,8 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                     <div class="relative w-full">
                         <label class="text-sm" for="confMdp">Confirmer le mot de passe</label>
                         <div class="relative w-full">
-                            <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="confMdp" name="confMdp"
-                                pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
+                            <input class="p-2 pr-12 bg-base100 w-full h-12 mb-1.5" type="password" id="confMdp"
+                                name="confMdp" pattern="^(?=(.*[A-Z].*))(?=(.*\d.*))[\w\W]{8,}$"
                                 title="Confirmer le mot de passe saisit ci-dessus"
                                 value="<?php echo $_SESSION['data_en_cours_inscription']['confMdp'] ?? '' ?>" required>
                             <!-- Icône pour afficher/masquer le mot de passe -->
@@ -509,10 +509,10 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
             require_once $_SERVER["DOCUMENT_ROOT"] . '/../controller/pro_public_controller.php';
             $proPublicController = new ProPublicController();
             try {
-                BDD::startTransaction();
                 $id_pro = $proPublicController->createProPublic($mail, $mdp_hash, $tel, $id_adresse, $nom_pro, $type_orga);
             } catch (Exception $e) {
-                BDD::rollbackTransaction();
+                print_r($e->getMessage());
+                exit();
             }
         } else {
             // Extraire les valeurs du RIB à partir de l'IBAN
@@ -522,20 +522,20 @@ if (!isset($_POST['mail']) && !isset($_GET['valid_mail'])) {
                 require_once $_SERVER["DOCUMENT_ROOT"] . '/../controller/rib_controller.php';
                 $ribController = new RibController();
                 try {
-                    BDD::startTransaction();
                     $id_pro = $ribController->createRib($rib['code_banque'], $rib['code_guichet'], $rib['numero_compte'], $rib['cle']);
                 } catch (Exception $e) {
-                    BDD::rollbackTransaction();
+                    print_r($e->getMessage());
+                    exit();
                 }
             }
 
             require_once $_SERVER["DOCUMENT_ROOT"] . '/../controller/pro_prive_controller.php';
             $proPriveController = new ProPriveController();
             try {
-                BDD::startTransaction();
                 $id_pro = $proPriveController->createProPrive($mail, $mdp_hash, $tel, $id_adresse, $nom_pro, $num_siren, $id_rib);
             } catch (Exception $e) {
-                BDD::rollbackTransaction();
+                print_r($e->getMessage());
+                exit();
             }
         }
     }
