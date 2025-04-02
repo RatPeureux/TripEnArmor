@@ -108,8 +108,8 @@ label:has(+ select[required])::after {
   z-index: 30 !important;
 }
 
-/* Caroussel */
-.swiper-button-lock::after {
+/* Boutons du caroussel */
+.swiper-button-lock::after, .swiper-button-prev::after, .swiper-button-next::after  {
   content: '' !important;
 }
 
